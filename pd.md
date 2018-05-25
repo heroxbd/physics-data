@@ -30,6 +30,12 @@
   * shell script
   * python
   * R
+## 备选
+  * Matlab
+  * Julia
+  * CERN ROOT
+  * Scala/Spark/Hadoop
+  * gnuplot
 
 # 评分形式
   * 课内和日常作业采用 jupyter 的 nbgrader.
