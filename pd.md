@@ -12,14 +12,14 @@
 ## HXMT 校准数据 (azzuro)
     python, R
 ## LIGO Gravitational Wave
-    * python
-    * 画图
+  * python
+  * 画图
 ## 锦屏数据预处理 (课程 + 比赛)
-    * python, CERN ROOT
-    * 广线性回归等统计方法
+  * python, CERN ROOT
+  * 广线性回归等统计方法
 ## CMS opendata (比赛?)
-    * python, CERN ROOT, R
-    * 机器学习，包括深度神经网络
+  * python, CERN ROOT, R
+  * 机器学习，包括深度神经网络
 
 # 技能树
   * GNU/Linux 基本命令行操作
