@@ -5,9 +5,9 @@
 ## 贯穿始终
     git, jupyter, Makefile
 
-## 原子分子谱学 (唐如麟)
+## 原子分子谱学 (kylin1993)
     shell, python
-## HXMT 校准数据
+## HXMT 校准数据 (azzuro)
     python, R
 ## LIGO Gravitational Wave
     * python
