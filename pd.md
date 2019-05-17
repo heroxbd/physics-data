@@ -1,6 +1,7 @@
 # 课程名
 
-实验物理的大数据方法，64学时。
+  * 实验物理的大数据方法（1），40320832，32学时，2019年7月1日~12日
+  * 实验物理的大数据方法（2），40320842，32学时 2019年7月15日~26日，可选应用实践，2019年7月29日~8月2日
 
 # 课程结构
 
@@ -23,14 +24,14 @@
    to make you do what I want."
 
    git, jupyter, Makefile
-
+   
 ## 原子分子谱学 (kylin1993)
-    shell, python
+   shell, python
    
 ## 扫描电子显微镜数据处理
-    shell, python
+   shell, python
 
-## LIGO Gravitational Wave
+## LIGO Gravitational Wave (公开数据)
   * python
   * 画图
 
@@ -47,8 +48,8 @@
 
 ## 选做：各学科的基于数据的发放性课题
 
-   在物理学之外，各学科中都是基于数据的课题，掌握针对物理实验的大数据
-   方法，在科学研究十分有益。每个课题，视挑战性，给予不同的加分。
+   在物理学之外，也可选择各学科中基于数据的课题。掌握针对物理实验的大
+   数据方法，在科学研究十分有益。每个课题，视挑战性，给予不同的加分。
     
    * 公共管理，政策调研分析
    * 经济管理，量化金融
@@ -57,7 +58,7 @@
 
    与各任课教师联系
 
-# 第一周 20 学时: shell 命令行与脚本编程教学
+# 第一周 16 学时: shell 命令行与脚本编程教学
     分发 cheatsheet
 
 * 课程介绍: 1
@@ -74,7 +75,7 @@
 * nbgrader 设计
   讲义与练习在一起
     
-# 第二周 20 学时：Python 的基本使用
+# 第二周 16 学时：Python 的基本使用
 * Python 是什么: 1
     在科学计算中有什么优势？
 * 其它优秀的科学计算语言: 1
@@ -92,7 +93,7 @@
   * 黑洞、中子星合并：1
   * 大作业说明: 1
 
-# 第三周 20 学时：Python 的科学软件
+# 第三周 16 学时：Python 的科学软件
 * SQL 数据库: 4
     关系代数，关系数据库
 * Pandas: 2
@@ -114,7 +115,9 @@
   * HXMT 是什么: 1
   * 大作业介绍: 1
 
-# 第四周 4 学时：研究课题展示
+# 第四周 16 学时：Python 调用的 GEANT 物理过程模拟
+
+# 第五周 (可选)：研究课题展示
 * 匿名评教，讨论
   匿名提交改进建议
 
@@ -133,6 +136,9 @@
   * CERN ROOT
   * Scala/Spark/Hadoop
   * gnuplot
+  
+# 教学团队
+  * 教师 1 人，助教 3 人左右，小助教 9 人左右。
 
 # 评分形式
   * 采取百分制，总分超过100分的同学计100分。
@@ -151,7 +157,7 @@
   * https://www.learnenough.com/command-line-tutorial
   * https://www.learnenough.com/text-editor-tutorial
   * https://www.learnenough.com/git-tutorial
-
+  * https://princetonuniversity.github.io/PUbootcamp/agenda/
 
 # 饥渴乐园讨论中遭到反对的提议
 ## 选做：帮助同学安装 GNU Linux
@@ -172,4 +178,3 @@
    供大家快速了解到需要帮助的同学。
     
    虚拟机、WSL、MacOS 不计 IR.
-    
