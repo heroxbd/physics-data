@@ -55,6 +55,7 @@
     python, R
 
 ## 锦屏数据预处理 (课程 + 比赛)
+  * https://ghost-hunter.net9.org
   * python, CERN ROOT
   * 广线性回归等统计方法
 
@@ -99,6 +100,7 @@
   * 中微子是什么: 1
   * 锦屏中微子实验: 1
   * 大作业说明: 1
+    课赛结合 https://ghost-hunter.net9.org
 
 # 第三周 16 学时: shell 命令行与脚本编程教学
     分发 cheatsheet
