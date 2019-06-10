@@ -176,7 +176,8 @@
   * https://princetonuniversity.github.io/PUbootcamp/agenda/
 
 # 饥渴乐园讨论中遭到反对的提议
-## 选做：帮助同学安装 GNU Linux
+ 暂缺
+# 选做：帮助同学安装 GNU Linux
    
    全体同学协作的 git repository 中，通过加 hook 来规范 commit 和
    distro 文件的格式.
