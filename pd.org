@@ -23,6 +23,7 @@
    - Emacs
    - Vi
    - Others
+     - vscode
      - atom.io
    Both emacs and vi have steep learning curves, they are not easy to
    learn.  But if you master any of them, they pays you.
