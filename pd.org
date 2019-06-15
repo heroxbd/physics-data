@@ -74,13 +74,15 @@
      - recursive
    - Early exit
 
-   - A proof that all reasonable programs can be decoupled into
-     combinations of the 3 constructs. ???
-   - Structured program theorem
-     - Go to statement considered harmful
 
-   - https://en.wikipedia.org/wiki/Structured_programming
-   - https://en.wikipedia.org/wiki/Goto#Criticism
+*** Further Reading
+    - A proof that all reasonable programs can be decoupled into
+      combinations of the 3 constructs. ???
+    - Structured program theorem
+      - Goto statement considered harmful
+
+    - https://en.wikipedia.org/wiki/Structured_programming
+    - https://en.wikipedia.org/wiki/Goto#Criticism
 ** Expressions
    - Reserved words.  Not used for anything else.
    - Variable
