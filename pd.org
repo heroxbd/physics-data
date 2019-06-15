@@ -21,7 +21,7 @@
    - Jupyter based
    - Windows based
 
-   Windows based python installation has caveats, because python is
+   Windows based Python installation has caveats, because Python is
    developed under Unix.  Be prepared for unexpected bugs if you
    decide to use Python on windows.
 
@@ -32,9 +32,9 @@
    - Emacs
    - Vi
    - Others
-     - vscode
-     - atom.io
-   Both emacs and vi have steep learning curves, they are not easy to
+     - Visual Studio Code
+     - Atom
+   Both Emacs and Vi have steep learning curves, they are not easy to
    learn.  But if you master any of them, they pays you.
 
    Don't use Microsoft Word or Windows Notepad, they are not for
@@ -54,7 +54,7 @@
        - ... what is package manager?
        - pip on windows is a hack.
      - Snipping tool.
-   + Macos
+   + macOS
      - No good package manager.
        - Need extra care when using pip, easy to screw up.
    + GNU/Linux
@@ -64,7 +64,7 @@
        programs: experimental physicist, data scientist, quant, etc.
        That is the main audience this course is targeting.
      - I am going to give lectures, examples, demonstrations on
-       GNU/Linux with emacs.
+       GNU/Linux with Emacs.
    + You can try them if you are brave, and you are encouraged to find
      your own work style.
 ** Submit screen shots
@@ -73,7 +73,7 @@
      "Not good", commented by Harry
    - git classroom
      https://github.com/CS50Demo/assignment-1-introduction-to-programming-heroxbd-1
-** version control and git
+** Version control and Git
    - jiegec's lectures.
 ** Write paragraphs of code
    - Basic programming structures
@@ -107,7 +107,7 @@
 ** How to debug
    - Read error message
    - type()
-   - duanzi: 不要用浮点数表示钱——电影 office space
+   - duanzi: 不要用浮点数表示钱——电影 Office Space
      银行用浮点数记账，有误差，被主角用来薅羊毛
 ** User input
    - 在数据分析中没什么用
@@ -123,11 +123,11 @@
   苏勇
   https://study.163.com/course/courseLearn.htm?courseId=232007
 ** Linux 系统安装
-   - Virtualbox
+   - VirtualBox
      - 针对运维工作
        - 软件保守，不适合学术
        - 命令行为主，与科学计算很类似
-     - 运行在 MacOS
+     - 运行在 macOS
    - 使用英语环境
      - 中文的高质量资料很少，中文的社区非常薄弱且小众
      - 英语是程序的天然语言，对科技表达更丰富
@@ -184,7 +184,7 @@
   - 交互式地学习
   - 文件的基本操作
 
-* github classroom
+* GitHub Classroom
 ** Assignments
    - starter code
    - generate invitation link and distribute
