@@ -98,13 +98,18 @@
 ** How to debug
    - Read error message
    - type()
-   - 不要用浮点数表示钱: 电影 office space
+   - duanzi: 不要用浮点数表示钱——电影 office space
+     银行用浮点数记账，有误差，被主角用来薅羊毛
 ** User input
    - 在数据分析中没什么用
 ** Indentation
    - Python 语义的特殊之处
    - 强制缩进: 程序员编辑器非常重要
      - Tab vs space
+   - Conditionals: if.. elif..  else
+   - Try... except
+     - Why can't it be replaced by if.. else?
+   
 * Linux 入门基础 - 网易云课堂
   苏勇
   https://study.163.com/course/courseLearn.htm?courseId=232007
