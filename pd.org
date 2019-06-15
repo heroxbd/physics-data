@@ -1,0 +1,101 @@
+* 价值
+  - 工具审美
+    学物理的同学亟需
+* Python for everyone
+** Why do we program?
+   - Delegate repeatative tasks
+   - Record what you did
+** Python environment
+   - Real GNU/Linux
+     + Debian
+     + Gentoo
+   - Jupyter based
+   - Windows based
+
+   Windows based python installation has caveats, because python is
+   developed under Unix.  Be prepared for unexpected bugs if you
+   decide to use Python on windows.
+
+** Choose an editor
+   - Emacs
+   - Vi
+   - Others
+     - atom.io
+   Both emacs and vi have steep learning curves, they are not easy to
+   learn.  But if you master any of them, they pays you.
+
+   Don't use Microsoft Word or Windows Notepad, they are not for
+   programs.  Because we need an editor that do plain text and
+   syntactically correct.
+** Playground
+   https://www.py4e.com/tools/pythonauto
+   
+   Do we need one?  I don't think so.
+
+** Jupyter
+   - Causal way to completing classes.
+** Installing Python
+   + Windows
+     - Not impossible.
+     - No good package manager.
+       - ... what is package manager?
+       - pip on windows is a hack.
+     - Snipping tool.
+   + Macos
+     - No good package manager.
+       - Need extra care when using pip, easy to screw up.
+   + GNU/Linux
+     - steep learning curve.
+     - not everything is obvious.
+     - pays you back if you are committed to deal with data and
+       programs: experimental physicist, data scientist, quant, etc.
+       That is the main audience this course is targeting.
+     - I am going to give lectures, examples, demonstrations on
+       GNU/Linux with emacs.
+   + You can try them if you are brave, and you are encouraged to find
+     your own work style.
+** Submit screen shots
+   - Needed skill for online discussion.
+   - Anonymous discussion groups, piazza
+     "Not good", commented by Harry
+   - git classroom
+     https://github.com/CS50Demo/assignment-1-introduction-to-programming-heroxbd-1
+** version control and git
+   - jiegec's lectures.
+** Write paragraphs of code
+   - Basic programming structures
+     - sequential
+     - conditinoal
+     - iterative
+     - recursive
+   - Early exit
+
+   - A proof that all reasonable programs can be decoupled into
+     combinations of the 3 constructs. ???
+   - Structured program theorem
+     - Go to statement considered harmful
+
+   - https://en.wikipedia.org/wiki/Structured_programming
+   - https://en.wikipedia.org/wiki/Goto#Criticism
+* Linux 入门基础 - 网易云课堂
+  苏勇
+  https://study.163.com/course/courseLearn.htm?courseId=232007
+** Linux 系统安装
+   - Virtualbox
+     - 针对运维工作
+       - 软件保守，不适合学术
+       - 命令行为主，与科学计算很类似
+     - 运行在 MacOS
+   - 使用英语环境
+     - 中文的高质量资料很少，中文的社区非常薄弱且小众
+     - 英语是程序的天然语言，对科技表达更丰富
+     - 世界目前的约定，各国科学家都在通过英语交流
+   - 如果立志建设中文社区，请先通过英语学习成为高手
+** 命令行界面
+   - 与计算机交互的精髓
+     - 比随意点选更有助于可复现性
+
+* 实验楼 - Linux 基础入门（新版）
+  - 交互式地学习
+  - 文件的基本操作
+
