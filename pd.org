@@ -5,6 +5,15 @@
 ** Why do we program?
    - Delegate repeatative tasks
    - Record what you did
+*** Digital age
+    - We just buy device, use devices.
+      - How about we understanding devices, fixing devices and making
+        devices?
+      - Programming is one important step.  You build your world,
+        change the world and participate in creating and nurturing of
+        civilization by programming in this age.
+      - If you don't know programming, someone else will design your
+        world for you.
 ** Python environment
    - Real GNU/Linux
      + Debian
@@ -109,7 +118,7 @@
    - Conditionals: if.. elif..  else
    - Try... except
      - Why can't it be replaced by if.. else?
-   
+** Functions
 * Linux 入门基础 - 网易云课堂
   苏勇
   https://study.163.com/course/courseLearn.htm?courseId=232007
