@@ -1,5 +1,6 @@
 * 价值
   - 工具审美
+
     学物理的同学亟需
 * Python for everyone
 ** Why do we program?
@@ -30,6 +31,7 @@
 
 ** Choose an editor
    - Emacs
+     https://github.com/redguardtoo/mastering-emacs-in-one-year-guide
    - Vi
    - Others
      - Visual Studio Code
