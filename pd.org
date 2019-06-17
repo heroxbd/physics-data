@@ -2,7 +2,9 @@
   - 工具审美
 
     学物理的同学亟需
-* Python for everyone
+
+  - 实践性的课程：没有必要记忆，但一定要在短时间内实践
+* Python for everyone -- control flow
 ** Why do we program?
    - Delegate repeatative tasks
    - Record what you did
@@ -15,6 +17,8 @@
         civilization by programming in this age.
       - If you don't know programming, someone else will design your
         world for you.
+** Why Python?
+   - Python is a self-organized community.
 ** Python environment
    - Real GNU/Linux
      + Debian
@@ -121,6 +125,27 @@
    - Try... except
      - Why can't it be replaced by if.. else?
 ** Functions
+   - Reuse code
+
+     Dont repeat yourself
+   - Function with a return
+
+     consistant with mathematical definition
+   - Argument is an alias
+   - 太简单了，引入递归
+     
+   通过练习保证同学们掌握
+** Loops and iteration
+   - Computers to repetitive task human don't want to do.
+   - while loop
+   - for loop
+   - counting in loop
+   - filtering
+   - None type
+   - 都作为习惯考察，视同学的基础压缩授课时间
+* Python for everyone -- data structure
+* Learn to Program -- The Fundamentals
+* 计算机科学和Python编程导论
 * Linux 入门基础 - 网易云课堂
   苏勇
   https://study.163.com/course/courseLearn.htm?courseId=232007
