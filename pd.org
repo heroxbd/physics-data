@@ -81,6 +81,8 @@
      https://github.com/CS50Demo/assignment-1-introduction-to-programming-heroxbd-1
 ** Version control and Git
    - jiegec's lectures.
+
+   https://cloud.tsinghua.edu.cn/d/f3f13a46ed4c4b5386f9/
 ** Write paragraphs of code
    - Basic programming structures
      - sequential
@@ -98,7 +100,7 @@
 
     - https://en.wikipedia.org/wiki/Structured_programming
     - https://en.wikipedia.org/wiki/Goto#Criticism
-** Expressions
+** Expressions (including statements)
    - Reserved words.  Not used for anything else.
    - Variable
      - Case sensitive
@@ -117,13 +119,22 @@
      银行用浮点数记账，有误差，被主角用来薅羊毛
 ** User input
    - 在数据分析中没什么用
-** Indentation
-   - Python 语义的特殊之处
+** Branching
+   - Python 语法的特殊之处
    - 强制缩进: 程序员编辑器非常重要
      - Tab vs space
    - Conditionals: if.. elif..  else
    - Try... except
      - Why can't it be replaced by if.. else?
+** Loops and iteration
+   - Computers to repetitive task human don't want to do.
+   - while loop
+   - for loop
+   - counting in loop
+   - filtering
+   - 都作为习惯考察，视同学的基础压缩授课时间
+** Types
+   - None
 ** Functions
    - Reuse code
 
@@ -131,19 +142,26 @@
    - Function with a return
 
      consistant with mathematical definition
-   - Argument is an alias
+   - Argument variable
    - 太简单了，引入递归
      
    通过练习保证同学们掌握
-** Loops and iteration
-   - Computers to repetitive task human don't want to do.
-   - while loop
-   - for loop
-   - counting in loop
-   - filtering
-   - None type
-   - 都作为习惯考察，视同学的基础压缩授课时间
 * Python for everyone -- data structure
+  What python distinguishes itself from C
+** String
+   - length
+   - indexing, slicing
+   - Why index starting with 0?
+     Dijkstra argument
+   - string concatenation, compare with C
+     - unicode string
+   - in: logical operator
+   - string library is a set of toolkit to use
+     - dir(str): very useful tools
+** 参观科学博物馆 可选
+   
+** 参考书   
+   Think Python 2e
 * Learn to Program -- The Fundamentals
 * 计算机科学和Python编程导论
 * Linux 入门基础 - 网易云课堂
@@ -163,6 +181,7 @@
 ** 命令行界面
    - 与计算机交互的精髓
      - 比随意点选更有助于可复现性
+   - 更方便地操作远程的计算资源
 ** GNOME
    - 有助于渐进地加入命令行
    - 图形界面未必能真切表达人类的意图
@@ -192,6 +211,10 @@
      - jobs
      - bg
      - fg
+   - 其它命令
+     date, uptime, head, tail, less, cat, lspci, zip, tar, find
+** 编辑器 vi, emacs
+   - Unix 一切都是文本，因为一切皆可用文本编辑器修改。
 ** 文件系统
    - 目录结构，当前工作目录
    - "."开头的是隐藏文件
@@ -207,10 +230,21 @@
    - cp, mv, rm, mkdir, rmdir
 
    不仔细讲，只做练习
+** 系统目录 FHS
+   - /bin, /sbin
+   - /boot
+   - /etc
+     文本的配置文件
+   - /tmp
+     临时目录
+
+** 硬盘在系统中的表示
+   - /dev/sda, /dev/nvme0
 * 实验楼 - Linux 基础入门（新版）
   - 交互式地学习
   - 文件的基本操作
-
+* GEANT4
+  https://groups.lal.in2p3.fr/ED-geant4/ttt/program/
 * GitHub Classroom
 ** Assignments
    - starter code
