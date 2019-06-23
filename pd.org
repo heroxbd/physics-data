@@ -159,9 +159,22 @@
    - string library is a set of toolkit to use
      - dir(str): very useful tools
 ** 参观科学博物馆 可选
-   
-** 参考书   
-   Think Python 2e
+** Files
+   - read text files: just use for to loop through.
+   - open, close and `with` context
+** List
+   - List a powerful container.
+   - Indexing compared to strings.
+   - Append.
+   - List and string combo into text parser.
+** 课堂教学，例子
+   - 使用邮件库，文本处理
+** 参考书
+   - Think Python 2e
+** 辅助资料
+   - https://www.tutorialspoint.com/
+
+     印度的编程样例网站，适合通过例子快速入门一项技能。
 * Learn to Program -- The Fundamentals
 * 计算机科学和Python编程导论
 * Linux 入门基础 - 网易云课堂
