@@ -167,6 +167,26 @@
    - Indexing compared to strings.
    - Append.
    - List and string combo into text parser.
+** Dictionary
+   - The central data structure of Python.
+   - Dictionary: key-value pair
+     - As opposed to List: ordered collection
+   - Python itself is implemented with namespace and dictionaries.
+     - What is a language namespace?
+       #+BEGIN_SRC c++
+         using namespace std;
+
+         std::stdout
+       #+END_SRC
+   - Example: word counter.
+     - get with a default counter value.
+   - 2 iteration looping mode:
+     #+BEGIN_SRC python
+       for k,v in d.items():
+     #+END_SRC
+** Tuple
+   - Tuple is non-mutable.
+   - tuple can be used on the left-side of an assignment statement.
 ** 课堂教学，例子
    - 使用邮件库，文本处理
 ** 参考书
