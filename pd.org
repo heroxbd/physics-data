@@ -17,6 +17,14 @@
         civilization by programming in this age.
       - If you don't know programming, someone else will design your
         world for you.
+*** Not only a programmer needs to learn program
+    - Not even a physicist.
+    - Everyone needs to a bit of programming
+      - Secretary
+      - Sales champion
+      - Accountant
+      - Manager
+      - Cab driver
 ** Why Python?
    - Python is a self-organized community.
 ** Python environment
@@ -187,6 +195,8 @@
 ** Tuple
    - Tuple is non-mutable.
    - tuple can be used on the left-side of an assignment statement.
+   - List comprehension: beauty of Python.
+
 ** 课堂教学，例子
    - 使用邮件库，文本处理
 ** 参考书
@@ -195,6 +205,10 @@
    - https://www.tutorialspoint.com/
 
      印度的编程样例网站，适合通过例子快速入门一项技能。
+
+   - https://scipy-lectures.org/intro/intro.html
+
+     由 Python 科学计算领域最资深作者亲自执笔编写。
 * Learn to Program -- The Fundamentals
 * 计算机科学和Python编程导论
 * Linux 入门基础 - 网易云课堂
