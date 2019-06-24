@@ -170,8 +170,10 @@
 
 # 评分形式
   * 采取百分制，总分超过100分的同学计100分。
-  * 课内和日常作业采用 jupyter 的 nbgrader.
-    每次作业 4 分，平时作业共计 70 分。
+  * 课内和日常作业采用 git，test suite 评分。
+  
+    每次作业 4 分左右，平时作业共计 70 分。
+    
   * 大作业，采用 git + Makefile `make test` 测试点计分，30分。
   * 选做课题：评估基于课堂展示和报告，给小组下发额外加分，小组成员之间
     协调分数的分配。
@@ -183,24 +185,3 @@
   * https://www.learnenough.com/text-editor-tutorial
   * https://www.learnenough.com/git-tutorial
   * https://princetonuniversity.github.io/PUbootcamp/agenda/
-
-# 饥渴乐园讨论中遭到反对的提议
- 暂缺
-# 选做：帮助同学安装 GNU Linux
-   
-   全体同学协作的 git repository 中，通过加 hook 来规范 commit 和
-   distro 文件的格式.
-
-   安装操作系统之后，生成 gpg key 加入到 git.tsinghua.edu.cn.
-    
-   每一个以学号命名的目录中，在 distro 中写出自己的操作系统版本以及帮
-   助自己安装系统同学的学号，可以是自己。
-   
-   每帮助同学安装一个操作系统，将获得一个 IR (installation report)，
-   所有同学都完成系统安装后，IR 兑换为课程加分，最多加 10 分。兑换函
-   数视 IR 数分布而定，但保证为单调不减函数。
-    
-   有一个 git repository 的状态页实时更新每个同学安装操作系统的情况，
-   供大家快速了解到需要帮助的同学。
-    
-   虚拟机、WSL、macOS 不计 IR.
