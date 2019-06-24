@@ -292,6 +292,23 @@
   - 文件的基本操作
 * GEANT4
   https://groups.lal.in2p3.fr/ED-geant4/ttt/program/
+
+  - 从 Python 起，非常友好的入门。注重可视化。
+  - Structure of Geant
+    - Run
+    - Event
+    - Track
+    - Step
+    - 每天一种，一个可视化的方法
+  - Run an application
+  - Collect information
+  - 只做入门教学，教给同学深入学习的方法
+** Introduction
+** Geometry
+** Primary Paricles
+** Physics
+** Scoring
+
 * GitHub Classroom
 ** Assignments
    - starter code

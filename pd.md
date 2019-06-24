@@ -104,6 +104,12 @@
   * 锦屏中微子实验: 1
   * 大作业说明: 1
     课赛结合 https://ghost-hunter.net9.org
+* Geometry 4
+  * 可视化
+* Paricles 3
+* Physics 3
+* Scoring 3
+  * 数据导出
 
 # 第三周 16 学时: shell 命令行与脚本编程教学
     分发 cheatsheet
