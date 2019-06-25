@@ -71,17 +71,17 @@
 
 双精度浮点数，无穷整数，布尔值
 
-* 实践：输入 `intput` 输出 `print`
+* 实践：输入 `input` 输出 `print`
 
 作业：A+B
 
-* 脚本语言，互动环境，脚本模式。选择结构`if, else, elsif`，缩进。
+* 脚本语言，互动环境，脚本模式。选择结构`if, elif, else`，缩进。
 * 实践：编辑器 `vscode`，选择结构，缩进练习。
 
 作业：猜数字
 
 ## 星期三
-* 循环结构 `for, while`。range()，List, List comprehension。
+* 循环结构 `for`, `while`。range()，List, List comprehension。
 * 实践：循环练习
 
 作业：输出 1000 以内素数
