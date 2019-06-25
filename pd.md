@@ -21,8 +21,8 @@
 
 # 课程结构
 
-四星期四个物理学中的数据任务，在任务中学习必要的技能。任务都要突出物理
-背景。第五周组织同学自由交流。
+四星期，围绕物理学中的数据任务，在任务中学习必要的技能。第五周组织同学
+自由交流。
 
 令同学能在今后的面对数据类问题，不管是物理的还是非物理的，都能迅速上手。
 
@@ -31,42 +31,19 @@
 突出计算机程序替代数学成为自然的科学语言，理解可复现计算的意义，在撰写
 报告时实践可复现计算。
 
-## 贯穿始终
-
-   三个层次的基础知识：Unix command line, Text editor, Version control
-   with Git.
-
-   "No, computer, I’m in charge here, and I’m going to figure out how
-   to make you do what I want."
-
-   git, jupyter, Makefile
-   
-## 原子分子谱学 (kylin1993)
-  * shell
-  * python
-   
-## 扫描电子显微镜数据处理
-  * shell
-  * python
-
 ## LIGO Gravitational Wave (公开数据)
-  * python
-  * 画图
-
-## HXMT 校准数据 (azzuro)
-  * python
-  * R
+* python
+* 画图
+* 做为随堂例子
 
 ## 锦屏数据预处理 (课程 + 比赛)
-  * https://ghost-hunter.net9.org
-  * python, CERN ROOT
-  * 广线性回归等统计方法
+* https://ghost-hunter.net9.org
+* 课赛结合，大作业备选
 
-## CMS opendata (比赛?)
-  * python, CERN ROOT, R
-  * 机器学习，包括深度神经网络
+## 天格伽马射线暴定位
+* 大作业备选
 
-## 选做：各学科的基于数据的发放性课题
+## 基它大作业替代项目
 
    在物理学之外，也可选择各学科中基于数据的课题。掌握针对物理实验的大
    数据方法，在科学研究十分有益。每个课题，视挑战性，给予不同的加分。
@@ -75,8 +52,6 @@
    * 经济管理，量化金融
    * 太阳系演化模拟
    * LHCb
-
-   与各任课教师联系
 
 # 第一周 16 学时：Python 的基本使用
 * 课程介绍: 1
