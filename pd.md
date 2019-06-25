@@ -53,19 +53,60 @@
    * 太阳系演化模拟
    * LHCb
 
-# 第一周 16 学时：Python 的基本使用
-* 课程介绍: 1
-* 方法论: 1
-* Python 是什么: 1
-    在科学计算中有什么优势？
-* 其它优秀的科学计算语言: 1
-* 变量: 1
-* 函数: 2
-* 选择结构: 1
-* 循环结构: 1
-* 面向对象的编程: 4
-* 函数式编程: 4
-* Numpy/SciPy: 2
+# 第一周 16 学时 6A211：Python 基础 
+带领大家接触命令行，`git`版本控制，并入门`Python`
+## 星期一
+* 课程介绍，方法论，Python 是什么，在科学计算中有什么优势，给分。
+* 实践：安装命令行t环境，git bash，若失败尝试 virtual box, 若失败分配 ssh 账号
+
+可能的坑：在 Visual Studio 使用 pip, 在 pycharm 使用 pip.
+
+* `git` 教学：`add`, `pull`, `push`, `diff`, `commit`
+* 实践：继续安装。
+
+作业 `git push` 姓名学号和 `Python` 版本
+
+## 星期二
+* 公布小助教和讨论小组。`Python`环境标识符、变量、单行多行注释、折行、运算符、数据类型
+
+双精度浮点数，无穷整数，布尔值
+
+* 实践：输入 `intput` 输出 `print`
+
+作业：A+B
+
+* 脚本语言，互动环境，脚本模式。选择结构`if, else, elsif`，缩进。
+* 实践：编辑器 `vscode`，选择结构，缩进练习。
+
+作业：猜数字
+
+## 星期三
+* 循环结构 `for, while`。range()，List, List comprehension。
+* 实践：循环练习
+
+作业：输出 1000 以内素数
+
+* 错误提示，调试，函数，String
+* 模块，命令行参数输入，文件IO
+
+作业：文本数据，邮件门的 mbox
+
+## 星期四
+
+* dictionary, namespace
+* 实践：统计词频
+
+作业：来自清华的邮件
+
+* numpy 数组, array 运算 (slice, dtype cast), HDF5 h5py
+
+提供资料： Matlab 功能对比
+
+* 实践： numpy array 与 List 的比较
+
+作业：使用 numpy 和筛法找 100000 以内素数
+
+# 第二周 16 学时：Python 调用的 GEANT 物理过程模拟
 * Matplotlib/Seaborn: 2
 * 大作业说明: 4
   * 引力波是什么：1
@@ -73,7 +114,6 @@
   * 黑洞、中子星合并：1
   * 大作业说明: 1
 
-# 第二周 16 学时：Python 调用的 GEANT 物理过程模拟
 * 锦屏中微子数据: 4
   * 中微子是什么: 1
   * 锦屏中微子实验: 1
