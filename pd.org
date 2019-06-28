@@ -1,3 +1,16 @@
+#+latex_HEADER: \usepackage{siunitx}
+#+latex_HEADER: \usepackage[version=3]{mhchem}
+#+latex_HEADER: \usepackage{mathrsfs}
+#+latex_HEADER: \usepackage[export]{adjustbox}
+#+latex_HEADER: \usepackage{pgf,tikz}
+#+latex_HEADER: \usepackage{wasysym}
+#+latex_HEADER: \usetikzlibrary{arrows}
+#+LATEX_HEADER: \usepackage[UTF8]{ctex}
+#+LaTeX_HEADER: \usepackage{appendixnumberbeamer}
+#+PROPERTY: header-args :eval never-export
+#+PROPERTY: header-args :noweb yes
+#+sTARTUP: beamer
+
 * 价值
   - 工具审美
 
@@ -308,8 +321,8 @@
 ** Primary Paricles
 ** Physics
 ** Scoring
-
 * GitHub Classroom
+  Use as official homework platform.
 ** Assignments
    - starter code
    - generate invitation link and distribute
@@ -320,3 +333,28 @@
    - Project management
    - More github features is needed
    - 2-2.5 month to familiar with Github
+* 第一周
+  :PROPERTIES:
+  :EXPORT_FILE_NAME: w1
+  :EXPORT_BEAMER_HEADER+: \title{实验物理的大数据方法}
+  :EXPORT_OPTIONS: H:1 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
+  :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+  :EXPORT_DATE: 2019-07-01 清华
+  :EXPORT_BEAMER_HEADER+: \author{续本达}
+  :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
+  :EXPORT_BEAMER_THEME: Boadilla
+  :EXPORT_BEAMER_COLOR_THEME: crane
+  :EXPORT_BEAMER_FONT_THEME: professionalfonts
+  :END:
+** 自我介绍
+** 课程介绍 科学方法
+** 课程内容
+   - 什么是“实验物理”
+   - 什么是“大数据方法”
+** 课程评估 分数标准
+** 平时作业
+** 大作业
+** 大作业 课赛结合 中微子实验数据分析
+** 大作业 Tola 微波干涉阵信源定位
+** 大作业 二维金属材料的 Fermi 面测量
+** 教学团队
