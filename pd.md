@@ -64,7 +64,8 @@
 * 课程介绍，方法论，Python 是什么，在科学计算中有什么优势，给分。
 * 实践：安装命令行t环境，git bash，若失败尝试 virtual box, 若失败分配 ssh 账号
 
-可能的坑：在 Visual Studio 使用 pip, 在 pycharm 使用 pip.
+可能的坑：在 Visual Studio 使用 pip, 在 pycharm 使用 pip. Windows 中文
+用户名，带空格的用户名。
 
 * `git` 教学：`add`, `pull`, `push`, `diff`, `commit`
 * 实践：继续安装。
