@@ -418,13 +418,13 @@
     - 答疑：周五三四大节，地点与上课教室一致
       - 视同学需求安排其它答疑
    
-** 课程目标和指导原则
+** 数据分析的指导原则
 
    #+attr_beamer: :overlay <+->
    1. Transparency
        
       每一步的数据都应尽量可以被人类直接阅读，比如 json, csv。如果不得
-      不用二进制模式，一定是使用最普遍最开放的格式，比如 hdf5.
+      不用二进制模式，一定是使用最普遍最开放的格式，比如 hdf5。
 
    2. SPOT and DRY
 
@@ -457,3 +457,52 @@
    - 助教 :: 陈嘉杰、张爱强、陈晟祺
    - 顾问 :: 郝镇齐、唐如麟、张宗煜、付祈安、高一川、刘晓义
    - 小助教 ::
+** Python
+   - Python 是一门“解释型语言”，是相对于“编译型语言”。
+   - Python 的语法风格简明。
+   - Python 是一个胶水语言，可以直接调用 fortran, C/C++, R 等语言库。
+     - 易于与已有工具整合。
+     - 促进团队分工，协作。
+     - 大大丰富了 Python 生态系统的功能。
+   - 实践：安装 Python 3 环境。
+     - GNU/Linux: 原生
+     - Mac OS: 原生, macports, Gentoo Prefix, Homebrew
+     - Windows: 原生, WSL, VirtualBox, Hyper-V
+** 版本控制
+   - “我上周写的程序被不小心覆盖掉了！无法找回之前的版本。”
+   - “我和同学合写文章，结果他是在昨天的版本上改的！我还得重改！”
+*** 发展历史
+    - 石器时代 :: 实验报告-v1, 实验报告-v2, 实验报告-v2.2, 实验报
+              告-v2.2改, 实验报告-v2.2改-续本达更新20190629……
+    - 青铜时代 :: diff, patch 文本差分算法
+      #+BEGIN_SRC dot :file ./diff-patch.pdf :cmdline -Kdot -Tpdf
+        digraph dataset {
+        bgcolor="#ffffff00"
+
+        { rank = same; B D1 }
+        { rank = same; D2 M }
+
+        B [label = "公共版本"]
+        D1 [label = "差分1"]
+        D2 [label = "差分2"]
+        M [label = "合并"]
+
+        B -> D1 [label = "更新第二章"]
+        B -> D2 [label = "修改第一章"]
+
+        D1 -> M [label = "修改第一章"]
+        D2 -> M [label = "更新第二章"]
+        }
+      #+END_SRC
+
+      #+Attr_LaTeX: :height 0.35\textheight
+      #+RESULTS:
+      [[file:./diff-patch.pdf]]
+    - 铁器时代 :: 版本控制服务：CVS，SVN
+    - 现代 :: 分布式版本控制：git，Mercurial
+              
+** add
+** pull
+** push
+** diff
+** commit
