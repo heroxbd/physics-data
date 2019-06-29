@@ -466,7 +466,7 @@
      - 大大丰富了 Python 生态系统的功能。
    - 实践：安装 Python 3 环境。
      - GNU/Linux: 原生
-     - Mac OS: 原生, macports, Gentoo Prefix, Homebrew
+     - macOS: 原生, macports, Gentoo Prefix, Homebrew
      - Windows: 原生, WSL, VirtualBox, Hyper-V
 ** 版本控制
    - “我上周写的程序被不小心覆盖掉了！无法找回之前的版本。”
