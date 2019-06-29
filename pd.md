@@ -62,24 +62,24 @@
 带领大家接触命令行，`git`版本控制，并入门`Python`
 ## 星期一
 * 课程介绍，方法论，Python 是什么，在科学计算中有什么优势，给分。
-* 实践：安装命令行t环境，git bash，若失败尝试 virtual box, 若失败分配 ssh 账号
+* 实践：安装命令行环境，git bash，若失败尝试 virtual box，若失败分配 ssh 账号。
 
-可能的坑：在 Visual Studio 使用 pip, 在 pycharm 使用 pip. Windows 中文
+可能的坑：在 Visual Studio 使用 pip , 在 PyCharm 使用 pip 。 Windows 中文
 用户名，带空格的用户名。
 
 * `git` 教学：`add`, `pull`, `push`, `diff`, `commit`
 * 实践：继续安装。
 
-作业 `git push` 姓名学号和 `Python` 版本
+作业 1 self-introduction: `git push` 姓名学号和 `Python` 版本和感想
 
 ## 星期二
-* 公布小助教和讨论小组。`Python`环境标识符、变量、单行多行注释、折行、运算符、数据类型
+* 公布小助教和讨论小组。`Python`环境标识符、变量、单行多行注释、折行、运算符、数据类型。
 
 双精度浮点数，无穷整数，布尔值
 
 * 实践：输入 `input` 输出 `print`
 
-作业：A+B
+作业 2 aplusb: `input` 读入，然后 `print` 输出。
 
 * 脚本语言，互动环境，脚本模式。选择结构`if, elif, else`，缩进。
 * 实践：编辑器 `vscode`，选择结构，缩进练习。
