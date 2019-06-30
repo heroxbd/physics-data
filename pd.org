@@ -605,7 +605,7 @@
     #+BEGIN_EXAMPLE
 $ man git add
     #+END_EXAMPLE
-** 作业：Git练习
+** 作业：Git 练习
 
    #+attr_beamer: :overlay <+->
    - https://classroom.github.com/a/gxRgrL8_
@@ -628,4 +628,11 @@ $ man git add
    - 添加修改 (add)
    - 提交 (commit)
    - 推送 (push)
-   
+** 练习（不记分）：查看备课历史
+
+   - https://github.com/heroxbd/physics-data
+
+     #+BEGIN_SRC bash
+git clone git@github.com:heroxbd/physics-data.git
+git log -p
+     #+END_SRC
