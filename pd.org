@@ -504,7 +504,7 @@
 
 *** 满足 POSIX 标准的操作系统
    - GNU/Linux
-   - Apple MacOS
+   - Apple macOS
    - 其它类 Unix 系统
    - Microsoft Windows 本身不满，但可以使用以下扩展:
      1. Cygwin, MinGW
@@ -513,7 +513,7 @@
 
 ** 实践：安装 Python 3 和 POSIX 环境
    - GNU/Linux 用户 :: 工具都已齐备。请帮助周围的同学，并自荐成为小助教
-   - Apple MacOS 用户 :: Macports, Gentoo Prefix, Homebrew 皆可
+   - Apple macOS 用户 :: Macports, Gentoo Prefix, Homebrew 皆可
    - Microsoft Windows 用户 :: 请注意不要使用带空格的或中文用户名。按
         照以下顺序尝试，直到成功获得 Python 和 POSIX 环境：
      1. Windows Subsystem for Linux (WSL)
