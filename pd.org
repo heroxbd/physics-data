@@ -435,7 +435,7 @@
    - “透明”原则 :: 每一步的数据都应尽量可以被人类直接阅读，比如 JSON, CSV。如果不得
       不用二进制模式，一定是使用最普遍最开放的格式，比如 HDF5。
 
-   - “不啰嗦”原则 :: Single Point of Truth, Don't Repeat Yourself. 不可在分析做任何
+   - “一次”原则 :: Single Point of Truth, Don't Repeat Yourself. 不可在分析做任何
       重复，任何有意义的信息都应该被共享。
 
    - “最佳工具”原则 :: 尽量使用高级语言和语法糖，为每个子任务选择合适的工具。只有在性能
@@ -568,7 +568,7 @@
      - 令他更为懊恼的是，他已经无法达到自己两周之前的高度了，因为忘记
        了改之前的程序是怎么写的。
    - _复现_ 原则被破坏。
-   - =解法-20190530.backup= ， =解法-20190608= ？重复存储， _不啰嗦_ 原则被破坏。
+   - =解法-20190530.backup= ， =解法-20190608= ？重复存储， _一次_ 原则被破坏。
    - 使用 Git，养成良好的习惯，就能解决以上问题。
    - Git 由 Linus Torvalds 发明，用来支撑全世界 5000 名以上 Linux 操作
      系统内核开发者的协作。是我们的 _最佳工具_ 。
@@ -612,9 +612,8 @@
 $ man git add
     #+END_EXAMPLE
 ** 作业：Git 练习
-
    #+attr_beamer: :overlay <+->
-   - https://classroom.github.com/a/gxRgrL8_
+   - [[https://classroom.github.com/a/gxRgrL8_]]
      - 点击后会自动创建你的 Git 仓库
 
    - 设置本地到 Github 的访问权限
