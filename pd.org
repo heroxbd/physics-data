@@ -594,6 +594,7 @@
 ** Git 基本命令
    #+attr_beamer: :overlay <+->
    - diff :: 查看改动
+   - status :: 查看状态
    - add :: 添加文件
    - commit :: 提交
    - log :: 查看历史
