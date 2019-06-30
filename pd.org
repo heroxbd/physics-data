@@ -396,7 +396,7 @@
    - 跨地理的分布式计算称为“网格”(grid)，在早期促进和影响了互联网的发
      展。
      
-     - FAST 天眼：每年@@latex:$\SI{\sim 1}{\peta B} (\num{1e15})$@@。
+     - FAST 天眼：每年@@latex:$\SI{\sim 1}{\peta B} = \SI{1e15}{B}$@@。
 
    - CERN 在 90 年代决定使用 Intel 民用计算机组成的集群来完成 LHC 的计
      算任务，是个人电脑级硬件集群成为科学计算主流的标志。
@@ -410,13 +410,12 @@
 ** 课程内容
    - 以实验物理为主题，学习大数据方法的基础。
      1. 理解数据的科学精神，从一开始养成良好的科研习惯
-     2. 掌握典型工具 git, Python 和常用命令行工具
-        - 培养自学能力
+     2. 掌握典型工具 Git, Python 和常用命令行工具，适应自学
      3. 培养工具的品位，针对具体场景选择合适的工具
 
-*** 计划
+*** 计划安排
     - 实验物理的大数据方法(1) 6A211
-      - 第一周 :: git 入门，Python 入门
+      - 第一周 :: Git 入门，Python 入门
       - 第二周 :: Python 科学计算与可视化
     - 实验物理的大数据方法(2) 6A207
       - 第三周 :: 基于命令行的数据处理整合
@@ -433,8 +432,8 @@
 
       这是科学的基本精神，与可证伪性一起，是区分科学与伪科学的标志。
 
-   - “透明”原则 :: 每一步的数据都应尽量可以被人类直接阅读，比如 json, csv。如果不得
-      不用二进制模式，一定是使用最普遍最开放的格式，比如 hdf5。
+   - “透明”原则 :: 每一步的数据都应尽量可以被人类直接阅读，比如 JSON, CSV。如果不得
+      不用二进制模式，一定是使用最普遍最开放的格式，比如 HDF5。
 
    - “不重复”原则 :: Single Point of Truth, Don't Repeat Yourself. 不可在分析做任何
       重复，任何有意义的信息都应该被共享。
@@ -442,41 +441,91 @@
    - “最佳工具”原则 :: 尽量使用高级语言和语法糖，为每个子任务选择合适的工具。只有在性能
       分析之后，才在必要时使用低级语言进行性能加速。
 
-      合适的工具会随时间变化，因此课程名不是 +Python 数据处理与科学计算+
+      最佳工具会随时间变化，因此课程名不是
+
+      +Python 数据处理与科学计算+
 
 ** 课程评估 分数标准
+   按百分制记分，录入成绩时转换为等级。
+
 *** 平时作业
-    - 占 70% 成绩，覆盖学习的知识要点，以 github classroom 形式组织。
+    - 占 70% 成绩，覆盖课堂学习的知识要点，以 Github Classroom 形式组
+      织。
 *** 大作业
     - 占 30% 成绩，取材自实验物理不同方向的真实场景。也可以由同学自行
       提出。
       - 分两个阶段，对应前两周和后两周。
-** 大作业 课赛结合 中微子实验数据分析
-** 大作业 Tola 微波干涉阵信源定位
-** 大作业 二维金属材料的 Fermi 面测量
+** 大作业
+
+   - 课赛结合 中微子实验数据分析
+     - 分析中微子实验中，光电倍增管采集的光电子。
+     - https://ghost-hunter.net9.org/
+   - Tola 微波干涉阵信源定位
+     - 通过微波干涉阵的信号，对信源进行定位。
+   - 二维金属材料的 Fermi 面测量
+     - 通过扫描隧道显微镜的数据，分析二维金属的 Fermi 面。
+
+*** 自定义                                                   :B_exampleblock:
+    :PROPERTIES:
+    :BEAMER_env: exampleblock
+    :END:
+
+    - 如果有同学希望采用其它学科方向的大作业，请提出申请给续本达<orv@tsinghua.edu.cn>
+      1. 问题描述和学科背景
+      2. 数据的输入和输出的定义与格式
+      3. 数据分析结果的评价标准
 ** 教学团队
    - 教师 :: 续本达
    - 助教 :: 陈嘉杰、张爱强、陈晟祺
    - 顾问 :: 郝镇齐、唐如麟、张宗煜、付祈安、高一川、刘晓义
-   - 小助教 ::
+   - 小助教 :: 已经有4位同学自荐，请大家继续踊跃报名，请发邮件至 续本达
+            <orv@tsinghua.edu.cn>
+
+     1. 已修过的《程序设计基础》或类似课程的课程号、任课教师与成绩
+     2. 是否有中学生信息学竞赛 (OI) 、大学生 ACM 竞赛或类似竞赛的参加经历
+     3. 小助教宣言
 ** Python
-   - Python 是一门“解释型语言”，是相对于“编译型语言”。
+   - Python 是一门“解释型语言”，相对于“编译型语言”更易调试。
    - Python 的语法风格简明。
    - Python 是一个胶水语言，可以直接调用 fortran, C/C++, R 等语言库。
      - 易于与已有工具整合。
      - 促进团队分工，协作。
      - 大大丰富了 Python 生态系统的功能。
      - 符合 _最佳工具_ 原则。
-   - 实践：安装 Python 3 环境。
-     - GNU/Linux: 原生
-     - macOS: 原生, macports, Gentoo Prefix, Homebrew
-     - Windows: 原生, WSL, VirtualBox, Hyper-V
+   - 在科学计算领域得到广泛欢迎和采用。
+
+     https://www.python.org/
+** POSIX 环境
+   POSIX 是 /Portable Operating System Interface/ 的缩写，是关于计算机
+   操作系统的国际标准。它规定了操作系统的基本工具和程序接口。
+
+   - 科学研究中时间和空间跨度都很大，需要使用公开的国际标准化接口，才
+     能满足 _复现_ ， _透明_ 和 _最佳工具_ 原则。
+
+*** 满足 POSIX 标准的操作系统
+   - GNU/Linux
+   - Apple MacOS
+   - 其它类 Unix 系统
+   - Microsoft Windows 本身不满，但可以使用以下扩展:
+     1. Cygwin, MinGW
+     2. Windows Subsystem for Linux (WSL)
+     3. 使用虚拟机安装 GNU/Linux
+
+** 实践：安装 Python 3 和 POSIX 环境
+   - GNU/Linux 用户 :: 工具都已齐备。请帮助周围的同学，并自荐成为小助教
+   - Apple MacOS 用户 :: Macports, Gentoo Prefix, Homebrew 皆可
+   - Microsoft Windows 用户 :: 请注意不要使用带空格的或中文用户名。按
+        照以下顺序尝试，直到成功获得 Python 和 POSIX 环境：
+     1. Windows Subsystem for Linux (WSL)
+     2. MinGW, Cygwin
+     3. 使用虚拟机安装 GNU/Linux
+
 ** 版本控制
-   - “我上周写的程序被不小心覆盖掉了！无法找回之前的版本。”
    - “我和同学合写文章，结果他是在昨天的版本上改的！我还得重改！”
 *** 发展历史
-    - 石器时代 :: 实验报告-v1, 实验报告-v2, 实验报告-v2.2, 实验报
-              告-v2.2改, 实验报告-v2.2改-续本达更新20190629……
+
+    #+attr_beamer: :overlay <+->
+    - 石器时代 :: =实验报告-v1=, =实验报告-v2=, =实验报告-v2.2=, =实验报告-v2.2-续本达更新20190629= ……
     - 青铜时代 :: diff, patch 文本差分算法
       #+BEGIN_SRC dot :file ./diff-patch.pdf :cmdline -Kdot -Tpdf
         digraph dataset {
@@ -502,8 +551,10 @@
       #+RESULTS:
       [[file:./diff-patch.pdf]]
     - 铁器时代 :: 版本控制服务：CVS，SVN
-    - 现代 :: 分布式版本控制：git，Mercurial
-** git 案例
+    - 现代 :: 分布式版本控制：Git，Mercurial
+** Git 案例
+   “我上周写的程序被不小心覆盖掉了！无法找回之前的版本。”
+
    #+attr_beamer: :overlay <+->
    - 小强同学经过认真思考和试验，发明了一种巧妙的解决问题方法，并写成
      程序，经验证效果拔群。
@@ -514,17 +565,67 @@
    - _复现_ 原则被破坏。
    - =解法-20190530.backup= ， =解法-20190608= ？重复存储， _不重复_ 原则被破坏。
    - 使用 git，养成良好的习惯，就能解决以上问题。
-   - git 由 Linus Torvalds 发明，用来支撑全世界 5000 名以上 Linux 操作
+   - Git 由 Linus Torvalds 发明，用来支撑全世界 5000 名以上 Linux 操作
      系统内核开发者的协作。是我们的 _最佳工具_ 。
-** git 基础
+** Git 基础
    [[./fig/pro-git_snapshots.png]]
    - 在任意时间我们都可以选择给工作区进行一次“快照”。
    - 相邻快照之间，是代表文件改动的差分量。
    - 例子：讲义
-** 例子：讲义
+** 例子：撰写讲义
    [[./fig/tig-example.png]]
-** add
-** pull
-** push
-** diff
-** commit
+** Git 三种状态
+   - 已提交（committed） :: 改动安全保存在数据库中
+   - 已修改（modified） :: 自上一次提交，有文件被修改
+   - 已暂存（staged） :: 已修改的文件被作了标记，将被包含在下一轮提交中
+
+      [[./fig/git-modes.png]]              
+** Git 仓库间通信
+   #+Attr_LaTeX: :height 0.7\textheight
+   [[./fig/git-distributed.png]]
+
+   - 建议：通过 SSH (secure shell) 通信。
+
+** Git 基本命令
+   #+attr_beamer: :overlay <+->
+   - diff :: 查看改动
+   - add :: 添加文件
+   - commit :: 提交
+   - log :: 查看历史
+   - pull :: 从远程下载
+   - push :: 推送到远程
+
+*** 内建手册 =man=                                           :B_exampleblock:
+    :PROPERTIES:
+    :BEAMER_env: exampleblock
+    :END:
+
+    命令的具体含义可以参考 =man= 命令，例如，
+   
+    #+BEGIN_EXAMPLE
+$ man git add
+    #+END_EXAMPLE
+** 作业：Git练习
+
+   #+attr_beamer: :overlay <+->
+   - https://classroom.github.com/a/gxRgrL8_
+     - 点击后会自动创建你的 Git 仓库
+
+   - 设置本地到 Github 的访问权限
+     - 生成 SSH 密钥对
+     - 上传到 Github
+
+   - 同步你的 Git 仓库，输入你的基本信息
+     #+BEGIN_EXAMPLE
+我的姓名：
+我的学号：
+我的 Python 版本信息：
+
+课程感言：
+     #+END_EXAMPLE
+   - 查看修改 (diff)
+   - 预估得分
+   - 添加修改 (add)
+   - 提交 (commit)
+   - 推送 (push)
+   
