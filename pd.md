@@ -102,7 +102,7 @@
 * dictionary, namespace
 * 实践：统计词频
 
-作业：来自清华的邮件
+作业：来自大学的邮件
 
 * numpy 数组, array 运算 (slice, dtype cast), HDF5 h5py
 
