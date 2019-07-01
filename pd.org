@@ -335,7 +335,6 @@
    - 2-2.5 month to familiar with Github
 * 平时作业
   - 细化，标准输入输出
-  - 
 * 公告时间
   1. 小助教申请 7月1日24点截止
   2. 7月2日上午
@@ -479,6 +478,30 @@
       1. 问题描述和学科背景
       2. 数据的输入和输出的定义与格式
       3. 数据分析结果的评价标准
+** 参考资料
+
+   - Allen Downey, Think Python 2e
+   - Fernando Perez et al., Scipy Lecture Notes
+   - Jeroen Janssens, Data Science at the Command Line
+   - David MacKay, Information Theory, Inference, and Learning Algorithms
+
+*** 辅助资料
+    - Eric S. Raymond, The Art of Unix Programming
+      
+      以道家思想剖析了设计的优美和永恒， _透明_ 原则源于此。
+
+    - https://www.tutorialspoint.com/
+
+      印度的编程样例网站，适合通过例子快速入门一项技能。
+
+    - http://py4e.com/
+
+      Python for everybody，全球知名的 Python 教程，新手友好。
+
+    - 苏勇, [[https://study.163.com/course/courseLearn.htm?courseId=232007][Linux 入门基础 - 网易云课堂]]
+      
+      通过 GNU/Linux 讲授 POSIX 环境基础。内容稍旧，思想不变。
+
 ** 教学团队
    - 教师 :: 续本达
    - 助教 :: 陈嘉杰、张爱强、陈晟祺
@@ -495,7 +518,7 @@
    - Python 是一门“解释型语言”，相对于“编译型语言”更易调试。
    - Python 的语法风格简明，即使对外行也易读。
      - 书写效率高，快速写出不错的程序。
-   - Python 可以直接调用 fortran, C/C++, R 等语言库，因此也叫“胶水”语
+   - Python 可以直接调用 Fortran, C/C++, R 等语言库，因此也叫“胶水”语
      言，即把不同的程序粘合在一起。
      - 易于与已有工具整合。
      - 促进团队分工，协作。
@@ -585,6 +608,7 @@
    - 例子：讲义
 ** 例子：撰写讲义
    [[./fig/tig-example.png]]
+   - 查看每次提交的改动。
 ** Git 三种状态
    - 已提交（committed） :: 改动安全保存在数据库中
    - 已修改（modified） :: 自上一次提交，有文件被修改
@@ -647,3 +671,13 @@ $ man git add
 git clone git@github.com:heroxbd/physics-data.git
 git log -p
      #+END_SRC
+** 今日新闻 G20
+   #+Attr_LaTeX: :height 0.5\textheight
+   [[./fig/news-G20-2019.jpg]]
+
+   - 国家主席习近平6月29日同美国总统特朗普在大阪举行会晤，就当前中美经贸
+     摩擦以及共同关心的国际和地区问题深入交换意见……
+
+   - 特朗普政府的政策对中美关系产生深远影响。同时，2016年美国大选中的
+     一次重要转折，对特朗普的竞选影响极大。
+
