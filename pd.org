@@ -681,3 +681,88 @@ git log -p
    - 特朗普政府的政策对中美关系产生深远影响。同时，2016年美国大选中的
      一次重要转折，对特朗普的竞选影响极大。
 
+* 第一周第二天
+  :PROPERTIES:
+  :EXPORT_FILE_NAME: w1-2
+  :EXPORT_BEAMER_HEADER+: \title{实验物理的大数据方法}
+  :EXPORT_OPTIONS: H:1 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
+  :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+  :EXPORT_DATE: 2019-07-02 清华
+  :EXPORT_BEAMER_HEADER+: \author{续本达}
+  :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
+  :EXPORT_BEAMER_THEME: Boadilla
+  :EXPORT_BEAMER_COLOR_THEME: crane
+  :EXPORT_BEAMER_FONT_THEME: professionalfonts
+  :END:
+** 概论复习
+   四个原则： _复现_ _透明_ _一次_ _最佳工具_
+
+** 命令环境
+   - 基本的命令
+     - ls :: list structure, 列出当前路径中的文件
+     - cd :: change directory, 改变当前路径
+     - sudo :: 使用最高权限执行操作
+     - apt :: Advanced Package Tool 软件管理器
+     - apt-get :: 软件管理下载器，与 apt 功能基本一致
+     - vim :: 文本编辑器
+     - nano :: 文件编辑器
+   - 每个命令都完成一件确定的事
+
+     Do one thing, do it right.
+
+   - 命令的组合有无限可能
+
+     作者无法预计用户如何使用他的工具
+
+     - 组合的可能性太多，入门比较难
+     - 一旦入门威力巨大
+** 文本编辑器
+   [[./fig/gedit.png]]
+
+** 文本编辑器(复古)
+   [[./fig/nano.png]]
+
+** 同学的一些反馈
+*** 老师操作太快，自学效率高
+    - 自己弄一遍好像也没有很难。希望老师操作的时候慢一点，讲讲每一步是做
+      什么，其它部分可以快一点。
+
+    - 感觉后面的演示有点快
+*** 与之前的课程差距很大                                     :B_exampleblock:
+    :PROPERTIES:
+    :BEAMER_env: exampleblock
+    :END:
+    课堂纪律有些乱，课程内容与之前学习的程设课程差别较大。
+*** 需要更多的帮助
+    感觉老师高估了大家对计算机的熟悉程度，好多同学只会使用图形化界面，
+    不习惯命令行界面，需要保姆式教学，熟悉命令行这一部分应该尽可能详细
+    且留充足的时间，安排足够的助教轮次帮助同学绕开大坑。
+
+** 作业：Git 练习
+   #+Attr_LaTeX: :height 0.7\textheight
+   [[./fig/git-distributed.png]]
+
+   - 建议：通过 SSH (secure shell) 通信。
+
+** 练习（不记分）：查看备课历史
+
+   - https://github.com/heroxbd/physics-data
+
+     #+BEGIN_SRC bash
+git clone git@github.com:heroxbd/physics-data.git
+git log -p
+     #+END_SRC
+
+** 今日新闻 G20
+   #+Attr_LaTeX: :height 0.5\textheight
+   [[./fig/news-G20-2019.jpg]]
+
+   - 国家主席习近平6月29日同美国总统特朗普在大阪举行会晤，就当前中美经贸
+     摩擦以及共同关心的国际和地区问题深入交换意见……
+
+   - 特朗普政府的政策对中美关系产生深远影响。同时，2016年美国大选中的
+     一次重要转折，对特朗普的竞选影响极大。
+** 邮件数据集
+   - 很多往来邮件
+     https://cloud.tsinghua.edu.cn/d/f8ad70a64cc6462a89fd/
+   - 邮件的结构
