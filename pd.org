@@ -716,11 +716,56 @@ git log -p
 
      - 组合的可能性太多，入门比较难
      - 一旦入门威力巨大
+
+** 命令环境自学教程
+   - 苏勇, [[https://study.163.com/course/courseLearn.htm?courseId=232007][Linux 入门基础 - 网易云课堂]]
+      
+     通过 GNU/Linux 讲授 POSIX 环境基础。内容稍旧，思想不变。
+   
 ** 文本编辑器
    [[./fig/gedit.png]]
 
 ** 文本编辑器(复古)
    [[./fig/nano.png]]
+
+   - 没有菜单，只有快捷键
+** Git 三种状态
+   - 已提交（committed） :: 改动安全保存在数据库中
+   - 已修改（modified） :: 自上一次提交，有文件被修改
+   - 已暂存（staged） :: 已修改的文件被作了标记，将被包含在下一轮提交中
+
+      [[./fig/git-modes.png]]              
+** Git 同步
+   #+Attr_LaTeX: :height 0.7\textheight
+   [[./fig/git-distributed.png]]
+
+   - 通过 SSH (secure shell) 通信。
+
+** 练习（不记分）：查看备课历史
+
+   - https://github.com/heroxbd/physics-data
+
+     #+BEGIN_SRC bash
+git clone git@github.com:heroxbd/physics-data.git
+git log -p
+     #+END_SRC
+
+** 内容较多未成体系
+   - 犹如造房子的准备材料阶段。
+   - 马上会用到的，逻辑：
+     - Github 是知名的协作平台，越来越多科研成果在 Github 或类似平台上发布
+     - 交作业需要使用 Github，在作业中体会日常工作流程
+     - Git 的客户端中，只有命令行是最可靠的。
+     - Git 命令运行依赖于 POSIX 环境。
+     - 大家一起安装配置了 POSIX 环境。
+     - 在 POSIX 环境需要进行文本编辑，用到了 =nano= 。
+
+       WSL，MacOS，GNU/Linux，远程 SSH 账户
+   - 一般工作中， =nano= 常用作应急编辑器，有更高级的编辑器可用。
+     - VSCode
+     - Emacs
+     - Vim
+     - 其它
 
 ** 同学的一些反馈
 *** 老师操作太快，自学效率高
@@ -738,21 +783,43 @@ git log -p
     不习惯命令行界面，需要保姆式教学，熟悉命令行这一部分应该尽可能详细
     且留充足的时间，安排足够的助教轮次帮助同学绕开大坑。
 
-** 作业：Git 练习
-   #+Attr_LaTeX: :height 0.7\textheight
-   [[./fig/git-distributed.png]]
+** 我的经历 2002年
+   《工具的狂热——我的 Linux 历程》
+*** 安装系统   
+    安装画面相当帅，但帅过之后我发现自己完完全全不熟悉这东西，而且那界
+    面的中文还不知道所云，调成英文我又不大认识（当时痛下决心一定学好英
+    语）。---- 就这样，装了一遍两遍三遍，万物遍，从中午搞到晚上，一个
+    问题一个问题在克服，最后终于每次安装失败都稳定在同一个错误上，抱着
+    英汉词典查出来那个很长很长的提示好像是在说第三张盘的某某包安装错误。
+*** 不知道 Password                                          :B_exampleblock:
+    :PROPERTIES:
+    :BEAMER_env: exampleblock
+    :END:
+    这一玩我傻了，什么 login: 啊，什么 password: 啊，我什么都不知道的
+    咧（事后诸葛亮，安装不完全只要 root 不需要密码就能进的）。已经半夜
+    了，我撅在床上这个憋屈啊，搞了大半天连个系统是啥样的都不知道，被一
+    个 password 直接挡了回来。
+** 我的经历 2003年
+*** 过了一年还是不知道 Password
+    但试机的时候我就木了，同样一个黑乎乎的屏幕上输 "Login:"和
+    "Password:" 之后就是一圈怪怪的提示符，我把记得的 DOS 命令全部试了
+    一遍，发现只有 "dir"和"cd" 可以用，就一个目录一个目录地探索起来。
+    这时我前排的一个抖腿男已经是手抚键盘上下翻飞了，那屏幕蒺藜咕噜地翻
+    了一页又一页，花花绿绿的不知道什么东西。我再一斜眼，左前方的小姑娘
+    已经开了一个蓝蓝的 Pascal 界面正在写测试程序呢，我这才想到重要是得
+    知道 pascal 在哪啊，不好意思地问了旁边的队友，才在 Free Pascal 上
+    一点点搞起来，真别扭，一点状态都没有。队友大师兄指点我几下就去帮别
+    人了，良久回来嫩嫩地说“我帮小妹妹调好了一个程序，小妹妹说我是牛人”。
+    听得我更没心情编程了，就又 "cd" "dir" 地胡乱扯了起来。不一会儿大师
+    兄开始玩 /usr/games/banner ，我也跟着弄了几下，心里飘飘忽忽一点底
+    都没有。
 
-   - 建议：通过 SSH (secure shell) 通信。
+*** URL                                                     :B_ignoreheading:
+    :PROPERTIES:
+    :BEAMER_env: ignoreheading
+    :END:
 
-** 练习（不记分）：查看备课历史
-
-   - https://github.com/heroxbd/physics-data
-
-     #+BEGIN_SRC bash
-git clone git@github.com:heroxbd/physics-data.git
-git log -p
-     #+END_SRC
-
+    http://jkparadise.space/home.php?mod=space&uid=13&do=blog&id=196    
 ** 今日新闻 G20
    #+Attr_LaTeX: :height 0.5\textheight
    [[./fig/news-G20-2019.jpg]]
@@ -765,4 +832,4 @@ git log -p
 ** 邮件数据集
    - 很多往来邮件
      https://cloud.tsinghua.edu.cn/d/f8ad70a64cc6462a89fd/
-   - 邮件的结构
+   - 邮件的结构 实例展示
