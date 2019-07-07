@@ -335,6 +335,71 @@
    - 2-2.5 month to familiar with Github
 * 平时作业
   - 细化，标准输入输出
+* Berkeley Course
+  Data science and Bayesian statistics for physical sciences
+
+  https://data.berkeley.edu/news/new-physics-data-science-course
+
+** Goal
+   Modern tools in data science and data analysis in physics.
+   
+** Audience
+   Upper division undergraduates.
+
+** Topic
+   - Theoretical, practical, their most common applications in
+     physical sciences.
+** Grades
+   30% projects, 40% homeworks, 30% class participation. 
+** Table of contents
+   - Numerical integration
+   - Introduction to probability and Bayesian inference
+   - More on Bayesian inference and intro to data modeling
+   - Linear Algebra
+   - Information theory
+   - Nonlinear equations and 1-d optimization
+   - Optimization in many dimensions
+   - Monte Carlo methods for integration and posteriors
+   - More advanced Bayesian analysis
+   - Variational approximations
+   - Interpolation and extrapolation of data
+   - Fourier methods
+   - Ordinary and partial differential equations
+   - Classification and inference with machine learning
+** Programming environment
+   - Jupyter notebook
+
+** Planck 
+   A series of tasks
+   
+   Use measurement of Planck satellite power spectrum to determine
+   cosmological parameters.
+
+   - Optimization, find MAP/MLE best fit parameters
+   - Determine covariances of all parameters using Laplace approximation.
+   - Fisher matrix experiment design predictions.
+   - analyze MCMC chains burn-in phase, Gelman-Rubin statistics, and chain
+     correlations.
+   - Plot 1-d and 2-d distributions and compare them
+     to MAP/Laplace approximation.
+   - Change one parameter and use importance sampling to produce new
+     posteriors.
+
+** LIGO
+   Use matched filtering methods and FFT to analyze first LIGO event
+   and show it has detected gravitational waves.
+
+** Machine learning on galaxies
+   - train the ML algorithms for regression
+   - test the training algorithms
+   - try KNN, gaussian processes, linear and quadratic regression,
+     support vector machines, neural networks, random forest...
+   - classification: use galaxy zoo galaxy
+     morphology (spirals ellipticals, irregulars...) training dat.
+   - Use photometry first, then add image information and observe how
+     the accuracy improves.
+** grader
+   https://okpy.org/
 * 公告时间
   1. 小助教申请 7月1日24点截止
   2. 7月2日上午
