@@ -222,6 +222,16 @@
    - https://scipy-lectures.org/intro/intro.html
 
      由 Python 科学计算领域最资深作者亲自执笔编写。
+* 用 Python 玩转数据
+  http://www.icourse163.org/learn/NJU-1001571005
+** Python 入门介绍
+   - 主线是 Python 的广泛应用
+   - 交互模式和文件执行模式
+   - 缩进
+   - Python 中的常量
+     - stu-name 不是合法的变量名
+   - 屏幕书写很适合制作 MOOC
+   - 讲课很口语化，在 MOOC 上更有亲和力
 * Learn to Program -- The Fundamentals
 * 计算机科学和Python编程导论
 * Linux 入门基础 - 网易云课堂
