@@ -104,13 +104,7 @@
 
 作业：来自大学的邮件
 
-* numpy 数组, array 运算 (slice, dtype cast), HDF5 h5py
-
 提供资料： Matlab 功能对比
-
-* 实践： numpy array 与 List 的比较
-
-作业：使用 numpy 和筛法找 100000 以内素数
 
 ## 星期五
 
@@ -118,17 +112,30 @@
 
 # 第二周 16 学时 6A211：Python 数据处理工具
 ## 星期一
+* 模块
+* numpy 数组, array 运算 (slice, dtype cast)
 * numpy 矩阵，运算，形状，线性代数
+* 如何看文档，如何写文档
+* 实践： numpy array 与 List 的比较
+
+* 作业：使用 numpy 和筛法找 100000 以内素数
+
+## 星期二
+* 常用数据格式标准：
+  - CSV
+  - JSON
+  - HDF5
+* 绘图工具：
+  - 绘图的要领
+  - Matplotlab/Seaborn
 * 实践：激光干涉引力波天文台 LIGO 数据格式
   * 引力波是什么
   * 黑洞、中子星合并
-
-## 星期二
-* scipy，如何看文档，如何写文档
+* 作业：csv, json, hdf5 等的 Numpy 输入输出练习
 
 ## 星期三
-* Matplotlab/Seaborn
-
+* scipy
+  - LIGO 的信号处理
 ## 星期四
 * pyGeant
 
