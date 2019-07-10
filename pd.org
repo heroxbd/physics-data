@@ -908,3 +908,127 @@ git log -p
    - 很多往来邮件
      https://cloud.tsinghua.edu.cn/d/f8ad70a64cc6462a89fd/
    - 邮件的结构 实例展示
+* 第二周第三天
+  :PROPERTIES:
+  :EXPORT_FILE_NAME: w2-3
+  :EXPORT_BEAMER_HEADER+: \title{实验物理的大数据方法}
+  :EXPORT_OPTIONS: H:1 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
+  :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+  :EXPORT_DATE: 2019-07-10 清华
+  :EXPORT_BEAMER_HEADER+: \author{续本达}
+  :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
+  :EXPORT_BEAMER_THEME: Boadilla
+  :EXPORT_BEAMER_COLOR_THEME: crane
+  :EXPORT_BEAMER_FONT_THEME: professionalfonts
+  :END:
+** 柏拉图世界观
+   [[./fig/SCI.png]]
+
+   - 数学世界独立存在，由它推演出物理世界
+** 实验物理
+   #+Attr_LaTeX: :height 0.6\textheight
+   [[./fig/SCI.png]]
+   - 实验仪器是从物理世界到人类的一条信息通道
+     - 实验仪器的分辨率有限，我们在进行有损通信
+   
+** 举个例子
+   [[./fig/reconstruction.png]]
+   - 建立模型解释物理世界发生的现象，通过统计方法反推本质。
+** 大作业安排
+   - 2019.7.11 - 2019.7.26
+     - 模拟实验测量
+   - 2019.7.22 - 2019.8.11
+     - 分析实验测量
+*** 上课时间变动 :B_alertblock:
+    :PROPERTIES:
+    :BEAMER_env: alertblock
+    :END:
+    - 2019.7.17 停上，在 6A207 答疑，改到 2019.9.19 上课。
+      - 物理系同学搬宿舍
+** 实验测量的模拟
+   - 输入 :: 物理对象的信息，随机因素的概率分布
+   - 输出 :: 多阶段，最终输出为模拟的实验测量原始数据
+   - 采分 :: 各阶段的实现，最终输出的正确性，作业报告
+** TOLA 射电干涉的模拟
+   #+BEGIN_SRC dot :file ./TOLA-pipeline.pdf :cmdline -Kdot -Tpdf
+     digraph dataset {
+     bgcolor="#ffffff00"
+
+     S [label = "i (1..N) 射电源的\n 方向、频率、振幅", shape=box]
+     B [label = "j (1..M) 基站\n 位置", shape=box]
+     P [label = "i 射电源在 j 基站上\n诱导的信号"]
+     Q [label = "j 基站上\n接收的总信号"]
+
+     S -> P
+     B -> P
+     P -> Q[label="线性相加"]
+
+     O [label = "时钟偏移的\n高斯分布标准差", shape=box]
+     F [label = "j 基站的时钟偏移", shape=box]
+     O -> F [label = "抽样"]
+     F -> Q
+     }
+   #+END_SRC
+
+   #+RESULTS:
+   #+Attr_LaTeX: :height 0.7\textheight
+   [[file:./TOLA-pipeline.pdf]]
+   
+** 二维金属等能面测量的模拟
+
+   #+BEGIN_SRC dot :file ./isoenergy-pipeline.pdf :cmdline -Kdot -Tpdf
+     digraph dataset {
+     bgcolor="#ffffff00"
+
+     S [label = "二维金属的等能面\n态密度 原始", shape=hexagon]
+     H [label = "二维金属的等能面\n态密度"]
+     H -> S [label = "格式转换", dir="back"]
+     R [label = "散射中心在原点时的\n实空间态密度"]
+     H -> R [label = "动量序对积分"]
+
+     N [label = "散射中心数量"]
+     I [label = "散射中心位置"]
+     N -> I [label = "抽样"]
+     T [label = "扫描隧道显微镜\n读出信号"]
+     R -> T [label = "平移叠加"]
+     I -> T         
+     }
+   #+END_SRC
+
+   #+Attr_LaTeX: :height 0.7\textheight
+   #+RESULTS:
+   [[file:./isoenergy-pipeline.pdf]]
+** 二维金属等能面测量的模拟 例子
+   #+Attr_LaTeX: :width 0.45\textwidth :center
+   [[./fig/scatter-momentum.png]]
+   #+Attr_LaTeX: :width 0.45\textwidth :center
+   [[./fig/scatter-real.png]]
+** 中微子实验光电子读出的模拟
+   #+BEGIN_SRC dot :file ./PMT-pipeline.pdf :cmdline -Kdot -Tpdf
+     digraph dataset {
+     bgcolor="#ffffff00"
+
+     S [label = "光电子到达时间\n振幅、采样通道"]
+     T [label = "单光电子响应\n时间曲线"]
+
+     G [label = "光电子总信号"]
+     S -> G
+     T -> G
+
+     N [label = "白噪声幅度", shape=box]
+     W [label = "白噪声"]
+     N -> W[label = "抽样"]
+
+     G -> D [label = "相加"]
+     W -> D
+     
+     D [label = "探测器数据"]
+     }
+   #+END_SRC
+
+   #+Attr_LaTeX: :height 0.7\textheight
+   #+RESULTS:
+   [[file:./PMT-pipeline.pdf]]
+** 分组
+   - 同学们先联络好，具体操作在 Github Classroom 上进行
+   - 每队至多三人
