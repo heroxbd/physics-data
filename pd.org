@@ -232,6 +232,10 @@
      - stu-name 不是合法的变量名
    - 屏幕书写很适合制作 MOOC
    - 讲课很口语化，在 MOOC 上更有亲和力
+** 模块
+   - 模块是一个逻辑概念，文件是与之对应的实体概念
+** range 迭代器
+   好处：用多少就生成多少，甚至可以制作无穷的迭代器。适合大数据应用场景。
 * Learn to Program -- The Fundamentals
 * 计算机科学和Python编程导论
 * Linux 入门基础 - 网易云课堂
@@ -937,13 +941,15 @@ git log -p
 ** 大作业安排
    - 2019.7.11 - 2019.7.26
      - 模拟实验测量
+     - 包含只选《实验物理的大数据方法（1）》前两周课同学的队伍截止到 2019.8.4
+       
    - 2019.7.22 - 2019.8.11
      - 分析实验测量
 *** 上课时间变动 :B_alertblock:
     :PROPERTIES:
     :BEAMER_env: alertblock
     :END:
-    - 2019.7.17 停上，在 6A207 答疑，改到 2019.9.19 上课。
+    - 2019.7.17 停上，在 6A207 答疑，改到 2019.7.19 上课。
       - 物理系同学搬宿舍
 ** 实验测量的模拟
    - 输入 :: 物理对象的信息，随机因素的概率分布
@@ -956,12 +962,12 @@ git log -p
 
      S [label = "i (1..N) 射电源的\n 方向、频率、振幅", shape=box]
      B [label = "j (1..M) 基站\n 位置", shape=box]
-     P [label = "i 射电源在 j 基站上\n诱导的信号"]
+     P [label = "i 射电源在基准 1 号基站\n诱导的信号"]
      Q [label = "j 基站上\n接收的总信号"]
 
      S -> P
      B -> P
-     P -> Q[label="线性相加"]
+     P -> Q[label="线性相加\n时间平移"]
 
      O [label = "时钟偏移的\n高斯分布标准差", shape=box]
      F [label = "j 基站的时钟偏移", shape=box]
@@ -970,8 +976,8 @@ git log -p
      }
    #+END_SRC
 
-   #+RESULTS:
    #+Attr_LaTeX: :height 0.7\textheight
+   #+RESULTS:
    [[file:./TOLA-pipeline.pdf]]
    
 ** 二维金属等能面测量的模拟
@@ -980,18 +986,18 @@ git log -p
      digraph dataset {
      bgcolor="#ffffff00"
 
-     S [label = "二维金属的等能面\n态密度 原始", shape=hexagon]
      H [label = "二维金属的等能面\n态密度"]
-     H -> S [label = "格式转换", dir="back"]
-     R [label = "散射中心在原点时的\n实空间态密度"]
+     R [label = "普通散射中心在原点时的\n实空间态密度"]
      H -> R [label = "动量序对积分"]
 
-     N [label = "散射中心数量"]
-     I [label = "散射中心位置"]
-     N -> I [label = "抽样"]
-     T [label = "扫描隧道显微镜\n读出信号"]
-     R -> T [label = "平移叠加"]
-     I -> T         
+     RD [label = "普通散射中心\n扫描电子显微镜图像"]
+     R -> RD [label = "衰减"]
+
+     M [label = "磁性散射中心在原点时的\n实空间态密度"]
+     H -> M [label = "动量序对积分\n且带额外相位"]
+
+     M -> MD [label = "衰减"]
+     MD [label = "磁性散射中心\n扫描电子显微镜图像"]
      }
    #+END_SRC
 
@@ -1032,3 +1038,4 @@ git log -p
 ** 分组
    - 同学们先联络好，具体操作在 Github Classroom 上进行
    - 每队至多三人
+
