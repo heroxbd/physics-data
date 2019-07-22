@@ -159,8 +159,38 @@
 * Makefile: 3
     
 # 第四周 16 学时：Python 科学软件
-* Pandas: 2
-* pandas/scikit_learn: 4
+## 星期一：大数据的特点
+* 大数据：第四种科学范式
+* 关系代数：一切都是表格
+* Numpy structured array
+* Pandas DataFrame
+* 作业：在 Numpy structured array 或 Pandas DataFrame 上进行的简单关系代数运算
+
+## 星期二：关系代数实际应用
+* 大作业第二阶段安排
+* Pandas Join, Group by
+* Python 的 sqlite3 模块与简单的 SQL 语句
+* 作业：使用 Pandas DataFrame 或者 sqlite3 进行简单的关系代数运算
+
+## 星期三：Python 驱动其它软件的例子
+* R 的 python 调用: Rpy2
+* 使用 R data.frame
+* 使用 R ggplot2 画图
+* 其它例子
+  + ROOT 的 python 调用
+  + GEANT4 的 python 调用
+* 作业：R ggplot2 画图练习
+
+## 星期四：下一步的学习方向
+* 高性能计算与超级计算机
+  + 使用 Makefile 调度的例子
+* 云计算
+* MapReduce 与函数式编译
+  + 错误恢复
+* 信号处理 (以其昏昏使人昭昭)
+* 统计学与机器学习
+* 大数据、深度学习与人工智能
+* 大作业的深入研究
 
 # 第五周 (可选)：研究课题展示
 * 匿名评教，讨论
