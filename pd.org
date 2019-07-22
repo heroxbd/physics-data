@@ -1039,3 +1039,257 @@ git log -p
    - 同学们先联络好，具体操作在 Github Classroom 上进行
    - 每队至多三人
 
+* 第三周第三天
+  :PROPERTIES:
+  :EXPORT_FILE_NAME: w3-3
+  :EXPORT_BEAMER_HEADER+: \title{GNU Make 的数据生产线}
+  :EXPORT_OPTIONS: H:1 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
+  :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+  :EXPORT_DATE: 2019-07-18 清华
+  :EXPORT_BEAMER_HEADER+: \author{续本达}
+  :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
+  :EXPORT_BEAMER_THEME: Boadilla
+  :EXPORT_BEAMER_COLOR_THEME: crane
+  :EXPORT_BEAMER_FONT_THEME: professionalfonts
+  :END:
+** 复习：命令行的函数调用
+   #+BEGIN_SRC sh
+func a1 a2
+a1 : $1; a2 : $2
+   #+END_SRC
+
+   - 变量 =$a= ，或 =${a}=
+     - 防止歧义 =${a}b= 与 =$ab=
+
+** 复习：程序返回值
+   - 返回 0 代表成功
+   - 返回非 0 代表有错误，不用的值可以代表不同的错误
+   - 可以由此实现条件结构和 =while= 循环
+     #+BEGIN_SRC sh
+       while [ -d $dir ]; do ...; done
+     #+END_SRC
+
+     #+BEGIN_SRC sh
+       if command; then ...; fi
+     #+END_SRC
+
+** 复习：循环
+   - =while= 和 =for= 循环
+
+   #+BEGIN_SRC sh
+     for fruit in apple pear lemon; do
+         echo "我吃 ${fruit}"
+     done
+   #+END_SRC
+** 复习：POSIX 基本权限
+   - rwx: read, write, execute
+   - 421: 0b100, 0b10, 0b1
+   - uga: user, group, all
+
+#+BEGIN_SRC sh
+  chmod a+w '<directory>'
+#+END_SRC
+
+** 复习：命令行进程控制
+   - Ctrl-C 终止
+   - Ctrl-Z 挂起
+     - =bg= 到背景进程
+     - =fg= 到前端进程
+     - =sleep 100 &=
+     - =jobs= 查看进程
+     - =kill %3= 终止第3个进程
+
+** 正则表达式
+   - 基本的形式语言，强大地匹配字符串
+     - 理论计算机视角：匹配的字符串是可以被正则表达式定义的自动机接受的输入
+     - 用户可以只关注形式语言的使用
+     - 开发者可以只专注于形式语言的引擎
+   - 由基本定义演化出无穷种的用法
+     - _最佳工具_ 的一个特征
+   - =grep= , =sed=
+
+** 补充 =find=
+   - 用来查找文件
+     - 目录是一种特殊的文件
+   #+BEGIN_SRC sh
+     find .
+     find . -name "*.sh"
+     find . -type d
+     find . -name "*bin" -and -type f
+   #+END_SRC
+
+** 补充：文件批量重命名
+   - 切换至 =Shell-Scripts.slides.html=
+   
+** 彩蛋： =cowsay= =sl=
+   #+BEGIN_SRC sh
+     apt install cowsay-off sl
+     cowsay "Am I cute?"
+   #+END_SRC
+
+*** 彩蛋: bb
+    - 安装 =bb= ，执行
+
+** 其它工具与练习：mutt
+   #+BEGIN_SRC sh
+     apt install mutt
+     mutt -f xxxx.mbox
+   #+END_SRC
+
+** 命令行学习的几点建议
+   - 耐心：学习一件新事物，需要一定时间适应
+   - 创新：创新地组织工具，尝试使用命令替代程序
+   - 实用：具体问题具体分析，选择 _最佳工具_
+*** 最佳工具
+    - 正则表达式
+    - 并行计算，高性能计算
+
+** 批量处理海量数据
+*** 命令行探索之后，要将数据处理方法自动化
+    - 调用很多命令和程序
+    - 写很多自定义的脚本
+    - 处理很多数据，有很多中间结果
+      - 中间结果的间的依赖关系可以很复杂
+    - 程序有更新怎么办？数据有更新怎么办？
+*** _复现_ 原则的要求 :B_exampleblock:
+    :PROPERTIES:
+    :BEAMER_env: exampleblock
+    :END:
+    要记录下来以什么样的顺序和参数运行什么命令，执行什么程序。
+
+** 数据流水线的构造目标
+   - 把流程系统化成输入、输出与过程三要素。
+     - 而向数据编程，data-driven programming
+   - 系统表达输入数据、输出数据和中间结果的依赖关系。
+   - 高效执行，包括并行处理和整合超级计算机等。
+   - 错误恢复
+     - 修正错误后，可以从最后一步正确的数据开始继续执行。
+
+** Make
+   - =make= 工具已经有 40 多年的历史，最初是用来管理 C 语言程序的编译。
+     - 根据依赖关系决定命令执行顺序
+     - 正好满足我们的所有需求
+   - =GNU make= 是 =GNU= 运动中，对 =make= 进行的招展，更加适合管理数据
+     - =GNU= : =GNU is Not Unix=
+*** 作用
+    1. 实现 _复现_ 原则
+    2. 管理程序运行，在超级计算机上运行
+    3. 从错误中恢复
+** Makefile
+   - 基本语法
+     #+BEGIN_SRC makefile -i
+target: source
+	program source target #如何做
+     #+END_SRC
+
+** 变量
+   - 变量取值
+     #+BEGIN_SRC makefile -i
+a:=1
+$(info $(a))
+     #+END_SRC
+
+     - 调用时使用 =$( )=
+   - _一次_ 原则，避免重复
+     #+BEGIN_SRC makefile -i
+target: source
+	program source target #如何做
+	program $^ $@ #如何做
+     #+END_SRC
+** 调用命令
+     #+BEGIN_SRC makefile -i
+a:=$(shell seq -w 0 9)
+     #+END_SRC
+   
+** 一般匹配关系 pattern
+     #+BEGIN_SRC makefile -i
+%.png: %.h5
+	xxxxx
+     #+END_SRC
+
+** 特殊目标
+   - =.PHONY= 代表无对应文件的目标
+   - =.DELETE_ON_ERROR= 如果出错就把坏文件删掉
+   - =.SECONDARY= 保留中间结果
+     
+     #+BEGIN_SRC makefile -i
+.PHONY: all
+all: xxxx
+
+# Delete partial files when the processes are killed.
+.DELETE_ON_ERROR:
+# Keep intermediate files around
+.SECONDARY:
+     #+END_SRC
+
+* 第三周第四天
+  :PROPERTIES:
+  :EXPORT_FILE_NAME: w3-4
+  :EXPORT_BEAMER_HEADER+: \title{课堂综合练习：Python, Git, Shell, Make}
+  :EXPORT_OPTIONS: H:1 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
+  :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+  :EXPORT_DATE: 2019-07-19 清华
+  :EXPORT_BEAMER_HEADER+: \author{续本达}
+  :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
+  :EXPORT_BEAMER_THEME: Boadilla
+  :EXPORT_BEAMER_COLOR_THEME: crane
+  :EXPORT_BEAMER_FONT_THEME: professionalfonts
+  :END:
+** 回顾
+*** 科学数据处理的原则 :B_alertblock:
+    :PROPERTIES:
+    :BEAMER_env: alertblock
+    :END:
+    _复现_ _透明_ _一次_ _最佳工具_
+
+*** 版本控制
+    Git 与队友分工协作，与明天的自己协作
+
+*** 数据流水线
+    GNU Make 管理数据的依赖与转换，实现错误恢复和并行计算
+
+*** 命令环境
+    POSIX 环境中强大的小工具组合，开发与使用相融合
+
+*** 计算语言
+    Python 语法友好，工具丰富，统领 C/C++/Fortran 库
+** 引力波探索回顾
+   - 人类正在全球建设引力波观测网络：美国 LIGO，欧洲 Virgo，日本 KAGRA
+     - 更好地定位引力波信号源
+   - 开放科学：LIGO 公开了引力波观测的关键数据。 _复现_ 的典范
+     - 开放数据经简化之后用于教学，[[https://www.gw-openscience.org/s/events/GW150914/LOSC_Event_tutorial_GW150914.html][传送门]]
+     - ...因此有了 UC Berkeley 的 /Data science and Bayesian statistics for physical sciences/ 课程大作业
+       [[https://phy151-ucb.github.io/seljak-phy151-fall-2018][传送门]]
+     - ...因此有了这节课
+   - 我们借助 LIGO 的数组进行了科学数据可视化的初步。随手画图，
+     - _复现_ 性较差
+     - 数据如果有变化程序也要修改，容易违背 _一次_ 原则
+** 综合
+   #+attr_beamer: :overlay <+->
+   1. 整理 LIGO 原数据，放在 =data/= ，加入 =.gitignore=
+   2. 把 =readligo.py= 加入 Git 管理
+   3. 建立 Makefile，写入画图过程
+   4. 进行 Fourier 变换，画出频谱
+   5. 算出振幅密度，画图
+   6. 读取广义相对论预言的波形，画图
+   7. 算出信噪比相对强度谱，画图
+   8. 对相对谱进行滤波，找到信号
+   9. 通过 =specgram= 寻找信号，作图
+* 第四周第一天
+  :PROPERTIES:
+  :EXPORT_FILE_NAME: w4-1
+  :EXPORT_BEAMER_HEADER+: \title{课堂综合练习：Python, Git, Shell, Make}
+  :EXPORT_OPTIONS: H:1 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
+  :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+  :EXPORT_DATE: 2019-07-19 清华
+  :EXPORT_BEAMER_HEADER+: \author{续本达}
+  :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
+  :EXPORT_BEAMER_THEME: Boadilla
+  :EXPORT_BEAMER_COLOR_THEME: crane
+  :EXPORT_BEAMER_FONT_THEME: professionalfonts
+  :END:
+** 为什么没有讲统计方法？
+   - 有其它课程可以学
+** 数据库
+   - 自动 out-of-core computing
+   - 自动 并行
