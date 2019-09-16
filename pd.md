@@ -199,11 +199,9 @@
 # 技能树
   * GNU/Linux 基本命令行操作
   * Git 版本控制基本操作
-  * Jupyter 的使用
   * GNU Make 的使用
   * shell script
   * python
-  * R
 
 ## 备选
   * Matlab
@@ -211,6 +209,8 @@
   * CERN ROOT
   * Scala/Spark/Hadoop
   * gnuplot
+  * R
+  * Jupyter
   
 # 教学团队
   * 教师 1 人，助教 3 人左右，小助教 9 人左右。

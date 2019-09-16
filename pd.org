@@ -317,6 +317,18 @@
 * 实验楼 - Linux 基础入门（新版）
   - 交互式地学习
   - 文件的基本操作
+* Data Manipulation at Scale
+** Big data
+   Any data that is expensive to manage and hard to extract value
+   from. - Michael Franklin UC Berkeley
+
+   - 10000 100KB Excel 表格
+   - 134万条边，1万个节点的复杂网络
+
+   - Erik Larson, 1989
+     - The keepers of big data say that they do it for the consumer's
+       benefit. Data have a way of being used for purposes other than
+       originally intended.
 * GEANT4
   https://groups.lal.in2p3.fr/ED-geant4/ttt/program/
 
@@ -347,6 +359,8 @@
    - Project management
    - More github features is needed
    - 2-2.5 month to familiar with Github
+** alternatives
+   - CATSOOP https://catsoop.org/
 * 平时作业
   - 细化，标准输入输出
 * Berkeley Course
@@ -1278,18 +1292,274 @@ all: xxxx
 * 第四周第一天
   :PROPERTIES:
   :EXPORT_FILE_NAME: w4-1
-  :EXPORT_BEAMER_HEADER+: \title{课堂综合练习：Python, Git, Shell, Make}
+  :EXPORT_BEAMER_HEADER+: \title{关系代数}
   :EXPORT_OPTIONS: H:1 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
   :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
   :EXPORT_DATE: 2019-07-19 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
   :EXPORT_BEAMER_THEME: Boadilla
-  :EXPORT_BEAMER_COLOR_THEME: crane
+  :EXPORT_BEAMER_COLOR_THEME: seahorse
   :EXPORT_BEAMER_FONT_THEME: professionalfonts
   :END:
-** 为什么没有讲统计方法？
-   - 有其它课程可以学
-** 数据库
-   - 自动 out-of-core computing
-   - 自动 并行
+** Git 的 Remote 与 Merge
+
+** Makefile 的高级应用示范
+
+** 科学范式的演化
+   #+attr_beamer: :overlay <+->
+   - 经验时代：占星术等等
+   - 理论时代(17世纪起)：牛顿力学，微积分，麦克思韦方程，相对论等等
+   - 计算时代(20世纪中)
+     - 理论一般由程序描述，大规模数值模拟成为可能
+     - 计算物理、计算化学等等
+   - 数据时代(21世纪初)
+     - 从数据中直接总结经验模型，与理论模型同等重要
+     - 虚拟天文台等等
+** 数据时代的要素
+   - 存储空间
+     - 存储介质物美价廉：小于 1GB/元
+   - 计算能力
+     - 每 18 个月翻一倍
+   - 传感器
+     - 取数能力大大增强
+
+*** 数据本身具有价值
+    数据在被采集之外的目的中发挥作用
+    
+    - 通过人们对感冒症关的探索预测流感爆发
+    - 黑洞吸积盘“照片”，多个射电望远镜联合交换数据组成相干阵列
+
+** 工商业与科学的融合
+   - 工商业的决策开始基于数据
+     - 市场调查，AB 测试，用户隐私数据收集
+     - 分析消费习惯，预测需求，进行定价
+     - 制定生产、物流、仓储策略
+   - 金融交易：基于历史数据建立模型，半自动或全自动交易
+
+** 知识储备与技能组合
+   #+Attr_LaTeX: :height 0.65\textheight
+   [[./fig/Data_Science_VD.png]]
+
+   - 数据时代需要专业知识、数理统计和黑客技术等多方面技能
+   - 本课程讲的都是黑客技术，没有讲统计方法？ \to 其它课程
+
+** 数据的存储格式
+   
+   - CSV :: 文本表格
+   - JSON :: 文本字典结构
+   - HDF5 :: 二进制树状结构组织的表格
+
+   - 有没有一种抽象的数据表示，把引擎与应用分离？
+     - 关系代数：一切都是关系，关系都是表格
+
+** Numpy Structured Array
+   - 复合型 =dtype=
+     
+     #+BEGIN_SRC python
+       import numpy as np
+       np.zeros(3, dtype=[("i", np.int), ("v", np.float), ("w", np.int, 3)])
+     #+END_SRC
+
+   - =PE-info.h5=
+
+** Structured Array 基本操作
+   - indexing 取数
+   - 取列
+
+** Pandas
+   - Python 中处理表格类数据的工具
+
+     =apt install python3-pandas=
+
+   - indexing 取数
+   - 取列
+   - 连接
+     - 左，右
+   - 笛卡尔积
+   - 集合运算
+   
+** 关系代数
+   #+attr_beamer: :overlay <+->
+   - 关系：${(r, s)|r \in R, s \in S}$
+   - 关系代数：在集合基础上定义关系运算的封闭系统
+     - 封闭系统：运算作用于一个或多个关系上来生成一个关系
+
+   - 围绕关系代数设计的关系数据库是存储海量数据的标准
+     - 代表：Structure Query Language (SQL) 语言
+   - 关系代数的思想具有一般性：
+     - 管理数据
+     - 添加数据
+     - 分析数据
+
+** 基本动机
+   - 关系代数设计师 Todd，图灵奖工作
+   - 数据都应该自我描述
+     - 即使数据的存储形式变了，对程序进行操作的程序也不应该改变
+     - 反例：链表
+     - 反倒：随意写成的 Excel 表格
+   - 方便扩展到大规模的数据库中
+
+*** 实用价值
+   - 引擎优化与应用分工
+   - 引擎：自动 out-of-core computing (超出内存的运算)
+   - 引擎：自动并行计算
+
+** 直观理解：一切都是表格
+
+   | Event | Channel | Time | Weight |
+   |-------+---------+------+--------|
+   |     0 |       0 |    1 |    1.1 |
+   |     0 |       0 |  1.1 |   1.15 |
+   |     0 |       2 |  1.2 |    1.3 |
+   |     1 |       3 |  0.8 |    0.9 |
+
+   | Event | Channel | Wave          |
+   |-------+---------+---------------|
+   |     0 |       0 | [0,0.1,...,0] |
+   |     0 |       2 | [0,0.2,...,0] |
+   
+
+** 关系代数的基本运算
+   - 集合运算：交、并、差
+   - 连接(Join)
+   - 投影(Projection)
+   - 笛卡积(Product)
+   - 分类运算(Groupby)
+* 第四周第四天
+  :PROPERTIES:
+  :EXPORT_FILE_NAME: w4-4
+  :EXPORT_BEAMER_HEADER+: \title{实验物理的大数据方法：面向未来}
+  :EXPORT_OPTIONS: H:1 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
+  :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+  :EXPORT_DATE: 2019-07-25 清华
+  :EXPORT_BEAMER_HEADER+: \author{续本达}
+  :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
+  :EXPORT_BEAMER_THEME: Boadilla
+  :EXPORT_BEAMER_COLOR_THEME: seahorse
+  :EXPORT_BEAMER_FONT_THEME: professionalfonts
+  :END:
+** 大作业网站
+   https://data-contest.net9.org/
+** 大作业：金属等能面
+   - 郝镇齐时间
+** 大作业：TOLA 射电干涉源
+** Python 驱动 C++ 程序
+   - 很多“严肃”程序由 C++ 写成，可以使用 Python 将其变换成 REPL
+     - 非常方便探索
+     - pyROOT
+     - Geant4-python
+     - Boost-python
+
+** 技能集合
+   #+Attr_LaTeX: :height 0.65\textheight
+   [[./fig/Data_Science_VD.png]]
+
+   - 数据时代需要 *专业知识* 、 *数理统计* 和 *黑客技术* 等多方面技能。
+** 黑客技能
+*** 科学数据处理的原则 :B_alertblock:
+    :PROPERTIES:
+    :BEAMER_env: alertblock
+    :END:
+    黑客的审美： _复现_ _透明_ _一次_ _最佳工具_
+
+*** 版本控制
+    Git 与队友分工协作，与明天的自己协作
+
+    Git 是“搬砖工地安全帽”，无头盔禁止上岗
+
+*** 关系代数
+    数据表示成关系，数据的操作表示成关系代数运算
+
+*** 数据流水线
+    GNU Make 管理数据的依赖与转换，实现错误恢复和并行计算
+
+** 黑客技能（二）
+
+*** 正则表达式
+
+*** 命令环境
+    POSIX 环境中强大的小工具组合，开发与使用相融合
+
+*** 多语言融合
+
+*** 计算语言
+    Python 语法友好，工具丰富，统领 C/C++/Fortran/R/SQL 库
+
+** 技术问题：提问的智慧
+   - 关键：如何让他人以最小的努力复现出你的问题
+   - http://www.catb.org/~esr/faqs/smart-questions.html
+
+   - Stupid:
+
+     救命! 我的程序又写不了！
+
+   - Smart:
+
+     我的 VSCode 的启动时会卡住，随后崩溃。
+
+   - Smarter:
+
+     我的 VSCode 的启动时会卡住，随后崩溃。错误信息是"xxx,yyy"。我已经
+     尝试过 aaa,bbb，但是错误信息变成了 ggg,hhh，依旧会崩溃。
+
+** 计算历史：大型机
+   [[./fig/main-frame.jpg]]
+   
+   - 一台大型计算机，用户通过终端 (Terminal) 连接
+** 计算历史：个人计算机
+   - 1981年
+
+   [[./fig/ibm-pc.jpg]]
+** 计算历史：个人计算机组成集群
+   - 1990s 个人计算机组成集群 "beowulf"
+
+     #+Attr_LaTeX: :height 0.65\textheight
+     [[./fig/computer-cluster.jpg]]
+     
+** 高性能计算与超级计算机
+   [[./fig/supercomputer.jpg]]
+
+   - 更大的计算机集群，优化节点间的通信，共享存储。
+** 虚拟机与云计算
+   - 虚拟机：软件模拟计算机
+   - 云计算：开放平台，自动生成虚拟机
+
+** 技术问题：TUNA 技术群聊天室
+   - TUNA 主页 
+
+     https://tuna.moe/
+
+   - TUNA 技术群，黑客（广义）技术问题探讨
+
+** MapReduce 与函数式编程
+   + 错误恢复
+   + 基本思想
+     - 一切都是函数
+
+** 信号处理 (以其昏昏使人昭昭)
+   - 各系开设的《信号与系统》
+
+** 统计学习与机器学习
+   - 数学基础
+
+** 大数据、深度学习与人工智能
+   - 黑客技术基础，为统计学习与机器学习提供了基本环境
+   - 有许多优秀的公开课程
+
+** 大作业的深入研究：中微子
+   - 明天上午10点 清华大学刘卿楼 105
+   - John Learned 教授将给我们带来 The Saga of Atmospheric Neutrinos
+     报告。
+
+   - Learned 教授从1970年代开始活跃在中微子和宇宙线实验领域，是水(冰)下
+     和地下中微子实验领域的先驱者。他的科学思想和技术路线对世界上的中微
+     子探测器都产生了深远的影响。
+
+     http://hep.tsinghua.edu.cn/~orv/
+** 教学团队
+   - 教师 :: 续本达
+   - 助教 :: 陈嘉杰、张爱强、陈晟祺、高一川、刘晓义
+   - 顾问 :: 阮东、郝镇齐、张宗煜、付祈安、唐如麟
+   - 小助教 :: 张翔宇、王宇逸、武益阳、邓旭、丁思勤、李岸峰
+
