@@ -12,105 +12,398 @@
 #+sTARTUP: beamer
 
 * 价值
-  - 工具审美
+  - 工
+具
+审
+美
 
-    学物理的同学亟需
+    学
+物
+理
+的
+同
+学
+亟
+需
 
-  - 实践性的课程：没有必要记忆，但一定要在短时间内实践
+  - 实
+践
+性
+的
+课
+程
+：
+没
+有
+必
+要
+记
+忆
+，
+但
+一
+定
+要
+在
+短
+时
+间
+内
+实
+践
 * Python for everyone -- control flow
 ** Why do we program?
-   - Delegate repeatative tasks
-   - Record what you did
+   - Delegate
+repeatative
+tasks
+   - Record
+what
+you
+did
 *** Digital age
-    - We just buy device, use devices.
-      - How about we understanding devices, fixing devices and making
+    - We
+just
+buy
+device,
+use
+devices.
+      - How
+about
+we
+understanding
+devices,
+fixing
+devices
+and
+making
         devices?
-      - Programming is one important step.  You build your world,
-        change the world and participate in creating and nurturing of
-        civilization by programming in this age.
-      - If you don't know programming, someone else will design your
-        world for you.
+      - Programming
+is
+one
+important
+step.
+You
+build
+your
+world,
+        change
+the
+world
+and
+participate
+in
+creating
+and
+nurturing
+of
+        civilization
+by
+programming
+in
+this
+age.
+      - If
+you
+don't
+know
+programming,
+someone
+else
+will
+design
+your
+        world
+for
+you.
 *** Not only a programmer needs to learn program
-    - Not even a physicist.
-    - Everyone needs to a bit of programming
+    - Not
+even
+a
+physicist.
+    - Everyone
+needs
+to
+a
+bit
+of
+programming
       - Secretary
-      - Sales champion
+      - Sales
+champion
       - Accountant
       - Manager
-      - Cab driver
+      - Cab
+driver
 ** Why Python?
-   - Python is a self-organized community.
+   - Python
+is
+a
+self-organized
+community.
 ** Python environment
-   - Real GNU/Linux
+   - Real
+GNU/Linux
      + Debian
      + Gentoo
-   - Jupyter based
-   - Windows based
+   - Jupyter
+based
+   - Windows
+based
 
-   Windows based Python installation has caveats, because Python is
-   developed under Unix.  Be prepared for unexpected bugs if you
-   decide to use Python on windows.
+   Windows
+based
+Python
+installation
+has
+caveats,
+because
+Python
+is
+   developed
+under
+Unix.
+Be
+prepared
+for
+unexpected
+bugs
+if
+you
+   decide
+to
+use
+Python
+on
+windows.
 
-   - Can't or don't want to install software on your computer? Check
-     out PythonAnywhere, Trinket, Cloud9, or CodeAnywhere.
+   - Can't
+or
+don't
+want
+to
+install
+software
+on
+your
+computer?
+Check
+     out
+PythonAnywhere,
+Trinket,
+Cloud9,
+or
+CodeAnywhere.
 
 ** Choose an editor
    - Emacs
      https://github.com/redguardtoo/mastering-emacs-in-one-year-guide
    - Vi
    - Others
-     - Visual Studio Code
+     - Visual
+Studio
+Code
      - Atom
-   Both Emacs and Vi have steep learning curves, they are not easy to
-   learn.  But if you master any of them, they pays you.
+   Both
+Emacs
+and
+Vi
+have
+steep
+learning
+curves,
+they
+are
+not
+easy
+to
+   learn.
+But
+if
+you
+master
+any
+of
+them,
+they
+pays
+you.
 
-   Don't use Microsoft Word or Windows Notepad, they are not for
-   programs.  Because we need an editor that do plain text and
-   syntactically correct.
+   Don't
+use
+Microsoft
+Word
+or
+Windows
+Notepad,
+they
+are
+not
+for
+   programs.
+Because
+we
+need
+an
+editor
+that
+do
+plain
+text
+and
+   syntactically
+correct.
 ** Playground
    https://www.py4e.com/tools/pythonauto
    
-   Do we need one?  I don't think so.
+   Do
+we
+need
+one?
+I
+don't
+think
+so.
 
 ** Jupyter
-   - Causal way to completing classes.
+   - Causal
+way
+to
+completing
+classes.
 ** Installing Python
    + Windows
-     - Not impossible.
-     - No good package manager.
-       - ... what is package manager?
-       - pip on windows is a hack.
-     - Snipping tool.
+     - Not
+impossible.
+     - No
+good
+package
+manager.
+       - ... what
+is
+package
+manager?
+       - pip
+on
+windows
+is
+a
+hack.
+     - Snipping
+tool.
    + macOS
-     - No good package manager.
-       - Need extra care when using pip, easy to screw up.
+     - No
+good
+package
+manager.
+       - Need
+extra
+care
+when
+using
+pip,
+easy
+to
+screw
+up.
    + GNU/Linux
-     - steep learning curve.
-     - not everything is obvious.
-     - pays you back if you are committed to deal with data and
-       programs: experimental physicist, data scientist, quant, etc.
-       That is the main audience this course is targeting.
-     - I am going to give lectures, examples, demonstrations on
-       GNU/Linux with Emacs.
-   + You can try them if you are brave, and you are encouraged to find
-     your own work style.
+     - steep
+learning
+curve.
+     - not
+everything
+is
+obvious.
+     - pays
+you
+back
+if
+you
+are
+committed
+to
+deal
+with
+data
+and
+       programs:
+experimental
+physicist,
+data
+scientist,
+quant,
+etc.
+       That
+is
+the
+main
+audience
+this
+course
+is
+targeting.
+     - I
+am
+going
+to
+give
+lectures,
+examples,
+demonstrations
+on
+       GNU/Linux
+with
+Emacs.
+   + You
+can
+try
+them
+if
+you
+are
+brave,
+and
+you
+are
+encouraged
+to
+find
+     your
+own
+work
+style.
 ** Submit screen shots
-   - Needed skill for online discussion.
-   - Anonymous discussion groups, piazza
-     "Not good", commented by Harry
-   - git classroom
+   - Needed
+skill
+for
+online
+discussion.
+   - Anonymous
+discussion
+groups,
+piazza
+     "Not
+good",
+commented
+by
+Harry
+   - git
+classroom
      https://github.com/CS50Demo/assignment-1-introduction-to-programming-heroxbd-1
 ** Version control and Git
-   - jiegec's lectures.
+   - jiegec's
+lectures.
 
    https://cloud.tsinghua.edu.cn/d/f3f13a46ed4c4b5386f9/
 ** Write paragraphs of code
-   - Basic programming structures
+   - Basic
+programming
+structures
      - sequential
      - conditinoal
      - iterative
      - recursive
-   - Early exit
+   - Early
+exit
 
 
 *** Further Reading
@@ -1563,3 +1856,22 @@ all: xxxx
    - 顾问 :: 阮东、郝镇齐、张宗煜、付祈安、唐如麟
    - 小助教 :: 张翔宇、王宇逸、武益阳、邓旭、丁思勤、李岸峰
 
+* 总结
+** 缘起基科二十年
+   我是基科2005级的学生，当年大二小学期的课程是 Windows MFC C++ 编程。上课时我没有太理解培养计划中的用意，直到2009年我毕业时才从阮老师那里了解到，设置计算机类课程是为了加强同学们在物理研究中使用计算机的能力。后来我一直和科协的学弟保持有联系，听到了科协的一些技术大牛对大二小学期的看法和希望。当时朦胧觉得或许有朝一日我可以假期回学校开个学习小组，带着大家学习一点数据分析的新技术。
+
+   时间快进到2018年的基科二十年庆祝纪念活动和学术交流会。一次和阮老师在王刚的办公室里闲聊，正好说到暑假小学期。阮老师说从十多年的毕业生座谈中，许多同学希望能在计算机课程和物理课程之间，加一门课帮助大家把两者连系起来。我说是啊，从我跟师弟师妹们的交流来看，大家在把编程技能迁移到物理研究实践中时普遍遇到很多困难。实际上同学开研究时，要么是自己摸索，要么是接受学长指导，一不留神会掉坑，或者在赶时间的过程中图省事养成一些不良习惯。阮老师说确实很苦恼，原来是 Windows 下的 C++，后面我发现物理研究中使用 Linux 系统很多，就在培养方案中换成了 Linux 下的 C++。可是计算机系的老师会从自身的学科要求出发，不会照顾物理系同学，物理系的老师又比较难支撑整个计算机类课程。我抚掌道，我本科时代不务正业，在科协玩了不少计算机类的奇怪东西，神奇的是，它们现在正好都对应着商界工业界造出的云计算、大数据的概念，而且我在粒子物理实验中，恰好把这些曾经歪门斜道的屠龙之技发挥到了极致，如果有大二同学想做实验物理，我倒是一直有组织一个讨论班的想法。阮老师笑道，对啊，你赶快入职吧，今年暑假马上就开一门课。
+
+   我打了个机灵，锅从天降，任重而道远啊。我说既然如此，我愿意试试，只是现在开始准备估计很难来得及啊。好在后来阮老师联系了教务询问开课事宜，得知最早开课也是2019年的暑假。我才长出了一口气，不然自己肯定上课挂白菜了。
+
+   这事我越想越美，越想越激动，就直接写了一个课程大纲到饥渴乐园征求意见。大家也都很振奋，七嘴八舌提建议。第一稿被拍得最多的是：太难了，给学弟学妹们留条活路吧！我为何如此振奋呢？仔细想来大约有四点最最主要的：
+
+   其一，这个课程的内容，代表我作为一名以物理为主业的人，十几年前探索出来的一条计算机技术的整体方案。我也没有在物理系的培养方案中得到如何用编程帮助我做研究，为了寻找好的方法，我甚至在本科阶段花的精力超过了我学习物理。而和我一起研究这些技能的系科协学弟们都发现自己更热爱计算机，转行做CS研究或（年薪百万的）程序员，只有我还在留在物理界抱着自行研发的技术自娱自乐。我也曾经试着给同课题组的同学们介绍一些当代的高级计算机技术，大家都不是很适应，觉得为了工具改变习惯太不值得了。因此最终我还是一名独行者，我早年一直在怀疑自己探索这些是否值得，直到最近才坦然了：管它有用没用，我高兴就好，没用就当作业余爱好嘛。把这些技能教给我的学弟学妹，让我感到特殊亢奋。大二的同学们正好没有既有程序风格惯性，更乐于接受新技术。我自己也可以从同学的反馈中验证十年前来一直让我感到人格分裂的难题：我在物理研究中所玩的，看似很专业实际三脚猫的计算机技能，到底是独门绝技还是自娱自乐，全靠我的学弟学妹们是否授受来评判了。
+
+   其二，这件事情是受阮老师的委托，受已经系友的委托。我应当仁不让，把担子挑起来，不论如何也应把同学们的在物理和计算机之间建一架桥，削除数物大类学生对计算机的神秘感和畏惧，溶解“我只对物理感兴趣，不学别的”和“学计算机？不就是修电脑吗？”的物理系式误区。
+
+   其三，我正在组建中微子实验的研究团队，工物系的同学有很多了解的渠道，我也希望能吸引到物理系的同学。本来在清华中微子物理这样的基础物理学研究在工物系就是历史的遗留，我希望我的研究能被物理系的同学了解。一门以大规模实验数据分析为线的课程，正好代表了我研究工作的日常，对大二同学进入实验室之前，肯定会发挥非常切实的体验作用。想到今后在我的组里，会有工物系和物理系的同学一起研究讨论，大家大类分流之后再聚到一起，也就非常令人激动的。
+
+   其四，一门四学分的小学期课，实在是太适合我了！作为教研系列青年教师，每年的教学任务是64学时，即4学分。以一个月的奋斗，换取一年自由身，学期中开会访学都不会受到上课的限制，还有余力帮助同事代课，简直无法想象有比这个更美好的事情了。目前青椒的考核重点还是科研，但是科学的工作量必须与科研相等，这对刚起步的教师有非常大的压力。部分院系给出了入职几年以内允许不达到教学工作量的优惠政策，正好从侧面反映了这个事实。真是要感谢阮老师的提议，让我一下子进入非常稳定的教学状态和格局。
+
+   这四点，任何一点单独拿出来，都足够我欢喜雀跃地去达成，何况有四点！所以我高兴得一下子就把课程大纲制定出来了。
