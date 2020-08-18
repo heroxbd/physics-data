@@ -7,6 +7,7 @@
 #+latex_HEADER: \usetikzlibrary{arrows}
 #+LATEX_HEADER: \usepackage[UTF8]{ctex}
 #+LaTeX_HEADER: \usepackage{appendixnumberbeamer}
+#+LaTeX_HEADER: \setCJKsansfont{Noto Sans CJK SC}
 #+PROPERTY: header-args :eval never-export
 #+PROPERTY: header-args :noweb yes
 #+sTARTUP: beamer
@@ -710,22 +711,22 @@ exit
   |----------------------------+-------+--------------------------------------------------------|
   |                            |  9300 |                                                        |
   #+TBLFM: @7$2=vsum(@2$2..@6$2)
-* 第一周
+* 第一周第一天
   :PROPERTIES:
-  :EXPORT_FILE_NAME: w1
+  :EXPORT_FILE_NAME: p0
   :EXPORT_BEAMER_HEADER+: \title{实验物理的大数据方法}
   :EXPORT_OPTIONS: H:1 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
   :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
-  :EXPORT_DATE: 2019-07-01 清华
+  :EXPORT_DATE: 2020-08-17 清华线上
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
   :EXPORT_BEAMER_THEME: Boadilla
-  :EXPORT_BEAMER_COLOR_THEME: crane
+  :EXPORT_BEAMER_COLOR_THEME: MedStarColors
   :EXPORT_BEAMER_FONT_THEME: professionalfonts
   :END:
 ** 自我介绍
    - 2005-2009 :: 在数理基科学习
-   - 2009-2018 :: 在日本神冈地下实验室中微子和暗物质学习，研究
+   - 2009-2018 :: 在日本神冈地下实验室，学习研究中微子和暗物质
    - 2018-至今 :: 在工程物理系近代物理研究所任教
 
    - 主要工作：锦屏中微子实验
@@ -734,7 +735,7 @@ exit
      2. 江门中微子实验
      3. 日本XMASS暗物质实验
    - 研究兴趣：中微子振荡、核子衰变、地球中微子
-   - 爱好：大数据分析、高性能计算、运维开发(业余)
+   - 爱好：大数据分析、高性能计算、系统架构运维
 
 ** 释义
 *** 什么是“实验物理”                                         :B_exampleblock:
@@ -758,11 +759,11 @@ exit
 
 *** 什么是“大数据”
 
-    是一个商业概念，“大”是相对的，大数据是指无法用一台计算机处理的数据。
+    商业概念。“大”是相对的，大数据是指无法用一台计算机处理的数据。
 
-** 大物理实验与大数据
+** 大物理与大数据
 
-   - 大型物理实验，产生大数据，要求多台计算机协同工作：分布式计算。
+   - 大型物理实验，产生大数据，多台计算机协同工作：分布式计算。
    - 跨地理的分布式计算称为“网格”(grid)，在早期促进和影响了互联网的发
      展。
 
@@ -780,16 +781,16 @@ exit
 ** 课程内容
    - 以实验物理为主题，学习大数据方法的基础。
      1. 理解数据的科学精神，从一开始养成良好的科研习惯
-     2. 掌握典型工具 Git, Python 和常用命令行工具，适应自学
+     2. 掌握典型工具 Git, Python 和常用命令行工具，鼓励自学
      3. 培养工具的品位，针对具体场景选择合适的工具
 
 *** 计划安排
-    - 实验物理的大数据方法(1) 6A211
+    - 实验物理的大数据方法(1) 五教 5105 Zoom 621 219 8453
       - 第一周 :: Git 入门，Python 入门
       - 第二周 :: Python 科学计算与可视化
-    - 实验物理的大数据方法(2) 6A207
-      - 第三周 :: 基于命令行的数据处理整合
-      - 第四周 :: Python 数据处理高级工具
+    - 实验物理的大数据方法(2) 新水 301 Zoom 621 219 8453
+      - 第三周 :: 数据处理的命令行工具
+      - 第四周 :: 基于关系代数的数据组织
     - 上课：周一至周四，三四大节
     - 答疑：周五三四大节，地点与上课教室一致
       - Office Hour: 周一至周五晚7点至9点，刘卿楼804
@@ -829,41 +830,41 @@ exit
 *** 大作业
     - 占 30% 成绩，取材自实验物理不同方向的真实场景。也可以由同学自行
       提出。
-      - 分两个阶段，对应前两周和后两周。
+      - 分两个阶段，对应前两周“生成”和后两周“分析”，互为逆过程。
 ** 大作业
-
    - 课赛结合 中微子实验数据分析
-     - 分析中微子实验中，光电倍增管采集的光电子。
-     - https://ghost-hunter.net9.org/
-   - Tola 微波干涉阵信源定位
-     - 通过微波干涉阵的信号，对信源进行定位。
-   - 二维金属材料的 Fermi 面测量
-     - 通过扫描隧道显微镜的数据，分析二维金属的 Fermi 面。
+     - 分析中微子实验中，\alpha 与 \beta 粒子的区分。
+     - https://dc.applysquare.com/
+   - 天体分类问题
+     - 巡天数据
+   - 二维材料的等能面测量进阶版
+     - 通过扫描隧道显微镜的数据，分析二维材料的等能面。
+     - 与去年的区别：金属 \to 一般材料
 
 *** 自定义                                                   :B_exampleblock:
     :PROPERTIES:
     :BEAMER_env: exampleblock
     :END:
 
-    - 如果有同学希望采用其它学科方向的大作业，请提出申请给续本达<orv@tsinghua.edu.cn>
+    - 如果有同学希望采用其它学科方向的大作业，请提出申请给续本达 =<orv@tsinghua.edu.cn>= ，8月24日截止。
       1. 问题描述和学科背景
       2. 数据的输入和输出的定义与格式
       3. 数据分析结果的评价标准
 ** 参考资料
-
    - Allen Downey, Think Python 2e
    - Fernando Perez et al., Scipy Lecture Notes
    - Jeroen Janssens, Data Science at the Command Line
-   - David MacKay, Information Theory, Inference, and Learning Algorithms
+   - David MacKay, @@latex:\scriptsize{Information Theory, Inference, and Learning Algorithms}@@
+   - 2019年的课程录像：http://hep.tsinghua.edu.cn/~orv/teaching/video.html
 
 *** 辅助资料
     - Eric S. Raymond, The Art of Unix Programming
 
       以道家思想剖析了设计的优美和永恒， _透明_ 原则源于此。
 
-    - https://www.tutorialspoint.com/
+    - https://learnxinyminutes.com/
 
-      印度的编程样例网站，适合通过例子快速入门一项技能。
+      从已经有编程基础迅速入门 Python。
 
     - http://py4e.com/
 
@@ -875,16 +876,41 @@ exit
 
 ** 教学团队
    - 教师 :: 续本达
-   - 助教 :: 陈嘉杰、张爱强、陈晟祺
-   - 顾问 :: 郝镇齐、唐如麟、张宗煜、付祈安、高一川、刘晓义
-   - 小助教 :: 已经有4位同学自荐，请大家继续踊跃报名，请发邮件至 续本达
-            <orv@tsinghua.edu.cn>
+   - 助教 :: 陈晟祺、陈嘉杰、刘学伟、张卓婧、翁俊、@@latex:{\fontspec{Noto Sans} 郑鈜壬}@@
+   - 顾问 :: 郝镇齐、唐如麟、付祈安、高一川、刘晓义
+   - 小助教 :: 已经有11位同学自荐
+     - 李子鸣、陈烁天、尹嘉恒、王宇昂、徐大成、孙鑫礼
+     - 孙嘉祎、陶泓耕、胡鸿源、王雨晴、孙泽昌
+     - 95 位选课和 3 位旁听同学分成 11 个小组。
 
-     1. 已修过的《程序设计基础》或类似课程的课程号、任课教师与成绩
-     2. 是否有中学生信息学竞赛 (OI) 、大学生 ACM 竞赛或类似竞赛的参加经历
-     3. 小助教宣言
+** CovID-19 时期的学习
+   - 线上为主，调整心态
+
+     1. 我们已然领先世界其它地区半年的身位；
+     2. 春季学期的教学使我们领先许多高校半个身位。
+   
+     \pause
+
+   - 健康第一，学业第二
+
+     1. 2020年的目标：不染病；
+     2. 其它的不苛求，善待自己；
+     3. 从长计议，为祖国健康工作五十年。
+
+     \pause
+
+   - 这也将成为过去，我们终将怀念
+     
+     举例：2003年清华封校的盛况，一直在2005级学生的梦想里。
+
+     \pause
+
+   - 遇到困难多求助
+
+     - 线上教学会有额外的困难，特别是那些可以把人“卡住”的“小”问题。一
+       定不要自己扛，及时求助：老师、助教、小助教。
+
 ** Python
-
    #+attr_beamer: :overlay <+->
    - Python 是一门“解释型语言”，相对于“编译型语言”更易调试。
    - Python 的语法风格简明，即使对外行也易读。
@@ -917,13 +943,34 @@ exit
      3. 使用虚拟机安装 GNU/Linux
 
 ** 实践：安装 Python 3 和 POSIX 环境
-   - GNU/Linux 用户 :: 工具都已齐备。请帮助周围的同学，并自荐成为小助教
+   - GNU/Linux 用户 :: 工具都已齐备。请帮助周围的同学，并自荐小助教
    - Apple macOS 用户 :: Macports, Gentoo Prefix, Homebrew 皆可
    - Microsoft Windows 用户 :: 请注意不要使用带空格的或中文用户名。按
         照以下顺序尝试，直到成功获得 Python 和 POSIX 环境：
      1. Windows Subsystem for Linux (WSL)
-     2. MinGW, Cygwin
-     3. 使用虚拟机安装 GNU/Linux
+     2. 使用虚拟机安装 GNU/Linux
+     3. MinGW, Cygwin
+
+** 安装 Windows Subsystem for Linux
+   #+attr_beamer: :overlay <+->
+   1. 控制面板 \to 所有控制面板项 \to 程序和功能 \to 启用或者关闭Windows功能
+   2. 开启“适用于 Linux 的 Windows 子系统”
+   3. 打开应用商店，安装 Debian
+   4. 进入 Debian，增加用户名和密码
+      
+      注：输入密码时，无反馈提示。
+
+   5. 修改 =APT= 源地址为清华 TUNA 开源软件镜像站
+
+      - 使用 =nano= 编辑 =/etc/apt/sources.list=
+
+        注：普通用户与超级用户权限。
+
+      - 查找 =^W= 、替换 =^R= 、保存 =^O= 、退出 =^X=
+
+        注： =^W= 代表按住 Ctrl 键，再按 W。
+
+   6. 验证： =apt update=
 
 ** 版本控制
    - “我和同学合写文章，结果他是在昨天的版本上改的！我还得重改！”
@@ -956,7 +1003,7 @@ exit
       #+RESULTS:
       [[file:./diff-patch.pdf]]
     - 铁器时代 :: 版本控制服务：CVS，SVN
-    - 现代 :: 分布式版本控制：Git，Mercurial
+    - 现代 :: 分布式版本控制：Git
 ** Git 案例
    “我上周写的程序被不小心覆盖掉了！无法找回之前的版本。”
 
@@ -972,6 +1019,7 @@ exit
    - 使用 Git，养成良好的习惯，就能解决以上问题。
    - Git 由 Linus Torvalds 发明，用来支撑全世界 5000 名以上 Linux 操作
      系统内核开发者的协作。是我们的 _最佳工具_ 。
+   - 安装： =apt install git=
 ** Git 基础
    [[./fig/pro-git_snapshots.png]]
    - 在任意时间我们都可以选择给工作区进行一次“快照”。
@@ -993,7 +1041,6 @@ exit
    - 建议：通过 SSH (secure shell) 通信。
 
 ** Git 基本命令
-   #+attr_beamer: :overlay <+->
    - diff :: 查看改动
    - status :: 查看状态
    - add :: 添加文件
@@ -1001,6 +1048,7 @@ exit
    - log :: 查看历史
    - pull :: 从远程下载
    - push :: 推送到远程
+   - merge :: 合并分支
 
 *** 内建手册 =man=                                           :B_exampleblock:
     :PROPERTIES:
@@ -1014,8 +1062,9 @@ $ man git add
     #+END_EXAMPLE
 ** 作业：Git 练习
    #+attr_beamer: :overlay <+->
-   - [[https://classroom.github.com/a/gxRgrL8_]]
+   - https://classroom.github.com/a/E_U0S1Ts
      - 点击后会自动创建你的 Git 仓库
+     - 如果访问 Github 遇到问题，请使用课程专用的 HTTP/SSH 代理
 
    - 设置本地到 Github 的访问权限
      - 生成 SSH 密钥对
@@ -1029,11 +1078,8 @@ $ man git add
 
 课程感言：
      #+END_EXAMPLE
-   - 查看修改 (diff)
-   - 预估得分
-   - 添加修改 (add)
-   - 提交 (commit)
-   - 推送 (push)
+   - 查看修改 (diff)，预估得分
+   - 添加修改 (add)，提交 (commit)，推送 (push)
 ** 练习（不记分）：查看备课历史
 
    - https://github.com/heroxbd/physics-data
@@ -1042,41 +1088,86 @@ $ man git add
 git clone git@github.com:heroxbd/physics-data.git
 git log -p
      #+END_SRC
-** 今日新闻 G20
-   #+Attr_LaTeX: :height 0.5\textheight
-   [[./fig/news-G20-2019.jpg]]
 
-   - 国家主席习近平6月29日同美国总统特朗普在大阪举行会晤，就当前中美经贸
-     摩擦以及共同关心的国际和地区问题深入交换意见……
+   - 请小助教联系本组同学，确认每位同学都可使用 POSIX 环境、Git 版本，并将
+     结果发给 续本达 =<orv@tsinghua.edu.cn>= 。
 
-   - 特朗普政府的政策对中美关系产生深远影响。同时，2016年美国大选中的
-     一次重要转折，对特朗普的竞选影响极大。
+     #+BEGIN_EXAMPLE
+$ git --version
+git version 2.28.0.rc1
+     #+END_EXAMPLE
 
 * 第一周第二天
   :PROPERTIES:
-  :EXPORT_FILE_NAME: w1-2
+  :EXPORT_FILE_NAME: p1
   :EXPORT_BEAMER_HEADER+: \title{实验物理的大数据方法}
   :EXPORT_OPTIONS: H:1 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
   :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
-  :EXPORT_DATE: 2019-07-02 清华
+  :EXPORT_DATE: 2020-08-18 清华线上
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
   :EXPORT_BEAMER_THEME: Boadilla
-  :EXPORT_BEAMER_COLOR_THEME: crane
+  :EXPORT_BEAMER_COLOR_THEME: MedStarColors
   :EXPORT_BEAMER_FONT_THEME: professionalfonts
   :END:
-** 概论复习
-   四个原则： _复现_ _透明_ _一次_ _最佳工具_
+** 此课在知识体系中的地位
+   - 这是一个数据的时代。
+   - 数据时代需要 *黑客技术* Hacking Skills、 *数理统计* Math & Statistics Knowledge 、 *专业知识* Substantive Expertise 等多方面技能。
 
+   #+Attr_LaTeX: :height 0.65\textheight
+   [[./fig/Data_Science_VD.png]]
+
+** 技能树
+   #+Attr_LaTeX: :height 0.4\textheight
+   [[./fig/Data_Science_VD.png]]
+
+   1. 本课程目标为数理大类的同学补齐 *黑客技术* 。
+   2. 警惕 *Danger Zone!* 。
+      - 黑客技术 :: 人类掌握工具的最高水平
+      - 数学与统计 :: 人类理性思维的最高水平
+   3. *专业知识* 根据自己的兴趣选择。
+      - 物理学的思维方式和实践方法是一切专业知识的标杆。
+   4. 本科时代要积极认真学习以上硬知识。
+
+** 概论复习：黑客审美
+   - 四个原则：
+     1. _复现_ - 否则是伪科学
+     2. _透明_ - 否则变成黑箱
+     3. _一次_ - 否则到处是坑
+     4. _最佳工具_ - 否则效率低下
+
+   \pause
+
+   - 推论：
+     1. 兼容比性能优先
+
+        #+BEGIN_EXAMPLE
+          Premature optimization is the root of all evil.
+          -- Tony Hoare, Donald Knuth
+        #+END_EXAMPLE
+
+     2. 人类时间比机器时间宝贵
+
+     3. 使用工具进行版本控制
+
+** 提问的智慧
+   - 作者 Eric Raymond
+     http://www.catb.org/~esr/faqs/smart-questions.html
+
+   - 原则：让他人以最小的努力复现出你的问题
+     1. 不要这样说话： +救命! 我的程序坏了！哪位大神快来帮帮我！急！在线等！哭了！+
+     2. 使用最简洁的语言，借助最简单的例子描述问题
+        
+   - 原则：努力让你的问题使更多的人受益
+     1. 非隐私问题，尽可能公开提问，公开讨论。
 ** 命令环境
    - 基本的命令
      - ls :: list structure, 列出当前路径中的文件
      - cd :: change directory, 改变当前路径
-     - sudo :: 使用最高权限执行操作
+     - sudo :: 使用管理员权限执行操作
      - apt :: Advanced Package Tool 软件管理器
-     - apt-get :: 软件管理下载器，与 apt 功能基本一致
-     - vim :: 文本编辑器
      - nano :: 文件编辑器
+     - vim :: 文本编辑器
    - 每个命令都完成一件确定的事
 
      Do one thing, do it right.
@@ -1088,72 +1179,26 @@ git log -p
      - 组合的可能性太多，入门比较难
      - 一旦入门威力巨大
 
-** 命令环境自学教程
-   - 苏勇, [[https://study.163.com/course/courseLearn.htm?courseId=232007][Linux 入门基础 - 网易云课堂]]
-
-     通过 GNU/Linux 讲授 POSIX 环境基础。内容稍旧，思想不变。
-
-** 文本编辑器
-   [[./fig/gedit.png]]
-
-** 文本编辑器(复古)
-   [[./fig/nano.png]]
-
-   - 没有菜单，只有快捷键
-** Git 三种状态
-   - 已提交（committed） :: 改动安全保存在数据库中
-   - 已修改（modified） :: 自上一次提交，有文件被修改
-   - 已暂存（staged） :: 已修改的文件被作了标记，将被包含在下一轮提交中
-
-      [[./fig/git-modes.png]]
-** Git 同步
-   #+Attr_LaTeX: :height 0.7\textheight
-   [[./fig/git-distributed.png]]
-
-   - 通过 SSH (secure shell) 通信。
-
-** 练习（不记分）：查看备课历史
-
-   - https://github.com/heroxbd/physics-data
-
-     #+BEGIN_SRC bash
-git clone git@github.com:heroxbd/physics-data.git
-git log -p
-     #+END_SRC
-
-** 内容较多未成体系
-   - 犹如造房子的准备材料阶段。
-   - 马上会用到的，逻辑：
-     - Github 是知名的协作平台，越来越多科研成果在 Github 或类似平台上发布
-     - 交作业需要使用 Github，在作业中体会日常工作流程
-     - Git 的客户端中，只有命令行是最可靠的。
-     - Git 命令运行依赖于 POSIX 环境。
-     - 大家一起安装配置了 POSIX 环境。
-     - 在 POSIX 环境需要进行文本编辑，用到了 =nano= 。
-
-       WSL，MacOS，GNU/Linux，远程 SSH 账户
-   - 一般工作中， =nano= 常用作应急编辑器，有更高级的编辑器可用。
-     - VSCode
-     - Emacs
-     - Vim
-     - 其它
-
-** 同学的一些反馈
-*** 老师操作太快，自学效率高
-    - 自己弄一遍好像也没有很难。希望老师操作的时候慢一点，讲讲每一步是做
-      什么，其它部分可以快一点。
-
-    - 感觉后面的演示有点快
-*** 与之前的课程差距很大                                     :B_exampleblock:
-    :PROPERTIES:
-    :BEAMER_env: exampleblock
-    :END:
-    课堂纪律有些乱，课程内容与之前学习的程设课程差别较大。
-*** 需要更多的帮助
-    感觉老师高估了大家对计算机的熟悉程度，好多同学只会使用图形化界面，
-    不习惯命令行界面，需要保姆式教学，熟悉命令行这一部分应该尽可能详细
-    且留充足的时间，安排足够的助教轮次帮助同学绕开大坑。
-
+** 命令参数标准
+   - POSIX 标准定义了推荐的参数格式
+   - =git config --global user.name "Benda Xu"= 
+   - 命令的各个部分由 *半角* 空格分隔
+     - 不作为分隔符的空格由 *半角* 引号标出
+   - 短参数：一条短线接一个字母
+     - =ls -a=
+     - =kill -9 xxxx=
+     - =sudo -s=
+     - 可以缩写在一起
+       - =ls -lrta=
+       - =sudo -sE=
+   - 长参数：两条短线接一个单词
+     - =ls --color=tty=
+     - =git show --pretty=short --show-signature=
+     - 由 GNU 推荐，是在 POSIX 标准之上的扩展
+   - 更多参数，使用 =man= 查看文档
+     - =man ls=
+     - =man git=
+        
 ** 我的经历 2002年
    《工具的狂热——我的 Linux 历程》
 *** 安装系统
@@ -1191,19 +1236,156 @@ git log -p
     :END:
 
     http://jkparadise.space/home.php?mod=space&uid=13&do=blog&id=196
-** 今日新闻 G20
-   #+Attr_LaTeX: :height 0.5\textheight
-   [[./fig/news-G20-2019.jpg]]
+** 命令环境自学教程
+   - 苏勇, [[https://study.163.com/course/courseLearn.htm?courseId=232007][Linux 入门基础 - 网易云课堂]]
 
-   - 国家主席习近平6月29日同美国总统特朗普在大阪举行会晤，就当前中美经贸
-     摩擦以及共同关心的国际和地区问题深入交换意见……
+     通过 GNU/Linux 讲授 POSIX 环境基础。内容稍旧，思想不变。
+** Git 基础
+   [[./fig/pro-git_snapshots.png]]
+   - 在任意时间我们都可以选择给工作区进行一次“快照”。
+   - 相邻快照之间，是代表文件改动的差分量。
+** 例子：撰写讲义
+   [[./fig/tig-example.png]]
+   - 查看每次提交的改动。
+   - 工具： =apt install tig=
+** Git 三种状态
+   - 已提交（committed） :: 改动安全保存在数据库中
+   - 已修改（modified） :: 自上一次提交，有文件被修改
+   - 已暂存（staged） :: 已修改的文件被作了标记，将被包含在下一轮提交中
 
-   - 特朗普政府的政策对中美关系产生深远影响。同时，2016年美国大选中的
-     一次重要转折，对特朗普的竞选影响极大。
-** 邮件数据集
-   - 很多往来邮件
-     https://cloud.tsinghua.edu.cn/d/f8ad70a64cc6462a89fd/
-   - 邮件的结构 实例展示
+      [[./fig/git-modes.png]]
+** Git 仓库间通信
+   #+Attr_LaTeX: :height 0.7\textheight
+   [[./fig/git-distributed.png]]
+
+   - 建议：通过 SSH (secure shell) 通信。
+** Git 基本命令
+   - diff :: 查看改动
+   - status :: 查看状态
+   - add :: 添加文件
+   - commit :: 提交
+   - log :: 查看历史
+   - pull :: 从远程下载
+   - push :: 推送到远程
+   - merge :: 合并分支
+
+*** 内建手册 =man=                                           :B_exampleblock:
+    :PROPERTIES:
+    :BEAMER_env: exampleblock
+    :END:
+
+    命令的具体含义可以参考 =man= 命令，例如，
+
+    #+BEGIN_EXAMPLE
+$ man git add
+    #+END_EXAMPLE
+** 作业：Git 练习
+   #+attr_beamer: :overlay <+->
+   - https://classroom.github.com/a/E_U0S1Ts
+     - 点击后会自动创建你的 Git 仓库
+     - 如果访问 Github 遇到问题，请使用课程专用的 HTTP/SSH 代理
+
+   - 设置本地到 Github 的访问权限
+     - 生成 SSH 密钥对
+     - 上传到 Github
+
+   - 同步你的 Git 仓库，输入你的基本信息
+     #+BEGIN_EXAMPLE
+我的姓名：
+我的学号：
+我的 Python 版本信息：
+
+课程感言：
+     #+END_EXAMPLE
+   - 安装 =apt install python3= ，查看版本 =python3 --version=
+   - 查看修改 (diff)，预估得分
+   - 添加修改 (add)，提交 (commit)，推送 (push)
+** 作业反馈
+   #+attr_beamer: :overlay <+->
+   - 同学们的感言
+     1. 我要好好学习
+     2. 吐糟老师的发型
+     3. 理解了当今实验物理、数据和计算机之间的关系
+     4. 课程看起来很有趣
+     5. 好难，不知道在干啥，我好菜
+     6. 不过有老师、助教和同学们的热情帮助
+     7. 好想来教室上课
+   - 一些问题
+     - =git config --global user.name "Blah Blah"=
+       
+       请把 =Blah Blah= 替换成自己的名字，重新运行此命令。
+
+     - =git add introduction.txt=
+       
+       注意不要把无用的文件包含进来
+
+     - commit message
+
+** Commit message 写什么
+   - =git commit= 时需要输入一段话概括本次 commit 所作的修改
+   - 目标：让他人和未来的自己一目了然，只通过读此信息就知道自己做了什么
+   - 反例：
+     1. 数数：1,2,3
+     2. 复读：Update,Update,Update
+     3. 欺负键盘：aaaaa,wwwww,asdf
+   - 不太好的例子：“完成作业”
+   - 不错的例子：“完善了个人信息页面，并填写了课程感言”
+
+** git commit                                               :B_ignoreheading:
+   :PROPERTIES:
+   :BEAMER_env: ignoreheading
+   :END:
+
+   #+BEGIN_EXPORT latex
+\frame[plain]{\includegraphics[page=8,width=\textwidth]{git-commit.pdf}}
+\frame[plain]{\includegraphics[page=9,width=\textwidth]{git-commit.pdf}}
+\frame[plain]{\includegraphics[page=10,width=\textwidth]{git-commit.pdf}}
+\frame[plain]{\includegraphics[page=11,width=\textwidth]{git-commit.pdf}}
+   #+END_EXPORT
+
+** 参考资料
+   - https://zhuanlan.zhihu.com/p/34223150
+   - http://www.ruanyifeng.com/blog/2016/01/commit_message_change_log.html
+   - https://chris.beams.io/posts/git-commit/
+
+*** 查看备课历史                                  :B_example:
+    :PROPERTIES:
+    :BEAMER_env: example
+    :END:
+
+    - https://github.com/heroxbd/physics-data
+
+      #+BEGIN_SRC bash
+        git clone git@github.com:heroxbd/physics-data.git
+        git log -p
+        tig
+      #+END_SRC
+** 内容较多未成体系
+   - 犹如造房子的准备材料阶段。
+   - 马上会用到的，逻辑：
+     - Github 是知名的协作平台，越来越多科研成果在 Github 类上发布
+     - 交作业需要使用 Github，在作业中体会日常工作流程
+     - Git 的客户端中，只有命令行是最可靠的。
+     - Git 命令运行依赖于 POSIX 环境。
+     - 在 POSIX 环境需要进行文本编辑，用到了 =nano= 。
+
+       WSL，MacOS，GNU/Linux，远程 SSH 账户
+** 文本编辑器
+   [[./fig/gedit.png]]
+
+** 文本编辑器(复古)
+   [[./fig/nano.png]]
+
+   - 没有菜单，只有快捷键
+   - 快捷键是当前人类与计算机之间效率最高的通道
+** 推荐的文本编辑器
+   - nano :: 常用作应急编辑器，适合简单工作。
+   - VSCode :: 可以与 WSL 集成，编辑 WSL 内的文件。可以从命令行打开文件。
+   - Emacs :: 我正在使用的编辑器。可以图形界面，也可以命令行。
+   - Vi :: 与 Emacs 齐名的，历史悠久编辑器。
+           当前流行版本 VIM:=Vi IMproved 和 neovim
+   - 其它
+
 * 第二周第三天
   :PROPERTIES:
   :EXPORT_FILE_NAME: w2-3
@@ -1763,23 +1945,6 @@ all: xxxx
 
 *** 计算语言
     Python 语法友好，工具丰富，统领 C/C++/Fortran/R/SQL 库
-
-** 技术问题：提问的智慧
-   - 关键：如何让他人以最小的努力复现出你的问题
-   - http://www.catb.org/~esr/faqs/smart-questions.html
-
-   - Stupid:
-
-     救命! 我的程序又写不了！
-
-   - Smart:
-
-     我的 VSCode 的启动时会卡住，随后崩溃。
-
-   - Smarter:
-
-     我的 VSCode 的启动时会卡住，随后崩溃。错误信息是"xxx,yyy"。我已经
-     尝试过 aaa,bbb，但是错误信息变成了 ggg,hhh，依旧会崩溃。
 
 ** 计算历史：大型机
    [[./fig/main-frame.jpg]]
