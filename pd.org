@@ -20,345 +20,87 @@
   - 实践性的课程：没有必要记忆，但一定要在短时间内实践
 * Python for everyone -- control flow
 ** Why do we program?
-   - Delegate
-repeatative
-tasks
-   - Record
-what
-you
-did
+   - Delegate repeatative tasks
+   - Record what you did
 *** Digital age
-    - We
-just
-buy
-device,
-use
-devices.
-      - How
-about
-we
-understanding
-devices,
-fixing
-devices
-and
-making
-        devices?
-      - Programming
-is
-one
-important
-step.
-You
-build
-your
-world,
-        change
-the
-world
-and
-participate
-in
-creating
-and
-nurturing
-of
-        civilization
-by
-programming
-in
-this
-age.
-      - If
-you
-don't
-know
-programming,
-someone
-else
-will
-design
-your
-        world
-for
-you.
+    - We just buy device, use devices.
+    - How about we understanding devices, fixing devices and making devices?
+    - Programming is one important step. You build your world, change
+      the world and participate in creating and nurturing of
+      civilization by programming in this age.
+    - If you don't know programming, someone else will design your world for you.
 *** Not only a programmer needs to learn program
-    - Not
-even
-a
-physicist.
-    - Everyone
-needs
-to
-a
-bit
-of
-programming
+    - Not even a physicist.
+    - Everyone needs to a bit of programming
       - Secretary
-      - Sales
-champion
+      - Sales champion
       - Accountant
       - Manager
-      - Cab
-driver
+      - Cab driver
 ** Why Python?
-   - Python
-is
-a
-self-organized
-community.
+   - Python is a self-organized community.
 ** Python environment
-   - Real
-GNU/Linux
+   - Real GNU/Linux
      + Debian
      + Gentoo
-   - Jupyter
-based
-   - Windows
-based
+   - Jupyter based
+   - Windows based
 
-   Windows
-based
-Python
-installation
-has
-caveats,
-because
-Python
-is
-   developed
-under
-Unix.
-Be
-prepared
-for
-unexpected
-bugs
-if
-you
-   decide
-to
-use
-Python
-on
-windows.
+     Windows based Python installation has caveats, because Python is
+     developed under Unix.  Be prepared for unexpected bugs if you
+     decide to use Python on windows.
 
-   - Can't
-or
-don't
-want
-to
-install
-software
-on
-your
-computer?
-Check
-     out
-PythonAnywhere,
-Trinket,
-Cloud9,
-or
-CodeAnywhere.
+   - Can't or don't want to install software on your computer?  Check
+     out PythonAnywhere, Trinket, Cloud9, or CodeAnywhere.
 
 ** Choose an editor
    - Emacs
      https://github.com/redguardtoo/mastering-emacs-in-one-year-guide
    - Vi
    - Others
-     - Visual
-Studio
-Code
-     - Atom
-   Both
-Emacs
-and
-Vi
-have
-steep
-learning
-curves,
-they
-are
-not
-easy
-to
-   learn.
-But
-if
-you
-master
-any
-of
-them,
-they
-pays
-you.
+     - Visual Studio Code
+     - Atom Both Emacs and Vi have steep learning curves, they are not
+       easy to learn.  But if you master any of them, they pays you.
 
-   Don't
-use
-Microsoft
-Word
-or
-Windows
-Notepad,
-they
-are
-not
-for
-   programs.
-Because
-we
-need
-an
-editor
-that
-do
-plain
-text
-and
-   syntactically
-correct.
+       Don't use Microsoft Word or Windows Notepad, they are not for
+       programs.  Because we need an editor that do plain text and
+       syntactically correct.
 ** Playground
    https://www.py4e.com/tools/pythonauto
 
-   Do
-we
-need
-one?
-I
-don't
-think
-so.
+   Do we need one?  I don't think so.
 
 ** Jupyter
-   - Causal
-way
-to
-completing
-classes.
+   - Causal way to completing classes.
 ** Installing Python
    + Windows
-     - Not
-impossible.
-     - No
-good
-package
-manager.
-       - ... what
-is
-package
-manager?
-       - pip
-on
-windows
-is
-a
-hack.
-     - Snipping
-tool.
+     - Not impossible.
+     - No good package manager.
+       - ... what is package manager?
+       - pip on windows is a hack.
+     - Snipping tool.
    + macOS
-     - No
-good
-package
-manager.
-       - Need
-extra
-care
-when
-using
-pip,
-easy
-to
-screw
-up.
+     - No good package manager.
+       - Need extra care when using pip, easy to screw up.
    + GNU/Linux
-     - steep
-learning
-curve.
-     - not
-everything
-is
-obvious.
-     - pays
-you
-back
-if
-you
-are
-committed
-to
-deal
-with
-data
-and
-       programs:
-experimental
-physicist,
-data
-scientist,
-quant,
-etc.
-       That
-is
-the
-main
-audience
-this
-course
-is
-targeting.
-     - I
-am
-going
-to
-give
-lectures,
-examples,
-demonstrations
-on
-       GNU/Linux
-with
-Emacs.
-   + You
-can
-try
-them
-if
-you
-are
-brave,
-and
-you
-are
-encouraged
-to
-find
-     your
-own
-work
-style.
+     - steep learning curve.
+     - not everything is obvious.
+     - pays you back if you are committed to deal with data and
+       programs: experimental physicist, data scientist, quant, etc.
+       That is the main audience this course is targeting.
+     - I am going to give lectures, examples, demonstrations on
+       GNU/Linux with Emacs.
+   + You can try them if you are brave, and you are encouraged to find
+     your own work style.
 ** Submit screen shots
-   - Needed
-skill
-for
-online
-discussion.
-   - Anonymous
-discussion
-groups,
-piazza
-     "Not
-good",
-commented
-by
-Harry
+   - Needed skill for online discussion.
+   - Anonymous discussion groups, piazza "Not good", commented by
+     Harry
    - git
-classroom
+     classroom
      https://github.com/CS50Demo/assignment-1-introduction-to-programming-heroxbd-1
 ** Version control and Git
-   - jiegec's
-lectures.
+   - jiegec's lectures.
 
    https://cloud.tsinghua.edu.cn/d/f3f13a46ed4c4b5386f9/
 ** Write paragraphs of code
@@ -631,6 +373,8 @@ exit
    - CATSOOP https://catsoop.org/
 * 平时作业
   - 细化，标准输入输出
+** 学风
+   ……追求短浅，境界低，不肯有更长远的设计。这是非常重要的学风问题，但是有好多人谈学风问题时，还是不抄作业，论文自己写。这个问题为什么在研究生层次更突出，就是和破五唯有深刻的联系。学生中很有市场的“攻略观”实在是很普遍。攻略就是目标函数值外部给定的，我只要多快好省，maximize 我的结果，minimize 我的 cost。这是功利的一种体现。我们在评特奖时，现在清华的某些老师，甚至某些院系都在强调“攻略观”，因为他们希望自己的院系能常年保有特等奖学金。博士选题，希望早出成果，快出成果。
 * Berkeley Course
   Data science and Bayesian statistics for physical sciences
 
@@ -1100,7 +844,7 @@ git version 2.28.0.rc1
 * 第一周第二天
   :PROPERTIES:
   :EXPORT_FILE_NAME: p1
-  :EXPORT_BEAMER_HEADER+: \title{实验物理的大数据方法}
+  :EXPORT_BEAMER_HEADER: \title{实验物理的大数据方法}
   :EXPORT_OPTIONS: H:1 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
   :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
   :EXPORT_DATE: 2020-08-18 清华线上
@@ -1388,19 +1132,363 @@ $ man git add
            当前流行版本 VIM:=Vi IMproved 和 neovim
    - 其它
 
-* 第二周第三天
+* 第一周第四天
   :PROPERTIES:
-  :EXPORT_FILE_NAME: w2-3
-  :EXPORT_BEAMER_HEADER+: \title{实验物理的大数据方法}
+  :EXPORT_FILE_NAME: p3
+  :EXPORT_BEAMER_HEADER: \title{Git 进阶}
   :EXPORT_OPTIONS: H:1 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
   :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
-  :EXPORT_DATE: 2019-07-10 清华
+  :EXPORT_DATE: 2020-08-20 清华线上
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
   :EXPORT_BEAMER_THEME: Boadilla
-  :EXPORT_BEAMER_COLOR_THEME: crane
+  :EXPORT_BEAMER_COLOR_THEME: MedStarColors
   :EXPORT_BEAMER_FONT_THEME: professionalfonts
   :END:
+** 自定义大作业
+   - 如果有同学希望采用其它学科方向的大作业，请提出申请给续本达 =<orv@tsinghua.edu.cn>= ，8月24日 12:00 截止。
+     1. 问题描述和学科背景
+     2. 数据的输入和输出的定义与格式
+     3. 数据分析结果的评价标准
+
+   - 请准备自定义大作业的同学，在 8 月 21 日星期五 21:00 之前，告知续本达
+     =<orv@tsinghua.edu.cn>= 。
+
+     1. 准备定制什么样的大作业
+     2. 当前遇到了什么困难
+
+** Git 三种状态
+   - 已提交（committed） :: 改动安全保存在数据库中
+   - 已修改（modified） :: 自上一次提交，有文件被修改
+   - 已暂存（staged） :: 已修改的文件被作了标记，将被包含在下一轮提交中
+
+      [[./fig/git-modes.png]]
+** Git 仓库间通信
+   #+Attr_LaTeX: :height 0.7\textheight
+   [[./fig/git-distributed.png]]
+
+   - 建议：通过 SSH (secure shell) 通信。
+** Git 基本命令
+   - diff :: 查看改动
+   - status :: 查看状态
+   - add :: 添加文件
+   - commit :: 提交
+   - log :: 查看历史
+   - pull :: 从远程下载
+   - push :: 推送到远程
+   - merge :: 合并分支
+   - config :: 配置 Git
+
+*** 内建手册 =man=                                           :B_exampleblock:
+    :PROPERTIES:
+    :BEAMER_env: exampleblock
+    :END:
+
+    命令的具体含义可以参考 =man= 命令，例如，
+
+    #+BEGIN_EXAMPLE
+$ man git add
+    #+END_EXAMPLE
+
+** 常见问题
+   - 如何改 Github 界面，VSCode 上显示的 Git 状态？
+
+     - Git 最有效的界面在命令行。可视化界面都有问题，至多可作为参考。
+
+     - 以 =git log= 查看已有 commit 为准。
+
+     - 大家可以探索其它方法，但是课程教学和一切评估规则都以命令行 Git 为准。
+
+   - 没有设置好作者的姓名和邮箱
+      
+     #+BEGIN_SRC bash
+       git config --global user.name "Benda Xu"
+       git config --global user.email "orv@tsinghua.edu.cn"
+     #+END_SRC
+
+     这一设置改变整个用户的 Git 状态，会影响所有此后的 commit。
+
+** 常见问题
+   #+attr_beamer: :overlay <+->
+   - 可以修改 =git push= 之后的 commit 吗？
+     
+     - 不可以。
+     - 可以加一个新的 commit，说明前一个 commit 哪里错了，是如何修改的。
+
+   - 还没有 =git push= 的 commit 可以修改吗？
+
+     - 可以。
+     - 如果只修改 commit message
+
+       =git commit --amend=
+
+     - 作者信息也要改
+
+       =git commit --amend --reset-author=
+
+     - 需要修改 commit 本身
+
+       使用 =git rebase -i=
+
+** git-rebase
+   - @@latex: {\huge 勿对已 push 的 commit 做任何修改！}@@
+   - 以下操作仅限于尚未 push 还在本地的 commit。
+   - ...
+* 第二周第一天
+  :PROPERTIES:
+  :EXPORT_FILE_NAME: p4
+  :EXPORT_BEAMER_HEADER: \title{问卷总结和反馈}
+  :EXPORT_OPTIONS: H:1 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
+  :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+  :EXPORT_DATE: 2020-08-24 清华线上
+  :EXPORT_BEAMER_HEADER+: \author{续本达}
+  :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
+  :EXPORT_BEAMER_THEME: Boadilla
+  :EXPORT_BEAMER_COLOR_THEME: MedStarColors
+  :EXPORT_BEAMER_FONT_THEME: professionalfonts
+  :END:
+** 问卷结果
+   - 难度如何？
+   [[./question2020a.jpeg]]
+   - 你掌握了吗？
+   [[./question2020b.jpeg]]
+** 问卷结果（续）
+   - 小助教有帮助吗？
+   [[./question2020c.jpeg]]
+** 同学们的建议反馈（一）
+   #+attr_beamer: :overlay <+->
+   - 希望可以多一点写代码的指导
+     
+     课上的例子是写代码的指导。如果不够，同学之间和小助教多讨论切磋。
+
+   - 希望自己学好，谢谢助教和老师（约占 40%）
+     
+     好！我们一起努力克服困难。
+
+   - 希望学到更多对实验物理研究有用的工具
+
+     好！这是本人十几年来一直不变的初心。
+
+   - 希望作业能简单一点，分高一点
+
+     作业的难度和给分高低服务于课程目标的设计。
+
+     世界上本没有水课，太简单分太高就成了水课。
+
+** 本人心目中的理想给分梯度
+   #+attr_beamer: :overlay <+->
+   - D :: 学会了用 Git，以 Git 提交了大多数作业。理解了数据处理的复现、透明、
+          一次和最佳工具原则。
+   - C :: 在同学、小/助教、老师的帮助下完成作业的基本要求。
+   - B :: 遇到困难，可以独立分析出错信息，独立查清原因并解决。遇到知识
+          盲点，可以通过自学围绕实现需要快速入门。
+   - A :: 独立思考，提出大作业的创新解决方法，效果出众。
+   - $A^+$ :: 解决大作业中涉及的科学界的开放问题。
+
+** 同学们的建议反馈（二）
+   - 我实在是太菜了，助教总是凶巴巴，可以温柔一点吗？
+
+     有些人明白他们不该粗鲁或傲慢的提问并要求得到答复，但他们选择另一
+     个极端 —— 低声下气：我知道我只是个可悲的新手，一个撸瑟，但...。这
+     既使人困扰，也没有用，尤其是伴随着与实际问题含糊不清的描述时更令
+     人反感。
+
+     别用原始灵长类动物的把戏来浪费你我的时间。取而代之的是，尽可能清
+     楚地描述背景条件和你的问题情况。这比低声下气更好地定位了你的位置。
+
+     —— Eric Raymond，提问的智慧
+
+** “菜”问题
+   #+attr_beamer: :overlay <+->
+   - 解决未知问题是本课程的教学目标，也是数据时代黑客技能的基本组成部分，不要放弃宝贵的学习机会。
+
+   - 希望同学在提问之前，做一些努力，尝试先自己解决问题。
+
+   - 查找 FAQ 和群聊天记录，可能已经有人遇到并解决了同样问题。
+
+   - 提问时，把问题描述清楚，不要说自己“菜”“弱”。
+
+   - 不要遇到问题不假思索随手拍照，请先思考分析原因。
+
+   - 老师一直在暗中观察，会及时制止助教无端以不好的态度与同学对话。
+     但是本人看到的所有助教语气激烈的情形，都是同学无视了以上的建议。
+
+   - 人非生而知之者，基础弱可以不断学习。但提菜问题必须批评。
+
+   - 幸亏助教只是凶一下，随后还是帮助了同学，如果遇到老师……
+
+*** 课堂豁免 :B_alertblock:
+    :PROPERTIES:
+    :BEAMER_env: alertblock
+    :END:
+    - 在课堂上，没有时间作系统调研，以上规则不适用。
+    - 课堂上遇到疑惑，请你大声发问！这也是在帮助同学和老师。
+
+** 同学们的建议反馈（三）
+   - 作业难度跳跃太大
+
+     是这样的。
+
+   - 从以往的大作业项目看，强烈建议大作业中给出更加详细的公式、推导过
+     程和计算方法，以便没有选修过相关课程的同学可以更好地理解项目的背
+     景知识、数值计算方法等。期待不要把作业中没有讲的东西都扔给自学。
+
+     参考老师理解的给分梯度，请在遇到知识盲点时，通过自学补足。大作业
+     的设计目标是模拟科研环境，客观世界从不在乎你已经学过什么。
+
+   - 希望讲授的时候能够慢一些（约占 15%）
+
+     请在课堂上遇到困难时直接发问，本人会加入更多的反馈机制。
+
+   - 希望讲授的时候能够快一些（约占 10%）
+
+     请帮助周围的同学，或直接去解决大作业中的开放问题。
+
+   - 同学间的交流氛围不是很好
+     
+     我也这样觉得！线上授课形式是原因之一。和小助教一起探讨可能的解决方法。
+
+** 同学们的建议反馈（四）
+   - 希望能简单的列出之后的上课大纲，方便同学们预习
+     
+     好。
+
+   - 期待马上上手机器学习，希望学习神经网络
+     
+     #+Attr_LaTeX: :height 0.4\textheight
+     [[./fig/Data_Science_VD.png]]
+     
+     - 炒菜式的机器学习非常简单，不用上课也可以学会。
+
+     - 有了 Hacking skills 和数理统计的功底，机器学习才能发挥出作用。
+
+** 同学们的建议反馈（五）
+
+   - 希望详细演示下debug的过程
+
+     好！
+
+   - 希望了解更多的linux的骚气操作
+     
+     好！第三周。
+
+   - 希望老师多讲解每个知识点的具体应用的意义。少讲语法，突出物理
+
+     好！
+
+   - 建议作业和课件在课程开始时就全部发放
+
+     课件可以，作业课后发。
+
+   - 将所有同学问过的问题整理到某个地方。助教群里答疑是提供详细的说明，而非提一个从来没有听说过的关键词
+
+     - https://faq.jiegec.net/
+
+     - 你学习如何通过关键词提示找到答案
+
+** 如何通过关键词提示找到答案
+   - 搜索引擎的用法演示
+
+     https://zh.lmgtfy.com/
+
+     https://www.google.com/
+
+     http://www.bing.com/
+
+     https://duckduckgo.com/
+
+     其它的搜索引擎都强烈不推荐。
+
+** 同学们的建议反馈（五）
+   - 希望老师多举一些例子，整理出来发给大家。优秀代码分享。
+
+     好！
+
+   - 能约答疑嘛
+     
+     没问题。
+
+** 提问的智慧节选
+   - 如果你的问题被人无视了，请对号入座：
+
+   - 问题：我能在哪找到 X 程序或 X 资源？
+
+     - 回答：就在我找到它的地方啊，白痴 —— 搜索引擎的那一头。天哪！难道还有人不会用 Google 吗？
+
+   - 问题：我怎样用 X 做 Y？
+
+     - 回答：如果你想解决的是 Y ，提问时别给出可能并不恰当的方法。这种问题说明提问者不但对 X 完全无知，也对 Y 要解决的问题糊涂，还被特定形势禁锢了思维。最好忽略这种人，等他们把问题搞清楚了再说。
+
+   - 问题：如何设定我的 shell 提示？？
+
+     - 回答：如果你有足够的智慧提这个问题，你也该有足够的智慧去 RTFM，然后自己去找出来。
+
+   - 问题：我可以用 Bass-o-matic 文件转换工具将 AcmeCorp 档案转换为 TeX 格式吗？
+
+     - 回答：试试看就知道了。如果你试过，你既知道了答案，就不用浪费我的时间了。
+
+** 提问的智慧节选（续）
+   - 问题：我的{程序/设定/SQL 语句}不工作
+
+     - 回答：这不算是问题吧，我对要我问你二十个问题才找得出你真正问题的问题没兴趣 —— 我有更有意思的事要做呢。在看到这类问题的时候，我的反应通常不外如下三种
+
+     1. 你还有什么要补充的吗？
+     2. 真糟糕，希望你能搞定。
+     3. 这关我有什么屁事？
+
+** 新规则
+   - 具体问题，请到 https://github.com/physics-data/faq/issues
+     
+     方便遇到类似问题的同学快速找到。
+
+   - 当你的问题得到解答后，助教可能觉得此问题非常有价值。请配合助教发
+     Pull Request，将它收集到 https://faq.jiegec.net/ 。
+
+* 第二周第三天
+  :PROPERTIES:
+  :EXPORT_FILE_NAME: p6
+  :EXPORT_BEAMER_HEADER+: \title{大作业}
+  :EXPORT_OPTIONS: H:1 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
+  :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+  :EXPORT_DATE: 2020-08-26 清华
+  :EXPORT_BEAMER_HEADER+: \author{续本达}
+  :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
+  :EXPORT_BEAMER_THEME: Boadilla
+  :EXPORT_BEAMER_COLOR_THEME: MedStarColors
+  :EXPORT_BEAMER_FONT_THEME: professionalfonts
+  :END:
+** 作业中过度借鉴代码
+   - +抄袭+ 过度借鉴代码
+
+   - 作业的意义
+
+     1. 学生验证自己是否掌握课程内容
+     2. 为课程分数提供客观教学评价依据
+
+   - 课程分数的意义
+     
+     1. 告诉学生对课程的掌握程度
+     2. 未来的导师参考
+
+** 还原场景
+   - A 同学帮助 B 同学；
+   - 面临交作业截止，B 同学还是没法及时完成；
+   - A 同学把代码给 B 同学参考；
+   - B 同学把代码稍加修改，提交上去；
+   - 因为代码雷同，两位同学都疑似抄袭。
+
+   \pause
+
+*** B 同学
+    - 作业可以迟交，但不要复制其他同学的代码；
+    - 消化理解参考代码，开成自己的方法，Github 上补交作业。
+
+    \pause
+
+*** A 同学
+    - 请继续帮助同学，注意授人以渔；
+    - 请保持对同学的信任。
+
 ** 柏拉图世界观
    [[./fig/SCI.png]]
 
@@ -1415,49 +1503,33 @@ $ man git add
    [[./fig/reconstruction.png]]
    - 建立模型解释物理世界发生的现象，通过统计方法反推本质。
 ** 大作业安排
-   - 2019.7.11 - 2019.7.26
+   - 2020.8.27 - 2020.9.12
      - 模拟实验测量
-     - 包含只选《实验物理的大数据方法（1）》前两周课同学的队伍截止到 2019.8.4
+     - 包含只选《实验物理的大数据方法（1）》前两周课同学的队伍截止到 2020.9.19
 
-   - 2019.7.22 - 2019.8.11
-     - 分析实验测量
-*** 上课时间变动 :B_alertblock:
-    :PROPERTIES:
-    :BEAMER_env: alertblock
-    :END:
-    - 2019.7.17 停上，在 6A207 答疑，改到 2019.7.19 上课。
-      - 物理系同学搬宿舍
+   - 2020.9.10 - 2020.9.28 （草案）
+     - 分析实验数据
+     - 测量物理模型参数
+     - 发现物理规律
+
 ** 实验测量的模拟
    - 输入 :: 物理对象的信息，随机因素的概率分布
    - 输出 :: 多阶段，最终输出为模拟的实验测量原始数据
+   - 可视化 :: 中间结果用图表描述
    - 采分 :: 各阶段的实现，最终输出的正确性，作业报告
-** TOLA 射电干涉的模拟
-   #+BEGIN_SRC dot :file ./TOLA-pipeline.pdf :cmdline -Kdot -Tpdf
-     digraph dataset {
-     bgcolor="#ffffff00"
 
-     S [label = "i (1..N) 射电源的\n 方向、频率、振幅", shape=box]
-     B [label = "j (1..M) 基站\n 位置", shape=box]
-     P [label = "i 射电源在基准 1 号基站\n诱导的信号"]
-     Q [label = "j 基站上\n接收的总信号"]
+** 分组
+   - 同学们先联络好，具体操作在 Github Classroom 上进行
+   - 每队至多三人
+     - 单人队：大作业得分 $\times 1.05$
+     - 三人队：每人大作业得分 = 队伍得分 $\times 0.95$
+     - 不同队伍间请勿直接交换代码
 
-     S -> P
-     B -> P
-     P -> Q[label="线性相加\n时间平移"]
+   - 大作业带有较高难度的附加任务，至多在满分基础上加 10%。
 
-     O [label = "时钟偏移的\n高斯分布标准差", shape=box]
-     F [label = "j 基站的时钟偏移", shape=box]
-     O -> F [label = "抽样"]
-     F -> Q
-     }
-   #+END_SRC
-
-   #+Attr_LaTeX: :height 0.7\textheight
-   #+RESULTS:
-   [[file:./TOLA-pipeline.pdf]]
-
-** 二维金属等能面测量的模拟
-
+** 二维材料等能面测量的模拟
+   - 第一阶段与去年基本一致，难度稍有增加。
+   - https://github.com/physics-data/tpl_isoenergy2020
    #+BEGIN_SRC dot :file ./isoenergy-pipeline.pdf :cmdline -Kdot -Tpdf
      digraph dataset {
      bgcolor="#ffffff00"
@@ -1480,146 +1552,161 @@ $ man git add
    #+Attr_LaTeX: :height 0.7\textheight
    #+RESULTS:
    [[file:./isoenergy-pipeline.pdf]]
-** 二维金属等能面测量的模拟 例子
-   #+Attr_LaTeX: :width 0.45\textwidth :center
-   [[./fig/scatter-momentum.png]]
-   #+Attr_LaTeX: :width 0.45\textwidth :center
-   [[./fig/scatter-real.png]]
-** 中微子实验光电子读出的模拟
-   #+BEGIN_SRC dot :file ./PMT-pipeline.pdf :cmdline -Kdot -Tpdf
-     digraph dataset {
-     bgcolor="#ffffff00"
+** 液闪中微子实验 $\alpha$ 与 $\beta$ 响应的模拟
+   - 内容是去年的超集，难度有增加。
+   - https://github.com/physics-data/tpl_PID
 
-     S [label = "光电子到达时间\n振幅、采样通道"]
-     T [label = "单光电子响应\n时间曲线"]
+** 造父变星的光变曲线模拟
+   - 内容与去年无关，原理有关联，难度增加
+   - https://github.com/physics-data/tpl_cepheids
 
-     G [label = "光电子总信号"]
-     S -> G
-     T -> G
+** ViTables 问题的解决 - Debug 举例
+   - 解决方案在
+     
+     https://github.com/physics-data/faq/issues/5
 
-     N [label = "白噪声幅度", shape=box]
-     W [label = "白噪声"]
-     N -> W[label = "抽样"]
+   - 从临时方案到最终方案
 
-     G -> D [label = "相加"]
-     W -> D
+   - 临时方案的重要性：给出了可复现的正确例子
 
-     D [label = "探测器数据"]
-     }
-   #+END_SRC
+     - 正解的条件 ABCD
 
-   #+Attr_LaTeX: :height 0.7\textheight
-   #+RESULTS:
-   [[file:./PMT-pipeline.pdf]]
-** 分组
-   - 同学们先联络好，具体操作在 Github Classroom 上进行
-   - 每队至多三人
+     - 错误的条件 A'B'C'D'
 
-* 第三周第三天
+     - 控制变量，找到错误的根本因素 A-A'? B-B'?
+
+     - 排除无关的因素：确定 D-D' 不会影响结果，问题简化为 ABC vs. A'B'C'
+** Debug：从 backtrace 找到出错的点
+   - PySide 是什么？—— APT、搜索引擎
+   - 为什么是 PySide？—— Python debug
+     - 读代码
+   - 为什么不是 PyQt5
+     - GNU/Linux 可用，WSL 依旧不可用。——思考两者的本质区别
+   - 分步执行程序
+     - PyQt5 导入失败
+     - 导入失败的原因是 libQt5Core.so.5 找不到文件？
+     - 文件在那里为什么找不到——搜索引擎
+   - 得到解决方案
+
+** Jupyter
+   - Jupyter 从 IPython 的网页界面发展而来
+   - 安装使用
+
+     1. apt install jupyter
+     2. 配置文件
+     3. 安装 jupyter kernel
+     4. 本地网络测试
+   
+* 第二周第四天
   :PROPERTIES:
-  :EXPORT_FILE_NAME: w3-3
-  :EXPORT_BEAMER_HEADER+: \title{GNU Make 的数据生产线}
+  :EXPORT_FILE_NAME: p7
+  :EXPORT_BEAMER_HEADER+: \title{Jupyter LIGO}
   :EXPORT_OPTIONS: H:1 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
   :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
-  :EXPORT_DATE: 2019-07-18 清华
+  :EXPORT_DATE: 2020-08-27 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
   :EXPORT_BEAMER_THEME: Boadilla
-  :EXPORT_BEAMER_COLOR_THEME: crane
+  :EXPORT_BEAMER_COLOR_THEME: MedStarColors
   :EXPORT_BEAMER_FONT_THEME: professionalfonts
   :END:
-** 复习：命令行的函数调用
-   #+BEGIN_SRC sh
-func a1 a2
-a1 : $1; a2 : $2
-   #+END_SRC
+** 复习：大作业
+   - 物理学是实验科学
+   - 实验研究的两个方向：
+     1. 演绎，模拟
+     2. 分析
+     
+   - 三份可选的大作业
+     - https://github.com/physics-data/tpl_isoenergy2020
 
-   - 变量 =$a= ，或 =${a}=
-     - 防止歧义 =${a}b= 与 =$ab=
+       凝聚态物理方向
 
-** 复习：程序返回值
-   - 返回 0 代表成功
-   - 返回非 0 代表有错误，不用的值可以代表不同的错误
-   - 可以由此实现条件结构和 =while= 循环
-     #+BEGIN_SRC sh
-       while [ -d $dir ]; do ...; done
-     #+END_SRC
+     - https://github.com/physics-data/tpl_PID
 
-     #+BEGIN_SRC sh
-       if command; then ...; fi
-     #+END_SRC
+       粒子物理方向，与 Ghost-Hunter 2020 中微子数据分析排位赛结合
 
-** 复习：循环
-   - =while= 和 =for= 循环
+     - https://github.com/physics-data/tpl_cepheids
 
-   #+BEGIN_SRC sh
-     for fruit in apple pear lemon; do
-         echo "我吃 ${fruit}"
-     done
-   #+END_SRC
-** 复习：POSIX 基本权限
-   - rwx: read, write, execute
-   - 421: 0b100, 0b10, 0b1
-   - uga: user, group, all
+       天体物理方向
 
-#+BEGIN_SRC sh
-  chmod a+w '<directory>'
+** Makefile 对流程的定义
+
+   - 安装
+
+     =apt install make=
+
+   - 基本结构
+
+#+BEGIN_SRC makefile -i
+输出目标: 输入源
+    执行的命令 $^ $@
 #+END_SRC
 
-** 复习：命令行进程控制
-   - Ctrl-C 终止
-   - Ctrl-Z 挂起
-     - =bg= 到背景进程
-     - =fg= 到前端进程
-     - =sleep 100 &=
-     - =jobs= 查看进程
-     - =kill %3= 终止第3个进程
+      - =$^= 代表输入源
+      - =$@= 代表输出目标
 
-** 正则表达式
-   - 基本的形式语言，强大地匹配字符串
-     - 理论计算机视角：匹配的字符串是可以被正则表达式定义的自动机接受的输入
-     - 用户可以只关注形式语言的使用
-     - 开发者可以只专注于形式语言的引擎
-   - 由基本定义演化出无穷种的用法
-     - _最佳工具_ 的一个特征
-   - =grep= , =sed=
+** 复习：调试
+   - ViTables 是 Python 程序，解决其无法启动的 bug 的过程有借鉴价值。
 
-** 补充 =find=
-   - 用来查找文件
-     - 目录是一种特殊的文件
-   #+BEGIN_SRC sh
-     find .
-     find . -name "*.sh"
-     find . -type d
-     find . -name "*bin" -and -type f
-   #+END_SRC
+   - 灵活使用搜索引擎和帮助系统
 
-** 补充：文件批量重命名
-   - 切换至 =Shell-Scripts.slides.html=
+     - 理解程序崩溃给出的错误信息
 
-** 彩蛋： =cowsay= =sl=
-   #+BEGIN_SRC sh
-     apt install cowsay-off sl
-     cowsay "Am I cute?"
-   #+END_SRC
+     - 理解 backtrace 中的函数调用过程
 
-*** 彩蛋: bb
-    - 安装 =bb= ，执行
+   - 控制变量，排除无关因素
 
-** 其它工具与练习：mutt
-   #+BEGIN_SRC sh
-     apt install mutt
-     mutt -f xxxx.mbox
-   #+END_SRC
+     - 缩小包围圈，聚焦到极小可复现例子 (Minimal Working Example)。
+       
+       Minimal not Working Example
 
-** 命令行学习的几点建议
-   - 耐心：学习一件新事物，需要一定时间适应
-   - 创新：创新地组织工具，尝试使用命令替代程序
-   - 实用：具体问题具体分析，选择 _最佳工具_
-*** 最佳工具
-    - 正则表达式
-    - 并行计算，高性能计算
+   - 组合使用多种 debug 工具：
+     1. 使用 print() 输出变量的值
+     2. 交互式运行程序，REPL
+     3. 使用 breakpoint()
+** Jupyter
+   - Jupyter 从 IPython 的网页界面发展而来
+   - 安装使用
 
+     1. apt install jupyter
+     2. 配置文件
+     3. 安装 jupyter kernel
+     4. 本地网络测试
+
+** Jupyter 的特点
+   - 最强大的优势：
+
+     - 程序与文本混合编排，literate programming，鼓励了科学结果的复现。
+
+     - 文章和程序既然在描述同一件事，可以自然地写在一起。体现“一次”原则。
+
+   - 其它优势：
+
+     - 图文混排
+
+     - 支持 Python 之外的其它语言环境
+
+   - 弱点：
+
+     - 网页上打字，没有强大的编辑器。(Emacs IPython Notebook，填补了空白)
+
+     - 要进行高强度大规模的运算，需要与其它工具配合。不够成熟。
+
+     - 代码的复用需要额外步骤。
+
+* 第三周第三天
+  :PROPERTIES:
+  :EXPORT_FILE_NAME: pa
+  :EXPORT_BEAMER_HEADER+: \title{GNU Make 的数据生产线}
+  :EXPORT_OPTIONS: H:1 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
+  :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+  :EXPORT_DATE: 2020-09-02 清华
+  :EXPORT_BEAMER_HEADER+: \author{续本达}
+  :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
+  :EXPORT_BEAMER_THEME: Boadilla
+  :EXPORT_BEAMER_COLOR_THEME: MedStarColors
+  :EXPORT_BEAMER_FONT_THEME: professionalfonts
+  :END:
 ** 批量处理海量数据
 *** 命令行探索之后，要将数据处理方法自动化
     - 调用很多命令和程序
@@ -1647,12 +1734,33 @@ a1 : $1; a2 : $2
      - 正好满足我们的所有需求
    - =GNU make= 是 =GNU= 运动中，对 =make= 进行的招展，更加适合管理数据
      - =GNU= : =GNU is Not Unix=
+     - 注意其与 BSD Make 的区别，必要时请使用 =gmake= 。
+     - 通过 =make --version= 查看版本
 *** 作用
     1. 实现 _复现_ 原则
     2. 管理程序运行，在超级计算机上运行
     3. 从错误中恢复
 ** Makefile
-   - 基本语法
+   - 安装
+     #+BEGIN_SRC bash
+apt install make-guile make-doc
+     #+END_SRC
+
+     - =make-guile= 在 =make= 的基础上提供了 =scheme= 语言的支持。
+
+     - =scheme= 语言是 =LISP= 语言的一支，是历史悠久的人工智能语言。
+       - =LISP= 与 =fortran= 是最早的高级编程语言，都出现在 1960 年代。
+
+   - 文档
+     #+BEGIN_SRC bash
+info make     
+man make
+     #+END_SRC
+     
+     参考书：John Graham Cumming, The GNU Make Book
+
+   - 基本语法：清晰写明输入数据，输出数据和计算方法
+
      #+BEGIN_SRC makefile -i
 target: source
 	program source target #如何做
@@ -1672,15 +1780,65 @@ target: source
 	program source target #如何做
 	program $^ $@ #如何做
      #+END_SRC
-** 调用命令
+
      #+BEGIN_SRC makefile -i
-a:=$(shell seq -w 0 9)
+target: source1 source2 source3
+	program $< --reference $(word 2,$^) \
+		--location $(word 3,$^) -o $@
      #+END_SRC
 
+** 调用命令
+   - Makefile 里可以调用 shell 命令，将其标准输出作为值。
+
+   #+BEGIN_SRC makefile -i
+sequence:=$(shell seq -w 00 99)
+file_list:=$(shell find . -name "*.h5")
+   #+END_SRC
+
+*** 字符串操作
+    进行字符串替代，可以使用
+
+    #+BEGIN_SRC makefile -i
+     obs:=$(sequence:%=observation-%.h5)
+     # 等价于
+     obs:=$(patsubst %,observation-%.h5,$(sequence))
+    #+END_SRC
+
 ** 一般匹配关系 pattern
+   - 处理 *.h5 文件，生成对应文件名的 =s/.h5/.png= 图形。
      #+BEGIN_SRC makefile -i
+filelist:=...
+all: $(filelist:%.h5=%.png)
+
 %.png: %.h5
-	xxxxx
+	./plot-celestial.py $^ -o $@
+     #+END_SRC
+
+   - 与 shell 脚本比较：
+     #+BEGIN_SRC bash
+       for f in *.h5; do
+           ./plot-celestrial.py $f -o ${f/.h5/.png}
+       done
+     #+END_SRC
+
+** Makefile 脚本的程序要素
+   - Makefile 更像一个 Functional Programming （函数式编程）的语言。
+   - 不再关注“执行什么操作”，而是关注“输入到输出的映射”。
+   - 循环：
+     
+     #+BEGIN_SRC makefile -i
+# radius list
+rl:=$(shell seq -w 0.10 0.01 1.00)
+profile:=$(foreach d,x y z,$(rl:%=1t_+%_$(d).h5))
+     #+END_SRC
+   - 函数
+     #+BEGIN_SRC makefile -i
+define video
+$(1)/%.avi: $(1)/%.mp4
+	ffmpeg -i $$^ $$@
+endef
+
+$(eval $(foreach d,up down transverse,$(call video,$(d))))
      #+END_SRC
 
 ** 特殊目标
@@ -1700,17 +1858,107 @@ all: xxxx
 
 * 第三周第四天
   :PROPERTIES:
-  :EXPORT_FILE_NAME: w3-4
+  :EXPORT_FILE_NAME: pb
   :EXPORT_BEAMER_HEADER+: \title{课堂综合练习：Python, Git, Shell, Make}
   :EXPORT_OPTIONS: H:1 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
   :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
-  :EXPORT_DATE: 2019-07-19 清华
+  :EXPORT_DATE: 2020-09-03 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
   :EXPORT_BEAMER_THEME: Boadilla
-  :EXPORT_BEAMER_COLOR_THEME: crane
+  :EXPORT_BEAMER_COLOR_THEME: MedStarColors
   :EXPORT_BEAMER_FONT_THEME: professionalfonts
   :END:
+** 复习 GNU Make
+   - 写明数据的依赖关系和转换步骤
+     - 实现 _复现_ 的数据分析流程
+     - 进行并行计算
+   - Makefile 要点
+     1. 文档 (info, man)
+     2. 变量
+     3. 循环结构
+        #+BEGIN_SRC makefile -i
+$(foreach d,x y z,$(s:%=%_$(d).h5))
+        #+END_SRC
+     4. 函数
+     #+BEGIN_SRC makefile -i
+define video
+$(1)/%.mp4: %.avi
+	xxxx
+endef
+$(eval $(call video,up))
+     #+END_SRC
+
+** GNU Make 选择结构
+   - 数据处理中不太常用
+     #+BEGIN_SRC makefile -i
+ifeq ($(a), $(b))
+target: source
+	xxxx
+else
+target: source
+	yyyy
+endif
+     #+END_SRC
+
+** JUNO 蒙卡 Production 的例子
+   - 互动环节：圈出你不理解的地方
+     #+BEGIN_SRC makefile -i
+# 1=model, 2=imh, 3=dist, 4=iter
+define SN-tpl
+
+output+=data/det/$(1)/$(2)/$(3)/ith/$(4).root
+
+data/$(1)/$(2)/$(3)/%.root:
+	./genSN.sh $(1) $(2) $(3) $$@
+
+data/det/%/$(4).root: data/%.root
+	./exeDet.sh $$^ $$@ $(4)
+endef
+
+$(eval $(foreach i,$(imod),$(foreach j,$(imh),\
+	$(foreach k,$(dist),$(call SN-tpl,$(i),$(j),$(k),0))\
+	$(foreach l,$(ip),$(call SN-tpl,$(i),$(j),10,$(l))))))
+
+all: $(foreach i,$(ith),$(subst ith,$(i),$(output)))
+
+# Delete partial files when the processes are killed.
+.DELETE_ON_ERROR:
+# Keep intermediate files around
+.SECONDARY:
+
+     #+END_SRC
+** FAQ pull request 游戏
+   - 我们希望大家把课程中遇到的问题连同解决方法提交到 FAQ 上。
+   - 请大家思考你遇到的最坑的技术问题是什么，如何解决的。
+   - Pull request 2nd round：vitables
+   - 游戏规则：
+     1. 全班分成 14 个组，在组内进行讨论：我遇到的最坑的问题
+     2. 组内讨论决定出一个本组推荐的问题和解决方法
+     3. 小组派出一位代表，向
+        https://github.com/physics-data/faq
+        
+        提交 pull request。
+
+        可选方案：学号同余 14 最小的同学成为代表。
+     4. PR 过程中按照 pair programming 形式进行：
+        - 一人操作，多人围观
+        - 边操作边解说，推荐开摄像头
+        - 围观同学出谋划策
+     5. 老师现场演示合并 Pull Request
+
+** 综合练习
+   - 协同完成 LIGO 数据的批量处理框架
+
+     1. 画出 specgram，进行 time-frequency 联合分析
+
+     2. Generate raw waveform
+
+     3. 画出原始数据的 asd 图
+
+     4. 生成音频文件
+
+     5. ...
 ** 回顾
 *** 科学数据处理的原则 :B_alertblock:
     :PROPERTIES:
@@ -1736,9 +1984,9 @@ all: xxxx
      - 开放数据经简化之后用于教学，[[https://www.gw-openscience.org/s/events/GW150914/LOSC_Event_tutorial_GW150914.html][传送门]]
      - ...因此有了 UC Berkeley 的 /Data science and Bayesian statistics for physical sciences/ 课程大作业
        [[https://phy151-ucb.github.io/seljak-phy151-fall-2018][传送门]]
-     - ...因此有了这节课
-   - 我们借助 LIGO 的数组进行了科学数据可视化的初步。随手画图，
-     - _复现_ 性较差
+     - ...因此有了这门课
+   - 我们借助 LIGO 的数组进行了科学数据可视化的初步。Jupyter 随手画图，
+     - 分析其它源需要手动修改，影响 _复现_ 性
      - 数据如果有变化程序也要修改，容易违背 _一次_ 原则
 ** 综合
    #+attr_beamer: :overlay <+->
@@ -1753,22 +2001,19 @@ all: xxxx
    9. 通过 =specgram= 寻找信号，作图
 * 第四周第一天
   :PROPERTIES:
-  :EXPORT_FILE_NAME: w4-1
-  :EXPORT_BEAMER_HEADER+: \title{关系代数}
+  :EXPORT_FILE_NAME: pc
+  :EXPORT_BEAMER_HEADER+: \title{Hack the universe with data and statistics}
   :EXPORT_OPTIONS: H:1 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
   :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
-  :EXPORT_DATE: 2019-07-19 清华
+  :EXPORT_DATE: 2020-09-07 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
   :EXPORT_BEAMER_THEME: Boadilla
-  :EXPORT_BEAMER_COLOR_THEME: seahorse
+  :EXPORT_BEAMER_COLOR_THEME: MedStarColors
   :EXPORT_BEAMER_FONT_THEME: professionalfonts
   :END:
-** Git 的 Remote 与 Merge
+** 科学范式的演化 Scientific Paradigm Shift
 
-** Makefile 的高级应用示范
-
-** 科学范式的演化
    #+attr_beamer: :overlay <+->
    - 经验时代：占星术等等
    - 理论时代(17世纪起)：牛顿力学，微积分，麦克思韦方程，相对论等等
@@ -1789,7 +2034,7 @@ all: xxxx
 *** 数据本身具有价值
     数据在被采集之外的目的中发挥作用
 
-    - 通过人们对感冒症关的探索预测流感爆发
+    - 通过人们对感冒症状相关的搜索预测流感爆发
     - 黑洞吸积盘“照片”，多个射电望远镜联合交换数据组成相干阵列
 
 ** 工商业与科学的融合
@@ -1804,6 +2049,109 @@ all: xxxx
    [[./fig/Data_Science_VD.png]]
 
    - 数据时代需要专业知识、数理统计和黑客技术等多方面技能
+
+** 本课程的技能树
+   - Python
+     - 程序的数据类型
+     - 程序的基本结构
+     - 函数、类
+     - 数值计算工具
+
+   \pause
+
+   - 外部驱动 Python
+     - 管理：Git
+     - Shell 命令和 Shell 脚本：文件组织
+       - 独立语言，命令组成脚本，脚本变成命令
+     - GNU Make 和 Makefile：数据处理流水线
+       - 独立语言，内嵌 Shell script 和 Guile Scheme
+     - Jupyter
+
+   \pause
+
+   - 内部增强 Python
+     - 正则表达式
+       - 一门微型的独立语言：也可以增强 Shell Script
+
+     - 数据类型
+       - csv :: 最透明
+       - json :: 贴近 Python，适合有结构层次的混合数据
+       - hdf5 :: 效率高，适合大规模的数值型数据
+
+** 物理学是“硬科学”
+   以知识的量化程度排序：
+
+   #+attr_beamer: :overlay <+->
+   - 0类学科：努力区分偶然统计关联和因果关系
+
+     - 到底哪些是决定性因素？
+
+     - X基因决定了此性状，Y基因决定了此性状？XY一起决定？
+     - X +Y+ ， +X+ Y？
+
+   - 1类学科：努力变量之间影响的趋势
+
+     - “房价加速增长的势头”
+
+   - A类学科：努力算出具体的数字
+
+     - 地球的年龄是46亿年
+
+   - Z类学科：没有不确定度的结果不是科学结论！
+     
+     - 电子磁矩，以玻尔磁子 $\mu_B$ 为单位
+
+       \[ g/2 = 1.001 159 652 180 73 (28) \]
+
+       Ref: Phys.Rev.Lett.100:120801,2008
+
+** 结果的不确定度
+   - 结果的不确定度如何给出？
+     
+     1. 建立演绎的模型，预测观测现象
+
+        大作业第一阶段
+
+     2. 在此基础上，从观测现象定出模型中的参数，或者从诸多模型中选出最
+        符合数据的模型
+
+        大作业第二阶段
+
+*** 某某学家的对话
+   - 数学家：一切都是确定且自洽的
+   - 物理学家：一切都是不确定且纷乱的
+   - 统计学家：我赞同物理学家
+
+** 本周预告
+   - 从黑客技能出发学习统计回归
+
+     - 与从概率论出发学习统计回归互补
+
+     - 学习新语言 R
+
+   - 学习如何有序组织数据，尽一切努力让统计分析更容易进行
+     
+     - 关系代数
+
+     - 学习新语言 SQL
+
+* 第四周第二天
+  :PROPERTIES:
+  :EXPORT_FILE_NAME: w4-1
+  :EXPORT_BEAMER_HEADER+: \title{关系代数}
+  :EXPORT_OPTIONS: H:1 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
+  :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+  :EXPORT_DATE: 2019-07-19 清华
+  :EXPORT_BEAMER_HEADER+: \author{续本达}
+  :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
+  :EXPORT_BEAMER_THEME: Boadilla
+  :EXPORT_BEAMER_COLOR_THEME: seahorse
+  :EXPORT_BEAMER_FONT_THEME: professionalfonts
+  :END:
+** Git 的 Remote 与 Merge
+
+** Makefile 的高级应用示范
+
    - 本课程讲的都是黑客技术，没有讲统计方法？ \to 其它课程
 
 ** 数据的存储格式
@@ -1944,7 +2292,6 @@ all: xxxx
     POSIX 环境中强大的小工具组合，开发与使用相融合
 
 *** 多语言融合
-
 *** 计算语言
     Python 语法友好，工具丰富，统领 C/C++/Fortran/R/SQL 库
 
