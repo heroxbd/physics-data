@@ -2229,7 +2229,6 @@ all: $(foreach i,$(ith),$(subst ith,$(i),$(output)))
    |     0 |       0 | [0,0.1,...,0] |
    |     0 |       2 | [0,0.2,...,0] |
 
-
 ** 关系代数的基本运算
    - 集合运算：交、并、差
    - 连接(Join)
@@ -2238,28 +2237,22 @@ all: $(foreach i,$(ith),$(subst ith,$(i),$(output)))
    - 分类运算(Groupby)
 * 第四周第四天
   :PROPERTIES:
-  :EXPORT_FILE_NAME: w4-4
-  :EXPORT_BEAMER_HEADER+: \title{实验物理的大数据方法：面向未来}
+  :EXPORT_FILE_NAME: pf
+  :EXPORT_BEAMER_HEADER+: \title{面向未来}
   :EXPORT_OPTIONS: H:1 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
   :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
-  :EXPORT_DATE: 2019-07-25 清华
+  :EXPORT_DATE: 2020-09-10 清华线上
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
   :EXPORT_BEAMER_THEME: Boadilla
-  :EXPORT_BEAMER_COLOR_THEME: seahorse
+  :EXPORT_BEAMER_COLOR_THEME: MedStarColors
   :EXPORT_BEAMER_FONT_THEME: professionalfonts
   :END:
 ** 大作业网站
-   https://data-contest.net9.org/
-** 大作业：金属等能面
-   - 郝镇齐时间
-** 大作业：TOLA 射电干涉源
-** Python 驱动 C++ 程序
-   - 很多“严肃”程序由 C++ 写成，可以使用 Python 将其变换成 REPL
-     - 非常方便探索
-     - pyROOT
-     - Geant4-python
-     - Boost-python
+   https://dc.applysquare.com/
+
+   - 如果算力不够，请向教学团队求助
+   - 联系物理系和工物系学生科协
 
 ** 技能集合
    #+Attr_LaTeX: :height 0.65\textheight
@@ -2281,20 +2274,38 @@ all: $(foreach i,$(ith),$(subst ith,$(i),$(output)))
 *** 关系代数
     数据表示成关系，数据的操作表示成关系代数运算
 
-*** 数据流水线
-    GNU Make 管理数据的依赖与转换，实现错误恢复和并行计算
+*** 数据格式
+    _透明_ CSV, HDF5, JSON, 数据库 SQL
 
 ** 黑客技能（二）
 
+*** 数据流水线
+    GNU Make 管理数据的依赖与转换，实现错误恢复和并行计算
+
+    实现数据层次的 Python/R/Bash/Scheme/SQL 多语言融合
+
 *** 正则表达式
+    描述字符串的微型语言，数学模型
 
 *** 命令环境
     POSIX 环境中强大的小工具组合，开发与使用相融合
-
-*** 多语言融合
+    
 *** 计算语言
     Python 语法友好，工具丰富，统领 C/C++/Fortran/R/SQL 库
 
+** 本课程之外的知识点
+   - 函数式编程：一切都是函数
+     - 无状态，从而容易从错误中恢复
+   - MapReduce：分布式大数据系统的开始
+     - Map: 映射
+     - Reduce: 总结
+   - 信号处理：《信号与系统》课程们
+   - 统计学习与机器学习
+     - 数学课们，其它课程们
+     - “深度学习”是商业概念，即多层神经网络加大数据训练
+     - 黑客技术基础，为统计学习与机器学习提供了基本环境
+     - 有许多优秀的公开课程
+    
 ** 计算历史：大型机
    [[./fig/main-frame.jpg]]
 
@@ -2313,48 +2324,47 @@ all: $(foreach i,$(ith),$(subst ith,$(i),$(output)))
    [[./fig/supercomputer.jpg]]
 
    - 更大的计算机集群，优化节点间的通信，共享存储。
+
 ** 虚拟机与云计算
    - 虚拟机：软件模拟计算机
    - 云计算：开放平台，自动生成虚拟机
 
-** 技术问题：TUNA 技术群聊天室
-   - TUNA 主页
-
-     https://tuna.moe/
+** 技术问题：TUNA 协会
+   - 清华大学学生开源软件与网络技术协会
+   - TUNA 主页 https://tuna.moe/
 
    - TUNA 技术群，黑客（广义）技术问题探讨
 
-** MapReduce 与函数式编程
-   + 错误恢复
-   + 基本思想
-     - 一切都是函数
+** 中微子 NUS Seminar
+   - 9月11日下午1点，新水301与 zoom 621 219 8453
 
-** 信号处理 (以其昏昏使人昭昭)
-   - 各系开设的《信号与系统》
+     答疑现场+远程
 
-** 统计学习与机器学习
-   - 数学基础
+   - The Saga of Neutrino Oscillation
 
-** 大数据、深度学习与人工智能
-   - 黑客技术基础，为统计学习与机器学习提供了基本环境
-   - 有许多优秀的公开课程
-
-** 大作业的深入研究：中微子
-   - 明天上午10点 清华大学刘卿楼 105
-   - John Learned 教授将给我们带来 The Saga of Atmospheric Neutrinos
-     报告。
-
-   - Learned 教授从1970年代开始活跃在中微子和宇宙线实验领域，是水(冰)下
-     和地下中微子实验领域的先驱者。他的科学思想和技术路线对世界上的中微
-     子探测器都产生了深远的影响。
-
-     http://hep.tsinghua.edu.cn/~orv/
 ** 教学团队
-   - 教师 :: 续本达
-   - 助教 :: 陈嘉杰、张爱强、陈晟祺、高一川、刘晓义
-   - 顾问 :: 阮东、郝镇齐、张宗煜、付祈安、唐如麟
-   - 小助教 :: 张翔宇、王宇逸、武益阳、邓旭、丁思勤、李岸峰
-
+   #+attr_beamer: :overlay <+->
+   - 教师续本达 :: 对，我就是那个最菜的。
+   - 助教 :: 他们是最强的：
+     - 郑鈜壬 :: 请叫我红人，星际玩家，我的 bug 全都是 feature。
+     - 陈嘉杰 :: 嘿嘿嘿，这不够好玩，为什么不讲 Rust。
+     - 陈晟祺 :: 我是 +Harry Chen+ 蛤蜊橙，bug 小王子，不信你试试。
+     - 刘学伟 :: 哇，这也太强了吧，但是我早已搞定，呵呵。
+     - 张卓婧 :: 卓卓什么资料都有，卓卓什么都会。
+     - 翁俊 :: 这也太简单了吧，你套个公式不就算出来了。
+     - 少年爱迪生 :: 学长们作业做得开心吗？不要问我谁是迪生，问[[https://cloud.tsinghua.edu.cn/d/ca4dc48637e4432b88f0/][这里]]。
+** 教学团队
+   #+attr_beamer: :overlay <+->
+   - 快乐的学长 :: 暗中观察受不了的时候就会说话。
+     - 高一川 :: 我会七十二般变化，高二川、高三川、大一川、大二川、大三川、大四川、研一川
+     - 付祈安 :: 我见到学弟学妹就会触发 _付钱_ 的被动技能
+     - 刘晓义 :: 喵喵跑得快
+   - 小助教 :: 来自同学中间
+     - 李子鸣、陈烁天、尹嘉恒、王宇昂、徐大成、孙鑫礼
+     - 孙嘉祎、陶泓耕、胡鸿源、王雨晴、孙泽昌
+** 致谢
+   - 顾问 :: 毛淑德教授、郝镇齐博士、冯骅教授、翟荟教授
+     - 阮东教授、陈少敏教授
 * 总结
 ** 海天盛筵
    8月份，教学团队享用了一顿海天盛筵，故而有这个名字，只是可惜没有拍照。我很喜欢这个词，我觉得上课的过程真是一场享受，用这个词描绘再好不过了。我希望能把其中的敏感引申义去掉，把这个词从废青们那里夺回来。
