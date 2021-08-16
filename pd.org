@@ -1,3 +1,4 @@
+#+LaTeX_CLASS_options: [aspectratio=169]
 #+latex_HEADER: \usepackage{siunitx}
 #+latex_HEADER: \usepackage[version=3]{mhchem}
 #+latex_HEADER: \usepackage{mathrsfs}
@@ -461,7 +462,7 @@ exit
   :EXPORT_BEAMER_HEADER+: \title{实验物理的大数据方法}
   :EXPORT_OPTIONS: H:1 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
   :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
-  :EXPORT_DATE: 2020-08-17 清华线上
+  :EXPORT_DATE: 2021-08-16 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
   :EXPORT_BEAMER_THEME: Boadilla
@@ -475,12 +476,26 @@ exit
 
    - 主要工作：锦屏中微子实验
    - 合作研究
-     1. 日本超级神冈实验
-     2. 江门中微子实验
+     1. JUNO江门中微子实验
+     2. 日本SuperK超级神冈实验
      3. 日本XMASS暗物质实验
    - 研究兴趣：中微子振荡、核子衰变、地球中微子
    - 爱好：大数据分析、高性能计算、系统架构运维
 
+** 教学团队
+   #+attr_beamer: :overlay <+->
+   - 助教 :: 学长学姐们
+     - 张卓婧 :: 物理系本科毕业，工业工程统计中心博士生
+     - 陈晟祺 :: 计算系本科毕业、博士生
+     - 付祈安 :: 物理系本科毕业，计算系硕士生，
+     - 陈嘉杰 :: 计算系本科毕业、博士生
+     - 刘晓义 :: 计算系本科生，物理系后援
+     - 刘学伟 :: 工物系本科毕业、博士生
+     - 王宇逸 :: 物理系本科毕业，工物系博士生
+     - 武益阳 :: 物理系本科毕业，工物系博士生
+   - 课堂助理 :: 李文娟
+   - 顾问 :: 宁传刚教授、曾鸣教授、唐如麟博士、高一川、徐大成、潘晓凡、蒋涵
+   - 小助教 :: 已经有6位同学自荐
 ** 释义
 *** 什么是“实验物理”                                         :B_exampleblock:
     :PROPERTIES:
@@ -522,6 +537,23 @@ exit
      合，催生了“深度神经网络”，或“深度学习”。
 
      - 一系列新方法被应用到实验物理。
+** 此课在知识体系中的地位
+   - 这是一个数据的时代。
+   - 数据时代需要 *黑客技术* Hacking Skills、 *数理统计* Math & Statistics Knowledge 、 *专业知识* Substantive Expertise 等多方面技能。
+
+   #+Attr_LaTeX: :height 0.65\textheight
+   [[./fig/Data_Science_VD.png]]
+** 技能树
+   #+Attr_LaTeX: :height 0.4\textheight
+   [[./fig/Data_Science_VD.png]]
+
+   1. 本课程目标为数理大类的同学补齐 *黑客技术* 。
+   2. 警惕 *Danger Zone!* 。
+      - 黑客技术 :: 人类掌握工具的最高水平
+      - 数学与统计 :: 人类理性思维的最高水平，欢迎选修《概率统计分析及量测技术》
+   3. *专业知识* 根据自己的兴趣选择。
+      - 物理学的思维方式和实践方法是一切专业知识的标杆。
+   4. 本科时代要积极认真学习以上硬知识。
 ** 课程内容
    - 以实验物理为主题，学习大数据方法的基础。
      1. 理解数据的科学精神，从一开始养成良好的科研习惯
@@ -529,17 +561,33 @@ exit
      3. 培养工具的品位，针对具体场景选择合适的工具
 
 *** 计划安排
-    - 实验物理的大数据方法(1) 五教 5105 Zoom 621 219 8453
+    - 实验物理的大数据方法(1) 六教6A416
       - 第一周 :: Git 入门，Python 入门
       - 第二周 :: Python 科学计算与可视化
-    - 实验物理的大数据方法(2) 新水 301 Zoom 621 219 8453
+    - 实验物理的大数据方法(2) 六教6A203
       - 第三周 :: 数据处理的命令行工具
       - 第四周 :: 基于关系代数的数据组织
     - 上课：周一至周四，三四大节
     - 答疑：周五三四大节，地点与上课教室一致
-      - Office Hour: 周一至周五晚7点至9点，刘卿楼804
-      - 网络学堂“课程答疑”板块
+      - Office Hour: 周一至周五晚7点至9点，刘卿楼801.5，805，819
+** 大作业
+   - 课赛结合：Ghost Hunter 2021 中微子实验数据分析
+     - 江门中微子实验的粒子能量测量
+   - 天格计划
+     - 小卫星群 Gamma ray burst 定位问题
+   - 原子分子能级精密测量
+     - 电子动量成像
 
+*** 自定义                                                   :B_exampleblock:
+    :PROPERTIES:
+    :BEAMER_env: exampleblock
+    :END:
+
+    - 如果有同学希望采用其它学科方向的大作业，请提出申请给续本达 =<orv@tsinghua.edu.cn>= ，8月24日截止。
+      1. 问题描述和学科背景
+      2. 数据的输入和输出的定义与格式
+      3. 数据分析结果的评价标准
+      4. Ghost Hunter 2020 的同学可以提出基于 2020 年的定制作业
 ** 数据分析的指导原则
 
    #+attr_beamer: :overlay <+->
@@ -556,103 +604,61 @@ exit
    - “最佳工具”原则 :: 尽量使用高级语言和语法糖，为每个子任务选择合适的工具。只有在性能
       分析之后，才在必要时使用低级语言进行性能加速。
 
-      最佳工具会随时间变化，因此课程名不是
-
-      +Python 数据处理与科学计算+
+      - 最佳工具会随时间变化，因此课程名不是 +Python 数据处理与科学计算+
+      - 思考：研究造父变星分类，是否应当优先调研现有工具？
 
 ** 课程评估 分数标准
-   按百分制记分，录入成绩时转换为等级。
+   按百分制记分，录入成绩时映射为等级。
 
 *** 平时作业
     - 占 70% 成绩，覆盖课堂学习的知识要点，以 Github Classroom 形式组
       织。
       - 平时作业中的 80% 为黑盒测试，20% 为白盒测试。
-      - 白盒测试重点考察
-        1. Git commit 的内容必须有意义。
-        2. 程序书写规范
-
+      - 白盒测试重点考察：Git commit 的内容必须有意义，程序书写规范
 *** 大作业
     - 占 30% 成绩，取材自实验物理不同方向的真实场景。也可以由同学自行
       提出。
       - 分两个阶段，对应前两周“生成”和后两周“分析”，互为逆过程。
-** 大作业
-   - 课赛结合 中微子实验数据分析
-     - 分析中微子实验中，\alpha 与 \beta 粒子的区分。
-     - https://dc.applysquare.com/
-   - 天体分类问题
-     - 巡天数据
-   - 二维材料的等能面测量进阶版
-     - 通过扫描隧道显微镜的数据，分析二维材料的等能面。
-     - 与去年的区别：金属 \to 一般材料
-
-*** 自定义                                                   :B_exampleblock:
-    :PROPERTIES:
-    :BEAMER_env: exampleblock
-    :END:
-
-    - 如果有同学希望采用其它学科方向的大作业，请提出申请给续本达 =<orv@tsinghua.edu.cn>= ，8月24日截止。
-      1. 问题描述和学科背景
-      2. 数据的输入和输出的定义与格式
-      3. 数据分析结果的评价标准
+*** 课程贡献奖励
+    - 小助教，约5%
+    - 贡献 FAQ 内容，约5%
+    - 贡献讲义内容，审校，约5%
 ** 参考资料
    - Allen Downey, Think Python 2e
    - Fernando Perez et al., Scipy Lecture Notes
    - Jeroen Janssens, Data Science at the Command Line
-   - David MacKay, @@latex:\scriptsize{Information Theory, Inference, and Learning Algorithms}@@
+   - David MacKay, Information Theory, Inference, and Learning Algorithms
    - 2019年的课程录像：http://hep.tsinghua.edu.cn/~orv/teaching/video.html
+*** 课程讲义建设
+    - 将课程内容整理成文字，建设成为主体参考资料
+    - 云监工地址 https://github.com/heroxbd/physics-data/
+    - 每节课会制作，欢迎同学们参与审校和贡献内容，有突出贡献者可获 5% 左右的鼓励加分鼓励
 
 *** 辅助资料
-    - Eric S. Raymond, The Art of Unix Programming
-
-      以道家思想剖析了设计的优美和永恒， _透明_ 原则源于此。
-
     - https://learnxinyminutes.com/
 
       从已经有编程基础迅速入门 Python。
 
-    - http://py4e.com/
-
-      Python for everybody，全球知名的 Python 教程，新手友好。
-
-    - 苏勇, [[https://study.163.com/course/courseLearn.htm?courseId=232007][Linux 入门基础 - 网易云课堂]]
-
-      通过 GNU/Linux 讲授 POSIX 环境基础。内容稍旧，思想不变。
-
-** 教学团队
-   - 教师 :: 续本达
-   - 助教 :: 陈晟祺、陈嘉杰、刘学伟、张卓婧、翁俊、@@latex:{\fontspec{Noto Sans} 郑鈜壬}@@
-   - 顾问 :: 郝镇齐、唐如麟、付祈安、高一川、刘晓义
-   - 小助教 :: 已经有11位同学自荐
-     - 李子鸣、陈烁天、尹嘉恒、王宇昂、徐大成、孙鑫礼
-     - 孙嘉祎、陶泓耕、胡鸿源、王雨晴、孙泽昌
-     - 95 位选课和 3 位旁听同学分成 11 个小组。
-
-** CovID-19 时期的学习
-   - 线上为主，调整心态
-
-     1. 我们已然领先世界其它地区半年的身位；
-     2. 春季学期的教学使我们领先许多高校半个身位。
-   
-     \pause
-
-   - 健康第一，学业第二
-
-     1. 2020年的目标：不染病；
-     2. 其它的不苛求，善待自己；
-     3. 从长计议，为祖国健康工作五十年。
-
-     \pause
-
-   - 这也将成为过去，我们终将怀念
-     
-     举例：2003年清华封校的盛况，一直在2005级学生的梦想里。
-
-     \pause
-
+** 有智慧地提问
    - 遇到困难多求助
+     - 特别是那些可以把人“卡住”的“小”问题。一定不要自己扛，及时求助：
+       老师、助教、小助教。
+     - 求助时要有智慧。
 
-     - 线上教学会有额外的困难，特别是那些可以把人“卡住”的“小”问题。一
-       定不要自己扛，及时求助：老师、助教、小助教。
+   - 作者 Eric Raymond
+     http://www.catb.org/~esr/faqs/smart-questions.html
+
+   - 原则：让他人以最小的努力复现出你的问题
+     1. 不要这样说话： +救命! 我的程序坏了！哪位大神快来帮帮我！急！在线等！哭了！+
+     2. 使用最简洁的语言，借助最简单的例子描述问题
+        
+   - 原则：努力让你的问题使更多的人受益
+     1. 非隐私问题，尽可能公开提问，公开讨论。
+
+   - 对课程 FAQ 有突出贡献的同学可得 5% 左右的加分鼓励
+     - https://github.com/physics-data/faq/
+     - 提出问题，整理解答，提交 merge request，……
+     - 提交贡献小结。
 
 ** Python
    #+attr_beamer: :overlay <+->
@@ -694,28 +700,21 @@ exit
      1. Windows Subsystem for Linux (WSL)
      2. 使用虚拟机安装 GNU/Linux
      3. MinGW, Cygwin
+   - 权威指南：https://physics-data.meow.plus/faq/
 
-** 安装 Windows Subsystem for Linux
+** POSIX 环境的基本操作
    #+attr_beamer: :overlay <+->
-   1. 控制面板 \to 所有控制面板项 \to 程序和功能 \to 启用或者关闭Windows功能
-   2. 开启“适用于 Linux 的 Windows 子系统”
-   3. 打开应用商店，安装 Debian
-   4. 进入 Debian，增加用户名和密码
-      
-      注：输入密码时，无反馈提示。
+   - ls :: list structure, 列出当前路径中的文件
+   - cd :: change directory, 改变当前路径
+   - sudo :: 使用管理员权限执行操作
+   - apt :: Advanced Package Tool 软件管理器
+     - =apt update=
+     - =apt install nano diff patch=
+   - nano :: 文件编辑器，与 emacs, vi, VSCode 等互换
 
-   5. 修改 =APT= 源地址为清华 TUNA 开源软件镜像站
-
-      - 使用 =nano= 编辑 =/etc/apt/sources.list=
-
-        注：普通用户与超级用户权限。
-
-      - 查找 =^W= 、替换 =^R= 、保存 =^O= 、退出 =^X=
+     - 查找 =^W= 、替换 =^R= 、保存 =^O= 、退出 =^X=
 
         注： =^W= 代表按住 Ctrl 键，再按 W。
-
-   6. 验证： =apt update=
-
 ** 版本控制
    - “我和同学合写文章，结果他是在昨天的版本上改的！我还得重改！”
 *** 发展历史
@@ -770,8 +769,9 @@ exit
    - 相邻快照之间，是代表文件改动的差分量。
    - 例子：讲义
 ** 例子：撰写讲义
+   #+attr_latex: :width 0.7\textwidth
    [[./fig/tig-example.png]]
-   - 查看每次提交的改动。
+   - 查看每次提交的改动。工具 =tig= ，可由 =apt install tig= 安装。
 ** Git 三种状态
    - 已提交（committed） :: 改动安全保存在数据库中
    - 已修改（modified） :: 自上一次提交，有文件被修改
@@ -804,6 +804,20 @@ exit
     #+BEGIN_EXAMPLE
 $ man git add
     #+END_EXAMPLE
+** 注意
+*** Commit message 写什么
+   - =git commit= 时需要输入一段话概括本次 commit 所作的修改
+   - 目标：让他人和未来的自己一目了然，只通过读此信息就知道自己做了什么
+   - 反例：
+     1. 数数：1,2,3
+     2. 复读：Update,Update,Update
+     3. 欺负键盘：aaaaa,wwwww,asdf
+   - 不太好的例子：“完成作业”
+   - 不错的例子：“完善了个人信息页面，并填写了课程感言”
+*** Github 网页上传和修改工具
+    - 远远次于命令行的功能，无推广价值
+    - 禁止使用，防止养成不良习惯
+
 ** 作业：Git 练习
    #+attr_beamer: :overlay <+->
    - https://classroom.github.com/a/E_U0S1Ts
@@ -833,13 +847,19 @@ git clone git@github.com:heroxbd/physics-data.git
 git log -p
      #+END_SRC
 
-   - 请小助教联系本组同学，确认每位同学都可使用 POSIX 环境、Git 版本，并将
-     结果发给 续本达 =<orv@tsinghua.edu.cn>= 。
-
-     #+BEGIN_EXAMPLE
-$ git --version
-git version 2.28.0.rc1
-     #+END_EXAMPLE
+** Git 仓库间通信的种种形态
+   - fork :: Github 类 Git 平台的术语，对应于 =git clone=
+     - 在本人帐号创建复本
+   - remote :: Git 的非本地仓库
+       #+begin_src bash
+$ git remote -v
+origin  git@github.com:heroxbd/physics-data.git (fetch)
+origin  git@github.com:heroxbd/physics-data.git (push)
+       #+end_src
+   - merge :: 与其他仓库通过交换差分来整合
+   - pull request :: Github 平台术语，发送 merge 请求
+   - merge request :: Gitlab 平台术语，发送 merge 请求
+     - 例子，如何对 FAQ 和讲义作贡献。
 
 * 第一周第二天
   :PROPERTIES:
@@ -854,25 +874,6 @@ git version 2.28.0.rc1
   :EXPORT_BEAMER_COLOR_THEME: MedStarColors
   :EXPORT_BEAMER_FONT_THEME: professionalfonts
   :END:
-** 此课在知识体系中的地位
-   - 这是一个数据的时代。
-   - 数据时代需要 *黑客技术* Hacking Skills、 *数理统计* Math & Statistics Knowledge 、 *专业知识* Substantive Expertise 等多方面技能。
-
-   #+Attr_LaTeX: :height 0.65\textheight
-   [[./fig/Data_Science_VD.png]]
-
-** 技能树
-   #+Attr_LaTeX: :height 0.4\textheight
-   [[./fig/Data_Science_VD.png]]
-
-   1. 本课程目标为数理大类的同学补齐 *黑客技术* 。
-   2. 警惕 *Danger Zone!* 。
-      - 黑客技术 :: 人类掌握工具的最高水平
-      - 数学与统计 :: 人类理性思维的最高水平
-   3. *专业知识* 根据自己的兴趣选择。
-      - 物理学的思维方式和实践方法是一切专业知识的标杆。
-   4. 本科时代要积极认真学习以上硬知识。
-
 ** 概论复习：黑客审美
    - 四个原则：
      1. _复现_ - 否则是伪科学
@@ -892,16 +893,6 @@ git version 2.28.0.rc1
 
      3. 使用工具进行版本控制
 
-** 提问的智慧
-   - 作者 Eric Raymond
-     http://www.catb.org/~esr/faqs/smart-questions.html
-
-   - 原则：让他人以最小的努力复现出你的问题
-     1. 不要这样说话： +救命! 我的程序坏了！哪位大神快来帮帮我！急！在线等！哭了！+
-     2. 使用最简洁的语言，借助最简单的例子描述问题
-        
-   - 原则：努力让你的问题使更多的人受益
-     1. 非隐私问题，尽可能公开提问，公开讨论。
 ** 命令环境
    - 基本的命令
      - ls :: list structure, 列出当前路径中的文件
@@ -2365,6 +2356,11 @@ all: $(foreach i,$(ith),$(subst ith,$(i),$(output)))
 ** 致谢
    - 顾问 :: 毛淑德教授、郝镇齐博士、冯骅教授、翟荟教授
      - 阮东教授、陈少敏教授
+* meta
+  - [ ] 讲义 working-in-progress，Git 练习 / 加分
+  - [ ] faq site / 加分
+  - [ ] 提问的智慧 / 黑客的精神
+
 * 总结
 ** 海天盛筵
    8月份，教学团队享用了一顿海天盛筵，故而有这个名字，只是可惜没有拍照。我很喜欢这个词，我觉得上课的过程真是一场享受，用这个词描绘再好不过了。我希望能把其中的敏感引申义去掉，把这个词从废青们那里夺回来。
