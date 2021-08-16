@@ -709,7 +709,7 @@ exit
    - sudo :: 使用管理员权限执行操作
    - apt :: Advanced Package Tool 软件管理器
      - =apt update=
-     - =apt install nano diff patch=
+     - =apt install nano diffutils patch=
    - nano :: 文件编辑器，与 emacs, vi, VSCode 等互换
 
      - 查找 =^W= 、替换 =^R= 、保存 =^O= 、退出 =^X=
