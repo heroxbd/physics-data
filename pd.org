@@ -486,10 +486,10 @@ exit
    #+attr_beamer: :overlay <+->
    - 助教 :: 学长学姐们
      - 张卓婧 :: 物理系本科毕业，工业工程统计中心博士生
-     - 陈晟祺 :: 计算系本科毕业、博士生
-     - 付祈安 :: 物理系本科毕业，计算系硕士生
-     - 陈嘉杰 :: 计算系本科毕业、博士生
-     - 刘晓义 :: 计算系本科生，物理系后援
+     - 陈晟祺 :: 计算机系本科毕业、博士生
+     - 付祈安 :: 物理系本科毕业，计算机系硕士生
+     - 陈嘉杰 :: 计算机系本科毕业、博士生
+     - 刘晓义 :: 计算机系本科生，物理系后援
      - 刘学伟 :: 工物系本科毕业、博士生
      - 王宇逸 :: 物理系本科毕业，工物系博士生
      - 武益阳 :: 物理系本科毕业，工物系博士生
@@ -867,7 +867,7 @@ origin  git@github.com:heroxbd/physics-data.git (push)
   :EXPORT_BEAMER_HEADER: \title{实验物理的大数据方法}
   :EXPORT_OPTIONS: H:1 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
   :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
-  :EXPORT_DATE: 2020-08-18 清华线上
+  :EXPORT_DATE: 2021-08-17 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
   :EXPORT_BEAMER_THEME: Boadilla
@@ -893,25 +893,6 @@ origin  git@github.com:heroxbd/physics-data.git (push)
 
      3. 使用工具进行版本控制
 
-** 命令环境
-   - 基本的命令
-     - ls :: list structure, 列出当前路径中的文件
-     - cd :: change directory, 改变当前路径
-     - sudo :: 使用管理员权限执行操作
-     - apt :: Advanced Package Tool 软件管理器
-     - nano :: 文件编辑器
-     - vim :: 文本编辑器
-   - 每个命令都完成一件确定的事
-
-     Do one thing, do it right.
-
-   - 命令的组合有无限可能
-
-     作者无法预计用户如何使用他的工具
-
-     - 组合的可能性太多，入门比较难
-     - 一旦入门威力巨大
-
 ** 命令参数标准
    - POSIX 标准定义了推荐的参数格式
    - =git config --global user.name "Benda Xu"= 
@@ -929,96 +910,9 @@ origin  git@github.com:heroxbd/physics-data.git (push)
      - =git show --pretty=short --show-signature=
      - 由 GNU 推荐，是在 POSIX 标准之上的扩展
    - 更多参数，使用 =man= 查看文档
-     - =man ls=
-     - =man git=
-        
-** 我的经历 2002年
-   《工具的狂热——我的 Linux 历程》
-*** 安装系统
-    安装画面相当帅，但帅过之后我发现自己完完全全不熟悉这东西，而且那界
-    面的中文还不知道所云，调成英文我又不大认识（当时痛下决心一定学好英
-    语）。---- 就这样，装了一遍两遍三遍，万物遍，从中午搞到晚上，一个
-    问题一个问题在克服，最后终于每次安装失败都稳定在同一个错误上，抱着
-    英汉词典查出来那个很长很长的提示好像是在说第三张盘的某某包安装错误。
-*** 不知道 Password                                          :B_exampleblock:
-    :PROPERTIES:
-    :BEAMER_env: exampleblock
-    :END:
-    这一玩我傻了，什么 login: 啊，什么 password: 啊，我什么都不知道的
-    咧（事后诸葛亮，安装不完全只要 root 不需要密码就能进的）。已经半夜
-    了，我撅在床上这个憋屈啊，搞了大半天连个系统是啥样的都不知道，被一
-    个 password 直接挡了回来。
-** 我的经历 2003年
-*** 过了一年还是不知道 Password
-    但试机的时候我就木了，同样一个黑乎乎的屏幕上输 "Login:"和
-    "Password:" 之后就是一圈怪怪的提示符，我把记得的 DOS 命令全部试了
-    一遍，发现只有 "dir"和"cd" 可以用，就一个目录一个目录地探索起来。
-    这时我前排的一个抖腿男已经是手抚键盘上下翻飞了，那屏幕蒺藜咕噜地翻
-    了一页又一页，花花绿绿的不知道什么东西。我再一斜眼，左前方的小姑娘
-    已经开了一个蓝蓝的 Pascal 界面正在写测试程序呢，我这才想到重要是得
-    知道 pascal 在哪啊，不好意思地问了旁边的队友，才在 Free Pascal 上
-    一点点搞起来，真别扭，一点状态都没有。队友大师兄指点我几下就去帮别
-    人了，良久回来嫩嫩地说“我帮小妹妹调好了一个程序，小妹妹说我是牛人”。
-    听得我更没心情编程了，就又 "cd" "dir" 地胡乱扯了起来。不一会儿大师
-    兄开始玩 /usr/games/banner ，我也跟着弄了几下，心里飘飘忽忽一点底
-    都没有。
-
-*** URL                                                     :B_ignoreheading:
-    :PROPERTIES:
-    :BEAMER_env: ignoreheading
-    :END:
-
-    http://jkparadise.space/home.php?mod=space&uid=13&do=blog&id=196
-** 命令环境自学教程
-   - 苏勇, [[https://study.163.com/course/courseLearn.htm?courseId=232007][Linux 入门基础 - 网易云课堂]]
-
-     通过 GNU/Linux 讲授 POSIX 环境基础。内容稍旧，思想不变。
-
-   - 课程 FAQ，避坑指南
-     
-     https://faq.jiegec.net/
-** Git 基础
-   [[./fig/pro-git_snapshots.png]]
-   - 在任意时间我们都可以选择给工作区进行一次“快照”。
-   - 相邻快照之间，是代表文件改动的差分量。
-** 例子：撰写讲义
-   [[./fig/tig-example.png]]
-   - 查看每次提交的改动。
-   - 工具： =apt install tig=
-** Git 三种状态
-   - 已提交（committed） :: 改动安全保存在数据库中
-   - 已修改（modified） :: 自上一次提交，有文件被修改
-   - 已暂存（staged） :: 已修改的文件被作了标记，将被包含在下一轮提交中
-
-      [[./fig/git-modes.png]]
-** Git 仓库间通信
-   #+Attr_LaTeX: :height 0.7\textheight
-   [[./fig/git-distributed.png]]
-
-   - 建议：通过 SSH (secure shell) 通信。
-** Git 基本命令
-   - diff :: 查看改动
-   - status :: 查看状态
-   - add :: 添加文件
-   - commit :: 提交
-   - log :: 查看历史
-   - pull :: 从远程下载
-   - push :: 推送到远程
-   - merge :: 合并分支
-
-*** 内建手册 =man=                                           :B_exampleblock:
-    :PROPERTIES:
-    :BEAMER_env: exampleblock
-    :END:
-
-    命令的具体含义可以参考 =man= 命令，例如，
-
-    #+BEGIN_EXAMPLE
-$ man git add
-    #+END_EXAMPLE
+     - =man ls=, =man git=
 ** 作业：Git 练习
-   #+attr_beamer: :overlay <+->
-   - https://classroom.github.com/a/E_U0S1Ts
+   - https://classroom.github.com/a/5tSO1WbA
      - 点击后会自动创建你的 Git 仓库
      - 如果访问 Github 遇到问题，请使用课程专用的 HTTP/SSH 代理
 
@@ -1034,39 +928,29 @@ $ man git add
 
 课程感言：
      #+END_EXAMPLE
-   - 安装 =apt install python3= ，查看版本 =python3 --version=
    - 查看修改 (diff)，预估得分
    - 添加修改 (add)，提交 (commit)，推送 (push)
-** 作业反馈
-   #+attr_beamer: :overlay <+->
-   - 同学们的感言
-     1. 我要好好学习
-     2. 吐糟老师的发型
-     3. 理解了当今实验物理、数据和计算机之间的关系
-     4. 课程看起来很有趣
-     5. 好难，不知道在干啥，我好菜
-     6. 不过有老师、助教和同学们的热情帮助
-     7. 好想来教室上课
-   - 一些问题
-     - =git config --global user.name "Blah Blah"=
-       
-       请把 =Blah Blah= 替换成自己的名字，重新运行此命令。
+** 练习（不记分）：查看备课历史
 
-     - =git add introduction.txt=
-       
-       注意不要把无用的文件包含进来
+   - https://github.com/heroxbd/physics-data
 
-     - commit message
-
-** Commit message 写什么
-   - =git commit= 时需要输入一段话概括本次 commit 所作的修改
-   - 目标：让他人和未来的自己一目了然，只通过读此信息就知道自己做了什么
-   - 反例：
-     1. 数数：1,2,3
-     2. 复读：Update,Update,Update
-     3. 欺负键盘：aaaaa,wwwww,asdf
-   - 不太好的例子：“完成作业”
-   - 不错的例子：“完善了个人信息页面，并填写了课程感言”
+     #+BEGIN_SRC bash
+git clone git@github.com:heroxbd/physics-data.git
+git log -p
+     #+END_SRC
+** Git 仓库间通信的种种形态
+   - fork :: Github 类 Git 平台的术语，对应于 =git clone=
+     - 在本人帐号创建复本
+   - remote :: Git 的非本地仓库
+       #+begin_src bash
+$ git remote -v
+origin  git@github.com:heroxbd/physics-data.git (fetch)
+origin  git@github.com:heroxbd/physics-data.git (push)
+       #+end_src
+   - merge :: 与其他仓库通过交换差分来整合
+   - pull request :: Github 平台术语，发送 merge 请求
+   - merge request :: Gitlab 平台术语，发送 merge 请求
+     - 例子，如何对 FAQ 和讲义作贡献。
 
 ** git commit                                               :B_ignoreheading:
    :PROPERTIES:
@@ -1074,10 +958,10 @@ $ man git add
    :END:
 
    #+BEGIN_EXPORT latex
-\frame[plain]{\includegraphics[page=8,width=\textwidth]{git-commit.pdf}}
-\frame[plain]{\includegraphics[page=9,width=\textwidth]{git-commit.pdf}}
-\frame[plain]{\includegraphics[page=10,width=\textwidth]{git-commit.pdf}}
-\frame[plain]{\includegraphics[page=11,width=\textwidth]{git-commit.pdf}}
+\frame[plain]{\includegraphics[page=8,height=\textheight]{git-commit.pdf}}
+\frame[plain]{\includegraphics[page=9,height=\textheight]{git-commit.pdf}}
+\frame[plain]{\includegraphics[page=10,height=\textheight]{git-commit.pdf}}
+\frame[plain]{\includegraphics[page=11,height=\textheight]{git-commit.pdf}}
    #+END_EXPORT
 
 ** 参考资料
@@ -1106,23 +990,7 @@ $ man git add
      - Git 命令运行依赖于 POSIX 环境。
      - 在 POSIX 环境需要进行文本编辑，用到了 =nano= 。
 
-       WSL，MacOS，GNU/Linux，远程 SSH 账户
-** 文本编辑器
-   [[./fig/gedit.png]]
-
-** 文本编辑器(复古)
-   [[./fig/nano.png]]
-
-   - 没有菜单，只有快捷键
-   - 快捷键是当前人类与计算机之间效率最高的通道
-** 推荐的文本编辑器
-   - nano :: 常用作应急编辑器，适合简单工作。
-   - VSCode :: 可以与 WSL 集成，编辑 WSL 内的文件。可以从命令行打开文件。
-   - Emacs :: 我正在使用的编辑器。可以图形界面，也可以命令行。
-   - Vi :: 与 Emacs 齐名的，历史悠久编辑器。
-           当前流行版本 VIM:=Vi IMproved 和 neovim
-   - 其它
-
+       WSL，MacOS，GNU/Linux，虚拟机，远程 SSH 账户
 * 第一周第四天
   :PROPERTIES:
   :EXPORT_FILE_NAME: p3
