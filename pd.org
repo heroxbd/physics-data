@@ -1095,6 +1095,26 @@ origin  git@github.com:heroxbd/physics-data.git (push)
 *** A
     - 请继续帮助同学，注意授人以渔；
     - 请保持对同学的信任。
+** 熟练打字
+   - 课程的语言如 Python, Bash 使用特殊字符
+     - =${DISPLAY:-0}=, =people[3:7]=, =@decorator()=
+   - 如果打字不熟练，效率会严重受影响，你需要
+     1. 留出更多的时间做作业
+     2. 有意识地提升打字能力
+        - https://www.typingclub.com/
+        - typespeed
+          =apt install typespeed=
+        - gtypist
+          =apt install gtypist=
+        - ktouch
+          =apt install ktouch=
+   #+latex: \pause
+*** 打字是重复动作，好无聊？摘自《Learn Python 3 the hard way》
+    1. 任何值得做的事都不简单
+    2. 你可能惧怕挫折，遇到一点困难的迹象就想放弃
+    3. 你可能没有自律，无法坚持做任何“无聊”的事
+    4. 你可能被人称为“天才”，避免被人看到你在练习不擅长的新技能时的菜鸡状态
+    5. 你可能看重输赢，很老师比他所擅长的领域
 
 * 2020年 第一周第四天
   :PROPERTIES:
