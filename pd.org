@@ -930,14 +930,38 @@ origin  git@github.com:heroxbd/physics-data.git (push)
      #+END_EXAMPLE
    - 查看修改 (diff)，预估得分
    - 添加修改 (add)，提交 (commit)，推送 (push)
-** 练习（不记分）：查看备课历史
+** SSH 通信
+   - 通信的认证问题：如何证明我是“我”？
+     #+latex: \pause
+     - 手机验证码
+     - 一次性密码（one-time password，OTP）
+     - 用户名密码
+     - 非对称加密（银行 U 盾）
+   - 生成 SSH 非对称密钥对
+     - 一个公钥：公布， =id_rsa.pub=
+     - 一个私钥：私密， =id_rsa=
+     - 在网页界面把 =id_rsa.pub= 交给 Github
+     - Github 用我的公钥加密挑战码，只有我的私钥才能解密
+       - Github 知道了我是“我”
+       - 我也需要知道 Github 是真的 Github
+     - 建立了与 Github 的可靠通信
+** Git 的状态与命令
+   #+BEGIN_SRC dot :file ./git-stages.pdf :cmdline -Kdot -Tpdf
+     digraph git {
+     rankdir="LR";
 
-   - https://github.com/heroxbd/physics-data
+     C -> M [label = "编辑\ngit diff"]
+     C [label = 已提交]
+     M [label = 已修改]
+     M -> S [label = "git add\ngit reset\ngit rm"]
+     S [label = 待提交]
+     S -> C [label = "git diff --cached\ngit commit"]
+     }
+   #+end_src
 
-     #+BEGIN_SRC bash
-git clone git@github.com:heroxbd/physics-data.git
-git log -p
-     #+END_SRC
+   #+RESULTS:
+   [[file:./git-stages.pdf]]
+
 ** Git 仓库间通信的种种形态
    - fork :: Github 类 Git 平台的术语，对应于 =git clone=
      - 在本人帐号创建复本
@@ -992,6 +1016,87 @@ origin  git@github.com:heroxbd/physics-data.git (push)
 
        WSL，MacOS，GNU/Linux，虚拟机，远程 SSH 账户
 * 第一周第四天
+  :PROPERTIES:
+  :EXPORT_FILE_NAME: p3
+  :EXPORT_BEAMER_HEADER: \title{生存法则}
+  :EXPORT_OPTIONS: H:1 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
+  :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+  :EXPORT_DATE: 2021-08-19 清华
+  :EXPORT_BEAMER_HEADER+: \author{续本达}
+  :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
+  :EXPORT_BEAMER_THEME: Boadilla
+  :EXPORT_BEAMER_COLOR_THEME: MedStarColors
+  :EXPORT_BEAMER_FONT_THEME: professionalfonts
+  :END:
+** 小助教分组
+   - 11名同学自荐成为小助教（谢谢大家！），经过教学团队审核通过，将学
+     生分组公布于网络学堂“课程文件”栏。
+     
+   #+attr_beamer: :overlay <+->
+   - 贾启珑 :: 基科91
+   - 贾成杰 :: 物理91
+   - 解森炜 :: 基科92
+   - 田宗森 :: 基科91
+   - 于明杨 :: 基科91
+   - 刘汉青 :: 物理91
+   - 张震 :: 基科91
+   - 牟迨秋 :: 基科92
+   - 刘亦晖 :: 核92 
+   - 刘欣宇 :: 物理01
+   - 杨政昊 :: 核91
+** 小助教的职责范围
+   - 将本组同学的共性问题及时反馈给助教和老师，帮助老师根据实际情况调
+     整教学方案。
+   - 帮助同学掌握课程内容，协助助教和老师答疑。
+   #+latex: \pause
+*** 什么程度的帮助与借鉴可以促进学习
+    1. AB 讨论解决问题的思路；
+    2. AB 讨论关键的技巧，A 给出参考资料，引导 B 自学；
+    3. A 将自己的程序逐句用人类语言描述给 B，B 按照自己的理解写了一份逻辑一模一样的程序；
+    4. A 将自己的源码交给 B，B 在理解了原理之后丢掉了 A 的程序，自己凭记忆和理解重写了一份；
+    5. A 将自己的源码交给 B，B 在读懂之后进行了简单的变量名和函数定义替换；
+    6. A 将自己的源码交给 B，B 把程序原样提交。
+
+** 抄袭零容忍
+   - +抄袭+ 过度借鉴代码
+
+   - 作业的意义
+
+     1. 学生验证自己是否掌握课程内容
+     2. 为课程分数提供客观教学评价依据
+
+   - 课程分数的意义
+     
+     1. 反馈学生对课程的掌握程度
+     2. 未来的导师参考
+*** 本课程对抄袭的处理规则
+    1. 抄袭者与被抄袭者同样按抄袭处理；
+    2. 第一次抄袭：警告，该次作业记0分；
+    3. 第二次抄袭：严重警告，该次作业记0分，额外扣除两次作业成绩；
+    4. 第三次抄袭：总评记 F。
+
+** 案例
+   - A 同学帮助 B 同学；
+   - 面临交作业截止，B 同学还是没法及时完成；
+   - A 同学把代码给 B 同学参考；
+   - B 同学把代码稍加修改，提交上去；
+   - 因为代码雷同，两位同学都疑似抄袭。
+
+   \pause
+
+*** B
+    - 作业即使迟交，也不要复制其他同学的代码。
+    - 即使补交作业不能得分，但可以作为总评时的参考。
+    - 消化理解参考代码，形成自己的方法。
+    - 如果感到吃力，应当在课后投入更多精力尽更大的努力地练习。
+
+    \pause
+
+*** A
+    - 请继续帮助同学，注意授人以渔；
+    - 请保持对同学的信任。
+
+* 2020年 第一周第四天
   :PROPERTIES:
   :EXPORT_FILE_NAME: p3
   :EXPORT_BEAMER_HEADER: \title{Git 进阶}
@@ -1067,7 +1172,7 @@ $ man git add
 
      这一设置改变整个用户的 Git 状态，会影响所有此后的 commit。
 
-** 常见问题
+** 作业 Git 规则
    #+attr_beamer: :overlay <+->
    - 可以修改 =git push= 之后的 commit 吗？
      
@@ -1316,38 +1421,6 @@ $ man git add
   :EXPORT_BEAMER_COLOR_THEME: MedStarColors
   :EXPORT_BEAMER_FONT_THEME: professionalfonts
   :END:
-** 作业中过度借鉴代码
-   - +抄袭+ 过度借鉴代码
-
-   - 作业的意义
-
-     1. 学生验证自己是否掌握课程内容
-     2. 为课程分数提供客观教学评价依据
-
-   - 课程分数的意义
-     
-     1. 告诉学生对课程的掌握程度
-     2. 未来的导师参考
-
-** 还原场景
-   - A 同学帮助 B 同学；
-   - 面临交作业截止，B 同学还是没法及时完成；
-   - A 同学把代码给 B 同学参考；
-   - B 同学把代码稍加修改，提交上去；
-   - 因为代码雷同，两位同学都疑似抄袭。
-
-   \pause
-
-*** B 同学
-    - 作业可以迟交，但不要复制其他同学的代码；
-    - 消化理解参考代码，开成自己的方法，Github 上补交作业。
-
-    \pause
-
-*** A 同学
-    - 请继续帮助同学，注意授人以渔；
-    - 请保持对同学的信任。
-
 ** 柏拉图世界观
    [[./fig/SCI.png]]
 
