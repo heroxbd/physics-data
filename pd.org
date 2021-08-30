@@ -1033,7 +1033,7 @@ origin  git@github.com:heroxbd/physics-data.git (push)
      生分组公布于网络学堂“课程文件”栏。
      
    #+attr_beamer: :overlay <+->
-   - 贾启珑 :: 基科91
+   - 贾启珑 :: 基科92
    - 贾成杰 :: 物理91
    - 解森炜 :: 基科92
    - 田宗森 :: 基科91
@@ -1114,7 +1114,7 @@ origin  git@github.com:heroxbd/physics-data.git (push)
     2. 你可能惧怕挫折，遇到一点困难的迹象就想放弃
     3. 你可能没有自律，无法坚持做任何“无聊”的事
     4. 你可能被人称为“天才”，避免被人看到你在练习不擅长的新技能时的菜鸡状态
-    5. 你可能看重输赢，很老师比他所擅长的领域
+    5. 你可能看重输赢，跟老师比他所擅长的领域
 
 * 2020年 第一周第四天
   :PROPERTIES:
@@ -1427,10 +1427,9 @@ $ man git add
 
    - 当你的问题得到解答后，助教可能觉得此问题非常有价值。请配合助教发
      Pull Request，将它收集到 https://faq.jiegec.net/ 。
-
-* 第二周第三天
+* 第二周第二天
   :PROPERTIES:
-  :EXPORT_FILE_NAME: p6
+  :EXPORT_FILE_NAME: p5
   :EXPORT_BEAMER_HEADER+: \title{大作业}
   :EXPORT_OPTIONS: H:1 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
   :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
@@ -1455,11 +1454,10 @@ $ man git add
    [[./fig/reconstruction.png]]
    - 建立模型解释物理世界发生的现象，通过统计方法反推本质。
 ** 大作业安排
-   - 2020.8.27 - 2020.9.12
+   - 2021.8.25 - 2021.9.8
      - 模拟实验测量
-     - 包含只选《实验物理的大数据方法（1）》前两周课同学的队伍截止到 2020.9.19
 
-   - 2020.9.10 - 2020.9.28 （草案）
+   - 2021.9.8 - 2021.9.26 （草案）
      - 分析实验数据
      - 测量物理模型参数
      - 发现物理规律
@@ -1473,82 +1471,14 @@ $ man git add
 ** 分组
    - 同学们先联络好，具体操作在 Github Classroom 上进行
    - 每队至多三人
-     - 单人队：大作业得分 $\times 1.05$
+     - 单人队：大作业得分 $\times 1.03$
      - 三人队：每人大作业得分 = 队伍得分 $\times 0.95$
      - 不同队伍间请勿直接交换代码
 
-   - 大作业带有较高难度的附加任务，至多在满分基础上加 10%。
+   - 大作业带有较高难度的附加任务，至多在（黑盒）满分基础上加 10%。
 
-** 二维材料等能面测量的模拟
-   - 第一阶段与去年基本一致，难度稍有增加。
-   - https://github.com/physics-data/tpl_isoenergy2020
-   #+BEGIN_SRC dot :file ./isoenergy-pipeline.pdf :cmdline -Kdot -Tpdf
-     digraph dataset {
-     bgcolor="#ffffff00"
-
-     H [label = "二维金属的等能面\n态密度"]
-     R [label = "普通散射中心在原点时的\n实空间态密度"]
-     H -> R [label = "动量序对积分"]
-
-     RD [label = "普通散射中心\n扫描电子显微镜图像"]
-     R -> RD [label = "衰减"]
-
-     M [label = "磁性散射中心在原点时的\n实空间态密度"]
-     H -> M [label = "动量序对积分\n且带额外相位"]
-
-     M -> MD [label = "衰减"]
-     MD [label = "磁性散射中心\n扫描电子显微镜图像"]
-     }
-   #+END_SRC
-
-   #+Attr_LaTeX: :height 0.7\textheight
-   #+RESULTS:
-   [[file:./isoenergy-pipeline.pdf]]
-** 液闪中微子实验 $\alpha$ 与 $\beta$ 响应的模拟
-   - 内容是去年的超集，难度有增加。
-   - https://github.com/physics-data/tpl_PID
-
-** 造父变星的光变曲线模拟
-   - 内容与去年无关，原理有关联，难度增加
-   - https://github.com/physics-data/tpl_cepheids
-
-** ViTables 问题的解决 - Debug 举例
-   - 解决方案在
-     
-     https://github.com/physics-data/faq/issues/5
-
-   - 从临时方案到最终方案
-
-   - 临时方案的重要性：给出了可复现的正确例子
-
-     - 正解的条件 ABCD
-
-     - 错误的条件 A'B'C'D'
-
-     - 控制变量，找到错误的根本因素 A-A'? B-B'?
-
-     - 排除无关的因素：确定 D-D' 不会影响结果，问题简化为 ABC vs. A'B'C'
-** Debug：从 backtrace 找到出错的点
-   - PySide 是什么？—— APT、搜索引擎
-   - 为什么是 PySide？—— Python debug
-     - 读代码
-   - 为什么不是 PyQt5
-     - GNU/Linux 可用，WSL 依旧不可用。——思考两者的本质区别
-   - 分步执行程序
-     - PyQt5 导入失败
-     - 导入失败的原因是 libQt5Core.so.5 找不到文件？
-     - 文件在那里为什么找不到——搜索引擎
-   - 得到解决方案
-
-** Jupyter
-   - Jupyter 从 IPython 的网页界面发展而来
-   - 安装使用
-
-     1. apt install jupyter
-     2. 配置文件
-     3. 安装 jupyter kernel
-     4. 本地网络测试
-   
+** 自定义大作业
+   - 一项：重做2020年的粒子物理大作业
 * 第二周第四天
   :PROPERTIES:
   :EXPORT_FILE_NAME: p7
