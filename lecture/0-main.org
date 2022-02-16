@@ -190,219 +190,149 @@ Git 同步的时候，每个人有各自的计算机，需要进行分布式的�
       remote: Total 29 (delta 4), reused 0 (delta 0), pack-reused 0
       Receiving objects: 100% (29/29), 4.45 KiB | 4.45 MiB/s, done.
       Resolving deltas: 100% (4/4), done.
-
-      $ cd aplusb-heroxbd
     #+end_example
+
+    #+NAME: 2f619678-0bc3-48b5-96c1-9103b783261d
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb
+      git clone -q git@github.com:physics-data/aplusb-heroxbd.git
+      cd aplusb-heroxbd
+      ls
+    #+end_src
+
+    #+RESULTS: 2f619678-0bc3-48b5-96c1-9103b783261d
+    : aplusb.py  data  grade.py  README.md
 
     我一个程序 =aplusb.py= ，这是一个极简的 Python 程序，随后我们学习它的语法和语义。我将第一个 input 赋予变量 =a= ， 第二个 input 赋予变量 =b= ，完成了对它的修改。
 
-    此时 =git diff=  可以显示我们在上一个 commit 之上做了哪些改动。比如说这里原来是一个空文件，只有之前助教同学给的提示，在这里加了两个变量。
+    此时 =git diff= 可以显示在上一个 commit 之后做的改动。
+    #+NAME: 187958d6-d6dc-4ab1-aec1-884f4801fd1a
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb
+      git diff
+    #+end_src
 
-另外我们用 git status 可以看到这个被改了。在这种情况下，就可以把改动累加起来。我们再看一下 status，
-我刚才add了之后
-它知道
-现在是modified
-我add了之后 把文件做了一个标记
-标记为
-它将用于commit
-所以我们看它其实是已经
-慢一点
-慢一点
-又不知不觉的
-做的比较快一点
-我重新来一遍
-这个git diff
-首先我拿git diff看了一下
-我做了一下对应的改动
-那么最后我们打git diff的话
-就可以看到
-我对这个文件
-进行了什么样的整改
-我们看到
-加了输入a然后输入b
-然后和print
-这个部分
-这个更改恰好是我们做的
-所以我觉得很满意
-这更改完了
-所以我决定把这个更改
-commit上去
-commit之前
-我先要给它加一个标记
-说我准备提交这个文件
-那么我加了这个标记
-就是add
-我刚才改的
-是这里
-所以把
-就是说
-我 add 文件的意思是说
-刚才我们讲到的 git 有三个阶段
-刚才同学的问题
-就是
-说到底什么是做标记
-我们再来回顾一下
-因为这个工具
-大家第一次使用
-所以很多概念还不太清楚
-所以一旦我操作的时候
-大家也跟不上了
-一定要提问
-所以谢谢这位同学
-刚才我可能讲的太快
-那么一会儿上课回来
-我给大家重新讲一下
-这个 git 的 staged
-好
-我们先下课休息一会
-好
-我们进行上课了
-咱们先讲一会
-刚才有同学感觉
-有点奇怪
-我可能两个阶段
-就能把这个问题搞定了
-是吧
-为什么要add
-你比如说我现在
-有了一个
-提交之后
-我做了一些修改
-修改之后
-我造一个新的提交就完事了
-为什么还要add的一步做一个标记
-然后再进行提交
-我们先回顾一下
-add是什么意思
-我们先把这个项目
-add的意思是
-最开始它是一个提交的状态
-然后我们进行了修改之后
-变成了
-已修改
-已修改状态之后
-有一个叫做staged
-这个staged
-中间态
-没有一个统一的翻译
-你就要打一个标签
-就是说当我们把这个文件
-打一个标签之后
-那么staged的部分
-在下一次肯定就会被交上
-同学们不太理解说
-为什么多出来的这样的一个staged
-那么先打标签
-然后再提交
-我能不能直接提交
-直接提交也是有一个方法的
-比如说
-我刚才如果不add的话
-直接commit
-那么这个时候会出现什么情况呢
-那也就是说我
-比如说我们仔细读一下
-但是他重要的一部分就是说
-no change added to commit
-也就是说
-我还没有add文件
-它就把这个文件
-放到即将commit 
-这个队列里面
-就是说我还没有给它打标签
-让它commit
-所以说它觉得没有东西
-可以
-这会出现这个情况
-那么其实就是仁者见仁
-智者见智
-有些同学可能会喜欢
-我就是忽略这个步骤
-那么这个时候可以加一个参数
-叫做-a
-我们先看一下
-这个-a是什么意思
-昨天我们讲到
-如果要看文件里边的
-它的文档的话
-可以用这个man
-看它的文档
-那么如果我们执行man git commit
-我们看到这个屏幕
-是什么意思
-我们小抄里边不知道有没有
-比如说应该是最全的
-你看一下-a是什么意思
-实际上来讲
-如果我们忘了
-commit都有什么参数
-我们就可以通过这种方式来
-我刚才在这儿
-那么-a就是
-也就是说
-如果-a的话
-可以跳过这个staged的过程
-可以跳过打标签的过程
-我们把所有的可以改动的文件
-都提交成一个新的改动
-它还提醒我们说
-如果有新的文件
-那么它不会被添加
-那么刚才的这种情况
-我们查了文档之后
-我们知道 
-我们可以看到
-如果我们commit
-好
-可以了
-就出来了一个编辑器
--m就是直接输入我们的
--m可以查一下
-我们来查一下什么是 -m
--m在这
-是吧
--m就是直接message
-或者是 --message
-也就是说之前我们在commit这个
-时候
-它会出一个窗口告诉我们，让我们备注 commit 所做的修改。但是如果我们想都在命令行里完成的话，我们就可以直接跟一个 -m。然后把要描述的话
-我们看这样的话
-当然不能这样说
-这样说是要被扣分的
-我先不这样输入
-我们来展示一下-m是什么
-刚才我没有输入
-没有输入任何的注释
-所以说它说因为我的
-注释
-是空的
-所以它没有commit
-所以我刚才的命令
-我如果按一下上的话
-就调出来上一个命令
-刚才我直接-m的话
-这个是
-这里头我就用了引号
-会更稳一些
-这样就没有弹出来
-在刚才的编辑器
-直接以这个为提交的push给它
-你们如果看
-我们来看一下
-整个我们改动的
-这些差分的历史的话
-就这一块
-刚才我做的
-这样就完成了之后
-我们就可以把它push
- 
-我们有很多方法可以查看提交的注释。比如，查阅 git log，这里记录了改变的历史。在团队合作的时候，可以查询它的整个历史，并且对每一次修改都可以有非常明确的追溯
- 
+    #+RESULTS: 187958d6-d6dc-4ab1-aec1-884f4801fd1a
+    #+begin_example
+    diff --git a/aplusb.py b/aplusb.py
+    index b1042af..c6cd1b5 100644
+    --- a/aplusb.py
+    +++ b/aplusb.py
+    @@ -1,5 +1,10 @@
+     # TODO: read two ints from standard input
+     # HINT: use input()
+
+    +a = int(input())
+    +b = int(input())
+    +
+     # TODO: print the result
+    -# HINT: use print()
+    \ No newline at end of file
+    +# HINT: use print()
+    +
+    +print(a+b)
+    #+end_example
+
+    =aplusb.py= 原是空文件，只有助教给的提示，更改是增加了输入 =a= 和 =b= 以及输出 =a+b= 的行。
+
+    另外我们用 =git status= 可以看到 =aplusb.py= 被更改（modified）。
+    #+NAME: 08784120-b482-4ccf-a32a-a967e07b74f1
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb
+      git status
+    #+end_src
+
+    #+RESULTS: 08784120-b482-4ccf-a32a-a967e07b74f1
+    : On branch master
+    : Your branch is up to date with 'origin/master'.
+    : 
+    : Changes not staged for commit:
+    :   (use "git add <file>..." to update what will be committed)
+    :   (use "git restore <file>..." to discard changes in working directory)
+    : 	modified:   aplusb.py
+    : 
+    : no changes added to commit (use "git add" and/or "git commit -a")
+    
+    使用 =git add= 把改动累加起来，再看一下 status。
+
+    #+NAME: 3565b43c-c27e-4e75-aa2b-c0d771f101e9
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb
+      git add aplusb.py
+      git status
+    #+end_src
+
+    #+RESULTS: 3565b43c-c27e-4e75-aa2b-c0d771f101e9
+    : On branch master
+    : Your branch is up to date with 'origin/master'.
+    : 
+    : Changes to be committed:
+    :   (use "git restore --staged <file>..." to unstage)
+    : 	modified:   aplusb.py
+    : 
+
+    =git add= 把文件做了一个 "staged" 的标记，它将用于commit（对应于提示中的 =Changes to be committed= ）。
+
+    #+NAME: 465b86aa-b822-488b-9ea4-d9aeb9341591
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb
+      git commit -m "加上 a 与 b 的读入并输出两者之和"
+    #+end_src
+
+    #+RESULTS: 465b86aa-b822-488b-9ea4-d9aeb9341591
+    : [master d4e354b] 加上 a 与 b 的读入并输出两者之和
+    :  1 file changed, 6 insertions(+), 1 deletion(-)
+    =-m= 后面接对这个改动的说明。 如果不跟随 =-m= 参数， =git= 将调用编辑器供我们输入说明。
+
+    使用 =git log= 可以给出 =commit= 的历史，其中第一条是我们刚刚提交的。
+    #+NAME: 5f0d9208-b47c-4690-b654-8a135548e79a
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb
+      git log
+    #+end_src
+
+    #+RESULTS: 5f0d9208-b47c-4690-b654-8a135548e79a
+    #+begin_example
+    commit d4e354ba1c63e9689ef253aada00aedd7f50758e (HEAD -> master)
+    Author: Benda Xu <heroxbd@gentoo.org>
+    Date:   Wed Feb 16 20:27:23 2022 +0800
+
+        加上 a 与 b 的读入并输出两者之和
+
+    commit 1abf3e5528c824f3e8b1bf873dfc6222bd3fcefb (origin/master, origin/HEAD)
+    Author: Shengqi Chen <i@harrychen.xyz>
+    Date:   Tue Aug 18 16:36:58 2020 +0800
+
+        Update GitHub Classroom Autograding Workflow
+
+    commit f34ce2373540c7092b8b35fef57c0e5776414f9d
+    Author: Shengqi Chen <i@harrychen.xyz>
+    Date:   Tue Aug 18 16:36:57 2020 +0800
+
+        Update GitHub Classroom Autograding
+
+    commit 943846fc6cd4999f990c734fba69ab4666f73fc5
+    Author: Shengqi Chen <i@harrychen.xyz>
+    Date:   Tue Aug 18 16:36:21 2020 +0800
+
+        GitHub Classroom Autograding Workflow
+
+    commit 3191ca5f179f441241e4c3f659d88ef403806a0d
+    Author: Shengqi Chen <i@harrychen.xyz>
+    Date:   Tue Aug 18 16:36:20 2020 +0800
+
+        GitHub Classroom Autograding
+
+    commit 865818ac4f46382fd52f983c0deaafca9d6e788d
+    Author: Chen <jiegec@qq.com>
+    Date:   Tue Aug 18 16:36:18 2020 +0800
+
+        Initial commit
+    #+end_example
+
+
+    做修改，然后 commit 岂不是两步就够了？为什么还要有一步 =git add= 把文件标记成 staged 的阶段呢？ =git commit -a= 可以自动把所有改动了的文件 stage 并且 commit。
+
 那么我们还有一个遗留的问题：为什么要三个阶段？而不是两个阶段就完事了。用 -a 的方法可以把三个阶段变成两个阶段。那么为什么要有三个阶段呢？比如说，我做一个改动：比如，这一行太长了，可读性比较差，我们想先把可以转化成多行。我们再看一下这个数据，又覆盖了原来的这个变量，那么，b 也覆盖原来的变量。这样一个过程，那么这个程序我改完了。看了一下，我比较满意。与此同时，这个时候我想看一下作业里边图形统计。这个时候我们 git status 的时候有两个文件被改。
 
 这时候，助教过来了，发现我改的是一个违规的行为 git commit -a -m 。有的时候我可能改了之后，我只是探索一下评分。
 所以说有的时候我改完就忘改回去了。
 这时候我如果我没注意的话，我就直接 git commit -a，那么就把评估程序给改了。如果这样的话是要被扣分的。所以说这个时候怎么办，我想只把部分提交上去。这个时候三个阶段的作用就会显现出来。比如说，我只是想把它作为下一个提交，而另一部分不想作为下一个提交。如果我 git add 的话，我就只 add 这一个就行。我再看一下这个 status， 能够看到现在我们在 master 这个 branch 上。这一部分的改动，已经被加了标签，马上就要被提交了。但是下一部分就我没有 add 它，没有把它作为下一步要提交的备选。那么这部分它只是仍然是被修改的状态，它并不会被提交。那么我们来看一下，如果那个时候我们，不要再加 a ，commit 也追加 m。我们再看这个 log，
+
 其实就是啊这样的一个log
 对吧
 有这样一个
@@ -411,7 +341,6 @@ commit都有什么参数
 提交有哪些改动呢
 这个时候有另一个命令叫做 git show，它默认会把之前我们做的改动？？？。
 看一下到底改了什么
-我再慢慢的打一遍
 git show
 然后我们看一下这是什么
 这是我刚才做的改动
