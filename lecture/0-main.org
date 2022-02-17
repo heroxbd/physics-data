@@ -212,23 +212,23 @@ Git 同步的时候，每个人有各自的计算机，需要进行分布式的�
 
     #+RESULTS: 187958d6-d6dc-4ab1-aec1-884f4801fd1a
     #+begin_example
-    diff --git a/aplusb.py b/aplusb.py
-    index b1042af..c6cd1b5 100644
-    --- a/aplusb.py
-    +++ b/aplusb.py
-    @@ -1,5 +1,10 @@
-     # TODO: read two ints from standard input
-     # HINT: use input()
+      diff --git a/aplusb.py b/aplusb.py
+      index b1042af..c6cd1b5 100644
+      --- a/aplusb.py
+      +++ b/aplusb.py
+      @@ -1,5 +1,10 @@
+       # TODO: read two ints from standard input
+       # HINT: use input()
 
-    +a = int(input())
-    +b = int(input())
-    +
-     # TODO: print the result
-    -# HINT: use print()
-    \ No newline at end of file
-    +# HINT: use print()
-    +
-    +print(a+b)
+      +a = int(input())
+      +b = int(input())
+      +
+       # TODO: print the result
+      -# HINT: use print()
+      \ No newline at end of file
+      +# HINT: use print()
+      +
+      +print(a+b)
     #+end_example
 
     =aplusb.py= 原是空文件，只有助教给的提示，更改是增加了输入 =a= 和 =b= 以及输出 =a+b= 的行。
@@ -324,47 +324,55 @@ Git 同步的时候，每个人有各自的计算机，需要进行分布式的�
         Initial commit
     #+end_example
 
+    通过 =git show= 确认 commit 。
 
-    做修改，然后 commit 岂不是两步就够了？为什么还要有一步 =git add= 把文件标记成 staged 的阶段呢？ =git commit -a= 可以自动把所有改动了的文件 stage 并且 commit。
+    #+NAME: 21c4c8b5-9cd4-4020-bfa5-4a8284a5d5ba
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb
+      git show
+    #+end_src
 
-那么我们还有一个遗留的问题：为什么要三个阶段？而不是两个阶段就完事了。用 -a 的方法可以把三个阶段变成两个阶段。那么为什么要有三个阶段呢？比如说，我做一个改动：比如，这一行太长了，可读性比较差，我们想先把可以转化成多行。我们再看一下这个数据，又覆盖了原来的这个变量，那么，b 也覆盖原来的变量。这样一个过程，那么这个程序我改完了。看了一下，我比较满意。与此同时，这个时候我想看一下作业里边图形统计。这个时候我们 git status 的时候有两个文件被改。
+    #+RESULTS: 21c4c8b5-9cd4-4020-bfa5-4a8284a5d5ba
+    #+begin_example
+    commit d4e354ba1c63e9689ef253aada00aedd7f50758e (HEAD -> master)
+    Author: Benda Xu <heroxbd@gentoo.org>
+    Date:   Wed Feb 16 20:27:23 2022 +0800
 
-这时候，助教过来了，发现我改的是一个违规的行为 git commit -a -m 。有的时候我可能改了之后，我只是探索一下评分。
-所以说有的时候我改完就忘改回去了。
-这时候我如果我没注意的话，我就直接 git commit -a，那么就把评估程序给改了。如果这样的话是要被扣分的。所以说这个时候怎么办，我想只把部分提交上去。这个时候三个阶段的作用就会显现出来。比如说，我只是想把它作为下一个提交，而另一部分不想作为下一个提交。如果我 git add 的话，我就只 add 这一个就行。我再看一下这个 status， 能够看到现在我们在 master 这个 branch 上。这一部分的改动，已经被加了标签，马上就要被提交了。但是下一部分就我没有 add 它，没有把它作为下一步要提交的备选。那么这部分它只是仍然是被修改的状态，它并不会被提交。那么我们来看一下，如果那个时候我们，不要再加 a ，commit 也追加 m。我们再看这个 log，
+        加上 a 与 b 的读入并输出两者之和
 
-其实就是啊这样的一个log
-对吧
-有这样一个
-加上这样一个提交
-那么我看一下
-提交有哪些改动呢
-这个时候有另一个命令叫做 git show，它默认会把之前我们做的改动？？？。
-看一下到底改了什么
-git show
-然后我们看一下这是什么
-这是我刚才做的改动
-然后我们把注释需要
-我刚才对这个 grade 的改动
-并没有放到差分
-我们看一下
-现在如果这个 git status
-我发现
-上一个文件已经进入了
-那个文件已经进入了 unmodified 的状态，已经从打了标签的状态变成了 unmodified。
-但是刚才改的grade的部分，还是可以的。
-所以说在这种情况下，我们就可以无意中做了很多修改
-之后我们再把这些修改分成各个部分做成逻辑上相对独立的
-这样对我们自己未来经过了1年，5年，10年之后，回过头来再看，就会看到我们提交的历史，更加有逻辑性。
-并且如果有队友的话，队友也比较容易理解到底做了什么样的工作。
-还有grade 我们看一下git
-我看一下 grade 我们到底对它做了什么样的
-checkout 
-checkout是什么意思
-从我现在已经commit的一个改动里边，把最新的版本拿出来，覆盖我现在有一些。这是一个很危险的操作。
-也就是说我之前没有提交的改动就都消失了。所以说执行这个命令的时候，一定要非常注意，这可能是你一下午或者是一天的心血。如果一下子 checkout 的话，可能就是被覆盖了。这件事情我是做过的，当时确实是痛不欲生。
+    diff --git a/aplusb.py b/aplusb.py
+    index b1042af..c6cd1b5 100644
+    --- a/aplusb.py
+    +++ b/aplusb.py
+    @@ -1,5 +1,10 @@
+     # TODO: read two ints from standard input
+     # HINT: use input()
 
-覆盖之后，我们即使我把它已经 add 了
+    +a = int(input())
+    +b = int(input())
+    +
+     # TODO: print the result
+    -# HINT: use print()
+    \ No newline at end of file
+    +# HINT: use print()
+    +
+    +print(a+b)
+    #+end_example
+    
+    与 =git diff= 的对比可见这正是我们刚做的修改。
+
+*** Git 的三个阶段
+
+    为什么 Git 要有三个阶段？理论上两个阶段就够了，用 =git commit -a= 会自动把所有改动的文件 stage 并且 commit，把后两步合并成一步。
+
+    三个阶段是为了增强 commit 的可定制性。如果有两个文件做了修改，而我们想把修改分成两个 commit，就可以使用 =git add= 其中一个文件有选择性地定制 commit 的内容。有时我们会在既有代码上做试验，有些需要通过 commit 保存下来，有些只是临时的操作不必保留。有时试验中我们不觉做了很多修改，希望把它们分解成逻辑上相对独立的部分。这此情形下三步的操作模型就很实用。
+
+    Git 的历史和说明是非常重要的信息。尤其是在经过了1年，5年，10年之后回顾理解过去的工作时，或者有队友学习既有代码时，逻辑清晰层次分明的 Git commit 有极高的价值。
+
+*** 覆盖未 commit 的改动
+
+    对不需要 commit 的改动，可以通过 =git checkout= 来退回上一 commit，覆盖我现有文件。这是一个很危险的操作，执行命令时，一定注意。这可能是一天的心血，误操作进行 checkout 把有用的修改覆盖了会造成很大的损失。
+
+    覆盖之后，我们即使我把它已经 add 了
 这个还可以覆盖吗
 好问题
 我也不知道
