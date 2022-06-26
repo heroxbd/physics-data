@@ -365,131 +365,171 @@ Git 同步的时候，每个人有各自的计算机，需要进行分布式的�
 
     为什么 Git 要有三个阶段？理论上两个阶段就够了，用 =git commit -a= 会自动把所有改动的文件 stage 并且 commit，把后两步合并成一步。
 
-    三个阶段是为了增强 commit 的可定制性。如果有两个文件做了修改，而我们想把修改分成两个 commit，就可以使用 =git add= 其中一个文件有选择性地定制 commit 的内容。有时我们会在既有代码上做试验，有些需要通过 commit 保存下来，有些只是临时的操作不必保留。有时试验中我们不觉做了很多修改，希望把它们分解成逻辑上相对独立的部分。这此情形下三步的操作模型就很实用。
+    三个阶段很重要，增强了 commit 的可定制性。如果有两个文件做了修改，而我们想把修改分成两个 commit，就可以使用 =git add= 其中一个文件有选择性地定制 commit 的内容。有时我们会在既有代码上做试验，有些需要通过 commit 保存下来，有些只是临时的操作不必保留。有时试验中我们不觉做了很多修改，希望把它们分解成逻辑上相对独立的部分。这此情形下三步的操作模型就很实用。
 
     Git 的历史和说明是非常重要的信息。尤其是在经过了1年，5年，10年之后回顾理解过去的工作时，或者有队友学习既有代码时，逻辑清晰层次分明的 Git commit 有极高的价值。
 
 *** 覆盖未 commit 的改动
 
-    对不需要 commit 的改动，可以通过 =git checkout= 来退回上一 commit，覆盖我现有文件。这是一个很危险的操作，执行命令时，一定注意。这可能是一天的心血，误操作进行 checkout 把有用的修改覆盖了会造成很大的损失。
+    对不需要 commit 的改动，可以通过 =git checkout= 来退回上一 commit，覆盖我现有文件。这是一个很危险的操作，执行命令时，一定注意。这可能是一天的心血，误操作进行 checkout 把有用的修改覆盖了会造成很大的损失。checkout 影响的是“已修改”阶段的文件，不影响“待提交”阶段的文件。
 
-    覆盖之后，我们即使我把它已经 add 了
-这个还可以覆盖吗
-好问题
-我也不知道
-我们可以试一下
-我们先覆盖一下
-先给大家展示一下
-覆盖然后git diff
-然后就没了
-我刚才修改就没了
-那么我这次做一个更加
-略微超额的操作
-就是说
-刚才同学的
-提出了疑问
-就是说如果我 add 之后
-我这个checkout它
-能不能
-我们来试一下
-它不会覆盖
-我add之后 
-我后悔了
-怎么办呢
-我看到我把它改成100分
-我非常后悔
-那么我就这样
-又有一个新的命令
-大家可以参考一下小抄
-然后参考一下
-网络学堂里面的
-教程
-这样reset之后
-我们看到 
-刚才是加了标签之后
-它叫做staged
-这个是unstaged
-就是把这个stage取消了
-这个时候
-我们再看status
-这个grade变成了modified
-从staged的状态退出了
-那么这个时候
-我再checkout
-它就成为了上一次
-还没有公开
-没有东西就是说我是我改了
-然后没公开
-还是说我改了也没啥
-你改了也没啥
-怎样才跟我
-改了
-它还会
-这种操作应该也是存在
-如果你发现了
-请你告诉我
-简单评分之前覆盖掉就好
-太简单了
-然后刚才我们看一下
-你再看一下status
-第二行
-有一个不一样的地方
-它说
-这个意思是说
-我们现在的本地，比远程领先的一个层面。因为刚才我如果看 git log 的话，我们刚才是把这部分 push 上，但是这个是我们刚才加的在这个状态下。我们可以看到，本地是多了一个 commit，还没有 push。就是说我们再处理一下，我们看 status，我们验证一下远端，看到了刚才的这个 commit，以及今天其他的讲的部分。
+*** 退回至“已修改”状态
+    add 的逆向操作是 reset，用于把在“待提交”阶段的文件退回至“已修改”状态。
 
+    #+NAME: 3babc3c0-3551-4258-bcb7-6eb6895167b7
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb
+      git status
+    #+end_src
 
-如果我已经commit了，但是我 commit 了之后我后悔了，不想把它处理了。这该怎么办？这个操作其实比较复杂。
-比如我真的把这个程序给它改坏了，然后我 commit， commit 之后，我知道它坏了。这个时候我打 log 的时候，我看到一个怎么会有这个东西。然后我 git show 看一下它都是有什么样的 commit 的时候，发现这个地方好像打错了。
-但是我现在想把它扔掉。这是我们需要一个新的命令，rebase。什么叫 rebase？之前我们在讲版本控制的时候，有一个叫做 base，即公共的版本，rebase 就是说现在这里有这样一个 commit，我想把我们可以理解为在它之上，还有一个未来的一个指针，那么我想把未来的指针，在它的公共版本向前移动一个位置，移动到这个地方。
-这样的的操作就是 rebase。
-我们看一下现在执行 rebase 是怎么样的，rebase 之后 -i，它的意思是交互式地进行。
-那么head2
-是说从未来的指针叫做 HEAD
-这是刚才你们讨论的是吧
-也就是说它之前的两个
-把它提交之前的两个这样的commit
-大家可能没有看到
-这里有一个
-我最后一个
-比较靠谱的commit在这儿
-是吧
-我们可以再试一下
-如果我不想HEAD~2 HEAD~5
-我们看到最近5个的
-然后这时候我想把它
-我想把这个不靠谱的
-1386 
-肯定会把它删掉
-删掉的时候
-或者是把它
-就是在我的 
-在我的编辑器里面都可以
-用
-其他的都可以
-就把它删掉就行了
-它其实就是把它
-前面打了一个注释
-其实就是把
-把这个东西删掉了
-我们
-我看一下是那个
-那么看一下git log
-刚才的那个被删掉了
-这样一个过程
-这过程稍微复杂一点
-但是今后同学们
-需要的时候再用
-还是没问题
+    #+RESULTS: 3babc3c0-3551-4258-bcb7-6eb6895167b7
+    : On branch master
+    : Your branch is ahead of 'origin/master' by 1 commit.
+    :   (use "git push" to publish your local commits)
+    : 
+    : Changes to be committed:
+    :   (use "git restore --staged <file>..." to unstage)
+    : 	modified:   aplusb.py
+    : 
 
-有些同学可能会继续往下问，如果 commit 之后已经 push 了，但是我才想起来我搞错了，该怎么办。再改过来再 push，比如说改过来可以用 git revert。比如说我们再做点坏事，你在这儿把它（？？）放进去，就这样的话，有一个不靠谱的 commit。然后再 push 上去了，这简直是我职业生涯的污点，我怎么做了一个这样的改动，回来赶紧把它我返回来怎么办 T_T 如果是最近的 commit，就可以直接 revert。但是我也可以这样，我不知道看一下 commit，我会复制下来就可以，复制的时候其实复制多少都行
-只要保证第一个字母在，因为它是一个散列的的标识，我复制一半也可以。给我默认的 commit 消息就是说把它 revert。 把这个 revert 做完之后我会发现，把它撤销了你记录还是要留下？？？
+    要取消这个“待提交”的修改，可以使用 =git reset= ，
+    #+NAME: 459b19ba-4164-4a58-9b8d-5bce8c762dc1
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb
+      git reset aplusb.py
+      git status
+    #+end_src
 
-我们可以比如说现在这样的话我这样 revert 过去了，就回去了，我想把我的污点彻底给它清掉。用 git rebase
-我们把污点清掉，连同改正污点的行为也清掉。我们来 push 一下，可是这样 push 失败了。就这种情况下就是说不允许这样。
-大家可以思考一下为什么不允许这样的操作。时间是有方向的，这个世界是有熵的。我们可以想象这样一个场景：我们有一个项目，两个队员，有这样一个 commit，还有这样一个 commit，还发现有一个奇怪的 commit，都已经push上去了。然后远程队友也已经 push过了。
+    #+RESULTS: 459b19ba-4164-4a58-9b8d-5bce8c762dc1
+    #+begin_example
+    Unstaged changes after reset:
+    M	aplusb.py
+    On branch master
+    Your branch is ahead of 'origin/master' by 1 commit.
+      (use "git push" to publish your local commits)
 
-比如说在远端的话队友就觉得会很奇怪，因为队友看到我又把它加了一个别的，加了一个这样。我知道这个差分是这样的，每个差分都是依赖于指向前一个的。那么我们队友看到了这个之后，他发现这个地方要写成这个样子非常地奇怪，非常的迷惑。如果我用 revert，其实我是给他加了一个奇怪的 commit，以及一个反的 commit，然后我又加了一个这个。这时候我的队友看到的是这种状态，那么我队友也可以 pull 过来一个
-一个 commit。这样队友可以直接同步过来。
+    Changes not staged for commit:
+      (use "git add <file>..." to update what will be committed)
+      (use "git restore <file>..." to discard changes in working directory)
+            modified:   aplusb.py
 
+    no changes added to commit (use "git add" and/or "git commit -a")
+    #+end_example
 
+    我们看到 =aplusb.py= 退到了“已修改”状态，命令中的提示是"unstaged"。
+
+*** 把 commit 推送到远端
+    大家注意 status 中有一行 “Your branch is ahead of 'origin/master' by 1 commit.”提示我们本地的仓库比远端多了一个 commit，还告诉我们 “use "git push" to publish your local commits”。
+
+    #+NAME: 4061d8fd-a2fe-4b0c-ac3d-92d7d8522902
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb
+      git push
+    #+end_src
+
+    #+RESULTS: 4061d8fd-a2fe-4b0c-ac3d-92d7d8522902
+    : Enumerating objects: 5, done.
+    : Counting objects:  20% (1/5)Counting objects:  40% (2/5)Counting objects:  60% (3/5)Counting objects:  80% (4/5)Counting objects: 100% (5/5)Counting objects: 100% (5/5), done.
+    : Delta compression using up to 256 threads
+    : Compressing objects: 100% (3/3), done.
+    : Writing objects: 100% (3/3), 355 bytes | 355.00 KiB/s, done.
+    : Total 3 (delta 2), reused 0 (delta 0), pack-reused 0
+    : remote: Resolving deltas: 100% (2/2), completed with 2 local objects.
+    : To github.com:physics-data/aplusb-heroxbd.git
+    :    1abf3e5..de27c4f  master -> master
+
+    这样就把 commit 推送到了远端。注意在本地与远程交换差分时，commit 是传递的单位。未 commit 的修改，不论在“待提交”还是“已修改”状态，都不能通过 git 交换。
+
+    再看 status
+    #+NAME: 933f4896-9914-4f7d-a3b1-6d98184041f9
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb
+      git status
+    #+end_src
+
+    #+RESULTS: 933f4896-9914-4f7d-a3b1-6d98184041f9
+    : On branch master
+    : Your branch is up to date with 'origin/master'.
+    : 
+    : Changes not staged for commit:
+    :   (use "git add <file>..." to update what will be committed)
+    :   (use "git restore <file>..." to discard changes in working directory)
+    : 	modified:   aplusb.py
+    : 
+    : no changes added to commit (use "git add" and/or "git commit -a")
+    
+    注意“Your branch is up to date with 'origin/master'.”两者已经同步完成。
+
+*** 撤销已有 commit
+    要改动已有 commit ，该怎么办？
+
+    简单方式是 =git revert= 。它自动生成一个相反的差分，把某一个差分“湮灭”掉，例如在我的仓库中，
+    #+NAME: d517865d-01b8-468d-8c68-708ceda99e18
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb
+      git log -n 2
+    #+end_src
+
+    #+RESULTS: d517865d-01b8-468d-8c68-708ceda99e18
+    #+begin_example
+    commit de27c4f69c894458d51430986360b8c0db527fa5 (HEAD -> master, origin/master, origin/HEAD)
+    Author: Benda Xu <heroxbd@gentoo.org>
+    Date:   Sun Jun 26 21:42:14 2022 +0800
+
+        加上 a 与 b 的读入并输出两者之和
+
+    commit 1abf3e5528c824f3e8b1bf873dfc6222bd3fcefb
+    Author: Shengqi Chen <i@harrychen.xyz>
+    Date:   Tue Aug 18 16:36:58 2020 +0800
+
+        Update GitHub Classroom Autograding Workflow
+    #+end_example
+
+    我想去掉代号为 de27c4f69c894458d51430986360b8c0db527fa5 的 commit。这个代号是差分的哈希值，无歧义时，取前几位亦可。
+
+    #+NAME: 2a186f4c-f84a-4513-a4a6-e56156b167e3
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb
+      git revert de27c4f6 --no-edit
+    #+end_src
+
+    #+RESULTS: 2a186f4c-f84a-4513-a4a6-e56156b167e3
+    : [master f6066f5] Revert "加上 a 与 b 的读入并输出两者之和"
+    :  Date: Sun Jun 26 21:58:51 2022 +0800
+    :  1 file changed, 1 insertion(+), 3 deletions(-)
+
+    #+NAME: 0c56d7ec-fe1f-4e0e-8cb5-76b5d8e6022b
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb
+      git log -n 3
+    #+end_src
+
+    #+RESULTS: 0c56d7ec-fe1f-4e0e-8cb5-76b5d8e6022b
+    #+begin_example
+    commit f6066f54aac1bb29aec313b28cb9f0facc90612b (HEAD -> master)
+    Author: Benda Xu <heroxbd@gentoo.org>
+    Date:   Sun Jun 26 21:58:51 2022 +0800
+
+        Revert "加上 a 与 b 的读入并输出两者之和"
+
+        This reverts commit de27c4f69c894458d51430986360b8c0db527fa5.
+
+    commit de27c4f69c894458d51430986360b8c0db527fa5 (origin/master, origin/HEAD)
+    Author: Benda Xu <heroxbd@gentoo.org>
+    Date:   Sun Jun 26 21:42:14 2022 +0800
+
+        加上 a 与 b 的读入并输出两者之和
+
+    commit 1abf3e5528c824f3e8b1bf873dfc6222bd3fcefb
+    Author: Shengqi Chen <i@harrychen.xyz>
+    Date:   Tue Aug 18 16:36:58 2020 +0800
+
+        Update GitHub Classroom Autograding Workflow
+    #+end_example
+    这样 de27c4f6 差分就被撤销了，由于撤销也是一种对仓库的更好，因此它对应一个新的 commit，并且有历史记录。
+
+*** 改造本地历史记录
+    如果我们不想看到历史记录，希望把 commit 清除掉，这时可以用的命令是 =git rebase= 。它背后的逻辑更加复杂，建议初学者在对 =git= 有了深刻的理解和丰富的经验之后再考虑使用 =rebase= 。
+
+*** 改造远端的历史记录
+    除了 =git revert= ，初学者不要尝试改造远端的历史记录。
+
+    “不好，我 push 上去的 commit 太丑陋了，是我职业生涯的污点”，即使此时，也不要尝试改造远端的历史记录，人人都犯过错，请使用 =git revert= 。
+
+    不要这样做，时间是有方向的，这个世界是有熵的，不要尝试清除记忆。实际上，想象这样的场景：一个项目，两个队员，commit 1，commit 2，以及一个错误的 commit 3，都已经 push 到远端。=git revert= 新添加了一个 commit 3 反向差分，队友不论在哪个 commit 都可以通过 =git pull= 与我保持同步。否则，如果队友已经同步到 commit 3，但是我反悔，通过某种手段把 commit 3 消除了，那么队友会显示它超前于远端，他可能把 commit 3 重新 push 上来。如果我在这之前加了 commit 4，远端的历史变成了 commit 1,2,4，这与队友的 commit 1,2,3 产生冲突，他必须手动处理才能解决。这样的操作会给合作带来困扰，团队越大涉及的队友越多，损失越大。
+
+    永远不要尝试改造远端的历史记录。
+    
