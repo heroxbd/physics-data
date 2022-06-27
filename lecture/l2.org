@@ -1,5 +1,8 @@
 #+TITLE: 第三讲字符操作
-* Remote 编辑
+* 编辑器
+  编辑器是书写程序的基本环境，有一个称手的编辑器将极大提升工作效率。注意程序编辑器（editor）不是文书处理器（word processor，如 WPS，Word），排版功能对程序没有帮助。
+  可用于终端的常见编辑器有 GNU nano、Vim、Emacs。
+
   有同学实现了vscode remote 的编辑
 remote的编辑是一个
 很好用的方法
