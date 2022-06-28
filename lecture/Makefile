@@ -1,5 +1,5 @@
 .PHONY: all
-all: 0-main.html l11.html
+all: 0-main.html l11.html l2.html
 
 %.txt: %.srt
 	sed -r -f srt.sed $^ > $@
