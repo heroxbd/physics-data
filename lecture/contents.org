@@ -9,12 +9,14 @@
    达到每分钟 25 词以上。
 ** 环境准备
    Windows 用户启动 WSL 并安装 Debian Bullseye 及以上，配置图形界面
+
+   MacOS 用户，安装 GNU 环境
 ** 编辑器
    学习使用程序编辑器
 
 * Python 数据处理
 ** 课程简介与版本控制
-   课程目标、课程体系、数据分析四项原则、提问的智慧、POSIX 环境配置、SSH 通信。
+   课程目标、课程体系、数据分析四项原则、提问的智慧、GNU 环境配置、SSH 通信。
    + 加入逻辑电路的起源、通用电子计算机的发明、MANIAC 氢单与蒙特卡罗
    + 抄袭的定义
 ** Git 基本操作与Python 入门
@@ -54,3 +56,28 @@
    Matplotlib 散点图、直方图、着色图、格点、Grammer of Graphics   
    
    
+
+* 命令行
+** 命令行入门
+   - 学习目的
+     满足数据处理四原则、胶水功能、自动性、普适性
+   - shell 外壳命令的类型
+     二进制程序、脚本、内建命令、函数、别名
+   - 管道
+     标准输入输出，重定向
+   - 常用命令
+     ls、echo、cat、wc、seq、grep、paste、awk、bc、tr、
+     hostname、uname、id、date、uptime、find、touch、file、
+     sort、uniq、tail
+
+   - 娱乐命令
+     sl、cacafire、bb、cmatrix
+
+   - 提高命令
+     sha256sum、nc、mkfifo、mktemp
+   - 通配符
+** 正则表达式
+   数学模型、语法要素、字符集
+   - sed、grep
+   - shell 脚本
+     参数传递、变量、函数、引用、算术运算、程序结构
