@@ -48,3 +48,9 @@
      integrate
 ** 数据格式
    CSV、HDF5、JSON 各自的特点，输入输出，查看器
+** 大作业
+   - 黑白棋娱乐讨论
+** 数据可视化
+   Matplotlib 散点图、直方图、着色图、格点、Grammer of Graphics   
+   
+   
