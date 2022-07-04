@@ -102,3 +102,28 @@
      参数传递、变量、函数、引用、算术运算、程序结构
    - shell 程序返回值
      0 代表成功，非 0 代表失败 "$?"
+* 关系代数
+** 科学范式与关系代数
+   经验、理论、计算、数据
+   - 知道的量化程度
+     0 类、1 类、A 类、Z 类
+   - 数据组织
+     关系代数的组织形式与发展历史
+   - 关系代数
+     表格的普适性、集合运算、线性运算、关系运算、GroupBy
+   - 关系代数的表现
+     SQL、DataFrame
+   - SQL 语言
+     CREATE、INSERT、SELECT、UNION、EXCEPT、INTERSECT、WHERE、JOIN、DROP
+   - SQLite3 环境
+     命令行 REPL、Python 模块
+** SQL 数据处理实例
+   - CASE...WHEN...END
+   - 函数：avg()
+   - 引用
+   - SQL 描述型语言与步骤型程序的风格区别
+   - Makefile 统合
+** 关系代数的DataFrame实现
+   - Pandas
+     csv 与 SQLite 的输入输出
+   - R
