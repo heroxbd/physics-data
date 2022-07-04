@@ -125,5 +125,16 @@
    - Makefile 统合
 ** 关系代数的DataFrame实现
    - Pandas
-     csv 与 SQLite 的输入输出
+     csv 与 SQLite 的输入输出、merge()、groupby()
    - R
+   - 基于多因素的绘图
+** 回归分析
+   - 常用工具
+     statsmodels、sklearn
+   - 拟合方法
+     绘制关系图，找出重要的自变量，逐级添加自变量，多元广义线性回归，连续与离散自变量
+   - 拟合结果的统计解读
+     残差图、回归预测图
+   - pasty 的 R 风格一般型回归公式
+   - 广义线性回归
+     泊松回归、二项回归
