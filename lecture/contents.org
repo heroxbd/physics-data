@@ -15,8 +15,10 @@
    学习使用程序编辑器
 
 * Python 数据处理
+  重点：Git、迭代器、生成器、多维数组
 ** 课程简介与版本控制
    课程目标、课程体系、数据分析四项原则、提问的智慧、GNU 环境配置、SSH 通信。
+   + POSIX 的两大流派 BSD / GNU
    + 加入逻辑电路的起源、通用电子计算机的发明、MANIAC 氢单与蒙特卡罗
    + 抄袭的定义
 ** Git 基本操作与Python 入门
@@ -54,11 +56,10 @@
    - 黑白棋娱乐讨论
 ** 数据可视化
    Matplotlib 散点图、直方图、着色图、格点、Grammer of Graphics   
-   
-   
 
 * 命令行
 ** 命令行入门
+   - 数据生产线的基本概念
    - 学习目的
      满足数据处理四原则、胶水功能、自动性、普适性
    - shell 外壳命令的类型
@@ -71,13 +72,33 @@
      sort、uniq、tail
 
    - 娱乐命令
-     sl、cacafire、bb、cmatrix
+     sl、cacafire、bb、cmatrix、cowsay
 
    - 提高命令
      sha256sum、nc、mkfifo、mktemp
    - 通配符
+
+** GNU Make
+   数据生产线的实现、理解 Make 是管理流程的最佳工具、机器与人皆可读文档
+   - 流程单元：Makefile 的基本组成
+     输入数据、输出数据、程序执行
+   - Makefile 的基本格式
+     特别变量：$^、$@、$$
+   - Make 的程序特性
+     变量、%、函数
+   - 特殊目标
+     .SECONDARY、.PHONY、.DELETE_ON_ERROR
 ** 正则表达式
    数学模型、语法要素、字符集
    - sed、grep
+   - bash 中的正则表达式
+   - 聚合命令
+     xargs
+   - 进程控制
+     Ctrl-C、Ctrl-Z、bg、fg、jobs
+
+** bash shell 脚本
    - shell 脚本
      参数传递、变量、函数、引用、算术运算、程序结构
+   - shell 程序返回值
+     0 代表成功，非 0 代表失败 "$?"
