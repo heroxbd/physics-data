@@ -66,6 +66,55 @@
    #+RESULTS: 6c3329aa-15d5-444d-8c01-b189246a429c
    : ('我', '在上', '课')
    “0”代表最先的字符，“2:4” 是从2到4的左闭右开区间，即 2,3，“-1”代表最后一个字符元素，“-2”是倒数第二个。在整数的论域中，左闭右开区间的特殊好处是可以直观地把相邻的区间写下来，“0:2”，“2:4”，“4:5”都是首尾相邻且不重叠，边界上的2属于“2:4”，4属于“4:5”。这在实现批量处理逻辑中非常方便。参见 Dijkstra 的经典短文 EWD 831，“Why numbering should start at zero”。
+
+** 标准库中的字符串操作
+   Python 的官方文档详尽介绍了标准库中字符串的进阶操作，这里我们选取几个常用的介绍。
+
+   =count()= 函数可以统计字符出现的次数，例如
+   #+NAME: bd561cb6-9f9c-4566-9860-e1b832fc9cbb
+   #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb
+     s = "今天的气温是 30 摄氏度，明天是 29 摄氏度"
+     s.count("天")
+   #+end_src
+
+   #+RESULTS: bd561cb6-9f9c-4566-9860-e1b832fc9cbb
+   : 2
+
+   =startwith()= 用来判断字符串是否由某个子串开头，
+   #+NAME: 12e58148-75a8-4c9a-b6ca-47350d7670e8
+   #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb
+     s.startswith("今天")
+   #+end_src
+
+   #+RESULTS: 12e58148-75a8-4c9a-b6ca-47350d7670e8
+   : True
+
+   =split()= 将字符串按照给定的分隔符分成列表，在处于有格式约定的文字时经常用到。
+   #+NAME: fe55edaf-8dc7-4d7f-8a60-f254d9d1cf81
+   #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb
+     s.split("，")
+   #+end_src
+
+   #+RESULTS: fe55edaf-8dc7-4d7f-8a60-f254d9d1cf81
+   : ['今天的气温是 30 摄氏度', '明天是 29 摄氏度']
+
+   =replace()= 用于一一替换字符
+   #+NAME: 292a3171-d035-47ad-9176-954b9911f203
+   #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb
+     seed = bin(2324)
+     print(seed)
+
+     print(seed.replace('0',"奥").replace('1',"利"))
+   #+end_src
+
+   #+RESULTS: 292a3171-d035-47ad-9176-954b9911f203
+   : 0b100100010100
+   : 奥b利奥奥利奥奥奥利奥利奥奥
+
+   =bin= 将整数转换成字符串的"0"、"1"二进制表示，用 =replace()= 把它映射到自定义的奥利奥配置。
+
+   在使用这些高级操作时，注意体会 Python 标准库相比其它语言的便利性。很多实现起来复杂的操作在 Python 中默认都是一个函数完成。非常值得先浏览一遍标准库提供的函数，有了第一印象方便灵活运用。
+
    
 ** None 值
    Python 中一个特别的值，即不是整数也不是浮点数，属于一种独有的类型，叫做“None”，可以代表很多含义：“空”或者“没有”，或者“无法表达”，或者“出错了”、“非法”。它本身也是一个值，可以 =print= ，可以赋值，例如：
