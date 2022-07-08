@@ -35,28 +35,49 @@
    : 
    帮助告诉我们，在 “__main__” 模块（程序默认环境）的名字空间里，有这个函数。
 
-   一行的帮助有些单薄。函数的文档，由他人使用，文档写得越详细越好。对复杂的函数而言，函数的帮助需要长篇大论。Python 的多行字符串，正好胜任这一点。
-   
-多行字符串是用三个引号开始
-然后又以三个引号结束
-这三个引号
-单引号双引号都可以
-但是因为英语语言里面
-没有定义三引号
-所以它就用三个引号来表示
-三引号
-我们看
-如果我们把这个函数写得更加
-文档写得更加详细的话
-我们可以不仅有标题
-还要写输入
-比如说从输入里边有grid
-我要告诉今后我潜在的用户
-和未来的我
-这个grid是什么意思
-比如说我定义了
-这是grid是球面上连续函数
-在固定格点上的取值
+   一行的帮助有些单薄。函数的文档，由他人使用，文档写得越详细越好。对复杂的函数而言，函数的帮助需要长篇大论。Python 的多行字符串，正好胜任这一点。多行字符串以三个引号开始，三个引号结束，单引号双引号皆可。三引号设计恰好不与人类语言冲突。
+   #+NAME: 1a8eb1cc-c051-47f1-b3cf-142b12da0378
+   #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb
+     def spherical_harmonic_fitter(grid, order):
+         '''
+         求球谐函数拟合的系数
+    
+         输入
+         ~~~
+         grid: 球面上连续函数在固定格点上的取值
+         order: 拟合时球谐函数近似截断的阶数
+    
+         输出
+         ~~~
+         拟合系数矩阵
+         '''
+    
+         # 具体实现省略
+         pass
+
+     help(spherical_harmonic_fitter)
+   #+end_src
+
+   #+RESULTS: 1a8eb1cc-c051-47f1-b3cf-142b12da0378
+   #+begin_example
+   Help on function spherical_harmonic_fitter in module __main__:
+
+   spherical_harmonic_fitter(grid, order)
+       求球谐函数拟合的系数
+
+       输入
+       ~~~
+       grid: 球面上连续函数在固定格点上的取值
+       order: 拟合时球谐函数近似截断的阶数
+
+       输出
+       ~~~
+       拟合系数矩阵
+
+   #+end_example
+   这个例子里，我们把文档写得更加详细。不仅有标题，还详细注明了输入和输出的含义。调用函数的人——可能是队友也可能是未来的自己——应当在不阅读的原代码的前提下，顺利使用它们。
+
+   在固定格点上的取值
 然后我要定一下
 order是什么意思
 就是拟合的时候
