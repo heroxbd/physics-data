@@ -75,421 +75,621 @@
        拟合系数矩阵
 
    #+end_example
-   这个例子里，我们把文档写得更加详细。不仅有标题，还详细注明了输入和输出的含义。调用函数的人——可能是队友也可能是未来的自己——应当在不阅读的原代码的前提下，顺利使用它们。
+   这个例子里，我们把文档写得更加详细。不仅有标题，还详细注明了输入和输出的含义。调用函数的人——可能是队友也可能是未来的自己——应当在不阅读的原代码的前提下，顺利使用它们。即使在写作程序时，感觉很显然，也应该认真撰写文档。在例子中，我们用多行字符串写出，函数在固定格点上取值，定义了输入变量 order 的含义，输出的意义是系统。
+** 标准库中的文档
+   Python 的标准库非常重视文档，几乎所有的函数都带有详细的排版精美的多行字符串说明。
+   #+NAME: ee4df6b1-62ca-42c5-8306-22f8d088f66a
+   #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb
+     help(int)
+   #+end_src
 
-   在固定格点上的取值
-然后我要定一下
-order是什么意思
-就是拟合的时候
-球谐函数近似的时候
-截断的
-阶数
-那么输出就是说输出的系数
-这是一个简单的例子
-当我们写一个函数的时候
-一般来说要写这样一个文档
-会非常地有用
-虽然说在我们写的时候
-感觉一切都是显然的
-为什么还要写
-但我们自己觉得
-显然的
-他人不一定觉得是显然的
-那么我们看
-对于这样的一个函数定义
-如果我们用help来查询它的文档
-这个文档
-就是我们刚才定义的多行的
-可以就是说原样的输出出来
-那么在python里边
-其实它是非常重视文档
-很多时候文档 函数的文档
-还有各种类型的文档
-还有各种
-各种各样的语言结构的文档
-它都是这样直接写在语言里面
-直接写在语言里
-它其实有一个好处
-也就是说
-它其实体现了
-类似的这种一次的原则
-也就是说
-假如说我们想开发一个函数
-我们把这个函数写得非常漂亮
-然后我们再又另外的写了一个
-文档
-放在另一个地方
-描述一下我们这个函数
-有多么强大的功能
-但是
-可能我发现了函数的一个bug
-然后我就把这函数改
-然后或者是又过了一段时间
-我又改了函数的参数
-我觉得现在的船
-这个参数不是很科学
-我就把这个参数的格式改了
-那么就很有可能
-在我改了这个函数的参数之后
-我就忘记更新这个文档
-如果这个文档
-不在这个函数旁边
-这个函数旁边的话
-那么后来的人
-其他人过来之后
-一般来说是先看这个文档
-说这个函数怎么用
-结果他一用发现就出错了
-这就显得非常的糟糕
-但是这个对于普通的开发者来说
-如果这个信息
-不是保留在一个地方
-而是在两个地方
-两次出现
-就很容易发生这种问题
-而且
-很容易发生这种问题
-所以说把函数的文档就写在函数
-里面
-马上就写在函数里
-是一个非常具有长远性的一个
-习惯
-它也体现了一次性原则
-那么我们来看一下
-比如说python里边其他的
-其他的功能
-或者是数据类型
-我们之前都
-之前都接触过
-但是还没有看过帮助
-我只举了一个None
-片子里面
-为什么举None
-因为其他的
-帮助都特别的详细
-肯定一张片子是放不下的
-只有None
-最简单的
-这个功能才能够放得下
-比如说我们看一下
-其他的帮助
-比如说我们看整数
-比如说整型是什么
-我看到整型
-它会说
-它可以把什么转化成整型
-如果不能转化就什么样
-然后整型里边
-都可以进行什么样的运算
-比如说取绝对值
-然后这个是按位的进行与
-看起来整型
-它其实有很多的
-比如说我们看一下其他的
-比如说help
-就是说我们在实际使用的时候
-甚至不需要找另外的一个
-参考资料
-但是参考资料仍然需要
-因为参考资料一般来说
-可以系统地把全局给我们讲一下
-但是如果我们要想查一个工具书
-的话
-其实它的在线的帮助
-也可以是
-其实是非常的好用
-而且在用的时候
-我们可以体会到
-一个供人使用的
-这个工具
-为用户服务的时候
-有这样比较及时的文档
-出现是一件多么美好的事情
-好
-那么有了这样的基础之后
-其实我们就可以
-学习很多
-自学很多python的功能
-我们可以自己去探索
-比如说
-我们 
-导入这个math模块
-是与数学相关的
-然后我们看一下
-然后打点
-然后一直按Tab建
-发现math里面有
-acos  
-acosh
-然后 gcd
-是最大公约数
-还是共产党
-那么我们
-我们来
-我们来查一下看看
-发现这个其实是
-greatest common divisor
-是吧
-所以说有时候英文缩写
-它有很多歧义
-我们看一下它有
-就可以很快的知道是什么
-但是如果在网上搜索
-你说搜索GCB然后可能出来是
-别的
-不一定是我们要找的东西
-所以说这个功能
-就可以让我们自由自在地去探索
-这是所谓的可发现性
-也就是说这个工具
-它就都摆在那
-我们不用费太大的精力
-就是太高的学习曲线
-你就可以发现它
-这是一个非常好的语言特性
-这也是python一直在演化过程中
-所吸收的
-工具设计中非常好的思想
-接下来我们讲一下
-函数
-不是函数这个模块
-我们来把它调回来
-模块系统
-这函数
-是用来实现代码复用的目的
-它是践行了一次性的原则
-那么模块
-如果我们用直观来理解
-它就是把相关的函数集合起来
-放在一个一个大的
-这个名字空间里边
-那么它就相当于一个
-整合的
-很多函数的集合
-那模块既可以用Python来
-实现
-也可以用C或者其他编译语言来
-实现
-这也就是说最开始我们讲过
-说python它其实是一种胶水语言
-它可以调用很多
-我们
-从60年代以来
-人类科学发展进程中
-所积累下来的
-很多优秀的程序
-那么这些优秀程序
-其实
-它被python调用的时候
-一般是以这种模块的形式
-来
-调用
-调用进来
-使得我们从python可以使用
-这些外接的工具库
-比如说
-我们在以math数学的系统为例
-那么记得第一次 Python
-课程
-我们使用了阶乘的函数
-那么我们其实可以看一下
-阶乘的函数
-有什么样的帮助
-我们看阶乘的函数是一个
-在math这个模块里边
-定义的函数
-那么这函数是什么样的呢
-那么这个函数是取x那么它将
-返回x的阶乘
-x的阶乘
-返回这个值是一个整数
-然后x不能是负值
-不能是非整数
-比如说我们看了
-帮助文档之后
-我们就知道我们math
-foctorial(10)
-就可以这样来使用
-所以说
-在帮助系统的提示下
-我们就可以比较
-比较一步一步的
-渐进地学习来探索
-这个模块系统
-那么加载模块的时候
-也可以自定义名称
-比如说我打了math
-我把它拿回来
-比如说我打了mice
-我要是每次都打这个mice
-打错了吗
-factorial
-我每次都打这个
-我觉得
-我要打4个字母
-太累了
-是吧
-有些模块
-假如说有十几个字母
-我每次都这样打
-我就觉得不是很方便
-这个时候
-其实我可以把这个模块也赋值
-比如说我就让这个模块叫做
-z 那么我进行
-z.factorial 也可以调用 math
-同样的其实我可以在
-导入这个模块的时候
-就把它的名字改了
-因为它只是一个
-一个代号
-我可以把它改成
-m 那么m也是math的缩写
-看这个
-什么
-这些函数呢
-都是一样的
-都是一样
-所以说
-加载模块的时候
-可以自定义名称
-这样可以使我们的程序
-进一步简化
-有些模块它其实非常的复杂
-它不是一个模块
-下面所有的函数都在那里
-可能把这个函数也进行归类
-这样它这个模块
-可能分成好几层
-就是说
-它的名字空间下面
-可能有下一级的名字空间
-然后下一级名字空间里面
-才有
-这个函数的
-集合
-比如说 os
-os这个模块
-我们如果 import os 的话
-os 是python跟操作系统
-进行通信的
-模块
-比如说 os
-它的意义就是 
-operating system
-操作系统的缩写
-比如说我想知道 os
- path
-这是一个目录
-abspath
-我想找一个
-我当前路径的绝对路径
-这个点是代表当前路径
-对
-然后我发现这个路径是
-这个样子
-是我在我本地的
-机器上的路径
-但是我这样打
-我还是感觉非常的难受
-我要打
-os.path.abspath
-而且感觉
-感觉我一直在自我重复
-所以我不是很高兴
-我可以怎么办
-比如说
-我可以用这样的语法
-from
-os.path
-import abspath
-如果把它引入进来了
-那么这个abspath
-就到了我现在的
-最大的默认的名字空间里面
-所以我就可以直接执行 abspath
-我们来试一下
-来直接执行
-from os.path import abspath
-我看 abspath
-就直接在本地了
-那么
-这个函数和 os.path.abspath
-是不是
-同一个函数
-我们可以问
-它是不是 abspath
-我看到它确实是同一个函数
-它只是我们在这个环境里面
-给它的不同的名称而已
-可以简写的形式
-那么from和
-刚才这个import as其实可以一起
-使用
-刚才我from的时候
-我觉得
-abspath7个字母
-我打的感觉也很多
-我可以把它叫做就叫ap
-那么比如说ap
-我看是不是还是原来的函数
-我们发现
-所以说
-有这样灵活的
-这个模块系统
-就可以比较方便的
-读入各种各样的
-工具库里边的函数
-使得我们的程序
-能够使用先人已经完成的
-完成的算法
-以及或者是团队里面
-其他同学完成算法
-或者是我们自己过去
-完成的程序
-这样就可以
-非常好的重复使用这个代码
-接下来再提一点
-是关于程序的测试
-那么相信同学们
-在写作业的时候
-完成作业的过程中
-我们先把它切回来
-完成作业的过程中
-我觉得肯定同学们会
-有几个问题
-我们到底如何保证
-这个程序是对的呢
-是靠眼睛一直盯着它
-然后多看几遍它就对了
-那么随着我们要完成的任务
-越来越复杂
-那么程序它就会越来越长
-那么是不是程序越来越长
-就越容易出错呢
-因为我们到底要怎么防止
-那么还有一个问题
-假如说
-我事先已经完成了一个功能
-然后我想对它进行修改
-我修改的时候
-突然想到了一个更加美妙的方法
-然后我就迫不及待的
-实现了
-更加美妙的方法
-那么我做了改动之后
-原来已经能用的部分
-会不会被我不小心改坏了
-我到底怎么知道
-我是改坏了还是没改坏
-那么是不是
-我对这个程序修改的越多
-它引入新问题的概率
-出错的几率就越大
-不知道同学们
-有没有思考过这些问题
-在完成作业的过程中
-有没有哪位同学有
+   #+RESULTS: ee4df6b1-62ca-42c5-8306-22f8d088f66a
+   #+begin_example
+   Help on class int in module builtins:
+
+   class int(object)
+    |  int([x]) -> integer
+    |  int(x, base=10) -> integer
+    |  
+    |  Convert a number or string to an integer, or return 0 if no arguments
+    |  are given.  If x is a number, return x.__int__().  For floating point
+    |  numbers, this truncates towards zero.
+    |  
+    |  If x is not a number or if base is given, then x must be a string,
+    |  bytes, or bytearray instance representing an integer literal in the
+    |  given base.  The literal can be preceded by '+' or '-' and be surrounded
+    |  by whitespace.  The base defaults to 10.  Valid bases are 0 and 2-36.
+    |  Base 0 means to interpret the base from the string as an integer literal.
+    |  >>> int('0b100', base=0)
+    |  4
+    |  
+    |  Built-in subclasses:
+    |      bool
+    |  
+    |  Methods defined here:
+    |  
+    |  __abs__(self, /)
+    |      abs(self)
+    |  
+    |  __add__(self, value, /)
+    |      Return self+value.
+    |  
+    |  __and__(self, value, /)
+    |      Return self&value.
+    |  
+    |  __bool__(self, /)
+    |      self != 0
+    |  
+    |  __ceil__(...)
+    |      Ceiling of an Integral returns itself.
+    |  
+    |  __divmod__(self, value, /)
+    |      Return divmod(self, value).
+    |  
+    |  __eq__(self, value, /)
+    |      Return self==value.
+    |  
+    |  __float__(self, /)
+    |      float(self)
+    |  
+    |  __floor__(...)
+    |      Flooring an Integral returns itself.
+    |  
+    |  __floordiv__(self, value, /)
+    |      Return self//value.
+    |  
+    |  __format__(self, format_spec, /)
+    |      Default object formatter.
+    |  
+    |  __ge__(self, value, /)
+    |      Return self>=value.
+    |  
+    |  __getattribute__(self, name, /)
+    |      Return getattr(self, name).
+    |  
+    |  __getnewargs__(self, /)
+    |  
+    |  __gt__(self, value, /)
+    |      Return self>value.
+    |  
+    |  __hash__(self, /)
+    |      Return hash(self).
+    |  
+    |  __index__(self, /)
+    |      Return self converted to an integer, if self is suitable for use as an index into a list.
+    |  
+    |  __int__(self, /)
+    |      int(self)
+    |  
+    |  __invert__(self, /)
+    |      ~self
+    |  
+    |  __le__(self, value, /)
+    |      Return self<=value.
+    |  
+    |  __lshift__(self, value, /)
+    |      Return self<<value.
+    |  
+    |  __lt__(self, value, /)
+    |      Return self<value.
+    |  
+    |  __mod__(self, value, /)
+    |      Return self%value.
+    |  
+    |  __mul__(self, value, /)
+    |      Return self*value.
+    |  
+    |  __ne__(self, value, /)
+    |      Return self!=value.
+    |  
+    |  __neg__(self, /)
+    |      -self
+    |  
+    |  __or__(self, value, /)
+    |      Return self|value.
+    |  
+    |  __pos__(self, /)
+    |      +self
+    |  
+    |  __pow__(self, value, mod=None, /)
+    |      Return pow(self, value, mod).
+    |  
+    |  __radd__(self, value, /)
+    |      Return value+self.
+    |  
+    |  __rand__(self, value, /)
+    |      Return value&self.
+    |  
+    |  __rdivmod__(self, value, /)
+    |      Return divmod(value, self).
+    |  
+    |  __repr__(self, /)
+    |      Return repr(self).
+    |  
+    |  __rfloordiv__(self, value, /)
+    |      Return value//self.
+    |  
+    |  __rlshift__(self, value, /)
+    |      Return value<<self.
+    |  
+    |  __rmod__(self, value, /)
+    |      Return value%self.
+    |  
+    |  __rmul__(self, value, /)
+    |      Return value*self.
+    |  
+    |  __ror__(self, value, /)
+    |      Return value|self.
+    |  
+    |  __round__(...)
+    |      Rounding an Integral returns itself.
+    |      Rounding with an ndigits argument also returns an integer.
+    |  
+    |  __rpow__(self, value, mod=None, /)
+    |      Return pow(value, self, mod).
+    |  
+    |  __rrshift__(self, value, /)
+    |      Return value>>self.
+    |  
+    |  __rshift__(self, value, /)
+    |      Return self>>value.
+    |  
+    |  __rsub__(self, value, /)
+    |      Return value-self.
+    |  
+    |  __rtruediv__(self, value, /)
+    |      Return value/self.
+    |  
+    |  __rxor__(self, value, /)
+    |      Return value^self.
+    |  
+    |  __sizeof__(self, /)
+    |      Returns size in memory, in bytes.
+    |  
+    |  __sub__(self, value, /)
+    |      Return self-value.
+    |  
+    |  __truediv__(self, value, /)
+    |      Return self/value.
+    |  
+    |  __trunc__(...)
+    |      Truncating an Integral returns itself.
+    |  
+    |  __xor__(self, value, /)
+    |      Return self^value.
+    |  
+    |  as_integer_ratio(self, /)
+    |      Return integer ratio.
+    |      
+    |      Return a pair of integers, whose ratio is exactly equal to the original int
+    |      and with a positive denominator.
+    |      
+    |      >>> (10).as_integer_ratio()
+    |      (10, 1)
+    |      >>> (-10).as_integer_ratio()
+    |      (-10, 1)
+    |      >>> (0).as_integer_ratio()
+    |      (0, 1)
+    |  
+    |  bit_length(self, /)
+    |      Number of bits necessary to represent self in binary.
+    |      
+    |      >>> bin(37)
+    |      '0b100101'
+    |      >>> (37).bit_length()
+    |      6
+    |  
+    |  conjugate(...)
+    |      Returns self, the complex conjugate of any int.
+    |  
+    |  to_bytes(self, /, length, byteorder, *, signed=False)
+    |      Return an array of bytes representing an integer.
+    |      
+    |      length
+    |        Length of bytes object to use.  An OverflowError is raised if the
+    |        integer is not representable with the given number of bytes.
+    |      byteorder
+    |        The byte order used to represent the integer.  If byteorder is 'big',
+    |        the most significant byte is at the beginning of the byte array.  If
+    |        byteorder is 'little', the most significant byte is at the end of the
+    |        byte array.  To request the native byte order of the host system, use
+    |        `sys.byteorder' as the byte order value.
+    |      signed
+    |        Determines whether two's complement is used to represent the integer.
+    |        If signed is False and a negative integer is given, an OverflowError
+    |        is raised.
+    |  
+    |  ----------------------------------------------------------------------
+    |  Class methods defined here:
+    |  
+    |  from_bytes(bytes, byteorder, *, signed=False) from builtins.type
+    |      Return the integer represented by the given array of bytes.
+    |      
+    |      bytes
+    |        Holds the array of bytes to convert.  The argument must either
+    |        support the buffer protocol or be an iterable object producing bytes.
+    |        Bytes and bytearray are examples of built-in objects that support the
+    |        buffer protocol.
+    |      byteorder
+    |        The byte order used to represent the integer.  If byteorder is 'big',
+    |        the most significant byte is at the beginning of the byte array.  If
+    |        byteorder is 'little', the most significant byte is at the end of the
+    |        byte array.  To request the native byte order of the host system, use
+    |        `sys.byteorder' as the byte order value.
+    |      signed
+    |        Indicates whether two's complement is used to represent the integer.
+    |  
+    |  ----------------------------------------------------------------------
+    |  Static methods defined here:
+    |  
+    |  __new__(*args, **kwargs) from builtins.type
+    |      Create and return a new object.  See help(type) for accurate signature.
+    |  
+    |  ----------------------------------------------------------------------
+    |  Data descriptors defined here:
+    |  
+    |  denominator
+    |      the denominator of a rational number in lowest terms
+    |  
+    |  imag
+    |      the imaginary part of a complex number
+    |  
+    |  numerator
+    |      the numerator of a rational number in lowest terms
+    |  
+    |  real
+    |      the real part of a complex number
+
+   #+end_example
+
+   Python 的[[https://docs.python.org/3/][文档网站]]的内容，就是由这些代码中的函数文档生成。这种把人类可读和机器可读的文字写在一起的思想，叫做“literate programming”，目标是让程序既适合被机器执行，也适合被人类阅读。修改程序与修改文档要保持同步。相反，如果程序与文档写在不同地方，甚至由不同的人来撰写，那么大概率经年累月，它们会有很大出入，使用文档失去了应有的价值。因此从一开始贯彻 literate programming 的原则，有助于长远的程序可读性和易用性，注意体会其中的“一次”原则：文档和程序在说同一件事情，我们只在一个地方把它们全都写出来。
+   在通过书籍或课程系统性地对 Python 语言和环境的整形把握之后， 随手查阅 =help()= 所得的在线帮助非常实用，是灵活的“工具书”。我们有了基础之后，可以借助这个强大的帮助系统边学边用，学习和工作效率都会很高。
+
+* Python 模块
+  Python 的模块是把函数等聚集起来的名字空间，由目录或者文件划定。它既可以由 Python 实现，也可以由 C 和 Fortran 等编译语言实现。半个多世纪积累下来的优秀程序，大多可以以 Python 模块的形式出现，被复用，实践“一次”原则。
+  Python 的模块都具有详实的在线帮助。
+  #+NAME: 58fb5fcf-35e8-4e0c-9728-79e4f0d0c4bc
+  #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb
+    import math
+    help(math)
+  #+end_src
+
+  #+RESULTS: 58fb5fcf-35e8-4e0c-9728-79e4f0d0c4bc
+  #+begin_example
+  Help on module math:
+
+  NAME
+      math
+
+  MODULE REFERENCE
+      https://docs.python.org/3.9/library/math
+
+      The following documentation is automatically generated from the Python
+      source files.  It may be incomplete, incorrect or include features that
+      are considered implementation detail and may vary between Python
+      implementations.  When in doubt, consult the module reference at the
+      location listed above.
+
+  DESCRIPTION
+      This module provides access to the mathematical functions
+      defined by the C standard.
+
+  FUNCTIONS
+      acos(x, /)
+          Return the arc cosine (measured in radians) of x.
+
+          The result is between 0 and pi.
+
+      acosh(x, /)
+          Return the inverse hyperbolic cosine of x.
+
+      asin(x, /)
+          Return the arc sine (measured in radians) of x.
+
+          The result is between -pi/2 and pi/2.
+
+      asinh(x, /)
+          Return the inverse hyperbolic sine of x.
+
+      atan(x, /)
+          Return the arc tangent (measured in radians) of x.
+
+          The result is between -pi/2 and pi/2.
+
+      atan2(y, x, /)
+          Return the arc tangent (measured in radians) of y/x.
+
+          Unlike atan(y/x), the signs of both x and y are considered.
+
+      atanh(x, /)
+          Return the inverse hyperbolic tangent of x.
+
+      ceil(x, /)
+          Return the ceiling of x as an Integral.
+
+          This is the smallest integer >= x.
+
+      comb(n, k, /)
+          Number of ways to choose k items from n items without repetition and without order.
+
+          Evaluates to n! / (k! * (n - k)!) when k <= n and evaluates
+          to zero when k > n.
+
+          Also called the binomial coefficient because it is equivalent
+          to the coefficient of k-th term in polynomial expansion of the
+          expression (1 + x)**n.
+
+          Raises TypeError if either of the arguments are not integers.
+          Raises ValueError if either of the arguments are negative.
+
+      copysign(x, y, /)
+          Return a float with the magnitude (absolute value) of x but the sign of y.
+
+          On platforms that support signed zeros, copysign(1.0, -0.0)
+          returns -1.0.
+
+      cos(x, /)
+          Return the cosine of x (measured in radians).
+
+      cosh(x, /)
+          Return the hyperbolic cosine of x.
+
+      degrees(x, /)
+          Convert angle x from radians to degrees.
+
+      dist(p, q, /)
+          Return the Euclidean distance between two points p and q.
+
+          The points should be specified as sequences (or iterables) of
+          coordinates.  Both inputs must have the same dimension.
+
+          Roughly equivalent to:
+              sqrt(sum((px - qx) ** 2.0 for px, qx in zip(p, q)))
+
+      erf(x, /)
+          Error function at x.
+
+      erfc(x, /)
+          Complementary error function at x.
+
+      exp(x, /)
+          Return e raised to the power of x.
+
+      expm1(x, /)
+          Return exp(x)-1.
+
+          This function avoids the loss of precision involved in the direct evaluation of exp(x)-1 for small x.
+
+      fabs(x, /)
+          Return the absolute value of the float x.
+
+      factorial(x, /)
+          Find x!.
+
+          Raise a ValueError if x is negative or non-integral.
+
+      floor(x, /)
+          Return the floor of x as an Integral.
+
+          This is the largest integer <= x.
+
+      fmod(x, y, /)
+          Return fmod(x, y), according to platform C.
+
+          x % y may differ.
+
+      frexp(x, /)
+          Return the mantissa and exponent of x, as pair (m, e).
+
+          m is a float and e is an int, such that x = m * 2.**e.
+          If x is 0, m and e are both 0.  Else 0.5 <= abs(m) < 1.0.
+
+      fsum(seq, /)
+          Return an accurate floating point sum of values in the iterable seq.
+
+          Assumes IEEE-754 floating point arithmetic.
+
+      gamma(x, /)
+          Gamma function at x.
+
+      gcd(*integers)
+          Greatest Common Divisor.
+
+      hypot(...)
+          hypot(*coordinates) -> value
+
+          Multidimensional Euclidean distance from the origin to a point.
+
+          Roughly equivalent to:
+              sqrt(sum(x**2 for x in coordinates))
+
+          For a two dimensional point (x, y), gives the hypotenuse
+          using the Pythagorean theorem:  sqrt(x*x + y*y).
+
+          For example, the hypotenuse of a 3/4/5 right triangle is:
+
+              >>> hypot(3.0, 4.0)
+              5.0
+
+      isclose(a, b, *, rel_tol=1e-09, abs_tol=0.0)
+          Determine whether two floating point numbers are close in value.
+
+            rel_tol
+              maximum difference for being considered "close", relative to the
+              magnitude of the input values
+            abs_tol
+              maximum difference for being considered "close", regardless of the
+              magnitude of the input values
+
+          Return True if a is close in value to b, and False otherwise.
+
+          For the values to be considered close, the difference between them
+          must be smaller than at least one of the tolerances.
+
+          -inf, inf and NaN behave similarly to the IEEE 754 Standard.  That
+          is, NaN is not close to anything, even itself.  inf and -inf are
+          only close to themselves.
+
+      isfinite(x, /)
+          Return True if x is neither an infinity nor a NaN, and False otherwise.
+
+      isinf(x, /)
+          Return True if x is a positive or negative infinity, and False otherwise.
+
+      isnan(x, /)
+          Return True if x is a NaN (not a number), and False otherwise.
+
+      isqrt(n, /)
+          Return the integer part of the square root of the input.
+
+      lcm(*integers)
+          Least Common Multiple.
+
+      ldexp(x, i, /)
+          Return x * (2**i).
+
+          This is essentially the inverse of frexp().
+
+      lgamma(x, /)
+          Natural logarithm of absolute value of Gamma function at x.
+
+      log(...)
+          log(x, [base=math.e])
+          Return the logarithm of x to the given base.
+
+          If the base not specified, returns the natural logarithm (base e) of x.
+
+      log10(x, /)
+          Return the base 10 logarithm of x.
+
+      log1p(x, /)
+          Return the natural logarithm of 1+x (base e).
+
+          The result is computed in a way which is accurate for x near zero.
+
+      log2(x, /)
+          Return the base 2 logarithm of x.
+
+      modf(x, /)
+          Return the fractional and integer parts of x.
+
+          Both results carry the sign of x and are floats.
+
+      nextafter(x, y, /)
+          Return the next floating-point value after x towards y.
+
+      perm(n, k=None, /)
+          Number of ways to choose k items from n items without repetition and with order.
+
+          Evaluates to n! / (n - k)! when k <= n and evaluates
+          to zero when k > n.
+
+          If k is not specified or is None, then k defaults to n
+          and the function returns n!.
+
+          Raises TypeError if either of the arguments are not integers.
+          Raises ValueError if either of the arguments are negative.
+
+      pow(x, y, /)
+          Return x**y (x to the power of y).
+
+      prod(iterable, /, *, start=1)
+          Calculate the product of all the elements in the input iterable.
+
+          The default start value for the product is 1.
+
+          When the iterable is empty, return the start value.  This function is
+          intended specifically for use with numeric values and may reject
+          non-numeric types.
+
+      radians(x, /)
+          Convert angle x from degrees to radians.
+
+      remainder(x, y, /)
+          Difference between x and the closest integer multiple of y.
+
+          Return x - n*y where n*y is the closest integer multiple of y.
+          In the case where x is exactly halfway between two multiples of
+          y, the nearest even value of n is used. The result is always exact.
+
+      sin(x, /)
+          Return the sine of x (measured in radians).
+
+      sinh(x, /)
+          Return the hyperbolic sine of x.
+
+      sqrt(x, /)
+          Return the square root of x.
+
+      tan(x, /)
+          Return the tangent of x (measured in radians).
+
+      tanh(x, /)
+          Return the hyperbolic tangent of x.
+
+      trunc(x, /)
+          Truncates the Real x to the nearest Integral toward 0.
+
+          Uses the __trunc__ magic method.
+
+      ulp(x, /)
+          Return the value of the least significant bit of the float x.
+
+  DATA
+      e = 2.718281828459045
+      inf = inf
+      nan = nan
+      pi = 3.141592653589793
+      tau = 6.283185307179586
+
+  FILE
+      /usr/lib/python3.9/lib-dynload/math.cpython-39-x86_64-linux-gnu.so
+
+
+  #+end_example
+  在 REPL 环境中，我们还可以输入 =math.= 后，按 TAB 建来给出后面可能接的函数，非常有助于去探索一个新的模块。看到不明白含义的 TAB 提示，配合 =help= 即可迅速掌握。
+  #+NAME: 88887ff3-44c4-42b0-86ba-e8f1836ef1ca
+  #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb
+    help(math.gcd)
+  #+end_src
+
+  #+RESULTS: 88887ff3-44c4-42b0-86ba-e8f1836ef1ca
+  : Help on built-in function gcd in module math:
+  : 
+  : gcd(*integers)
+  :     Greatest Common Divisor.
+  : 
+  可发现性，是 Python 易于入门的重要特征。
+
+  装载模块时，能够自定义名称，缩短程序的长度来增强可读性。
+  #+NAME: e3030744-e26c-4ce4-9589-aecbaad062e3
+  #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb
+    import math as m
+    m.factorial(10)
+  #+end_src
+
+  #+RESULTS: e3030744-e26c-4ce4-9589-aecbaad062e3
+  : 3628800
+
+** 多层模块的加载
+   当模块中的内容很多时，会被安排在不同层次的名字空间中。有多种等价的方法访问它们：
+   #+NAME: a6e8d710-386b-404c-be93-34df4fc4643f
+   #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb
+     import os
+     from os.path import abspath
+     from os.path import abspath as absp
+     abspath is os.path.abspath, abspath is absp
+   #+end_src
+
+   #+RESULTS: a6e8d710-386b-404c-be93-34df4fc4643f
+   : (True, True)
+   =os.path.abspath= 是 os 模块的 path 子模块中返回绝对路径的函数。直接使用很啰嗦，配合 =from= 会简洁很多。
+
+* 程序的测试
+  在撰写较长较复杂的程序时，我最关心的问题是，到底如何保证程序正确呢？眼睛一直盯着它，多看几遍就对了吗？不是。
+  另一个相关的问题是，我已经写出一个正确的程序，但我修改完善它，如果保证从改动前后程序的逻辑不变呢？否则，如果一不小心改坏就闯祸了，还不如不完善。如何快速确认完善后的程序是好的？
+  
+  有没有哪位同学有
 在完成作业的过程中
 有一些心得
 想跟大家分享一下
