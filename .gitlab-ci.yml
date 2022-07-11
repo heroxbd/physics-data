@@ -1,0 +1,8 @@
+build:
+  stage: build
+  image: physdata_lecture
+  tags:
+    - physdata
+  script:
+    - make
+    - cp upload/* /data/
