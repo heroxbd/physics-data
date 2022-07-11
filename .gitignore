@@ -1,3 +1,5 @@
 *.html
 *.txt
 *~
+*.tex
+*.pdf
