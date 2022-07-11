@@ -2,4 +2,4 @@
 *.txt
 *~
 *.tex
-*.pdf
+out

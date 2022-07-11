@@ -982,10 +982,10 @@ origin  git@github.com:heroxbd/physics-data.git (push)
    :END:
 
    #+BEGIN_EXPORT latex
-\frame[plain]{\includegraphics[page=8,height=\textheight]{git-commit.pdf}}
-\frame[plain]{\includegraphics[page=9,height=\textheight]{git-commit.pdf}}
-\frame[plain]{\includegraphics[page=10,height=\textheight]{git-commit.pdf}}
-\frame[plain]{\includegraphics[page=11,height=\textheight]{git-commit.pdf}}
+\frame[plain]{\includegraphics[page=8,height=\textheight]{fig/git-commit.pdf}}
+\frame[plain]{\includegraphics[page=9,height=\textheight]{fig/git-commit.pdf}}
+\frame[plain]{\includegraphics[page=10,height=\textheight]{fig/git-commit.pdf}}
+\frame[plain]{\includegraphics[page=11,height=\textheight]{fig/git-commit.pdf}}
    #+END_EXPORT
 
 ** 参考资料
