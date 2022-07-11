@@ -10,7 +10,6 @@
 #+LaTeX_HEADER: \usepackage{appendixnumberbeamer}
 #+LaTeX_HEADER: \setCJKsansfont{Noto Sans CJK SC}
 #+PROPERTY: header-args :eval never-export
-#+PROPERTY: header-args :noweb yes
 #+sTARTUP: beamer
 
 * 价值
@@ -432,7 +431,7 @@
   :PROPERTIES:
   :EXPORT_FILE_NAME: p0
   :EXPORT_BEAMER_HEADER+: \title{实验物理的大数据方法}
-  :EXPORT_OPTIONS: H:2 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
+  :EXPORT_OPTIONS: H:2 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
   :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
   :EXPORT_DATE: 2022-07-11 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
@@ -613,8 +612,8 @@
      - 取材自实验物理不同方向的真实场景。也可以由同学自行提出。
        - 分两个阶段，对应前两周“生成”和后两周“分析”，互为逆过程。
 **** 伍分 5%
-     - 小助教(A)，贡献 FAQ 内容(B)，审校讲义内容(C)，娱乐作业(D)
-     - 计入总评 \( \min(5, \sqrt{A^2 + B^2 + C^2 + D^2}) \)
+     - 小助教(A)，贡献 FAQ 内容(B)，审校讲义内容(C)，课堂贡献(D)，娱乐作业(E)
+     - 计入总评 \( \min(5, \sqrt{A^2 + B^2 + C^2 + D^2 + E^2}) \)
 *** 教材
     - 自编讲义：《实验物理的大数据方法》
 **** 参考资料
@@ -654,7 +653,7 @@
         - stackexchange 系列英文网站 70% 信息可信，其它英文网站 50% 可信
         - 官方文档 100% 可信
         - 综合多种信息来源，作出自己的判断，不要轻信小学生博主。
-
+    #+beamer: \pause
 **** [[http://www.catb.org/~esr/faqs/smart-questions.html][求助时要有智慧]] 作者 Eric Raymond
     - 原则：让他人以最小的努力复现出你的问题
       1. 不要这样说话： +救命! 我的程序坏了！哪位大神快来帮帮我！急！在线等！哭了！+
@@ -663,6 +662,7 @@
     - 原则：努力让你的问题使更多的人受益
       1. 非隐私问题，尽可能公开提问，公开讨论。 _不要私信_
 
+** 计算环境
 *** GNU 环境
     - POSIX 是 /Portable Operating System Interface/ 的缩写，是关于计算机
       操作系统的国际标准。它规定了操作系统的基本工具和程序接口。
@@ -670,11 +670,11 @@
     - GNU 是 /GNU is not Unix/ 的缩写，是自由软件运动形成的 POSIX 环境。
 
     - 科学研究中时间和空间跨度都很大，需要使用公开的国际标准化接口，才
-      能满足 _复现_ ， _透明_ 和 _最佳工具_ 原则。
+      能满足 _复现_ _透明_ 和 _最佳工具_ 原则。
 
 **** 可使用 GNU 环境的操作系统
     - GNU/Linux :: 天然大佬。请帮助周围的同学，并自荐小助教。
-    - Apple macOS :: 使用 homebrew、 nix、 macports 或 Gentoo Prefix 配置
+    - Apple macOS :: 使用 =homebrew= 、 =nix= 、 =macports= 或 =Gentoo= 配置
     - Microsoft Windows :: 本身不满足，但可以使用以下扩展
       1. Windows Subsystem for Linux (WSL)
       2. Cygwin, MinGW
@@ -693,11 +693,27 @@
       - 查找 =^W= 、替换 =^R= 、保存 =^O= 、退出 =^X=
 
          注： =^W= 代表按住 Ctrl 键，再按 W。
+*** 命令参数标准
+    - GNU 标准定义了推荐的参数格式
+    - =git config --global user.name "Benda Xu"= 
+    - 命令的各个部分由 *半角* 空格分隔
+      - 不作为分隔符的空格由 *半角* 引号标出
+    - 短参数：一条短线接一个字母
+      - =ls -a=
+      - =kill -9 xxxx=
+      - =sudo -s=
+      - 可以缩写在一起
+        - =ls -lrta=
+        - =sudo -sE=
+    - 长参数：两条短线接一个单词
+      - =ls --color=tty=
+      - =git show --pretty=short --show-signature=
+      - 由 GNU 推荐，是在 POSIX 标准之上的扩展
+    - 更多参数，使用 =man= 查看文档 =man ls=, =man git=
 ** 版本控制
 *** 版本控制
     - “我和同学合写文章，结果他是在昨天的版本上改的！我还得重改！”
 **** 发展历史
-
      #+attr_beamer: :overlay <+->
      - 石器时代 :: =实验报告-v1=, =实验报告-v2=, =实验报告-v2.2=, =实验报告-v2.2-续本达更新20190629= ……
      - 青铜时代 :: diff, patch 文本差分算法
@@ -738,15 +754,15 @@
         了改之前的程序是怎么写的。
     - _复现_ 原则被破坏。
     - =解法-20190530.backup= ， =解法-20190608= ？重复存储， _一次_ 原则被破坏。
+    - 讨论：你遇到的最难受的问题，如何解决？
+*** Git 基础 安装： =apt install git=
     - 使用 Git，养成良好的习惯，就能解决以上问题。
     - Git 由 Linus Torvalds 发明，用来支撑全世界 5000 名以上 Linux 操作
       系统内核开发者的协作。是我们的 _最佳工具_ 。
-    - 安装： =apt install git=
-*** Git 基础
+    #+attr_latex: :height 0.5\textheight
     [[./fig/pro-git_snapshots.png]]
     - 在任意时间我们都可以选择给工作区进行一次“快照”。
     - 相邻快照之间，是代表文件改动的差分量。
-    - 例子：讲义
 *** 例子：撰写讲义
     #+attr_latex: :width 0.7\textwidth
     [[./fig/tig-example.png]]
@@ -763,6 +779,21 @@
 
     - 建议：通过 SSH (secure shell) 通信。
 
+*** SSH 通信
+   - 通信的认证问题：如何证明我是“我”？
+     #+latex: \pause
+     - 手机验证码
+     - 一次性密码（one-time password，OTP）
+     - 用户名密码
+     - 非对称加密（银行 U 盾）
+   - 生成 SSH 非对称密钥对
+     - 一个公钥：公布， =id_rsa.pub=
+     - 一个私钥：私密， =id_rsa=
+     - 在网页界面把 =id_rsa.pub= 交给 =git.tsinghua.edu.cn=
+     - =git.tsinghua.edu.cn= 用我的公钥加密挑战码，只有我的私钥才能解密
+       - =git.tsinghua.edu.cn= 知道了我是“我”
+       - 我也需要知道它是真的 =git.tsinghua.edu.cn=
+     - 建立了与 =git.tsinghua.edu.cn= 的可靠通信
 *** Git 基本命令
     - diff :: 查看改动
     - status :: 查看状态
@@ -783,29 +814,11 @@
      #+BEGIN_EXAMPLE
  $ man git add
      #+END_EXAMPLE
-*** 注意
-**** Commit message 写什么
-    - =git commit= 时需要输入一段话概括本次 commit 所作的修改
-    - 目标：让他人和未来的自己一目了然，只通过读此信息就知道自己做了什么
-    - 反例：
-      1. 数数：1,2,3
-      2. 复读：Update,Update,Update
-      3. 欺负键盘：aaaaa,wwwww,asdf
-    - 不太好的例子：“完成作业”
-    - 不错的例子：“完善了个人信息页面，并填写了课程感言”
-**** Github 网页上传和修改工具
-     - 远远次于命令行的功能，无推广价值
-     - 禁止使用，防止养成不良习惯
-
 *** 作业：Git 练习
-    #+attr_beamer: :overlay <+->
-    - https://classroom.github.com/a/5tSO1WbA
-      - 点击后会自动创建你的 Git 仓库
-      - 如果访问 Github 遇到问题，请使用课程专用的 HTTP/SSH 代理
-
-    - 设置本地到 Github 的访问权限
+    - 你会在 [[https://git.tsinghua.edu.cn][清华 GitLab]] 收到一个新仓库，是今天的作业
+    - 设置本地到 [[https://git.tsinghua.edu.cn][清华 GitLab]] 的访问权限
       - 生成 SSH 密钥对
-      - 上传到 Github
+      - 上传到 https://git.tsinghua.edu.cn
 
     - 同步你的 Git 仓库，输入你的基本信息
       #+BEGIN_EXAMPLE
@@ -817,32 +830,41 @@
       #+END_EXAMPLE
     - 查看修改 (diff)，预估得分
     - 添加修改 (add)，提交 (commit)，推送 (push)
-*** 练习（不记分）：查看备课历史
-
-    - https://github.com/heroxbd/physics-data
-
-      #+BEGIN_SRC bash
- git clone git@github.com:heroxbd/physics-data.git
- git log -p
-      #+END_SRC
-
+*** 注意
+**** Commit message 写什么
+    - =git commit= 时需要输入一段话概括本次 commit 所作的修改
+    - 目标：让他人和未来的自己一目了然，只通过读此信息就知道自己做了什么
+    - 反例：
+      1. 数数：1,2,3
+      2. 复读：Update,Update,Update
+      3. 欺负键盘：aaaaa,wwwww,asdf
+    - 不太好的例子：“完成作业”
+    - 不错的例子：“完善了个人信息页面，并填写了课程感言”
+**** Gitlab 网页上传和修改工具
+     - 远远次于命令行的功能，无推广价值
+     - 禁止使用，防止养成不良习惯
 *** Git 仓库间通信的种种形态
-    - fork :: Github 类 Git 平台的术语，对应于 =git clone=
+    - fork :: Gitlab 类 Git 平台的术语，对应于 =git clone=
       - 在本人帐号创建复本
     - remote :: Git 的非本地仓库
         #+begin_src bash
- $ git remote -v
- origin  git@github.com:heroxbd/physics-data.git (fetch)
- origin  git@github.com:heroxbd/physics-data.git (push)
+          $ git remote -v
+          origin  git@git.tsinghua.edu.cn:physics-data/lecture.git (fetch)
+          origin  git@git.tsinghua.edu.cn:physics-data/lecture.git (push)
         #+end_src
     - merge :: 与其他仓库通过交换差分来整合
-    - pull request :: Github 平台术语，发送 merge 请求
-    - merge request :: Gitlab 平台术语，发送 merge 请求
+    - pull request :: GitLab 平台术语，发送 merge 请求
+    - merge request :: GitLab 平台术语，发送 merge 请求
       - 例子，如何对 FAQ 和讲义作贡献。
 *** Merge Request
     - 对课程 FAQ 有突出贡献的同学可得 5% 左右的加分鼓励
       - https://git.tsinghua.edu.cn/physics-data/faq/
       - 提出问题，整理解答，提交 merge request，……
+** 编辑器
+*** 程序编辑器三大流派
+    - Emacs
+    - Vi
+    - Visual Studio Code
 * 第一周第二天
   :PROPERTIES:
   :EXPORT_FILE_NAME: p1
@@ -891,24 +913,6 @@
 
      3. 使用工具进行版本控制
 
-** 命令参数标准
-   - POSIX 标准定义了推荐的参数格式
-   - =git config --global user.name "Benda Xu"= 
-   - 命令的各个部分由 *半角* 空格分隔
-     - 不作为分隔符的空格由 *半角* 引号标出
-   - 短参数：一条短线接一个字母
-     - =ls -a=
-     - =kill -9 xxxx=
-     - =sudo -s=
-     - 可以缩写在一起
-       - =ls -lrta=
-       - =sudo -sE=
-   - 长参数：两条短线接一个单词
-     - =ls --color=tty=
-     - =git show --pretty=short --show-signature=
-     - 由 GNU 推荐，是在 POSIX 标准之上的扩展
-   - 更多参数，使用 =man= 查看文档
-     - =man ls=, =man git=
 ** 作业：Git 练习
    - https://classroom.github.com/a/5tSO1WbA
      - 点击后会自动创建你的 Git 仓库
@@ -928,21 +932,6 @@
      #+END_EXAMPLE
    - 查看修改 (diff)，预估得分
    - 添加修改 (add)，提交 (commit)，推送 (push)
-** SSH 通信
-   - 通信的认证问题：如何证明我是“我”？
-     #+latex: \pause
-     - 手机验证码
-     - 一次性密码（one-time password，OTP）
-     - 用户名密码
-     - 非对称加密（银行 U 盾）
-   - 生成 SSH 非对称密钥对
-     - 一个公钥：公布， =id_rsa.pub=
-     - 一个私钥：私密， =id_rsa=
-     - 在网页界面把 =id_rsa.pub= 交给 Github
-     - Github 用我的公钥加密挑战码，只有我的私钥才能解密
-       - Github 知道了我是“我”
-       - 我也需要知道 Github 是真的 Github
-     - 建立了与 Github 的可靠通信
 ** Git 的状态与命令
    #+BEGIN_SRC dot :file ./git-stages.pdf :cmdline -Kdot -Tpdf
      digraph git {
