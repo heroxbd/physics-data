@@ -19,327 +19,393 @@
     学物理的同学亟需
 
   - 实践性的课程：没有必要记忆，但一定要在短时间内实践
-* Python for everyone -- control flow
-** Why do we program?
-   - Delegate repeatative tasks
-   - Record what you did
-*** Digital age
-    - We just buy device, use devices.
-    - How about we understanding devices, fixing devices and making devices?
-    - Programming is one important step. You build your world, change
-      the world and participate in creating and nurturing of
-      civilization by programming in this age.
-    - If you don't know programming, someone else will design your world for you.
-*** Not only a programmer needs to learn program
-    - Not even a physicist.
-    - Everyone needs to a bit of programming
-      - Secretary
-      - Sales champion
-      - Accountant
-      - Manager
-      - Cab driver
-** Why Python?
-   - Python is a self-organized community.
-** Python environment
-   - Real GNU/Linux
-     + Debian
-     + Gentoo
-   - Jupyter based
-   - Windows based
+* 参考课程
+** Python for everyone -- control flow
+*** Why do we program?
+    - Delegate repeatative tasks
+    - Record what you did
+**** Digital age
+     - We just buy device, use devices.
+     - How about we understanding devices, fixing devices and making devices?
+     - Programming is one important step. You build your world, change
+       the world and participate in creating and nurturing of
+       civilization by programming in this age.
+     - If you don't know programming, someone else will design your world for you.
+**** Not only a programmer needs to learn program
+     - Not even a physicist.
+     - Everyone needs to a bit of programming
+       - Secretary
+       - Sales champion
+       - Accountant
+       - Manager
+       - Cab driver
+*** Why Python?
+    - Python is a self-organized community.
+*** Python environment
+    - Real GNU/Linux
+      + Debian
+      + Gentoo
+    - Jupyter based
+    - Windows based
 
-     Windows based Python installation has caveats, because Python is
-     developed under Unix.  Be prepared for unexpected bugs if you
-     decide to use Python on windows.
+      Windows based Python installation has caveats, because Python is
+      developed under Unix.  Be prepared for unexpected bugs if you
+      decide to use Python on windows.
 
-   - Can't or don't want to install software on your computer?  Check
-     out PythonAnywhere, Trinket, Cloud9, or CodeAnywhere.
+    - Can't or don't want to install software on your computer?  Check
+      out PythonAnywhere, Trinket, Cloud9, or CodeAnywhere.
 
-** Choose an editor
-   - Emacs
-     https://github.com/redguardtoo/mastering-emacs-in-one-year-guide
-   - Vi
-   - Others
-     - Visual Studio Code
-     - Atom Both Emacs and Vi have steep learning curves, they are not
-       easy to learn.  But if you master any of them, they pays you.
+*** Choose an editor
+    - Emacs
+      https://github.com/redguardtoo/mastering-emacs-in-one-year-guide
+    - Vi
+    - Others
+      - Visual Studio Code
+      - Atom Both Emacs and Vi have steep learning curves, they are not
+        easy to learn.  But if you master any of them, they pays you.
 
-       Don't use Microsoft Word or Windows Notepad, they are not for
-       programs.  Because we need an editor that do plain text and
-       syntactically correct.
-** Playground
-   https://www.py4e.com/tools/pythonauto
+        Don't use Microsoft Word or Windows Notepad, they are not for
+        programs.  Because we need an editor that do plain text and
+        syntactically correct.
+*** Playground
+    https://www.py4e.com/tools/pythonauto
 
-   Do we need one?  I don't think so.
+    Do we need one?  I don't think so.
 
-** Jupyter
-   - Causal way to completing classes.
-** Installing Python
-   + Windows
-     - Not impossible.
-     - No good package manager.
-       - ... what is package manager?
-       - pip on windows is a hack.
-     - Snipping tool.
-   + macOS
-     - No good package manager.
-       - Need extra care when using pip, easy to screw up.
-   + GNU/Linux
-     - steep learning curve.
-     - not everything is obvious.
-     - pays you back if you are committed to deal with data and
-       programs: experimental physicist, data scientist, quant, etc.
-       That is the main audience this course is targeting.
-     - I am going to give lectures, examples, demonstrations on
-       GNU/Linux with Emacs.
-   + You can try them if you are brave, and you are encouraged to find
-     your own work style.
-** Submit screen shots
-   - Needed skill for online discussion.
-   - Anonymous discussion groups, piazza "Not good", commented by
-     Harry
-   - git
-     classroom
-     https://github.com/CS50Demo/assignment-1-introduction-to-programming-heroxbd-1
-** Version control and Git
-   - jiegec's lectures.
+*** Jupyter
+    - Causal way to completing classes.
+*** Installing Python
+    + Windows
+      - Not impossible.
+      - No good package manager.
+        - ... what is package manager?
+        - pip on windows is a hack.
+      - Snipping tool.
+    + macOS
+      - No good package manager.
+        - Need extra care when using pip, easy to screw up.
+    + GNU/Linux
+      - steep learning curve.
+      - not everything is obvious.
+      - pays you back if you are committed to deal with data and
+        programs: experimental physicist, data scientist, quant, etc.
+        That is the main audience this course is targeting.
+      - I am going to give lectures, examples, demonstrations on
+        GNU/Linux with Emacs.
+    + You can try them if you are brave, and you are encouraged to find
+      your own work style.
+*** Submit screen shots
+    - Needed skill for online discussion.
+    - Anonymous discussion groups, piazza "Not good", commented by
+      Harry
+    - git
+      classroom
+      https://github.com/CS50Demo/assignment-1-introduction-to-programming-heroxbd-1
+*** Version control and Git
+    - jiegec's lectures.
 
-   https://cloud.tsinghua.edu.cn/d/f3f13a46ed4c4b5386f9/
-** Write paragraphs of code
-   - Basic
-programming
-structures
-     - sequential
-     - conditinoal
-     - iterative
-     - recursive
-   - Early
-exit
+    https://cloud.tsinghua.edu.cn/d/f3f13a46ed4c4b5386f9/
+*** Write paragraphs of code
+    - Basic
+ programming
+ structures
+      - sequential
+      - conditinoal
+      - iterative
+      - recursive
+    - Early
+ exit
 
 
-*** Further Reading
-    - A proof that all reasonable programs can be decoupled into
-      combinations of the 3 constructs. ???
-    - Structured program theorem
-      - Goto statement considered harmful
+**** Further Reading
+     - A proof that all reasonable programs can be decoupled into
+       combinations of the 3 constructs. ???
+     - Structured program theorem
+       - Goto statement considered harmful
 
-    - https://en.wikipedia.org/wiki/Structured_programming
-    - https://en.wikipedia.org/wiki/Goto#Criticism
-** Expressions (including statements)
-   - Reserved words.  Not used for anything else.
-   - Variable
-     - Case sensitive
-   - Insane vs letter vs mnemonic
-   - Covered in 程序设计基础
-     - 设计成练习，作为 git 和 jupyterhub 的熟练练习
-   - Keyword is historical
-     - **
-     - *
-     - /
-     - %
-** How to debug
-   - Read error message
-   - type()
-   - duanzi: 不要用浮点数表示钱——电影 Office Space
-     银行用浮点数记账，有误差，被主角用来薅羊毛
-** User input
-   - 在数据分析中没什么用
-** Branching
-   - Python 语法的特殊之处
-   - 强制缩进: 程序员编辑器非常重要
-     - Tab vs space
-   - Conditionals: if.. elif..  else
-   - Try... except
-     - Why can't it be replaced by if.. else?
-** Loops and iteration
-   - Computers to repetitive task human don't want to do.
-   - while loop
-   - for loop
-   - counting in loop
-   - filtering
-   - 都作为习惯考察，视同学的基础压缩授课时间
-** Types
-   - None
-** Functions
-   - Reuse code
+     - https://en.wikipedia.org/wiki/Structured_programming
+     - https://en.wikipedia.org/wiki/Goto#Criticism
+*** Expressions (including statements)
+    - Reserved words.  Not used for anything else.
+    - Variable
+      - Case sensitive
+    - Insane vs letter vs mnemonic
+    - Covered in 程序设计基础
+      - 设计成练习，作为 git 和 jupyterhub 的熟练练习
+    - Keyword is historical
+      - **
+      - *
+      - /
+      - %
+*** How to debug
+    - Read error message
+    - type()
+    - duanzi: 不要用浮点数表示钱——电影 Office Space
+      银行用浮点数记账，有误差，被主角用来薅羊毛
+*** User input
+    - 在数据分析中没什么用
+*** Branching
+    - Python 语法的特殊之处
+    - 强制缩进: 程序员编辑器非常重要
+      - Tab vs space
+    - Conditionals: if.. elif..  else
+    - Try... except
+      - Why can't it be replaced by if.. else?
+*** Loops and iteration
+    - Computers to repetitive task human don't want to do.
+    - while loop
+    - for loop
+    - counting in loop
+    - filtering
+    - 都作为习惯考察，视同学的基础压缩授课时间
+*** Types
+    - None
+*** Functions
+    - Reuse code
 
-     Dont repeat yourself
-   - Function with a return
+      Dont repeat yourself
+    - Function with a return
 
-     consistant with mathematical definition
-   - Argument variable
-   - 太简单了，引入递归
+      consistant with mathematical definition
+    - Argument variable
+    - 太简单了，引入递归
 
-   通过练习保证同学们掌握
-* Python for everyone -- data structure
-  What python distinguishes itself from C
-** String
-   - length
-   - indexing, slicing
-   - Why index starting with 0?
-     Dijkstra argument
-   - string concatenation, compare with C
-     - unicode string
-   - in: logical operator
-   - string library is a set of toolkit to use
-     - dir(str): very useful tools
-** 参观科学博物馆 可选
-** Files
-   - read text files: just use for to loop through.
-   - open, close and `with` context
-** List
-   - List a powerful container.
-   - Indexing compared to strings.
-   - Append.
-   - List and string combo into text parser.
-** Dictionary
-   - The central data structure of Python.
-   - Dictionary: key-value pair
-     - As opposed to List: ordered collection
-   - Python itself is implemented with namespace and dictionaries.
-     - What is a language namespace?
-       #+BEGIN_SRC c++
-         using namespace std;
+    通过练习保证同学们掌握
+** Python for everyone -- data structure
+   What python distinguishes itself from C
+*** String
+    - length
+    - indexing, slicing
+    - Why index starting with 0?
+      Dijkstra argument
+    - string concatenation, compare with C
+      - unicode string
+    - in: logical operator
+    - string library is a set of toolkit to use
+      - dir(str): very useful tools
+*** 参观科学博物馆 可选
+*** Files
+    - read text files: just use for to loop through.
+    - open, close and `with` context
+*** List
+    - List a powerful container.
+    - Indexing compared to strings.
+    - Append.
+    - List and string combo into text parser.
+*** Dictionary
+    - The central data structure of Python.
+    - Dictionary: key-value pair
+      - As opposed to List: ordered collection
+    - Python itself is implemented with namespace and dictionaries.
+      - What is a language namespace?
+        #+BEGIN_SRC c++
+          using namespace std;
 
-         std::stdout
-       #+END_SRC
-   - Example: word counter.
-     - get with a default counter value.
-   - 2 iteration looping mode:
-     #+BEGIN_SRC python
-       for k,v in d.items():
-     #+END_SRC
-** Tuple
-   - Tuple is non-mutable.
-   - tuple can be used on the left-side of an assignment statement.
-   - List comprehension: beauty of Python.
+          std::stdout
+        #+END_SRC
+    - Example: word counter.
+      - get with a default counter value.
+    - 2 iteration looping mode:
+      #+BEGIN_SRC python
+        for k,v in d.items():
+      #+END_SRC
+*** Tuple
+    - Tuple is non-mutable.
+    - tuple can be used on the left-side of an assignment statement.
+    - List comprehension: beauty of Python.
 
-** 课堂教学，例子
-   - 使用邮件库，文本处理
-** 参考书
-   - Think Python 2e
-** 辅助资料
-   - https://www.tutorialspoint.com/
+*** 课堂教学，例子
+    - 使用邮件库，文本处理
+*** 参考书
+    - Think Python 2e
+*** 辅助资料
+    - https://www.tutorialspoint.com/
 
-     印度的编程样例网站，适合通过例子快速入门一项技能。
+      印度的编程样例网站，适合通过例子快速入门一项技能。
 
-   - https://scipy-lectures.org/intro/intro.html
+    - https://scipy-lectures.org/intro/intro.html
 
-     由 Python 科学计算领域最资深作者亲自执笔编写。
-* 用 Python 玩转数据
-  http://www.icourse163.org/learn/NJU-1001571005
-** Python 入门介绍
-   - 主线是 Python 的广泛应用
-   - 交互模式和文件执行模式
-   - 缩进
-   - Python 中的常量
-     - stu-name 不是合法的变量名
-   - 屏幕书写很适合制作 MOOC
-   - 讲课很口语化，在 MOOC 上更有亲和力
-** 模块
-   - 模块是一个逻辑概念，文件是与之对应的实体概念
-** range 迭代器
-   好处：用多少就生成多少，甚至可以制作无穷的迭代器。适合大数据应用场景。
-** 作业
-*** 寻找第6个默尼森数
-* Learn to Program -- The Fundamentals
-* 计算机科学和Python编程导论
-* Linux 入门基础 - 网易云课堂
-  苏勇
-  https://study.163.com/course/courseLearn.htm?courseId=232007
-** Linux 系统安装
-   - VirtualBox
-     - 针对运维工作
-       - 软件保守，不适合学术
-       - 命令行为主，与科学计算很类似
-     - 运行在 macOS
-   - 使用英语环境
-     - 中文的高质量资料很少，中文的社区非常薄弱且小众
-     - 英语是程序的天然语言，对科技表达更丰富
-     - 世界目前的约定，各国科学家都在通过英语交流
-   - 如果立志建设中文社区，请先通过英语学习成为高手
-** 命令行界面
-   - 与计算机交互的精髓
-     - 比随意点选更有助于可复现性
-   - 更方便地操作远程的计算资源
-** GNOME
-   - 有助于渐进地加入命令行
-   - 图形界面未必能真切表达人类的意图
-   - 图形界面的开发更耗时费力，“易用性”是以开发难度为代价
-     - 科学研究更关注本质
-** CLI shell, bash / zsh
-   - shell 相对于 kernel，在 kernel 之外
-   - 用户通过 shell 把命令传给 kernel
-   - bash 的提示
-   - 命令、选项、参数
-     - hostname
-     - ls
-     - uname
-     - clear
-     - id
-     - passwd
-   - 参数：短线、双线，GNU 约定
-   - Shell 后台进程
-   - Tab 自动补全
-     - unique
-   - zsh 可以补全参数
-   - 上下方向查找历史，Ctrl-r 搜索命令。
-     - emacs 快捷键约定
-   - ESC-. 上一个命令的选项
-   - *, ?, [0-9], {}
-   - Ctrl-Z 挂起
-     - jobs
-     - bg
-     - fg
-   - 其它命令
-     date, uptime, head, tail, less, cat, lspci, zip, tar, find
-** 编辑器 vi, emacs
-   - Unix 一切都是文本，因为一切皆可用文本编辑器修改。
-** 文件系统
-   - 目录结构，当前工作目录
-   - "."开头的是隐藏文件
-   - touch 更新文件时间，不存在则先创建
-   - ls -d: list directories themselves, not their contents
-   - file 类型
-   - 绝对路径、相对路径
-     - Linuxcast 图
-   - . .. ~ -
+      由 Python 科学计算领域最资深作者亲自执笔编写。
+** 用 Python 玩转数据
+   http://www.icourse163.org/learn/NJU-1001571005
+*** Python 入门介绍
+    - 主线是 Python 的广泛应用
+    - 交互模式和文件执行模式
+    - 缩进
+    - Python 中的常量
+      - stu-name 不是合法的变量名
+    - 屏幕书写很适合制作 MOOC
+    - 讲课很口语化，在 MOOC 上更有亲和力
+*** 模块
+    - 模块是一个逻辑概念，文件是与之对应的实体概念
+*** range 迭代器
+    好处：用多少就生成多少，甚至可以制作无穷的迭代器。适合大数据应用场景。
+*** 作业
+**** 寻找第6个默尼森数
+** Learn to Program -- The Fundamentals
+** 计算机科学和Python编程导论
+** Linux 入门基础 - 网易云课堂
+   苏勇
+   https://study.163.com/course/courseLearn.htm?courseId=232007
+*** Linux 系统安装
+    - VirtualBox
+      - 针对运维工作
+        - 软件保守，不适合学术
+        - 命令行为主，与科学计算很类似
+      - 运行在 macOS
+    - 使用英语环境
+      - 中文的高质量资料很少，中文的社区非常薄弱且小众
+      - 英语是程序的天然语言，对科技表达更丰富
+      - 世界目前的约定，各国科学家都在通过英语交流
+    - 如果立志建设中文社区，请先通过英语学习成为高手
+*** 命令行界面
+    - 与计算机交互的精髓
+      - 比随意点选更有助于可复现性
+    - 更方便地操作远程的计算资源
+*** GNOME
+    - 有助于渐进地加入命令行
+    - 图形界面未必能真切表达人类的意图
+    - 图形界面的开发更耗时费力，“易用性”是以开发难度为代价
+      - 科学研究更关注本质
+*** CLI shell, bash / zsh
+    - shell 相对于 kernel，在 kernel 之外
+    - 用户通过 shell 把命令传给 kernel
+    - bash 的提示
+    - 命令、选项、参数
+      - hostname
+      - ls
+      - uname
+      - clear
+      - id
+      - passwd
+    - 参数：短线、双线，GNU 约定
+    - Shell 后台进程
+    - Tab 自动补全
+      - unique
+    - zsh 可以补全参数
+    - 上下方向查找历史，Ctrl-r 搜索命令。
+      - emacs 快捷键约定
+    - ESC-. 上一个命令的选项
+    - *, ?, [0-9], {}
+    - Ctrl-Z 挂起
+      - jobs
+      - bg
+      - fg
+    - 其它命令
+      date, uptime, head, tail, less, cat, lspci, zip, tar, find
+*** 编辑器 vi, emacs
+    - Unix 一切都是文本，因为一切皆可用文本编辑器修改。
+*** 文件系统
+    - 目录结构，当前工作目录
+    - "."开头的是隐藏文件
+    - touch 更新文件时间，不存在则先创建
+    - ls -d: list directories themselves, not their contents
+    - file 类型
+    - 绝对路径、相对路径
+      - Linuxcast 图
+    - . .. ~ -
 
-   不仔细讲，只做练习
-** 文件操作
-   - cp, mv, rm, mkdir, rmdir
+    不仔细讲，只做练习
+*** 文件操作
+    - cp, mv, rm, mkdir, rmdir
 
-   不仔细讲，只做练习
-** 系统目录 FHS
-   - /bin, /sbin
-   - /boot
-   - /etc
-     文本的配置文件
-   - /tmp
-     临时目录
+    不仔细讲，只做练习
+*** 系统目录 FHS
+    - /bin, /sbin
+    - /boot
+    - /etc
+      文本的配置文件
+    - /tmp
+      临时目录
 
-** 硬盘在系统中的表示
-   - /dev/sda, /dev/nvme0
-* 实验楼 - Linux 基础入门（新版）
-  - 交互式地学习
-  - 文件的基本操作
-* Data Manipulation at Scale
-** Big data
-   Any data that is expensive to manage and hard to extract value
-   from. - Michael Franklin UC Berkeley
+*** 硬盘在系统中的表示
+    - /dev/sda, /dev/nvme0
+** 实验楼 - Linux 基础入门（新版）
+   - 交互式地学习
+   - 文件的基本操作
+** Data Manipulation at Scale
+*** Big data
+    Any data that is expensive to manage and hard to extract value
+    from. - Michael Franklin UC Berkeley
 
-   - 10000 100KB Excel 表格
-   - 134万条边，1万个节点的复杂网络
+    - 10000 100KB Excel 表格
+    - 134万条边，1万个节点的复杂网络
 
-   - Erik Larson, 1989
-     - The keepers of big data say that they do it for the consumer's
-       benefit. Data have a way of being used for purposes other than
-       originally intended.
-* data science foundations R
-  https://www.coursera.org/specializations/data-science-foundations-r
-* Reproducible research: new self-paced session from March 20, 2020!
-  https://learninglab.inria.fr/en/mooc-recherche-reproductible-principes-methodologiques-pour-une-science-transparente/
-* 参考书：Linux Sea
-  http://swift.siphos.be/linux_sea/
+    - Erik Larson, 1989
+      - The keepers of big data say that they do it for the consumer's
+        benefit. Data have a way of being used for purposes other than
+        originally intended.
+** data science foundations R
+   https://www.coursera.org/specializations/data-science-foundations-r
+** Reproducible research: new self-paced session from March 20, 2020!
+   https://learninglab.inria.fr/en/mooc-recherche-reproductible-principes-methodologiques-pour-une-science-transparente/
+** 参考书：Linux Sea
+   http://swift.siphos.be/linux_sea/
+** Berkeley Course
+   Data science and Bayesian statistics for physical sciences
+
+   https://data.berkeley.edu/news/new-physics-data-science-course
+
+*** Goal
+    Modern tools in data science and data analysis in physics.
+
+*** Audience
+    Upper division undergraduates.
+
+*** Topic
+    - Theoretical, practical, their most common applications in
+      physical sciences.
+*** Grades
+    30% projects, 40% homeworks, 30% class participation.
+*** Table of contents
+    - Numerical integration
+    - Introduction to probability and Bayesian inference
+    - More on Bayesian inference and intro to data modeling
+    - Linear Algebra
+    - Information theory
+    - Nonlinear equations and 1-d optimization
+    - Optimization in many dimensions
+    - Monte Carlo methods for integration and posteriors
+    - More advanced Bayesian analysis
+    - Variational approximations
+    - Interpolation and extrapolation of data
+    - Fourier methods
+    - Ordinary and partial differential equations
+    - Classification and inference with machine learning
+*** Programming environment
+    - Jupyter notebook
+
+*** Planck
+    A series of tasks
+
+    Use measurement of Planck satellite power spectrum to determine
+    cosmological parameters.
+
+    - Optimization, find MAP/MLE best fit parameters
+    - Determine covariances of all parameters using Laplace approximation.
+    - Fisher matrix experiment design predictions.
+    - analyze MCMC chains burn-in phase, Gelman-Rubin statistics, and chain
+      correlations.
+    - Plot 1-d and 2-d distributions and compare them
+      to MAP/Laplace approximation.
+    - Change one parameter and use importance sampling to produce new
+      posteriors.
+
+*** LIGO
+    Use matched filtering methods and FFT to analyze first LIGO event
+    and show it has detected gravitational waves.
+
+*** Machine learning on galaxies
+    - train the ML algorithms for regression
+    - test the training algorithms
+    - try KNN, gaussian processes, linear and quadratic regression,
+      support vector machines, neural networks, random forest...
+    - classification: use galaxy zoo galaxy
+      morphology (spirals ellipticals, irregulars...) training dat.
+    - Use photometry first, then add image information and observe how
+      the accuracy improves.
+*** grader
+    https://okpy.org/
 * GEANT4
   https://groups.lal.in2p3.fr/ED-geant4/ttt/program/
 
@@ -358,104 +424,10 @@ exit
 ** Primary Paricles
 ** Physics
 ** Scoring
-* GitHub Classroom
-  Use as official homework platform.
-** Assignments
-   - starter code
-   - generate invitation link and distribute
-   - Individual assignment, review by pull request
-** Skills for the future
-   - Teamwork and collaboration
-   - Popular industry tools
-   - Project management
-   - More github features is needed
-   - 2-2.5 month to familiar with Github
-** alternatives
-   - CATSOOP https://catsoop.org/
 * 平时作业
   - 细化，标准输入输出
 ** 学风
    ……追求短浅，境界低，不肯有更长远的设计。这是非常重要的学风问题，但是有好多人谈学风问题时，还是不抄作业，论文自己写。这个问题为什么在研究生层次更突出，就是和破五唯有深刻的联系。学生中很有市场的“攻略观”实在是很普遍。攻略就是目标函数值外部给定的，我只要多快好省，maximize 我的结果，minimize 我的 cost。这是功利的一种体现。我们在评特奖时，现在清华的某些老师，甚至某些院系都在强调“攻略观”，因为他们希望自己的院系能常年保有特等奖学金。博士选题，希望早出成果，快出成果。
-* Berkeley Course
-  Data science and Bayesian statistics for physical sciences
-
-  https://data.berkeley.edu/news/new-physics-data-science-course
-
-** Goal
-   Modern tools in data science and data analysis in physics.
-
-** Audience
-   Upper division undergraduates.
-
-** Topic
-   - Theoretical, practical, their most common applications in
-     physical sciences.
-** Grades
-   30% projects, 40% homeworks, 30% class participation.
-** Table of contents
-   - Numerical integration
-   - Introduction to probability and Bayesian inference
-   - More on Bayesian inference and intro to data modeling
-   - Linear Algebra
-   - Information theory
-   - Nonlinear equations and 1-d optimization
-   - Optimization in many dimensions
-   - Monte Carlo methods for integration and posteriors
-   - More advanced Bayesian analysis
-   - Variational approximations
-   - Interpolation and extrapolation of data
-   - Fourier methods
-   - Ordinary and partial differential equations
-   - Classification and inference with machine learning
-** Programming environment
-   - Jupyter notebook
-
-** Planck
-   A series of tasks
-
-   Use measurement of Planck satellite power spectrum to determine
-   cosmological parameters.
-
-   - Optimization, find MAP/MLE best fit parameters
-   - Determine covariances of all parameters using Laplace approximation.
-   - Fisher matrix experiment design predictions.
-   - analyze MCMC chains burn-in phase, Gelman-Rubin statistics, and chain
-     correlations.
-   - Plot 1-d and 2-d distributions and compare them
-     to MAP/Laplace approximation.
-   - Change one parameter and use importance sampling to produce new
-     posteriors.
-
-** LIGO
-   Use matched filtering methods and FFT to analyze first LIGO event
-   and show it has detected gravitational waves.
-
-** Machine learning on galaxies
-   - train the ML algorithms for regression
-   - test the training algorithms
-   - try KNN, gaussian processes, linear and quadratic regression,
-     support vector machines, neural networks, random forest...
-   - classification: use galaxy zoo galaxy
-     morphology (spirals ellipticals, irregulars...) training dat.
-   - Use photometry first, then add image information and observe how
-     the accuracy improves.
-** grader
-   https://okpy.org/
-* 公告时间
-  1. 小助教申请 7月1日24点截止
-  2. 7月2日上午
-  3. 大作业替代的提出 7月7日24点载止
-* workstation
-  |                            | Price | Link                                                   |
-  |----------------------------+-------+--------------------------------------------------------|
-  | ASUS Pro WS X570-Ace       |  2800 | https://product.suning.com/0070143867/11824955145.html |
-  | Ryzen 9 3900X              |  3800 | https://item.jd.com/100006391096.html                  |
-  | Antec HCG-X1000            |  1400 | https://item.jd.com/7356231.html                       |
-  | aigo T10                   |   240 | https://item.jd.com/2209857.html                       |
-  | ADATA XPG DDR4 3200 2x16GB |  1060 | https://item.jd.com/100004409761.html                  |
-  |----------------------------+-------+--------------------------------------------------------|
-  |                            |  9300 |                                                        |
-  #+TBLFM: @7$2=vsum(@2$2..@6$2)
 * 第一周第一天
   :PROPERTIES:
   :EXPORT_FILE_NAME: p0
