@@ -1,6 +1,14 @@
 #+TITLE: 第一讲实验物理的大数据方法总论
 #+LaTeX_CLASS: ctexart
 
+* 课前准备
+  1. 配置准备 GNU 环境
+  2. 安装 Git 和 Python
+
+     #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb
+       apt install git python3
+     #+end_src
+
 * 序论
 这门课叫“实验物理的大数据方法”。因为一些灵活的考虑，所以这门课分成了两个部分，一部分是《实验物理的大数据方法（一）》，一部分是《实验物理的大数据方法（二）》。物理系和致理书院的同学要同时选（一）和（二）。工物系和未央书院的同学选（一），（二）任选。
 
