@@ -1029,10 +1029,10 @@
       已经掌握若干门语言的同学，可以通过此提纲快速入门
         
 *** 实例演示
-    [[http://hep.tsinghua.edu.cn/~berrysoft/bdeph2022/lectures/notebooks/Python-Basics.slides.html][演示文稿传送门]]
+    [[http://hep.tsinghua.edu.cn/~berrysoft/bdeph2022/lectures/Python-Basics.slides.html][演示文稿传送门]]
 ** Python 的程序结构
 *** 程序结构
-    [[http://hep.tsinghua.edu.cn/~berrysoft/bdeph2022/lectures/notebooks/Python-Constructs.slides.html][演示文稿传送门]]
+    [[http://hep.tsinghua.edu.cn/~berrysoft/bdeph2022/lectures/Python-Constructs.slides.html][演示文稿传送门]]
     
 ** 小助教与互助限度
 *** 小助教分组
