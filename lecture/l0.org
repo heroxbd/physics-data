@@ -251,7 +251,7 @@ Git 同步的时候，每个人有各自的计算机，需要进行分布式的�
 
     另外我们用 =git status= 可以看到 =aplusb.py= 被更改（modified）。
     #+NAME: 08784120-b482-4ccf-a32a-a967e07b74f1
-    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
       git status
     #+end_src
 
