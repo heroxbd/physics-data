@@ -1,4 +1,4 @@
-progress:=$(guile (iota 2))
+progress:=$(shell (seq 0 1))
 
 .PHONY: all slides notes jupyter
 all: notes slides jupyter
