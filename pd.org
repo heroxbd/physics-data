@@ -990,7 +990,7 @@
     - merge request :: GitLab 平台术语，发送 merge 请求。请他人整合自己的差分贡献。
 
 ** Python
-*** Python
+*** 为什么用 Python
     #+attr_beamer: :overlay <+->
     - Python 是一门“解释型语言”，相对于“编译型语言”更易调试。
     - Python 的语法风格简明，即使对外行也易读。
@@ -1006,6 +1006,34 @@
     - 在科学计算领域得到广泛欢迎和采用。
 
       https://www.python.org/
+*** 特点和用途
+    - Python 是一门“解释型语言”，相对于“编译型语言”更易调试。
+    - Python 的语法风格简明，即使对外行也易读，大大降低了程序设计的门槛
+    - Python 可以直接调用 Fortran, C/C++, R 等语言库，因此也叫“胶水”语 言，即把不同的程序粘合在一起。
+    - Python 是一个通用语言，不仅在科学研究，在生活中的方方面面都会有用。
+      - 操作系统生成器和管理器 ([[https://wiki.gentoo.org/wiki/Portage][Gentoo Portage]])
+      - 网站 ([[https://www.djangoproject.com/][Django]])
+*** 参考资料
+    - Allen Downey, Think Python 2e
+
+      简明通俗的入门书
+
+    - http://py4e.com/
+
+      Python for everybody，全球知名的 Python 在线教程，新手友好。
+
+    - Learn X in Y minutes
+
+      https://learnxinyminutes.com/docs/python3/
+
+      已经掌握若干门语言的同学，可以通过此提纲快速入门
+        
+*** 实例演示
+    [[http://hep.tsinghua.edu.cn/~berrysoft/bdeph2022/lectures/notebooks/Python-Basics.slides.html][演示文稿传送门]]
+** Python 的程序结构
+*** 程序结构
+    [[http://hep.tsinghua.edu.cn/~berrysoft/bdeph2022/lectures/notebooks/Python-Constructs.slides.html][演示文稿传送门]]
+    
 ** 小助教与互助限度
 *** 小助教分组
     :PROPERTIES:
