@@ -1,9 +1,12 @@
 progress:=$(guile (iota 2))
 
-.PHONY: all
-all: notes slides
+.PHONY: all slides notes jupyter
+all: notes slides jupyter
 slides: $(progress:%=upload/p%.pdf)
 notes: $(progress:%=upload/l%.html)
+
+j_list:=Python-Basics Python-Constructs
+jupyter: $(j_list:%=upload/%.slides.html)
 
 p%.tex: pd.org
 	emacs $^ --batch --eval="(search-forward \":EXPORT_FILE_NAME: $(basename $@)\")" --eval="(org-beamer-export-to-latex nil t nil)" --kill
@@ -18,6 +21,9 @@ upload/p%.pdf: out/p%.pdf
 	mkdir -p $(dir $@)
 	cp $^ $@
 upload/l%.html: lecture/l%.html
+	mkdir -p $(dir $@)
+	cp $^ $@
+upload/%.slides.html: notebooks/%.slides.html
 	mkdir -p $(dir $@)
 	cp $^ $@
 
