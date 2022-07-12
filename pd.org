@@ -1076,9 +1076,7 @@
     
 ** 娱乐作业
 *** 黑白棋大战
-    - 战斗入口
-
-      https://www.saiblo.net/group/25
+    - 战斗集结入口：网络学堂作业
 
 * 第一周第四天
   :PROPERTIES:
