@@ -1,6 +1,6 @@
-progress:=$(guile (iota 2))
+progress:=$(shell (seq 0 1))
 
-.PHONY: all slides notes jupyter
+.PHONY: all slides notes jupyter clean
 all: notes slides jupyter
 slides: $(progress:%=upload/p%.pdf)
 notes: $(progress:%=upload/l%.html)
@@ -30,6 +30,11 @@ upload/%.slides.html: notebooks/%.slides.html
 2019/grade1.csv: 2019/phase1.csv 2019/phase2.csv 2019/TA.csv 2019/comments.csv
 	./grade.R $@ $^
 2019/grade2.csv: 2019/grade1.csv
+
+clean:
+	rm -rf out/*
+	rm -rf upload/*.pdf
+	rm *.tex
 
 .DELETE_ON_ERROR:
 .SECONDARY:
