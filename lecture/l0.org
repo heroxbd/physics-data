@@ -1,4 +1,5 @@
 #+TITLE: 第一讲实验物理的大数据方法总论
+#+author: 续本达
 #+LaTeX_CLASS: ctexart
 
 * 课前准备

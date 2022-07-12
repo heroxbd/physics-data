@@ -1,4 +1,5 @@
 #+TITLE: 第二讲Python入门介绍
+#+author: 续本达
 * 命令行
   我们已经接触了几个基本命令，
 - ls :: 意为 “list structure”，列出当前文件夹下的所有文件。

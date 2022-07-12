@@ -1,5 +1,5 @@
 #+TITLE: 第三讲字符操作
-
+#+author: 续本达
 # 编辑器部分移动到了 0-main.org
 * Python基础
 ** 分号
