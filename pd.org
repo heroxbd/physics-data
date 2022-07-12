@@ -795,6 +795,78 @@
        - =git.tsinghua.edu.cn= 知道了我是“我”
        - 我也需要知道它是真的 =git.tsinghua.edu.cn=
      - 建立了与 =git.tsinghua.edu.cn= 的可靠通信
+** 编辑器
+*** 程序编辑器三大流派
+    - Emacs
+    - Vi
+    - Visual Studio Code
+
+* 第一周第二天
+  :PROPERTIES:
+  :EXPORT_FILE_NAME: p1
+  :EXPORT_BEAMER_HEADER: \title{实验物理的大数据方法}
+  :EXPORT_OPTIONS: H:2 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
+  :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+  :EXPORT_DATE: 2022-07-12 清华
+  :EXPORT_BEAMER_HEADER+: \author{续本达}
+  :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
+  :EXPORT_BEAMER_THEME: CambridgeUS
+  :EXPORT_BEAMER_COLOR_THEME: MedStarColors
+  :EXPORT_BEAMER_FONT_THEME: professionalfonts
+  :END:
+** 复习
+*** 黑客审美
+    - 四个原则：
+      1. _复现_ - 否则是伪科学
+      2. _透明_ - 否则变成黑箱
+      3. _一次_ - 否则到处是坑
+      4. _最佳工具_ - 否则效率低下
+
+    - 推论：
+      1. 兼容比性能优先
+
+         #+BEGIN_EXAMPLE
+           Premature optimization is the root of all evil.
+           -- Tony Hoare, Donald Knuth
+         #+END_EXAMPLE
+
+      2. 人类时间比机器时间宝贵
+
+      3. 使用工具进行版本控制
+
+*** 最佳工具
+     - GNU 环境、 POSIX 标准：用于促进程序有几十年跨度的兼容性。
+**** Git：当代的版本控制
+     - 快照与差分
+     - 三个状态：
+       - 已提交 committed （未改动 unmodified）
+       - 已修改 modified
+       - 待提交 staged
+     
+**** 程序编辑器三大流派
+     请完成网络学堂的“课程问卷”，计划帮助大家掌握一款编辑器。
+     - Emacs
+     - Vi
+     - Visual Studio Code
+      
+** Git 续篇
+*** 作业：Git 练习
+    - [X] DONE 你会在 [[https://git.tsinghua.edu.cn][清华 GitLab]] 收到一个新仓库，是今天的作业
+    - [X] DONE 设置本地到 [[https://git.tsinghua.edu.cn][清华 GitLab]] 的访问权限
+      - [X] 生成 SSH 密钥对
+      - [X] 上传到 https://git.tsinghua.edu.cn
+
+    - [X] DONE 同步你的 Git 仓库，输入你的基本信息
+      #+BEGIN_EXAMPLE
+ 我的姓名：
+ 我的学号：
+ 我的 Python 版本信息：
+
+ 课程感言：
+      #+END_EXAMPLE
+    - [ ] TODO 查看修改 (diff)，预估得分
+    - [ ] TODO 添加修改 (add)，提交 (commit)，推送 (push)
+      
 *** Git 基本命令
     - diff :: 查看改动
     - status :: 查看状态
@@ -815,25 +887,28 @@
      #+BEGIN_EXAMPLE
  $ man git add
      #+END_EXAMPLE
-*** 作业：Git 练习
-    - 你会在 [[https://git.tsinghua.edu.cn][清华 GitLab]] 收到一个新仓库，是今天的作业
-    - 设置本地到 [[https://git.tsinghua.edu.cn][清华 GitLab]] 的访问权限
-      - 生成 SSH 密钥对
-      - 上传到 https://git.tsinghua.edu.cn
+*** Git 的状态与命令
+    #+BEGIN_SRC dot :file ./git-stages.pdf :cmdline -Kdot -Tpdf
+      digraph git {
+      rankdir="LR";
 
-    - 同步你的 Git 仓库，输入你的基本信息
-      #+BEGIN_EXAMPLE
- 我的姓名：
- 我的学号：
- 我的 Python 版本信息：
+      C -> M [label = "编辑\ngit diff"]
+      C [label = 已提交]
+      M [label = 已修改]
+      M -> S [label = "git add\ngit reset\ngit rm"]
+      S [label = 待提交]
+      S -> C [label = "git diff --cached\ngit commit"]
+      }
+    #+end_src
 
- 课程感言：
-      #+END_EXAMPLE
-    - 查看修改 (diff)，预估得分
-    - 添加修改 (add)，提交 (commit)，推送 (push)
-*** 注意
-**** Commit message 写什么
+    #+RESULTS:
+    [[file:./git-stages.pdf]]
+
+*** 提交说明 commit message
     - =git commit= 时需要输入一段话概括本次 commit 所作的修改
+      - =git= 会调用 _环境设定_ 的编辑器
+        - 临时调整：使用 =EDITOR=xxxxx= 前缀
+        - 永久调整：管理员权限执行 =update-alternatives --config editor=
     - 目标：让他人和未来的自己一目了然，只通过读此信息就知道自己做了什么
     - 反例：
       1. 数数：1,2,3
@@ -844,165 +919,160 @@
 **** Gitlab 网页上传和修改工具
      - 远远次于命令行的功能，无推广价值
      - 禁止使用，防止养成不良习惯
-*** Git 仓库间通信的种种形态
+
+*** 精心撰写提交说明
+    - 说明既要给人类读，也要易于自动处理
+    - 第一行：高度概括改动
+    - 空一行后，撰写具体改动内容
+      - 形式不限，可分段、分要点。
+      - 篇幅不限，以描述清楚为目标。
+    - 备注：感谢其他贡献者。
+
+**** 何时提交 commit ？
+     - 完成一件事，有一个较独立的“版本”：添加一个功能，修复一个问题，
+       重构一块代码。
+     - 初学者可尝试多提交，可以充分练习 Git 操作，也可以获得更细致的开
+       发历史。
+       - _不要_ 把多个不相关的修改攒成一次巨大的提交。
+*** 参考资料
+    - Git 提交说明的白盒采分项：
+      
+      https://physics-data.meow.plus/faq/whitebox/#git
+
+    - 写好提交说明的七大原则 by cbeams
+      https://chris.beams.io/posts/git-commit/
+      
+    - 提交说明编写指南 by 阮一峰
+
+      http://www.ruanyifeng.com/blog/2016/01/commit_message_change_log.html
+
+** 对 FAQ 和讲义作贡献
+*** 有突出贡献的同学可得 5% 左右的总评鼓励
+     - 课程 FAQ 
+       - https://git.tsinghua.edu.cn/physics-data/faq/
+       - 提出好问题，整理问题解答，提交 merge request，……
+     - 课程讲义
+       - 修正错别字、语言错误、常识错误
+       - 指出逻辑不明的地方
+       - 补充课堂讲授但讲义遗漏的内容
+       - ……
+     - 贡献方式
+       - Git
+       - GitLab issue
+       - GitLab Merge Request
+*** GitLab issue
+    - https://git.tsinghua.edu.cn/physics-data/faq/-/issues/
+    - https://git.tsinghua.edu.cn/physics-data/lecture/-/issues
+
+    - 创建 issue
+      - 标题：概括问题
+      - 正文：详细描述问题
+        1. 给出复现问题的方法，提供 _最小可复现单元_
+        2. （可选）分析问题，提出可能的解决方法
+    - 回复 issue ， 参与讨论
+
+*** Git 仓库间通信的各阶段
     - fork :: Gitlab 类 Git 平台的术语，对应于 =git clone=
-      - 在本人帐号创建复本
-    - remote :: Git 的非本地仓库
+      - 在本人帐号创建复本，用于自己修改和提交
+      - 提交说明的备注：关闭哪个 issue
+    - remote :: Git 的远程仓库
         #+begin_src bash
-          $ git remote -v
+          git remote -v
+        #+end_src
+        #+begin_example
           origin  git@git.tsinghua.edu.cn:physics-data/lecture.git (fetch)
           origin  git@git.tsinghua.edu.cn:physics-data/lecture.git (push)
-        #+end_src
-    - merge :: 与其他仓库通过交换差分来整合
-    - pull request :: GitLab 平台术语，发送 merge 请求
-    - merge request :: GitLab 平台术语，发送 merge 请求
-      - 例子，如何对 FAQ 和讲义作贡献。
-*** Merge Request
-    - 对课程 FAQ 有突出贡献的同学可得 5% 左右的加分鼓励
-      - https://git.tsinghua.edu.cn/physics-data/faq/
-      - 提出问题，整理解答，提交 merge request，……
-** 编辑器
-*** 程序编辑器三大流派
-    - Emacs
-    - Vi
-    - Visual Studio Code
-* 第一周第二天
-  :PROPERTIES:
-  :EXPORT_FILE_NAME: p1
-  :EXPORT_BEAMER_HEADER: \title{实验物理的大数据方法}
-  :EXPORT_OPTIONS: H:1 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
-  :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
-  :EXPORT_DATE: 2021-08-17 清华
-  :EXPORT_BEAMER_HEADER+: \author{续本达}
-  :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
-  :EXPORT_BEAMER_THEME: Boadilla
-  :EXPORT_BEAMER_COLOR_THEME: MedStarColors
-  :EXPORT_BEAMER_FONT_THEME: professionalfonts
-  :END:
+        #+end_example
+    - pull, push :: 从远程下载和上传改动，单元为差分 commit
+    - merge :: 与其他仓库或分支通过交换差分来整合
+    - merge request :: GitLab 平台术语，发送 merge 请求。请他人整合自己的差分贡献。
+
 ** Python
-   #+attr_beamer: :overlay <+->
-   - Python 是一门“解释型语言”，相对于“编译型语言”更易调试。
-   - Python 的语法风格简明，即使对外行也易读。
-     - 书写效率高，快速写出不错的程序。
-   - Python 可以直接调用 Fortran, C/C++, R 等语言库，因此也叫“胶水”语
-     言，即把不同的程序粘合在一起。
-     - 易于与已有工具整合。
-     - 促进团队分工，协作。
-     - 大大丰富了 Python 生态系统的功能，进一步优化程序运行效率。
-     - 符合 _最佳工具_ 原则。
-   - Python 是一个通用语言，不仅在科学研究，在生活中的方方面面都会有用。
+*** Python
+    #+attr_beamer: :overlay <+->
+    - Python 是一门“解释型语言”，相对于“编译型语言”更易调试。
+    - Python 的语法风格简明，即使对外行也易读。
+      - 书写效率高，快速写出不错的程序。
+    - Python 可以直接调用 Fortran, C/C++, R 等语言库，因此也叫“胶水”语
+      言，即把不同的程序粘合在一起。
+      - 易于与已有工具整合。
+      - 促进团队分工，协作。
+      - 大大丰富了 Python 生态系统的功能，进一步优化程序运行效率。
+      - 符合 _最佳工具_ 原则。
+    - Python 是一个通用语言，不仅在科学研究，在生活中的方方面面都会有用。
 
-   - 在科学计算领域得到广泛欢迎和采用。
+    - 在科学计算领域得到广泛欢迎和采用。
 
-     https://www.python.org/
-** 概论复习：黑客审美
-   - 四个原则：
-     1. _复现_ - 否则是伪科学
-     2. _透明_ - 否则变成黑箱
-     3. _一次_ - 否则到处是坑
-     4. _最佳工具_ - 否则效率低下
-
-   - 推论：
-     1. 兼容比性能优先
-
-        #+BEGIN_EXAMPLE
-          Premature optimization is the root of all evil.
-          -- Tony Hoare, Donald Knuth
-        #+END_EXAMPLE
-
-     2. 人类时间比机器时间宝贵
-
-     3. 使用工具进行版本控制
-
-** 作业：Git 练习
-   - https://classroom.github.com/a/5tSO1WbA
-     - 点击后会自动创建你的 Git 仓库
-     - 如果访问 Github 遇到问题，请使用课程专用的 HTTP/SSH 代理
-
-   - 设置本地到 Github 的访问权限
-     - 生成 SSH 密钥对
-     - 上传到 Github
-
-   - 同步你的 Git 仓库，输入你的基本信息
-     #+BEGIN_EXAMPLE
-我的姓名：
-我的学号：
-我的 Python 版本信息：
-
-课程感言：
-     #+END_EXAMPLE
-   - 查看修改 (diff)，预估得分
-   - 添加修改 (add)，提交 (commit)，推送 (push)
-** Git 的状态与命令
-   #+BEGIN_SRC dot :file ./git-stages.pdf :cmdline -Kdot -Tpdf
-     digraph git {
-     rankdir="LR";
-
-     C -> M [label = "编辑\ngit diff"]
-     C [label = 已提交]
-     M [label = 已修改]
-     M -> S [label = "git add\ngit reset\ngit rm"]
-     S [label = 待提交]
-     S -> C [label = "git diff --cached\ngit commit"]
-     }
-   #+end_src
-
-   #+RESULTS:
-   [[file:./git-stages.pdf]]
-
-** Git 仓库间通信的种种形态
-   - fork :: Github 类 Git 平台的术语，对应于 =git clone=
-     - 在本人帐号创建复本
-   - remote :: Git 的非本地仓库
-       #+begin_src bash
-$ git remote -v
-origin  git@github.com:heroxbd/physics-data.git (fetch)
-origin  git@github.com:heroxbd/physics-data.git (push)
-       #+end_src
-   - merge :: 与其他仓库通过交换差分来整合
-   - pull request :: Github 平台术语，发送 merge 请求
-   - merge request :: Gitlab 平台术语，发送 merge 请求
-     - 例子，如何对 FAQ 和讲义作贡献。
-
-** git commit                                               :B_ignoreheading:
-   :PROPERTIES:
-   :BEAMER_env: ignoreheading
-   :END:
-
-   #+BEGIN_EXPORT latex
-\frame[plain]{\includegraphics[page=8,height=\textheight]{fig/git-commit.pdf}}
-\frame[plain]{\includegraphics[page=9,height=\textheight]{fig/git-commit.pdf}}
-\frame[plain]{\includegraphics[page=10,height=\textheight]{fig/git-commit.pdf}}
-\frame[plain]{\includegraphics[page=11,height=\textheight]{fig/git-commit.pdf}}
-   #+END_EXPORT
-
-** 参考资料
-   - https://zhuanlan.zhihu.com/p/34223150
-   - http://www.ruanyifeng.com/blog/2016/01/commit_message_change_log.html
-   - https://chris.beams.io/posts/git-commit/
-
-*** 查看备课历史                                                  :B_example:
+      https://www.python.org/
+** 小助教与互助限度
+*** 小助教分组
     :PROPERTIES:
-    :BEAMER_env: example
+    :ORDERED:  t
     :END:
+    - 6名同学自荐成为小助教（谢谢大家！），经过教学团队审核通过，将学
+      生分组公布于网络学堂“课程文件”栏。
+     
+    #+attr_beamer: :overlay <+->
+    - 苟诗涵 :: 致理-物02
+    - 晏越 :: 致理-物01
+    - 陈泽洲 :: 致理-物01
+    - 吴限来 :: 物理01
+    - 赵一飞 :: 物理01
+    - 吴震鹏 :: 基科01
+*** 小助教的职责范围
+    - 将本组同学的共性问题及时反馈给助教和老师，帮助老师根据实际情况调
+      整教学方案。
+    - 帮助同学掌握课程内容，协助助教和老师答疑。
+    #+latex: \pause
+**** 什么程度的帮助与借鉴可以促进学习
+     1. AB 讨论解决问题的思路；
+     2. AB 讨论关键的技巧，A 给出参考资料，引导 B 自学；
+     3. A 将自己的程序逐句用人类语言描述给 B，B 按照自己的理解写了一份逻辑一模一样的程序；
+     4. A 将自己的源码交给 B，B 在理解了原理之后丢掉了 A 的程序，自己凭记忆和理解重写了一份；
+     5. A 将自己的源码交给 B，B 在读懂之后进行了简单的变量名和函数定义替换；
+     6. A 将自己的源码交给 B，B 把程序原样提交。
+*** 抄袭零容忍
+    - +抄袭+ 过度借鉴代码
 
-    - https://github.com/heroxbd/physics-data
+    - 作业的意义
 
-      #+BEGIN_SRC bash
-        git clone git@github.com:heroxbd/physics-data.git
-        git log -p
-        tig
-      #+END_SRC
-** 内容较多未成体系
-   - 犹如造房子的准备材料阶段。
-   - 马上会用到的，逻辑：
-     - Github 是知名的协作平台，越来越多科研成果在 Github 类上发布
-     - 交作业需要使用 Github，在作业中体会日常工作流程
-     - Git 的客户端中，只有命令行是最可靠的。
-     - Git 命令运行依赖于 POSIX 环境。
-     - 在 POSIX 环境需要进行文本编辑，用到了 =nano= 。
+      1. 学生验证自己是否掌握课程内容
+      2. 为课程分数提供客观教学评价依据
 
-       WSL，MacOS，GNU/Linux，虚拟机，远程 SSH 账户
+    - 课程分数的意义
+     
+      1. 反馈学生对课程的掌握程度
+      2. 未来的导师参考
+**** 本课程对抄袭的处理规则
+     1. 抄袭者与被抄袭者同样按抄袭处理，视情节严重程度
+        - 警告，该次作业记0分；
+        - 严重警告，该次作业记0分，倒扣 100%-200% 本次作业分数；
+        - 总评记 F，报教务部门。
+*** 案例
+    - A 同学帮助 B 同学，面临交作业截止，B 同学还是没法及时完成；
+    - A 同学把代码给 B 同学参考；
+    - 虽然 B 向 A 承诺只是“参考”，但由于时间紧迫 B 把代码稍加修改，提交上去；
+    - 因为代码雷同，两位同学都疑似抄袭。
+
+    \pause
+
+**** B
+     - 作业即使迟交，也不要复制其他同学的代码。
+     - 迟交作业不会在网络学堂上得分，但可以作为总评时的参考。
+     - 消化理解课堂样例代码、助教参考代码，形成自己的方法。
+     - 如果感到吃力，应当在课后投入更多精力尽更大的努力地练习。
+
+     \pause
+
+**** A
+     - 请继续帮助同学，注意授人以渔；
+     - 请保持对同学的信任。
+
+*** 参考资料
+    学术诚信规则、更多案例与具体解读，详见：
+    
+    https://physics-data.meow.plus/faq/plagiarism/
+    
 * 第一周第四天
   :PROPERTIES:
   :EXPORT_FILE_NAME: p3
@@ -1016,73 +1086,6 @@ origin  git@github.com:heroxbd/physics-data.git (push)
   :EXPORT_BEAMER_COLOR_THEME: MedStarColors
   :EXPORT_BEAMER_FONT_THEME: professionalfonts
   :END:
-** 小助教分组
-   - 11名同学自荐成为小助教（谢谢大家！），经过教学团队审核通过，将学
-     生分组公布于网络学堂“课程文件”栏。
-     
-   #+attr_beamer: :overlay <+->
-   - 贾启珑 :: 基科92
-   - 贾成杰 :: 物理91
-   - 解森炜 :: 基科92
-   - 田宗森 :: 基科91
-   - 于明杨 :: 基科91
-   - 刘汉青 :: 物理91
-   - 张震 :: 基科91
-   - 牟迨秋 :: 基科92
-   - 刘亦晖 :: 核92 
-   - 刘欣宇 :: 物理01
-   - 杨政昊 :: 核91
-** 小助教的职责范围
-   - 将本组同学的共性问题及时反馈给助教和老师，帮助老师根据实际情况调
-     整教学方案。
-   - 帮助同学掌握课程内容，协助助教和老师答疑。
-   #+latex: \pause
-*** 什么程度的帮助与借鉴可以促进学习
-    1. AB 讨论解决问题的思路；
-    2. AB 讨论关键的技巧，A 给出参考资料，引导 B 自学；
-    3. A 将自己的程序逐句用人类语言描述给 B，B 按照自己的理解写了一份逻辑一模一样的程序；
-    4. A 将自己的源码交给 B，B 在理解了原理之后丢掉了 A 的程序，自己凭记忆和理解重写了一份；
-    5. A 将自己的源码交给 B，B 在读懂之后进行了简单的变量名和函数定义替换；
-    6. A 将自己的源码交给 B，B 把程序原样提交。
-
-** 抄袭零容忍
-   - +抄袭+ 过度借鉴代码
-
-   - 作业的意义
-
-     1. 学生验证自己是否掌握课程内容
-     2. 为课程分数提供客观教学评价依据
-
-   - 课程分数的意义
-     
-     1. 反馈学生对课程的掌握程度
-     2. 未来的导师参考
-*** 本课程对抄袭的处理规则
-    1. 抄袭者与被抄袭者同样按抄袭处理；
-    2. 第一次抄袭：警告，该次作业记0分；
-    3. 第二次抄袭：严重警告，该次作业记0分，额外扣除两次作业成绩；
-    4. 第三次抄袭：总评记 F。
-
-** 案例
-   - A 同学帮助 B 同学；
-   - 面临交作业截止，B 同学还是没法及时完成；
-   - A 同学把代码给 B 同学参考；
-   - B 同学把代码稍加修改，提交上去；
-   - 因为代码雷同，两位同学都疑似抄袭。
-
-   \pause
-
-*** B
-    - 作业即使迟交，也不要复制其他同学的代码。
-    - 即使补交作业不能得分，但可以作为总评时的参考。
-    - 消化理解参考代码，形成自己的方法。
-    - 如果感到吃力，应当在课后投入更多精力尽更大的努力地练习。
-
-    \pause
-
-*** A
-    - 请继续帮助同学，注意授人以渔；
-    - 请保持对同学的信任。
 ** 熟练打字
    - 课程的语言如 Python, Bash 使用特殊字符
      - =${DISPLAY:-0}=, =people[3:7]=, =@decorator()=
