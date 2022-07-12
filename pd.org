@@ -805,6 +805,7 @@
 * 第一周第二天
   :PROPERTIES:
   :EXPORT_FILE_NAME: p1
+  :EXPORT_LaTeX_CLASS_options: [aspectratio=169,handout]
   :EXPORT_BEAMER_HEADER: \title{实验物理的大数据方法}
   :EXPORT_OPTIONS: H:2 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
   :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
@@ -1107,6 +1108,24 @@
 *** 黑白棋大战
     - 战斗集结入口：网络学堂作业
 
+* 第一周第三天
+  :PROPERTIES:
+  :EXPORT_FILE_NAME: p2
+  :EXPORT_BEAMER_HEADER: \title{实验物理的大数据方法}
+  :EXPORT_OPTIONS: H:2 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
+  :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+  :EXPORT_DATE: 2022-07-12 清华
+  :EXPORT_BEAMER_HEADER+: \author{续本达}
+  :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
+  :EXPORT_BEAMER_THEME: CambridgeUS
+  :EXPORT_BEAMER_COLOR_THEME: MedStarColors
+  :EXPORT_BEAMER_FONT_THEME: professionalfonts
+  :END:
+** Python 进阶
+*** 复合数据类型
+    传送门
+*** 函数
+    传送门
 * 第一周第四天
   :PROPERTIES:
   :EXPORT_FILE_NAME: p3
