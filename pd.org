@@ -430,6 +430,7 @@
 * 第一周第一天
   :PROPERTIES:
   :EXPORT_FILE_NAME: p0
+  :EXPORT_LaTeX_CLASS_options: [aspectratio=169,handout]
   :EXPORT_BEAMER_HEADER+: \title{实验物理的大数据方法}
   :EXPORT_OPTIONS: H:2 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
   :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
