@@ -9,7 +9,7 @@ j_list:=Python-Basics Python-Constructs
 jupyter: $(j_list:%=upload/%.slides.html)
 
 p%.tex: pd.org
-	emacs $^ --batch --eval="(search-forward \":EXPORT_FILE_NAME: $(basename $@)\")" --eval="(org-beamer-export-to-latex nil t nil)" --kill
+	emacs $^ --batch --load=setup.el --eval="(search-forward \":EXPORT_FILE_NAME: $(basename $@)\")" --eval="(org-beamer-export-to-latex nil t nil)" --kill
 
 out/p%.pdf: p%.tex
 	latexmk -lualatex -auxdir=out -outdir=out $^
@@ -34,7 +34,7 @@ upload/%.slides.html: notebooks/%.slides.html
 clean:
 	rm -rf out/*
 	rm -rf upload/*.pdf
-	rm *.tex
+	rm -rf *.tex
 
 .DELETE_ON_ERROR:
 .SECONDARY:

@@ -6,10 +6,15 @@ pkgs.mkShell {
     gnumake
     (emacs.pkgs.withPackages (epkgs: (with epkgs.melpaStablePackages; [
       htmlize
-    ])))
+    ] ++ (with epkgs.elpaPackages; [
+      org
+    ]))))
     (texlive.combine {
       inherit (texlive) scheme-small latexmk luatex wrapfig capt-of siunitx mhchem adjustbox wasysym ctex beamer collectbox appendixnumberbeamer medstarbeamer rsfs wasy;
     })
+    git
+    graphviz
+    python3
   ];
 }
 

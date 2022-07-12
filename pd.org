@@ -197,7 +197,7 @@
       - As opposed to List: ordered collection
     - Python itself is implemented with namespace and dictionaries.
       - What is a language namespace?
-        #+BEGIN_SRC c++
+        #+BEGIN_SRC C++
           using namespace std;
 
           std::stdout
