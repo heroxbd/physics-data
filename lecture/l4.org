@@ -1,5 +1,7 @@
 #+TITLE: 数组
 #+Author: 续本达
+#+PROPERTY: header-args :eval never-export :exports both
+
 * 文档
 ** 注释
    注释由半角的“#”引出，多行注释用多个“#”：

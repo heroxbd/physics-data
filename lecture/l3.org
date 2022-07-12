@@ -1,5 +1,7 @@
 #+TITLE: Python 脚本
 #+author: 续本达
+#+PROPERTY: header-args :eval never-export :exports both
+
 * Python 的运行模式
   在命令行输入 python3 进入的是交互模式，每输入一个指令，都即时得到结果。这个环境称为“REPL”，即 “Read-Evaluate-Print-Loop”，命令行界面也属此类。交互界面更适合探索和试验。
   批处理模式可以批量执行命令，组成批量命令的文件叫做“脚本”，也是广义上的程序。因为脚本运行时没有 REPL 部分，可以不受人干涉，适用于处理大量数据。

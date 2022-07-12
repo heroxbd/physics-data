@@ -1,5 +1,7 @@
 #+TITLE: 第二讲Python入门介绍
 #+author: 续本达
+#+PROPERTY: header-args :eval never-export :exports both
+
 * 命令行
   我们已经接触了几个基本命令，
 - ls :: 意为 “list structure”，列出当前文件夹下的所有文件。
@@ -54,7 +56,7 @@
 
    可以做基本运算，还有一些其他的运算比如乘法。2的7次方是这样写，两个乘号。
    #+begin_src python :session op :exports both
-2**7
+     2**7
    #+end_src
 
    #+RESULTS:

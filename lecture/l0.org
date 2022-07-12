@@ -1,6 +1,7 @@
 #+TITLE: 第一讲实验物理的大数据方法总论
 #+author: 续本达
 #+LaTeX_CLASS: ctexart
+#+PROPERTY: header-args :eval never-export :exports both
 
 * 课前准备
   1. 配置准备 GNU 环境
@@ -251,7 +252,7 @@ Git 同步的时候，每个人有各自的计算机，需要进行分布式的�
 
     另外我们用 =git status= 可以看到 =aplusb.py= 被更改（modified）。
     #+NAME: 08784120-b482-4ccf-a32a-a967e07b74f1
-    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb
       git status
     #+end_src
 
