@@ -2,7 +2,7 @@
 #+LaTeX_CLASS: ctexart
 
 * 序论
-这门课叫“实验物理的大数据方法”。因为一些灵活的考虑，所以这门课分成了两个部分，一部分是《实验物理的大数据方法（一）》，一部分是《实验物理的大数据方法（二）》。物理系的同学要同时选（一）和（二）。工物系的同学选（一），（二）任选。
+这门课叫“实验物理的大数据方法”。因为一些灵活的考虑，所以这门课分成了两个部分，一部分是《实验物理的大数据方法（一）》，一部分是《实验物理的大数据方法（二）》。物理系和致理书院的同学要同时选（一）和（二）。工物系和未央书院的同学选（一），（二）任选。
 
 课程是算GPA的。
 
@@ -40,7 +40,7 @@
 - 第一周 :: 版本控制Git的入门，Python的入门；
 - 第二周 :: Python 科学计算，可视化；
 - 第三周 :: 命令行工具；
-- 第四周 :: 高级工具。
+- 第四周 :: 关系代数与回归分析。
 
 ** 数据分析指导原则
 
@@ -59,7 +59,7 @@
 
 ** 课程评价
 
-平时作业占70%，以 Github 形式组织。平时作业以程序自动测试，还有20%是“白盒”测试。助教与我会读作业程序，看 Git commit 是否符合规则，是否养成良好的习惯。
+平时作业占65%，以 git.tsinghua.edu.cn 形式组织。平时作业以程序自动测试，还有20%是“白盒”测试。助教与我会读作业程序，看 Git commit 是否符合规则，是否养成良好的习惯。
 
 大作业占30%，取材于实验物理的不同场景，覆盖物理学的方方面面。大作业也可以由同学自行提出，非物理的学科中数据处理类的任务都可以做为大作业。大作业分两阶段，对应前两周和后两周。只选《实验物理的大数据方法（1）》两学分的同学，要完成前半部分。同时选了《实验物理的大数据方法（2）》总共4学分的同学，要完成所有的大作业。大作业有三个主题：
 
@@ -175,19 +175,18 @@ Git 同步的时候，每个人有各自的计算机，需要进行分布式的�
      =git pull= 是从远程把差分都接收过来。=git push= 是把本地的差分推送到远程。
 
 ** 作业
-   GitHub Classroom 是作业平台，看到“Self Introduction”的作业，点击接受。作业中有三个文件 =README= 说明文件， =grade.py= 评分程序， =introduction.txt= 是要改的文件。
+   git.tsinghua.edu.cn 上，看到“Self Introduction”的作业。作业中有三个文件 =README= 说明文件， =grade.py= 评分程序， =introduction.txt= 是要改的文件。
 
 *** SSH Key
-    在进行这些操作之前，需要把本地的 POSIX 环境跟 GitHub 账号关联起来。使用 ssh 的密钥来对 ssh 通信协议进行鉴权认证。SSH 产生非对称密钥对，一个私有一个公有。之后，每人留私有部分，把公有的部分交给 GitHub 。这就相当于我们身上有个虎符，GitHub 用公有的部分来找你，你掏出一个私有的部分，如果对上了就可以改动 GitHub 里面相应的仓库。
+    在进行这些操作之前，需要把本地的 POSIX 环境跟 git.tsinghua.edu.cn 账号关联起来。使用 ssh 的密钥来对 ssh 通信协议进行鉴权认证。SSH 产生非对称密钥对，一个私有一个公有。之后，每人留私有部分，把公有的部分交给 git.tsinghua.edu.cn 。这就相当于我们身上有个虎符，git.tsinghua.edu.cn 用公有的部分来找你，你掏出一个私有的部分，如果对上了就可以改动 git.tsinghua.edu.cn 里面相应的仓库。
 
-    生成ssh密钥，需要使用 =ssh-keygen= ，义为"ssh key generator"。它会告诉我们即将生成公钥私钥对，下面输入放在哪里，默认即可。所生成的密钥形式，是RSA2048。两个新的文件在 HOME 目录下的 =.ssh= 下面，一个是 =id_rsa= ，这个不应该给大家看，因为是私有的。另一个是公有的，把公有的复制下来，加到 GitHub 里面，SSH and GPG keys。
+    生成ssh密钥，需要使用 =ssh-keygen= ，义为"ssh key generator"。它会告诉我们即将生成公钥私钥对，下面输入放在哪里，默认即可。所生成的密钥形式，是RSA2048。两个新的文件在 HOME 目录下的 =.ssh= 下面，一个是 =id_rsa= ，这个不应该给大家看，因为是私有的。另一个是公有的，把公有的复制下来，加到 git.tsinghua.edu.cn 里面，SSH and GPG keys。
 
-    验证配置，打 =ssh -T git@github.com= ，如果得到了 =You've successfully authenticated but GitHub does not provide shell access= ，就说明已经成功了，GitHub 已经跟我们的密钥（虎符）对上了。在 =ssh -T git@github.com= 需要打一个 “Yes”，其逻辑是，我们把虎符给了 GitHub，GitHub要验证我们，我到底是不是我，但是我们也要验证这个 GitHub 到底是不是 GitHub。它会给我们一个提示，GitHub给了我们一个虎符但是我们验证不了，因为是第一次用它，打“Yes”就接受了这样一个密码。接受了之后，就保证了每次跟 GitHub 通信都必须得看到这个密钥才证明GitHub真的，才会给它通行。
+    验证配置，打 =ssh -T git@git.tsinghua.edu.cn= ，如果得到了 =Welcome to GitLab, @xxx!= ， “xxx”是你的用户名，就说明已经成功了，git.tsinghua.edu.cn 已经跟我们的密钥（虎符）对上了。在 =ssh -T git@git.tsinghua.edu.cn= 需要打一个 “Yes”，其逻辑是，我们把虎符给了 git.tsinghua.edu.cn，它要验证我们，我到底是不是我。但是我们也要验证这个它是不是它。它会给我们一个提示，git.tsinghua.edu.cn 给了我们一个虎符但是我们验证不了，因为是第一次用它，打“Yes”就接受了这样一个密码。接受了之后，就保证了每次跟 git.tsinghua.edu.cn 通信都必须得看到这个密钥才证明 git.tsinghua.edu.cn 真的，才会给它通行。
     
-    从 GitHub 把作业 =git clone= 下来。
 
 *** 例子
-    把已有的程序 clone 到本地
+    把作业 =git clone= 下来。把已有的程序 clone 到本地
 
     #+begin_example
       $ git clone git@github.com:physics-data/aplusb-heroxbd.git
