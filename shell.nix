@@ -3,6 +3,8 @@
 
 pkgs.mkShell {
   buildInputs = with pkgs; [
+    python310Packages.pygments
+    which
     gnumake
     (emacs.pkgs.withPackages (epkgs: (with epkgs.melpaStablePackages; [
       htmlize
@@ -10,7 +12,7 @@ pkgs.mkShell {
       org
     ]))))
     (texlive.combine {
-      inherit (texlive) scheme-small latexmk luatex wrapfig capt-of siunitx mhchem adjustbox wasysym ctex beamer collectbox appendixnumberbeamer medstarbeamer rsfs wasy;
+      inherit (texlive) scheme-small latexmk luatex wrapfig capt-of siunitx mhchem adjustbox wasysym ctex beamer collectbox appendixnumberbeamer medstarbeamer rsfs wasy minted fvextra catchfile xstring framed;
     })
     git
     graphviz

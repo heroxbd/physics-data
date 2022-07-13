@@ -2,4 +2,15 @@
 *.txt
 *~
 *.tex
+*.pdf
+*.vrb
+*.aux
+*.fls
+*.log
+*.nav
+*.out
+*.snm
+*.toc
+*.fdb_latexmk
 out
+_minted-*
