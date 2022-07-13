@@ -719,7 +719,7 @@
      #+attr_beamer: :overlay <+->
      - 石器时代 :: =实验报告-v1=, =实验报告-v2=, =实验报告-v2.2=, =实验报告-v2.2-续本达更新20190629= ……
      - 青铜时代 :: diff, patch 文本差分算法
-       #+BEGIN_SRC dot :file ./diff-patch.pdf :cmdline -Kdot -Tpdf
+       #+BEGIN_SRC dot :file ./diff-patch.pdf :cmdline -Kdot -Tpdf :eval yes
          digraph dataset {
          bgcolor="#ffffff00"
 
@@ -890,7 +890,7 @@
  $ man git add
      #+END_EXAMPLE
 *** Git 的状态与命令
-    #+BEGIN_SRC dot :file ./git-stages.pdf :cmdline -Kdot -Tpdf
+    #+BEGIN_SRC dot :file ./git-stages.pdf :cmdline -Kdot -Tpdf :eval yes
       digraph git {
       rankdir="LR";
 

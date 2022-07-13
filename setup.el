@@ -12,5 +12,3 @@
     (makefile . t)
     (python . t)
     (C . t)))
-; eval graphviz blocks
-(org-babel-execute-buffer)
