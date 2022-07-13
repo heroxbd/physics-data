@@ -1,5 +1,7 @@
-; do not confirm
-(setq org-confirm-babel-evaluate nil)
+; do not confirm for dot
+(defun my-org-confirm-babel-evaluate (lang body)
+  (not (string= lang "dot")))
+(setq org-confirm-babel-evaluate #'my-org-confirm-babel-evaluate)
 (setq org-latex-listings 'minted)
 (setq org-latex-packages-alist '(("" "minted" nil)))
 
@@ -10,3 +12,5 @@
     (makefile . t)
     (python . t)
     (C . t)))
+; eval graphviz blocks
+(org-babel-execute-buffer)
