@@ -9,7 +9,7 @@
 #+LATEX_HEADER: \usepackage[UTF8]{ctex}
 #+LaTeX_HEADER: \usepackage{appendixnumberbeamer}
 #+LaTeX_HEADER: \setCJKsansfont{Noto Sans CJK SC}
-#+PROPERTY: header-args :eval never-export
+#+PROPERTY: header-args :eval never-export :exports both
 #+sTARTUP: beamer
 
 * 价值
@@ -1117,15 +1117,254 @@
   :EXPORT_DATE: 2022-07-12 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
-  :EXPORT_BEAMER_THEME: CambridgeUS
-  :EXPORT_BEAMER_COLOR_THEME: MedStarColors
+  :EXPORT_BEAMER_THEME: Hannover
   :EXPORT_BEAMER_FONT_THEME: professionalfonts
   :END:
-** Python 进阶
-*** 复合数据类型
-    传送门
+** 复合数据类型
+*** 简介
+     - Python 的基本类型，比如整型、浮点型、布尔型、字符串。
+     - 它们可以复合起来，成为tuple（元组）、列表或字典。
+       - 复合类型之间可以嵌套，变化丰富
+
+** 列表 list
+*** 简介
+    - 把单元前后排成一列，单元为任意类型。
+
+    #+NAME: 3c5d6d1e-2009-43fb-9685-a81b0643da1e
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb
+      [1,2,3], ["天","地","人"], ["物理",3.1415926]
+    #+end_src  
+
+    #+RESULTS: 3c5d6d1e-2009-43fb-9685-a81b0643da1e
+    : ([1, 2, 3], ['天', '地', '人'], ['物理', 3.1415926])
+
+    #+NAME: 64cbe8d7-dbb3-4728-a476-fd709defeab1
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      [], [[]], [[],[[]]], [[],[[],[[]]]] # 可以构造自然数
+    #+end_src
+
+    #+RESULTS: 64cbe8d7-dbb3-4728-a476-fd709defeab1
+    : ([], [[]], [[], [[]]], [[], [[], [[]]]])
+
+    #+NAME: a7d82c7e-e151-4522-95f3-81a1252e5929
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      xl = [1, 2, 3]
+      xl[1]= 5
+      print(xl)
+    #+end_src
+
+    #+RESULTS: a7d82c7e-e151-4522-95f3-81a1252e5929
+    : [1, 5, 3]
+
+*** 用于汇总
+    - 生成空列表出发，逐步加入元素
+
+    #+NAME: 5af34db6-b824-4800-a54b-b8806d481fce
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      li = []
+      li.append("手机")
+      li.append("钥匙")
+      li.append("身份证")
+      print(li)
+      for i in li: # 作为迭代器
+          print(f"出门之前，别忘了带{i}")
+    #+end_src
+
+    #+RESULTS: 5af34db6-b824-4800-a54b-b8806d481fce
+    : ['手机', '钥匙', '身份证']
+    : 出门之前，别忘了带手机
+    : 出门之前，别忘了带钥匙
+    : 出门之前，别忘了带身份证
+
+*** 元素操作
+**** 取出
+     #+NAME: fc06d8e2-c4de-4c7b-89f1-c18cf31cfa7e
+     #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+     li[0], li[1:3], li[-1]
+     #+end_src
+
+     #+RESULTS: fc06d8e2-c4de-4c7b-89f1-c18cf31cfa7e
+     : ('手机', ['钥匙', '身份证'], '身份证')
+
+**** 判断是否属于
+     #+NAME: 1f9aa74d-8b41-4229-af89-759f9c6858b8
+     #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+       '手机' in li, "眼镜" in li
+     #+end_src
+
+     #+RESULTS: 1f9aa74d-8b41-4229-af89-759f9c6858b8
+     : (True, False)
+
+
+** 元组 tuple     
+*** 简介
+    - 元组与列表类似，区别在于它不可修改
+    #+NAME: c4e751ef-611f-4987-b72f-d258e785015e
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+(1,2,3), ("天时","地利","人和"), (),(()), ((),(())), ((),((),(())))
+    #+end_src
+
+    #+RESULTS: c4e751ef-611f-4987-b72f-d258e785015e
+    : ((1, 2, 3), ('天时', '地利', '人和'), (), (), ((), ()), ((), ((), ())))
+
+    #+NAME: f0d7a7a7-c359-4051-bfa7-27c77cb59f58
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+xt=(1,2,3)
+xt[1]=5
+    #+end_src
+
+    #+RESULTS: f0d7a7a7-c359-4051-bfa7-27c77cb59f58
+    : ---------------------------------------------------------------------------
+    : TypeError                                 Traceback (most recent call last)
+    : Input In [11], in <module>
+    :       1 xt=(1,2,3)
+    : ----> 2 xt[1]=5
+    : 
+    : TypeError: 'tuple' object does not support item assignment
+*** 无法像列表一样 =append= ，但可以重新生成
+    #+NAME: 71666e65-3790-49cb-9f5b-ee1aa40a1ed4
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      tu = tuple(li); print(tu)
+      tu += ("眼镜",); print(tu)  # 对比 list.append("眼镜")
+    #+end_src
+
+    #+RESULTS: 71666e65-3790-49cb-9f5b-ee1aa40a1ed4
+    : ('手机', '钥匙', '身份证')
+    : ('手机', '钥匙', '身份证', '眼镜')
+    #+NAME: 5073bc17-6224-4d80-aba8-8331ce064cda
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      "眼镜" in tu, "帽子" in tu
+    #+end_src
+
+    #+RESULTS: 5073bc17-6224-4d80-aba8-8331ce064cda
+    : (True, False)
+** 字典 dict(ionary)
+*** 简介
+    - 字典是一个可以索引的数据结构
+      #+begin_example
+工物 => 42
+物理 => 52
+致理 => 4
+未央 => 8
+      #+end_example
+    #+NAME: 22a1aa7c-2d91-48f6-9eca-881e1f512ba3
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      sc = {'工物': 42, '物理': 52}
+      sc['工物'], sc['物理']
+    #+end_src
+
+    #+RESULTS: 22a1aa7c-2d91-48f6-9eca-881e1f512ba3
+    : (42, 52)
+*** 在字典中填加词条
+    #+NAME: fc1414cd-de1c-40dd-a96a-a9c552cb5664
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+sc['致理'], sc['未央'] = 4, 8 # 元组赋值
+print(sc["致理"], sc['未央'])
+    #+end_src
+
+    #+RESULTS: fc1414cd-de1c-40dd-a96a-a9c552cb5664
+    : 4 8
+
+**** 判断是否属于
+     #+NAME: f56c70fa-83d5-456d-9f14-75dafbb38d66
+     #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+       print('数学' in sc, '工物' in sc)
+     #+end_src
+
+     #+RESULTS: f56c70fa-83d5-456d-9f14-75dafbb38d66
+     : False True
+
+*** 简化条件语句
+    - 在需要多重判断时，使用字典会有奇效。
+      #+NAME: 19b1fa10-2461-41df-a86a-2a3dd3c62986
+      #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+        OS = "macOS"
+        package_manager = {
+            "GNU/Linux": "请用 apt",
+            "macOS": "请用 brew",
+            "Windows": "请安装WSL，而后用 apt"
+        }
+
+        print("大佬，", end="")
+        if OS in package_manager:
+            print(package_manager[OS])
+        else:
+            print("壮士，请您到主席台上来")
+      #+end_src
+
+      #+RESULTS: 19b1fa10-2461-41df-a86a-2a3dd3c62986
+      : 大佬，请用 brew
+*** 迭代器基本操作
+    - 从字典中取出词和值。 =list()= 把迭代器转成列表。
+    #+NAME: d8684788-ccef-46ee-bac9-859658744152
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      list(sc.keys()), list(sc.values())
+    #+end_src
+
+    #+RESULTS: d8684788-ccef-46ee-bac9-859658744152
+    : (['工物', '物理', '致理', '未央'], [42, 52, 4, 8])
+
+    #+NAME: fdb8f0a1-277b-4e1a-b23c-5b024e4bea04
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      for k in sc:
+          print(k)
+      for v in sc.values():
+          print(v)
+
+    #+end_src
+
+    #+RESULTS: fdb8f0a1-277b-4e1a-b23c-5b024e4bea04
+    : 工物
+    : 物理
+    : 致理
+    : 未央
+    : 42
+    : 52
+    : 4
+    : 8
+
+*** 元组迭代器
+    - =items()= 返回“词”和“值”组成的二元组。
+      #+NAME: 353bba20-eef1-4e4b-848d-4aa346ba8674
+      #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+        for k,v in sc.items():
+            print(f"教室里有{k}学生{v}人")
+      #+end_src
+
+      #+RESULTS: 353bba20-eef1-4e4b-848d-4aa346ba8674
+      : 教室里有工物学生42人
+      : 教室里有物理学生52人
+      : 教室里有致理学生4人
+      : 教室里有未央学生8人
+
+*** 字典中的数据类型
+    - 词 key 应当是“不可变” immutable 类型
+      - 列表不能是字典的词
+      - 元组可以是字典的词
+      - 字典不能是字典的词
+    #+NAME: f89e8205-a2cb-4a1f-b8a8-de20a7706a1a
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      坐标系 = {(0,0): "原点", (1,1): "第一象限", (-1,1): "第二象限"}
+      print(坐标系[(0,0)])
+    #+end_src
+
+    #+RESULTS: f89e8205-a2cb-4a1f-b8a8-de20a7706a1a
+    : 原点
+
+    - 值 value 可以是任意类型
 *** 函数
     传送门
+      #+NAME: 70e65a46-9e12-4c4d-b122-dc42590a25ae
+  #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb
+   # 高精度整数举例
+   #
+   2**1000
+  #+end_src
+
+  #+RESULTS: 70e65a46-9e12-4c4d-b122-dc42590a25ae
+  : 10715086071862673209484250490600018105614048117055336074437503883703510511249361224931983788156958581275946729175531468251871452856923140435984577574698574803934567774824230985421074605062371141877954182153046474983581941267398767559165543946077062914571196477686542167660429831652624386837205668069376
+
+
 * 第一周第四天
   :PROPERTIES:
   :EXPORT_FILE_NAME: p3
