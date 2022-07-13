@@ -11,18 +11,18 @@ jupyter: $(j_list:%=upload/%.slides.html)
 p%.tex: pd.org
 	emacs $^ --batch --load=setup.el --eval="(search-forward \":EXPORT_FILE_NAME: $(basename $@)\")" --eval="(org-beamer-export-to-latex nil t nil)" --kill
 
-# should ultimatly fix ob-ein to be friendly to minted.
-# put vertatim into scriptsize, need some better idea with org-mode.
-p%-ein.tex: p%.tex
+# should ultimately fix ob-ein to be friendly to minted.
+# put verbatim into scriptsize, need some better idea with org-mode.
+ein/e%.tex: p%.tex
 	sed -e 's/ein-python/python/' -e 's/ein-bash/bash/' -e '/{minted}/s/\[\]/\[bgcolor=lightgray\]/' -e 's/\\begin{verbatim}/{\\scriptsize\\begin{verbatim}/' -e 's/end{verbatim}/end{verbatim}}/' < $^ > $@
 
-p%-ein.pdf: p%-ein.tex
+e%.pdf: ein/e%.tex
 	latexmk -shell-escape -lualatex $^
 
 lecture/%.html: lecture/%.org
 	emacs $^ --batch -f org-html-export-to-html --kill
 
-upload/p%.pdf: p%-ein.pdf
+upload/p%.pdf: e%.pdf
 	mkdir -p $(dir $@)
 	cp $^ $@
 upload/l%.html: lecture/l%.html
@@ -40,6 +40,7 @@ clean:
 	rm -rf out/*
 	rm -rf upload/*.pdf
 	rm -rf *.tex
+	rm -rf ein/*.tex
 
 .DELETE_ON_ERROR:
 .SECONDARY:
