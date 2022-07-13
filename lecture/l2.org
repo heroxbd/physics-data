@@ -1,327 +1,8 @@
-#+TITLE: 第三讲字符操作
+#+TITLE: 第三讲 复合类型与函数
 #+author: 续本达
 #+PROPERTY: header-args :eval never-export :exports both
 
 # 编辑器部分移动到了 0-main.org
-* Python基础
-** 分号
-   Python 的 “;” 相当于一个快捷的换行，用于把多个语句写在一行里。例如
-   #+NAME: 558589e3-47b5-4496-9d3f-957cdf90f65a
-   #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb
-     x = 23; y = x; print(y-1)
-   #+end_src
-
-   #+RESULTS: 558589e3-47b5-4496-9d3f-957cdf90f65a
-   : 22
-   
-** 字符串基本操作
-   字符串长度不确定，而且其中不全是传统的英文字母，处理起来复杂。相对于硬件的底层调用，字符串是一项高级工艺。Python 有强大的字符串工具库。
-   我们已经看到“1”和“2”，如果不转成整型，就会变成字符串加法，成为“12”。同理 “A”+“B”等于“AB”，就是把它们连起来。字符串乘以数字定义为重复。符合直觉，“A”+“A”加8次就是8个A，乘法是加法快捷方式。
-   #+begin_src python :session ob :results output :export both
-     print("A" * 8)
-   #+end_src
-
-   #+RESULTS:
-   : AAAAAAAA
-
-   求字符串的长度使用 =len()= 函数，取“length”之意。例如
-   #+begin_src python :session ob :results output :export both
-     print(len("123456"))
-     print(len("654321"))
-   #+end_src
-
-   #+RESULTS:
-   : 6
-   : 6
-   它们的长度都是6。
-
-** 字符串替换
-   我想把一个句子分成变的部分与不变的部分，例如“什么乘以什么等于什么”。
-
-    #+NAME: 19b5620f-0d51-430f-8fd6-1fe103ceb971
-    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb
-      "{}乘以{}等于{}".format(3, 5, 3*5)
-    #+end_src
-
-    #+RESULTS: 19b5620f-0d51-430f-8fd6-1fe103ceb971
-    : '3乘以5等于15'
-    句式不变，变的部分用 ={}= 表示， =.format()= 中的参数与前面的 ={}= 一一对应，分别是 3, 5, 15。当调用的是变量时，可以写在 =.format()= 的参数中，更方便的方法是“f-string”，例如，
-
-    #+NAME: 7e6436a2-1086-412d-9dfc-1cc9cc034713
-    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb
-      a = 3
-      b = 5
-      f"{a}乘以{b}等于{a*b}"
-    #+end_src
-
-    #+RESULTS: 7e6436a2-1086-412d-9dfc-1cc9cc034713
-    : '3乘以5等于15'
-
-** 字符串的子串
-   用 =[]= 把字符串中的字符或者子串取出。例如
-   #+NAME: 6c3329aa-15d5-444d-8c01-b189246a429c
-   #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb
-     s = "我正在上课"
-     s[0], s[2:4], s[-1]
-   #+end_src
-
-   #+RESULTS: 6c3329aa-15d5-444d-8c01-b189246a429c
-   : ('我', '在上', '课')
-   “0”代表最先的字符，“2:4” 是从2到4的左闭右开区间，即 2,3，“-1”代表最后一个字符元素，“-2”是倒数第二个。在整数的论域中，左闭右开区间的特殊好处是可以直观地把相邻的区间写下来，“0:2”，“2:4”，“4:5”都是首尾相邻且不重叠，边界上的2属于“2:4”，4属于“4:5”。这在实现批量处理逻辑中非常方便。参见 Dijkstra 的经典短文 EWD 831，“Why numbering should start at zero”。
-
-** 标准库中的字符串操作
-   Python 的官方文档详尽介绍了标准库中字符串的进阶操作，这里我们选取几个常用的介绍。
-
-   =count()= 函数可以统计字符出现的次数，例如
-   #+NAME: bd561cb6-9f9c-4566-9860-e1b832fc9cbb
-   #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb
-     s = "今天的气温是 30 摄氏度，明天是 29 摄氏度"
-     s.count("天")
-   #+end_src
-
-   #+RESULTS: bd561cb6-9f9c-4566-9860-e1b832fc9cbb
-   : 2
-
-   =startwith()= 用来判断字符串是否由某个子串开头，
-   #+NAME: 12e58148-75a8-4c9a-b6ca-47350d7670e8
-   #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb
-     s.startswith("今天")
-   #+end_src
-
-   #+RESULTS: 12e58148-75a8-4c9a-b6ca-47350d7670e8
-   : True
-
-   =split()= 将字符串按照给定的分隔符分成列表，在处于有格式约定的文字时经常用到。
-   #+NAME: fe55edaf-8dc7-4d7f-8a60-f254d9d1cf81
-   #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb
-     s.split("，")
-   #+end_src
-
-   #+RESULTS: fe55edaf-8dc7-4d7f-8a60-f254d9d1cf81
-   : ['今天的气温是 30 摄氏度', '明天是 29 摄氏度']
-
-   =replace()= 用于一一替换字符
-   #+NAME: 292a3171-d035-47ad-9176-954b9911f203
-   #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb
-     seed = bin(2324)
-     print(seed)
-
-     print(seed.replace('0',"奥").replace('1',"利"))
-   #+end_src
-
-   #+RESULTS: 292a3171-d035-47ad-9176-954b9911f203
-   : 0b100100010100
-   : 奥b利奥奥利奥奥奥利奥利奥奥
-
-   =bin= 将整数转换成字符串的"0"、"1"二进制表示，用 =replace()= 把它映射到自定义的奥利奥配置。
-
-   在使用这些高级操作时，注意体会 Python 标准库相比其它语言的便利性。很多实现起来复杂的操作在 Python 中默认都是一个函数完成。非常值得先浏览一遍标准库提供的函数，有了第一印象方便灵活运用。
-
-   
-** None 值
-   Python 中一个特别的值，即不是整数也不是浮点数，属于一种独有的类型，叫做“None”，可以代表很多含义：“空”或者“没有”，或者“无法表达”，或者“出错了”、“非法”。它本身也是一个值，可以 =print= ，可以赋值，例如：
-   #+NAME: 139a8a26-8e2a-46f0-b53f-a03e5a46a332
-   #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb
-     print(None)
-     x = None
-     2 is None, x is None
-   #+end_src
-
-   #+RESULTS: 139a8a26-8e2a-46f0-b53f-a03e5a46a332
-   : None
-   : (False, True)
-
-   判断一个值是 None 时，习惯用“is”替代等号，比较符合英语语感。“2 is None”直接读作“two is None”即可。
-   转换为布尔类型时，None 的赋值为“假”。
-   #+NAME: 6c163239-da0a-4755-9fe5-78bb0f6a75bc
-   #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb
-     bool(None)
-   #+end_src
-
-   #+RESULTS: 6c163239-da0a-4755-9fe5-78bb0f6a75bc
-   : False
-   
-* 基本程序结构
-  计算机程序可以分成三种结构。
-
-  一是顺序结构，即至今为止我们举的例子，语句从前到后依次执行。二是选择结构，亦称分支，根据条件是否成立，选择执行哪个语句。三是循环结构，即重复执行的结构。
-   
-** 选择结构
-   选择结构的基本语法是 “if...else”，例如
-   #+NAME: 574719b2-9787-482c-9a6c-736c98dd1160
-   #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb
-     x = 23
-
-     if x % 2:
-         print(f"{x}是奇数")
-     else:
-         print(f"{x}是偶数")
-   #+end_src
-
-   #+RESULTS: 574719b2-9787-482c-9a6c-736c98dd1160
-   : 23是奇数
-   我们就判断了一个变量的奇偶性，如果 x % 2 = 1 ，判断为“真”，执行第一个语句，反之则执行第二个。上面的例子展现 Python 通过缩进来表达程序中的层次，“奇数”语句和“偶数”语句都是通过空格缩进表达它隶属于 =if= 和 =else= 的两个部分。强大的程序编辑器非常重要，可以自动帮我们给出统一的缩进量。合适的程序编辑器，甚至能够自动识别“else:”，与上面 “if” 的语句体区分开，向前缩进。结合语法高亮颜色标识与提示，是书写程序是最重要的助手。
-
-   GNU nano 在这方面就不够强，我们需要手动给出空格的数量。但这样多一个少一个空格上下不统一时容易出错。
-   
-   C语言使用 “{}” 作为语法的界限，Python 很不同，默认规定都写成良好缩进的。C 语言中缩进只是为了美观，Python 的缩进则是语法的一部分。Python 的设计理念是，既然我们都鼓励美观的缩进，那不如把它强制实行。
-
-   选择有三个时，“else if” 可以缩写为 “elif”。例如：
-   #+NAME: e6bcd241-233c-4ee1-9f58-68e56d36ec6c
-   #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb
-     x = 23
-     if x % 3 == 0:
-         print("A")
-     elif x % 3 == 1:
-     # 也可以写作 else if x % 3 ==1:
-         print("G")
-     else:
-         print("S")
-   #+end_src
-
-   #+RESULTS: e6bcd241-233c-4ee1-9f58-68e56d36ec6c
-   : S
-
-   在 =if= 嵌套时， =else= 与 =if= 的对应关系取决于缩进的量，例如
-   #+NAME: 8c0a075f-2442-4efa-a14a-600e267a4df4
-   #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb
-     x = 23
-     if x % 2 == 0:
-         if x % 4 == 0:
-             print("X")
-         else: # 与第二个 if 对应
-             print("M")
-     else: # 与第一个 if 对应
-         print("A")
-   #+end_src
-
-   #+RESULTS: 8c0a075f-2442-4efa-a14a-600e267a4df4
-   : A
-
-** 循环结构
-   Python的循环结构有两种， =for= 语句和 =while= 语句。除了与其他语言相似的标准循环功能之外，还有 Python 特有的用法。举一个简单的例子，
-   #+NAME: 2961198b-b439-4eeb-bc40-7bfdb74e505c
-   #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb
-     a = 0
-     while a < 5:
-         print(a)
-         a = a + 1
-   #+end_src
-
-   #+RESULTS: 2961198b-b439-4eeb-bc40-7bfdb74e505c
-   : 0
-   : 1
-   : 2
-   : 3
-   : 4
-   这4条语句，先把 0 赋予 =a= 。只要 =a= 小于 5 就持续循环，每次循环输出 =a= 并给 =a= 加 1。第一次循环，输出 “0” ， =a= 变成了 1，下一次循环，输出 “1”， =a= 变成了 2，……
-
-   同样的逻辑可以用 =for= 循环更简洁地实现：
-   #+NAME: b1219393-a5d3-4b28-b70c-8304e24c759d
-   #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb
-     for a in range(5):
-         print(a)
-   #+end_src
-
-   #+RESULTS: b1219393-a5d3-4b28-b70c-8304e24c759d
-   : 0
-   : 1
-   : 2
-   : 3
-   : 4
-   但原理有所不同。 =range()= 返回一个“迭代器”（iterator），在每次 =for= 循环时，都从迭代器中取出一个值。 =range()= 为 =for= 准备了从 0 到 4 一共 5 个数字，注意这是从 0 到 5 的左闭右开区间。
-   借助迭代器，程序变量更简洁。为了简化程序，增强语义的表现力，Python 有许多地方都语法上的快捷书写方法。
-   迭代器是一般概念，Python 中的多数多个元素组成的数据结构都可以看作迭代器。字符串就是一个例子，
-   #+NAME: 1a33b209-5c37-4d96-9cd1-826f7fbe839e
-   #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb
-     s = "我爱吃瓜，瓜好甜。"
-     for x in s:
-         print(x)
-   #+end_src
-
-   #+RESULTS: 1a33b209-5c37-4d96-9cd1-826f7fbe839e
-   : 我
-   : 爱
-   : 吃
-   : 瓜
-   : ，
-   : 瓜
-   : 好
-   : 甜
-   : 。
-   “s” 由 9 个字符组成。for 循环就循环 9 次，遍历所有元素。这是迭代器设计的精妙之处，如果没有迭代器，我们只能这样写：
-   #+NAME: 5e8e6df0-5d48-45c5-81d9-76151991d092
-   #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb
-     for i in range(len(s)):
-         print(s[i])
-   #+end_src
-
-   #+RESULTS: 5e8e6df0-5d48-45c5-81d9-76151991d092
-   : 我
-   : 爱
-   : 吃
-   : 瓜
-   : ，
-   : 瓜
-   : 好
-   : 甜
-   : 。
-   显得比较笨拙。人类在思考时完全不管下标，自然是“把字符一个一个打出来”，而不是“先输出第1个字，再输出第2个字，……”。
-
-   有时我们既想用迭代器，又想得到索引，使用 =enumerate=
-   #+NAME: 96a1ea60-033f-4938-a5f3-e7f9e14711f1
-   #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb
-     for i, x in enumerate(s):
-         print(f"第{i}个字是'{x}'")
-   #+end_src
-
-   #+RESULTS: 96a1ea60-033f-4938-a5f3-e7f9e14711f1
-   : 第0个字是'我'
-   : 第1个字是'爱'
-   : 第2个字是'吃'
-   : 第3个字是'瓜'
-   : 第4个字是'，'
-   : 第5个字是'瓜'
-   : 第6个字是'好'
-   : 第7个字是'甜'
-   : 第8个字是'。'
-
-*** break
-    在循环里执行 =continue= ，可以跳过本次循环进入下一步。执行 =break= 则终止循环，直接跳出循环体。例如：
-    #+NAME: a36d4753-1bee-4f07-9a89-c776e108a8e2
-    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb
-      for i in range(10):
-          if i % 2:
-              continue
-          print(i)
-    #+end_src
-
-    #+RESULTS: a36d4753-1bee-4f07-9a89-c776e108a8e2
-    : 0
-    : 2
-    : 4
-    : 6
-    : 8
-    会跳过所有奇数。换成 =break= 则会提前退出，
-    #+NAME: 8044fe59-913b-4c0f-91c8-3d1ad2502605
-    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb
-      for i in range(10):
-          if i % 2:
-              break
-          print(i)
-    #+end_src
-
-    #+RESULTS: 8044fe59-913b-4c0f-91c8-3d1ad2502605
-    : 0
-
-*** 死循环
-    一个循环的终于条件如果永远无法满足，则会成为死循环。例如
-    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb
-      while True:
-          pass
-    #+end_src
-    =pass= 是循环体的占位符，代表什么也不做。Python 使用缩进表循环语句体的语义，当语句体为空时要用占位符来表示。
-
 * Python 复合类型
   Python 的基本数据类型包括整型、浮点型、布尔型与字符串。这些类型都可以组合起来。
 ** 列表
@@ -510,3 +191,134 @@
     #+RESULTS: 0e98505a-c63f-4f08-ad80-65449590d4d4
     : {(0, 0): 6, (0, 1): '您', (1, 0): ['Python', 'Bash']}
     这不奇怪，变量本身就是由内部的字典实现的！
+
+* Python 的运行模式
+  在命令行输入 python3 进入的是交互模式，每输入一个指令，都即时得到结果。这个环境称为“REPL”，即 “Read-Evaluate-Print-Loop”，命令行界面也属此类。交互界面更适合探索和试验。
+  批处理模式可以批量执行命令，组成批量命令的文件叫做“脚本”，也是广义上的程序。因为脚本运行时没有 REPL 部分，可以不受人干涉，适用于处理大量数据。
+  在实践中，经常在交互模式中探索出正确的指令，再把这些指令收集起来，形成脚本，自动地批处理运行。因为脚本应用于无人值守的环境，输入与输出就应当自动进行，只是根据提示交互地输入就远远不够了。
+  另一种从外界给程序传递信息的方式是调用参数。Python 把调用时的参数传递给了特定的字符串列表 =sys.argv= 。通过 =sys.argv[1]= ， =sys.argv[2]= 取得第一、第二个参数。
+
+* Python 函数
+  一直以来，函数都是程序的基本组成部分，是由多段指令组成的功能单元，与数学函数有类似之处。函数给程序划分了逻辑层次，在函数内我们关注函数的实现方法，在函数外我们关注它的使用方法并重复调用，有助于实践“一次”原则。
+
+  Python 定义函数的语法如下：
+  #+NAME: 56438852-3a7b-4173-b2f3-64703c75ccf7
+  #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb
+    def add(x, y):
+        print(f"x is {x} and y is {y}")
+        return x + y  # Return values with a return statement
+    add(3, 5)
+  #+end_src
+
+  #+RESULTS: 56438852-3a7b-4173-b2f3-64703c75ccf7
+  : x is 3 and y is 5
+  : 8
+  关键字 =def= 跟一个带 =(...):= 的表达式。返回值用 =return= 给出。外部调用 =add(3,5)= 在函数的入口， =x= 和 =y= 被赋予 3 和 5。
+
+  再举一个例子，
+  #+NAME: 55304ee6-050e-4677-b4ec-d631a8f05816
+  #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb
+    def swap(x, y):
+        return y, x
+    a = '左'
+    b = '右'
+
+    print(a,b)
+    a, b = swap(a,b)
+    print(a,b)
+  #+end_src
+
+  #+RESULTS: 55304ee6-050e-4677-b4ec-d631a8f05816
+  : 左 右
+  : 右 左
+  在调用 =swap()= 函数的一步， =x= 被赋予 =a= 的值“左”， =y= 被赋予“右”。经过函数计算，得到的返回值是交换的结果“右”、“左”，用于覆盖 =a= 和 =b= 的值。这个函数返回了两个值，在 Python 的内部表示为一个元组。在函数的内与外，变量有各自的定义范围，这使得我们不论从内还是从外看来，都有完整的逻辑。
+*** 函数命名空间
+    函数内与函数外的命名空间相互独立。看下面的例子，
+    #+NAME: bafdc9e1-560f-469a-9c14-fe0b9d3d285c
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb
+      x = 1
+      def scope():
+          x = 2
+      scope()
+      print(x)
+    #+end_src
+
+    #+RESULTS: bafdc9e1-560f-469a-9c14-fe0b9d3d285c
+    : 1
+
+    scope() 函数内的变量 x ，与外部独立。变量是由字典实现的，函数内与函数外的变量分属于不同的字典。函数从内部操作它外部的变量，是不鼓励的，一定要做时，使用 =global= 标识符：
+    #+NAME: 9edd2183-3717-4b64-919c-db8cbe8beb7c
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb
+      x = 1
+      def scope():
+           global x
+           x = 2
+      scope()
+      print(x)
+    #+end_src
+
+    #+RESULTS: 9edd2183-3717-4b64-919c-db8cbe8beb7c
+    : 2
+
+*** 元组赋值
+  值得注意一点， Python 可以通过对元组赋值的形式，实现元组各元素赋值。
+  #+NAME: e867d63a-7914-4032-9e1a-ed3aaead8f36
+  #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb
+    print(a, b)
+    a, b = b, a # 是 (a, b) = (b, a) 的简写
+    print(a, b)
+  #+end_src
+
+  #+RESULTS: e867d63a-7914-4032-9e1a-ed3aaead8f36
+  : 左 右
+  : 右 左
+  这使得置换变量的值非常简单直接，因为否则要引入中间变量，这样写，
+  #+NAME: 9bd62b99-3a2e-44e5-bd33-b79d2f52f562
+  #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb
+    print(a, b)
+    tmp = a
+    a = b
+    b = tmp
+    print(a, b)
+  #+end_src
+
+  #+RESULTS: 9bd62b99-3a2e-44e5-bd33-b79d2f52f562
+  : 左 右
+  : 右 左
+  十分不便。
+
+*** 函数的调用
+    函数可供大批量调用。使用 =map= 来自然定义一个作用在迭代器上的函数，是分别把它作用到每个元素后返回值组成的迭代器。例如把列表看作迭代器，
+    #+NAME: e83d05ff-392c-4dc1-acd1-248063b9b432
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb
+      def squared(x):
+          return x*x
+
+      list(map(squared, [1, 2, 3, 4]))
+    #+end_src
+
+    #+RESULTS: e83d05ff-392c-4dc1-acd1-248063b9b432
+    : [1, 4, 9, 16]
+    它把一列数字逐个取平方。 =map()= 返回的迭代器，交给 =list()= 转换成了列表输出。
+
+    等价于直接用迭代器输入，
+    #+NAME: 16d3d71a-76c3-429a-b217-7c5a8d21b7ce
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb
+      list(map(squared, range(1, 5)))
+    #+end_src
+
+    #+RESULTS: 16d3d71a-76c3-429a-b217-7c5a8d21b7ce
+    : [1, 4, 9, 16]
+
+*** 无名函数
+    如果函数名不重要，可以直接把函数无名化定义嵌入到语句中。
+    #+NAME: 823dd2b0-a2f2-44ed-a87b-384c5533541b
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb
+      list(map(lambda x: x*x, range(1,5)))
+    #+end_src
+
+    #+RESULTS: 823dd2b0-a2f2-44ed-a87b-384c5533541b
+    : [1, 4, 9, 16]
+    省去了函数名， =return= 等。  =lambda= 的名字来自理论计算机科学的 lambda calculus 理论，函数式程序的基础。
+
+
