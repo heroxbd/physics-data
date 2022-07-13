@@ -1609,15 +1609,8 @@ $ python3 sys-demo.py 第一个参数 第二个参数
           ~~~
           grid: 球面上连续函数在固定格点上的取值
           order: 拟合时球谐函数近似截断的阶数
-    
-          输出
-          ~~~
-          拟合系数矩阵
           '''
-    
-          # 具体实现省略
           pass
-
       help(spherical_harmonic_fitter)
     #+end_src
 
@@ -1633,11 +1626,8 @@ $ python3 sys-demo.py 第一个参数 第二个参数
         grid: 球面上连续函数在固定格点上的取值
         order: 拟合时球谐函数近似截断的阶数
 
-        输出
-        ~~~
-        拟合系数矩阵
-
     #+end_example
+
 *** 文档的普适性
     - 任何 Python 的标准函数都有文档，大家都应认真写文档
     #+NAME: a72f50bc-7adf-43a5-b7e4-0712bf48fc25
@@ -1678,7 +1668,7 @@ $ python3 sys-demo.py 第一个参数 第二个参数
 * 第一周第四天
   :PROPERTIES:
   :EXPORT_FILE_NAME: p3
-  :EXPORT_BEAMER_HEADER: \title{生存法则}
+  :EXPORT_BEAMER_HEADER: \title{实验物理的大数据方法}
   :EXPORT_OPTIONS: H:1 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
   :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
   :EXPORT_DATE: 2021-08-19 清华

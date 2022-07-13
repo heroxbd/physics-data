@@ -14,7 +14,7 @@ p%.tex: pd.org
 # should ultimately fix ob-ein to be friendly to minted.
 # put verbatim into scriptsize, need some better idea with org-mode.
 e%.tex: p%.tex
-	sed -e 's/ein-python/python/' -e 's/ein-bash/bash/' -e '/{minted}/s/\[\]/\[bgcolor=lightgray\]/' -e 's/\\begin{verbatim}/{\\scriptsize\\begin{verbatim}/' -e 's/end{verbatim}/end{verbatim}}/' < $^ > $@
+	sed -e 's/ein-python/python/' -e 's/ein-bash/bash/' -e '/{minted}/s/\[\]/\[bgcolor=lightgray,fontsize=\\scriptsize\]/' -e 's/\\begin{verbatim}/{\\scriptsize\\begin{verbatim}/' -e 's/end{verbatim}/end{verbatim}}/' < $^ > $@
 
 e%.pdf: e%.tex
 	latexmk -shell-escape -lualatex $^
