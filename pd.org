@@ -1352,19 +1352,310 @@ print(sc["致理"], sc['未央'])
     : 原点
 
     - 值 value 可以是任意类型
-*** 函数
-    传送门
-      #+NAME: 70e65a46-9e12-4c4d-b122-dc42590a25ae
-  #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb
-   # 高精度整数举例
-   #
-   2**1000
-  #+end_src
 
-  #+RESULTS: 70e65a46-9e12-4c4d-b122-dc42590a25ae
-  : 10715086071862673209484250490600018105614048117055336074437503883703510511249361224931983788156958581275946729175531468251871452856923140435984577574698574803934567774824230985421074605062371141877954182153046474983581941267398767559165543946077062914571196477686542167660429831652624386837205668069376
+** 高级数据结构
+*** defaultdict -- 带有默认值的字典
+    #+NAME: 7947f42e-020b-4930-b5e0-5c9ee543209d
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      k = "数学"
 
+      if k in sc:
+          v=sc[k]
+      else:
+          v=0
+      print(f"来自{k}的同学有{v}人")
+    #+end_src
 
+    #+RESULTS: 7947f42e-020b-4930-b5e0-5c9ee543209d
+    : 来自数学的同学有0人
+
+    #+NAME: 01f8c3ff-0c81-41a0-aab8-8d64a27564cd
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      from collections import defaultdict
+
+      dsc = defaultdict(int)
+      dsc["工物"] = 42; dsc["物理"] = 52
+      print(dsc["工物"], dsc["数学"])
+
+    #+end_src
+
+    #+RESULTS: 01f8c3ff-0c81-41a0-aab8-8d64a27564cd
+    : 42 0
+
+*** 普通的字典不能强取
+    #+NAME: 08b218b3-340b-423c-905b-4ba3870a2b96
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      sc["数学"]
+    #+end_src
+
+    #+RESULTS: 08b218b3-340b-423c-905b-4ba3870a2b96
+    : ---------------------------------------------------------------------------
+    : KeyError                                  Traceback (most recent call last)
+    : Input In [39], in <module>
+    : ----> 1 sc["数学"]
+    : 
+    : KeyError: '数学'
+
+*** Counter -- 高效地计数
+    #+NAME: be493df6-806e-48f3-9f50-3c6cea84955e
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      deps = ["物理","物理","工物","工物","物理"]
+      numbers = defaultdict(int)
+
+      for d in deps:
+          numbers[d]+=1
+      print(numbers)
+    #+end_src
+
+    #+RESULTS: be493df6-806e-48f3-9f50-3c6cea84955e
+    : defaultdict(<class 'int'>, {'物理': 3, '工物': 2})
+
+    #+NAME: 9e783fda-3a7c-42f5-8115-045afceee56a
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      from collections import Counter
+
+      cnumbers = Counter(deps)
+      print(cnumbers)
+    #+end_src
+
+    #+RESULTS: 9e783fda-3a7c-42f5-8115-045afceee56a
+    : Counter({'物理': 3, '工物': 2})
+
+*** namedtuple -- 带有元素名字的 tuple
+    #+NAME: 26d87e22-c2d2-4539-b862-e8dbc5f3d023
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      from collections import namedtuple
+
+      Point = namedtuple("point", field_names=("x", "y"))
+      p = Point(1,2)
+      print(p)
+    #+end_src
+
+    #+RESULTS: 26d87e22-c2d2-4539-b862-e8dbc5f3d023
+    : point(x=1, y=2)
+
+    #+NAME: 06e2a48b-f9fc-4c5e-92e3-8380d903ca4b
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      print(p.x, p.y)
+      print(p[0], p[1])
+    #+end_src
+
+    #+RESULTS: 06e2a48b-f9fc-4c5e-92e3-8380d903ca4b
+    : 1 2
+    : 1 2
+
+** 命令行参数
+*** 命令行参数从终端向 Python 内部传递信息
+   #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+     import sys
+
+     print(sys.argv)
+   #+end_src
+
+调用 =sys= 模块， =sys.argv= 是一个列表，内含程序调用的参数
+
+   #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+$ python3 sys-demo.py 第一个参数 第二个参数
+['sys-demo.py', '第一个参数', '第二个参数']
+  ^sys.argv[0]  sys.argv[1]  sys.argv[2]
+   #+end_src
+** 函数
+*** 简介
+    - 函数是程序的基本组成部分。
+    - 函数可以直观看作是多段代码组成的功能单元。
+    - 函数的输入输出。
+    - 函数方便代码复用，体现 _一次_ 原则。
+    #+NAME: 09635af2-2a7d-468d-ac28-b952e24b7686
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      def add(x, y):
+          print(f"x is {x} and y is {y}")
+          return x + y  # Return values with a return statement
+      add(3, 5)
+    #+end_src
+
+    #+RESULTS: 09635af2-2a7d-468d-ac28-b952e24b7686
+    : x is 3 and y is 5
+    : 8
+*** 函数定义互换操作
+    #+NAME: 6cb0a7ce-c0de-4810-987d-1132d7eae3d1
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      def swap(x, y):
+          return y, x
+      a = '左'
+      b = '右'
+
+      print(a,b)
+      a, b = swap(a,b)
+      print(a,b)
+      a, b = b, a
+      print(a,b)
+    #+end_src
+
+    #+RESULTS: 6cb0a7ce-c0de-4810-987d-1132d7eae3d1
+    : 左 右
+    : 右 左
+    : 左 右
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      tmp = a; a = b; b = tmp # 对比
+    #+end_src
+*** 迭代器函数调用
+    - 使用 `map` 可以把迭代器的映射到另一个迭代器
+
+    #+NAME: a3213184-6430-485a-95bd-2fd8e219b6ee
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      def squared(x):
+          return x*x
+
+      list(map(squared, [1,2,3,4,5,6]))
+    #+end_src
+
+    #+RESULTS: a3213184-6430-485a-95bd-2fd8e219b6ee
+    : [1, 4, 9, 16, 25, 36]
+**** 无名函数
+     函数名不重要时，可以使用无名函数
+     #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+       list(map(lambda x: x*x, range(6)))
+     #+end_src
+*** 名字空间 -- 函数自己的变量存储空间
+    #+NAME: e6f86e51-a44a-4be8-ae13-66a644cf44e5
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      x = 1
+      def scope():
+          x = 2
+      scope()
+      print(x)
+    #+end_src
+
+    #+RESULTS: e6f86e51-a44a-4be8-ae13-66a644cf44e5
+    : 1
+**** 强行使用全局变量（不推荐！）
+     #+NAME: 10ecee2c-7a07-4397-b9f7-d6f0ef3e4629
+     #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+       def gscope():
+           global x
+           x = 2
+       gscope()
+       print(x)
+     #+end_src
+
+     #+RESULTS: 10ecee2c-7a07-4397-b9f7-d6f0ef3e4629
+     : 2
+*** 递归调用
+    - 函数的可以调用自身
+    #+NAME: c3e41892-7059-4d96-9f95-cbc74debb983
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      n=123
+      while n>=1:
+          print(n)
+          n //= 2 # n = n // 2 的简写
+    #+end_src      
+
+    #+RESULTS: c3e41892-7059-4d96-9f95-cbc74debb983
+    : 123
+    : 61
+    : 30
+    : 15
+    : 7
+    : 3
+    : 1
+** 文档
+*** 函数文档
+    - 在函数定义后，紧跟一个字符串，可以定义函数的文档。
+    - 用多行字符串很方便。
+    #+NAME: 43cf7a90-4183-4bfb-afb7-e8039347ad94
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      def spherical_harmonic_fitter(grid, order):
+          "求球谐函数拟合的系数"
+    
+          # 具体实现省略
+          pass
+
+      help(spherical_harmonic_fitter)
+    #+end_src
+
+    #+RESULTS: 43cf7a90-4183-4bfb-afb7-e8039347ad94
+    : Help on function spherical_harmonic_fitter in module __main__:
+    : 
+    : spherical_harmonic_fitter(grid, order)
+    :     求球谐函数拟合的系数
+    : 
+*** 多行文档
+    #+NAME: a4814cf2-5122-4e29-8497-59b14d9b2cca
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      def spherical_harmonic_fitter(grid, order):
+          '''
+          求球谐函数拟合的系数
+    
+          输入
+          ~~~
+          grid: 球面上连续函数在固定格点上的取值
+          order: 拟合时球谐函数近似截断的阶数
+    
+          输出
+          ~~~
+          拟合系数矩阵
+          '''
+    
+          # 具体实现省略
+          pass
+
+      help(spherical_harmonic_fitter)
+    #+end_src
+
+    #+RESULTS: a4814cf2-5122-4e29-8497-59b14d9b2cca
+    #+begin_example
+    Help on function spherical_harmonic_fitter in module __main__:
+
+    spherical_harmonic_fitter(grid, order)
+        求球谐函数拟合的系数
+
+        输入
+        ~~~
+        grid: 球面上连续函数在固定格点上的取值
+        order: 拟合时球谐函数近似截断的阶数
+
+        输出
+        ~~~
+        拟合系数矩阵
+
+    #+end_example
+*** 文档的普适性
+    - 任何 Python 的标准函数都有文档，大家都应认真写文档
+    #+NAME: a72f50bc-7adf-43a5-b7e4-0712bf48fc25
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      help(None)
+    #+end_src  
+
+    #+RESULTS: a72f50bc-7adf-43a5-b7e4-0712bf48fc25
+    #+begin_example
+    Help on NoneType object:
+
+    class NoneType(object)
+     |  Methods defined here:
+     |  
+     |  __bool__(self, /)
+     |      self != 0
+     |  
+     |  __repr__(self, /)
+     |      Return repr(self).
+     |  
+     |  ----------------------------------------------------------------------
+     |  Static methods defined here:
+     |  
+     |  __new__(*args, **kwargs) from builtins.type
+     |      Create and return a new object.  See help(type) for accurate signature.
+
+    #+end_example
+** 调试
+*** 程序调试 
+    - 透明原则：程序运行的中间结果应当被人类理解
+    - 调试方法：
+      - =print()=
+      - REPL 试验
+      - pdb, Python Debugger
+        - =breakpoint()=
+        - back trace 给出调用关系
+        - help
 * 第一周第四天
   :PROPERTIES:
   :EXPORT_FILE_NAME: p3
