@@ -5,7 +5,7 @@ all: notes slides jupyter
 slides: $(progress:%=upload/p%.pdf)
 notes: $(progress:%=upload/l%.html)
 
-j_list:=Python-Basics Python-Constructs
+j_list:=Python-Basics
 jupyter: $(j_list:%=upload/%.slides.html)
 
 p%.tex: pd.org
