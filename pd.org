@@ -2115,6 +2115,11 @@ magic(r=real, i=imag)
 
     云室照片； \(a,b\) 两根线来自 \(K\) 介子衰变。 (Rochester and Butler)
 
+** 寻找工具
+*** 更多 Python 扩展库
+   - 优先 =apt install python3-xxxxxx=
+   - 混合 apt 与 pip 要极其小心，尽量不引入 pip
+     - 提 issue 求助
 * 2020年 第一周第四天
   :PROPERTIES:
   :EXPORT_FILE_NAME: p3
