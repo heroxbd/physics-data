@@ -2,6 +2,11 @@
 #+author: 续本达
 #+PROPERTY: header-args :eval never-export :exports both
 
+* 准备
+  - 安装 =wget=
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      apt install wget
+    #+end_src
 * 程序的测试
   在撰写较长较复杂的程序时，我最关心的问题是，到底如何保证程序正确呢？眼睛一直盯着它，多看几遍就对了吗？不是。
   另一个相关的问题是，我已经写出一个正确的程序，但我修改完善它，如果保证从改动前后程序的逻辑不变呢？否则，如果一不小心改坏就闯祸了，还不如不完善。如何快速确认完善后的程序是好的？
