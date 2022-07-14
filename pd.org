@@ -1656,15 +1656,140 @@ $ python3 sys-demo.py 第一个参数 第二个参数
 
     #+end_example
 ** 调试
-*** 程序调试 
+*** 程序调试
     - 透明原则：程序运行的中间结果应当被人类理解
     - 调试方法：
       - =print()=
       - REPL 试验
       - pdb, Python Debugger
         - =breakpoint()=
-        - back trace 给出调用关系
+        - bt 给出函数调用关系
+        - next 执行下一步
+        - where 给出当前位置
+        - list 列出附近的程序
         - help
+** 测试
+*** 程序的正确性保证
+- 如果保证修改程序不引入新的问题？
+  - 修改越多，引入新问题的概率越大吗？
+
+- 使用 Git 会有什么帮助吗？
+  - 除了 Git 还需要什么？
+- 实验室为何会有谁都不敢动的“祖传代码”出现？
+*** 编写测试数据
+- 根据需求，用已知的输入输出检验程序是否正确
+  - 单元测试：对函数进行测试
+  - 集成测试：对各部分总体进行测试
+- 测试程序与功能程序可以交替进行：
+
+  #+begin_example
+,-------       ,-------
+| 测试         | 测试
+`-------       `-------
+       ,-------       ,-------
+       | 功能         | 功能
+       `-------       `-------
+  #+end_example
+*** 作业中的评分器是测试
+- 评分器定义了功能，即程序期待得出的结果
+  - 自动测试是目前为止，软件工程中最有效的保证程序可靠性的做法
+  - 不仅保证程序逻辑正确，还要保证输入输出符合约定
+- 可以在本地手动运行
+- 也可以在线自动触发：课程使用的是 Github Actions
+  - 实现了持续集成（Continuous Integration）
+  - 一旦哪个 commit 有了问题可以迅速通知：谁在什么时候弄坏了什么功能
+*** 实验的数据处理
+  - 上游程序的输出是下游程序的输入
+  - 程序出界仅仅被人类理解是不够的
+  - 如果不符合格式约定，后一个程序或者会崩溃，或者误读数据造成不易察觉的错误
+  - 一旦科学结果被发表，纠正错误将牵扯诸多非科学因素
+**** 测试框架可以促进协作
+- 上游程序使用测试器模拟下游的读入
+- 下游程序使用测试器模拟上游的输出
+
+- 请主动设计测试输入样例，与同学分享刁钻的测试输入
+
+** 代码风格
+*** 原则：人类阅读友好
+There should be one-- and preferably only one --obvious way to do it.
+
+- 写程序，也只有一种推荐的风格
+- 由 PEP-8 定义
+  - PEP := Python enhancement proposal
+  - https://www.python.org/dev/peps/pep-0008/
+  - This document gives coding conventions for the Python code comprising the standard library in the main Python distribution.
+- Python 哲学：Readability counts.
+*** 缩进
+- 建议 4 个空格
+- 避免一行过长，一切行必须在 80 字符以内
+  - 人类读过长的行时，眼球不停转动，肌肉易疲劳
+  - 限制行宽，方便把代码并列对比
+
+#+begin_src python
+# Aligned with opening delimiter.
+foo = long_function_name(var_one, var_two,
+                         var_three, var_four)
+
+# 如果与开括号对齐导致空白过多，也可只加4个空格的缩进量。
+def long_function_name(
+        var_one, var_two, var_three,
+        var_four):
+    print(var_one)
+#+end_src
+
+*** 多参数写法
+    #+begin_src python
+my_list = [
+    1, 2, 3,
+    4, 5, 6,
+    ]
+result = some_function_that_takes_arguments(
+    'a', 'b', 'c',
+    'd', 'e', 'f',
+    )
+    #+end_src
+
+*** 空格
+    - 恰当使用空格。过多或过少使用空格，都会使代码的可读性降低。
+    - 开括号之后和闭括号之前，不留空格。
+    - ",)"之间不留空格
+
+      #+begin_src python :exports both
+        spam(ham[1], {eggs: 2})
+
+        foo = (0,)
+      #+end_src
+
+   - 逗号之前不留空格，之后最好由一个空格
+     #+begin_src python :exports both
+       a, b = b, a
+     #+end_src
+
+*** 空格：数学表达式
+    - 等号左右留空格
+    - 加号类左右留空格数应相等
+
+      #+begin_src python :exports both
+i = i + 1
+submitted += 1
+x = x*2 - 1
+hypot2 = x*x + y*y
+c = (a+b) * (a-b)
+      #+end_src
+    - 但是，函数调用中的等号不留空格
+      #+begin_src python :exports both
+magic(r=real, i=imag)
+      #+end_src
+*** 辅助工具
+    - pylint3
+    #+begin_src bash :exports both
+      apt install pylint3
+    #+end_src
+    - 编辑器的自动重排功能
+      - 学习一款编辑器非常重要：Emacs、Vi、Visual Studio Code
+**** 参考资料
+     - [[https://www.python.org/dev/peps/pep-0008/][PEP-8]]
+     - [[https://physics-data.meow.plus/faq/rules/whitebox/#_2][FAQ 的相应说明]]
 * 第一周第四天
   :PROPERTIES:
   :EXPORT_FILE_NAME: p3
