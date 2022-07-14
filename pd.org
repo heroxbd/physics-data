@@ -2073,7 +2073,7 @@ magic(r=real, i=imag)
     : 0.14285714285714285
 *** itertools 高级迭代器变换
     https://docs.python.org/3/library/itertools.html
-    
+
     #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb
       data = [3, 4, 6, 2, 1, 9, 0, 7, 5, 8]
       list(accumulate(data, max))
