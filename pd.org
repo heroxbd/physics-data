@@ -1695,7 +1695,7 @@ $ python3 sys-demo.py 第一个参数 第二个参数
   - 自动测试是目前为止，软件工程中最有效的保证程序可靠性的做法
   - 不仅保证程序逻辑正确，还要保证输入输出符合约定
 - 可以在本地手动运行
-- 也可以在线自动触发：课程使用的是 Github Actions
+- 也可以在线自动触发：课程使用的是 gitlab runner
   - 实现了持续集成（Continuous Integration）
   - 一旦哪个 commit 有了问题可以迅速通知：谁在什么时候弄坏了什么功能
 *** 实验的数据处理
@@ -2044,7 +2044,6 @@ magic(r=real, i=imag)
         拟合系数矩阵
 
     #+end_example
-
 ** Python 标准库模块
 *** fractions 有理数才是良定义的
     https://docs.python.org/3/library/fractions.html
