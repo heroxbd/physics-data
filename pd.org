@@ -1809,7 +1809,98 @@ magic(r=real, i=imag)
     - 迭代器可以逐个访问它所包含的值的。 Python 的复合数据结构都可以看成迭代器。
 **** 函数
      - 定义，名字空间
-     - 局部变量，全局变量（不推荐！）
+     - 局部变量，全局变量（不推荐！用类的变量替代）
+** 文件读写
+*** 大批量输入输出
+    - =input()= =print()= 适合少量的信息传递
+    - 大批量的读写宜直接操作文件
+*** 准备样例文件
+    #+NAME: abd137f2-b1aa-4cce-bc60-f497b9dad931
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      apt install wget
+      wget 'http://hep.tsinghua.edu.cn/~orv/pd/iterator.txt'
+    #+end_src
+
+    #+RESULTS: abd137f2-b1aa-4cce-bc60-f497b9dad931
+    #+begin_example
+    --2022-07-14 11:34:39--  http://hep.tsinghua.edu.cn/~orv/pd/iterator.txt
+    Resolving hep.tsinghua.edu.cn... 101.6.6.219, 2402:f000:1:416:101:6:6:219
+    Connecting to hep.tsinghua.edu.cn|101.6.6.219|:80... connected.
+    HTTP request sent, awaiting response... 200 OK
+    Length: 268 [text/plain]
+    Saving to: ‘iterator.txt’
+
+    iterator.txt          0%[                    ]       0  --.-KB/s               iterator.txt        100%[===================>]     268  --.-KB/s    in 0s      
+
+    2022-07-14 11:34:39 (39.2 MB/s) - ‘iterator.txt’ saved [268/268]
+
+    #+end_example
+*** 文本文件读
+    - 文件是迭代器，逐行。每行是字符串。
+    #+NAME: 236d063d-85b1-4e3c-b8f4-c30455581035
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      with open("iterator.txt") as f_input:
+          for l in f_input:
+              print(l, end="")
+    #+end_src
+
+    #+RESULTS: 236d063d-85b1-4e3c-b8f4-c30455581035
+    : Iterator Types
+    : 
+    : Python supports a concept of iteration over containers. This is
+    : implemented using two distinct methods; these are used to allow
+    : user-defined classes to support iteration. Sequences, described below
+    : in more detail, always support the iteration methods.
+    - =with= 用来帮助在文件用完后及时关闭，防止占用和争夺资源。
+
+*** 文本文件写
+    #+NAME: 5b4d4307-732a-45bb-953b-b32ed48ce797
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      with open("log.txt", "w") as f:
+          f.write("第一天 概论\n")
+          f.write("第二天 Python 入门\n")
+    #+end_src
+
+    #+NAME: 1ed3df42-b045-47b8-a1c1-51f1ade8acad
+    #+RESULTS: 5b4d4307-732a-45bb-953b-b32ed48ce797
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      cat log.txt
+    #+end_src
+
+    #+RESULTS: 1ed3df42-b045-47b8-a1c1-51f1ade8acad
+    : 第一天 概论
+    : 第二天 Python 入门
+
+*** 字符处理
+    - Python 内建了丰富的字符处理函数
+    #+NAME: 974e3fbb-e800-4012-8dbe-6e576b97ab8e
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      s = "今天的气温是 30 摄氏度，明天是 29 摄氏度"
+      print(s.count("度"))
+      print(s.startswith("今天"))
+      print(s.split("，"))
+    #+end_src
+
+    #+RESULTS: 974e3fbb-e800-4012-8dbe-6e576b97ab8e
+    : 2
+    : True
+    : ['今天的气温是 30 摄氏度', '明天是 29 摄氏度']
+*** 字符处理（二）
+    - 娱乐[[https://ljl.li/oreooo/][奥利奥生成器]]
+    #+NAME: 6dc92ea5-378a-4995-9192-20258ae1552b
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      seed = bin(2324)
+      print(seed)
+      print(seed[2:].replace('0',"奥").replace('1',"利"))
+    #+end_src
+
+    #+RESULTS: 6dc92ea5-378a-4995-9192-20258ae1552b
+    : 0b100100010100
+    : 利奥奥利奥奥奥利奥利奥奥
+
+**** 参考资料
+     - =help(str)=
+     - https://docs.python.org/3.9/library/stdtypes.html#textseq
 ** 类与对象
 *** 为什么
     - Python 的内部实现
