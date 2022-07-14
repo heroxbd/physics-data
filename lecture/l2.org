@@ -322,3 +322,349 @@
     省去了函数名， =return= 等。  =lambda= 的名字来自理论计算机科学的 lambda calculus 理论，函数式程序的基础。
 
 
+
+* 文档
+** 注释
+   注释由半角的“#”引出，多行注释用多个“#”：
+   #+NAME: 70e65a46-9e12-4c4d-b122-dc42590a25ae
+   #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb
+    # 高精度整数举例
+    #
+    2**1000
+   #+end_src
+
+   #+RESULTS: 70e65a46-9e12-4c4d-b122-dc42590a25ae
+   : 10715086071862673209484250490600018105614048117055336074437503883703510511249361224931983788156958581275946729175531468251871452856923140435984577574698574803934567774824230985421074605062371141877954182153046474983581941267398767559165543946077062914571196477686542167660429831652624386837205668069376
+
+   要让程序易于被人理解，一方面应提升和打磨代码风格，让程序本身的逻辑易懂，另一方面，对不明显的程序段落，通过注释来解释。
+** 函数的文档
+   函数是代码复用的单元，这意味着我们经常会用到别人创作的函数，以节省精力，站在巨人或者一群小矮人的肩膀上。函数定义后紧接的字符串是它的文档，它被特殊对待，由 =help()= 读取输出：
+   #+NAME: d28f616f-8011-4581-b76f-2a4e1201ff8e
+   #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb
+     def spherical_harmonic_fitter(grid, order):
+         "求球谐函数拟合的系数"
+    
+         # 具体实现省略
+         pass
+
+     help(spherical_harmonic_fitter)
+   #+end_src
+
+   #+RESULTS: d28f616f-8011-4581-b76f-2a4e1201ff8e
+   : Help on function spherical_harmonic_fitter in module __main__:
+   : 
+   : spherical_harmonic_fitter(grid, order)
+   :     求球谐函数拟合的系数
+   : 
+   帮助告诉我们，在 “__main__” 模块（程序默认环境）的名字空间里，有这个函数。
+
+   一行的帮助有些单薄。函数的文档，由他人使用，文档写得越详细越好。对复杂的函数而言，函数的帮助需要长篇大论。Python 的多行字符串，正好胜任这一点。多行字符串以三个引号开始，三个引号结束，单引号双引号皆可。三引号设计恰好不与人类语言冲突。
+   #+NAME: 1a8eb1cc-c051-47f1-b3cf-142b12da0378
+   #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb
+     def spherical_harmonic_fitter(grid, order):
+         '''
+         求球谐函数拟合的系数
+    
+         输入
+         ~~~
+         grid: 球面上连续函数在固定格点上的取值
+         order: 拟合时球谐函数近似截断的阶数
+    
+         输出
+         ~~~
+         拟合系数矩阵
+         '''
+    
+         # 具体实现省略
+         pass
+
+     help(spherical_harmonic_fitter)
+   #+end_src
+
+   #+RESULTS: 1a8eb1cc-c051-47f1-b3cf-142b12da0378
+   #+begin_example
+   Help on function spherical_harmonic_fitter in module __main__:
+
+   spherical_harmonic_fitter(grid, order)
+       求球谐函数拟合的系数
+
+       输入
+       ~~~
+       grid: 球面上连续函数在固定格点上的取值
+       order: 拟合时球谐函数近似截断的阶数
+
+       输出
+       ~~~
+       拟合系数矩阵
+
+   #+end_example
+   这个例子里，我们把文档写得更加详细。不仅有标题，还详细注明了输入和输出的含义。调用函数的人——可能是队友也可能是未来的自己——应当在不阅读的原代码的前提下，顺利使用它们。即使在写作程序时，感觉很显然，也应该认真撰写文档。在例子中，我们用多行字符串写出，函数在固定格点上取值，定义了输入变量 order 的含义，输出的意义是系统。
+** 标准库中的文档
+   Python 的标准库非常重视文档，几乎所有的函数都带有详细的排版精美的多行字符串说明。
+   #+NAME: ee4df6b1-62ca-42c5-8306-22f8d088f66a
+   #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb
+     help(int)
+   #+end_src
+
+   #+RESULTS: ee4df6b1-62ca-42c5-8306-22f8d088f66a
+   #+begin_example
+   Help on class int in module builtins:
+
+   class int(object)
+    |  int([x]) -> integer
+    |  int(x, base=10) -> integer
+    |  
+    |  Convert a number or string to an integer, or return 0 if no arguments
+    |  are given.  If x is a number, return x.__int__().  For floating point
+    |  numbers, this truncates towards zero.
+    |  
+    |  If x is not a number or if base is given, then x must be a string,
+    |  bytes, or bytearray instance representing an integer literal in the
+    |  given base.  The literal can be preceded by '+' or '-' and be surrounded
+    |  by whitespace.  The base defaults to 10.  Valid bases are 0 and 2-36.
+    |  Base 0 means to interpret the base from the string as an integer literal.
+    |  >>> int('0b100', base=0)
+    |  4
+    |  
+    |  Built-in subclasses:
+    |      bool
+    |  
+    |  Methods defined here:
+    |  
+    |  __abs__(self, /)
+    |      abs(self)
+    |  
+    |  __add__(self, value, /)
+    |      Return self+value.
+    |  
+    |  __and__(self, value, /)
+    |      Return self&value.
+    |  
+    |  __bool__(self, /)
+    |      self != 0
+    |  
+    |  __ceil__(...)
+    |      Ceiling of an Integral returns itself.
+    |  
+    |  __divmod__(self, value, /)
+    |      Return divmod(self, value).
+    |  
+    |  __eq__(self, value, /)
+    |      Return self==value.
+    |  
+    |  __float__(self, /)
+    |      float(self)
+    |  
+    |  __floor__(...)
+    |      Flooring an Integral returns itself.
+    |  
+    |  __floordiv__(self, value, /)
+    |      Return self//value.
+    |  
+    |  __format__(self, format_spec, /)
+    |      Default object formatter.
+    |  
+    |  __ge__(self, value, /)
+    |      Return self>=value.
+    |  
+    |  __getattribute__(self, name, /)
+    |      Return getattr(self, name).
+    |  
+    |  __getnewargs__(self, /)
+    |  
+    |  __gt__(self, value, /)
+    |      Return self>value.
+    |  
+    |  __hash__(self, /)
+    |      Return hash(self).
+    |  
+    |  __index__(self, /)
+    |      Return self converted to an integer, if self is suitable for use as an index into a list.
+    |  
+    |  __int__(self, /)
+    |      int(self)
+    |  
+    |  __invert__(self, /)
+    |      ~self
+    |  
+    |  __le__(self, value, /)
+    |      Return self<=value.
+    |  
+    |  __lshift__(self, value, /)
+    |      Return self<<value.
+    |  
+    |  __lt__(self, value, /)
+    |      Return self<value.
+    |  
+    |  __mod__(self, value, /)
+    |      Return self%value.
+    |  
+    |  __mul__(self, value, /)
+    |      Return self*value.
+    |  
+    |  __ne__(self, value, /)
+    |      Return self!=value.
+    |  
+    |  __neg__(self, /)
+    |      -self
+    |  
+    |  __or__(self, value, /)
+    |      Return self|value.
+    |  
+    |  __pos__(self, /)
+    |      +self
+    |  
+    |  __pow__(self, value, mod=None, /)
+    |      Return pow(self, value, mod).
+    |  
+    |  __radd__(self, value, /)
+    |      Return value+self.
+    |  
+    |  __rand__(self, value, /)
+    |      Return value&self.
+    |  
+    |  __rdivmod__(self, value, /)
+    |      Return divmod(value, self).
+    |  
+    |  __repr__(self, /)
+    |      Return repr(self).
+    |  
+    |  __rfloordiv__(self, value, /)
+    |      Return value//self.
+    |  
+    |  __rlshift__(self, value, /)
+    |      Return value<<self.
+    |  
+    |  __rmod__(self, value, /)
+    |      Return value%self.
+    |  
+    |  __rmul__(self, value, /)
+    |      Return value*self.
+    |  
+    |  __ror__(self, value, /)
+    |      Return value|self.
+    |  
+    |  __round__(...)
+    |      Rounding an Integral returns itself.
+    |      Rounding with an ndigits argument also returns an integer.
+    |  
+    |  __rpow__(self, value, mod=None, /)
+    |      Return pow(value, self, mod).
+    |  
+    |  __rrshift__(self, value, /)
+    |      Return value>>self.
+    |  
+    |  __rshift__(self, value, /)
+    |      Return self>>value.
+    |  
+    |  __rsub__(self, value, /)
+    |      Return value-self.
+    |  
+    |  __rtruediv__(self, value, /)
+    |      Return value/self.
+    |  
+    |  __rxor__(self, value, /)
+    |      Return value^self.
+    |  
+    |  __sizeof__(self, /)
+    |      Returns size in memory, in bytes.
+    |  
+    |  __sub__(self, value, /)
+    |      Return self-value.
+    |  
+    |  __truediv__(self, value, /)
+    |      Return self/value.
+    |  
+    |  __trunc__(...)
+    |      Truncating an Integral returns itself.
+    |  
+    |  __xor__(self, value, /)
+    |      Return self^value.
+    |  
+    |  as_integer_ratio(self, /)
+    |      Return integer ratio.
+    |      
+    |      Return a pair of integers, whose ratio is exactly equal to the original int
+    |      and with a positive denominator.
+    |      
+    |      >>> (10).as_integer_ratio()
+    |      (10, 1)
+    |      >>> (-10).as_integer_ratio()
+    |      (-10, 1)
+    |      >>> (0).as_integer_ratio()
+    |      (0, 1)
+    |  
+    |  bit_length(self, /)
+    |      Number of bits necessary to represent self in binary.
+    |      
+    |      >>> bin(37)
+    |      '0b100101'
+    |      >>> (37).bit_length()
+    |      6
+    |  
+    |  conjugate(...)
+    |      Returns self, the complex conjugate of any int.
+    |  
+    |  to_bytes(self, /, length, byteorder, *, signed=False)
+    |      Return an array of bytes representing an integer.
+    |      
+    |      length
+    |        Length of bytes object to use.  An OverflowError is raised if the
+    |        integer is not representable with the given number of bytes.
+    |      byteorder
+    |        The byte order used to represent the integer.  If byteorder is 'big',
+    |        the most significant byte is at the beginning of the byte array.  If
+    |        byteorder is 'little', the most significant byte is at the end of the
+    |        byte array.  To request the native byte order of the host system, use
+    |        `sys.byteorder' as the byte order value.
+    |      signed
+    |        Determines whether two's complement is used to represent the integer.
+    |        If signed is False and a negative integer is given, an OverflowError
+    |        is raised.
+    |  
+    |  ----------------------------------------------------------------------
+    |  Class methods defined here:
+    |  
+    |  from_bytes(bytes, byteorder, *, signed=False) from builtins.type
+    |      Return the integer represented by the given array of bytes.
+    |      
+    |      bytes
+    |        Holds the array of bytes to convert.  The argument must either
+    |        support the buffer protocol or be an iterable object producing bytes.
+    |        Bytes and bytearray are examples of built-in objects that support the
+    |        buffer protocol.
+    |      byteorder
+    |        The byte order used to represent the integer.  If byteorder is 'big',
+    |        the most significant byte is at the beginning of the byte array.  If
+    |        byteorder is 'little', the most significant byte is at the end of the
+    |        byte array.  To request the native byte order of the host system, use
+    |        `sys.byteorder' as the byte order value.
+    |      signed
+    |        Indicates whether two's complement is used to represent the integer.
+    |  
+    |  ----------------------------------------------------------------------
+    |  Static methods defined here:
+    |  
+    |  __new__(*args, **kwargs) from builtins.type
+    |      Create and return a new object.  See help(type) for accurate signature.
+    |  
+    |  ----------------------------------------------------------------------
+    |  Data descriptors defined here:
+    |  
+    |  denominator
+    |      the denominator of a rational number in lowest terms
+    |  
+    |  imag
+    |      the imaginary part of a complex number
+    |  
+    |  numerator
+    |      the numerator of a rational number in lowest terms
+    |  
+    |  real
+    |      the real part of a complex number
+
+   #+end_example
+
+   Python 的[[https://docs.python.org/3/][文档网站]]的内容，就是由这些代码中的函数文档生成。这种把人类可读和机器可读的文字写在一起的思想，叫做“literate programming”，目标是让程序既适合被机器执行，也适合被人类阅读。修改程序与修改文档要保持同步。相反，如果程序与文档写在不同地方，甚至由不同的人来撰写，那么大概率经年累月，它们会有很大出入，使用文档失去了应有的价值。因此从一开始贯彻 literate programming 的原则，有助于长远的程序可读性和易用性，注意体会其中的“一次”原则：文档和程序在说同一件事情，我们只在一个地方把它们全都写出来。
+   在通过书籍或课程系统性地对 Python 语言和环境的整形把握之后， 随手查阅 =help()= 所得的在线帮助非常实用，是灵活的“工具书”。我们有了基础之后，可以借助这个强大的帮助系统边学边用，学习和工作效率都会很高。
+

@@ -2,6 +2,359 @@
 #+author: 续本达
 #+PROPERTY: header-args :eval never-export :exports both
 
+* 程序的测试
+  在撰写较长较复杂的程序时，我最关心的问题是，到底如何保证程序正确呢？眼睛一直盯着它，多看几遍就对了吗？不是。
+  另一个相关的问题是，我已经写出一个正确的程序，但我修改完善它，如果保证从改动前后程序的逻辑不变呢？否则，如果一不小心改坏就闯祸了，还不如不完善。如何快速确认完善后的程序是好的？
+  一个程序的中间结果应该当被人理解，是“透明”原则的要求，可以通过调试来确保程序的正确性。但是问题远没有这么简单，如果我们 _每次_ 都使用程序调试方法如 =print= =breakpoint= 等检查中间结果，势必会让保证程序正确性的工作变得重复乏味，成为自己的负担。
+  “一次”原则应用到这里，要求我们写一个自动的测试程序，判断主程序的正确性。每次主程序有修改，都自动运行测试程序，确认原有功能是否正确。有时甚至我们在写主程序之前，应当先把测试程序写好，给定特定的输入输出，用测试程序来定义主程序的功能。当主程序需要填加新功能时，也是首先扩展测试程序，再写主程序。这种开发的方式，叫做“测试驱动的研发”。在团队分工中，可以一个人写测试程序，另一个人写主程序，实现分工。
+  测试分为单元测试，用于确保某个函数的正确性，以及集成测试，用于保证程序总体（特别是各函数之间的接口）达到设计要求。研发的过程中，测试与主程序相辅相成，相互依赖着前进。
+  自动测试是有效避免“祖传代码”的途径。“祖传代码”意为一个长久使用但疏于维护的程序，因为依赖旧环境执行，兼容性极差。但是没有人敢于完善它，因为修改使程序损坏的代价远高于兼容性差带来的不便，随着时间的推移，程序变得越来越不好用，也越来越不可能被修改。破局的关键是测试程序，首先要通过测试来定义清楚，什么样的结果是“改得好”，什么样是“改坏了”。随后的主体完善就有了客观标准，得以顺利进行。测试和主程序像两条腿，交替前进。缺少了测试程序，一条腿无法走路，才变成了“祖传程序”。
+** 接口测试
+   接口的定义在大规模的项目极其重要，相比之下程序的具体实现甚至不那么核心了。在练习中，一定要注意输入与输出的格式定义，不能有任何差池。透明原则中，人类理解中间结果的大前提，是机器程序的输入输出符合约定的规范。这样规范，有些不近人情，看起来一样的 “3.500000000”， “3.5e0” ， “3.4999999999” 等，如果在规范之外，就可能造成后续程序的异常。
+   在复杂的大项目里，测试是解耦合的重要方法。软件工程的建议方案是，程序是否正常运行，满足输入输出要求，主要靠测试程序来对每个主程序进行单元测试，模拟上游的合法输入，模拟下游的程序验证输出的合理性。这些测试尽可能是全自动的，有助于提升团队整体的效率。
+   现实世界里，在合法的范围内，输入数据也可能是千差万别。设计程序中，要考虑这种兼容性和灵活处理的空间。测试程序更应当从多种极端情形去构造测例，推动程序的兼容性。
+
+* Python 模块
+  Python 的模块是把函数等聚集起来的名字空间，由目录或者文件划定。它既可以由 Python 实现，也可以由 C 和 Fortran 等编译语言实现。半个多世纪积累下来的优秀程序，大多可以以 Python 模块的形式出现，被复用，实践“一次”原则。
+  用编译语言实现 Python 的模块，效率可以比纯 Python 的高，代价是撰写代码的难度增加，尤其在无既有代码时。但有些时候，程序效率非常重要，可以考虑用 C 或 Fortran 重新实现最影响性能的 Python 模块。
+  
+  Python 的模块都具有详实的在线帮助。
+  #+NAME: 58fb5fcf-35e8-4e0c-9728-79e4f0d0c4bc
+  #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb
+    import math
+    help(math)
+  #+end_src
+
+  #+RESULTS: 58fb5fcf-35e8-4e0c-9728-79e4f0d0c4bc
+  #+begin_example
+  Help on module math:
+
+  NAME
+      math
+
+  MODULE REFERENCE
+      https://docs.python.org/3.9/library/math
+
+      The following documentation is automatically generated from the Python
+      source files.  It may be incomplete, incorrect or include features that
+      are considered implementation detail and may vary between Python
+      implementations.  When in doubt, consult the module reference at the
+      location listed above.
+
+  DESCRIPTION
+      This module provides access to the mathematical functions
+      defined by the C standard.
+
+  FUNCTIONS
+      acos(x, /)
+          Return the arc cosine (measured in radians) of x.
+
+          The result is between 0 and pi.
+
+      acosh(x, /)
+          Return the inverse hyperbolic cosine of x.
+
+      asin(x, /)
+          Return the arc sine (measured in radians) of x.
+
+          The result is between -pi/2 and pi/2.
+
+      asinh(x, /)
+          Return the inverse hyperbolic sine of x.
+
+      atan(x, /)
+          Return the arc tangent (measured in radians) of x.
+
+          The result is between -pi/2 and pi/2.
+
+      atan2(y, x, /)
+          Return the arc tangent (measured in radians) of y/x.
+
+          Unlike atan(y/x), the signs of both x and y are considered.
+
+      atanh(x, /)
+          Return the inverse hyperbolic tangent of x.
+
+      ceil(x, /)
+          Return the ceiling of x as an Integral.
+
+          This is the smallest integer >= x.
+
+      comb(n, k, /)
+          Number of ways to choose k items from n items without repetition and without order.
+
+          Evaluates to n! / (k! * (n - k)!) when k <= n and evaluates
+          to zero when k > n.
+
+          Also called the binomial coefficient because it is equivalent
+          to the coefficient of k-th term in polynomial expansion of the
+          expression (1 + x)**n.
+
+          Raises TypeError if either of the arguments are not integers.
+          Raises ValueError if either of the arguments are negative.
+
+      copysign(x, y, /)
+          Return a float with the magnitude (absolute value) of x but the sign of y.
+
+          On platforms that support signed zeros, copysign(1.0, -0.0)
+          returns -1.0.
+
+      cos(x, /)
+          Return the cosine of x (measured in radians).
+
+      cosh(x, /)
+          Return the hyperbolic cosine of x.
+
+      degrees(x, /)
+          Convert angle x from radians to degrees.
+
+      dist(p, q, /)
+          Return the Euclidean distance between two points p and q.
+
+          The points should be specified as sequences (or iterables) of
+          coordinates.  Both inputs must have the same dimension.
+
+          Roughly equivalent to:
+              sqrt(sum((px - qx) ** 2.0 for px, qx in zip(p, q)))
+
+      erf(x, /)
+          Error function at x.
+
+      erfc(x, /)
+          Complementary error function at x.
+
+      exp(x, /)
+          Return e raised to the power of x.
+
+      expm1(x, /)
+          Return exp(x)-1.
+
+          This function avoids the loss of precision involved in the direct evaluation of exp(x)-1 for small x.
+
+      fabs(x, /)
+          Return the absolute value of the float x.
+
+      factorial(x, /)
+          Find x!.
+
+          Raise a ValueError if x is negative or non-integral.
+
+      floor(x, /)
+          Return the floor of x as an Integral.
+
+          This is the largest integer <= x.
+
+      fmod(x, y, /)
+          Return fmod(x, y), according to platform C.
+
+          x % y may differ.
+
+      frexp(x, /)
+          Return the mantissa and exponent of x, as pair (m, e).
+
+          m is a float and e is an int, such that x = m * 2.**e.
+          If x is 0, m and e are both 0.  Else 0.5 <= abs(m) < 1.0.
+
+      fsum(seq, /)
+          Return an accurate floating point sum of values in the iterable seq.
+
+          Assumes IEEE-754 floating point arithmetic.
+
+      gamma(x, /)
+          Gamma function at x.
+
+      gcd(*integers)
+          Greatest Common Divisor.
+
+      hypot(...)
+          hypot(*coordinates) -> value
+
+          Multidimensional Euclidean distance from the origin to a point.
+
+          Roughly equivalent to:
+              sqrt(sum(x**2 for x in coordinates))
+
+          For a two dimensional point (x, y), gives the hypotenuse
+          using the Pythagorean theorem:  sqrt(x*x + y*y).
+
+          For example, the hypotenuse of a 3/4/5 right triangle is:
+
+              >>> hypot(3.0, 4.0)
+              5.0
+
+      isclose(a, b, *, rel_tol=1e-09, abs_tol=0.0)
+          Determine whether two floating point numbers are close in value.
+
+            rel_tol
+              maximum difference for being considered "close", relative to the
+              magnitude of the input values
+            abs_tol
+              maximum difference for being considered "close", regardless of the
+              magnitude of the input values
+
+          Return True if a is close in value to b, and False otherwise.
+
+          For the values to be considered close, the difference between them
+          must be smaller than at least one of the tolerances.
+
+          -inf, inf and NaN behave similarly to the IEEE 754 Standard.  That
+          is, NaN is not close to anything, even itself.  inf and -inf are
+          only close to themselves.
+
+      isfinite(x, /)
+          Return True if x is neither an infinity nor a NaN, and False otherwise.
+
+      isinf(x, /)
+          Return True if x is a positive or negative infinity, and False otherwise.
+
+      isnan(x, /)
+          Return True if x is a NaN (not a number), and False otherwise.
+
+      isqrt(n, /)
+          Return the integer part of the square root of the input.
+
+      lcm(*integers)
+          Least Common Multiple.
+
+      ldexp(x, i, /)
+          Return x * (2**i).
+
+          This is essentially the inverse of frexp().
+
+      lgamma(x, /)
+          Natural logarithm of absolute value of Gamma function at x.
+
+      log(...)
+          log(x, [base=math.e])
+          Return the logarithm of x to the given base.
+
+          If the base not specified, returns the natural logarithm (base e) of x.
+
+      log10(x, /)
+          Return the base 10 logarithm of x.
+
+      log1p(x, /)
+          Return the natural logarithm of 1+x (base e).
+
+          The result is computed in a way which is accurate for x near zero.
+
+      log2(x, /)
+          Return the base 2 logarithm of x.
+
+      modf(x, /)
+          Return the fractional and integer parts of x.
+
+          Both results carry the sign of x and are floats.
+
+      nextafter(x, y, /)
+          Return the next floating-point value after x towards y.
+
+      perm(n, k=None, /)
+          Number of ways to choose k items from n items without repetition and with order.
+
+          Evaluates to n! / (n - k)! when k <= n and evaluates
+          to zero when k > n.
+
+          If k is not specified or is None, then k defaults to n
+          and the function returns n!.
+
+          Raises TypeError if either of the arguments are not integers.
+          Raises ValueError if either of the arguments are negative.
+
+      pow(x, y, /)
+          Return x**y (x to the power of y).
+
+      prod(iterable, /, *, start=1)
+          Calculate the product of all the elements in the input iterable.
+
+          The default start value for the product is 1.
+
+          When the iterable is empty, return the start value.  This function is
+          intended specifically for use with numeric values and may reject
+          non-numeric types.
+
+      radians(x, /)
+          Convert angle x from degrees to radians.
+
+      remainder(x, y, /)
+          Difference between x and the closest integer multiple of y.
+
+          Return x - n*y where n*y is the closest integer multiple of y.
+          In the case where x is exactly halfway between two multiples of
+          y, the nearest even value of n is used. The result is always exact.
+
+      sin(x, /)
+          Return the sine of x (measured in radians).
+
+      sinh(x, /)
+          Return the hyperbolic sine of x.
+
+      sqrt(x, /)
+          Return the square root of x.
+
+      tan(x, /)
+          Return the tangent of x (measured in radians).
+
+      tanh(x, /)
+          Return the hyperbolic tangent of x.
+
+      trunc(x, /)
+          Truncates the Real x to the nearest Integral toward 0.
+
+          Uses the __trunc__ magic method.
+
+      ulp(x, /)
+          Return the value of the least significant bit of the float x.
+
+  DATA
+      e = 2.718281828459045
+      inf = inf
+      nan = nan
+      pi = 3.141592653589793
+      tau = 6.283185307179586
+
+  FILE
+      /usr/lib/python3.9/lib-dynload/math.cpython-39-x86_64-linux-gnu.so
+
+
+  #+end_example
+  在 REPL 环境中，我们还可以输入 =math.= 后，按 TAB 建来给出后面可能接的函数，非常有助于去探索一个新的模块。看到不明白含义的 TAB 提示，配合 =help= 即可迅速掌握。
+  #+NAME: 88887ff3-44c4-42b0-86ba-e8f1836ef1ca
+  #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb
+    help(math.gcd)
+  #+end_src
+
+  #+RESULTS: 88887ff3-44c4-42b0-86ba-e8f1836ef1ca
+  : Help on built-in function gcd in module math:
+  : 
+  : gcd(*integers)
+  :     Greatest Common Divisor.
+  : 
+  可发现性，是 Python 易于入门的重要特征。
+
+  装载模块时，能够自定义名称，缩短程序的长度来增强可读性。
+  #+NAME: e3030744-e26c-4ce4-9589-aecbaad062e3
+  #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb
+    import math as m
+    m.factorial(10)
+  #+end_src
+
+  #+RESULTS: e3030744-e26c-4ce4-9589-aecbaad062e3
+  : 3628800
+
+** 多层模块的加载
+   当模块中的内容很多时，会被安排在不同层次的名字空间中。有多种等价的方法访问它们：
+   #+NAME: a6e8d710-386b-404c-be93-34df4fc4643f
+   #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb
+     import os
+     from os.path import abspath
+     from os.path import abspath as absp
+     abspath is os.path.abspath, abspath is absp
+   #+end_src
+
+   #+RESULTS: a6e8d710-386b-404c-be93-34df4fc4643f
+   : (True, True)
+   =os.path.abspath= 是 os 模块的 path 子模块中返回绝对路径的函数。直接使用很啰嗦，配合 =from= 会简洁很多。
 * 文件读取
   文本文件输入输出，可使用 =open()= 。用 for 循环可将打开的文件视为迭代器逐行读入。每次循环得到字符串可进一步处理。在 Python 当前文件夹的命令行中，下载一个文本文件样例，
   
@@ -64,3 +417,4 @@
   : 第二天 Python 入门
 
   有了输入输出的方法，我们可以把 Python 的字符串处理功能与程序结构、复合数据结构等结合起来，完成实用的文本处理工作。
+
