@@ -1804,7 +1804,36 @@ $ python3 sys-demo.py 第一个参数 第二个参数
 *** itertools 高级迭代器变换
 *** argparse 命令行传递参数
 *** turtle 海龟作图程序框架
-    
+    - 思想：控制海龟在画布上爬行，留下路径痕迹作图
+    #+NAME: 343f4c09-709c-4081-a987-0ee4cee2f390
+    #+begin_src python :results output :exports both
+      from turtle import *
+      color('red', 'yellow')
+      begin_fill()
+      while True:
+          forward(200)
+          left(170)
+          if abs(pos()) < 1:
+              break
+      end_fill()
+      done()
+    #+end_src
+
+    #+RESULTS: 343f4c09-709c-4081-a987-0ee4cee2f390
+
+    - 用途；娱乐、小学生学习编程
+    - 用途；粒子轨迹（？！）、路径积分（！！）
+
+*** turtle 留下路径痕迹作图
+    - 微观世界也是如此 \(c\bar{c} J/\psi \)
+      [[./fig/jpsi.png]]
+*** turtle 留下路径痕迹作图
+    - \(K\) 介子的发现，带电粒子有轨迹，中性粒子没有
+    #+attr_latex: :height 0.5\textheight
+    [[./fig/Kaon-discovery.pdf]]
+
+    云室照片； \(a,b\) 两根线来自 \(K\) 介子衰变。 (Rochester and Butler)
+
 * 2020年 第一周第四天
   :PROPERTIES:
   :EXPORT_FILE_NAME: p3
