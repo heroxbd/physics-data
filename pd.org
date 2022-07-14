@@ -2085,6 +2085,7 @@ magic(r=real, i=imag)
       - 格式限制
 *** turtle 海龟作图程序框架
     - 思想：控制海龟在画布上爬行，留下路径痕迹作图
+    - 准备：安装 TK 图形模块 =apt install python3-tk=
     #+NAME: 343f4c09-709c-4081-a987-0ee4cee2f390
     #+begin_src python :results output :exports both
       from turtle import *
@@ -2101,8 +2102,8 @@ magic(r=real, i=imag)
 
     #+RESULTS: 343f4c09-709c-4081-a987-0ee4cee2f390
 
-    - 用途；娱乐、小学生学习编程
-    - 用途；粒子轨迹（？！）、路径积分（！！）
+    - 用途：娱乐、小学生学习编程
+    - 用途：粒子轨迹（？！）、路径积分（！！）
 
 *** turtle 留下路径痕迹作图
     - 微观世界也是如此 \(c\bar{c} J/\psi \)
