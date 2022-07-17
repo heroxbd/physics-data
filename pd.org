@@ -2236,12 +2236,9 @@ $ man git add
   :END:
 ** 问卷结果
    - 难度如何？
-   [[./question2020a.jpeg]]
    - 你掌握了吗？
-   [[./question2020b.jpeg]]
 ** 问卷结果（续）
    - 小助教有帮助吗？
-   [[./question2020c.jpeg]]
 ** 同学们的建议反馈（一）
    #+attr_beamer: :overlay <+->
    - 希望可以多一点写代码的指导
