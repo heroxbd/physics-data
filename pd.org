@@ -2333,6 +2333,19 @@ $ man git add
      : [[0.80632296 0.53845746 0.00714721 0.84843748 0.32654466]
      :  [0.56930226 0.35817586 0.45108818 0.14484227 0.65463473]]
 
+*** 创建单位矩阵
+    - =np.eye= 读与大写字母 =I= 相同的读法
+      #+NAME: e02dc52a-fcaa-44cb-b1da-aeb50e13fa79
+      #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+        e = np.eye(4)
+        print(e)
+      #+end_src
+
+      #+RESULTS: e02dc52a-fcaa-44cb-b1da-aeb50e13fa79
+      : [[1. 0. 0. 0.]
+      :  [0. 1. 0. 0.]
+      :  [0. 0. 1. 0.]
+      :  [0. 0. 0. 1.]]
 *** 对角元
     - 取矩阵对角元
     #+NAME: c0223859-0d85-4e6c-9147-63e4411aa306
