@@ -2247,27 +2247,46 @@ $ man git add
     - 参考书：[[http://scipy-lectures.org/][Scipy Lecture Notes]]
 **** 安装 NumPy 和相关工具
      #+begin_src bash :exports both
-       apt install python3-numpy python3-h5py vitables
+       apt install python3-numpy python3-scipy python3-h5py vitables
      #+end_src
 
 *** SciPy: Scientific Python
     - NumPy 定义高效的数据结构
     - SciPy 在 NumPy 的基础上提供的数值计算算法
+      #+beamer: {\scriptsize
+      - scipy.cluster :: Vector quantization / Kmeans
+      - scipy.constants :: Physical and mathematical constants
+      - scipy.fftpack :: Fourier transform
+      - scipy.integrate :: Integration routines
+      - scipy.interpolate :: Interpolation
+      - scipy.io :: Data input and output
+      - scipy.linalg :: Linear algebra routines
+      - scipy.ndimage :: n-dimensional image package
+      - scipy.odr :: Orthogonal distance regression
+      - scipy.optimize :: Optimization
+      - scipy.signal :: Signal processing
+      - scipy.sparse :: Sparse matrices
+      - scipy.spatial :: Spatial data structures and algorithms
+      - scipy.special :: Any special mathematical functions
+      - scipy.stats :: Statistics
+      #+beamer: }
 ** NumPy 数组
 *** 创建和索引数组
     #+NAME: 876695f5-63ca-4f31-b2cd-e2b2d2d5ecef
     #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
-import numpy as np
+      import numpy as np
 
-nv = np.array([1,2,3,4,3,2,1])
-print(nv, nv[2], nv[5:], nv[-1])
+      nv = np.array([1,2,3,4,3,2,1])
+      print(nv, nv[2], nv[5:])
+      print(nv[-1], nv[::2])
     #+end_src
 
     #+RESULTS: 876695f5-63ca-4f31-b2cd-e2b2d2d5ecef
-    : [1 2 3 4 3 2 1] 3 [2 1] 1
+    : [1 2 3 4 3 2 1] 3 [2 1]
+    : 1 [1 3 3 1]
 
 **** 数组语法与列表相似，可能相互转换，区别在于：
-      - 数组 (Numpy array) 要求元素的数据类型被预设且一致，列表 (List) 无此要求
+      - 数组要求元素的数据类型被预设且一致，列表 (List) 无此要求
       - 数组的存储是一段连续的内存空间，列表不是
       - 以上两点使得在数值计算中，数组的效率比列表高很多
 
@@ -2304,15 +2323,15 @@ print(nv, nv[2], nv[5:], nv[-1])
     :  [0. 0. 0. 0.]
     :  [0. 0. 0. 0.]
     :  [0. 0. 0. 0.]]
-*** 随机矩阵的创建
-    #+NAME: 2859355f-fd4f-485b-bd79-0ce145be1e01
-    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
-      print(np.random.rand(2,5))
-    #+end_src
+**** 随机矩阵的创建
+     #+NAME: 2859355f-fd4f-485b-bd79-0ce145be1e01
+     #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+       print(np.random.rand(2,5))
+     #+end_src
 
-    #+RESULTS: 2859355f-fd4f-485b-bd79-0ce145be1e01
-    : [[0.80632296 0.53845746 0.00714721 0.84843748 0.32654466]
-    :  [0.56930226 0.35817586 0.45108818 0.14484227 0.65463473]]
+     #+RESULTS: 2859355f-fd4f-485b-bd79-0ce145be1e01
+     : [[0.80632296 0.53845746 0.00714721 0.84843748 0.32654466]
+     :  [0.56930226 0.35817586 0.45108818 0.14484227 0.65463473]]
 
 *** 对角元
     - 取矩阵对角元
@@ -2336,8 +2355,287 @@ print(np.diag(np.arange(5)))
     :  [0 0 2 0 0]
     :  [0 0 0 3 0]
     :  [0 0 0 0 4]]
+*** 叠放
+    #+NAME: b60be528-b75f-4927-8a86-10409123241f
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      np.tile(e,2)
+    #+end_src
 
+    #+RESULTS: b60be528-b75f-4927-8a86-10409123241f
+    : array([[1., 0., 0., 0., 1., 0., 0., 0.],
+    :        [0., 1., 0., 0., 0., 1., 0., 0.],
+    :        [0., 0., 1., 0., 0., 0., 1., 0.],
+    :        [0., 0., 0., 1., 0., 0., 0., 1.]])
+** 多维索引
+*** 数组的形状
+   - 创建一个 \( 10 \times 10 \) 的数组
+   #+NAME: 84efbc47-8ca1-465c-bb08-8562e9b80365
+   #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+     m = np.arange(100, dtype=int)
+     print(m)
+     m.shape = (10, 10)
+     print(m)
+   #+end_src
+
+   #+RESULTS: 84efbc47-8ca1-465c-bb08-8562e9b80365
+   #+begin_example
+   [ 0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23
+    24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47
+    48 49 50 51 52 53 54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71
+    72 73 74 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95
+    96 97 98 99]
+   [[ 0  1  2  3  4  5  6  7  8  9]
+    [10 11 12 13 14 15 16 17 18 19]
+    [20 21 22 23 24 25 26 27 28 29]
+    [30 31 32 33 34 35 36 37 38 39]
+    [40 41 42 43 44 45 46 47 48 49]
+    [50 51 52 53 54 55 56 57 58 59]
+    [60 61 62 63 64 65 66 67 68 69]
+    [70 71 72 73 74 75 76 77 78 79]
+    [80 81 82 83 84 85 86 87 88 89]
+    [90 91 92 93 94 95 96 97 98 99]]
+   #+end_example
+
+   - 修改 =shape= 可以把一维数组解释成二维的
+*** 二维索引
+    #+NAME: 0580a4b8-ba8e-436b-b374-ea89a644d66f
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      m6 = m[:6, :6]
+      m6[:, 2]
+    #+end_src
+
+    #+RESULTS: 0580a4b8-ba8e-436b-b374-ea89a644d66f
+    : array([ 2, 12, 22, 32, 42, 52])
+    #+Attr_LaTeX: :height 0.4\textheight
+    [[./fig/array-index.png]]
+*** 二维任意索引
+    - 分别传两个相等形状的索引数组，按索引数组状状排列对应的输出
+    #+NAME: 36a17f43-aa4c-40cc-83e9-ba4e5d5b05d9
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      print(m6)
+      print(m6[[1, 2, 3], [3, 4, 5]])
+      print(m6[[[1], [2]], [[3], [4]]])
+    #+end_src
+
+    #+RESULTS: 36a17f43-aa4c-40cc-83e9-ba4e5d5b05d9
+    : [[ 0  1  2  3  4  5]
+    :  [10 11 12 13 14 15]
+    :  [20 21 22 23 24 25]
+    :  [30 31 32 33 34 35]
+    :  [40 41 42 43 44 45]
+    :  [50 51 52 53 54 55]]
+    : [13 24 35]
+    : [[13]
+    :  [24]]
+** 数组运算
+*** 整体运算
+    - 一般的运算符都可以在数组上使用
+    - 可以省去循环，使用程序比 =map= 和列表生成更简明易懂
+    #+NAME: 516153c7-3d16-493e-9584-e31cee4d2fc3
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      n = np.arange(10)
+      print(n**2)
+      print([v**2 for v in n]) # 对比
+    #+end_src
+
+    #+RESULTS: 516153c7-3d16-493e-9584-e31cee4d2fc3
+    : [ 0  1  4  9 16 25 36 49 64 81]
+    : [0, 1, 4, 9, 16, 25, 36, 49, 64, 81]
+
+**** 索引与运算结合
+     #+NAME: 5dc0094b-ecaa-4a8b-8297-a1c8972650b6
+     #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+       nr = n[::-1]
+       print(nr + n)
+       print(n[::2] + 100)
+     #+end_src
+
+     #+RESULTS: 5dc0094b-ecaa-4a8b-8297-a1c8972650b6
+     : [9 9 9 9 9 9 9 9 9 9]
+     : [100 102 104 106 108]
+
+*** 数组的总体特征
+    - 求和、平均、中位数、方差、标准差
+      #+NAME: b2956027-a17e-4734-8b26-fd82e1c36931
+      #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+        np.sum(n), np.mean(n), np.median(n), np.var(n), np.std(n)
+      #+end_src
+
+      #+RESULTS: b2956027-a17e-4734-8b26-fd82e1c36931
+      : (45, 4.5, 4.5, 8.25, 2.8722813232690143)
+
+    - 选择性地对二维数组的某个维度求值，省去两重循环。
+      #+NAME: 727f4666-8370-4aaa-a1af-cd1c5c79fe6a
+      #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+        np.sum(m, axis=0), np.median(m, axis=1)
+      #+end_src
+
+      #+RESULTS: 727f4666-8370-4aaa-a1af-cd1c5c79fe6a
+      : (array([450, 460, 470, 480, 490, 500, 510, 520, 530, 540]),
+      :  array([ 4.5, 14.5, 24.5, 34.5, 44.5, 54.5, 64.5, 74.5, 84.5, 94.5]))
+
+*** 数组的扩展
+    - 把一维数组扩展成二维，补齐形状
+      #+NAME: 58ee37d5-027e-4a31-bd94-b2f4f77082ea
+      #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+        n[None, :] + n[:, None]
+      #+end_src
+
+      #+RESULTS: 58ee37d5-027e-4a31-bd94-b2f4f77082ea
+      #+begin_example
+      array([[ 0,  1,  2,  3,  4,  5,  6,  7,  8,  9],
+             [ 1,  2,  3,  4,  5,  6,  7,  8,  9, 10],
+             [ 2,  3,  4,  5,  6,  7,  8,  9, 10, 11],
+             [ 3,  4,  5,  6,  7,  8,  9, 10, 11, 12],
+             [ 4,  5,  6,  7,  8,  9, 10, 11, 12, 13],
+             [ 5,  6,  7,  8,  9, 10, 11, 12, 13, 14],
+             [ 6,  7,  8,  9, 10, 11, 12, 13, 14, 15],
+             [ 7,  8,  9, 10, 11, 12, 13, 14, 15, 16],
+             [ 8,  9, 10, 11, 12, 13, 14, 15, 16, 17],
+             [ 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]])
+      #+end_example
+
+    - 代替二重循环
+      #+NAME: 5f429c3a-9717-452e-963b-3fac426f272f
+      #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+        np.array([x + y for x in n for y in n]).reshape(10, 10)
+      #+end_src
+** 矩阵运算
+*** Pauli 矩阵
+    - 构造三个 Pauli 矩阵
+    #+NAME: cea0bdbe-0e4f-45fb-98a3-21f5d0c0142f
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      pauli = []
+      pauli.append(np.array([0,1,1,0]).reshape(2,2))
+      pauli.append(np.array([0,-1j,1j,0]).reshape(2,2))
+      pauli.append(np.array([1,0,0,-1]).reshape(2,2))
+      for m in pauli:
+          print(m)
+    #+end_src
+
+    #+RESULTS: cea0bdbe-0e4f-45fb-98a3-21f5d0c0142f
+    : [[0 1]
+    :  [1 0]]
+    : [[ 0.+0.j -0.-1.j]
+    :  [ 0.+1.j  0.+0.j]]
+    : [[ 1  0]
+    :  [ 0 -1]]
+
+*** 计算迹和本征值
+    #+NAME: 57e49468-a2c8-469f-aa42-ffbc7bd25a07
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      for m in pauli:
+          print("trace is {};".format(np.trace(m)), "eigenvalues are: ", np.linalg.eigvals(m))
+    #+end_src
+
+    #+RESULTS: 57e49468-a2c8-469f-aa42-ffbc7bd25a07
+    : trace is 0; eigenvalues are:  [ 1. -1.]
+    : trace is 0j; eigenvalues are:  [ 1.+0.j -1.+0.j]
+    : trace is 0; eigenvalues are:  [ 1. -1.]
+
+*** 验证交换关系
+    - \( [\sigma_i, \sigma_j] = 2i \epsilon_{ijk} \sigma^k \)
+      - (\epsilon_{ijk}) 是全反称张量，指标有相同时为 0，指标奇排列为 -1 ，偶排列时为 1。
+
+    #+NAME: ce310845-7c56-4745-9c76-0b43f0372771
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      def commute(a,b):
+          '''
+          commutation operator: ab-ba
+          '''
+          return np.dot(a, b) - np.dot(b, a)
+
+     for i in range(3):
+         l = (i+1) % 3
+         m = (i+2) % 3
+         if np.all(commute(pauli[i], pauli[l]) == 2j * pauli[m]):
+             print(f"[ pauli_{i} , pauli_{l} ] == 2i pauli_{m}")
+    #+end_src
+
+    #+RESULTS: ce310845-7c56-4745-9c76-0b43f0372771
+    : [ pauli_0 , pauli_1 ] == 2i pauli_2
+    : [ pauli_1 , pauli_2 ] == 2i pauli_0
+    : [ pauli_2 , pauli_0 ] == 2i pauli_1
+
+*** 课堂练习：彻底避免使用列表
+    - 构造 Pauli 矩阵时使用了列表和 for 循环，不够简洁
+    - 直接构造张量计算，省去交换关系验证中的循环
+    - 书写脚本解决
+** 矩阵乘法
+*** 元素乘法与矩阵乘法的区别
+    - 矩阵乘法是张量缩并的特例
+      \[ \sum_j a_{ij} b_{jk} = c_{ik} \]
+    - 元素乘法是逐个数字相乘
+      \[ a_{ij} b_{ij} = c_{ij} \]
+
+      #+NAME: 7738713a-b2e2-4077-989d-7fceade7f101
+      #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+        a = b = np.ones((2,2))
+        print(a * b)
+        print(a @ b)
+      #+end_src
+
+      #+RESULTS: 7738713a-b2e2-4077-989d-7fceade7f101
+      : [[1. 1.]
+      :  [1. 1.]]
+      : [[2. 2.]
+      :  [2. 2.]]
+** 复合数组 Structured Array
+*** 数组中的复合数据类型
+    - 元素从简单类型 int, float 变成自定义的
+    - 方便像表格一样组织数据
+    #+NAME: a094e0fa-8cd8-466f-8b45-f11eff571260
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      t = [('Height/cm', 'f4'), ('Weight/kg', 'f4'), ('Age', 'u2')]
+      r = np.empty(3, dtype=t)
+      r[0] = (170, 60, 20)
+      r[1] = (159, 45, 22)
+      r[2] = (185, 72, 26)
+      print(r)
+    #+end_src
+
+    #+RESULTS: a094e0fa-8cd8-466f-8b45-f11eff571260
+    : [(170., 60., 20) (159., 45., 22) (185., 72., 26)]
+*** 本质上是一维数组
+    #+NAME: c3063f91-6615-4bdc-b52d-9e7d763bb3fb
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      print(r.shape)
+    #+end_src
+
+    #+RESULTS: c3063f91-6615-4bdc-b52d-9e7d763bb3fb
+    : (3,)
+**** 取列
+     #+NAME: 958fa7a9-b6b7-462f-91fd-56af90274d16
+     #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+       print(r['Height/cm'])
+     #+end_src
+
+     #+RESULTS: 958fa7a9-b6b7-462f-91fd-56af90274d16
+     : [170. 159. 185.]
+
+**** 取行
+     #+NAME: 0a8b2fab-4d5b-443f-82e0-912b087fc4b0
+     #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+       r[0]
+     #+end_src
+
+     #+RESULTS: 0a8b2fab-4d5b-443f-82e0-912b087fc4b0
+     : (170., 60., 20)
+** SciPy 模块举例
+*** 课堂练习 =scipy.integrate=
+    - 数值计算积分
+      \[ \int^{\pi}_{-\pi} (1 + \cos \theta) \mathrm{d} \theta \]
 ** 2020年课程问卷反馈回顾
+*** 本人心目中的理想给分梯度
+    #+attr_beamer: :overlay <+->
+    - D :: 学会了用 Git，以 Git 提交了大多数作业。理解了数据处理的复现、透明、
+           一次和最佳工具原则。
+    - C :: 在同学、小/助教、老师的帮助下完成作业的基本要求。
+    - B :: 遇到困难，可以独立分析出错信息，独立查清原因并解决。遇到知识
+           盲点，可以通过自学围绕实现需要快速入门。
+    - A :: 独立思考，提出大作业的创新解决方法，效果出众。
+    - A+ :: 解决大作业中涉及的科学界的开放问题。
+
 *** 同学们的建议反馈（一）
     #+attr_beamer: :overlay <+->
     - 希望可以多一点写代码的指导
@@ -2357,16 +2655,6 @@ print(np.diag(np.arange(5)))
       作业的难度和给分高低服务于课程目标的设计。
 
       世界上本没有水课，太简单分太高就成了水课。
-
-*** 本人心目中的理想给分梯度
-    #+attr_beamer: :overlay <+->
-    - D :: 学会了用 Git，以 Git 提交了大多数作业。理解了数据处理的复现、透明、
-           一次和最佳工具原则。
-    - C :: 在同学、小/助教、老师的帮助下完成作业的基本要求。
-    - B :: 遇到困难，可以独立分析出错信息，独立查清原因并解决。遇到知识
-           盲点，可以通过自学围绕实现需要快速入门。
-    - A :: 独立思考，提出大作业的创新解决方法，效果出众。
-    - $A^+$ :: 解决大作业中涉及的科学界的开放问题。
 
 *** 同学们的建议反馈（二）
     - 我实在是太菜了，助教总是凶巴巴，可以温柔一点吗？
