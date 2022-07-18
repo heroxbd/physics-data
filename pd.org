@@ -2237,7 +2237,6 @@ $ man git add
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
   :EXPORT_BEAMER_HEADER+: \setbeamertemplate{footline}[frame number]  
   :EXPORT_BEAMER_THEME: Hannover
-  :EXPORT_BEAMER_COLOR_THEME: MedStarColors
   :EXPORT_BEAMER_FONT_THEME: professionalfonts
   :END:
 ** Python 科学计算
@@ -2850,10 +2849,31 @@ print(np.diag(np.arange(5)))
 * 第二周第二天
   :PROPERTIES:
   :EXPORT_FILE_NAME: p5
-  :EXPORT_BEAMER_HEADER+: \title{大作业}
+  :EXPORT_BEAMER_HEADER+: \title{数据存储格式}
+  :EXPORT_OPTIONS: H:2 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
+  :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+  :EXPORT_DATE: 2022-07-19 清华
+  :EXPORT_BEAMER_HEADER+: \author{续本达}
+  :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
+  :EXPORT_BEAMER_HEADER+: \setbeamertemplate{footline}[frame number]  
+  :EXPORT_BEAMER_THEME: Hannover
+  :EXPORT_BEAMER_FONT_THEME: professionalfonts
+  :END:
+** 数据格式
+*** 透明原则
+** CSV
+*** 简介
+** HDF5
+*** 简介
+** JSON
+*** 简介
+* 第二周第四天
+  :PROPERTIES:
+  :EXPORT_FILE_NAME: p7
+  :EXPORT_BEAMER_HEADER+: \title{Jupyter LIGO}
   :EXPORT_OPTIONS: H:1 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
   :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
-  :EXPORT_DATE: 2020-08-26 清华
+  :EXPORT_DATE: 2020-08-27 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
   :EXPORT_BEAMER_THEME: Boadilla
@@ -2899,19 +2919,7 @@ print(np.diag(np.arange(5)))
 
 ** 自定义大作业
    - 一项：重做2020年的粒子物理大作业
-* 第二周第四天
-  :PROPERTIES:
-  :EXPORT_FILE_NAME: p7
-  :EXPORT_BEAMER_HEADER+: \title{Jupyter LIGO}
-  :EXPORT_OPTIONS: H:1 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
-  :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
-  :EXPORT_DATE: 2020-08-27 清华
-  :EXPORT_BEAMER_HEADER+: \author{续本达}
-  :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
-  :EXPORT_BEAMER_THEME: Boadilla
-  :EXPORT_BEAMER_COLOR_THEME: MedStarColors
-  :EXPORT_BEAMER_FONT_THEME: professionalfonts
-  :END:
+
 ** 复习：大作业
    - 物理学是实验科学
    - 实验研究的两个方向：
