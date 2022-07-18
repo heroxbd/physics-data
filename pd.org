@@ -2533,7 +2533,7 @@ print(np.diag(np.arange(5)))
     : trace is 0j; eigenvalues are:  [ 1.+0.j -1.+0.j]
     : trace is 0; eigenvalues are:  [ 1. -1.]
 
-*** 验证交换关系
+*** 验证对易关系
     - \( [\sigma_i, \sigma_j] = 2i \epsilon_{ijk} \sigma^k \)
       - (\epsilon_{ijk}) 是全反称张量，指标有相同时为 0，指标奇排列为 -1 ，偶排列时为 1。
 
@@ -2561,6 +2561,34 @@ print(np.diag(np.arange(5)))
     - 构造 Pauli 矩阵时使用了列表和 for 循环，不够简洁
     - 直接构造张量计算，省去交换关系验证中的循环
     - 书写脚本解决
+*** 进阶练习：Dirac 矩阵的对易关系
+    \[
+\gamma^0 = \begin{pmatrix} 
+1 & 0 & 0 & 0 \\
+0 & 1 & 0 & 0 \\ 
+0 & 0 & -1 & 0 \\
+0 & 0 & 0 & -1 \end{pmatrix}, \quad
+\gamma^1 = \begin{pmatrix}
+0 & 0 & 0 & 1 \\
+0 & 0 & 1 & 0 \\
+0 & -1 & 0 & 0 \\
+-1 & 0 & 0 & 0 \end{pmatrix}
+\]
+
+\[
+\gamma^2 = \begin{pmatrix}
+0 & 0 & 0 & -i \\
+0 & 0 & i & 0 \\
+0 & i & 0 & 0 \\
+-i & 0 & 0 & 0 \end{pmatrix}, \quad
+\gamma^3 = \begin{pmatrix}
+0 & 0 & 1 & 0 \\
+0 & 0 & 0 & -1 \\
+-1 & 0 & 0 & 0 \\
+0 & 1 & 0 & 0 \end{pmatrix}
+ \]
+
+ \[ \{\gamma^\mu, \gamma^\nu\} = 2 \eta^{\mu\nu}I \]
 ** 矩阵乘法
 *** 元素乘法与矩阵乘法的区别
     - 矩阵乘法是张量缩并的特例
