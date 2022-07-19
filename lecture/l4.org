@@ -420,5 +420,14 @@
    : 本征值是[ 1.+0.j -1.+0.j]，迹是0j
    : 本征值是[ 1. -1.]，迹是0
 
+   使用高阶张量，省去迹中的 =for= 循环。
+   #+NAME: 7e0c1c3c-cb34-45ff-aac6-dcedd9a0cda4
+   #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+     np.trace(p_tensor, axis1 = 1, axis2 = 2)
+   #+end_src
+
+   #+RESULTS: 7e0c1c3c-cb34-45ff-aac6-dcedd9a0cda4
+   : array([0.+0.j, 0.+0.j, 0.+0.j])
+
 ** Python 工具的学习策略
    NumPy 的工具非常丰富，建议大家边学边用，带着问题实现程序。这样学到的东西都会马上应用。用得越多，印象越深。记得住的，都是有用的，不会学到无用的知识。因为工具实在浩如烟海，比如在Python软件库中，不下10万种工具，不可能都了解。只有学会在线调用文档，查阅和甄别学习资料是不变的。
