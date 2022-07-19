@@ -2076,12 +2076,101 @@ magic(r=real, i=imag)
     : 0.14285714285714285
 *** itertools 高级迭代器变换
     https://docs.python.org/3/library/itertools.html
+    - 丰富多样的迭代器操作，巧妙运用则功能强大。
 
+    #+NAME: 62a4f13b-8d0a-46a2-9ea4-69222d934f91
     #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb
+      import itertools as it
+
       data = [3, 4, 6, 2, 1, 9, 0, 7, 5, 8]
-      list(accumulate(data, max))
-      [3, 4, 6, 6, 6, 9, 9, 9, 9, 9]
+      list(it.accumulate(data, max))
     #+end_src
+
+    #+RESULTS: 62a4f13b-8d0a-46a2-9ea4-69222d934f91
+    : [3, 4, 6, 6, 6, 9, 9, 9, 9, 9]
+
+    #+NAME: 0113c6ed-c7d0-43c4-8a86-62d1bab10999
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      list(it.permutations(range(1, 4)))
+    #+end_src
+
+    #+RESULTS: 0113c6ed-c7d0-43c4-8a86-62d1bab10999
+    : [(1, 2, 3), (1, 3, 2), (2, 1, 3), (2, 3, 1), (3, 1, 2), (3, 2, 1)]
+*** itertools 取笛卡尔积
+      #+NAME: 09d14370-80d9-4eb6-9d60-ba4f265a9685
+      #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+        list(it.product('ABCD', repeat=2))
+      #+end_src
+
+      #+RESULTS: 09d14370-80d9-4eb6-9d60-ba4f265a9685
+      #+begin_example
+      [('A', 'A'),
+       ('A', 'B'),
+       ('A', 'C'),
+       ('A', 'D'),
+       ('B', 'A'),
+       ('B', 'B'),
+       ('B', 'C'),
+       ('B', 'D'),
+       ('C', 'A'),
+       ('C', 'B'),
+       ('C', 'C'),
+       ('C', 'D'),
+       ('D', 'A'),
+       ('D', 'B'),
+       ('D', 'C'),
+       ('D', 'D')]
+      #+end_example
+*** itertools 取可重组合
+
+    #+NAME: 893d7c0f-8a26-4113-9e54-557585efb35e
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      tuple(it.combinations_with_replacement('ABCD', 2))
+    #+end_src
+
+    #+RESULTS: 893d7c0f-8a26-4113-9e54-557585efb35e
+    #+begin_example
+    (('A', 'A'),
+     ('A', 'B'),
+     ('A', 'C'),
+     ('A', 'D'),
+     ('B', 'B'),
+     ('B', 'C'),
+     ('B', 'D'),
+     ('C', 'C'),
+     ('C', 'D'),
+     ('D', 'D'))
+    #+end_example
+*** itertools 使用 =zip= 合并两个迭代器
+    #+NAME: 844ede83-04e6-462d-91b8-3601415ee269
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      for i, s in zip(range(11), it.accumulate(range(11))):
+          print(f"从0加到 {i} 的和是 {s}")
+    #+end_src
+
+    #+RESULTS: 844ede83-04e6-462d-91b8-3601415ee269
+    #+begin_example
+    从0加到 0 的和是 0
+    从0加到 1 的和是 1
+    从0加到 2 的和是 3
+    从0加到 3 的和是 6
+    从0加到 4 的和是 10
+    从0加到 5 的和是 15
+    从0加到 6 的和是 21
+    从0加到 7 的和是 28
+    从0加到 8 的和是 36
+    从0加到 9 的和是 45
+    从0加到 10 的和是 55
+    #+end_example
+*** itertools 过滤器
+    #+NAME: 522450fe-3f29-46d5-a5c6-083a3a7c265d
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      list(it.filterfalse(lambda n: n % 13, range(100)))
+    #+end_src
+
+    #+RESULTS: 522450fe-3f29-46d5-a5c6-083a3a7c265d
+    : [0, 13, 26, 39, 52, 65, 78, 91]
+    
 *** argparse 命令行传递参数
     https://docs.python.org/3/library/argparse.html
     - 构造高级的命令选项
