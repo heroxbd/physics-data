@@ -2948,6 +2948,12 @@ print(np.diag(np.arange(5)))
   :EXPORT_BEAMER_THEME: Hannover
   :EXPORT_BEAMER_FONT_THEME: professionalfonts
   :END:
+** 课前准备
+*** 安装工具软件
+    - HDF5、CSV 和 JSON 的相关工具
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      apt install vitables python3-h5py hdf5-tools csvtool jq
+    #+end_src
 ** 数据格式
 *** 透明原则
     - 把大规模的数组高效地存储到磁盘上，是数据处理的关键。
@@ -2964,7 +2970,7 @@ print(np.diag(np.arange(5)))
     - 文本文件，易于阅读
     - 文本天然是一个表格
     - 适合传递整数，文字或者对精度没有要求的浮点数
-    - csv 工具
+    - CSV 工具
 ** HDF5
 *** 简介
 ** JSON
