@@ -2342,7 +2342,7 @@ $ man git add
     - 参考书：[[http://scipy-lectures.org/][Scipy Lecture Notes]]
 **** 安装 NumPy 和相关工具
      #+begin_src bash :exports both
-       apt install python3-numpy python3-scipy python3-h5py vitables
+       apt install python3-numpy python3-scipy python3-h5py
      #+end_src
 
 *** SciPy: Scientific Python
@@ -2918,7 +2918,7 @@ print(np.diag(np.arange(5)))
 *** 安装工具软件
     - HDF5、CSV 和 JSON 的相关工具
     #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-      apt install vitables python3-h5py hdf5-tools csvtool jq
+      apt install vitables python3-sip python3-h5py hdf5-tools csvtool jq
     #+end_src
 ** 数据格式
 *** 透明原则
@@ -3095,7 +3095,7 @@ cat hz.csv
 - 数据集(Dataset): 多维数组
 - 组(Group): 数据集的容器
 - 组可以嵌套，使用 `/` 分隔
-  - `/calibration/water/waveform`
+  - =/calibration/water/waveform=
 - 元数据(Metadata)：用于描述数据集或组的特征
 *** Python 的 HDF5 工具
 - h5py: 极简的工具库，允许 Python 调用 HDF5 的 C++ 库。
