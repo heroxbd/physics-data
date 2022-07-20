@@ -12,6 +12,13 @@
 #+PROPERTY: header-args :eval never-export :exports both
 #+sTARTUP: beamer
 
+#+name: savefig
+#+begin_src python :var figname="plot.pdf" width=3 height=3 :exports none
+  return f"""plt.savefig('{figname}', width={width}, height={height})
+  plt.clf()
+  '{figname}'"""
+#+end_src
+
 * 价值
   - 工具审美
 
@@ -3527,16 +3534,72 @@ head BBH_events_rewrite.json
     #+end_src
 ** 基础工具
 *** 图形
-- Matplotlib
-
-  - 数据画图和可视化工具，风格受 Matlab 影响
-  - 参考资料：[[https://scipy-lectures.org/][Scipy Lecture Notes]] 1.5
-
+    - Matplotlib
+      - 数据画图和可视化工具，风格受 Matlab 影响
+      - 参考资料：[[https://scipy-lectures.org/][Scipy Lecture Notes]] 1.5
 **** X Window System 也被称为 “X11”
   - 图形显示事实上的国际标准
   - Server-client 架构
   - Server 为显示图形提供服务 (=VcXsrv=)
   - Client 连接 X11 server，请求显示图形 (=xeyes=, =ViTables=, =Matplotlib=)
+** Matplotlib
+*** 一条直线
+    - 四点连成一条直线
+    #+begin_src python :results value file :session lecture-plot :exports both :noweb strip-export
+      from matplotlib import pyplot as plt
+
+      plt.plot([1,2,3,4])
+      <<savefig(figname="img/line.pdf")>>
+    #+end_src
+
+    #+attr_latex: :height 5cm
+    #+RESULTS:
+    [[file:img/line.pdf]]
+*** 只画四点，不连线
+    #+begin_src python :results value file :session lecture-plot :exports both :noweb strip-export
+      plt.plot([1,2,3,4], '.')
+      <<savefig(figname="img/points.pdf")>>
+    #+end_src
+
+    #+attr_latex: :height 5cm
+    #+RESULTS:
+    [[file:img/points.pdf]]
+
+*** 两条曲线
+    #+begin_src python :results value file :session lecture-plot :exports both :noweb strip-export
+      import numpy as np
+      t = np.linspace(-np.pi, np.pi, 100)
+      C, S = np.cos(t), np.sin(t)
+      plt.plot(t, C, label="cos")
+      plt.plot(t, S, label="sin")
+      plt.legend()
+      <<savefig(figname="img/sin.pdf")>>
+    #+end_src
+
+    #+attr_latex: :height 5cm
+    #+RESULTS:
+    [[file:img/sin.pdf]]
+
+*** 变成红色的点
+    #+begin_src python :results value file :session lecture-plot :exports both :noweb strip-export
+      plt.plot(t, C, "ro") # 改成红色的圆点
+      <<savefig(figname="img/red-circle.pdf")>>
+    #+end_src
+
+    #+attr_latex: :height 5cm
+    #+RESULTS:
+    [[file:img/red-circle.pdf]]
+
+*** 调整坐标范围
+    #+begin_src python :results value file :session lecture-plot :exports both :noweb strip-export
+      plt.plot(t, S)
+      plt.xlim(t.min() * 1.5, t.max() * 1.5)
+      <<savefig(figname="img/cood-range.pdf")>>
+    #+end_src
+
+    #+attr_latex: :height 5cm
+    #+RESULTS:
+    [[file:img/cood-range.pdf]]
 
 * 第二周第四天
   :PROPERTIES:
