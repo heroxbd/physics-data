@@ -3526,14 +3526,18 @@ head BBH_events_rewrite.json
   :EXPORT_BEAMER_THEME: Hannover
   :EXPORT_BEAMER_FONT_THEME: professionalfonts
   :END:
-** 课前准备
-*** 安装工具软件
-    - Matplotlib（Python 绘图） gpicview （图片查看器）
+** 基础工具
+*** 安装软件
+    - Matplotlib（Python 绘图） gpicview（图片查看器） mupdf（pdf 查看器）
     #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
       apt install python3-matplotlib gpicview
     #+end_src
-** 基础工具
-*** 图形
+
+*** 科学绘图
+    - A plot worth a thousand words. 图是描述科学对象的载体。
+      - 撰写论文甚至可理解为“看图说话”：论文的局部目标是用语言和公式把图片解释清楚。
+      - 绘制高质量的图，所花精力不比书写几千字少
+
     - Matplotlib
       - 数据画图和可视化工具，风格受 Matlab 影响
       - 参考资料：[[https://scipy-lectures.org/][Scipy Lecture Notes]] 1.5
@@ -3590,10 +3594,19 @@ head BBH_events_rewrite.json
     #+RESULTS:
     [[file:img/red-circle.pdf]]
 
-*** 调整坐标范围
+** 图片的调整
+*** 调整必要性
+    - 默认的图片，会有各类值得改进之处。
+      - 坐标轴取值范围、风格、含义
+      - 图片中的标记
+      - 字体大小
+*** 坐标轴
+    - 显示范围、标注
     #+begin_src python :results value file :session lecture-plot :exports both :noweb strip-export
       plt.plot(t, S)
       plt.xlim(t.min() * 1.5, t.max() * 1.5)
+      plt.xlabel("arc")
+      plt.ylabel("value")
       <<savefig(figname="img/cood-range.pdf")>>
     #+end_src
 
@@ -3601,6 +3614,135 @@ head BBH_events_rewrite.json
     #+RESULTS:
     [[file:img/cood-range.pdf]]
 
+*** 子图
+    - 并列绘图，调整图的显示范围
+      #+begin_src python :results value file :session lecture-plot :exports both :noweb strip-export
+        plt.subplot(1, 2, 1)
+        plt.plot(t, C)
+        plt.subplot(1, 2, 2)
+        plt.plot(t, S)
+        <<savefig(figname="img/twins.pdf")>>
+      #+end_src
+
+      #+attr_latex: :height 5cm
+      #+RESULTS:
+      [[file:img/twins.pdf]]
+** 常用形式
+*** 散点图
+    #+begin_src python :results value file :session lecture-plot :exports both :noweb strip-export
+      n = 1024
+      X = np.random.normal(0, 1, n)
+      Y = np.random.normal(0, 1, n)
+
+      plt.scatter(X, Y, alpha=0.2)
+      <<savefig(figname="img/scatter.pdf")>>
+    #+end_src
+
+    #+attr_latex: :height 5cm
+    #+RESULTS:
+    [[file:img/scatter.pdf]]
+
+*** 直方图
+    #+begin_src python :results value file :session lecture-plot :exports both :noweb strip-export
+      plt.hist(X, bins=32)
+      <<savefig(figname="img/histogram.pdf")>>
+    #+end_src
+
+    #+attr_latex: :height 5cm
+    #+RESULTS:
+    [[file:img/histogram.pdf]]
+
+** 多维元素的表现
+*** 平铺
+    - 表现简单的三维数据
+      #+begin_src python :results output :session lecture-plot :exports both
+        img = np.arange(100).reshape(10, 10)
+        print(img)
+      #+end_src
+
+      #+RESULTS:
+      #+begin_example
+      [[ 0  1  2  3  4  5  6  7  8  9]
+       [10 11 12 13 14 15 16 17 18 19]
+       [20 21 22 23 24 25 26 27 28 29]
+       [30 31 32 33 34 35 36 37 38 39]
+       [40 41 42 43 44 45 46 47 48 49]
+       [50 51 52 53 54 55 56 57 58 59]
+       [60 61 62 63 64 65 66 67 68 69]
+       [70 71 72 73 74 75 76 77 78 79]
+       [80 81 82 83 84 85 86 87 88 89]
+       [90 91 92 93 94 95 96 97 98 99]]
+      #+end_example
+*** 平铺（二）
+    #+begin_src python :results value file :session lecture-plot :exports both :noweb strip-export
+      plt.imshow(img)
+      plt.colorbar()
+      <<savefig(figname="img/map.pdf")>>
+    #+end_src
+
+    #+attr_latex: :height 5cm
+    #+RESULTS:
+    [[file:img/map.pdf]]
+*** 高斯分布的概率密度函数
+    #+begin_src python :results output :session lecture-plot :exports both
+      from scipy.stats import multivariate_normal
+
+      rv = multivariate_normal(mean=(0, 0), cov = ((1,0.5), (0.5,0.5)))
+      rv.pdf((0, 0))
+
+      x, y = np.mgrid[-1:1:.01, -1:1:.01]
+      pos = np.dstack((x, y))
+      prob_density = rv.pdf(pos)
+      print(pos.shape, prob_density.shape)
+    #+end_src
+
+    #+RESULTS:
+    : (200, 200, 2) (200, 200)
+
+*** 绘制等高线图
+    #+begin_src python :results value file :session lecture-plot :exports both :noweb strip-export
+      plt.contourf(x, y, prob_density)
+      plt.colorbar()
+      plt.xlabel("x")
+      plt.ylabel("y")
+      <<savefig(figname="img/gauss.pdf")>>
+    #+end_src
+
+    #+attr_latex: :height 5cm
+    #+RESULTS:
+    [[file:img/gauss.pdf]]
+*** =imshow= 的原点约定不同
+    #+begin_src python :results value file :session lecture-plot :exports both :noweb strip-export
+      plt.imshow(prob_density)
+      plt.colorbar()
+      <<savefig(figname="img/gauss-imshow.pdf")>>
+    #+end_src
+
+    #+attr_latex: :height 5cm
+    #+RESULTS:
+    [[file:img/gauss-imshow.pdf]]
+** 练习：Bessel 函数
+*** 第一类 Bessel 函数
+    #+begin_src python :results value file :session lecture-plot :exports both :noweb strip-export
+      from scipy import special
+
+      x = np.linspace(0, 6, 100)
+      y_values = [ special.jv(n, x) for n in range(0, 5) ] # 第一类 Bessel 函数
+      for i, y in enumerate(y_values):
+          plt.plot(x, y, label=f"Order {i}")
+      plt.legend()
+      <<savefig(figname="img/bessel.pdf")>>
+    #+end_src
+
+    #+attr_latex: :height 5cm
+    #+RESULTS:
+    [[file:img/bessel.pdf]]
+
+** 更多样例
+*** Matplotlib 官方图片展
+    https://matplotlib.org/stable/gallery/index.html
+
+    - 看到需要的图，点进去可查看代码
 * 第二周第四天
   :PROPERTIES:
   :EXPORT_FILE_NAME: p7
