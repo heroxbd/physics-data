@@ -3502,6 +3502,38 @@ json.dump(events, open("BBH_events_indent.json", 'w'), indent=2)
 head BBH_events_rewrite.json
     #+end_src
 
+* 第二周第三天
+  :PROPERTIES:
+  :EXPORT_FILE_NAME: p6
+  :EXPORT_BEAMER_HEADER+: \title{数据绘图}
+  :EXPORT_OPTIONS: H:2 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
+  :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+  :EXPORT_DATE: 2022-07-20 清华
+  :EXPORT_BEAMER_HEADER+: \author{续本达}
+  :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
+  :EXPORT_BEAMER_HEADER+: \setbeamertemplate{footline}[frame number]  
+  :EXPORT_BEAMER_THEME: Hannover
+  :EXPORT_BEAMER_FONT_THEME: professionalfonts
+  :END:
+** 课前准备
+*** 安装工具软件
+    - Matplotlib（Python 绘图） gpicview （图片查看器）
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      apt install python3-matplotlib gpicview
+    #+end_src
+** 基础工具
+*** 图形
+- Matplotlib
+
+  - 数据画图和可视化工具，风格受 Matlab 影响
+  - 参考资料：[[https://scipy-lectures.org/][Scipy Lecture Notes]] 1.5
+
+**** X Window System 也被称为 “X11”
+  - 图形显示事实上的国际标准
+  - Server-client 架构
+  - Server 为显示图形提供服务 (=VcXsrv=)
+  - Client 连接 X11 server，请求显示图形 (=xeyes=, =ViTables=, =Matplotlib=)
+
 * 第二周第四天
   :PROPERTIES:
   :EXPORT_FILE_NAME: p7
