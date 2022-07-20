@@ -3502,6 +3502,10 @@ json.dump(events, open("BBH_events_indent.json", 'w'), indent=2)
 head BBH_events_rewrite.json
     #+end_src
 
+** Parquet
+*** 简介
+    - Parquet 是从经过列读取优化的高性能数据格式。在 Java 语言生态的大
+      数据平台，例如 Hadoop、Spark 上非常流行。
 * 第二周第三天
   :PROPERTIES:
   :EXPORT_FILE_NAME: p6
