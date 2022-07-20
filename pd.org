@@ -3229,7 +3229,7 @@ h5dump -A hzg.h5
     - 方便像表格一样组织数据
     #+NAME: a094e0fa-8cd8-466f-8b45-f11eff571260
     #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
-      t = [('Height/cm', 'f4'), ('Weight/kg', 'f4'), ('Age', 'u2')]
+      t = [('Height', 'f4'), ('Weight', 'f4'), ('Age', 'u2')]
       r = np.empty(3, dtype=t)
       r[0] = (170, 60, 20)
       r[1] = (159, 45, 22)
@@ -3250,7 +3250,7 @@ h5dump -A hzg.h5
 **** 取列
      #+NAME: 958fa7a9-b6b7-462f-91fd-56af90274d16
      #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
-       print(r['Height/cm'])
+       print(r['Height'])
      #+end_src
 
      #+RESULTS: 958fa7a9-b6b7-462f-91fd-56af90274d16
@@ -3285,8 +3285,8 @@ h5dump people.h5
   GROUP "/" {
      DATASET "record" {
         DATATYPE  H5T_COMPOUND {
-           H5T_IEEE_F32LE "Height/cm";
-           H5T_IEEE_F32LE "Weight/kg";
+           H5T_IEEE_F32LE "Height";
+           H5T_IEEE_F32LE "Weight";
            H5T_STD_U16LE "Age";
         }
         DATASPACE  SIMPLE { ( 3 ) / ( 3 ) }
@@ -3325,7 +3325,7 @@ people
 
     #+RESULTS: 51188465-70de-4d34-a7b0-d391a787c822
     : array([(170., 60., 20), (159., 45., 22), (185., 72., 26)],
-    :       dtype=[('Height/cm', '<f4'), ('Weight/kg', '<f4'), ('Age', '<u2')])
+    :       dtype=[('Height', '<f4'), ('Weight', '<f4'), ('Age', '<u2')])
 
 ** JSON
 *** 简介 JavaScript Object Notation
