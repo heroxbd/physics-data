@@ -3530,11 +3530,11 @@ head BBH_events_rewrite.json
 *** 安装软件
     - Matplotlib（Python 绘图） gpicview（图片查看器） mupdf（pdf 查看器）
     #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-      apt install python3-matplotlib gpicview
+      apt install python3-matplotlib python3-tk gpicview mupdf
     #+end_src
 
 *** 科学绘图
-    - A plot worth a thousand words. 图是描述科学对象的载体。
+    - A plot worths a thousand words. 图是描述科学对象的载体。
       - 撰写论文甚至可理解为“看图说话”：论文的局部目标是用语言和公式把图片解释清楚。
       - 绘制高质量的图，所花精力不比书写几千字少
 
