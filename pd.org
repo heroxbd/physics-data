@@ -3688,7 +3688,7 @@ head BBH_events_rewrite.json
       from scipy.stats import multivariate_normal
 
       rv = multivariate_normal(mean=(0, 0), cov = ((1,0.5), (0.5,0.5)))
-      rv.pdf((0, 0))
+      print(rv.pdf((0, 0))) # (x, y) -> f(x, y)
 
       x, y = np.mgrid[-1:1:.01, -1:1:.01]
       pos = np.dstack((x, y))
@@ -3697,7 +3697,13 @@ head BBH_events_rewrite.json
     #+end_src
 
     #+RESULTS:
+    : 0.31830988618379075
     : (200, 200, 2) (200, 200)
+
+    - 给 \( (i, j) \) 着色为 \( f(x, y) \)
+      \[ (i, j) \to (x, y) \to f(x, y) \]
+      - =pos= :: \( (i, j) \to (x, y) \)
+      - =prob_density= :: \( (i, j) \to f(x, y) \)
 
 *** 绘制等高线图
     #+begin_src python :results value file :session lecture-plot :exports both :noweb strip-export
@@ -3721,6 +3727,29 @@ head BBH_events_rewrite.json
     #+attr_latex: :height 5cm
     #+RESULTS:
     [[file:img/gauss-imshow.pdf]]
+*** 绘制流线图
+    - 相图： \( (p, q) \) 的演化图， \( p = m \dot{q} \)
+    - 经典谐振子
+      - \( \dot{p} = - k q \)
+      - 取 \( m=k=1 \) 每个 \( (p, q) \) 位置对应
+        \[ (\dot{p}, \dot{q}) = (-q, p) \]
+*** 绘制流线图（二）
+    - 表现矢量场
+      \[ (i, j) \to (p, q) \to (\dot{p}, \dot{q}) \]
+    
+    #+begin_src python :results value file :session lecture-plot :exports both :noweb strip-export
+      P, Q = np.mgrid[-1:1:.002, -1:1:.002]
+      dP = -Q # \dot{p}
+      dQ = P  # \dot{q}
+      plt.streamplot(Q, P, dQ, dP)
+      <<savefig(figname="img/oscillator.pdf")>>
+    #+end_src
+
+    #+attr_latex: :height 5cm
+    #+RESULTS:
+    [[file:img/oscillator.pdf]]
+*** 思考练习：非谐振单摆的相图是什么样子
+    \[ m L \ddot{\theta} = - m g \sin \theta \]
 ** 练习：Bessel 函数
 *** 第一类 Bessel 函数
     #+begin_src python :results value file :session lecture-plot :exports both :noweb strip-export
