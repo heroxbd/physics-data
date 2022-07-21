@@ -3781,15 +3781,22 @@ head BBH_events_rewrite.json
   :EXPORT_DATE: 2022-07-21 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
-  :EXPORT_BEAMER_THEME: Boadilla
-  :EXPORT_BEAMER_COLOR_THEME: MedStarColors
+  :EXPORT_BEAMER_HEADER+: \setbeamertemplate{footline}[frame number]  
+  :EXPORT_BEAMER_THEME: Hannover
   :EXPORT_BEAMER_FONT_THEME: professionalfonts
   :END:
 ** 复习和提示
-*** 黑白棋大战
+*** 大作业准备
+     - 安装 GNU Make
+
+       #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+         apt install make-guile
+       #+end_src
+
+*** 黑白大战
     - 2022-07-21 17:59 截止
     - 提示：代码和 Git 提交说明的要求与小作业一致
-    - 切搓交流会： 2022-07-22 13:30 。包括但不限于
+    - 切搓交流会： 2022-07-22 13:30 -- 14:30 。包括但不限于
       - 天梯刷榜技巧
       - 算法策略开发
       - 那些趟过的坑
@@ -3798,6 +3805,7 @@ head BBH_events_rewrite.json
     - Matplotlib：点、线、场、向量场、标记
 ** 科学哲学视角下的实验物理
 *** 柏拉图世界观
+    #+Attr_LaTeX: :height 0.6\textheight
     [[./fig/SCI.png]]
 
     - 数学世界独立存在，由它推演出物理世界
@@ -3808,10 +3816,53 @@ head BBH_events_rewrite.json
       - 实验仪器的分辨率有限，我们在进行有损通信
 
 *** 举个例子
+    #+Attr_LaTeX: :height 0.6\textheight
     [[./fig/reconstruction.png]]
     - 建立模型解释物理世界发生的现象，通过统计方法反推本质。
 ** 蒙特卡罗方法
-*** 为什么
+*** 实验引子：探测效率估计
+    - 实验仪器往往很复杂
+      
+      有一个长度为 \( L=\SI{5}{\cm} \) 的细长棒状的 \( \alpha \) 放射源，棒的左端位于原点，棒体与 \( z \) 轴平行。放射源在棒中均匀分布，发射的 \( \alpha \) 粒子在空间中的角分布各向同性。
+
+      在 \( z \) 轴正向距离原点 \( D=\SI{14}{\cm} \) 处放置了一个圆盘状的探测器用来记录 \( \alpha \) 粒子，圆盘半径 \( R=\SI{7}{\cm} \)，轴线与 \( z \) 轴重合。
+      
+      #+attr_latex: :height 5cm
+      [[./fig/alpha-detection.png]]
+
+*** 一个大积分
+    - \( \alpha \) 被观察到与否，有多种因素影响
+      - 棒表面的哪里出射
+      - 向哪个方向出射
+      - +飞行过程中有没有被碰撞，有没有被电磁场影响+
+      - 有没有撞到圆盘上，撞上之后有没有信号
+      - 信号是不是足够大被仪器记录
+    - 所有因素做笛卡尔积
+    - ……只为了最终得到一个数字： \( \alpha \) 的探测效率 \( \in [0, 1] \)。
+
+*** 理论引子：量子论
+    - 微观粒子可能的路径按照作用量叠加起来，给出量子态的概率振幅。
+      \[ \int_{\vec{s}(t) \in S} \exp\left[-i \int \mathcal{L(\vec{s}, \dot{\vec{s}})} \mathrm{d} t\right] \mathrm{d} \vec{s} \]
+    - 连续统无穷维积分，无严格的数学测度定义。
+    - ……只办了最终得到一个数字：观测结果出现的概率
+    
+*** 计算积分
+    设 \( X_1, X_2, \cdots X_n \) 是独立同分布的随机变量序列，且 \( X_n \sim U[a,b] (b>a) \) ，\( f(x) \) 是 \( [a,b] \) 上的连续函数。
+
+    - 提供了一种计算定积分的方法
+    - 用计算机产生服从 \( [a,b] \) 上的均匀分布的随机数 \( \{ X_i \} \)，然后得随机序列 \( \{ f(X_i) \} \)，则：
+      \[ \int_a^b f(x) \mathrm{d} x \approx \frac{b-a}{n} \sum_{i=1}^n f(X_i) \]
+      
+*** 课堂练习：积分
+
+    - 数值计算积分
+      \[ \int^{\pi}_{-\pi} (1 + \cos \theta) \mathrm{d} \theta \]
+
+    - 几种方法举例
+      1. 手动矩形法
+      2. =scipy= 调库法
+      3. 蒙特卡罗法
+
 ** 大作业
 *** 大作业安排
     - 第一阶段 2022.07.21 - 2022.08.07
@@ -3840,31 +3891,20 @@ head BBH_events_rewrite.json
 *** 自定义大作业
     - 没有收到请求。
 
-*** 复习：大作业
+*** 大作业
     - 物理学是实验科学
     - 实验研究的两个方向：
       1. 演绎，模拟
       2. 分析
      
     - 三份可选的大作业
-      - https://github.com/physics-data/tpl_isoenergy2020
+      - 原子分子物理方向
 
-        凝聚态物理方向
+      - 粒子物理方向
 
-      - https://github.com/physics-data/tpl_PID
-
-        粒子物理方向，与 Ghost-Hunter 2020 中微子数据分析排位赛结合
-
-      - https://github.com/physics-data/tpl_cepheids
-
-        天体物理方向
+      - 天体物理方向
 
 *** Makefile 对流程的定义
-
-    - 安装
-
-      =apt install make=
-
     - 基本结构
 
  #+BEGIN_SRC makefile -i
@@ -3880,7 +3920,7 @@ head BBH_events_rewrite.json
     - Jupyter 从 IPython 的网页界面发展而来
     - 安装使用
 
-      1. apt install jupyter
+      1. =apt install jupyter=
       2. 配置文件
       3. 安装 jupyter kernel
       4. 本地网络测试
