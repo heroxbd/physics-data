@@ -3775,139 +3775,136 @@ head BBH_events_rewrite.json
 * 第二周第四天
   :PROPERTIES:
   :EXPORT_FILE_NAME: p7
-  :EXPORT_BEAMER_HEADER+: \title{Jupyter LIGO}
-  :EXPORT_OPTIONS: H:1 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
+  :EXPORT_BEAMER_HEADER+: \title{蒙特卡罗方法与大作业}
+  :EXPORT_OPTIONS: H:2 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
   :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
-  :EXPORT_DATE: 2020-08-27 清华
+  :EXPORT_DATE: 2022-07-21 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
   :EXPORT_BEAMER_THEME: Boadilla
   :EXPORT_BEAMER_COLOR_THEME: MedStarColors
   :EXPORT_BEAMER_FONT_THEME: professionalfonts
   :END:
-** 柏拉图世界观
-   [[./fig/SCI.png]]
+** 复习和提示
+*** 黑白棋大战
+    - 2022-07-21 17:59 截止
+    - 提示：代码和 Git 提交说明的要求与小作业一致
+    - 切搓交流会： 2022-07-22 13:30 。包括但不限于
+      - 天梯刷榜技巧
+      - 算法策略开发
+      - 那些趟过的坑
+*** 科学绘图
+    - 原则：复现、透明
+    - Matplotlib：点、线、场、向量场、标记
+** 科学哲学视角下的实验物理
+*** 柏拉图世界观
+    [[./fig/SCI.png]]
 
-   - 数学世界独立存在，由它推演出物理世界
-** 实验物理
-   #+Attr_LaTeX: :height 0.6\textheight
-   [[./fig/SCI.png]]
-   - 实验仪器是从物理世界到人类的一条信息通道
-     - 实验仪器的分辨率有限，我们在进行有损通信
+    - 数学世界独立存在，由它推演出物理世界
+*** 实验物理
+    #+Attr_LaTeX: :height 0.6\textheight
+    [[./fig/SCI.png]]
+    - 实验仪器是从物理世界到人类的一条信息通道
+      - 实验仪器的分辨率有限，我们在进行有损通信
 
-** 举个例子
-   [[./fig/reconstruction.png]]
-   - 建立模型解释物理世界发生的现象，通过统计方法反推本质。
-** 大作业安排
-   - 2021.8.25 - 2021.9.8
-     - 模拟实验测量
+*** 举个例子
+    [[./fig/reconstruction.png]]
+    - 建立模型解释物理世界发生的现象，通过统计方法反推本质。
+** 蒙特卡罗方法
+*** 为什么
+** 大作业
+*** 大作业安排
+    - 第一阶段 2022.07.21 - 2022.08.07
+      - 模拟实验测量
 
-   - 2021.9.8 - 2021.9.26 （草案）
-     - 分析实验数据
-     - 测量物理模型参数
-     - 发现物理规律
+    - 第二阶段 2022.08.04 - 2022.08.21
+      - 分析实验数据
+      - 测量物理模型参数
+      - 发现物理规律
 
-** 实验测量的模拟
-   - 输入 :: 物理对象的信息，随机因素的概率分布
-   - 输出 :: 多阶段，最终输出为模拟的实验测量原始数据
-   - 可视化 :: 中间结果用图表描述
-   - 采分 :: 各阶段的实现，最终输出的正确性，作业报告
+*** 实验测量的模拟
+    - 输入 :: 物理对象的信息，随机因素的概率分布
+    - 输出 :: 多阶段，最终输出为模拟的实验测量原始数据
+    - 可视化 :: 中间结果用图表描述
+    - 采分 :: 各阶段的实现，最终输出的正确性，作业报告
 
-** 分组
-   - 同学们先联络好，具体操作在 Github Classroom 上进行
-   - 每队至多三人
-     - 单人队：大作业得分 $\times 1.03$
-     - 三人队：每人大作业得分 = 队伍得分 $\times 0.95$
-     - 不同队伍间请勿直接交换代码
+*** 分组
+    - 同学们先联络好，组队信息在网络学堂提交
+    - 每队至多三人
+      - 单人队：大作业得分 $\times 1.03$
+      - 三人队：每人大作业得分 = 队伍得分 $\times 0.95$
+      - 不同队伍间请勿直接交换代码
 
-   - 大作业带有较高难度的附加任务，至多在（黑盒）满分基础上加 10%。
+    - 大作业带有较高难度的附加任务，至多在（黑盒）满分基础上加 10%。
 
-** 自定义大作业
-   - 一项：重做2020年的粒子物理大作业
+*** 自定义大作业
+    - 没有收到请求。
 
-** 复习：大作业
-   - 物理学是实验科学
-   - 实验研究的两个方向：
-     1. 演绎，模拟
-     2. 分析
+*** 复习：大作业
+    - 物理学是实验科学
+    - 实验研究的两个方向：
+      1. 演绎，模拟
+      2. 分析
      
-   - 三份可选的大作业
-     - https://github.com/physics-data/tpl_isoenergy2020
+    - 三份可选的大作业
+      - https://github.com/physics-data/tpl_isoenergy2020
 
-       凝聚态物理方向
+        凝聚态物理方向
 
-     - https://github.com/physics-data/tpl_PID
+      - https://github.com/physics-data/tpl_PID
 
-       粒子物理方向，与 Ghost-Hunter 2020 中微子数据分析排位赛结合
+        粒子物理方向，与 Ghost-Hunter 2020 中微子数据分析排位赛结合
 
-     - https://github.com/physics-data/tpl_cepheids
+      - https://github.com/physics-data/tpl_cepheids
 
-       天体物理方向
+        天体物理方向
 
-** Makefile 对流程的定义
+*** Makefile 对流程的定义
 
-   - 安装
+    - 安装
 
-     =apt install make=
+      =apt install make=
 
-   - 基本结构
+    - 基本结构
 
-#+BEGIN_SRC makefile -i
+ #+BEGIN_SRC makefile -i
 输出目标: 输入源
     执行的命令 $^ $@
-#+END_SRC
+ #+END_SRC
 
-      - =$^= 代表输入源
-      - =$@= 代表输出目标
+       - =$^= 代表输入源
+       - =$@= 代表输出目标
 
-** 复习：调试
-   - ViTables 是 Python 程序，解决其无法启动的 bug 的过程有借鉴价值。
+** Python 环境
+*** Jupyter
+    - Jupyter 从 IPython 的网页界面发展而来
+    - 安装使用
 
-   - 灵活使用搜索引擎和帮助系统
+      1. apt install jupyter
+      2. 配置文件
+      3. 安装 jupyter kernel
+      4. 本地网络测试
 
-     - 理解程序崩溃给出的错误信息
+*** Jupyter 的特点
+    - 最强大的优势：
 
-     - 理解 backtrace 中的函数调用过程
+      - 程序与文本混合编排，literate programming，鼓励了科学结果的复现。
 
-   - 控制变量，排除无关因素
+      - 文章和程序既然在描述同一件事，可以自然地写在一起。体现“一次”原则。
 
-     - 缩小包围圈，聚焦到极小可复现例子 (Minimal Working Example)。
-       
-       Minimal not Working Example
+    - 其它优势：
 
-   - 组合使用多种 debug 工具：
-     1. 使用 print() 输出变量的值
-     2. 交互式运行程序，REPL
-     3. 使用 breakpoint()
-** Jupyter
-   - Jupyter 从 IPython 的网页界面发展而来
-   - 安装使用
+      - 图文混排
 
-     1. apt install jupyter
-     2. 配置文件
-     3. 安装 jupyter kernel
-     4. 本地网络测试
+      - 支持 Python 之外的其它语言环境
 
-** Jupyter 的特点
-   - 最强大的优势：
+    - 弱点：
 
-     - 程序与文本混合编排，literate programming，鼓励了科学结果的复现。
+      - 网页上打字，没有强大的编辑器。(Emacs IPython Notebook，填补了空白)
 
-     - 文章和程序既然在描述同一件事，可以自然地写在一起。体现“一次”原则。
+      - 要进行高强度大规模的运算，需要与其它工具配合。不够成熟。
 
-   - 其它优势：
-
-     - 图文混排
-
-     - 支持 Python 之外的其它语言环境
-
-   - 弱点：
-
-     - 网页上打字，没有强大的编辑器。(Emacs IPython Notebook，填补了空白)
-
-     - 要进行高强度大规模的运算，需要与其它工具配合。不够成熟。
-
-     - 代码的复用需要额外步骤。
+      - 代码的复用需要额外步骤。
 
 * 第三周第三天
   :PROPERTIES:
