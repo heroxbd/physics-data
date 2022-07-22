@@ -3948,6 +3948,216 @@ head BBH_events_rewrite.json
 
       - 代码的复用需要额外步骤。
 
+* 第三周第一天
+  :PROPERTIES:
+  :EXPORT_FILE_NAME: p8
+  :EXPORT_BEAMER_HEADER+: \title{蒙特卡罗方法与大作业}
+  :EXPORT_OPTIONS: H:2 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
+  :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+  :EXPORT_DATE: 2022-07-21 清华
+  :EXPORT_BEAMER_HEADER+: \author{续本达}
+  :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
+  :EXPORT_BEAMER_HEADER+: \setbeamertemplate{footline}[frame number]  
+  :EXPORT_BEAMER_THEME: Hannover
+  :EXPORT_BEAMER_FONT_THEME: professionalfonts
+  :END:
+** 复习与提示
+*** 软件准备
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      apt install gawk sed coreutils
+    #+end_src
+*** 复习
+**** Git
+     - 队友分工合作，过去与未来的合作
+**** Python
+     - 程序结构，数据类型，数组张量，画图
+**** 技能学习的特点
+     - 归纳地学习黑客技术
+     - 先“不求甚解”再选择最重要的部分“寻根究底”，在两种学习模式间自由跳跃。
+       - 在麦克思维方程出现之前，已经有光学
+       - 不是只有做完实验才能吃饭
+** 命令行
+*** GNU 命令行界面：神秘的黑色魔法世界
+    - 熟悉掌握命令行界面对数据处理非常重要
+    - 我们已经接触的命令：
+      `ls`, `cd`, `rm`, `git`, `less`, `man`, `cat`, `pwd`
+**** 参考书
+     Jeroen Janssens, Data Science at the Command Line
+*** 为什么学习命令行
+- _复现_ 原则的保证
+  - Python 程序，有明确的功能，定义了输入和输出。
+  - 需要高效且可复现地整合协调各类程序，处理数据。
+- 体现 _透明_ 原则
+  - 数据的中间结果，可以用命令行工具查看 `cat`, `less`, `h5dump` ...
+  - 注：对应的图形工具也存在，可互相搭配。
+- 体现 _最佳工具_ 原则
+  - GNU 命令行目前是管理数据处理流程的最佳工具
+  - 人操纵计算机最高效的方式：快捷键
+
+*** 两周之后，你可能会成为：
+    [[http://hep.tsinghua.edu.cn/~orv/teaching/Yuki_Installs_Gentoo.mp4][ゆき Installs Gentoo]]
+
+*** 数字时代的常识
+- 我们购买设备，使用设备。
+  - 如果我们还可以理解设备，改造设备、修理设备和创造设备，生活会有什么变化？
+- 程序和命令行是掌控自己数字世界的重要一步
+  - 如果你不掌控自己的世界，别人就会代替你成为主人
+  - 菜单、窗口是他们设计好给我们用的，程序、命令是我们自己设计组合给自
+    己用的。
+**** 手机例子
+     - Gentoo Android Zen 3
+
+** 命令行的特点
+*** 命令行的易用性
+- 命令行是天然的 REPL
+- 命令行有最丰富的文件操作工具
+- 介于程序设计语言与图形界面之间
+- 是计算机系统的“母语”，用户于开发者的重叠更大
+  - 科学计算中，不是任何时候都有现成的工具可用，经常需要自己开发
+  - 依赖命令行可以缩小开发者与用户的鸿沟
+
+*** 命令行的整合性和扩展性
+- 所有的语言工具都可以从命令行调用
+
+  - 新的语言写成的命令行工具不断涌现，许多工具非常适合用于数据处理
+
+- 命令行是天然的“胶水”，整合各类语言协同工作
+  - 鼓励小巧精悍工具的组合，避免又长又难理解的马拉松程序出现
+  - 不论流行的语言 Perl, Python, Scala, …… 如何变化，命令环境的基本风格不变
+
+*** 命令行的自动性
+
+- 使用的命令可以轻易组成脚本，重复使用
+  - 图形界面不易记录制操作
+
+**** 命令行的普适性
+
+- GNU/Linux, 各种 Unix，Mac OS，Microsoft Windows WSL.
+- 世界顶级的超级计算机，云计算主机，智能手机，物联网设备都可用同一套命令行工具操作
+- 已有约50年历史，一定会继续存在
+
+*** 命令的类型
+
+- 可执行程序，例如 `ls`
+- 脚本，例如 Python 程序
+- Shell 内建命令，例如 `cd`
+- Shell 函数
+- 别名
+
+** 外壳
+*** 外壳 shell
+
+- 外壳 shell 是相对于操作系统内核 kernel 而言，与人类交互的部分
+- 有命令行 (Command Line Interface, CLI) 和图形 (Graphical User Interface, GUI)两种
+- Python 在 shell 之上运行
+
+*** 典型的命令行 shell：bash
+- GNU Bourne-Again SHell, 目前使用最为广泛
+- `man bash` 可阅读在线文档
+  #+NAME: 235a85b9-dc8c-458c-9a5f-fd580c21268b
+  #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+type ls
+  #+end_src
+
+  #+RESULTS: 235a85b9-dc8c-458c-9a5f-fd580c21268b
+  : ls is hashed (/bin/ls)
+
+  #+NAME: c50e7d7a-ac26-444a-8bae-f2d99a73c3b3
+  #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+type cd
+  #+end_src
+
+  #+RESULTS: c50e7d7a-ac26-444a-8bae-f2d99a73c3b3
+  : cd is a shell builtin
+  #+NAME: b8ec1d5b-d559-4e3a-a10b-1e663c51cbba
+  #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+type type
+  #+end_src
+
+  #+RESULTS: b8ec1d5b-d559-4e3a-a10b-1e663c51cbba
+  : type is a shell builtin
+** 标准输入输出
+*** 管道
+    - 把前一个程序的标准输出和后一个标准输入连接起来
+    - 无限串联
+    - 每个命令各司其职
+*** 复习 Python 的标准输入和输出
+- =input()= 标准输入
+- =print()= 标准输出
+*** 输出
+    #+NAME: 0dee74d9-e442-43fd-b539-9d3ba577f5a4
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+echo "I am using the command line!"
+    #+end_src
+
+    #+RESULTS: 0dee74d9-e442-43fd-b539-9d3ba577f5a4
+    : I am using the command line!
+
+**** 管道注入 =wc=
+     #+NAME: d566d5ac-7382-4db1-a1cf-3268defa4796
+     #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+echo "I am using the command line!" | wc -c
+     #+end_src
+
+     #+RESULTS: d566d5ac-7382-4db1-a1cf-3268defa4796
+     : 29
+*** 管道用于筛选
+    #+NAME: 2eb6a29f-9a9b-4db6-a763-1d7519efe5e3
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+seq 5
+    #+end_src
+
+    #+RESULTS: 2eb6a29f-9a9b-4db6-a763-1d7519efe5e3
+    : 1
+    : 2
+    : 3
+    : 4
+    : 5
+    #+NAME: f99e0092-be42-49b9-9f18-b1afaff9e175
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+seq 30 | grep 7
+    #+end_src
+
+    #+RESULTS: f99e0092-be42-49b9-9f18-b1afaff9e175
+    : 7
+    : 17
+    : 27
+    #+NAME: 9aa351f1-9fd2-47b8-8a6a-016c14ecbbe4
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+seq 100 | grep 7 | wc -c
+    #+end_src
+
+    #+RESULTS: 9aa351f1-9fd2-47b8-8a6a-016c14ecbbe4
+    : 56
+*** 重定向
+    - 标准输入和输出都可以被重定向到文件
+      #+NAME: 183678c5-7f3c-414e-b0a4-7499a6a3ec2c
+      #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+seq 100 > s100
+cat s100 | head
+      #+end_src
+
+      #+RESULTS: 183678c5-7f3c-414e-b0a4-7499a6a3ec2c
+      #+begin_example
+      1
+      2
+      3
+      4
+      5
+      6
+      7
+      8
+      9
+      10
+      #+end_example
+      #+NAME: 6b330a4d-e274-4144-a7b9-894f85e29d44
+      #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+wc -l < s100
+      #+end_src
+
+      #+RESULTS: 6b330a4d-e274-4144-a7b9-894f85e29d44
+      : 100
+
 * 第三周第三天
   :PROPERTIES:
   :EXPORT_FILE_NAME: pa
