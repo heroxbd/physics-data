@@ -182,8 +182,7 @@ Git 同步的时候，每个人有各自的计算机，需要进行分布式的�
 **** log
      =git log= 是查看历史，从这个命令可以看到修改的历史。为了防止数据坏掉，它有一个校验码，有作者、时间和改动的内容。
 **** pull, push
-     =git pull= 是从远程把差分都接收过来。=git push= 是把本地的差分推送到远程。
-
+     =git pull= 是从远程把差分都接收过来。=git push= 是把本地的差分推送到远程。这是团队协作中交换差分的基本方法。
 ** 作业
    git.tsinghua.edu.cn 上，看到“Self Introduction”的作业。作业中有三个文件 =README= 说明文件， =grade.py= 评分程序， =introduction.txt= 是要改的文件。
 
@@ -194,7 +193,6 @@ Git 同步的时候，每个人有各自的计算机，需要进行分布式的�
 
     验证配置，打 =ssh -T git@git.tsinghua.edu.cn= ，如果得到了 =Welcome to GitLab, @xxx!= ， “xxx”是你的用户名，就说明已经成功了，git.tsinghua.edu.cn 已经跟我们的密钥（虎符）对上了。在 =ssh -T git@git.tsinghua.edu.cn= 需要打一个 “Yes”，其逻辑是，我们把虎符给了 git.tsinghua.edu.cn，它要验证我们，我到底是不是我。但是我们也要验证这个它是不是它。它会给我们一个提示，git.tsinghua.edu.cn 给了我们一个虎符但是我们验证不了，因为是第一次用它，打“Yes”就接受了这样一个密码。接受了之后，就保证了每次跟 git.tsinghua.edu.cn 通信都必须得看到这个密钥才证明 git.tsinghua.edu.cn 真的，才会给它通行。
     
-
 *** 例子
     把作业 =git clone= 下来。把已有的程序 clone 到本地
 

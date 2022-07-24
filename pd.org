@@ -3911,15 +3911,16 @@ jq < BBH_events_rewrite.json
       - 天体物理方向
 
 *** Makefile 对流程的定义
+    - GNU Make 恰好可描述数据流水线的三要素：输入、输出与程序。
     - 基本结构
-
- #+BEGIN_SRC makefile -i
+      #+BEGIN_SRC makefile -i
 输出目标: 输入源
     执行的命令 $^ $@
- #+END_SRC
+      #+END_SRC
 
-       - =$^= 代表输入源
-       - =$@= 代表输出目标
+      - =$^= 代表输入源
+      - =$@= 代表输出目标
+    - =make -n= 用来测试即将执行的命令。
 
 ** Python 环境
 *** Jupyter
