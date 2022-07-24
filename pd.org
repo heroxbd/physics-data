@@ -3368,7 +3368,8 @@ wget 'http://hep.tsinghua.edu.cn/~orv/pd/BBH_events_v3.json'
     #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
       import json
 
-      events = json.load(open("BBH_events_v3.json","r"))
+      with open("BBH_events_v3.json","r") as ipt:
+          events = json.load(ipt)
       print(type(events)) # 就是一个字典
       print(events.keys())
     #+end_src
@@ -3376,6 +3377,7 @@ wget 'http://hep.tsinghua.edu.cn/~orv/pd/BBH_events_v3.json'
     #+RESULTS: a957548e-e023-4d16-96da-4b458a26b328
     : <class 'dict'>
     : dict_keys(['GW150914', 'LVT151012', 'GW151226', 'GW170104'])
+
 *** JSON 结构字典
     #+NAME: c73658ba-a357-42f0-b5b9-3fa037912893
     #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
@@ -3402,14 +3404,13 @@ events['GW150914']
 *** JSON 输出
     #+NAME: 2b151a96-1f27-4914-81a0-10a79b03756b
     #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
-json.dump(events, open("BBH_events_rewrite.json", 'w'))
+      with open("BBH_events_rewrite.json", 'w') as opt:
+          json.dump(events, opt)
     #+end_src
 
-    #+NAME: 4320c20d-2037-4a51-b498-a4a0c9c0dce2
     #+RESULTS: 2b151a96-1f27-4914-81a0-10a79b03756b
-    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-head BBH_events_rewrite.json
-    #+end_src
+
+    #+NAME: 4320c20d-2037-4a51-b498-a4a0c9c0dce2
 
     #+RESULTS: 4320c20d-2037-4a51-b498-a4a0c9c0dce2
     : {"GW150914": {"name": "GW150914", "fn_H1": "H-H1_LOSC_4_V2-1126259446-32.hdf5", "fn_L1": "L-L1_LOSC_4_V2-1126259446-32.hdf5", "fn_template": "GW150914_4_template.hdf5", "fs": 4096, "tevent": 1126259462.44, "utcevent": "2015-09-14T09:50:45.44", "m1": 41.743, "m2": 29.237, "a1": 0.355, "a2": -0.769, "approx": "lalsim.SEOBNRv2", "fband": [43.0, 300.0], "f_min": 10.0}, "LVT151012": {"name": "LVT151012", "fn_H1": "H-H1_LOSC_4_V2-1128678884-32.hdf5", "fn_L1": "L-L1_LOSC_4_V2-1128678884-32.hdf5", "fn_template": "LVT151012_4_template.hdf5", "fs": 4096, "tevent": 1128678900.44, "utcevent": "2015-10-12T09:54:43.44", "m1": 44.111, "m2": 11.205, "a1": 0.447, "a2": -0.434, "approx": "lalsim.SEOBNRv2", "fband": [43.0, 400.0], "f_min": 10.0}, "GW151226": {"name": "GW151226", "fn_H1": "H-H1_LOSC_4_V2-1135136334-32.hdf5", "fn_L1": "L-L1_LOSC_4_V2-1135136334-32.hdf5", "fn_template": "GW151226_4_template.hdf5", "fs": 4096, "tevent": 1135136350.65, "utcevent": "2015-12-26T03:38:53.65", "m1": 19.6427, "m2": 6.7054, "a1": 0.3998, "a2": -0.0396, "approx": "lalsim.SEOBNRv2", "fband": [43.0, 800.0], "f_min": 10.0}, "GW170104": {"name": "GW170104", "fn_H1": "H-H1_LOSC_4_V1-1167559920-32.hdf5", "fn_L1": "L-L1_LOSC_4_V1-1167559920-32.hdf5", "fn_template": "GW170104_4_template.hdf5", "fs": 4096, "tevent": 1167559936.6, "utcevent": "2017-01-04T10:11:58.60", "m1": 33.64, "m2": 24.82, "a1": -0.236, "a2": 0.024, "approx": "lalsim.SEOBNRv2", "fband": [43.0, 800.0], "f_min": 10.0}}
@@ -3495,19 +3496,22 @@ jq < BBH_events_rewrite.json
         "approx": "lalsim.SEOBNRv2",
         "fband": [
           43.0,
+          800.0
+        ],
+        "f_min": 10.0
+      }
+    }
     #+end_example
 
     #+RESULTS: 30491feb-725e-4dd9-a807-2611133241a4
 *** 美化输出
     #+NAME: d1c23627-8cfa-472c-a876-08ab21750325
     #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
-json.dump(events, open("BBH_events_indent.json", 'w'), indent=2)
+      with open("BBH_events_indent.json", 'w') as opt:
+          json.dump(events, opt, indent=2)
     #+end_src
 
     #+RESULTS: d1c23627-8cfa-472c-a876-08ab21750325
-    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-head BBH_events_rewrite.json
-    #+end_src
 
 ** Parquet
 *** 简介
