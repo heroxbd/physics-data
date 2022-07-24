@@ -235,7 +235,7 @@
 *** 读取 HDF5
     #+NAME: 97fb07d8-eb6d-41d9-b595-b2547471e631
     #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
-      with h5py.File("s100.h5") as ipt:
+      with h5py.File("s100.h5", 'r') as ipt:
           h5_s100 = ipt["s100"][...]
       print(h5_s100)
       print(h5_s100.dtype)
@@ -266,8 +266,19 @@
     #+RESULTS: e2610440-8ee1-4c21-9420-1a1eb4a35deb
     : h5py._hl.files.File
     它并不是字典，但是模拟了字典的接口。这是工具接口的常见设计思想，模仿一个大家都熟悉的工具的接口。
+    #+NAME: ef012941-abc4-4720-9478-d1b72876d13a
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      with h5py.File("s100-int8.h5") as ipt:
+          print(type(ipt.keys()))
+          print(list(ipt.keys()))
+          print(ipt["s100"])
+    #+end_src
 
-    当我们读 int8 的文件时，HDF5 自我描述可自动把 NumPy 的类型设置好。
+    #+RESULTS: ef012941-abc4-4720-9478-d1b72876d13a
+    : <class 'h5py._hl.base.KeysViewHDF5'>
+    : ['s100']
+    : <HDF5 dataset "s100": shape (10, 10), type "|i1">
+    i表示整数，1表示一个字节，即 int8。把 =s100= 取出时，HDF5 自我描述可自动把 NumPy 的类型设置好。
     #+NAME: 1f6a8fe9-ad8d-4a91-9d76-b7fcdd405a02
     #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
       with h5py.File("s100-int8.h5") as ipt:
@@ -290,385 +301,102 @@
      [90 91 92 93 94 95 96 97 98 99]]
     int8
     #+end_example
+    读取数据时后面的 =[...]= 或者 =[()]= ，用来把整个数据载入内存。但有时数据非常大，内存装不下，HDF5有方法把文件分块读入，逐块读入内存处理。此操作，叫做 “out of core computing”，又称 “external memory algorithm”。
+    类似于 HDF5 文件给出类字典的接口，它的数据集 dataset 提供的是类 NumPy 数组接口。后者是 Python 科学计算领域既有标准。下面展示 HDF5 数据集里，模拟 NumPy 数组的典型特征，包括数据类型和索引等。
+    #+NAME: e3adbea9-b1e8-4ed1-8c79-dd8e4bdafecb
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      with h5py.File("s100-int8.h5") as ipt:
+          print(ipt['s100'].dtype)
+          print(ipt['s100'][::2, ::3])
+    #+end_src
 
-我们可以 keys
-我不知道
-试一下
-好
-可以 keys
-我们看这里边
-类似于字典的
-h5py的文件里面
-有一个叫hz的元素
-我们就可以把这个元素取出来
-把它取出来
-我看这是
-它告诉我们
-这是HDF5的一个dataset
-名叫hz
-它的是10×10的一个矩阵
-它的态度
-i表示整数
-1表示一个字节
-那就是一个字节是
-是一个字节
-一个字节
-就是8位
-正好就是int8
-所以这也是python里面常见的
-因为python非常
-核心的数据类型
-就是字典
-另一个核心数据类型是列表
-所以很多时候
-如果一个操作的对象
-它可以抽象成一个字典的话
-它就会模拟成一个字典
-给我们来用
-如果它抽象成一个列表
-就会模拟成一个列表给我们用
-这样我们在使用python的时候
-很多对于字典的操作
-或者是函数
-各种各样的工具啊
-都可以无缝的移植到
-比如说h5py的文件上
-这是一个非常好的问题
-提醒我跟大家介绍一下
-它的字典的接口
-我们要特别的加一个...
-才能把或者是中小括号
-才可以把整个的数据
-读入内存内存
-但是我们这门课叫做大数据方法
-那么数据有些时候就会非常大
-一直大到连内存都装不下
-整个内存都装不下
-在这种情况下
-HDF5依旧是有方法
-它可以把文件分块读入
-虽然这个文件整个很大
-没办法一次都读到内存里面
-但是可以先读一块 再读这一块 
-从而完成这个数据处理
-不会把内存
-爆掉
-那么这种操作
-它的学名叫做out of core computing
-如果想深入了解的话
-可以搜索关键字
-或者 out of core learning 
-就是
-超大范围的
-或者是大数据驱动的这种
-机器学习
-有兴趣的同学
-可以去了解一下这个概念
-我们看同样的
-刚才说有两个基本的类型
-很多的库都会提供这样的接口
-一个是字典
-一个是列表
-那么numpy
-也是整个python科学计算的
-整个社区或者生态系统里面的
-最基本的
-也是最标准的数据格式
-所以很多的科学计算的库
-它都用numpy的语法格式
-来给大家提供接口
-比如说
-像我们刚才打开的文件
-就ipt我们看到它的类型
-是HDF5的dataset
-h5py里边的
-一种dataset的类型
-但是这种dataset的类型
-它其实也有numpy的
-非常多的典型的功能
-比如说我看它的shape
-和numpy的shape是一样的
-比如说我可以看到的dtype
-这是numpy数组的特点
-我们看dtype也是int8
-我们可以做别的
-比如说取第0行
-取第0行的第一列
-比如说可以这样
-每两行取一行
-然后每三列取一列
-这样都可以把它取出来
-和昨天我们做的索引
-都是一样的
-比如说我们
-好
-这个不可以
-它的功能
-没有实现完全
-应该是不可以
-不能倒着来
-这么着来
-是因为它
-特意地模拟了numpy的接口
-对于大部分功能都实现了
-个别的功能它没有实现
-比如说倒着
-倒着输出
-我看比如说从第三行开始
-这都可以
-所以说一个
- h5py的这样一个
-dataset
-它和numpy的
-array的用法是一样的
-但是
-它其实没有完全的读到内存里边
-它即使对应的dataset比内存还大
-我们依旧可以做这样的操作
-比如说我们几个希望
-取得每100行取一行
-把数组取出来
-那么可能我需要的内存
-实际上只需要1%
-但是一般的方法
-我需要把它全部读到内存里面
-再取得1%
-现在这个文件如果在硬盘上
-我就可以
-让这个文件
-在硬盘的前提下
-把需要的东西1%取出来
-这样会可以保证
-内存不会坏
-就说这是 out of core computing
- 一个核心的数据结构
-这个数据格式 hdf5
-为了展示
-数据对象
-实际上是存在硬盘上的
-这个事实
-我们可以先把句柄给关了
-我们把这个文件
-先把它关了
-关了之后
-这样不好
-你先把它打开
-先把它打开
-然后我们给它赋个值
-比如说它是 
-然后我们把这个文件关了之后
-再访问 core_hz
-我们发现它是close HDF5 dataset
-比如说它已经
-就文件被关闭了
-所以说这个数据已经反映不到了
-这时候我们要再取
-其中的元素的话
-它就会出问题
-因为这个文件已经关闭了
-所以说可见
-core_hz 它是存在于硬盘上的
-而不是在内存里边的
-但是如果我们重新来一遍
-如果我们core_hz
-当我们创建core_hz的时候
-把它都读到内存里面
-用中括号
-小括号都读到内存里面
-那么core_hz我们可以看到
-它其实是一个
-读成了一个numpyarray
-在内存里面
-所以说这是HDF5的一些
-针对大数据非常优化
-非常实用的特性
-那么刚才讲到有DATASET
-不仅有DATASET
-还有GROUP 我们怎么创建GROUP
-用 creat_group 命令
-比如说我们说
-要输入
-输出这个文件 hzg
-那么我们创建一下
-create_grou[
-这个group叫做 home
-这样就有了一个home
-有了home之后
-就相当于
-每个group相当于一个字典
-相当于我找到home之后
-这有一个新的字典
-我把它刚才的文件
-刚才数组把它放进去
-应该没问题
-我看一下
-我们看一下
-是我们刚刚创建的文件
-这个文件和刚才的文件没什么
-区别
-区别就在于我在这里边
-加了一个叫做home的group
-而dataset
-放到了 group里面
-这是唯一的区别
-那么从 group里面
-我们再把它读出来
-是一样的
-比如说
-with
-然后把它读出来
-再把 dataset 读出来
-再把它都放到内存里
-这样我们就把它读出来
-它为什么变成了int64呢
-没有问题
-好
-关于HDF5大家有什么问题吗
-包括刚才的写入和读出
-还有组
-我们暂时我们用不到metadata
-等一下我们遇到的时候
-再去详细的讲
-然后看来大家都没有疑问
-因为最开始我们没有创建组
-它就有一个默认的
-全局的组在那
-那个组我们其实看h5dump
-我们看到有一个全局的组
-像 POSIX 文件系统的
-根目录一样
-就是斜杠表示全局的组
-这是我们带home组的
-如果不带home组
-我们看
-它还是有一个默认的组在这
-调整分组
-可以
-刚才同学的问题是说
-如果我对于这样的一个
-DATASET hz  
-它在home组里边
-我如果把它想移动到其他的组里
-比如说
-这个根组怎么办呢
-移动的时候
-其实复制一步
-再把原来的删除就可以了
-没有一个特殊的移动的程序
-但是在操作的内部
-它没有把这个数据拷贝过来
-它只是改了一下
-链接的指针
-我们可以试一下
-比如说
-我们要做一个hz的移动
-把它从home组移到这个根图里面
-我们把它打开
-这样它就不是
-比如说我以
-我以读写的方式打开
-不可以读写
-那么我看一下
-它里面有home
-我开错了
-应该开那个g
-然后我看这里边有home
-Home里面有一个member
-这叫hz
-有同学探索了一个新的方法
-会这样
-这是一样的
-而且之前我们省略了最顶层的
-如果在这加个斜杠
-也应该是一样的
-所以可见它有非常多的写法
-在Python里面
-它可以抽象成一个字典
-套另一个字典
-HDF5它的原始的
-这种语法里边
-它可以用一个像路径的格式来写
-比如说
-我们可以把它移动到根的组里
-就这样被移动了
-这个时候应该
-不涉及数据的拷贝
-然后我们再把它删掉
-应该是这样del
-就可以把它删掉了
-然后我们把文件close
-我做了三个操作
-第一个操作是说
-把home里边的hz放到这个全局
-group里边
-第二步操作是把原来的删掉
-第三步是把它关掉
-我们看一下
-现在根的group
-它里边有两个元素
-一个元素是一个空的
-叫做home的group
-另一个元素是我刚才移过来的
-DATASET
-这样就可以完成移动的操作
-它没有一个
-我还不知道
-不知道它有没有移动的操作
-专门的移动操作
-但是可以先复制
-再删除
-完成
-复制的时候
-大家也不用担心
-它不是说
-把整个的文件
-又生成了一遍
-复制过去
-应该只是更新的一个指针
-大家还有什么疑问
-关于HDF5 我们可以看到HDF5
-它的表现力
-其实就非常强的
-它甚至里边有一个
-像目录结构的东西
-那么HDF5
-几乎可以表达出我们所遇到的
-所有的实验数据
-目前我还没有看到过反例
-而它又是一个开放的标准
-那么所以说
-HDF5就是大规模数据处理
-非常
-非常方便的格式
-值得一提的是
- Matlab
-有一种data的数据格式
-叫做.mat文件
-这个.mat文件
-其实就是HDF5 所以说可见
-hdf5格式
-在整个的
-不论是工业界
-还是学术界
-影响
-都是非常深远
-而且因为HDF5 它可以由其他的语言读进来
-所以说
-用python处理的一些 无论是输入
-还是输出
-那么有了HDF5之后
-即使你的
-你的队友不会用python
-他会用Matlab
-那么你可以
-你们之间可以
-通过一个数据的流水线
-用HDF5把它连接起来
-其中你们交换HDF5
-或者说它不会Matlab
-只会R
-那么用HDF5也是可以的
-最后一个格式
+    #+RESULTS: e3adbea9-b1e8-4ed1-8c79-dd8e4bdafecb
+    : int8
+    : [[ 0  3  6  9]
+    :  [20 23 26 29]
+    :  [40 43 46 49]
+    :  [60 63 66 69]
+    :  [80 83 86 89]]
+    不同的是 HDF5 dataset 支持 out of core computing。
+
+*** HDF5 的组
+    HDF5 的组可与文件系统中的文件夹类比。创建组使用 =creat_group= 函数。
+    #+NAME: b08a1445-1448-49e3-8a57-3167027883e9
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      with h5py.File("hzg.h5", "w") as opt:
+          opt.create_group("/home")
+          opt["home"]["s100"] = s100
+    #+end_src
+
+    #+RESULTS: b08a1445-1448-49e3-8a57-3167027883e9
+
+    在命令行确认。
+    #+NAME: 508b4e78-f2dd-430c-abbd-86bc8dec2e01
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      h5dump -A hzg.h5
+    #+end_src
+
+    #+RESULTS: 508b4e78-f2dd-430c-abbd-86bc8dec2e01
+    #+begin_example
+    HDF5 "hzg.h5" {
+    GROUP "/" {
+       GROUP "home" {
+          DATASET "s100" {
+             DATATYPE  H5T_STD_I64LE
+             DATASPACE  SIMPLE { ( 10, 10 ) / ( 10, 10 ) }
+          }
+       }
+    }
+    }
+    #+end_example
+    =s100= 的数组集被放在了 =home= 的组之下，注意 HDF5 文件都有一个 =/= 的默认的组。读取试试。
+    #+NAME: 4344a54b-a99c-4e50-ac21-1717d5e21ad2
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      with h5py.File("hzg.h5", "r") as ipt:
+          print(type(ipt["home"]))
+          print(type(ipt["home"]["s100"]))
+          print(type(ipt["home/s100"]))
+    #+end_src
+
+    #+RESULTS: 4344a54b-a99c-4e50-ac21-1717d5e21ad2
+    : <class 'h5py._hl.group.Group'>
+    : <class 'h5py._hl.dataset.Dataset'>
+    : <class 'h5py._hl.dataset.Dataset'>
+
+*** 移动数组集
+    HDF5 移动操作，可以用复制和删除组合实现。我们把 =/home/s100= 移动到 =/s100= 。
+    #+NAME: d1013e2e-bb6f-4e35-b36b-4ec6b1e14ace
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      with h5py.File("hzg.h5", "a") as ipt:
+          ipt["s100"] = ipt["home/s100"]
+          del ipt["home/s100"]
+    #+end_src
+
+    #+RESULTS: d1013e2e-bb6f-4e35-b36b-4ec6b1e14ace
+    这里打开文件的选项是“a”，意思为 append ，既读又写。
+
+    #+NAME: cf2b3ae6-82a4-4a16-bea4-4bd7b8bf6f4d
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      h5dump -A hzg.h5
+    #+end_src
+
+    #+RESULTS: cf2b3ae6-82a4-4a16-bea4-4bd7b8bf6f4d
+    #+begin_example
+    HDF5 "hzg.h5" {
+    GROUP "/" {
+       GROUP "home" {
+       }
+       DATASET "s100" {
+          DATATYPE  H5T_STD_I64LE
+          DATASPACE  SIMPLE { ( 10, 10 ) / ( 10, 10 ) }
+       }
+    }
+    }
+    #+end_example
+    文件修改后， =s100= 数据集与 =home= 组并列，都在同一个层次了。
+
+    HDF5 的组与数据集，与文件系统神似，有非常强的表现力，可以表征大多数的数据存储情形。它在大规模的数据处理中非常方便。例如 MATLAB 的 =mat= 文件，就是建立在 HDF5 标准之上。可见 HDF5 对工业界和学术界的影响深远。HDF5 的兼容性使得 Python 可以与其它语言，如 R、C++、MATLAB 进行数据交换，增加分工合作。
+    
 我会讲一下json
 json的作者
 其中曾经给叫做json的人道过歉
