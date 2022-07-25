@@ -3968,14 +3968,17 @@ jq < BBH_events_rewrite.json
   :END:
 ** 复习与提示
 *** 软件准备
+    - GNU 环境 :: 课程与作业环境
+      macOS 上需要额外指定使用 GNU 命令
     - gawk :: GNU awk 语言，数据驱动程序语言
       - Alfred Aho, Peter Weinberger, and Brian Kernighan
     - sed :: 文本流编辑器
     - coreutils :: GNU 核心命令
     - man-db :: 帮助文档阅读器
     - info :: 层级帮助文档阅读器
+    - curl :: 网络请求和下载器
     #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-      apt install gawk sed coreutils man-db info
+      apt install gawk sed coreutils man-db info curl
     #+end_src
 *** 复习
 **** Git
@@ -4219,6 +4222,44 @@ seq 100 | grep 7 | wc -c
 
     #+RESULTS: 9aa351f1-9fd2-47b8-8a6a-016c14ecbbe4
     : 56
+*** 保存管道的中间结果
+    - =tee=
+      #+NAME: ddbf382b-0914-489a-b138-bcc7d6a5fb11
+      #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+        seq 100 | grep 7 | tee number-seven.txt | wc -c
+      #+end_src
+
+      #+RESULTS: ddbf382b-0914-489a-b138-bcc7d6a5fb11
+      : 56
+
+      #+NAME: a3b9a60c-9492-4324-82b9-018be204f445
+      #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+        cat number-seven.txt
+      #+end_src
+
+      #+RESULTS: a3b9a60c-9492-4324-82b9-018be204f445
+      #+begin_example
+      7
+      17
+      27
+      37
+      47
+      57
+      67
+      70
+      71
+      72
+      73
+      74
+      75
+      76
+      77
+      78
+      79
+      87
+      97
+      #+end_example
+
 *** 重定向
     - 标准输入和输出都可以被重定向到文件
       #+NAME: 183678c5-7f3c-414e-b0a4-7499a6a3ec2c
@@ -4247,6 +4288,57 @@ wc -l < s100
 
       #+RESULTS: 6b330a4d-e274-4144-a7b9-894f85e29d44
       : 100
+*** 自由管道 FIFO named pipe
+    #+NAME: ffe09bc3-7c05-4f65-bd78-2903f5bd432a
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      mkfifo filter.pipe
+      seq 100 > filter.pipe &
+      grep 7 < filter.pipe
+    #+end_src
+
+    #+RESULTS: ffe09bc3-7c05-4f65-bd78-2903f5bd432a
+    #+begin_example
+    [1] 42881
+    7
+    17
+    27
+    37
+    47
+    57
+    67
+    70
+    71
+    72
+    73
+    74
+    75
+    76
+    77
+    78
+    79
+    87
+    97
+    [1]+  Done                    seq 100 > filter.pipe
+    #+end_example
+*** 任务控制
+    - bash 环境中 =&= 代表置于后台运行。
+      #+NAME: 9ae42332-2c50-45d7-83fa-e4e32a4ed0f9
+      #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+        sleep 1m &
+        sleep 2m &
+        jobs
+      #+end_src
+
+      #+RESULTS: 9ae42332-2c50-45d7-83fa-e4e32a4ed0f9
+      : [1] 43068
+      : [2] 43069
+      : [1]-  Running                 sleep 1m &
+      : [2]+  Running                 sleep 2m &
+
+    - =fg= 将任务拉至前台
+    - =bg= 将任务转至后台
+    - =^z= （Ctrl-z），将任务挂起
+    - =^c= 终结任务
 *** 计算器的四种写法
     - =awk= 派，使用 =awk= 语言
       #+NAME: ef584cec-3231-4b6d-91cc-051abb31e987
@@ -4452,6 +4544,42 @@ cat s100 | awk '{total+=$NF} END {print total}'
     NumPy.ipynb		   Visualization.ipynb
     NumPy-SciPy.ipynb
     #+end_example
+** bash 的运行模式
+*** 交互模式
+    - +REPL+
+**** 脚本模式
+     - 把命令集合起来，逐条执行
+     - 一边文件名以 =.sh= 结尾
+       #+NAME: 0812dcd3-dc3e-4b78-8a08-f278919efd47
+       #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+         echo "cat s100 | paste -s -d + | bc" > add-up-100.sh
+         bash add-up-100.sh
+       #+end_src
+
+       #+RESULTS: 0812dcd3-dc3e-4b78-8a08-f278919efd47
+       : 5050
+*** 让脚本可执行
+    - 在第一行填加脚本解释器 =#!/bin/bash=
+       #+NAME: b8f6cc07-2ac0-46b2-9ae4-1df3582ef24a
+       #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+         sed '1i#!/bin/bash' -i add-up-100.sh
+         cat add-up-100.sh
+       #+end_src
+
+       #+RESULTS: b8f6cc07-2ac0-46b2-9ae4-1df3582ef24a
+       : #!/bin/bash
+       : cat s100 | paste -s -d + | bc
+
+    - 赋予可执行权限
+      #+NAME: 2ee02d17-4049-4983-85c5-4a2522630c9a
+      #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+        chmod +x add-up-100.sh
+        ./add-up-100.sh
+      #+end_src
+
+      #+RESULTS: 2ee02d17-4049-4983-85c5-4a2522630c9a
+      : 5050
+
 ** 娱乐命令
 *** =sl=
     #+NAME: 442a3502-6826-45a2-9b22-f2e3591f6295
@@ -4593,6 +4721,7 @@ apt-cache depends games-toys
 apt-cache depends games-all
     #+end_src
     - 欢迎大家以 merge request 的形式补充更多的游戏
+      - +尤其是能在校园网内联网的！+
 * 第三周第三天
   :PROPERTIES:
   :EXPORT_FILE_NAME: pa
