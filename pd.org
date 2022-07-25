@@ -4727,159 +4727,160 @@ apt-cache depends games-all
     #+end_src
     - 欢迎大家以 merge request 的形式补充更多的游戏
       - +尤其是能在校园网内联网的！+
-* 第三周第三天
+* 第三周第二天
   :PROPERTIES:
-  :EXPORT_FILE_NAME: pa
+  :EXPORT_FILE_NAME: p9
   :EXPORT_BEAMER_HEADER+: \title{GNU Make 的数据生产线}
-  :EXPORT_OPTIONS: H:1 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
+  :EXPORT_OPTIONS: H:2 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
   :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
-  :EXPORT_DATE: 2021-09-01 清华
+  :EXPORT_DATE: 2022-07-26 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
-  :EXPORT_BEAMER_THEME: Boadilla
-  :EXPORT_BEAMER_COLOR_THEME: MedStarColors
+  :EXPORT_BEAMER_HEADER+: \setbeamertemplate{footline}[frame number]  
+  :EXPORT_BEAMER_THEME: Hannover
   :EXPORT_BEAMER_FONT_THEME: professionalfonts
   :END:
-** 批量处理海量数据
-*** 命令行探索之后，要将数据处理方法自动化
-    - 调用很多命令和程序
-    - 写很多自定义的脚本
-    - 处理很多数据，有很多中间结果
-      - 中间结果的间的依赖关系可以很复杂
-    - 程序有更新怎么办？数据有更新怎么办？
-*** _复现_ 原则的要求 :B_exampleblock:
-    :PROPERTIES:
-    :BEAMER_env: exampleblock
-    :END:
-    要记录下来以什么样的顺序和参数运行什么命令，执行什么程序。
+** GNU Make
+*** 批量处理海量数据
+**** 命令行探索之后，要将数据处理方法自动化
+     - 调用很多命令和程序
+     - 写很多自定义的脚本
+     - 处理很多数据，有很多中间结果
+       - 中间结果的间的依赖关系可以很复杂
+     - 程序有更新怎么办？数据有更新怎么办？
+**** _复现_ 原则的要求                                       :B_exampleblock:
+     :PROPERTIES:
+     :BEAMER_env: exampleblock
+     :END:
+     要记录下来以什么样的顺序和参数运行什么命令，执行什么程序。
 
-** 数据流水线的构造目标
-   - 把流程系统化成输入、输出与过程三要素。
-     - 而向数据编程，data-driven programming
-   - 系统表达输入数据、输出数据和中间结果的依赖关系。
-   - 高效执行，包括并行处理和整合超级计算机等。
-   - 错误恢复
-     - 修正错误后，可以从最后一步正确的数据开始继续执行。
+*** 数据流水线的构造目标
+    - 把流程系统化成输入、输出与过程三要素。
+      - 而向数据编程，data-driven programming
+    - 系统表达输入数据、输出数据和中间结果的依赖关系。
+    - 高效执行，包括并行处理和整合超级计算机等。
+    - 错误恢复
+      - 修正错误后，可以从最后一步正确的数据开始继续执行。
 
-** Make
-   - =make= 工具已经有 40 多年的历史，最初是用来管理 C 语言程序的编译。
-     - 根据依赖关系决定命令执行顺序
-     - 正好满足我们的所有需求
-   - =GNU make= 是 =GNU= 运动中，对 =make= 进行的招展，更加适合管理数据
-     - =GNU= : =GNU is Not Unix=
-     - 注意其与 BSD Make 的区别，必要时请使用 =gmake= 。
-     - 通过 =make --version= 查看版本
-*** 作用
-    1. 实现 _复现_ 原则
-    2. 管理程序运行，在超级计算机上运行
-    3. 从错误中恢复
-** Makefile
-   - 安装
-     #+BEGIN_SRC bash
-apt install make-guile make-doc
-     #+END_SRC
+*** Make
+    - =make= 工具已经有 40 多年的历史，最初是用来管理 C 语言程序的编译。
+      - 根据依赖关系决定命令执行顺序
+      - 正好满足我们的所有需求
+    - =GNU make= 是 =GNU= 运动中，对 =make= 进行的招展，更加适合管理数据
+      - =GNU= : =GNU is Not Unix=
+      - 注意其与 BSD Make 的区别，必要时请使用 =gmake= 。
+      - 通过 =make --version= 查看版本
+**** 作用
+     1. 实现 _复现_ 原则
+     2. 管理程序运行，在超级计算机上运行
+     3. 从错误中恢复
+*** Makefile
+    - 安装
+      #+BEGIN_SRC bash
+ apt install make-guile make-doc
+      #+END_SRC
 
-     - =make-guile= 在 =make= 的基础上提供了 =scheme= 语言的支持。
+      - =make-guile= 在 =make= 的基础上提供了 =scheme= 语言的支持。
 
-     - =scheme= 语言是 =LISP= 语言的一支，是历史悠久的人工智能语言。
-       - =LISP= 与 =fortran= 是最早的高级编程语言，都出现在 1960 年代。
+      - =scheme= 语言是 =LISP= 语言的一支，是历史悠久的人工智能语言。
+        - =LISP= 与 =fortran= 是最早的高级编程语言，都出现在 1960 年代。
 
-   - 文档
-     #+BEGIN_SRC bash
-info make     
-man make
-     #+END_SRC
+    - 文档
+      #+BEGIN_SRC bash
+ info make     
+ man make
+      #+END_SRC
      
-     参考书：John Graham Cumming, The GNU Make Book
+      参考书：John Graham Cumming, The GNU Make Book
 
-   - 基本语法：清晰写明输入数据，输出数据和计算方法
+    - 基本语法：清晰写明输入数据，输出数据和计算方法
 
-     #+BEGIN_SRC makefile -i
+      #+BEGIN_SRC makefile -i
 target: source
 	program source target #如何做
-     #+END_SRC
+      #+END_SRC
 
-** 变量
-   - 变量取值
-     #+BEGIN_SRC makefile -i
+*** 变量
+    - 变量取值
+      #+BEGIN_SRC makefile -i
 a:=1
 $(info $(a))
-     #+END_SRC
+      #+END_SRC
 
-     - 调用时使用 =$( )=
-   - _一次_ 原则，避免重复
-     #+BEGIN_SRC makefile -i
+      - 调用时使用 =$( )=
+    - _一次_ 原则，避免重复
+      #+BEGIN_SRC makefile -i
 target: source
 	program source target #如何做
 	program $^ $@ #如何做
-     #+END_SRC
+      #+END_SRC
 
-     #+BEGIN_SRC makefile -i
+      #+BEGIN_SRC makefile -i
 target: source1 source2 source3
 	program $< --reference $(word 2,$^) \
 		--location $(word 3,$^) -o $@
-     #+END_SRC
+      #+END_SRC
 
-** 调用命令
-   - Makefile 里可以调用 shell 命令，将其标准输出作为值。
-
-   #+BEGIN_SRC makefile -i
-sequence:=$(shell seq -w 00 99)
-file_list:=$(shell find . -name "*.h5")
-   #+END_SRC
-
-*** 字符串操作
-    进行字符串替代，可以使用
+*** 调用命令
+    - Makefile 里可以调用 shell 命令，将其标准输出作为值。
 
     #+BEGIN_SRC makefile -i
+sequence:=$(shell seq -w 00 99)
+file_list:=$(shell find . -name "*.h5")
+    #+END_SRC
+
+**** 字符串操作
+     进行字符串替代，可以使用
+
+     #+BEGIN_SRC makefile -i
      obs:=$(sequence:%=observation-%.h5)
      # 等价于
      obs:=$(patsubst %,observation-%.h5,$(sequence))
-    #+END_SRC
+     #+END_SRC
 
-** 一般匹配关系 pattern
-   - 处理 *.h5 文件，生成对应文件名的 =s/.h5/.png= 图形。
-     #+BEGIN_SRC makefile -i
+*** 一般匹配关系 pattern
+    - 处理 *.h5 文件，生成对应文件名的 =s/.h5/.png= 图形。
+      #+BEGIN_SRC makefile -i
 filelist:=...
 all: $(filelist:%.h5=%.png)
 
 %.png: %.h5
 	./plot-celestial.py $^ -o $@
-     #+END_SRC
+      #+END_SRC
 
-   - 与 shell 脚本比较：
-     #+BEGIN_SRC bash
-       for f in *.h5; do
-           ./plot-celestrial.py $f -o ${f/.h5/.png}
-       done
-     #+END_SRC
+    - 与 shell 脚本比较：
+      #+BEGIN_SRC bash
+        for f in *.h5; do
+            ./plot-celestrial.py $f -o ${f/.h5/.png}
+        done
+      #+END_SRC
 
-** Makefile 脚本的程序要素
-   - Makefile 更像一个 Functional Programming （函数式编程）的语言。
-   - 不再关注“执行什么操作”，而是关注“输入到输出的映射”。
-   - 循环：
+*** Makefile 脚本的程序要素
+    - Makefile 更像一个 Functional Programming （函数式编程）的语言。
+    - 不再关注“执行什么操作”，而是关注“输入到输出的映射”。
+    - 循环：
      
-     #+BEGIN_SRC makefile -i
+      #+BEGIN_SRC makefile -i
 # radius list
 rl:=$(shell seq -w 0.10 0.01 1.00)
 profile:=$(foreach d,x y z,$(rl:%=1t_+%_$(d).h5))
-     #+END_SRC
-   - 函数
-     #+BEGIN_SRC makefile -i
+      #+END_SRC
+    - 函数
+      #+BEGIN_SRC makefile -i
 define video
 $(1)/%.avi: $(1)/%.mp4
 	ffmpeg -i $$^ $$@
 endef
 
 $(eval $(foreach d,up down transverse,$(call video,$(d))))
-     #+END_SRC
+      #+END_SRC
 
-** 特殊目标
-   - =.PHONY= 代表无对应文件的目标
-   - =.DELETE_ON_ERROR= 如果出错就把坏文件删掉
-   - =.SECONDARY= 保留中间结果
+*** 特殊目标
+    - =.PHONY= 代表无对应文件的目标
+    - =.DELETE_ON_ERROR= 如果出错就把坏文件删掉
+    - =.SECONDARY= 保留中间结果
 
-     #+BEGIN_SRC makefile -i
+      #+BEGIN_SRC makefile -i
 .PHONY: all
 all: xxxx
 
@@ -4887,7 +4888,7 @@ all: xxxx
 .DELETE_ON_ERROR:
 # Keep intermediate files around
 .SECONDARY:
-     #+END_SRC
+      #+END_SRC
 
 * 第三周第四天
   :PROPERTIES:

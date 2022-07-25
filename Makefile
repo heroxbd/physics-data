@@ -1,4 +1,4 @@
-progress:=$(shell (seq 0 8))
+progress:=$(shell (seq 0 9))
 
 .PHONY: all slides notes jupyter clean
 all: notes slides jupyter
