@@ -3782,7 +3782,7 @@ jq < BBH_events_rewrite.json
   :EXPORT_BEAMER_HEADER+: \title{蒙特卡罗方法与大作业}
   :EXPORT_OPTIONS: H:2 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
   :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
-  :EXPORT_DATE: 2022-07-21 清华
+  :EXPORT_DATE: 2022-07-22 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
   :EXPORT_BEAMER_HEADER+: \setbeamertemplate{footline}[frame number]  
@@ -3956,10 +3956,10 @@ jq < BBH_events_rewrite.json
 * 第三周第一天
   :PROPERTIES:
   :EXPORT_FILE_NAME: p8
-  :EXPORT_BEAMER_HEADER+: \title{蒙特卡罗方法与大作业}
+  :EXPORT_BEAMER_HEADER+: \title{GNU 命令行}
   :EXPORT_OPTIONS: H:2 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
   :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
-  :EXPORT_DATE: 2022-07-21 清华
+  :EXPORT_DATE: 2022-07-25 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
   :EXPORT_BEAMER_HEADER+: \setbeamertemplate{footline}[frame number]  
@@ -3968,8 +3968,14 @@ jq < BBH_events_rewrite.json
   :END:
 ** 复习与提示
 *** 软件准备
+    - gawk :: GNU awk 语言，数据驱动程序语言
+      - Alfred Aho, Peter Weinberger, and Brian Kernighan
+    - sed :: 文本流编辑器
+    - coreutils :: GNU 核心命令
+    - man-db :: 帮助文档阅读器
+    - info :: 层级帮助文档阅读器
     #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-      apt install gawk sed coreutils
+      apt install gawk sed coreutils man-db info
     #+end_src
 *** 复习
 **** Git
@@ -3978,39 +3984,64 @@ jq < BBH_events_rewrite.json
      - 程序结构，数据类型，数组张量，画图
 **** 技能学习的特点
      - 归纳地学习黑客技术
-     - 先“不求甚解”再选择最重要的部分“寻根究底”，在两种学习模式间自由跳跃。
+     - 先“不求甚解”再择最重要的“寻根究底”，在两种学习模式间自由跳跃。
        - 在麦克思维方程出现之前，已经有光学
        - 不是只有做完实验才能吃饭
+*** Python 程序的支撑
+    #+BEGIN_SRC dot :file ./python-driver.pdf :cmdline -Kdot -Tpdf :eval yes :exports results
+      digraph python {
+      rankdir="LR";
+
+      I [label = CSV]
+      I -> P [label = 数据输入]
+      P [label = 程序1]
+      O [label = HDF5]
+      P -> O [label = 数据输出]
+      O -> Q [label = 数据输入]
+      Q [label = 程序2]
+      Q -> F
+      F [label = 结果图]
+      }
+    #+END_SRC
+    #+attr_latex: :height 2cm
+    #+RESULTS:
+    [[file:./python-driver.pdf]]
+
+    - 程序由 Python 书写，或者 R、C++ 等等任何最佳工具
+    - 透明数据的格式和可复现的结果图。
+**** 如何把它们组织起来？
+     - 如何管理 GB、TB 乃至 PB 级的输入输出数据？
+     - 如何高效地在不同组输入数据上重复运行亿万次？
+     - 四大基本原则在此依然适用。
 ** 命令行
 *** GNU 命令行界面：神秘的黑色魔法世界
-    - 熟悉掌握命令行界面对数据处理非常重要
     - 我们已经接触的命令：
-      `ls`, `cd`, `rm`, `git`, `less`, `man`, `cat`, `pwd`
+      =ls=, =cd=, =rm=, =git=, =less=, =man=, =cat=, =pwd=
+**** 为什么学习命令行
+ - _复现_ 原则的保证
+   - Python 程序，有明确的功能，定义了输入和输出。
+   - 需要高效且可复现地整合协调各类程序，处理数据。
+ - 体现 _透明_ 原则
+   - 数据的中间结果，可以用命令行工具查看 =cat=, =less=, =h5dump= ...
+   - 注：对应的图形工具也存在，可互相搭配。
+ - 体现 _最佳工具_ 原则
+   - GNU 命令行目前是文件和数据处理流程管理的最佳工具
+   - 人操纵计算机最高效的方式：快捷键
 **** 参考书
      Jeroen Janssens, Data Science at the Command Line
-*** 为什么学习命令行
-- _复现_ 原则的保证
-  - Python 程序，有明确的功能，定义了输入和输出。
-  - 需要高效且可复现地整合协调各类程序，处理数据。
-- 体现 _透明_ 原则
-  - 数据的中间结果，可以用命令行工具查看 `cat`, `less`, `h5dump` ...
-  - 注：对应的图形工具也存在，可互相搭配。
-- 体现 _最佳工具_ 原则
-  - GNU 命令行目前是管理数据处理流程的最佳工具
-  - 人操纵计算机最高效的方式：快捷键
 
 *** 两周之后，你可能会成为：
     [[http://hep.tsinghua.edu.cn/~orv/teaching/Yuki_Installs_Gentoo.mp4][ゆき Installs Gentoo]]
-
-*** 数字时代的常识
+    #+attr_latex: :height 5cm
+    [[./fig/gentoo.png]]
+*** 数字时代：如何更本质地与世界相连？
 - 我们购买设备，使用设备。
-  - 如果我们还可以理解设备，改造设备、修理设备和创造设备，生活会有什么变化？
+  - 如果可以理解设备，改造设备、修理设备和创造设备，生活会有什么变化？
 - 程序和命令行是掌控自己数字世界的重要一步
   - 如果你不掌控自己的世界，别人就会代替你成为主人
-  - 菜单、窗口是他们设计好给我们用的，程序、命令是我们自己设计组合给自
-    己用的。
+  - 菜单、窗口是他们设计好给我们用的，程序、命令是自己组合给自己用的。
 **** 手机例子
-     - Gentoo Android Zen 3
+     - [[https://www.youtube.com/watch?v=8mAf9WXlAJE][Gentoo on Android]]
 
 ** 命令行的特点
 *** 命令行的易用性
@@ -4021,14 +4052,14 @@ jq < BBH_events_rewrite.json
   - 科学计算中，不是任何时候都有现成的工具可用，经常需要自己开发
   - 依赖命令行可以缩小开发者与用户的鸿沟
 
-*** 命令行的整合性和扩展性
-- 所有的语言工具都可以从命令行调用
+**** 命令行的整合性和扩展性
+ - 所有的语言工具都可以从命令行调用
 
-  - 新的语言写成的命令行工具不断涌现，许多工具非常适合用于数据处理
+   - 新的语言写成的命令行工具不断涌现，许多工具非常适合用于数据处理
 
-- 命令行是天然的“胶水”，整合各类语言协同工作
-  - 鼓励小巧精悍工具的组合，避免又长又难理解的马拉松程序出现
-  - 不论流行的语言 Perl, Python, Scala, …… 如何变化，命令环境的基本风格不变
+ - 命令行是天然的“胶水”，整合各类语言协同工作
+   - 鼓励小巧精悍工具的组合，避免又长又难理解的马拉松程序出现
+   - 不论流行的语言 Perl、Python、Scala 如何变化，命令环境基本不变
 
 *** 命令行的自动性
 
@@ -4041,24 +4072,43 @@ jq < BBH_events_rewrite.json
 - 世界顶级的超级计算机，云计算主机，智能手机，物联网设备都可用同一套命令行工具操作
 - 已有约50年历史，一定会继续存在
 
-*** 命令的类型
-
-- 可执行程序，例如 `ls`
-- 脚本，例如 Python 程序
-- Shell 内建命令，例如 `cd`
-- Shell 函数
-- 别名
-
 ** 外壳
 *** 外壳 shell
-
+**** t                                                                :BMCOL:
+     :PROPERTIES:
+     :BEAMER_col: 0.7
+     :END:
 - 外壳 shell 是相对于操作系统内核 kernel 而言，与人类交互的部分
 - 有命令行 (Command Line Interface, CLI) 和图形 (Graphical User Interface, GUI)两种
 - Python 在 shell 之上运行
+***** 实际上 Python 也可以成为外壳环境
+      - Python 与 =bash= 平等，都是“用户态”程序 userspace
+      - =bash= GNU Bourne-Again SHell, 目前使用最为广泛，方便进行文件操作和调用命令
+        - =man bash= 可阅读在线文档
+**** i                                                                :BMCOL:
+     :PROPERTIES:
+     :BEAMER_col: 0.299
+     :END:
+    #+BEGIN_SRC dot :file ./shell.pdf :cmdline -Kdot -Tpdf :eval yes :exports results
+      digraph shell {
+      rankdir="BT";
+      node [shape=box]; H; K; S; P
+      H [label = 硬件]
+      H -> K [arrowsize=0.5]
+      K [label = "内核 kernel"]
+      K -> S [arrowsize=0.5]
+      S [label = "外壳 shell"]
+      S -> P [arrowsize=0.5]
+      P [label = 程序]
+      }
+    #+END_SRC
 
-*** 典型的命令行 shell：bash
-- GNU Bourne-Again SHell, 目前使用最为广泛
-- `man bash` 可阅读在线文档
+    #+attr_latex: :height 7cm
+    #+RESULTS:
+    [[file:./shell.pdf]]
+
+*** 命令的类型
+- 可执行程序，例如 =ls=
   #+NAME: 235a85b9-dc8c-458c-9a5f-fd580c21268b
   #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
 type ls
@@ -4066,29 +4116,64 @@ type ls
 
   #+RESULTS: 235a85b9-dc8c-458c-9a5f-fd580c21268b
   : ls is hashed (/bin/ls)
+- 脚本，例如 Python 程序
+  #+NAME: 4442c149-5223-4d74-affb-f3fc54d92b6b
+  #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+    type vitables
+    file $(realpath /usr/bin/vitables)
+  #+end_src
 
+  #+RESULTS: 4442c149-5223-4d74-affb-f3fc54d92b6b
+  : vitables is /usr/bin/vitables
+  : /usr/bin/vitables: Python script, ASCII text executable
+
+- Shell 内建命令，例如 =cd=
   #+NAME: c50e7d7a-ac26-444a-8bae-f2d99a73c3b3
   #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-type cd
+    type cd
+    type type
   #+end_src
 
   #+RESULTS: c50e7d7a-ac26-444a-8bae-f2d99a73c3b3
   : cd is a shell builtin
-  #+NAME: b8ec1d5b-d559-4e3a-a10b-1e663c51cbba
+  : type is a shell builtin
+*** 命令的类型（二）
+- Shell 函数
+  #+NAME: 2df81f46-300b-404f-a597-ec048702ead4
   #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-type type
+    function hello { :; }
+    type hello
   #+end_src
 
-  #+RESULTS: b8ec1d5b-d559-4e3a-a10b-1e663c51cbba
-  : type is a shell builtin
+  #+RESULTS: 2df81f46-300b-404f-a597-ec048702ead4
+  : hello is a function
+  : hello () 
+  : { 
+  :     :
+  : }
+
+- 别名 alias
+  #+NAME: 127c5876-45be-42c7-9f88-cefa032e6f06
+  #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+    alias vt='vitables -m r'
+    type vt
+  #+end_src
+
+  #+RESULTS: 127c5876-45be-42c7-9f88-cefa032e6f06
+  : vt is aliased to `vitables -m r'
+  
 ** 标准输入输出
-*** 管道
-    - 把前一个程序的标准输出和后一个标准输入连接起来
-    - 无限串联
-    - 每个命令各司其职
-*** 复习 Python 的标准输入和输出
-- =input()= 标准输入
-- =print()= 标准输出
+*** 概念
+   - 标准输入 standard input =stdin= (file descriptor 0)
+   - 标准输出 standard input =stdout= (fd 1)
+   - 标准报错 standard error =stderr= (fd 2)
+**** 管道
+     - 把前一个程序的标准输出和后一个标准输入连接起来
+     - 无限串联，每个命令各司其职
+**** 复习 Python 的标准输入和输出
+ - =input()= 标准输入
+ - =print()= 标准输出
+ - =print(..., file=sys.stderr)= 标准报错
 *** 输出
     #+NAME: 0dee74d9-e442-43fd-b539-9d3ba577f5a4
     #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
@@ -4162,7 +4247,352 @@ wc -l < s100
 
       #+RESULTS: 6b330a4d-e274-4144-a7b9-894f85e29d44
       : 100
+*** 计算器的四种写法
+    - =awk= 派，使用 =awk= 语言
+      #+NAME: ef584cec-3231-4b6d-91cc-051abb31e987
+      #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+cat s100 | awk '{total+=$NF} END {print total}'
+      #+end_src
 
+      #+RESULTS: ef584cec-3231-4b6d-91cc-051abb31e987
+      : 5050
+
+    - =Python= 派？Python 无法写成一行
+    - =paste= 派
+      #+NAME: e31e35fa-c7ac-4b92-b0fe-485c113bde2e
+      #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+        cat s100 | paste -s -d +
+        cat s100 | paste -s -d + | bc
+      #+end_src
+
+      #+RESULTS: e31e35fa-c7ac-4b92-b0fe-485c113bde2e
+      : 1+2+3+4+5+6+7+8+9+10+11+12+13+14+15+16+17+18+19+20+21+22+23+24+25+26+27+28+29+30+31+32+33+34+35+36+37+38+39+40+41+42+43+44+45+46+47+48+49+50+51+52+53+54+55+56+57+58+59+60+61+62+63+64+65+66+67+68+69+70+71+72+73+74+75+76+77+78+79+80+81+82+83+84+85+86+87+88+89+90+91+92+93+94+95+96+97+98+99+100
+      : 5050
+*** 帮助
+    - manual page =manpage=
+      #+NAME: b776910b-d166-4fd8-bf31-c75374edb0f7
+      #+begin_src bash
+      man cat
+      man paste
+      #+end_src
+      - Emacs =M-x woman=
+    - info page
+      #+begin_src bash
+      info cat
+      info paste
+      #+end_src
+      - Emacs =C-h i=
+    - 命令 =--help= =-h=
+*** 帮助（二）
+      #+NAME: 7976d487-5683-4434-9f2a-fdefd9d69586
+      #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+        uname --help
+      #+end_src
+
+      #+RESULTS: 7976d487-5683-4434-9f2a-fdefd9d69586
+      #+begin_example
+      Usage: uname [OPTION]...
+      Print certain system information.  With no OPTION, same as -s.
+
+        -a, --all                print all information, in the following order,
+                                   except omit -p and -i if unknown:
+        -s, --kernel-name        print the kernel name
+        -n, --nodename           print the network node hostname
+        -r, --kernel-release     print the kernel release
+        -v, --kernel-version     print the kernel version
+        -m, --machine            print the machine hardware name
+        -p, --processor          print the processor type (non-portable)
+        -i, --hardware-platform  print the hardware platform (non-portable)
+        -o, --operating-system   print the operating system
+            --help     display this help and exit
+            --version  output version information and exit
+
+      GNU coreutils online help: <https://www.gnu.org/software/coreutils/>
+      Full documentation <https://www.gnu.org/software/coreutils/uname>
+      or available locally via: info '(coreutils) uname invocation'
+      #+end_example
+** 命令巡礼
+*** 本机信息
+    #+NAME: 0a220ee3-2cd4-49a5-a03f-63f72bcc1ad6
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      hostname
+      uname -a
+    #+end_src
+
+    #+RESULTS: 0a220ee3-2cd4-49a5-a03f-63f72bcc1ad6
+    : dpcg
+    : Linux dpcg 5.10.8-gentoo-x86_64 #1 SMP Sun Aug 15 14:46:49 CST 2021 x86_64 AMD EPYC 7742 64-Core Processor AuthenticAMD GNU/Linux
+
+    #+NAME: 1d5dd825-a10e-47db-8a79-3863b8ece63c
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      id
+      date
+    #+end_src
+
+    #+RESULTS: 1d5dd825-a10e-47db-8a79-3863b8ece63c
+    : uid=1003(xubd) gid=1003(xubd) groups=1003(xubd),10(wheel),103(vboxusers),250(portage),999(xpra),1001(astrotools)
+    : Mon Jul 25 10:53:06 AM CST 2022
+*** 本机信息
+    #+NAME: 00f33dbd-f018-4d4c-a07a-d1fd175b4039
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      uptime
+      dmesg | tail
+    #+end_src
+
+    #+RESULTS: 00f33dbd-f018-4d4c-a07a-d1fd175b4039
+    #+begin_example
+     10:53:35 up 86 days, 23:32,  7 users,  load average: 1.05, 0.59, 0.36
+    [6943834.870848] nfs: server jpd not responding, timed out
+    [6943847.158500] nfs: server jpd not responding, timed out
+    [6943852.790312] nfs: server jpd not responding, timed out
+    [6943871.733748] nfs: server jpd not responding, timed out
+    [6943888.645236] nfs: server jpd not responding, timed out
+    [6943894.261019] nfs: server jpd not responding, timed out
+    [6943900.404864] nfs: server jpd not responding, timed out
+    [6943906.420662] nfs: server jpd not responding, timed out
+    [7345744.319918] xpra[197935]: segfault at 1 ip 00007f687e955f89 sp 00007fff68363050 error 4 in libgdk-3.so.0.2404.26[7f687e901000+5d000]
+    [7345744.319934] Code: 00 00 48 89 44 24 08 31 c0 e8 53 be fc ff 48 85 c0 74 1d 0f b6 50 4c 66 81 e2 fd 00 66 83 fa 01 75 0e 48 8b 50 18 48 8b 42 28 <f6> 40 01 80 75 21 48 8b 44 24 08 64 48 2b 04 25 28 00 00 00 75 5f
+    #+end_example
+*** 日常
+    - 创建空文件
+      #+NAME: 3fbe80b5-b9c3-4839-ba84-0c96e6429dff
+      #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+        touch nf
+        ls -l nf
+      #+end_src
+
+      #+RESULTS: 3fbe80b5-b9c3-4839-ba84-0c96e6429dff
+      : -rw-r--r-- 1 xubd xubd 0 Jul 25 11:01 nf
+
+    - 输出信息
+      #+NAME: 38d52f35-c2a2-448c-82d8-b661677b6e26
+      #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+        echo "Hi!"
+      #+end_src
+
+      #+RESULTS: 38d52f35-c2a2-448c-82d8-b661677b6e26
+      : Hi!
+*** 文件信息
+    - 寻找 =dev/waveform-compress= 路径之下所有 =R= 程序文件
+      #+NAME: 1f94709e-b060-4fd0-9c26-57ff71d1ff68
+      #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+        find dev/waveform-compress -name "*.R"
+      #+end_src
+
+      #+RESULTS: 1f94709e-b060-4fd0-9c26-57ff71d1ff68
+      : dev/waveform-compress/compress_comp.R
+      : dev/waveform-compress/compress_core.R
+      : dev/waveform-compress/compress_one.R
+      : dev/waveform-compress/getH.R
+      : dev/waveform-compress/wdlib.R
+
+    - 识别文件类型
+      #+NAME: f3214c4d-5a3e-462d-ad4d-cc837ceafcf4
+      #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+        file dev/waveform-compress/compress_one.R
+      #+end_src
+
+      #+RESULTS: f3214c4d-5a3e-462d-ad4d-cc837ceafcf4
+      : dev/waveform-compress/compress_one.R: a /usr/bin/env Rscript script, ASCII text executable
+
+** 通配符
+*** 定义
+- 通配符可以按规则匹配，用于构造简单匹配模式
+
+  - =*= 匹配任意多个任意字符
+  - =?= 匹配一个任意字符
+
+    #+NAME: 5098a713-e3cf-4024-aba9-5bb45bb6de63
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      cd physics_data
+      ls *.html
+    #+end_src
+
+    #+RESULTS: 5098a713-e3cf-4024-aba9-5bb45bb6de63
+    : Command-Line.slides.html    Python-Basics.slides.html
+    : Data-Formats.slides.html    Python-Constructs.slides.html
+    : Data-Frame-RPy.slides.html  Python-Functions.slides.html
+    : Data-Frame.slides.html	    Python-Modules.slides.html
+    : Pandas-RDB.html		    Python-SQLite.slides.html
+    : Pandas-RDB.slides.html	    Shell-Scripts.slides.html
+    #+NAME: b305b3c5-055b-4950-bbad-4db85e9683d7
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      echo *.html
+    #+end_src
+
+    #+RESULTS: b305b3c5-055b-4950-bbad-4db85e9683d7
+    : Command-Line.slides.html Data-Formats.slides.html Data-Frame-RPy.slides.html Data-Frame.slides.html Pandas-RDB.html Pandas-RDB.slides.html Python-Basics.slides.html Python-Constructs.slides.html Python-Functions.slides.html Python-Modules.slides.html Python-SQLite.slides.html Shell-Scripts.slides.html
+*** 例子
+    #+NAME: cbc4c3ba-763e-4499-8297-f11dc553daa1
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      ls Python-*.html
+    #+end_src
+
+    #+RESULTS: cbc4c3ba-763e-4499-8297-f11dc553daa1
+    : Python-Basics.slides.html      Python-Modules.slides.html
+    : Python-Constructs.slides.html  Python-SQLite.slides.html
+    : Python-Functions.slides.html
+    #+NAME: 45e152a5-c5a2-4cfc-91a1-6a7731eebcba
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      ls *.?pynb
+    #+end_src
+
+    #+RESULTS: 45e152a5-c5a2-4cfc-91a1-6a7731eebcba
+    #+begin_example
+    Command-Line.ipynb	   Pandas-RDB.ipynb
+    Data-Formats.ipynb	   Python-Basics.ipynb
+    DataFrame.ipynb		   Python-Constructs_Functions.ipynb
+    Data-Frame-RPy.ipynb	   Python-Functions.ipynb
+    GLM.ipynb		   Python-IO_Survival.ipynb
+    GLM-Python.ipynb	   Python-SQLite.ipynb
+    LIGO-intro.ipynb	   Relational-Algebra.ipynb
+    LOSC_Event_tutorial.ipynb  Relational-SQL.ipynb
+    Make-Pipeline.ipynb	   Shell-Practice.ipynb
+    Merge-GroupBy.ipynb	   Shell-Scripts.ipynb
+    NumPy.ipynb		   Visualization.ipynb
+    NumPy-SciPy.ipynb
+    #+end_example
+** 娱乐命令
+*** =sl=
+    #+NAME: 442a3502-6826-45a2-9b22-f2e3591f6295
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      sl
+    #+end_src
+
+    #+RESULTS: 442a3502-6826-45a2-9b22-f2e3591f6295
+    : bash: sl: command not found
+    : 
+    :
+    
+    #+attr_latex: :height 4cm
+    [[./fig/question.jpeg]]
+
+    #+begin_src bash
+      apt install sl
+    #+end_src
+*** =matrix= 可操作动画
+    - 安装
+      #+begin_src bash
+apt install cmatrix
+      #+end_src
+    - 文档
+      #+begin_src bash 
+man cmatrix
+      #+end_src
+    
+*** ASCII Art
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      apt install sysvbanner bsdgames
+    #+end_src
+    - =worm= 贪食蛇
+    - =worms= 模拟蚯蚓
+      #+NAME: 9e7ce14a-c47d-409c-9e0e-9c7b99ab2f6a
+      #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+banner physics
+      #+end_src
+
+      #+RESULTS: 9e7ce14a-c47d-409c-9e0e-9c7b99ab2f6a
+      : 
+      : ######   #     #  #     #   #####   ###   #####    #####   
+      : #     #  #     #   #   #   #     #   #   #     #  #     #  
+      : #     #  #     #    # #    #         #   #        #        
+      : ######   #######     #      #####    #   #         #####   
+      : #        #     #     #           #   #   #              #  
+      : #        #     #     #     #     #   #   #     #  #     #  
+      : #        #     #     #      #####   ###   #####    #####   
+      :
+*** ASCII Art: cowsay
+    #+begin_src bash
+      apt install cowsay-off
+    #+end_src
+    #+NAME: 2efb8f5c-da06-4d28-b427-eb05496449ce
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      cowsay -e xx -T W "parity?"
+    #+end_src
+
+    #+RESULTS: 2efb8f5c-da06-4d28-b427-eb05496449ce
+    :  _________ 
+    : < parity? >
+    :  --------- 
+    :         \   ^__^
+    :          \  (xx)\_______
+    :             (__)\       )\/\
+    :              W ||----w |
+    :                 ||     ||
+
+*** cowsay II
+    #+NAME: 5ee19ec1-8504-4460-91ab-443d95b7b770
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      cowsay -f meow "parity?"
+    #+end_src
+
+    #+RESULTS: 5ee19ec1-8504-4460-91ab-443d95b7b770
+    #+begin_example
+     _________ 
+    < parity? >
+     --------- 
+      \
+       \ ,   _ ___.--'''`--''//-,-_--_.
+          \`"' ` || \\ \ \\/ / // / ,-\\`,_
+         /'`  \ \ || Y  | \|/ / // / - |__ `-,
+        /@"\  ` \ `\ |  | ||/ // | \/  \  `-._`-,_.,
+       /  _.-. `.-\,___/\ _/|_/_\_\/|_/ |     `-._._)
+       `-'``/  /  |  // \__/\__  /  \__/ \
+            `-'  /-\/  | -|   \__ \   |-' |
+              __/\ / _/ \/ __,-'   ) ,' _|'
+             (((__/(((_.' ((___..-'((__,'
+    #+end_example
+
+    - 其它动物
+    #+NAME: 1de62f1a-cc16-4d51-bef2-966447ca14f2
+    #+begin_src bash
+      ls /usr/share/cowsay/cows
+    #+end_src
+
+*** 管道练习
+    #+begin_src bash
+      apt install fortune-zh lolcat
+    #+end_src
+    #+begin_src bash
+fortune | cowsay | lolcat -a
+    #+end_src
+
+    #+RESULTS:
+    #+begin_example
+ ___________________________________________________________________
+/ 谷神不死，是谓玄牝。 玄牝之门，是谓天地根。 绵绵若存，用之不勤。  \
+\ --《道德经》                                              /
+ -------------------------------------------------------------------
+        \   ^__^
+         \  (oo)\_______
+            (__)\       )\/\
+                ||----w |
+                ||     ||
+    #+end_example
+*** ASCII Art Anime
+    #+begin_src bash
+      apt install bb
+      bb
+    #+end_src
+*** ASCII Art color Anime
+    #+begin_src bash
+      apt install caca-utils mpv
+      cacafire
+    #+end_src
+
+    #+begin_src bash
+      mpv "http://hep.tsinghua.edu.cn/~orv/teaching/Yuki_Installs_Gentoo.mp4" -vo caca
+    #+end_src
+*** 再来一打
+    - 小玩具类
+    #+begin_src bash
+apt-cache depends games-toys 
+    #+end_src
+    - 所有类
+    #+begin_src bash
+apt-cache depends games-all
+    #+end_src
+    - 欢迎大家以 merge request 的形式补充更多的游戏
 * 第三周第三天
   :PROPERTIES:
   :EXPORT_FILE_NAME: pa
@@ -5033,7 +5463,7 @@ all: $(foreach i,$(ith),$(subst ith,$(i),$(output)))
 
    第一个节点让恢复理性。我很有兴趣地把开课计划和陈老师讲了。陈老师比较担心课程缺乏特色，因为工物系已经有粒子物理的数据分析研究生课程了。我说可以把重心放在当代计算机科学技术发展的新工具上，陈老师表达了我并非科班出身，是否能讲得专业的顾虑。这让我心里的热锅冷静了下来，仔细思考我的课除了满足我的需求和院系培养方案的需要之外，会给同学带来什么。于是在多方征求意见的同时，我自己也和自己进行了一场旷日持久的大辩论：到底有开课的必要吗，我开计算机为主的课是不是不务正业？
 
-   第二个时间点上，我被注入了一轮兴奋剂。2018年11月我十分不务正业地与冬波、振齐、欣彤和卓卓组队打了一场计算机系组织的论文作者去重的比赛。本来我是来体验一下竞赛的，以更好地准备之后的 Ghost Hunter 中微子数据分析排位赛。比赛准备时，欣彤提出了数据格式的规定，我按照这个规定使用 `Makefile` 把整个复杂的处理流程都串了起来。本来我心里没底，比较担心大家是否能接受 `Makefile` 这样鬼畜的上古语法，没想到大家非常开心地使用了。这让我无比振奋！因为我们虽然号称是基科战队，但是完全是五种人类。诚然，这也从侧面反映了基科的多元性。我是物理系大凝聚态传统下的另类，再加上对计算机的洁癖，代表小众的物理审美。冬波是去文科世界使用数据进行跨界打劫的理科学者，他用严谨的数学和物理思维对不确定的世界进行建模讲故事，自成一派为数据工程学，这次竞赛正是他的主场。镇齐代表物理系的主流，既有强大的直觉又有深刻的思想，做实验一丝不苟，使用计算机模式是对师兄的（祖传）代码进行改进，渴望学习新技术但为精力所限。欣彤在机器学习和大数据领域研究，代表当代数据处理的尖端，建模、拟合、调参更如入无人之境，已有成熟的数据处理流水线。卓卓代表应用数学和统计学习，进入所有学科的后花园，对一切新事物具有如饥似渴的学习热情。这样一个采样，基本上覆盖了物理系的同学的所有可能的形态，样本甚至神奇地囊括了团委、学生会和科协，大家竟然一致认为 Git 加 Makefile 的工作流程太科学太强大太神奇了。我对工物系的同学并不担心对我未来的课的接受程度，工物系的同学们已经有学习工具软件的课程，反而物理系的同学的偏好我确实心里没底。这一经历对我的触动有多么深刻和强大，它一下子消解了我对开课意义本身的怀疑。
+   第二个时间点上，我被注入了一轮兴奋剂。2018年11月我十分不务正业地与冬波、振齐、欣彤和卓卓组队打了一场计算机系组织的论文作者去重的比赛。本来我是来体验一下竞赛的，以更好地准备之后的 Ghost Hunter 中微子数据分析排位赛。比赛准备时，欣彤提出了数据格式的规定，我按照这个规定使用 =Makefile= 把整个复杂的处理流程都串了起来。本来我心里没底，比较担心大家是否能接受 =Makefile= 这样鬼畜的上古语法，没想到大家非常开心地使用了。这让我无比振奋！因为我们虽然号称是基科战队，但是完全是五种人类。诚然，这也从侧面反映了基科的多元性。我是物理系大凝聚态传统下的另类，再加上对计算机的洁癖，代表小众的物理审美。冬波是去文科世界使用数据进行跨界打劫的理科学者，他用严谨的数学和物理思维对不确定的世界进行建模讲故事，自成一派为数据工程学，这次竞赛正是他的主场。镇齐代表物理系的主流，既有强大的直觉又有深刻的思想，做实验一丝不苟，使用计算机模式是对师兄的（祖传）代码进行改进，渴望学习新技术但为精力所限。欣彤在机器学习和大数据领域研究，代表当代数据处理的尖端，建模、拟合、调参更如入无人之境，已有成熟的数据处理流水线。卓卓代表应用数学和统计学习，进入所有学科的后花园，对一切新事物具有如饥似渴的学习热情。这样一个采样，基本上覆盖了物理系的同学的所有可能的形态，样本甚至神奇地囊括了团委、学生会和科协，大家竟然一致认为 Git 加 Makefile 的工作流程太科学太强大太神奇了。我对工物系的同学并不担心对我未来的课的接受程度，工物系的同学们已经有学习工具软件的课程，反而物理系的同学的偏好我确实心里没底。这一经历对我的触动有多么深刻和强大，它一下子消解了我对开课意义本身的怀疑。
 
    于是我又行动起来，把几个月前写的大纲放在了饥渴乐园征求意见。大家很开心，七嘴八舌提建议。这期间得到了唐如麟、史冬波、孙慧辰、吕铭、付祈安、魏胜禹、郑鑫宇、陆思锐、王泉、陈思维、代一、鲍亦澄的多角度评论和指点。在大家的热烈讨论中，很多方案和设计都保留在了最后，比如课程名，课程录像，Git/Makefile 主线，GitHub Classroom，大作业的风格等等。这一稿被拍得最多的是：太难了，给学弟学妹们留条活路吧！还有课程不要变成 Installation party。同学们也奔走相告，大纲被传到各个年级群里，引发了各种争论。我也不断修改着课程的设计，融合集体的智慧。霍师兄也正有此意，正在筹备到大学开天体物理数据类的硬课，我们围绕大纲交换了不少看法。这时，箭已在弦畜势待发，我的担心变成了这门课得能满足行政审批的要求，按时开课。
 
