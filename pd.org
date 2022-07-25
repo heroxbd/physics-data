@@ -1841,7 +1841,9 @@ magic(r=real, i=imag)
     Length: 268 [text/plain]
     Saving to: ‘iterator.txt’
 
-    iterator.txt          0%[                    ]       0  --.-KB/s               iterator.txt        100%[===================>]     268  --.-KB/s    in 0s      
+    
+iterator.txt          0%[                    ]       0  --.-KB/s               
+iterator.txt        100%[===================>]     268  --.-KB/s    in 0s      
 
     2022-07-14 11:34:39 (39.2 MB/s) - ‘iterator.txt’ saved [268/268]
 
@@ -3358,7 +3360,9 @@ wget 'http://hep.tsinghua.edu.cn/~orv/pd/BBH_events_v3.json'
   Length: 2202 (2.2K) [application/json]
   Saving to: ‘BBH_events_v3.json’
 
-  BBH_events_v3.json    0%[                    ]       0  --.-KB/s               BBH_events_v3.json  100%[===================>]   2.15K  --.-KB/s    in 0s      
+  
+BBH_events_v3.json    0%[                    ]       0  --.-KB/s               
+BBH_events_v3.json  100%[===================>]   2.15K  --.-KB/s    in 0s      
 
   2022-07-19 13:05:01 (228 MB/s) - ‘BBH_events_v3.json’ saved [2202/2202]
 
@@ -3977,8 +3981,9 @@ jq < BBH_events_rewrite.json
     - man-db :: 帮助文档阅读器
     - info :: 层级帮助文档阅读器
     - curl :: 网络请求和下载器
+    - bc :: 计算器
     #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-      apt install gawk sed coreutils man-db info curl
+      apt install gawk sed coreutils man-db info curl bc
     #+end_src
 *** 复习
 **** Git
