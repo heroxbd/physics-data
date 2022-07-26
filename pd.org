@@ -5200,6 +5200,10 @@ which triggered the rule.  Caution must be used if relying on this
 variable in the recipe of a grouped target rule.
     
 *** Make 与 shell 的调用关系
+    #+begin_src makefile -i
+numbers-%.csv:
+	seq $(shell echo "$* * 100 + 1" | bc ) $(shell echo "($* + 1) * 100" | bc ) > $@
+    #+end_src
     - make 在 shell 中执行，make 通过 shell 执行流水线规则和取值
      #+BEGIN_SRC dot :file ./make-shell.pdf :cmdline -Kdot -Tpdf :eval yes :exports results
        digraph python {
@@ -5211,11 +5215,11 @@ variable in the recipe of a grouped target rule.
        M [label = Make]
        M -> E
        E [label = "$(shell ...)\n已扩展？", shape=diamond]
-       S1 [label = "执行 shell 命令\n采集输出"]
+       S1 [label = "执行 shell 命令\n采集输出\n构造流水线规则"]
        S1 -> M
        {rank = same; S1; M;}
        E:w -> S1:s [label = 否]
-       S2 [label = "fork shell 执行\n流水线规则"]
+       S2 [label = "调用 shell \n执行流水线规则"]
        E -> S2 [label = 是]
        }
      #+END_SRC
