@@ -4076,7 +4076,7 @@ jq < BBH_events_rewrite.json
 
 **** 命令行的普适性
 
-- GNU/Linux, 各种 Unix，Mac OS，Microsoft Windows WSL.
+- GNU/Linux, 各种 Unix，macOS，Microsoft Windows WSL.
 - 世界顶级的超级计算机，云计算主机，智能手机，物联网设备都可用同一套命令行工具操作
 - 已有约50年历史，一定会继续存在
 
