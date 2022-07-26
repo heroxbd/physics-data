@@ -5114,13 +5114,13 @@ make prod
 ** Makefile 脚本
 *** 选择结构
     #+begin_src makefile -i
-	a:=$(if CONDITION,THEN-PART[,ELSE-PART])
+a:=$(if CONDITION,THEN-PART[,ELSE-PART])
     #+end_src
     - 如果 CONDITION 成立，则取 THEN-PART。类比 Python
     #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
       a = THEN-PART if CONDITION else ELSE-PART
     #+end_src
-    - =$(or )= =$(and )= 用于逻辑运算
+    - =$(or COND1,COND2)= =$(and COND1,COND2)= 用于逻辑运算
 
 *** 循环结构与函数
     - 数据本身可以构造一重循环，当循环多于一重时，使用 =$(foreach )=
@@ -5134,7 +5134,7 @@ $(info $(profile))
       #+begin_example
 1t_+0.10_x.h5 1t_+0.11_x.h5 1t_+0.12_x.h5 1t_+0.13_x.h5 ...
       #+end_example
-    - Makefile 函数由 =define= ... =endef= 定义，使用 =$(eval )= 执行。
+    - Makefile 模版（起到“函数”复用的作用）由 =define= ... =endef= 定义，使用 =$(eval )= 执行。
       #+BEGIN_SRC makefile -i
 define video
 $(1)/%.avi: $(1)/%.mp4
