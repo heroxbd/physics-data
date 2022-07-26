@@ -5138,6 +5138,19 @@ endef
 $(eval $(foreach d,up down transverse,$(call video,$(d))))
       #+END_SRC
 ** 常见问题
+*** 调试
+    - Makefile 的调试器？ =remake= 可以试验。
+    - 一般调试使用 =$(info )= 查看中间变量和结果
+    - 不要把文件写得太长，太长时分成小文件，分成小单元调试
+      - 多写多 bug 少写少 bug，不写无 bug
+      - 推论：以最简洁的代码实现目的和四个原则
+    #+begin_src makefile -i
+include names.mk
+include process.mk
+
+.PHONY: all
+all: step1 step2
+    #+end_src
 *** 赋值
     - “:=”是 eager evaluation，在被调用时，就把运算做完。
     - “=”是 lazy evaluation，在被使用时，才做运算。
@@ -5157,7 +5170,28 @@ all: xxxx
 # Keep intermediate files around
 .SECONDARY:
       #+END_SRC
+*** 技巧
+    - 并行计算 =make -j=
+*** 联合目标
+   When 'make' builds any one of the grouped targets, it understands
+that all the other targets in the group are also created as a result of
+the invocation of the recipe.  Furthermore, if only some of the grouped
+targets are out of date or missing 'make' will realize that running the
+recipe will update all of the targets.
 
+   As an example, this rule defines a grouped target:
+   #+begin_src makefile -i
+foo bar biz &: baz boz
+	echo $^ > foo
+	echo $^ > bar
+	echo $^ > biz
+   #+end_src
+
+   During the execution of a grouped target's recipe, the automatic
+variable '$@' is set to the name of the particular target in the group
+which triggered the rule.  Caution must be used if relying on this
+variable in the recipe of a grouped target rule.
+    
 * 第三周第四天
   :PROPERTIES:
   :EXPORT_FILE_NAME: pb
