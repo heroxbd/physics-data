@@ -4745,7 +4745,7 @@ apt-cache depends games-all
 *** 软件准备
     - 带 Scheme 语言扩展的 GNU Make
     #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-      apt install make-guile make-doc guile
+      apt install make-guile make-doc guile-3.0
     #+end_src
 *** 命令行
     - 命令行操作系统外壳 shell 的一种，介于内核 kernel 与用户程序之间。
@@ -4970,7 +4970,7 @@ numbers-0.csv:
 numbers-1.csv:
 	seq 101 200 > $@
 numbers-2.csv:
-	seq 102 202 > $@
+	seq 201 300 > $@
 total-0: numbers-0.csv
 	paste -s -d + < $^ | bc > $@
 total-1: numbers-1.csv
@@ -5044,6 +5044,12 @@ make prod
     : paste -s -d + < numbers-2.csv | bc > total-2
     : cat total-0 total-1 total-2 | paste -s -d '*' | bc > prod
     : rm numbers-2.csv
+*** 暗含循环：用 shell 命令替换 guile
+    #+begin_src makefile -i
+# 调用 shell 命令方案
+numbers-%.csv: 
+	seq $(shell echo "$* * 100 + 1" | bc ) $(shell echo "($* + 1) * 100" | bc ) > $@	
+    #+end_src
 ** 调用命令
 *** 继续深化落实一次原则
     - Makefile 里可以调用 shell 命令，将其标准输出作为值。
