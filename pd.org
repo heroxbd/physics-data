@@ -4745,7 +4745,7 @@ apt-cache depends games-all
 *** 软件准备
     - 带 Scheme 语言扩展的 GNU Make
     #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-      apt install make-guile make-doc
+      apt install make-guile make-doc guile
     #+end_src
 *** 命令行
     - 命令行操作系统外壳 shell 的一种，介于内核 kernel 与用户程序之间。
@@ -4808,13 +4808,12 @@ apt-cache depends games-all
       - 修正错误后，可以从最后一步正确的数据开始继续执行。
 ** GNU Make
 *** Make 是最佳工具
-    - =make= 工具已经有 40 多年的历史，最初是用来管理 C 语言程序的编译。
+    - =make= 工具已经有 40 多年的历史，最初用来管理 C 语言程序的编译。
       - 根据依赖关系决定命令执行顺序
-    - =GNU make= 是 =GNU= 运动中，对 =make= 进行的招展，更加适合管理数据
-      - =GNU= : =GNU is Not Unix=
+    - =GNU make= 是 =GNU= 运动中，对 =make= 进行的扩展，更适合管理数据
       - 与 =BSD make= 有区别，在 macOS 环境里请配置 GNU 环境，使用 =gmake= 。
         #+NAME: 80cfe7aa-1475-486b-840d-d8b010e9f7aa
-      - 版本 \( \ge 4.3 \) 支持多目标规则
+      - 版本 \( \ge 4.3 \) 支持 _多目标规则_
         #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
 make --version
         #+end_src
@@ -4846,7 +4845,7 @@ make --version
 
       #+BEGIN_SRC makefile -i
 target: source
-	program source target #如何做
+	program source target # 必须TAB 起始，记录如何做
       #+END_SRC
 **** 参考书
      John Graham Cumming, The GNU Make Book
@@ -4854,11 +4853,11 @@ target: source
 ** 变量
 *** 变量取值
       #+BEGIN_SRC makefile -i
-a:=1
+a:=1 # eager evaluation (= 代替 := 时是 lazy evaluation)
 $(info $(a))
       #+END_SRC
 
-      - 调用时使用 =$( )=
+      - 调用时使用 =$( )= ， =$(info TEXT)= 输出 =TEXT=
     - _一次_ 原则，避免重复
       - 特殊变量： =$^= 输入数据、 =$@= 输出数据。
       #+BEGIN_SRC makefile -i
@@ -4873,54 +4872,263 @@ target: source1 source2 source3
 		--location $(word 3,$^) -o $@
       #+END_SRC
     - =$(word N,TEXT)= 是函数：返回 =TEXT= 中的第 =N= 个词，按空格分隔
-*** 例子
-          
-*** 调用命令
+** 例子
+*** 生成含有 1 到 100 数字的文件
+    - 创建 =Makefile= 文件
+    # /ssh:dpcg:/home/xubd/Makefile
+    #+name: make0
+    #+begin_src makefile -i :tangle no
+numbers.csv:
+	seq 100 > $@
+    #+end_src
+    - 到 =Makefile= 所在的文件夹中执行
+    #+NAME: 56a58dfd-42bc-48b4-b415-89838a12143f
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      make numbers.csv
+    #+end_src
+
+    #+RESULTS: 56a58dfd-42bc-48b4-b415-89838a12143f
+    : seq 100 > numbers.csv
+
+    #+NAME: e81a9752-62e8-463d-9afb-936161fd398e
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      cat numbers.csv | wc -l
+    #+end_src
+
+    #+RESULTS: e81a9752-62e8-463d-9afb-936161fd398e
+    : 100
+    - 再执行时， =make= 会判断是否还有必要
+    #+NAME: f342c45a-2193-4370-bf55-e3239934e885
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+        make numbers.csv
+    #+end_src
+
+    #+RESULTS: f342c45a-2193-4370-bf55-e3239934e885
+    : make: 'numbers.csv' is up to date.
+*** 加入求和规则
+    # /ssh:dpcg:/home/xubd/Makefile
+    #+name: make1
+    #+begin_src makefile -i :tangle
+total: numbers.csv
+	paste -s -d + < $^ | bc > $@
+    #+end_src
+
+    #+NAME: 7f5abc49-f1af-4408-b8df-8113a6074674
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+make total
+    #+end_src
+
+    #+RESULTS: 7f5abc49-f1af-4408-b8df-8113a6074674
+    : paste -s -d + < numbers.csv | bc > total
+
+    - 如果第一步 =numbers.csv= 不存在， =make= 会自动生成它
+    #+NAME: b8a3e0f6-d50c-4d11-abaa-848cf263f231
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      rm total numbers.csv
+      make total
+    #+end_src
+
+    #+RESULTS: b8a3e0f6-d50c-4d11-abaa-848cf263f231
+    : seq 100 > numbers.csv
+    : paste -s -d + < numbers.csv | bc > total
+    - 一次原则：只必要地写两处 =numbers.csv= 防止更新时造成不一致
+*** 进阶：暗含循环
+**** g                                                                :BMCOL:
+     :PROPERTIES:
+     :BEAMER_col: 0.499
+     :END:
+         #+BEGIN_SRC dot :file ./sum-prod.pdf :cmdline -Kdot -Tpdf :eval yes :exports results
+           digraph python {
+           rankdir="LR";
+
+           node [shape=box]
+           I [label = "numbers-0.csv\n1~100"]
+           I1 [label = "numbers-1.csv\n101~200"]
+           I2 [label = "numbers-2.csv\n201~300"]
+           I -> P
+           I1 -> P1
+           I2 -> P2
+           P [label = "total-0"]
+           P1 [label = "total-1"]
+           P2 [label = "total-2"]
+           P -> S
+           P1 -> S
+           P2 -> S
+           S [label = prod]
+           }
+     #+END_SRC
+     #+attr_latex: :height 5cm
+     #+RESULTS:
+     [[file:./sum-prod.pdf]]
+**** t                                                                :BMCOL:
+     :PROPERTIES:
+     :BEAMER_col: 0.5
+     :END:
+     #+begin_src makefile -i
+numbers-0.csv:
+	seq 100 > $@
+numbers-1.csv:
+	seq 101 200 > $@
+numbers-2.csv:
+	seq 102 202 > $@
+total-0: numbers-0.csv
+	paste -s -d + < $^ | bc > $@
+total-1: numbers-1.csv
+	paste -s -d + < $^ | bc > $@
+total-2: numbers-2.csv
+	paste -s -d + < $^ | bc > $@
+prod: total-0 total-1 total-2
+	cat $^ | paste -s -d '*' | bc > $@
+     #+end_src
+     - 召唤一次原则！
+     - 循环程序结构是共通的。
+** 通配符与替换
+*** 一般匹配关系 pattern
+    - 处理 *.h5 文件，生成对应文件名的 =s/.h5/.png= 图形。
+      #+BEGIN_SRC makefile -i
+filelist:=x.h5 y.h5 z.h5
+all: $(filelist:%.h5=%.png)
+
+%.png: %.h5
+	./plot-celestial.py $^ -o $@
+      #+END_SRC
+**** 说明
+    - =%= 是 GNU Make 的通配符，用于替代任意字符串
+    - =$(filelist:%.h5=%.png)= 是 =$(patsubst P,R,TEXT)= 的简写。
+      - 意为在 =$(filelist)= 中把符合 =P= (=%.h5=) 的部分替换成 =R= (=%.png=)
+      - 有共同前缀时，可进一步简写为
+        #+begin_example
+          $(filelist:.h5=.png)
+        #+end_example
+    - 在执行规则中， =%.png: %.h5= 定义任意 =png= 都由相应的 =h5= 文件生成。
+*** 暗含循环
+    - Makefile 是函数式编程 Functional Programming 的语言。
+    - 不再关注“执行什么操作”，而是关注“输入到输出的映射”。
+      - 类比：Python 的 =map()= ， 迭代器
+    #+begin_src makefile -i :tangle /ssh:dpcg:/home/xubd/Makefile
+# 生成 numbers-N.csv，包含 N*100+1 到 (N+1)*100 的数字
+numbers-%.csv:
+	seq $(guile (+ 1 (* $* 100))) $(guile (* 100 (+ $* 1))) > $@
+# 分别求和
+total-%: numbers-%.csv
+	paste -s -d + < $^ | bc > $@
+# 求积
+prod: total-0 total-1 total-2
+	cat $^ | paste -s -d '*' | bc > $@
+    #+end_src
+    - 循环从 =prod: total-0 total-1 total-2= 构造，由数据驱动
+*** 暗含循环（二）
+    #+NAME: 02719b16-849a-45fe-9c1b-a60d1da03d28
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+make prod
+    #+end_src
+
+    #+RESULTS: 02719b16-849a-45fe-9c1b-a60d1da03d28
+    : seq 1 100 > numbers-0.csv
+    : paste -s -d + < numbers-0.csv | bc > total-0
+    : seq 101 200 > numbers-1.csv
+    : paste -s -d + < numbers-1.csv | bc > total-1
+    : seq 201 300 > numbers-2.csv
+    : paste -s -d + < numbers-2.csv | bc > total-2
+    : cat total-0 total-1 total-2 | paste -s -d '*' | bc > prod
+    : rm numbers-0.csv numbers-2.csv numbers-1.csv
+    - 可以自动补上失去的文件，只执行需要的部分
+    #+NAME: 1ef52832-342e-47d9-a58b-76fefbeb71f4
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      rm total-2
+      make prod
+    #+end_src
+
+    #+RESULTS: 1ef52832-342e-47d9-a58b-76fefbeb71f4
+    : seq 201 300 > numbers-2.csv
+    : paste -s -d + < numbers-2.csv | bc > total-2
+    : cat total-0 total-1 total-2 | paste -s -d '*' | bc > prod
+    : rm numbers-2.csv
+** 调用命令
+*** 继续深化落实一次原则
     - Makefile 里可以调用 shell 命令，将其标准输出作为值。
 
     #+BEGIN_SRC makefile -i
 sequence:=$(shell seq -w 00 99)
 file_list:=$(shell find . -name "*.h5")
     #+END_SRC
-
-**** 字符串操作
-     进行字符串替代，可以使用
-
-     #+BEGIN_SRC makefile -i
-     obs:=$(sequence:%=observation-%.h5)
-     # 等价于
-     obs:=$(patsubst %,observation-%.h5,$(sequence))
-     #+END_SRC
-
-*** 一般匹配关系 pattern
-    - 处理 *.h5 文件，生成对应文件名的 =s/.h5/.png= 图形。
-      #+BEGIN_SRC makefile -i
-filelist:=...
-all: $(filelist:%.h5=%.png)
-
-%.png: %.h5
-	./plot-celestial.py $^ -o $@
-      #+END_SRC
-
-    - 与 shell 脚本比较：
-      #+BEGIN_SRC bash
-        for f in *.h5; do
-            ./plot-celestrial.py $f -o ${f/.h5/.png}
-        done
-      #+END_SRC
-
-*** Makefile 脚本的程序要素
-    - Makefile 是函数式编程 Functional Programming 的语言。
-    - 不再关注“执行什么操作”，而是关注“输入到输出的映射”。
-      - 类比：Python 的 =map()= ， 迭代器
-    - 循环：
+    - 构造 =total-0 total-1 total-2=
+    #+begin_src makefile -i
+seqs:=$(shell seq 0 2)
+totals:=$(seqs:%=total-%)
+    #+end_src
+**** 内嵌 scheme
+     - 最佳工具原则： =$(shell )= 和 =$(guile )= 哪个简洁用哪个。
+     #+begin_src makefile -i
+seqs:=$(guile (iota 3))
+     #+end_src
      
+*** 再次尝试
+    - 直接来 10 个
+    #+begin_src makefile -i
+seqs:=$(guile (iota 10))
+totals:=$(seqs:%=total-%)
+
+# 生成 numbers-N.csv，包含 N*100+1 到 (N+1)*100 的数字
+numbers-%.csv:
+	seq $(guile (+ 1 (* $* 100))) $(guile (* 100 (+ $* 1))) > $@
+# 分别求和
+total-%: numbers-%.csv
+	paste -s -d + < $^ | bc > $@
+# 求积
+prod: $(totals)
+	cat $^ | paste -s -d '*' | bc > $@
+    #+end_src
+
+*** 运行
+    #+NAME: e140bf6c-0d53-48f2-a4a4-45487066e301
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+make prod
+    #+end_src
+
+    #+RESULTS: e140bf6c-0d53-48f2-a4a4-45487066e301
+    #+begin_example
+    seq 301 400 > numbers-3.csv
+    paste -s -d + < numbers-3.csv | bc > total-3
+    seq 401 500 > numbers-4.csv
+    paste -s -d + < numbers-4.csv | bc > total-4
+    seq 501 600 > numbers-5.csv
+    paste -s -d + < numbers-5.csv | bc > total-5
+    seq 601 700 > numbers-6.csv
+    paste -s -d + < numbers-6.csv | bc > total-6
+    seq 701 800 > numbers-7.csv
+    paste -s -d + < numbers-7.csv | bc > total-7
+    seq 801 900 > numbers-8.csv
+    paste -s -d + < numbers-8.csv | bc > total-8
+    seq 901 1000 > numbers-9.csv
+    paste -s -d + < numbers-9.csv | bc > total-9
+    cat total-0 total-1 total-2 total-3 total-4 total-5 total-6 total-7 total-8 total-9 | paste -s -d '*' | bc > prod
+    rm numbers-8.csv numbers-3.csv numbers-7.csv numbers-5.csv numbers-6.csv numbers-9.csv numbers-4.csv
+    #+end_example
+** Makefile 脚本
+*** 选择结构
+    #+begin_src makefile -i
+	a:=$(if CONDITION,THEN-PART[,ELSE-PART])
+    #+end_src
+    - 如果 CONDITION 成立，则取 THEN-PART。类比 Python
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      a = THEN-PART if CONDITION else ELSE-PART
+    #+end_src
+    - =$(or )= =$(and )= 用于逻辑运算
+
+*** 循环结构与函数
+    - 数据本身可以构造一重循环，当循环多于一重时，使用 =$(foreach )=
       #+BEGIN_SRC makefile -i
 # radius list
 rl:=$(shell seq -w 0.10 0.01 1.00)
 profile:=$(foreach d,x y z,$(rl:%=1t_+%_$(d).h5))
+$(info $(profile))
       #+END_SRC
-    - 函数
+
+      #+begin_example
+1t_+0.10_x.h5 1t_+0.11_x.h5 1t_+0.12_x.h5 1t_+0.13_x.h5 ...
+      #+end_example
+    - Makefile 函数由 =define= ... =endef= 定义，使用 =$(eval )= 执行。
       #+BEGIN_SRC makefile -i
 define video
 $(1)/%.avi: $(1)/%.mp4
@@ -4929,9 +5137,14 @@ endef
 
 $(eval $(foreach d,up down transverse,$(call video,$(d))))
       #+END_SRC
-
+** 常见问题
+*** 赋值
+    - “:=”是 eager evaluation，在被调用时，就把运算做完。
+    - “=”是 lazy evaluation，在被使用时，才做运算。
+      - 不同时节运算，可能有不同变量环境，可到不同的效果
 *** 特殊目标
     - =.PHONY= 代表无对应文件的目标
+      GNU Make 默认执行第一个目标，可以把它定义为无对应文件的 =all=
     - =.DELETE_ON_ERROR= 如果出错就把坏文件删掉
     - =.SECONDARY= 保留中间结果
 
