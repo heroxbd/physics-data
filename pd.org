@@ -4564,7 +4564,7 @@ cat s100 | awk '{total+=$NF} END {print total}'
        #+RESULTS: 0812dcd3-dc3e-4b78-8a08-f278919efd47
        : 5050
 *** 让脚本可执行
-    - 在第一行填加脚本解释器 =#!/bin/bash=
+    - 在第一行填加脚本解释器 =#!/bin/bash= ，告知内核本脚本要由 =/bin/bash= 解释执行。 “#!”也称为“shebang”，意思是“sharp”（#）和“bang”（!）。
        #+NAME: b8f6cc07-2ac0-46b2-9ae4-1df3582ef24a
        #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
          sed '1i#!/bin/bash' -i add-up-100.sh
