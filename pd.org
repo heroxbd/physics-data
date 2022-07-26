@@ -4831,7 +4831,7 @@ make --version
      2. 管理程序运行，在超级计算机上运行
      3. 从错误中恢复
 *** Make 要素
-     - =make-guile= 在 =GNU make= 的基础上嵌入了 =GNU guile= /ɡʌɪl/ 解释器支持 =scheme= 语言。
+     - =make-guile= 在 =GNU make= 的基础上嵌入了 =GNU guile= =/ɡʌɪl/= 解释器支持 =scheme= 语言。
      - =scheme= 语言是 =LISP= 语言的一支，是历史悠久的人工智能语言。
        - =LISP= 与 =fortran= 是最早的高级编程语言，都出现在 1960 年代。
 
