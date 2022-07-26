@@ -5178,6 +5178,7 @@ all: xxxx
       #+END_SRC
 *** 技巧
     - 并行计算 =make -j=
+    - 把 =SHELL= 换成超算任务调度器 \to 超算并行计算
 *** 联合目标
    When 'make' builds any one of the grouped targets, it understands
 that all the other targets in the group are also created as a result of
@@ -5198,6 +5199,50 @@ variable '$@' is set to the name of the particular target in the group
 which triggered the rule.  Caution must be used if relying on this
 variable in the recipe of a grouped target rule.
     
+*** Make 与 shell 的调用关系
+    - make 在 shell 中执行，make 通过 shell 执行流水线规则和取值
+     #+BEGIN_SRC dot :file ./make-shell.pdf :cmdline -Kdot -Tpdf :eval yes :exports results
+       digraph python {
+       rankdir="TB";
+
+       node [shape=box]
+       S [label = "shell\n执行 make"]
+       S -> M
+       M [label = Make]
+       M -> E
+       E [label = "$(shell ...)\n已扩展？", shape=diamond]
+       S1 [label = "执行 shell 命令\n采集输出"]
+       S1 -> M
+       {rank = same; S1; M;}
+       E:w -> S1:s [label = 否]
+       S2 [label = "fork shell 执行\n流水线规则"]
+       E -> S2 [label = 是]
+       }
+     #+END_SRC
+     #+attr_latex: :height 5cm
+     #+RESULTS:
+     [[file:./make-shell.pdf]]
+
+
+* 第三周第三天
+  :PROPERTIES:
+  :EXPORT_FILE_NAME: pa
+  :EXPORT_BEAMER_HEADER+: \title{正则表达式}
+  :EXPORT_OPTIONS: H:2 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
+  :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+  :EXPORT_DATE: 2022-07-27 清华
+  :EXPORT_BEAMER_HEADER+: \author{续本达}
+  :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
+  :EXPORT_BEAMER_HEADER+: \setbeamertemplate{footline}[frame number]  
+  :EXPORT_BEAMER_THEME: Hannover
+  :EXPORT_BEAMER_FONT_THEME: professionalfonts
+  :END:
+** 复习与提示
+*** 软件准备
+    - Perl regular expression tool
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      apt install pcre2-utils
+    #+end_src
 * 第三周第四天
   :PROPERTIES:
   :EXPORT_FILE_NAME: pb
