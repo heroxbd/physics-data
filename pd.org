@@ -3982,8 +3982,9 @@ jq < BBH_events_rewrite.json
     - info :: 层级帮助文档阅读器
     - curl :: 网络请求和下载器
     - bc :: 计算器
+    - bash-doc :: bash 详细教程
     #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-      apt install gawk sed coreutils man-db info curl bc
+      apt install gawk sed coreutils man-db info curl bc bash-doc
     #+end_src
 *** 复习
 **** Git
@@ -4093,6 +4094,7 @@ jq < BBH_events_rewrite.json
       - Python 与 =bash= 平等，都是“用户态”程序 userspace
       - =bash= GNU Bourne-Again SHell, 目前使用最为广泛，方便进行文件操作和调用命令
         - =man bash= 可阅读在线文档
+        - =info bash= 获得详细教程
 **** i                                                                :BMCOL:
      :PROPERTIES:
      :BEAMER_col: 0.299
@@ -5226,7 +5228,6 @@ numbers-%.csv:
      #+attr_latex: :height 5cm
      #+RESULTS:
      [[file:./make-shell.pdf]]
-
 
 * 第三周第三天
   :PROPERTIES:
