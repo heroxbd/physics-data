@@ -5253,13 +5253,43 @@ numbers-%.csv:
 **** 素材文件准备
      #+NAME: 80b071f8-5c6f-489e-a71c-a03a4a41f60b
      #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-       wget http://hep.tsinghua.edu.cn/~orv/pd/usr_share_doc_list.txt
+       wget "http://hep.tsinghua.edu.cn/~orv/pd/usr_share_doc_list.txt"
      #+end_src
 
      #+RESULTS: 80b071f8-5c6f-489e-a71c-a03a4a41f60b
-     : [....]
+     #+begin_example
+     --2022-07-27 11:59:50--  http://hep.tsinghua.edu.cn/~orv/pd/usr_share_doc_list.txt
+     Resolving hep.tsinghua.edu.cn... 101.6.6.219, 2402:f000:1:416:101:6:6:219
+     Connecting to hep.tsinghua.edu.cn|101.6.6.219|:80... connected.
+     HTTP request sent, awaiting response... 200 OK
+     Length: 128653 (126K) [text/plain]
+     Saving to: ‘usr_share_doc_list.txt’
+     #+end_example
+*** 系统配置文件素材
+    #+NAME: cf8fb4f5-7ff1-4efe-a9bb-c30c76041522
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      wget "http://hep.tsinghua.edu.cn/~orv/pd/sources.list"
+    #+end_src
+
+    #+RESULTS: cf8fb4f5-7ff1-4efe-a9bb-c30c76041522
+    #+begin_example
+    --2022-07-27 12:21:55--  http://hep.tsinghua.edu.cn/~orv/pd/sources.list
+    Resolving hep.tsinghua.edu.cn... 101.6.6.219, 2402:f000:1:416:101:6:6:219
+    Connecting to hep.tsinghua.edu.cn|101.6.6.219|:80... connected.
+    HTTP request sent, awaiting response... 200 OK
+    Length: 1784 (1.7K)
+    Saving to: ‘sources.list’
+
+    sources.list          0%[                    ]       0  --.-KB/s               sources.list        100%[===================>]   1.74K  --.-KB/s    in 0s      
+
+    2022-07-27 12:21:55 (200 MB/s) - ‘sources.list’ saved [1784/1784]
+
+    #+end_example
+
 *** =make=
     - 数据流水线构建最佳工具。
+      - 程序写得尽可能短，特定场景下 Python 之外的工具更能胜任。
+      - 不要一切都用“我人生中掌握的第一门程序语言”实现。
     - 函数式编程：一切都是函数，从输入到输出的映射。
     - 数据驱动编程：循环是暗含的，只关注组成单元的处理。
     - =make= 与 =shell= 的调用关系。
@@ -5308,15 +5338,23 @@ seq 10000 | grep -E ^23+$
 *** Regular Expressions
 - 多数情况下文本处理的 _最佳工具_
 - 优秀工具的典范：
-  1. 有严格的数学模型——用户和开发者之间沟通容易
-  2. 有标准或约定俗成的语法——知识迁移
-  3. 有广泛的实现——学好正则表达式，走遍天下都不怕
+  1. 有严格的数学模型 —— 用户和开发者之间沟通容易
+  2. 有标准或约定俗成的语法 —— 知识迁移
+  3. 有广泛的实现 —— 学好正则表达式，走遍天下都不怕
   
-- 实验物理用户，只要能写出正确的表达式，就可以使用高性能的正则表达式引擎。
+- 实验物理用户：只要能写出正确的表达式，就可以使用高性能的正则表达式引擎。
 
 - 参考书：Jeffrey Friedl, Mastering Regular Expressions
+*** 正则表达式的形式定义
+- 称 \(R\) 是正则表达式，如果 \(R\) 是
+  - $a \in \Sigma$， $\Sigma$ 是字母表
+  - $\epsilon$ 空字符串
+  - 字母表是空的
+  - $R_1 \cup R_2$ 两个正则表达式集合的并
+  - $R_1 \cdot R_2$ 两个正则表达式的连接
+  - $R^*$ R表达式集合元素的任意次连接
 
-*** 语法要素
+*** 语法要素：类算术运算的组合规则
 - 所有字符默认与自己匹配
 - =.= 代表任意字符
 - =^=, =$= 开始与结束
@@ -5333,8 +5371,43 @@ seq 10000 | grep -E ^23+$
 - =\<=, =\>= 单词的开始和结束处的空白符
 - =\b= 单词两边的空白符
 - =\B= 非单词两边的空白符
-- 像算术运算一样的组合规则
+*** 正则表达式流派
+   - 基础正则表达式 :: Basic RE
+     - =?= =+= ={= =|= =(= =)= 是字符本身，需要特殊含义得加上 =\= ，例如 =\?= =\+= 等
+   - 扩展正则表达式 :: Extended RE
+     - GNU 环境里与基础正则表达式功能完全一致，只是语法约定相反， =\?= =\+= 等代表 “?” 和 “+” 本身， =?= =+= 等有特殊含义。
+   - Perl 正则表达式 :: Perl-Compatible RE
+     - 与 Perl 5 语言正则表达式有同样功能
+     - 超出有限状态自动机的功能：递归、条件、引用等
+*** =grep=
+    - 基本功能：检验输入的第一行是否与正则表达式匹配，若是则输出该行。
+    - =egrep= 等价于 =grep -E= ，扩展正则表达式
+    #+NAME: 2cad784c-bd9a-43de-9851-b4de14f37ff1
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      file $(which egrep)
+    #+end_src
+
+    #+RESULTS: 2cad784c-bd9a-43de-9851-b4de14f37ff1
+    : /bin/egrep: POSIX shell script, ASCII text executable
+    #+NAME: 4881f785-276a-446d-a2d7-2978fdf2021b
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      cat /bin/egrep
+    #+end_src
+
+    #+RESULTS: 4881f785-276a-446d-a2d7-2978fdf2021b
+    : #!/bin/sh
+    : exec /bin/grep -E "$@"
+
+**** 文档
+     - =man grep=
+     - =info grep=
+     - 源于 =ed= 的语法 =global/regular expression/print= \to =g/re/p=
 *** 试验
+    - =^=, =$= 开始与结束
+    - =+= 至少一次重复
+    - =?= 0或1次
+    - =()= 组合
+
     #+NAME: aeb0d9c9-c9f2-4575-ab48-d5e2197aeb42
     #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
 seq 10000 | egrep ^2?3+$
@@ -5356,6 +5429,64 @@ seq 10000 | egrep '^(23)*$'
     #+RESULTS: 81055a1a-444b-4ae9-9321-f94d2c5b1bf7
     : 23
     : 2323
+*** 试验（二）
+    #+NAME: 3886fe23-0a72-4ed4-bb94-f40c4849e6cd
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+seq 10000 | egrep '^(23?)+$'
+    #+end_src
+
+    #+RESULTS: 3886fe23-0a72-4ed4-bb94-f40c4849e6cd
+    #+begin_example
+    2
+    22
+    23
+    222
+    223
+    232
+    2222
+    2223
+    2232
+    2322
+    2323
+    #+end_example
+    - 正则表达式写下了人类语言已经很难描述匹配的规则。
+*** 试验（三）
+    - =|= 或
+    - =[]= =[0-9]= 字符集
+    #+NAME: 28580be7-666d-40a3-9ddf-d3ac2fab69c7
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+seq 10000 | egrep '^(2(3|4))+$'
+    #+end_src
+
+    #+RESULTS: 28580be7-666d-40a3-9ddf-d3ac2fab69c7
+    : 23
+    : 24
+    : 2323
+    : 2324
+    : 2423
+    : 2424
+    #+NAME: 73f1761a-34dc-4a53-a3c6-3d1571511f15
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+seq 10000 | egrep '^(23[3-6])+$'
+    #+end_src
+
+    #+RESULTS: 73f1761a-34dc-4a53-a3c6-3d1571511f15
+    : 233
+    : 234
+    : 235
+    : 236
+
+*** 试验（四）
+    - ={n,m}= 重复 n 至 m （包含）次
+    #+NAME: 5b7e9160-3178-4451-9523-d56032d087ab
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+seq 1000000 | egrep '^23{2,4}$'
+    #+end_src
+
+    #+RESULTS: 5b7e9160-3178-4451-9523-d56032d087ab
+    : 233
+    : 2333
+    : 23333
 
 *** 更多字符集
 - 在 =[ ]= 之内有效
@@ -5372,37 +5503,277 @@ seq 10000 | egrep '^(23)*$'
     - =\s= 与 =[[:space:]]= 同义， =\S= 与 =[^[:space:]]= 同义
   - =[:upper:]= 大写字母
   - =[:xdigit:]= 十六进制数
-*** 正则表达式流派
-   - 基础正则表达式 :: Basic
-     - =?= =+= ={= =|= =(= =)= 是字符本身，需要特殊含义得加上 =\= ，例如 =\?= =\+= 等
-   - 扩展正则表达式 :: Extended
-     - GNU 环境里与基础正则表达式功能完全一致，只是语法约定相反， =\?= =\+= 等代表 “?” 和 “+” 本身， =?= =+= 等有特殊含义。
-   - Perl 正则表达式 :: Perl-Compatible
-     - 与 Perl 5 语言正则表达式有同样功能
-*** =grep=
-    - 基本功能：检验输入的第一行是否与正则表达式匹配，若是则输出该行。
-      
-**** 文档
-     =man grep=
-     =info grep=
-     - 源于 =ed= 的语法 =global/regular expression/print= \to =g/re/p=
+** 文件名匹配练习
+*** =tex=
+    #+NAME: ad509f0a-98e3-4184-a05a-58dac76afbe6
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+grep tex usr_share_doc_list.txt | head
+    #+end_src
+
+    #+RESULTS: ad509f0a-98e3-4184-a05a-58dac76afbe6
+    #+begin_example
+    drwxr-xr-x  4 root root 4096 Feb  8  2021 auctex
+    drwxr-xr-x  3 root root 4096 Feb  8  2021 chktex
+    drwxr-xr-x  4 root root 4096 Feb  8  2021 dot2tex
+    drwxr-xr-x  2 root root 4096 Feb  8  2021 fonts-texgyre
+    drwxr-xr-x  2 root root 4096 Feb  8  2021 gettext
+    drwxr-xr-x  2 root root 4096 Feb  8  2021 gettext-base
+    drwxr-xr-x  2 root root 4096 Feb  8  2021 latex2rtf
+    lrwxrwxrwx  1 root root   16 May 11  2016 latex-cjk-chinese -> latex-cjk-common
+    drwxr-xr-x  5 root root 4096 Apr 14 15:46 latex-cjk-common
+    drwxr-xr-x  3 root root 4096 Aug  8  2017 latex-mk
+    #+end_example
+*** 去掉与 \TeX 无关的项
+    - 去掉 =text= =texgyre= =texinfo=
+    #+NAME: 2ab7b4a1-7cac-478a-8d80-e3a0d3bc0520
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+egrep 'tex([^tgi]|$)' usr_share_doc_list.txt | head
+    #+end_src
+
+    #+RESULTS: 2ab7b4a1-7cac-478a-8d80-e3a0d3bc0520
+    #+begin_example
+    drwxr-xr-x  4 root root 4096 Feb  8  2021 auctex
+    drwxr-xr-x  3 root root 4096 Feb  8  2021 chktex
+    drwxr-xr-x  4 root root 4096 Feb  8  2021 dot2tex
+    drwxr-xr-x  2 root root 4096 Feb  8  2021 latex2rtf
+    lrwxrwxrwx  1 root root   16 May 11  2016 latex-cjk-chinese -> latex-cjk-common
+    drwxr-xr-x  5 root root 4096 Apr 14 15:46 latex-cjk-common
+    drwxr-xr-x  3 root root 4096 Aug  8  2017 latex-mk
+    drwxr-xr-x  3 root root 4096 Feb  8  2021 latexmk
+    drwxr-xr-x  2 root root 4096 Feb  8  2021 libpod-latex-perl
+    drwxr-xr-x  2 root root 4096 Apr 14 15:44 libptexenc1
+    #+end_example
+*** 先有 tex 再有 latex
+    #+NAME: 1b482f9b-8992-4a36-a0ec-37472f517611
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+egrep 'tex\S*latex' usr_share_doc_list.txt | head
+    #+end_src
+
+    #+RESULTS: 1b482f9b-8992-4a36-a0ec-37472f517611
+    : drwxr-xr-x  2 root root 4096 Apr 14 15:45 texlive-latex-base
+    : drwxr-xr-x  2 root root 4096 Apr 14 15:45 texlive-latex-extra
+    : drwxr-xr-x  2 root root 4096 Apr 14 15:45 texlive-latex-recommended
+*** tex 为单词的起始
+    #+NAME: 47dcb1f1-1b2e-4665-84aa-8a71fef992d2
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+egrep '\btex' usr_share_doc_list.txt | head
+    #+end_src
+
+    #+RESULTS: 47dcb1f1-1b2e-4665-84aa-8a71fef992d2
+    #+begin_example
+    drwxr-xr-x  2 root root 4096 Feb  8  2021 fonts-texgyre
+    drwxr-xr-x  2 root root 4096 Feb  8  2021 libdjvulibre-text
+    drwxr-xr-x  2 root root 4096 Apr 14 15:44 tex-common
+    drwxr-xr-x  2 root root 4096 Mar 24 11:19 tex-gyre
+    drwxr-xr-x  3 root root 4096 Feb  8  2021 texinfo
+    drwxr-xr-x  4 root root 4096 Apr 14 15:46 texlive-base
+    drwxr-xr-x  2 root root 4096 Apr 14 15:45 texlive-bibtex-extra
+    drwxr-xr-x  2 root root 4096 Apr 14 15:44 texlive-binaries
+    drwxr-xr-x 25 root root 4096 Feb  8  2021 texlive-doc
+    drwxr-xr-x  2 root root 4096 Apr 14 15:46 texlive-extra-utils
+    #+end_example
+*** 带有 python3 的
+    #+NAME: 899a282d-342f-4569-88cd-1052d69fccb2
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+egrep '\<python3\>' usr_share_doc_list.txt | head
+    #+end_src
+
+    #+RESULTS: 899a282d-342f-4569-88cd-1052d69fccb2
+    #+begin_example
+    drwxr-xr-x  2 root root 4096 Apr 14 15:44 python3
+    drwxr-xr-x  2 root root 4096 Apr 14 15:44 python3.9
+    drwxr-xr-x  2 root root 4096 Apr 14 15:44 python3.9-minimal
+    drwxr-xr-x  2 root root 4096 Feb  8  2021 python3-apt
+    drwxr-xr-x  2 root root 4096 Feb  8  2021 python3-attr
+    drwxr-xr-x  2 root root 4096 Feb  8  2021 python3-automat
+    drwxr-xr-x  2 root root 4096 Feb  8  2021 python3-backcall
+    drwxr-xr-x  2 root root 4096 Feb  8  2021 python3-bcrypt
+    drwxr-xr-x  2 root root 4096 Feb  8  2021 python3-cairo
+    drwxr-xr-x  2 root root 4096 Feb  8  2021 python3-certifi
+    /bin/grep: write error: Broken pipe
+    #+end_example
+*** 恰好出现3次的字母数字
+    #+NAME: 5c23c567-c8ea-422b-b38c-96e55783f073
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+egrep '\b[[:alnum:]]{3}\b' usr_share_doc_list.txt | head
+    #+end_src
+
+    #+RESULTS: 5c23c567-c8ea-422b-b38c-96e55783f073
+    #+begin_example
+    drwxr-xr-x  2 root root 4096 Aug  8  2017 abootimg
+    drwxr-xr-x  2 root root 4096 Feb  8  2021 acl
+    drwxr-xr-x  2 root root 4096 Jul  2  2019 acpi
+    drwxr-xr-x  2 root root 4096 Feb  8  2021 adb
+    drwxr-xr-x  3 root root 4096 Oct 12  2019 adduser
+    drwxr-xr-x  2 root root 4096 Feb  8  2021 adwaita-icon-theme
+    drwxr-xr-x  2 root root 4096 Jul  2  2019 alsa-oss
+    drwxr-xr-x  6 root root 4096 Feb  8  2021 alsa-tools
+    drwxr-xr-x  8 root root 4096 Feb  8  2021 alsa-tools-gui
+    drwxr-xr-x  2 root root 4096 Feb  8  2021 alsa-utils
+    /bin/grep: write error: Broken pipe
+    #+end_example
+
 *** 匹配引用
 *** 多行匹配
      - =grep= 的多行匹配功能很弱，应当使用 =pcre2grep=
+** Perl 正则表达式
 *** pcre2
     - 吸纳了 Perl 的正则表达式，一部分来自 Python 正则表达式。
+*** 选择结构
+*** 循环结构
 **** 文档
      =man pcre2=
-** 流编辑器
-*** =sed=
+** 流编辑器 sed
+*** sed: stream editor
+- =sed= 是 stream editor，在"流"上进行编辑
+- 常用的操作是替换，可以使用正则表达式
+  - 支持 Basic RE 和 Extended RE =-r=
+
 **** 文档
-     - 名字是 streamed =ed=
+     - =man sed=
+     - =info sed=
+     - 名字是 streamed =ed=，前身是 `ed`
+**** 替换
+     #+NAME: e6a2719f-300f-463f-9749-696f54af1454
+     #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+echo hello | sed 's/lo/do/'
+     #+end_src
+
+     #+RESULTS: e6a2719f-300f-463f-9749-696f54af1454
+     : heldo
+*** 生成 CSV
+    - 把 9 处的“,”转为换行
+    - =g= 代表全部替换
+    #+NAME: 46623638-a91b-42dd-b24e-29a0b238e737
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      seq -s, -w 00 99 | sed 's/9,/9\n/g'
+    #+end_src
+
+    #+RESULTS: 46623638-a91b-42dd-b24e-29a0b238e737
+    #+begin_example
+    00,01,02,03,04,05,06,07,08,09
+    10,11,12,13,14,15,16,17,18,19
+    20,21,22,23,24,25,26,27,28,29
+    30,31,32,33,34,35,36,37,38,39
+    40,41,42,43,44,45,46,47,48,49
+    50,51,52,53,54,55,56,57,58,59
+    60,61,62,63,64,65,66,67,68,69
+    70,71,72,73,74,75,76,77,78,79
+    80,81,82,83,84,85,86,87,88,89
+    90,91,92,93,94,95,96,97,98,99
+    #+end_example
+*** 生成 CSV （二）
+    - 在 4 或 9 处换行
+    - =\1= 代表第一个括号中的成分
+    #+NAME: 0640d1a1-4cdf-43e5-84ce-55167de2afe2
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+seq -s, -w 00 99 | sed -r 's/([49]),/\1\n/g'
+    #+end_src
+
+    #+RESULTS: 0640d1a1-4cdf-43e5-84ce-55167de2afe2
+    #+begin_example
+    00,01,02,03,04
+    05,06,07,08,09
+    10,11,12,13,14
+    15,16,17,18,19
+    20,21,22,23,24
+    25,26,27,28,29
+    30,31,32,33,34
+    35,36,37,38,39
+    40,41,42,43,44
+    45,46,47,48,49
+    50,51,52,53,54
+    55,56,57,58,59
+    60,61,62,63,64
+    65,66,67,68,69
+    70,71,72,73,74
+    75,76,77,78,79
+    80,81,82,83,84
+    85,86,87,88,89
+    90,91,92,93,94
+    95,96,97,98,99
+    #+end_example
+
+*** 使用 TUNA 源
+    - 多个替换可以用 =-e= 分开
+    #+NAME: 98f629be-38ea-4134-b3b1-6ce37a624d1f
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+sed -e 's,archive.canonical.com/,mirrors.tuna.tsinghua.edu.cn/,' -e 's/trusty/jammy/' sources.list | head
+    #+end_src
+
+    #+RESULTS: 98f629be-38ea-4134-b3b1-6ce37a624d1f
+    #+begin_example
+    # deb cdrom:[Ubuntu 14.04 LTS _Trusty Tahr_ - Release amd64 (20140417)]/ jammy main restricted
+
+    # See http://help.ubuntu.com/community/UpgradeNotes for how to upgrade to
+    # newer versions of the distribution.
+    deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy main restricted universe multiverse
+    deb-src http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy main restricted universe multiverse
+
+    ## Major bug fix updates produced after the final release of the
+    ## distribution.
+    deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-updates main restricted universe multiverse
+    #+end_example
+*** 过滤掉无用的注释
+    - 多个替换也可以用 =;= 分隔
+    - =-n= 默认不输出， =p= 来输出
+    #+NAME: 39fcebd9-f404-479c-b732-ec443ecf0949
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+sed -n '/^[^#]/{s,archive.canonical.com/,mirrors.tuna.tsinghua.edu.cn/,;s/trusty/jammy/;p}' sources.list | head
+    #+end_src
+
+    #+RESULTS: 39fcebd9-f404-479c-b732-ec443ecf0949
+    : deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy main restricted universe multiverse
+    : deb-src http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy main restricted universe multiverse
+    : deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-updates main restricted universe multiverse
+    : deb-src http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-updates main restricted universe multiverse
+    : deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-backports main restricted universe multiverse
+    : deb-src http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-backports main restricted universe multiverse
+    : deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-security main restricted universe multiverse
+    : deb-src http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-security main restricted universe multiverse
+*** 合成一个表达式
+    - 使用匹配捕捉 =\1=
+    #+NAME: f0ba69e6-09c7-49f2-92e4-22c2be2c48b2
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+sed -nr '/^[^#]/{s,archive.canonical.com(.*)trusty,mirrors.tuna.tsinghua.edu.cn\1jammy,;p}' sources.list | head
+    #+end_src
+
+    #+RESULTS: f0ba69e6-09c7-49f2-92e4-22c2be2c48b2
+    : deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy main restricted universe multiverse
+    : deb-src http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy main restricted universe multiverse
+    : deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-updates main restricted universe multiverse
+    : deb-src http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-updates main restricted universe multiverse
+    : deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-backports main restricted universe multiverse
+    : deb-src http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-backports main restricted universe multiverse
+    : deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-security main restricted universe multiverse
+    : deb-src http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-security main restricted universe multiverse
+*** =grep= 达到类似效果
+    #+NAME: 77bbdf51-7b00-447c-a68f-10b9137afd1c
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+egrep -v '^(#.*)?$' sources.list
+    #+end_src
+
+    #+RESULTS: 77bbdf51-7b00-447c-a68f-10b9137afd1c
+    : deb http://archive.canonical.com/ubuntu/ trusty main restricted universe multiverse
+    : deb-src http://archive.canonical.com/ubuntu/ trusty main restricted universe multiverse
+    : deb http://archive.canonical.com/ubuntu/ trusty-updates main restricted universe multiverse
+    : deb-src http://archive.canonical.com/ubuntu/ trusty-updates main restricted universe multiverse
+    : deb http://archive.canonical.com/ubuntu/ trusty-backports main restricted universe multiverse
+    : deb-src http://archive.canonical.com/ubuntu/ trusty-backports main restricted universe multiverse
+    : deb http://archive.canonical.com/ubuntu/ trusty-security main restricted universe multiverse
+    : deb-src http://archive.canonical.com/ubuntu/ trusty-security main restricted universe multiverse
+    - 达成成就：没有任何字母数字的正则表达式
+
 ** 有限状态自动机
 *** 有限状态自动机之外的功能
     - 基本正则表达式与有限状态自动机 finite state machine 等价
     - 在 FSM 之外时，可引入更强大的处理功能
 *** 前趋引用匹配
     - 形似 =sed= 的替换
+** 调试
+*** =rxrx=
+    - Perl 的正则表达式调试和教学工具
+
 ** 常见问题
 *** 匹配长度
     - greedy: 贪婪匹配
