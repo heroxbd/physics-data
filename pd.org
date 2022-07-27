@@ -5244,9 +5244,10 @@ numbers-%.csv:
   :END:
 ** 复习与提示
 *** 软件准备
-    - Perl regular expression tool
+    - pcre2-utils :: Perl 正则表达式工具
+    - libregexp-debugger-perl :: 正则表达式调试器
     #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-      apt install pcre2-utils
+      apt install pcre2-utils libregexp-debugger-perl
     #+end_src
 * 第三周第四天
   :PROPERTIES:
