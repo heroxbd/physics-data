@@ -5245,9 +5245,10 @@ numbers-%.csv:
 ** 复习与提示
 *** 软件准备
     - pcre2-utils :: Perl 正则表达式工具
+    - libpcre2-dev :: Perl 正则表达式文档和开发工具
     - libregexp-debugger-perl :: 正则表达式调试器
     #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-      apt install pcre2-utils libregexp-debugger-perl
+      apt install pcre2-utils libpcre2-dev libregexp-debugger-perl
     #+end_src
 **** 素材文件准备
      #+NAME: 80b071f8-5c6f-489e-a71c-a03a4a41f60b
@@ -5257,6 +5258,51 @@ numbers-%.csv:
 
      #+RESULTS: 80b071f8-5c6f-489e-a71c-a03a4a41f60b
      : [....]
+*** =make=
+    - 数据流水线构建最佳工具。
+    - 函数式编程：一切都是函数，从输入到输出的映射。
+    - 数据驱动编程：循环是暗含的，只关注组成单元的处理。
+    - =make= 与 =shell= 的调用关系。
+    - =guile= 的 scheme 语言在 =make= 中的调用。
+*** 字符搜索匹配
+    #+NAME: 0897673d-6bd3-4d55-aa8f-508e629825ab
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      seq 50 | grep 7
+    #+end_src
+
+    #+RESULTS: 0897673d-6bd3-4d55-aa8f-508e629825ab
+    : 7
+    : 17
+    : 27
+    : 37
+    : 47
+**** 如何匹配更复杂的规律？
+     - 正则表达式
+     - 更高级的文件管理
+     - 文件内容识别
+*** 高级匹配
+    - 所有以3结尾的两位数
+    #+NAME: 8d196826-7dcf-44e0-929c-c9a946c8e709
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+seq 50 | grep .3
+    #+end_src
+
+    #+RESULTS: 8d196826-7dcf-44e0-929c-c9a946c8e709
+    : 13
+    : 23
+    : 33
+    : 43
+
+    - 23、233、2333、……
+    #+NAME: 7c129466-c6e2-4537-9928-02ce7934c271
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+seq 10000 | grep -E ^23+$
+    #+end_src
+
+    #+RESULTS: 7c129466-c6e2-4537-9928-02ce7934c271
+    : 23
+    : 233
+    : 2333
 
 ** 正则表达式
 *** Regular Expressions
@@ -5288,6 +5334,29 @@ numbers-%.csv:
 - =\b= 单词两边的空白符
 - =\B= 非单词两边的空白符
 - 像算术运算一样的组合规则
+*** 试验
+    #+NAME: aeb0d9c9-c9f2-4575-ab48-d5e2197aeb42
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+seq 10000 | egrep ^2?3+$
+    #+end_src
+
+    #+RESULTS: aeb0d9c9-c9f2-4575-ab48-d5e2197aeb42
+    : 3
+    : 23
+    : 33
+    : 233
+    : 333
+    : 2333
+    : 3333
+    #+NAME: 81055a1a-444b-4ae9-9321-f94d2c5b1bf7
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+seq 10000 | egrep '^(23)*$'
+    #+end_src
+
+    #+RESULTS: 81055a1a-444b-4ae9-9321-f94d2c5b1bf7
+    : 23
+    : 2323
+
 *** 更多字符集
 - 在 =[ ]= 之内有效
   - =[:alnum:]= 字母和数字
@@ -5299,16 +5368,20 @@ numbers-%.csv:
   - =[:lower:]= 小写字母
   - =[:print:]= 可见的字符和空白
   - =[:punct:]= 标点
-  - =[:space:]= 空白符，包括 \t \r \n
+  - =[:space:]= 空白符，包括 =\t= =\r= =\n=
     - =\s= 与 =[[:space:]]= 同义， =\S= 与 =[^[:space:]]= 同义
   - =[:upper:]= 大写字母
   - =[:xdigit:]= 十六进制数
+*** 正则表达式流派
+   - 基础正则表达式 :: Basic
+     - =?= =+= ={= =|= =(= =)= 是字符本身，需要特殊含义得加上 =\= ，例如 =\?= =\+= 等
+   - 扩展正则表达式 :: Extended
+     - GNU 环境里与基础正则表达式功能完全一致，只是语法约定相反， =\?= =\+= 等代表 “?” 和 “+” 本身， =?= =+= 等有特殊含义。
+   - Perl 正则表达式 :: Perl-Compatible
+     - 与 Perl 5 语言正则表达式有同样功能
 *** =grep=
-    - 基础正则表达式 :: Basic
-      - =?= =+= ={= =|= =(= =)= 是字符本身，需要特殊含义得加上 =\= ，例如 =\?= =\+= 等
-    - 扩展正则表达式 :: Extended
-      - GNU 环境里与基础正则表达式功能完全一致，只是语法约定相反， =\?= =\+= 等代表 “?” 和 “+” 本身， =?= =+= 等有特殊含义。
-    - Perl 正则表达式 :: Perl-Compatible
+    - 基本功能：检验输入的第一行是否与正则表达式匹配，若是则输出该行。
+      
 **** 文档
      =man grep=
      =info grep=
@@ -5316,10 +5389,29 @@ numbers-%.csv:
 *** 匹配引用
 *** 多行匹配
      - =grep= 的多行匹配功能很弱，应当使用 =pcre2grep=
+*** pcre2
+    - 吸纳了 Perl 的正则表达式，一部分来自 Python 正则表达式。
+**** 文档
+     =man pcre2=
 ** 流编辑器
 *** =sed=
 **** 文档
      - 名字是 streamed =ed=
+** 有限状态自动机
+*** 有限状态自动机之外的功能
+    - 基本正则表达式与有限状态自动机 finite state machine 等价
+    - 在 FSM 之外时，可引入更强大的处理功能
+*** 前趋引用匹配
+    - 形似 =sed= 的替换
+** 常见问题
+*** 匹配长度
+    - greedy: 贪婪匹配
+    - lazy: 最小匹配
+    |        | ?  | +  | *  |
+    |--------+----+----+----|
+    | greedy | ?  | +  | *  |
+    | lazy   | ?? | +? | *? |
+
 * 第三周第四天
   :PROPERTIES:
   :EXPORT_FILE_NAME: pb
