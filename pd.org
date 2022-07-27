@@ -5587,7 +5587,7 @@ grep tex usr_share_doc_list.txt | head
     drwxr-xr-x  3 root root 4096 Aug  8  2017 latex-mk
     #+end_example
 *** 去掉与 \TeX 无关的项
-    - 去掉 =text= =texgyre= =texinfo=
+    - 去掉 =text= =texgyre= =/ˈdʒʌɪə,ˈɡʌɪə/= =texinfo=
     #+NAME: 2ab7b4a1-7cac-478a-8d80-e3a0d3bc0520
     #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
 egrep 'tex([^tgi]|$)' usr_share_doc_list.txt | head
