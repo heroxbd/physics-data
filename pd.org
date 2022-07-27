@@ -5685,7 +5685,7 @@ egrep '\b[[:alnum:]]{3}\b' usr_share_doc_list.txt | head
 **** 文档
      - =man sed=
      - =info sed=
-     - 名字是 streamed =ed=，前身是 `ed`
+     - 名字是 streamed =ed= ，前身是 `ed`
 **** 替换
      #+NAME: e6a2719f-300f-463f-9749-696f54af1454
      #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
