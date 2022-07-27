@@ -5748,7 +5748,7 @@ seq -s, -w 00 99 | sed -r 's/([49]),/\1\n/g'
     #+end_example
 
 *** 使用 TUNA 源
-    - 多个替换可以用 =-e= 分开
+    - 多个替换可以用 =-e= 分开 =jammy /ˈdʒami/=
     #+NAME: 98f629be-38ea-4134-b3b1-6ce37a624d1f
     #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
 sed -e 's,archive.canonical.com/,mirrors.tuna.tsinghua.edu.cn/,' -e 's/trusty/jammy/' sources.list | head
