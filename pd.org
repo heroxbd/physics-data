@@ -4473,6 +4473,7 @@ cat s100 | awk '{total+=$NF} END {print total}'
 
       #+RESULTS: 38d52f35-c2a2-448c-82d8-b661677b6e26
       : Hi!
+*** =cut=
 *** 文件信息
     - 寻找 =dev/waveform-compress= 路径之下所有 =R= 程序文件
       #+NAME: 1f94709e-b060-4fd0-9c26-57ff71d1ff68
@@ -5415,7 +5416,7 @@ $R$是正则表达式(Regular Expression，RE) ，若$R$通过以下归纳定义
 
     对于任意的非确定型自动机，存在与其等价的确定型自动机。即，任何被非确定型自动机接受的语言，都可以被某一个确定型自动机接受。
 *** 例子
-    - 字母表$\Sigma=\{a,b\}$。非确定型有限自动机 $\mathcal{M}$ :
+    - 字母表 $\Sigma=\{a,b\}$ 。非确定型有限自动机 $\mathcal{M}$ :
       #+attr_latex: :height 2.5cm
       [[./fig/nfa.png]]
     - 一个与 $\mathcal{M}$ 等价的确定型自动机：
@@ -5558,7 +5559,6 @@ seq 1000000 | egrep '^23{2,4}$'
 
 *** 更多字符集
 - 在 =[ ]= 之内有效
-  - =[:alnum:]= 字母和数字
   - =[:alpha:]= 字母
   - =[:digit:]= 数字
   - =[:alnum:]= 字母或数字
@@ -5683,7 +5683,7 @@ egrep '\b[[:alnum:]]{3}\b' usr_share_doc_list.txt | head
 
 ** 流编辑器 sed
 *** sed: stream editor
-- =sed= 是 stream editor，在"流"上进行编辑
+- =sed= 是 stream editor，在“流”上进行编辑
 - 常用的操作是替换，可以使用正则表达式
   - 支持 Basic RE 和 Extended RE =-r=
 
@@ -5872,24 +5872,21 @@ egrep -v '^(#.*)?$' sources.list
     | greedy | ?  | +  | *  |
     | lazy   | ?? | +? | *? |
 *** bash 循环逐行读入
+    - 与 =seq 10000 | egrep ^23+$= 等价
     #+NAME: 8dea7aec-f23a-47ac-93a7-8ca727ed3c1b
     #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-seq 10 | while read line; do echo $line; done
+      seq 10000 | while read line
+      do
+          if [[ $line =~ ^23+$ ]] ;then
+              echo $line
+          fi
+      done
     #+end_src
 
     #+RESULTS: 8dea7aec-f23a-47ac-93a7-8ca727ed3c1b
-    #+begin_example
-    1
-    2
-    3
-    4
-    5
-    6
-    7
-    8
-    9
-    10
-    #+end_example
+    : 23
+    : 233
+    : 2333
 
 * 第三周第四天
   :PROPERTIES:
