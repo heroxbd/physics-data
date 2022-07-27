@@ -5,6 +5,7 @@
 #+latex_HEADER: \usepackage[export]{adjustbox}
 #+latex_HEADER: \usepackage{pgf,tikz}
 #+latex_HEADER: \usepackage{wasysym}
+#+latex_HEADER: \usepackage{tipa}
 #+latex_HEADER: \usetikzlibrary{arrows}
 #+LATEX_HEADER: \usepackage[UTF8]{ctex}
 #+LaTeX_HEADER: \usepackage{appendixnumberbeamer}
@@ -4833,7 +4834,7 @@ make --version
      2. 管理程序运行，在超级计算机上运行
      3. 从错误中恢复
 *** Make 要素
-     - =make-guile= 在 =GNU make= 的基础上嵌入了 =GNU guile= =/ɡʌɪl/= 解释器支持 =scheme= 语言。
+     - =make-guile= 在 =GNU make= 的基础上嵌入了 =GNU guile= \textipa{[g2Il]} 解释器支持 =scheme= 语言。
      - =scheme= 语言是 =LISP= 语言的一支，是历史悠久的人工智能语言。
        - =LISP= 与 =fortran= 是最早的高级编程语言，都出现在 1960 年代。
 
@@ -5283,7 +5284,9 @@ numbers-%.csv:
     Length: 1784 (1.7K)
     Saving to: ‘sources.list’
 
-    sources.list          0%[                    ]       0  --.-KB/s               sources.list        100%[===================>]   1.74K  --.-KB/s    in 0s      
+    
+sources.list          0%[                    ]       0  --.-KB/s               
+sources.list        100%[===================>]   1.74K  --.-KB/s    in 0s      
 
     2022-07-27 12:21:55 (200 MB/s) - ‘sources.list’ saved [1784/1784]
 
@@ -5303,7 +5306,9 @@ numbers-%.csv:
     Length: 3648 (3.6K)
     Saving to: ‘ser.h5’
 
-    ser.h5                0%[                    ]       0  --.-KB/s               ser.h5              100%[===================>]   3.56K  --.-KB/s    in 0s      
+    
+ser.h5                0%[                    ]       0  --.-KB/s               
+ser.h5              100%[===================>]   3.56K  --.-KB/s    in 0s      
 
     2022-07-27 13:06:55 (301 MB/s) - ‘ser.h5’ saved [3648/3648]
 
@@ -5587,7 +5592,7 @@ grep tex usr_share_doc_list.txt | head
     drwxr-xr-x  3 root root 4096 Aug  8  2017 latex-mk
     #+end_example
 *** 去掉与 \TeX 无关的项
-    - 去掉 =text= =texgyre= =/ˈdʒʌɪə,ˈɡʌɪə/= =texinfo=
+    - 去掉 =text= =texgyre= \textipa{["dZ2I9, "g2I9]} =texinfo=
     #+NAME: 2ab7b4a1-7cac-478a-8d80-e3a0d3bc0520
     #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
 egrep 'tex([^tgi]|$)' usr_share_doc_list.txt | head
@@ -5748,7 +5753,7 @@ seq -s, -w 00 99 | sed -r 's/([49]),/\1\n/g'
     #+end_example
 
 *** 使用 TUNA 源
-    - 多个替换可以用 =-e= 分开 =jammy /ˈdʒami/=
+    - 多个替换可以用 =-e= 分开 =jammy= \textipa{["dZami]}
     #+NAME: 98f629be-38ea-4134-b3b1-6ce37a624d1f
     #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
 sed -e 's,archive.canonical.com/,mirrors.tuna.tsinghua.edu.cn/,' -e 's/trusty/jammy/' sources.list | head
