@@ -5285,6 +5285,26 @@ numbers-%.csv:
     2022-07-27 12:21:55 (200 MB/s) - ‘sources.list’ saved [1784/1784]
 
     #+end_example
+*** HDF5 素材
+    #+NAME: 121954c0-0fa6-4844-a7dd-3efb6d192657
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      wget "http://hep.tsinghua.edu.cn/~orv/pd/ser.h5"
+    #+end_src
+
+    #+RESULTS: 121954c0-0fa6-4844-a7dd-3efb6d192657
+    #+begin_example
+    --2022-07-27 13:06:55--  http://hep.tsinghua.edu.cn/~orv/pd/ser.h5
+    Resolving hep.tsinghua.edu.cn... 101.6.6.219, 2402:f000:1:416:101:6:6:219
+    Connecting to hep.tsinghua.edu.cn|101.6.6.219|:80... connected.
+    HTTP request sent, awaiting response... 200 OK
+    Length: 3648 (3.6K)
+    Saving to: ‘ser.h5’
+
+    ser.h5                0%[                    ]       0  --.-KB/s               ser.h5              100%[===================>]   3.56K  --.-KB/s    in 0s      
+
+    2022-07-27 13:06:55 (301 MB/s) - ‘ser.h5’ saved [3648/3648]
+
+    #+end_example
 
 *** =make=
     - 数据流水线构建最佳工具。
@@ -5338,22 +5358,62 @@ seq 10000 | grep -E ^23+$
 *** Regular Expressions
 - 多数情况下文本处理的 _最佳工具_
 - 优秀工具的典范：
-  1. 有严格的数学模型 —— 用户和开发者之间沟通容易
-  2. 有标准或约定俗成的语法 —— 知识迁移
-  3. 有广泛的实现 —— 学好正则表达式，走遍天下都不怕
+  1. 有严格的数学模型 -- 用户和开发者之间沟通容易
+  2. 有标准或约定俗成的语法 -- 知识迁移
+  3. 有广泛的实现 -- 学好正则表达式，走遍天下都不怕
   
 - 实验物理用户：只要能写出正确的表达式，就可以使用高性能的正则表达式引擎。
 
-- 参考书：Jeffrey Friedl, Mastering Regular Expressions
+**** 参考书
+     - Jeffrey Friedl, Mastering Regular Expressions
+     - Michael Sipser, Introduction to the Theory of Computation
 *** 正则表达式的形式定义
-- 称 \(R\) 是正则表达式，如果 \(R\) 是
-  - $a \in \Sigma$， $\Sigma$ 是字母表
-  - $\epsilon$ 空字符串
-  - 字母表是空的
-  - $R_1 \cup R_2$ 两个正则表达式集合的并
-  - $R_1 \cdot R_2$ 两个正则表达式的连接
-  - $R^*$ R表达式集合元素的任意次连接
+    #+begin_export latex
+设$\Sigma$是字母表，$A$和$B$是字母表$\Sigma$上的有限字符串的集合，我们定义：
+\begin{itemize}
+\item 并（Union）: $A\cup B=\{x\mid x\in A\text{ 或  }x\in B\}$
+\item 连接（Concatenation）: $A. B=\{x.y\mid x\in A\text{ 且  }y\in B\}$
+\item Kleene 星号（Kleene star）: $A^*=\bigcup_{k\geq 0} A^k = \bigcup_{k\geq 0}\{x_1x_2\ldots x_k\mid x_k\in A\}$，e.g.， $\{a,ab\}^*=\{\varepsilon,a,ab,aab,aba,aa,abab,aaa,aaab,\ldots\}$
+\end{itemize}
 
+$R$是正则表达式(Regular Expression，RE) ，若$R$通过以下归纳定义得到：
+\begin{itemize}
+\item $\{a\}$, $a\in \Sigma$，
+\item $\{\varepsilon\}$，即空字符串（长度为0）的集合，
+\item $\emptyset$ （空集）
+\item 若$R_1$,$R_2$是RE，则$R_1\cup R_2$亦然 （对$\cup$运算封闭），
+\item 若$R_1$,$R_2$是RE，则$R_1.R_2$亦然（对$.$运算封闭），
+\item 若$R_1$是RE，则$(R_1)^*$亦然 （对$*$运算封闭）。
+\end{itemize}
+    #+end_export
+*** 正则表达式的等价表述
+    #+begin_export latex
+    以下命题等价：
+    \begin{itemize}
+    \item $R$是正则表达式
+    \item $R$是被有限自动机接受的语言
+    \item $R$是被Chomsky的3-型文法生成的语言
+    \end{itemize}
+    \vspace{1cm}
+    有限自动机$\mathcal{M}=(Q,\Sigma,\delta,q_0,F)$, 其中$Q$是有限的状态集，$\Sigma$是有限的字母表，$\delta:Q\times \Sigma\rightarrow \mathcal{P}(Q)$ 是状态转移关系，$q_0\in Q$是初始状态, $F\subset Q$是接受状态的集合。
+
+    \vspace{0.5cm}
+    3-型文法满足右线性或左线性。右线性的例子：
+    $A\rightarrow w B$，$A\rightarrow w$，$A\rightarrow \varepsilon$，其中$A$，$B$表示非终结符号，$w$是终结符。
+    #+end_export
+*** 确定与非确定自动机
+    #+attr_latex: :height 5cm
+    [[./fig/com.png]]
+
+    对于任意的非确定型自动机，存在与其等价的确定型自动机。即，任何被非确定型自动机接受的语言，都可以被某一个确定型自动机接受。
+*** 例子
+    - 字母表$\Sigma=\{a,b\}$。非确定型有限自动机 $\mathcal{M}$ :
+      #+attr_latex: :height 2.5cm
+      [[./fig/nfa.png]]
+    - 一个与 $\mathcal{M}$ 等价的确定型自动机：
+      #+attr_latex: :height 2.5cm
+      [[./fig/dfa.png]]
+** 应用实例
 *** 语法要素：类算术运算的组合规则
 - 所有字符默认与自己匹配
 - =.= 代表任意字符
@@ -5613,16 +5673,6 @@ egrep '\b[[:alnum:]]{3}\b' usr_share_doc_list.txt | head
     /bin/grep: write error: Broken pipe
     #+end_example
 
-*** 匹配引用
-*** 多行匹配
-     - =grep= 的多行匹配功能很弱，应当使用 =pcre2grep=
-** Perl 正则表达式
-*** pcre2
-    - 吸纳了 Perl 的正则表达式，一部分来自 Python 正则表达式。
-*** 选择结构
-*** 循环结构
-**** 文档
-     =man pcre2=
 ** 流编辑器 sed
 *** sed: stream editor
 - =sed= 是 stream editor，在"流"上进行编辑
@@ -5732,7 +5782,7 @@ sed -n '/^[^#]/{s,archive.canonical.com/,mirrors.tuna.tsinghua.edu.cn/,;s/trusty
     : deb http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-security main restricted universe multiverse
     : deb-src http://mirrors.tuna.tsinghua.edu.cn/ubuntu/ jammy-security main restricted universe multiverse
 *** 合成一个表达式
-    - 使用匹配捕捉 =\1=
+    - 使用匹配引用 =\1=
     #+NAME: f0ba69e6-09c7-49f2-92e4-22c2be2c48b2
     #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
 sed -nr '/^[^#]/{s,archive.canonical.com(.*)trusty,mirrors.tuna.tsinghua.edu.cn\1jammy,;p}' sources.list | head
@@ -5764,12 +5814,43 @@ egrep -v '^(#.*)?$' sources.list
     : deb-src http://archive.canonical.com/ubuntu/ trusty-security main restricted universe multiverse
     - 达成成就：没有任何字母数字的正则表达式
 
-** 有限状态自动机
+** Perl 正则表达式
+*** 多行匹配
+     - =grep= 的多行匹配功能很弱，应当使用 =pcre2grep=
+     - =pcre2= 吸纳了 Perl 的正则表达式，一部分来自 Python 正则表达式。
+       
+     #+NAME: c523234c-6533-4536-bb1f-e5150bd96f85
+     #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+       columns=( "DATASET.*SER"
+                 "DATATYPE.*F64"
+                 "DATASET.*SER_stddev"
+                 "DATATYPE.*F64"
+               )
+
+       h5dump -A ser.h5| pcre2grep -M "$(echo ${columns[@]} | sed 's/ /(.|\n)*/g')"
+       echo $?
+     #+end_src       
+
+     #+RESULTS: c523234c-6533-4536-bb1f-e5150bd96f85
+     :    DATASET "SER" {
+     :       DATATYPE  H5T_IEEE_F64LE
+     :       DATASPACE  SIMPLE { ( 100 ) / ( 100 ) }
+     :    }
+     :    DATASET "SER_stddev" {
+     :       DATATYPE  H5T_IEEE_F64LE
+     : 0
+
 *** 有限状态自动机之外的功能
-    - 基本正则表达式与有限状态自动机 finite state machine 等价
-    - 在 FSM 之外时，可引入更强大的处理功能
+    - 基本正则表达式与有限自动机 finite automata 等价
+    - 在 FA 之外时，可引入更强大的处理功能
 *** 前趋引用匹配
     - 形似 =sed= 的替换
+*** 选择结构
+    =man pcre2=
+
+*** 循环结构
+    =man pcre2=
+
 ** 调试
 *** =rxrx=
     - Perl 的正则表达式调试和教学工具
@@ -5782,6 +5863,25 @@ egrep -v '^(#.*)?$' sources.list
     |--------+----+----+----|
     | greedy | ?  | +  | *  |
     | lazy   | ?? | +? | *? |
+*** bash 循环逐行读入
+    #+NAME: 8dea7aec-f23a-47ac-93a7-8ca727ed3c1b
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+seq 10 | while read line; do echo $line; done
+    #+end_src
+
+    #+RESULTS: 8dea7aec-f23a-47ac-93a7-8ca727ed3c1b
+    #+begin_example
+    1
+    2
+    3
+    4
+    5
+    6
+    7
+    8
+    9
+    10
+    #+end_example
 
 * 第三周第四天
   :PROPERTIES:
