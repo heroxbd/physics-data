@@ -5248,7 +5248,10 @@ numbers-%.csv:
     - libpcre2-dev :: Perl 正则表达式文档和开发工具
     - libregexp-debugger-perl :: 正则表达式调试器
     #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      # Debian/Ubuntu
       apt install pcre2-utils libpcre2-dev libregexp-debugger-perl
+      # macOS
+      brew install pcre2
     #+end_src
 **** 素材文件准备
      #+NAME: 80b071f8-5c6f-489e-a71c-a03a4a41f60b
