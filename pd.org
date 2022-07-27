@@ -5249,6 +5249,77 @@ numbers-%.csv:
     #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
       apt install pcre2-utils libregexp-debugger-perl
     #+end_src
+**** 素材文件准备
+     #+NAME: 80b071f8-5c6f-489e-a71c-a03a4a41f60b
+     #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+       wget http://hep.tsinghua.edu.cn/~orv/pd/usr_share_doc_list.txt
+     #+end_src
+
+     #+RESULTS: 80b071f8-5c6f-489e-a71c-a03a4a41f60b
+     : [....]
+
+** 正则表达式
+*** Regular Expressions
+- 多数情况下文本处理的 _最佳工具_
+- 优秀工具的典范：
+  1. 有严格的数学模型——用户和开发者之间沟通容易
+  2. 有标准或约定俗成的语法——知识迁移
+  3. 有广泛的实现——学好正则表达式，走遍天下都不怕
+  
+- 实验物理用户，只要能写出正确的表达式，就可以使用高性能的正则表达式引擎。
+
+- 参考书：Jeffrey Friedl, Mastering Regular Expressions
+
+*** 语法要素
+- 所有字符默认与自己匹配
+- =.= 代表任意字符
+- =^=, =$= 开始与结束
+- =*= 任意重复
+  - =+= 至少一次重复
+  - =?= 0或1次
+  - ={n,m}= 重复 n 至 m （包含）次
+- =()= 组合
+- =|= 或
+- =[]= 字符集
+  - =[0-9]=
+  - =[a-zA-Z]=
+  - =[^abc]=
+- =\<=, =\>= 单词的开始和结束处的空白符
+- =\b= 单词两边的空白符
+- =\B= 非单词两边的空白符
+- 像算术运算一样的组合规则
+*** 更多字符集
+- 在 =[ ]= 之内有效
+  - =[:alnum:]= 字母和数字
+  - =[:alpha:]= 字母
+  - =[:digit:]= 数字
+  - =[:alnum:]= 字母或数字
+    - =\w= 与 =[[:alnum:]]= 同义， =\W= 与 =[^[:alnum:]]= 同义
+  - =[:graph:]= 可见的字符，不包括空白
+  - =[:lower:]= 小写字母
+  - =[:print:]= 可见的字符和空白
+  - =[:punct:]= 标点
+  - =[:space:]= 空白符，包括 \t \r \n
+    - =\s= 与 =[[:space:]]= 同义， =\S= 与 =[^[:space:]]= 同义
+  - =[:upper:]= 大写字母
+  - =[:xdigit:]= 十六进制数
+*** =grep=
+    - 基础正则表达式 :: Basic
+      - =?= =+= ={= =|= =(= =)= 是字符本身，需要特殊含义得加上 =\= ，例如 =\?= =\+= 等
+    - 扩展正则表达式 :: Extended
+      - GNU 环境里与基础正则表达式功能完全一致，只是语法约定相反， =\?= =\+= 等代表 “?” 和 “+” 本身， =?= =+= 等有特殊含义。
+    - Perl 正则表达式 :: Perl-Compatible
+**** 文档
+     =man grep=
+     =info grep=
+     - 源于 =ed= 的语法 =global/regular expression/print= \to =g/re/p=
+*** 匹配引用
+*** 多行匹配
+     - =grep= 的多行匹配功能很弱，应当使用 =pcre2grep=
+** 流编辑器
+*** =sed=
+**** 文档
+     - 名字是 streamed =ed=
 * 第三周第四天
   :PROPERTIES:
   :EXPORT_FILE_NAME: pb
