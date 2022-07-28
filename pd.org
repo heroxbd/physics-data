@@ -5167,7 +5167,8 @@ all: step1 step2
       - 不同时节运算，可能有不同变量环境，可到不同的效果
 *** 特殊目标
     - =.PHONY= 代表无对应文件的目标
-      GNU Make 默认执行第一个目标，可以把它定义为无对应文件的 =all=
+      - 否则如果存在一个名为 =all= 那么 =make all= 就不会执行
+      - GNU Make 默认执行第一个目标，可以把它定义为无对应文件的 =all=
     - =.DELETE_ON_ERROR= 如果出错就把坏文件删掉
     - =.SECONDARY= 保留中间结果
 
@@ -6225,7 +6226,7 @@ echo ${n_list}
     - 内建命令，调用速度更快
     - 命令层次的逻辑运算
       - =command1 && command2= 取和
-      - =command1 && command2= 取或
+      - =command1 || command2= 取或
       - =! command= 取否
     - 逻辑运算替代选择结构，以下两者等价
     #+NAME: 3de9216b-c95d-40fa-9892-ee47023f68c2
@@ -6286,8 +6287,7 @@ echo ${y}
       done
     #+end_src
 **** 循环控制命令
-     - =break= 终止循环
-     - =continue= 跳入下一轮循环
+     - =break= 终止循环、 =continue= 跳入下一轮循环
     #+NAME: 8e1e4763-f8da-47c5-a34d-92b056e44a03
     #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
       seq 1000 | until ! read line
@@ -6307,7 +6307,6 @@ echo ${y}
       function greet() {
           echo "Hello, $1"
       }
-
 
       greet 大佬
     #+end_src
@@ -6392,7 +6391,15 @@ echo ${y}
     - =\= 同时在 =bash= 和正则语句意为“除去特殊含义”。需要格外注意
     - 引号在变量赋值时使用时，变量的值不含引号。
       - 在 =[[ ]]= 里写引号时，所有字符都没有特殊含义
-
+** 调试
+*** =bash= 调试
+    - 屏幕输出法 :: 用 =echo=
+    - 额外调试信息输出法 :: =set -xv= 开启调试输出
+      - =set +xv= 关闭调试输出
+      - =bash -xv script.sh= 以调试模式执行脚本
+        - =-v= Print shell input lines as they are read.
+        - =-x= Print commands and their arguments as they are executed.
+          
 ** 综合
 *** 回顾
 **** 科学数据处理的原则                                        :B_alertblock:
