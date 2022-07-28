@@ -1,0 +1,3 @@
+#+Title: bash 脚本
+#+author: 续本达
+#+PROPERTY: header-args :eval never-export :exports both

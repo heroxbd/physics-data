@@ -6033,6 +6033,21 @@ all: $(foreach i,$(ith),$(subst ith,$(i),$(output)))
    7. 算出信噪比相对强度谱，画图
    8. 对相对谱进行滤波，找到信号
    9. 通过 =specgram= 寻找信号，作图
+** bash 正则表达式
+*** 引用常见问题
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      pattern='\.' # 引号被 bash 处理
+
+      [[ . =~ $pattern ]] # 成功
+      [[ . =~ \. ]] # 成功
+
+      [[ . =~ "$pattern" ]] # 失败
+      [[ . =~ '\.' ]] # 失败
+    #+end_src
+    - =\= 同时在 =bash= 和正则语句意为“除去特殊含义”。需要格外注意
+    - 引号在变量赋值时使用时，变量的值不含引号。
+      - 在 =[[ ]]= 里写引号时，所有字符都没有特殊含义
+
 * 第四周第一天
   :PROPERTIES:
   :EXPORT_FILE_NAME: pc
