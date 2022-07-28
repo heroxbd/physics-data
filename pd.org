@@ -5183,6 +5183,59 @@ all: xxxx
 *** 技巧
     - 并行计算 =make -j=
     - 把 =SHELL= 换成超算任务调度器 \to 超算并行计算
+*** JUNO 真实世界例子
+    - 用于数百 TB 蒙特卡罗数据生成的例子
+     #+BEGIN_SRC makefile -i
+# 1=model, 2=imh, 3=dist, 4=iter
+define SN-tpl
+
+output+=data/det/$(1)/$(2)/$(3)/ith/$(4).root
+
+data/$(1)/$(2)/$(3)/%.root:
+	./genSN.sh $(1) $(2) $(3) $$@
+
+data/det/%/$(4).root: data/%.root
+	./exeDet.sh $$^ $$@ $(4)
+endef
+
+$(eval $(foreach i,$(imod),$(foreach j,$(imh),\
+	$(foreach k,$(dist),$(call SN-tpl,$(i),$(j),$(k),0))\
+	$(foreach l,$(ip),$(call SN-tpl,$(i),$(j),10,$(l))))))
+
+all: $(foreach i,$(ith),$(subst ith,$(i),$(output)))
+
+# Delete partial files when the processes are killed.
+.DELETE_ON_ERROR:
+# Keep intermediate files around
+.SECONDARY:
+
+     #+END_SRC
+     #+BEGIN_SRC makefile -i
+# 1=model, 2=imh, 3=dist, 4=iter
+define SN-tpl
+
+output+=data/det/$(1)/$(2)/$(3)/ith/$(4).root
+
+data/$(1)/$(2)/$(3)/%.root:
+	./genSN.sh $(1) $(2) $(3) $$@
+
+data/det/%/$(4).root: data/%.root
+	./exeDet.sh $$^ $$@ $(4)
+endef
+
+$(eval $(foreach i,$(imod),$(foreach j,$(imh),\
+	$(foreach k,$(dist),$(call SN-tpl,$(i),$(j),$(k),0))\
+	$(foreach l,$(ip),$(call SN-tpl,$(i),$(j),10,$(l))))))
+
+all: $(foreach i,$(ith),$(subst ith,$(i),$(output)))
+
+# Delete partial files when the processes are killed.
+.DELETE_ON_ERROR:
+# Keep intermediate files around
+.SECONDARY:
+
+     #+END_SRC
+
 *** 联合目标
    When 'make' builds any one of the grouped targets, it understands
 that all the other targets in the group are also created as a result of
