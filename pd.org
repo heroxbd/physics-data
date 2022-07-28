@@ -5946,146 +5946,178 @@ egrep -v '^(#.*)?$' sources.list
 * 第三周第四天
   :PROPERTIES:
   :EXPORT_FILE_NAME: pb
-  :EXPORT_BEAMER_HEADER+: \title{课堂综合练习：Python, Git, Shell, Make}
+  :EXPORT_BEAMER_HEADER+: \title{bash 脚本}
   :EXPORT_OPTIONS: H:2 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
   :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
-  :EXPORT_DATE: 2020-09-03 清华
+  :EXPORT_DATE: 2022-07-28 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
-  :EXPORT_BEAMER_THEME: Boadilla
-  :EXPORT_BEAMER_COLOR_THEME: MedStarColors
+  :EXPORT_BEAMER_HEADER+: \setbeamertemplate{footline}[frame number]  
+  :EXPORT_BEAMER_THEME: Hannover
   :EXPORT_BEAMER_FONT_THEME: professionalfonts
   :END:
-** 复习 GNU Make
-   - 写明数据的依赖关系和转换步骤
-     - 实现 _复现_ 的数据分析流程
-     - 进行并行计算
-   - Makefile 要点
-     1. 文档 (info, man)
-     2. 变量
-     3. 循环结构
-        #+BEGIN_SRC makefile -i
-$(foreach d,x y z,$(s:%=%_$(d).h5))
-        #+END_SRC
-     4. 函数
-     #+BEGIN_SRC makefile -i
-define video
-$(1)/%.mp4: %.avi
-	xxxx
-endef
-$(eval $(call video,up))
-     #+END_SRC
+** 复习与提示
+*** 正则表达式
+    - 普适的字符串处理工具
+      - =^=, =$= 开始与结束
+      - =+= 至少一次重复
+      - =?= 0或1次
+      - =()= 组合
+      - =|= 或
+    - 重要工具 =grep= 行匹配 =sed= 替换
+    - 进阶： Perl 正则表达式
+      - 多行匹配
+** bash 脚本
+*** 脚本程序
+- 世界上本没有脚本，打的命令多了，聚在一起，就形成了脚本
+- 脚本可以当作命令使用
+*** 例子
+    #+NAME: 7ea4e885-9e27-4b46-be96-bda28e2f59f2
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+cat arguments.sh
+    #+end_src
 
-** GNU Make 选择结构
-   - 数据处理中不太常用
-     #+BEGIN_SRC makefile -i
-ifeq ($(a), $(b))
-target: source
-	xxxx
-else
-target: source
-	yyyy
-endif
-     #+END_SRC
+    #+RESULTS: 7ea4e885-9e27-4b46-be96-bda28e2f59f2
+    : #!/bin/sh
+    : 
+    : echo The first argument is $1
+    : echo The second argument is $2
+    : echo all the arguments are $@
 
-** JUNO 蒙卡 Production 的例子
-   - 互动环节：圈出你不理解的地方
-     #+BEGIN_SRC makefile -i
-# 1=model, 2=imh, 3=dist, 4=iter
-define SN-tpl
+    #+NAME: 780e6d3d-8558-4a1b-9b90-f7d32d3bd383
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      chmod +x arguments.sh
+      ./arguments.sh 1输入 2参数
+    #+end_src
 
-output+=data/det/$(1)/$(2)/$(3)/ith/$(4).root
+    #+RESULTS: 780e6d3d-8558-4a1b-9b90-f7d32d3bd383
+    : The first argument is 1输入
+    : The second argument is 2参数
+    : all the arguments are 1输入 2参数
+*** Shebang 和脚本命令
+- =#!= 是一对有特殊含义的字符，它处在第一行开头在被执行时，内核会寻找其后的解释器来运行其后的脚本。
+- =chmod= 改变文件的权限，分别为 r 读 w 写 x 执行。
+- =chmod +x arguments.sh= 给 =arguments.sh= 可执行的权限。
+- 执行时，系统使用 =#!/bin/sh= 指定的 =/bin/sh= 执行程序。
+  - =./arguments.sh= 等价于 =/bin/sh arguments.sh= 。
+  - 注意 =/bin/sh= 很可能不是 =bash= 。需要 =bash= 时，直接使用 =/bin/bash=
+  #+NAME: 680efed9-619f-408a-bd4f-1244be67c0d9
+  #+begin_src bash
+realpath /bin/sh # dash 是不同的 shell，功能少速度快
+  #+end_src
 
-data/$(1)/$(2)/$(3)/%.root:
-	./genSN.sh $(1) $(2) $(3) $$@
+  #+RESULTS: 680efed9-619f-408a-bd4f-1244be67c0d9
+  : /usr/bin/dash
 
-data/det/%/$(4).root: data/%.root
-	./exeDet.sh $$^ $$@ $(4)
-endef
+- 如果可执行的脚本在 =PATH= 指定的路径里，就可以被 shell 找到，例如 =egrep= 。
+#+NAME: cc48721e-7c4a-46b1-b97f-765643de3402
+#+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+file $(which egrep)
+#+end_src
 
-$(eval $(foreach i,$(imod),$(foreach j,$(imh),\
-	$(foreach k,$(dist),$(call SN-tpl,$(i),$(j),$(k),0))\
-	$(foreach l,$(ip),$(call SN-tpl,$(i),$(j),10,$(l))))))
+#+RESULTS: cc48721e-7c4a-46b1-b97f-765643de3402
+: /bin/egrep: POSIX shell script, ASCII text executable
+** 变量
+*** bash 变量
+- 在 bash 中，一切皆字符串
+- 变量需要额外的 =$= 来指定， =$a= 和 =${a}= 代表变量 =a= 的值
+  - 类比 =make= ，使用 =$(a)= 代表变量取值
+- 赋值号“=”的前后都不能有空格，与 Python 的格式建议相反！
+#+NAME: 8f5c82cc-5576-42e9-b44c-c9620a33b65a
+#+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+  a=1
+  echo $a
+  b=我是谁
+  echo ${a}${b}
+#+end_src
 
-all: $(foreach i,$(ith),$(subst ith,$(i),$(output)))
+#+RESULTS: 8f5c82cc-5576-42e9-b44c-c9620a33b65a
+: 1
+: 1我是谁
 
-# Delete partial files when the processes are killed.
-.DELETE_ON_ERROR:
-# Keep intermediate files around
-.SECONDARY:
+#+NAME: 4c02860a-c628-4fb3-9852-db3efb1bb91d
+#+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+echo "${a}${b}，我从哪里来" # 双引号中变量是被替换的
+#+end_src   
 
-     #+END_SRC
-** FAQ pull request 游戏
-   - 我们希望大家把课程中遇到的问题连同解决方法提交到 FAQ 上。
-   - 请大家思考你遇到的最坑的技术问题是什么，如何解决的。
-   - Pull request 2nd round：vitables
-   - 游戏规则：
-     1. 全班分成 14 个组，在组内进行讨论：我遇到的最坑的问题
-     2. 组内讨论决定出一个本组推荐的问题和解决方法
-     3. 小组派出一位代表，向
-        https://github.com/physics-data/faq
-        
-        提交 pull request。
+#+RESULTS: 4c02860a-c628-4fb3-9852-db3efb1bb91d
+: 1我是谁，我从哪里来
+*** 引用命令的执行结果
+- 把命令的运行结果赋给变量
+- 与 =make= 类似，换行分隔的列表被转成由空格分隔
+#+NAME: d97d62db-cfc2-467f-9753-3cb10a60a7d8
+#+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+n_list=$(seq 9)
+echo ${n_list}
+#+end_src
 
-        可选方案：学号同余 14 最小的同学成为代表。
-     4. PR 过程中按照 pair programming 形式进行：
-        - 一人操作，多人围观
-        - 边操作边解说，推荐开摄像头
-        - 围观同学出谋划策
-     5. 老师现场演示合并 Pull Request
+#+RESULTS: d97d62db-cfc2-467f-9753-3cb10a60a7d8
+: 1 2 3 4 5 6 7 8 9
+#+NAME: f20334c4-56f4-4ba9-b9a2-c07e8598bec0
+#+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+  n233=$(seq 10000 | egrep ^23+$)
+  echo ${n233}
+  echo ${#n233} # 字符个数
+#+end_src
 
-** 综合练习
-   - 协同完成 LIGO 数据的批量处理框架
+#+RESULTS: f20334c4-56f4-4ba9-b9a2-c07e8598bec0
+: 23 233 2333
+: 11
 
-     1. 画出 specgram，进行 time-frequency 联合分析
+*** bash 数组
+    - 虽然取名为数组 array ，但与 Python 的 列表更接近。
+      - 可以存储任意元素。
+    #+NAME: db43f577-e5a7-4d4c-8422-2c4f89d25874
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      busket=()
+      busket+=( 香蕉 弥猴桃 牛油果 )
+      busket+=( 西瓜 荔枝 )
+      echo ${busket} # 按普通变量取值，只有第一个元素
+      echo ${busket[@]}
+      echo ${busket[3]}
+    #+end_src
 
-     2. Generate raw waveform
+    #+RESULTS: db43f577-e5a7-4d4c-8422-2c4f89d25874
+    : 香蕉
+    : 香蕉 弥猴桃 牛油果 西瓜 荔枝
+    : 西瓜
 
-     3. 画出原始数据的 asd 图
+    #+NAME: c096b66d-d7dd-46a8-9264-843411f85a0b
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      echo ${#busket[@]} # 元素个数
+    #+end_src
 
-     4. 生成音频文件
+    #+RESULTS: c096b66d-d7dd-46a8-9264-843411f85a0b
+    : 5
+*** bash 字典
+    - 又称关联数组 associative array ，类比 Python 字典
+    #+NAME: f61927cf-be8b-4858-9db6-072cf5526967
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      declare -A cargo # 声明 cargo 是字典
+      cargo[banana]=3
+      cargo[apple]=4
+      echo ${cargo[banana]}
+      echo ${!cargo[@]} # 取词
+      echo ${cargo[@]} # 取值
+    #+end_src
 
-     5. ...
-** 回顾
-*** 科学数据处理的原则 :B_alertblock:
-    :PROPERTIES:
-    :BEAMER_env: alertblock
-    :END:
-    _复现_ _透明_ _一次_ _最佳工具_
+    #+RESULTS: f61927cf-be8b-4858-9db6-072cf5526967
+    : 3
+    : apple banana
+    : 4 3
+** 算术运算
+*** =bash= 算术
+    - =bash= 一等公民是字符串，算术运算用于辅助和便利
+    #+NAME: 36c762b5-9cc0-4c51-b79c-732f783499b2
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      echo $((1+3)) $((3*5)
+      echo 1+3 | bc
+      echo 3*5 | bc
+    #+end_src
 
-*** 版本控制
-    Git 与队友分工协作，与明天的自己协作
+    #+RESULTS: 36c762b5-9cc0-4c51-b79c-732f783499b2
+    : [....]
 
-*** 数据流水线
-    GNU Make 管理数据的依赖与转换，实现错误恢复和并行计算
-
-*** 命令环境
-    POSIX 环境中强大的小工具组合，开发与使用相融合
-
-*** 计算语言
-    Python 语法友好，工具丰富，统领 C/C++/Fortran 库
-** 引力波探索回顾
-   - 人类正在全球建设引力波观测网络：美国 LIGO，欧洲 Virgo，日本 KAGRA
-     - 更好地定位引力波信号源
-   - 开放科学：LIGO 公开了引力波观测的关键数据。 _复现_ 的典范
-     - 开放数据经简化之后用于教学，[[https://www.gw-openscience.org/s/events/GW150914/LOSC_Event_tutorial_GW150914.html][传送门]]
-     - ...因此有了 UC Berkeley 的 /Data science and Bayesian statistics for physical sciences/ 课程大作业
-       [[https://phy151-ucb.github.io/seljak-phy151-fall-2018][传送门]]
-     - ...因此有了这门课
-   - 我们借助 LIGO 的数组进行了科学数据可视化的初步。Jupyter 随手画图，
-     - 分析其它源需要手动修改，影响 _复现_ 性
-     - 数据如果有变化程序也要修改，容易违背 _一次_ 原则
-** 综合
-   #+attr_beamer: :overlay <+->
-   1. 整理 LIGO 原数据，放在 =data/= ，加入 =.gitignore=
-   2. 把 =readligo.py= 加入 Git 管理
-   3. 建立 Makefile，写入画图过程
-   4. 进行 Fourier 变换，画出频谱
-   5. 算出振幅密度，画图
-   6. 读取广义相对论预言的波形，画图
-   7. 算出信噪比相对强度谱，画图
-   8. 对相对谱进行滤波，找到信号
-   9. 通过 =specgram= 寻找信号，作图
 ** bash 正则表达式
 *** 引用常见问题
     #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
@@ -6101,6 +6133,36 @@ all: $(foreach i,$(ith),$(subst ith,$(i),$(output)))
     - 引号在变量赋值时使用时，变量的值不含引号。
       - 在 =[[ ]]= 里写引号时，所有字符都没有特殊含义
 
+** 综合练习
+*** 回顾
+**** 科学数据处理的原则                                        :B_alertblock:
+     :PROPERTIES:
+     :BEAMER_env: alertblock
+     :END:
+     _复现_ _透明_ _一次_ _最佳工具_
+
+**** 版本控制
+     Git 与队友分工协作，与明天的自己协作
+
+**** 数据流水线
+     GNU Make 管理数据的依赖与转换，实现错误恢复和并行计算
+
+**** 命令环境
+     GNU 环境中强大的小工具组合，开发与使用相融合
+
+**** 计算语言
+     Python 语法友好，工具丰富，统领 C/C++/Fortran 库
+*** 综合
+    #+attr_beamer: :overlay <+->
+    1. 整理 LIGO 原数据，放在 =data/= ，加入 =.gitignore=
+    2. 把 =readligo.py= 加入 Git 管理
+    3. 建立 Makefile，写入画图过程
+    4. 进行 Fourier 变换，画出频谱
+    5. 算出振幅密度，画图
+    6. 读取广义相对论预言的波形，画图
+    7. 算出信噪比相对强度谱，画图
+    8. 对相对谱进行滤波，找到信号
+    9. 通过 =specgram= 寻找信号，作图
 * 第四周第一天
   :PROPERTIES:
   :EXPORT_FILE_NAME: pc
