@@ -6423,135 +6423,135 @@ echo ${y}
   :PROPERTIES:
   :EXPORT_FILE_NAME: pc
   :EXPORT_BEAMER_HEADER+: \title{Hack the universe with data and statistics}
-  :EXPORT_OPTIONS: H:1 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
+  :EXPORT_OPTIONS: H:2 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
   :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
-  :EXPORT_DATE: 2021-09-06 清华
+  :EXPORT_DATE: 2022-08-01 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
-  :EXPORT_BEAMER_THEME: Boadilla
-  :EXPORT_BEAMER_COLOR_THEME: MedStarColors
+  :EXPORT_BEAMER_HEADER+: \setbeamertemplate{footline}[frame number]  
+  :EXPORT_BEAMER_THEME: Hannover
   :EXPORT_BEAMER_FONT_THEME: professionalfonts
   :END:
-** 科学范式的演化 Scientific Paradigm Shift
+** 概论
+*** 科学范式的演化 Scientific Paradigm Shift
 
-   #+attr_beamer: :overlay <+->
-   - 经验时代：占星术等等
-   - 理论时代(17世纪起)：牛顿力学，微积分，麦克思韦方程，相对论等等
-   - 计算时代(20世纪中)
-     - 理论一般由程序描述，大规模数值模拟成为可能
-     - 计算物理、计算化学等等
-   - 数据时代(21世纪初)
-     - 从数据中直接总结经验模型，与理论模型同等重要
-     - 虚拟天文台等等
-** 数据时代的要素
-   - 存储空间
-     - 存储介质物美价廉：小于 1GB/元
-   - 计算能力
-     - 每 18 个月翻一倍
-   - 传感器
-     - 取数能力大大增强
+    #+attr_beamer: :overlay <+->
+    - 经验时代：占星术等等
+    - 理论时代(17世纪起)：牛顿力学，微积分，麦克思韦方程，相对论等等
+    - 计算时代(20世纪中)
+      - 理论一般由程序描述，大规模数值模拟成为可能
+      - 计算物理、计算化学等等
+    - 数据时代(21世纪初)
+      - 从数据中直接总结经验模型，与理论模型同等重要
+      - 虚拟天文台等等
+*** 数据时代的要素
+    - 存储空间
+      - 存储介质物美价廉：小于 1GB/元
+    - 计算能力
+      - 每 18 个月翻一倍
+    - 传感器
+      - 取数能力大大增强
 
-*** 数据本身具有价值
-    数据在被采集之外的目的中发挥作用
+**** 数据本身具有价值
+     数据在被采集之外的目的中发挥作用
 
-    - 通过人们对感冒症状相关的搜索预测流感爆发
-    - 黑洞吸积盘“照片”，多个射电望远镜联合交换数据组成相干阵列
+     - 通过人们对感冒症状相关的搜索预测流感爆发
+     - 黑洞吸积盘“照片”，多个射电望远镜联合交换数据组成相干阵列
 
-** 工商业与科学的融合
-   - 工商业的决策开始基于数据
-     - 市场调查，AB 测试，用户隐私数据收集
-     - 分析消费习惯，预测需求，进行定价
-     - 制定生产、物流、仓储策略
-   - 金融交易：基于历史数据建立模型，半自动或全自动交易
+*** 工商业与科学的融合
+    - 工商业的决策开始基于数据
+      - 市场调查，AB 测试，用户隐私数据收集
+      - 分析消费习惯，预测需求，进行定价
+      - 制定生产、物流、仓储策略
+    - 金融交易：基于历史数据建立模型，半自动或全自动交易
 
-** 知识储备与技能组合
-   #+Attr_LaTeX: :height 0.65\textheight
-   [[./fig/Data_Science_VD-r1.pdf]]
+*** 知识储备与技能组合
+    #+Attr_LaTeX: :height 0.65\textheight
+    [[./fig/Data_Science_VD-r1.pdf]]
 
-   - 数据时代需要专业知识、数理统计和黑客技术等多方面技能
+    - 数据时代需要专业知识、数理统计和黑客技术等多方面技能
 
-** 本课程的技能树
-   - Python
-     - 程序的数据类型
-     - 程序的基本结构
-     - 函数、类
-     - 数值计算工具
+*** 本课程的技能树
+    - Python
+      - 程序的数据类型
+      - 程序的基本结构
+      - 函数、类
+      - 数值计算工具
 
-   \pause
+    \pause
 
-   - 外部驱动 Python
-     - 管理：Git
-     - Shell 命令和 Shell 脚本：文件组织
-       - 独立语言，命令组成脚本，脚本变成命令
-     - GNU Make 和 Makefile：数据处理流水线
-       - 独立语言，内嵌 Shell script 和 Guile Scheme
-     - Jupyter
+    - 外部驱动 Python
+      - 管理：Git
+      - Shell 命令和 Shell 脚本：文件组织
+        - 独立语言，命令组成脚本，脚本变成命令
+      - GNU Make 和 Makefile：数据处理流水线
+        - 独立语言，内嵌 Shell script 和 Guile Scheme
+      - Jupyter
 
-   \pause
+    \pause
 
-   - 内部增强 Python
-     - 正则表达式
-       - 一门微型的独立语言：也可以增强 Shell Script
-     - 数据类型：csv 最透明
-       - json :: 贴近 Python，适合有结构层次的混合数据
-       - hdf5 :: 效率高，适合大规模的数值型数据
+    - 内部增强 Python
+      - 正则表达式
+        - 一门微型的独立语言：也可以增强 Shell Script
+      - 数据类型：csv 最透明
+        - json :: 贴近 Python，适合有结构层次的混合数据
+        - hdf5 :: 效率高，适合大规模的数值型数据
 
-** 概率是逻辑的扩展 -- Cox 定理
-   - R. T. Cox, E. T. Jaynes，两位对统计学有重大贡献的物理学家
-   - Logical interpretation of probability (面向维基百科的备课)
-     1. Divisibility and comparability -- The plausibility of a
-        proposition is a real number and is dependent on information
-        we have related to the proposition.
-     2. Common sense -- Plausibilities should vary sensibly with the
-        assessment of plausibilities in the model.
-     3. Consistency -- If the plausibility of a proposition can be
-        derived in many ways, all the results must be equal.
-   - 满足以上条件的代表事件可能性的一切实数指标，都与概率等价。
+*** 概率是逻辑的扩展 -- Cox 定理
+    - R. T. Cox, E. T. Jaynes，两位对统计学有重大贡献的物理学家
+    - Logical interpretation of probability (面向维基百科的备课)
+      1. Divisibility and comparability -- The plausibility of a
+         proposition is a real number and is dependent on information
+         we have related to the proposition.
+      2. Common sense -- Plausibilities should vary sensibly with the
+         assessment of plausibilities in the model.
+      3. Consistency -- If the plausibility of a proposition can be
+         derived in many ways, all the results must be equal.
+    - 满足以上条件的代表事件可能性的一切实数指标，都与概率等价。
 
-     The theorem states that any system for plausible reasoning that
-     satisfies certain qualitative requirements intended to ensure
-     consistency with classical deductive logic and correspondence
-     with commonsense reasoning is isomorphic to probability theory.
+      The theorem states that any system for plausible reasoning that
+      satisfies certain qualitative requirements intended to ensure
+      consistency with classical deductive logic and correspondence
+      with commonsense reasoning is isomorphic to probability theory.
 
-     参考：Van Horn, K.S., 2003. Constructing a logic of plausible
-     inference: a guide to Cox’s theorem. International Journal of
-     Approximate Reasoning 34,
-     3–24. https://doi.org/10.1016/S0888-613X(03)00051-3
+      参考：Van Horn, K.S., 2003. Constructing a logic of plausible
+      inference: a guide to Cox’s theorem. International Journal of
+      Approximate Reasoning 34,
+      3–24. https://doi.org/10.1016/S0888-613X(03)00051-3
 
-    
-** 结果的不确定度
-   - 结果的不确定度如何给出？
+*** 结果的不确定度
+    - 结果的不确定度如何给出？
      
-     1. 建立演绎的模型，预测观测现象
+      1. 建立演绎的模型，预测观测现象
 
-        大作业第一阶段
+         大作业第一阶段
 
-     2. 在此基础上，从观测现象定出模型中的参数，或者从诸多模型中选出最
-        符合数据的模型，统计推断的程序实现
+      2. 在此基础上，从观测现象定出模型中的参数，或者从诸多模型中选出最
+         符合数据的模型，统计推断的程序实现
 
-        大作业第二阶段
+         大作业第二阶段
 
-        - 欢迎选修：《概率统计分析及量测技术》（30320344-2）
-        - 2021年9月14日星期二 8:00 第1节 四教4105
-        - 和/或 统计学辅修 和/或 概率论、随机过程
+         - 欢迎选修：《概率统计分析及量测技术》（30320344-2）
+         - 2021年9月14日星期二 8:00 第1节 四教4105
+         - 和/或 统计学辅修 和/或 概率论、随机过程
 
-*** 某某学家的对话
-   - 数学家：一切都是确定且自洽的
-   - 物理学家：一切都是不确定且纷乱的
-   - 统计学家：我赞同物理学家
-   - 数学家：好，你们被开除数学系了
+**** 某某学家的对话
+    - 数学家：一切都是确定且自洽的
+    - 物理学家：一切都是不确定且纷乱的
+    - 统计学家：我赞同物理学家
+    - 数学家：好，你们被开除数学系了
 
-** 本周预告
-   - 学习如何有序组织数据，尽一切努力让统计分析更容易进行
+*** 本周预告
+    - 学习如何有序组织数据，尽一切努力让统计分析更容易进行
      
-     - 关系代数
+      - 关系代数
 
-     - 学习新语言 SQL
+      - 学习新语言 SQL
 
-   - 应用意义
-     - 直接应用到分布式 SQL 引擎
+    - 应用意义
+      - 直接应用到分布式 SQL 引擎
 
-   - 1981 年和 2014 年的两届图灵奖工作
+    - 1981 年和 2014 年的两届图灵奖工作
 
 * 第四周第二天
   :PROPERTIES:
