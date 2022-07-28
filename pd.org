@@ -5941,6 +5941,12 @@ egrep -v '^(#.*)?$' sources.list
   :EXPORT_BEAMER_FONT_THEME: professionalfonts
   :END:
 ** 复习与提示
+*** 安装
+    - =bash= 文档
+      #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+apt install bash-doc
+      #+end_src
+    - =info bash=
 *** 正则表达式
     - 普适的字符串处理工具
       - =^=, =$= 开始与结束
