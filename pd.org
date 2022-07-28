@@ -5851,14 +5851,16 @@ egrep -v '^(#.*)?$' sources.list
 *** 有限状态自动机之外的功能
     - 基本正则表达式与有限自动机 finite automata 等价
     - 在 FA 之外时，可引入更强大的处理功能
-*** 前趋引用匹配
-    - 形似 =sed= 的替换
-*** 选择结构
-    =man pcre2=
-
-*** 循环结构
-    =man pcre2=
-
+*** 高级构造
+    - 前趋引用匹配：形似 =sed= 的替换
+    - iterative matches =\G= where previous match ends
+    - look ahead behind
+    - atmoic grouping 不再缩短
+**** 选择结构
+     - conditional constructs (140)
+       - 使用之前的匹配 =(<)?\w+(?(1)>)=
+**** 递归结构
+     - 由 =pcre= 提出，用于匹配形如 \( a^n b^n \) 的平衡问题。
 ** 调试
 *** =rxrx=
     - Perl 的正则表达式调试和教学工具
@@ -5892,7 +5894,7 @@ egrep -v '^(#.*)?$' sources.list
   :PROPERTIES:
   :EXPORT_FILE_NAME: pb
   :EXPORT_BEAMER_HEADER+: \title{课堂综合练习：Python, Git, Shell, Make}
-  :EXPORT_OPTIONS: H:1 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
+  :EXPORT_OPTIONS: H:2 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
   :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
   :EXPORT_DATE: 2020-09-03 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
