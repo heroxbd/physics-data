@@ -6060,6 +6060,18 @@ echo "${a}${b}，我从哪里来" # 双引号中变量是被替换的
 
 #+RESULTS: 4c02860a-c628-4fb3-9852-db3efb1bb91d
 : 1我是谁，我从哪里来
+*** 变量的引用
+    - 无引号时，空格起作用
+    - 单引号字符串中的字符保持不变
+    - 双引号时，字符串中的变量被替换
+    #+NAME: 03bd3de5-4e0d-4cd1-9e2b-e3627346b5d5
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+echo '${a}${b}，我从哪里来' # 单引号保持不变
+    #+end_src
+
+    #+RESULTS: 03bd3de5-4e0d-4cd1-9e2b-e3627346b5d5
+    : ${a}${b}，我从哪里来
+
 *** 引用命令的执行结果
 - 把命令运行的标准输出赋给变量
 - 与 =make= 类似，换行分隔的列表被转成由空格分隔
@@ -6281,9 +6293,6 @@ echo ${y}
       done
     #+end_src
 
-    #+RESULTS: 8e1e4763-f8da-47c5-a34d-92b056e44a03
-    : 23
-
 ** 函数
 *** 函数定义
     - =bash= 函数是五种命令之一
@@ -6323,15 +6332,47 @@ echo ${y}
 
 ** =bash= 正则表达式
 *** =bash= 内建正则判断
+    - 由 =[[ EXPR =~ REGEX ]]= 判断 =EXPR= 是否能被 =REGEX= 匹配。
+      - 支持扩展正则表达式
+      - 匹配结果由 =BASH_REMATCH= 列表给出
     - 比每次调用 =egrep= 快很多
     #+NAME: 8e1e4763-f8da-47c5-a34d-92b056e44a03    
     #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
       seq 1000 | until ! read line
       do
-          [[ $line =~ ^23+$ ]] && echo $line
+          if [[ $line =~ ^23+$ ]]; then
+              echo ${line}
+              echo ${BASH_REMATCH[0]}
+          fi
       done
     #+end_src
-   
+
+    #+RESULTS: 8e1e4763-f8da-47c5-a34d-92b056e44a03
+    : 23
+    : 23
+    : 233
+    : 233
+
+*** 取得匹配结果
+    #+NAME: 53b43e8b-b4e6-4c6f-9ae3-3bc652d968d8
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      while read entry; do
+          if [[ $entry =~ ^([^#].*)archive.canonical.com(.*)trusty ]]; then
+              echo ${BASH_REMATCH[1]} ${BASH_REMATCH[2]}
+          fi
+      done < sources.list
+    #+end_src
+
+    #+RESULTS: 53b43e8b-b4e6-4c6f-9ae3-3bc652d968d8
+    : deb http:// /ubuntu/
+    : deb-src http:// /ubuntu/
+    : deb http:// /ubuntu/
+    : deb-src http:// /ubuntu/
+    : deb http:// /ubuntu/
+    : deb-src http:// /ubuntu/
+    : deb http:// /ubuntu/
+    : deb-src http:// /ubuntu/
+
 *** 引用常见问题
     #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
       pattern='\.' # 引号被 bash 处理
@@ -6346,8 +6387,7 @@ echo ${y}
     - 引号在变量赋值时使用时，变量的值不含引号。
       - 在 =[[ ]]= 里写引号时，所有字符都没有特殊含义
 
-*** 变量的引用
-** 综合练习
+** 综合
 *** 回顾
 **** 科学数据处理的原则                                        :B_alertblock:
      :PROPERTIES:
@@ -6366,17 +6406,6 @@ echo ${y}
 
 **** 计算语言
      Python 语法友好，工具丰富，统领 C/C++/Fortran 库
-*** 综合
-    #+attr_beamer: :overlay <+->
-    1. 整理 LIGO 原数据，放在 =data/= ，加入 =.gitignore=
-    2. 把 =readligo.py= 加入 Git 管理
-    3. 建立 Makefile，写入画图过程
-    4. 进行 Fourier 变换，画出频谱
-    5. 算出振幅密度，画图
-    6. 读取广义相对论预言的波形，画图
-    7. 算出信噪比相对强度谱，画图
-    8. 对相对谱进行滤波，找到信号
-    9. 通过 =specgram= 寻找信号，作图
 * 第四周第一天
   :PROPERTIES:
   :EXPORT_FILE_NAME: pc
