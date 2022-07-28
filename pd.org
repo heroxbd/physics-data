@@ -5926,22 +5926,6 @@ egrep -v '^(#.*)?$' sources.list
     |--------+----+----+----|
     | greedy | ?  | +  | *  |
     | lazy   | ?? | +? | *? |
-*** bash 循环逐行读入
-    - 与 =seq 10000 | egrep ^23+$= 等价
-    #+NAME: 8dea7aec-f23a-47ac-93a7-8ca727ed3c1b
-    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-      seq 10000 | while read line
-      do
-          if [[ $line =~ ^23+$ ]] ;then
-              echo $line
-          fi
-      done
-    #+end_src
-
-    #+RESULTS: 8dea7aec-f23a-47ac-93a7-8ca727ed3c1b
-    : 23
-    : 233
-    : 2333
 
 * 第三周第四天
   :PROPERTIES:
@@ -6017,6 +6001,40 @@ file $(which egrep)
 
 #+RESULTS: cc48721e-7c4a-46b1-b97f-765643de3402
 : /bin/egrep: POSIX shell script, ASCII text executable
+*** 脚本的参数
+- 脚本调用时的参数，在脚本中使用 `$1` `$2`
+  - 相当于 Python 的 `sys.argv[1]`, `sys.argv[2]`
+- 所有的参数是 `$@`
+#+NAME: 8e9cc35c-2863-4680-877b-b739a41e1714
+#+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+cat /bin/egrep
+#+end_src
+
+#+RESULTS: 8e9cc35c-2863-4680-877b-b739a41e1714
+: #!/bin/sh
+: exec /bin/grep -E "$@"
+
+- bash 脚本例子
+#+NAME: d2099895-d340-408d-a261-f65cad5d3d09
+#+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+file /usr/bin/* | grep "Bourne-Again shell" | head
+#+end_src
+
+#+RESULTS: d2099895-d340-408d-a261-f65cad5d3d09
+#+begin_example
+/usr/bin/AddOrReplaceReadGroups:                       Bourne-Again shell script, ASCII text executable
+/usr/bin/ant:                                          Bourne-Again shell script, ASCII text executable
+/usr/bin/antlr:                                        Bourne-Again shell script, ASCII text executable
+/usr/bin/antlr3:                                       Bourne-Again shell script, ASCII text executable
+/usr/bin/any2djvu:                                     Bourne-Again shell script, ASCII text executable
+/usr/bin/apache-rat:                                   Bourne-Again shell script, ASCII text executable
+/usr/bin/BamIndexStats:                                Bourne-Again shell script, ASCII text executable
+/usr/bin/BamToBfq:                                     Bourne-Again shell script, ASCII text executable
+/usr/bin/beeline:                                      Bourne-Again shell script, ASCII text executable
+/usr/bin/binutils-config:                              Bourne-Again shell script, ASCII text executable
+grep: write error: Broken pipe
+#+end_example
+
 ** 变量
 *** bash 变量
 - 在 bash 中，一切皆字符串
@@ -6043,7 +6061,7 @@ echo "${a}${b}，我从哪里来" # 双引号中变量是被替换的
 #+RESULTS: 4c02860a-c628-4fb3-9852-db3efb1bb91d
 : 1我是谁，我从哪里来
 *** 引用命令的执行结果
-- 把命令的运行结果赋给变量
+- 把命令运行的标准输出赋给变量
 - 与 =make= 类似，换行分隔的列表被转成由空格分隔
 #+NAME: d97d62db-cfc2-467f-9753-3cb10a60a7d8
 #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
@@ -6064,7 +6082,7 @@ echo ${n_list}
 : 23 233 2333
 : 11
 
-*** bash 数组
+*** =bash= 数组
     - 虽然取名为数组 array ，但与 Python 的 列表更接近。
       - 可以存储任意元素。
     #+NAME: db43f577-e5a7-4d4c-8422-2c4f89d25874
@@ -6089,7 +6107,7 @@ echo ${n_list}
 
     #+RESULTS: c096b66d-d7dd-46a8-9264-843411f85a0b
     : 5
-*** bash 字典
+*** =bash= 字典
     - 又称关联数组 associative array ，类比 Python 字典
     #+NAME: f61927cf-be8b-4858-9db6-072cf5526967
     #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
@@ -6108,17 +6126,212 @@ echo ${n_list}
 ** 算术运算
 *** =bash= 算术
     - =bash= 一等公民是字符串，算术运算用于辅助和便利
-    #+NAME: 36c762b5-9cc0-4c51-b79c-732f783499b2
+      - 比用管道 和 =$(...)= 简洁
+    #+NAME: 16f900ed-a36d-49c1-851c-b0dddb3f6a5b
     #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-      echo $((1+3)) $((3*5)
-      echo 1+3 | bc
-      echo 3*5 | bc
+      echo $((1+3)) $((3*5))
+      echo $(echo 1+3 | bc) $(echo 3*5 | bc)
     #+end_src
 
-    #+RESULTS: 36c762b5-9cc0-4c51-b79c-732f783499b2
-    : [....]
+    #+RESULTS: 16f900ed-a36d-49c1-851c-b0dddb3f6a5b
+    : 4 15
+    : 4 15
+    - 但是计算能力有限，只能做简单运算
+    #+NAME: cac37ef7-78e1-41de-a9c2-99f27393869f
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      echo $((2**100))
+      echo $(echo "2^100" | bc)
+    #+end_src
 
-** bash 正则表达式
+    #+RESULTS: cac37ef7-78e1-41de-a9c2-99f27393869f
+    : 0
+    : 1267650600228229401496703205376
+*** 使用 =bash= 的原因
+    - =bash= 的列表、字典，形似 Python，计算能力不如 =bc= ，为什么值得使用？
+    - 最佳工具：使用 =bash= 处理文件时，有时需要列表、字典和算术
+      - 但不需要太多。需要更专业的操作时，意味着更高级的工具胜任
+      - “信手拈来”的境界是创新的温床，重大的全新突破都在有了足够积累后不经意间出现
+        - 不经意的前提是：放松、随意
+      - 不让大脑等待双手是最佳工具原则的最高等级
+        - 人机交互，打字，扔掉鼠标
+        - 避免不必要的环境切换
+    - 经济性：有了 Python 基础，学习其它语言门槛大大降低，不再需要额外精力
+      - 第一门语言难度 100% ，思维广度 +100%
+      - 第二门语言难度 25% ，思维广度 +100%
+      - 第三门语言难度 1% ，思维广度 +100%
+      - 回报越来越大
+** =bash= 程序结构
+*** 选择结构
+    #+NAME: e0c2f10f-c9d8-4b7d-a1d3-96d3be059199
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      if [ 3 -gt 2 ]; then
+          echo "3>2"
+      else
+          echo "3<=2"
+      fi
+    #+end_src
+
+    #+RESULTS: e0c2f10f-c9d8-4b7d-a1d3-96d3be059199
+    : 3>2
+**** 判断语句
+     - =[...]= 是一个程序，正式名字是 =test=
+     - 真假判断来自该程序执行的返回值。
+       - 0 为真：执行成功
+       - 非 0 为假：执行失败
+       - 注意与 Python 正好相反！
+**** 文档
+     - =man [= 、 =info test=
+
+*** 真假判断
+    - =$?= 或 =${?}= 变量值是前一条命令的返回值
+    #+NAME: 53457408-0033-4dd1-bb0c-ca912833d487
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      [ 1 = 2 ] # 假，返回非 0
+      echo $?
+      [ 2 != 3 ] # 真，返回 0
+      echo $?
+    #+end_src
+
+    #+RESULTS: 53457408-0033-4dd1-bb0c-ca912833d487
+    : 1
+    : 0
+    - =[ INTEGER1 -eq INTEGER2 ]= 相等
+    - =[ INTEGER1 -ge INTEGER2 ]= 大于等于
+    - =[ INTEGER1 -lt INTEGER2 ]= 小于
+    - =[ INTEGER1 -ne INTEGER2 ]= 不等
+    - =[ ! EXPRESSION ]= 取否
+    - =[ EXPRESSION1 -a EXPRESSION2 ]= 取和
+    - =[ EXPRESSION1 -o EXPRESSION2 ]= 取或
+*** =bash= 内建真假判断
+    - =bash= 提供了 =[[...]]= 的内建命令，兼容 =[...]= 语法，有更多功能
+    - 内建命令，调用速度更快
+    - 命令层次的逻辑运算
+      - =command1 && command2= 取和
+      - =command1 && command2= 取或
+      - =! command= 取否
+    - 逻辑运算替代选择结构，以下两者等价
+    #+NAME: 3de9216b-c95d-40fa-9892-ee47023f68c2
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      if [ 3 -gt 2 ]; then
+          echo "3>2"
+      else
+          echo "3<=2"
+      fi
+      # 逻辑运算替代选择结构，可读性更强
+      [[ 3 -gt 2 ]] && echo "3>2" || echo "3<=2"
+    #+end_src
+
+    #+RESULTS: 3de9216b-c95d-40fa-9892-ee47023f68c2
+    : 3>2
+    : 3>2
+*** 循环结构
+    - =for= 循环，计算 Fabonacci 数
+    - 从 =seq 10= 结果中，取得 10 个元素，用变量 =i= 遍历
+      - 类比： Python for 循环，迭代器
+    #+NAME: 55773626-a89b-4cdb-859d-90c74dd0f8cf
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+x=1
+y=1
+for i in $(seq 10); do
+    s=$(($x+$y))
+    x=${y}
+    y=${s}
+done
+
+echo ${y}
+    #+end_src
+
+    #+RESULTS: 55773626-a89b-4cdb-859d-90c74dd0f8cf
+    : 144
+*** =while= 循环
+    - 与 =seq 1000 | egrep ^23+$= 等价
+    #+NAME: 8dea7aec-f23a-47ac-93a7-8ca727ed3c1b
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      seq 1000 | while read line
+      do
+          echo $line | egrep -q '^23+$' && echo $line
+      done
+    #+end_src
+
+    #+RESULTS: 8dea7aec-f23a-47ac-93a7-8ca727ed3c1b
+    : 23
+    : 233
+    : 
+
+*** =until= 循环
+    - 与 =while= 循环类似，条件相反
+    #+NAME: 8e1e4763-f8da-47c5-a34d-92b056e44a03
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      seq 1000 | until ! read line
+      do
+          echo $line | egrep -q '^23+$' && echo $line
+      done
+    #+end_src
+**** 循环控制命令
+     - =break= 终止循环
+     - =continue= 跳入下一轮循环
+    #+NAME: 8e1e4763-f8da-47c5-a34d-92b056e44a03
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      seq 1000 | until ! read line
+      do
+          if echo $line | egrep -q '^23+$'; then
+              echo $line
+              break
+          fi
+      done
+    #+end_src
+
+    #+RESULTS: 8e1e4763-f8da-47c5-a34d-92b056e44a03
+    : 23
+
+** 函数
+*** 函数定义
+    - =bash= 函数是五种命令之一
+    #+NAME: 7d2cb440-781d-43a7-a796-2956f8fcda90
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      function greet() {
+          echo "Hello, $1"
+      }
+
+
+      greet 大佬
+    #+end_src
+
+    #+RESULTS: 7d2cb440-781d-43a7-a796-2956f8fcda90
+    : Hello, 大佬
+
+*** 函数递归
+    - 递归计算 Fabonacci 数
+    - =$(command)= 从 =command= 的标准输出取得结果
+    - =return= 给返回值，只能用 =$?= 捕捉或者用于逻辑运算
+      - 与 Python 函数完全不同，因为命令成功与失败的判断更重要
+    #+NAME: d0255648-313d-4572-b131-3354a78240b1
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      function fib() {
+          if [ $1 -le 2 ]; then
+              echo $1
+          else
+              echo $(($(fib $(($1-1))) + $(fib $(($1-2)))))
+          fi
+      }
+
+      fib 11
+    #+end_src      
+
+    #+RESULTS: d0255648-313d-4572-b131-3354a78240b1
+    : 144
+
+** =bash= 正则表达式
+*** =bash= 内建正则判断
+    - 比每次调用 =egrep= 快很多
+    #+NAME: 8e1e4763-f8da-47c5-a34d-92b056e44a03    
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      seq 1000 | until ! read line
+      do
+          [[ $line =~ ^23+$ ]] && echo $line
+      done
+    #+end_src
+   
 *** 引用常见问题
     #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
       pattern='\.' # 引号被 bash 处理
@@ -6133,6 +6346,7 @@ echo ${n_list}
     - 引号在变量赋值时使用时，变量的值不含引号。
       - 在 =[[ ]]= 里写引号时，所有字符都没有特殊含义
 
+*** 变量的引用
 ** 综合练习
 *** 回顾
 **** 科学数据处理的原则                                        :B_alertblock:
