@@ -154,7 +154,7 @@ POSIX，Portable Operating System Interface，是关于计算机操作系统的�
 
 当代的版本控制是分布式的，跟铁器时代的区别是它不需要中心服务器。即使没有服务器，即使我们两个都是普通用户，我们也可以直接交换差分，调用工具自动进行。我们将使用 Git，它是分布式的版本控制的优秀代表。
 
-** Git
+* Git
       
 Git 非常重要。生活中的痛点莫过于，之前写的报告找不回来了，上周的程序被覆盖掉了。一个人经过认真的思考，发明了非常巧妙的解题方法，并写出程序，效果拔群非常厉害。他想再进一步，继续优化算法，修改和重构程序。但是经过两个星期，他发现优化得不太对，新程序反而没有两个星期之前的效果好。但是之前的程序没有保存，没有办法再回到两个星期之前的高度了。他特别的难受，“复现”原则被破坏了。比如我在两个月前解决了哥德巴赫猜想，但是我忘了，怎么办？现在你到底信不信呢，这是很深刻的学术道德问题。大家一定注意，不要出现这种情况。
 
@@ -162,11 +162,11 @@ Git 非常重要。生活中的痛点莫过于，之前写的报告找不回来�
 
 使用 Git，养成良好的习惯，能解决以上所有问题。Git 是由 Linux 的发明人 Linus Torvalds 发明的。目前它支撑了全世界 5000 人以上的松散社区，在开发 Linux 操作系统的内核。它是“最佳工具”，一方面实现了 5000 名以上的人的协作，而就个体而言，实现了一个人与过去和未来自己的对话。这门课上，作业都通过 Git 提交，希望同学们能够体验优秀的工具。
 
-*** 基础概念 
+** 基础概念 
 
 Git 把时间轴切成了若干个存档点，例如，在 12345 个存档点中有三个文件。我们改了文件 A 和文件 C，存档得到版本二。第四次，我们只改了 A1 和 B，得到版本四和版本五，以此类推。这五个存档点是否违背了“一次”原则呢？没有，Git 只存了 1、2 和 2、3 之间的差分，实际上以最简洁的方式把整个历史保存下来了。
 
-*** Git 的状态
+** Git 的状态
 
 Git 有很多命令，初学者难以一次记全，使用时可以参考 Git cheatsheet。一个实际的 Git 控制的版本的例子是我们的讲义。它有不同的版本，可以用 =git log= 看到改动的历史。使用 =tig= 浏览，能看到每个差分，在图中红色的是删掉了的，绿色的是添加的。
 
@@ -174,268 +174,278 @@ Git 一共有三种状态，刚才看到的是“已提交”的状态，一共�
 
 整个逻辑是：最开始 Git 仓库在原初状态，不存在文件。我们先加这个文件，打一个标记，放在“暂存”区域下次提交。我们可以修改“已提交”的文件，把它变成“已修改”的状态，如果给它标记成“已暂存”，就是等待提交的状态，提交之后就又变成“已提交”的状态。每次创造一个新的版本，都是经历了这样的过程。整个 Git 就是这样三个状态的这样循环，每次循环得到一个“已提交”的版本，成为下一步工作的基础。这给大家的一个项目推进的理念：步步为营，小步快跑，一点一滴地迭代。
 
-*** Git 仓库的通信
-    
-Git 同步的时候，每个人有各自的计算机，需要进行分布式的通信，不管有多少个 Git 仓库，它都可以互相传递这种差分量。这样每个人在本地的劳动，都可以系统性地跟其他人分享。
-如果有几台机器，它们之间可以使用 SSH 协议传递差分。
 
-*** Git 的基本命令
-**** diff 
-     =git diff= 是查看改动。它的文档可以在 =man git diff= 查到，里面有 =git diff= 的用法。这些文档很长，是 Reference Manual，最适合用来当作字典查阅。
-**** status
-     =git status= 是查看状态，同样可以在 =man git status= 查到说明。 Git 仓库所处的“已提交”、“已修改”、“已暂存”都可以通过 =git status= 查看。
-**** log
-     =git log= 是查看历史，从这个命令可以看到修改的历史。为了防止数据坏掉，它有一个校验码，有作者、时间和改动的内容。
-**** pull, push
-     =git pull= 是从远程把差分都接收过来。=git push= 是把本地的差分推送到远程。这是团队协作中交换差分的基本方法。
-** 作业
-   git.tsinghua.edu.cn 上，看到“Self Introduction”的作业。作业中有三个文件 =README= 说明文件， =grade.py= 评分程序， =introduction.txt= 是要改的文件。
+** Git 仓库
+   在作业中，有一个公共的仓库，取名为 =upstream= 。每人一个作业，分别对应独立的远程仓库，对应取名为 =origin= 。每个人从 =origin= 进行 =git clone= 到本地。本地与 =origin= 通过 =pull= 和 =push= 交换信息。在本地 =git remote add tpl ...= 可添加 =upstream= 的地址为 =tpl= ，从而与之通信。此时 =tpl= 和 =origin= 相对于本地，处于同等地位，都是一种远程仓库，即 =git remote= 。 =git fetch tpl= 的作用是把 =tpl= 的远程仓库的内容，拉到本地的 =git= 仓库中。
+   本地的 =git= 仓库存在于 =.git/= 文件夹下。它是一个隐藏的路径，用来存储 =git= 状态等内部信息， =.git/config= 可被编辑器修改配置。在 GNU 环境中，一切以 =.= 开头的文件和文件夹都默认不显示，具有隐藏属性。只有本地的文件夹中的文件是我们能直接使用的，它们对应 =git= 的“已修改”、“待提交”和“已提交”等状态。而历史中的提交信息都保存在 =.git/= 中，它再与远程仓库通信，同步信息。 =git add= 本质上是把工作目录中的文件暂存到 =.git= 中，而 =git commit= 是操作 =.git= 中的暂存信息，创建提交。
+   远程的仓库，特别是专用服务器上的仓库，都不配有工作目录，只有一个 =.git= 路径。这样的仓库叫做“裸库” bare repository 。这也是为什么我们习惯把远程仓库的结尾都加一个 =.git= 的名字，因为它的角色与本地的 =.git= 相同。 =git fetch tpl= 所起的作用是把 =tpl= 中的内容下载到 =.git/= 中，但是独立存在，不与本地 =git= 整合。
 
-*** SSH Key
+   Git 同步的时候，每个人有各自的计算机，需要进行分布式的通信，不管有多少个 Git 仓库，它都可以互相传递这种差分量。这样每个人在本地的劳动，都可以系统性地跟其他人分享。
+   如果有几台机器，它们之间可以使用 SSH 协议传递差分。
+
+** Git Merge
+   Git 合并的概念是相对分支而言。分支是提交历史的分岔。不同的仓库如果从共同的基础起始，进行独立的开发，就会形式多个分支。Git 合并指把不同的分支重新合起来。如果不同分支中的提交，满足加法的交换律，那么合并操作就可以自动完成。合并后的状态，包括了被合并的两个分支的所有提交。 =tpl= 的 =master= 分支合并，只要先 =git fetch tpl= ， 再 =git merge tpl/master= 即可。
+   分支与分支是平等的，本地与远程也是相对的，从远程来看，两者角色互换。因此不同的仓库也是平等的。这是 =git= 的去中心化的版本控制思想的核心。分支与仓库的概念独立，合并是对分支而言，不论分支在本地还是远程，都可以参与合并操作。
+   如果两个分支中的提交不满足交换律，自动合并就无法完成。 =git= 会尽可能把可以自动合并的部分自动完成，把剩下的部分标记为冲突 conflict。它们由人工干预，决定按照什么样的顺序和如何写新的代码把两部分功能统合在一起。 =git= 使用 =>>>=  =<<<= ===== 等来标注冲突，解决冲突的具体体现是使用编辑器改动它们，最终去除。解决冲突这是团队协作中常见的工作。
+   这种高效的并合方案，使得跨国的异步合作成为可能，从而催生了散落在世界各地的软件开发团队。分布式的版本控制器，如 Git ，是当今最有效的工具。课程所使用的 Debian 操作系统环境，就是由世界各地的志愿者以公开透明的形式协作研发出来的。
+
+** Git 的基本命令
+*** diff 
+    =git diff= 是查看改动。它的文档可以在 =man git diff= 查到，里面有 =git diff= 的用法。这些文档很长，是 Reference Manual，最适合用来当作字典查阅。
+*** status
+    =git status= 是查看状态，同样可以在 =man git status= 查到说明。 Git 仓库所处的“已提交”、“已修改”、“已暂存”都可以通过 =git status= 查看。
+*** log
+    =git log= 是查看历史，从这个命令可以看到修改的历史。为了防止数据坏掉，它有一个校验码，有作者、时间和改动的内容。
+*** pull, push
+    =git pull= 是从远程把差分都接收过来。=git push= 是把本地的差分推送到远程。这是团队协作中交换差分的基本方法。
+* 作业
+  git.tsinghua.edu.cn 上，看到“Self Introduction”的作业。作业中有三个文件 =README= 说明文件， =grade.py= 评分程序， =introduction.txt= 是要改的文件。
+
+** SSH Key
 在进行这些操作之前，需要把本地的 POSIX 环境跟 git.tsinghua.edu.cn 账号关联起来。使用 ssh 的密钥来对 ssh 通信协议进行鉴权认证。SSH 产生非对称密钥对，一个私有一个公有。之后，每人留私有部分，把公有的部分交给 git.tsinghua.edu.cn 。这就相当于我们身上有个虎符，git.tsinghua.edu.cn 用公有的部分来找你，你掏出一个私有的部分，如果对上了就可以改动 git.tsinghua.edu.cn 里面相应的仓库。
 
 生成ssh密钥，需要使用 =ssh-keygen= ，义为"ssh key generator"。它会告诉我们即将生成公钥私钥对，下面输入放在哪里，默认即可。所生成的密钥形式，是RSA2048。两个新的文件在 HOME 目录下的 =.ssh= 下面，一个是 =id_rsa= ，这个不应该给大家看，因为是私有的。另一个是公有的，把公有的复制下来，加到 git.tsinghua.edu.cn 里面，SSH and GPG keys。
 
 验证配置，打 =ssh -T git@git.tsinghua.edu.cn= ，如果得到了 =Welcome to GitLab, @xxx!= ， “xxx”是你的用户名，就说明已经成功了，git.tsinghua.edu.cn 已经跟我们的密钥（虎符）对上了。在 =ssh -T git@git.tsinghua.edu.cn= 需要打一个 “Yes”，其逻辑是，我们把虎符给了 git.tsinghua.edu.cn，它要验证我们，我到底是不是我。但是我们也要验证这个它是不是它。它会给我们一个提示，git.tsinghua.edu.cn 给了我们一个虎符但是我们验证不了，因为是第一次用它，打“Yes”就接受了这样一个密码。接受了之后，就保证了每次跟 git.tsinghua.edu.cn 通信都必须得看到这个密钥才证明 git.tsinghua.edu.cn 真的，才会给它通行。
     
-*** 例子
-    把作业 =git clone= 下来。把已有的程序 clone 到本地
+** 例子
+   把作业 =git clone= 下来。把已有的程序 clone 到本地
 
-    #+begin_example
-      $ git clone git@github.com:physics-data/aplusb-heroxbd.git
-      Cloning into 'aplusb-heroxbd'...
-      remote: Enumerating objects: 29, done.
-      remote: Counting objects: 100% (29/29), done.
-      remote: Compressing objects: 100% (19/19), done.
-      remote: Total 29 (delta 4), reused 0 (delta 0), pack-reused 0
-      Receiving objects: 100% (29/29), 4.45 KiB | 4.45 MiB/s, done.
-      Resolving deltas: 100% (4/4), done.
-    #+end_example
+   #+begin_example
+     $ git clone git@github.com:physics-data/aplusb-heroxbd.git
+     Cloning into 'aplusb-heroxbd'...
+     remote: Enumerating objects: 29, done.
+     remote: Counting objects: 100% (29/29), done.
+     remote: Compressing objects: 100% (19/19), done.
+     remote: Total 29 (delta 4), reused 0 (delta 0), pack-reused 0
+     Receiving objects: 100% (29/29), 4.45 KiB | 4.45 MiB/s, done.
+     Resolving deltas: 100% (4/4), done.
+   #+end_example
 
-    #+NAME: 2f619678-0bc3-48b5-96c1-9103b783261d
-    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb
-      git clone -q git@github.com:physics-data/aplusb-heroxbd.git
-      cd aplusb-heroxbd
-      ls
-    #+end_src
+   #+NAME: 2f619678-0bc3-48b5-96c1-9103b783261d
+   #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb
+     git clone -q git@github.com:physics-data/aplusb-heroxbd.git
+     cd aplusb-heroxbd
+     ls
+   #+end_src
 
-    #+RESULTS: 2f619678-0bc3-48b5-96c1-9103b783261d
-    : aplusb.py  data  grade.py  README.md
+   #+RESULTS: 2f619678-0bc3-48b5-96c1-9103b783261d
+   : aplusb.py  data  grade.py  README.md
 
-    我一个程序 =aplusb.py= ，这是一个极简的 Python 程序，随后我们学习它的语法和语义。我将第一个 input 赋予变量 =a= ， 第二个 input 赋予变量 =b= ，完成了对它的修改。
+   我一个程序 =aplusb.py= ，这是一个极简的 Python 程序，随后我们学习它的语法和语义。我将第一个 input 赋予变量 =a= ， 第二个 input 赋予变量 =b= ，完成了对它的修改。
 
-    此时 =git diff= 可以显示在上一个 commit 之后做的改动。
-    #+NAME: 187958d6-d6dc-4ab1-aec1-884f4801fd1a
-    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb
-      git diff
-    #+end_src
+   此时 =git diff= 可以显示在上一个 commit 之后做的改动。
+   #+NAME: 187958d6-d6dc-4ab1-aec1-884f4801fd1a
+   #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb
+     git diff
+   #+end_src
 
-    #+RESULTS: 187958d6-d6dc-4ab1-aec1-884f4801fd1a
-    #+begin_example
-      diff --git a/aplusb.py b/aplusb.py
-      index b1042af..c6cd1b5 100644
-      --- a/aplusb.py
-      +++ b/aplusb.py
-      @@ -1,5 +1,10 @@
-       # TODO: read two ints from standard input
-       # HINT: use input()
+   #+RESULTS: 187958d6-d6dc-4ab1-aec1-884f4801fd1a
+   #+begin_example
+     diff --git a/aplusb.py b/aplusb.py
+     index b1042af..c6cd1b5 100644
+     --- a/aplusb.py
+     +++ b/aplusb.py
+     @@ -1,5 +1,10 @@
+      # TODO: read two ints from standard input
+      # HINT: use input()
 
-      +a = int(input())
-      +b = int(input())
-      +
-       # TODO: print the result
-      -# HINT: use print()
-      \ No newline at end of file
-      +# HINT: use print()
-      +
-      +print(a+b)
-    #+end_example
+     +a = int(input())
+     +b = int(input())
+     +
+      # TODO: print the result
+     -# HINT: use print()
+     \ No newline at end of file
+     +# HINT: use print()
+     +
+     +print(a+b)
+   #+end_example
 
-    =aplusb.py= 原是空文件，只有助教给的提示，更改是增加了输入 =a= 和 =b= 以及输出 =a+b= 的行。
+   =aplusb.py= 原是空文件，只有助教给的提示，更改是增加了输入 =a= 和 =b= 以及输出 =a+b= 的行。
 
-    另外我们用 =git status= 可以看到 =aplusb.py= 被更改（modified）。
-    #+NAME: 08784120-b482-4ccf-a32a-a967e07b74f1
-    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb
-      git status
-    #+end_src
+   另外我们用 =git status= 可以看到 =aplusb.py= 被更改（modified）。
+   #+NAME: 08784120-b482-4ccf-a32a-a967e07b74f1
+   #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb
+     git status
+   #+end_src
 
-    #+RESULTS: 08784120-b482-4ccf-a32a-a967e07b74f1
-    : On branch master
-    : Your branch is up to date with 'origin/master'.
-    : 
-    : Changes not staged for commit:
-    :   (use "git add <file>..." to update what will be committed)
-    :   (use "git restore <file>..." to discard changes in working directory)
-    : 	modified:   aplusb.py
-    : 
-    : no changes added to commit (use "git add" and/or "git commit -a")
+   #+RESULTS: 08784120-b482-4ccf-a32a-a967e07b74f1
+   : On branch master
+   : Your branch is up to date with 'origin/master'.
+   : 
+   : Changes not staged for commit:
+   :   (use "git add <file>..." to update what will be committed)
+   :   (use "git restore <file>..." to discard changes in working directory)
+   : 	modified:   aplusb.py
+   : 
+   : no changes added to commit (use "git add" and/or "git commit -a")
     
-    使用 =git add= 把改动累加起来，再看一下 status。
+   使用 =git add= 把改动累加起来，再看一下 status。
 
-    #+NAME: 3565b43c-c27e-4e75-aa2b-c0d771f101e9
-    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb
-      git add aplusb.py
-      git status
-    #+end_src
+   #+NAME: 3565b43c-c27e-4e75-aa2b-c0d771f101e9
+   #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb
+     git add aplusb.py
+     git status
+   #+end_src
 
-    #+RESULTS: 3565b43c-c27e-4e75-aa2b-c0d771f101e9
-    : On branch master
-    : Your branch is up to date with 'origin/master'.
-    : 
-    : Changes to be committed:
-    :   (use "git restore --staged <file>..." to unstage)
-    : 	modified:   aplusb.py
-    : 
+   #+RESULTS: 3565b43c-c27e-4e75-aa2b-c0d771f101e9
+   : On branch master
+   : Your branch is up to date with 'origin/master'.
+   : 
+   : Changes to be committed:
+   :   (use "git restore --staged <file>..." to unstage)
+   : 	modified:   aplusb.py
+   : 
 
-    =git add= 把文件做了一个 "staged" 的标记，它将用于commit（对应于提示中的 =Changes to be committed= ）。
+   =git add= 把文件做了一个 "staged" 的标记，它将用于commit（对应于提示中的 =Changes to be committed= ）。
 
-    #+NAME: 465b86aa-b822-488b-9ea4-d9aeb9341591
-    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb
-      git commit -m "加上 a 与 b 的读入并输出两者之和"
-    #+end_src
+   #+NAME: 465b86aa-b822-488b-9ea4-d9aeb9341591
+   #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb
+     git commit -m "加上 a 与 b 的读入并输出两者之和"
+   #+end_src
 
-    #+RESULTS: 465b86aa-b822-488b-9ea4-d9aeb9341591
-    : [master d4e354b] 加上 a 与 b 的读入并输出两者之和
-    :  1 file changed, 6 insertions(+), 1 deletion(-)
-    =-m= 后面接对这个改动的说明。 如果不跟随 =-m= 参数， =git= 将调用编辑器供我们输入说明。
+   #+RESULTS: 465b86aa-b822-488b-9ea4-d9aeb9341591
+   : [master d4e354b] 加上 a 与 b 的读入并输出两者之和
+   :  1 file changed, 6 insertions(+), 1 deletion(-)
+   =-m= 后面接对这个改动的说明。 如果不跟随 =-m= 参数， =git= 将调用编辑器供我们输入说明。
 
-    使用 =git log= 可以给出 =commit= 的历史，其中第一条是我们刚刚提交的。
-    #+NAME: 5f0d9208-b47c-4690-b654-8a135548e79a
-    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb
-      git log
-    #+end_src
+   使用 =git log= 可以给出 =commit= 的历史，其中第一条是我们刚刚提交的。
+   #+NAME: 5f0d9208-b47c-4690-b654-8a135548e79a
+   #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb
+     git log
+   #+end_src
 
-    #+RESULTS: 5f0d9208-b47c-4690-b654-8a135548e79a
-    #+begin_example
-    commit d4e354ba1c63e9689ef253aada00aedd7f50758e (HEAD -> master)
-    Author: Benda Xu <heroxbd@gentoo.org>
-    Date:   Wed Feb 16 20:27:23 2022 +0800
+   #+RESULTS: 5f0d9208-b47c-4690-b654-8a135548e79a
+   #+begin_example
+   commit d4e354ba1c63e9689ef253aada00aedd7f50758e (HEAD -> master)
+   Author: Benda Xu <heroxbd@gentoo.org>
+   Date:   Wed Feb 16 20:27:23 2022 +0800
 
-        加上 a 与 b 的读入并输出两者之和
+       加上 a 与 b 的读入并输出两者之和
 
-    commit 1abf3e5528c824f3e8b1bf873dfc6222bd3fcefb (origin/master, origin/HEAD)
-    Author: Shengqi Chen <i@harrychen.xyz>
-    Date:   Tue Aug 18 16:36:58 2020 +0800
+   commit 1abf3e5528c824f3e8b1bf873dfc6222bd3fcefb (origin/master, origin/HEAD)
+   Author: Shengqi Chen <i@harrychen.xyz>
+   Date:   Tue Aug 18 16:36:58 2020 +0800
 
-        Update GitHub Classroom Autograding Workflow
+       Update GitHub Classroom Autograding Workflow
 
-    commit f34ce2373540c7092b8b35fef57c0e5776414f9d
-    Author: Shengqi Chen <i@harrychen.xyz>
-    Date:   Tue Aug 18 16:36:57 2020 +0800
+   commit f34ce2373540c7092b8b35fef57c0e5776414f9d
+   Author: Shengqi Chen <i@harrychen.xyz>
+   Date:   Tue Aug 18 16:36:57 2020 +0800
 
-        Update GitHub Classroom Autograding
+       Update GitHub Classroom Autograding
 
-    commit 943846fc6cd4999f990c734fba69ab4666f73fc5
-    Author: Shengqi Chen <i@harrychen.xyz>
-    Date:   Tue Aug 18 16:36:21 2020 +0800
+   commit 943846fc6cd4999f990c734fba69ab4666f73fc5
+   Author: Shengqi Chen <i@harrychen.xyz>
+   Date:   Tue Aug 18 16:36:21 2020 +0800
 
-        GitHub Classroom Autograding Workflow
+       GitHub Classroom Autograding Workflow
 
-    commit 3191ca5f179f441241e4c3f659d88ef403806a0d
-    Author: Shengqi Chen <i@harrychen.xyz>
-    Date:   Tue Aug 18 16:36:20 2020 +0800
+   commit 3191ca5f179f441241e4c3f659d88ef403806a0d
+   Author: Shengqi Chen <i@harrychen.xyz>
+   Date:   Tue Aug 18 16:36:20 2020 +0800
 
-        GitHub Classroom Autograding
+       GitHub Classroom Autograding
 
-    commit 865818ac4f46382fd52f983c0deaafca9d6e788d
-    Author: Chen <jiegec@qq.com>
-    Date:   Tue Aug 18 16:36:18 2020 +0800
+   commit 865818ac4f46382fd52f983c0deaafca9d6e788d
+   Author: Chen <jiegec@qq.com>
+   Date:   Tue Aug 18 16:36:18 2020 +0800
 
-        Initial commit
-    #+end_example
+       Initial commit
+   #+end_example
 
-    通过 =git show= 确认 commit 。
+   通过 =git show= 确认 commit 。
 
-    #+NAME: 21c4c8b5-9cd4-4020-bfa5-4a8284a5d5ba
-    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb
-      git show
-    #+end_src
+   #+NAME: 21c4c8b5-9cd4-4020-bfa5-4a8284a5d5ba
+   #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb
+     git show
+   #+end_src
 
-    #+RESULTS: 21c4c8b5-9cd4-4020-bfa5-4a8284a5d5ba
-    #+begin_example
-    commit d4e354ba1c63e9689ef253aada00aedd7f50758e (HEAD -> master)
-    Author: Benda Xu <heroxbd@gentoo.org>
-    Date:   Wed Feb 16 20:27:23 2022 +0800
+   #+RESULTS: 21c4c8b5-9cd4-4020-bfa5-4a8284a5d5ba
+   #+begin_example
+   commit d4e354ba1c63e9689ef253aada00aedd7f50758e (HEAD -> master)
+   Author: Benda Xu <heroxbd@gentoo.org>
+   Date:   Wed Feb 16 20:27:23 2022 +0800
 
-        加上 a 与 b 的读入并输出两者之和
+       加上 a 与 b 的读入并输出两者之和
 
-    diff --git a/aplusb.py b/aplusb.py
-    index b1042af..c6cd1b5 100644
-    --- a/aplusb.py
-    +++ b/aplusb.py
-    @@ -1,5 +1,10 @@
-     # TODO: read two ints from standard input
-     # HINT: use input()
+   diff --git a/aplusb.py b/aplusb.py
+   index b1042af..c6cd1b5 100644
+   --- a/aplusb.py
+   +++ b/aplusb.py
+   @@ -1,5 +1,10 @@
+    # TODO: read two ints from standard input
+    # HINT: use input()
 
-    +a = int(input())
-    +b = int(input())
-    +
-     # TODO: print the result
-    -# HINT: use print()
-    \ No newline at end of file
-    +# HINT: use print()
-    +
-    +print(a+b)
-    #+end_example
+   +a = int(input())
+   +b = int(input())
+   +
+    # TODO: print the result
+   -# HINT: use print()
+   \ No newline at end of file
+   +# HINT: use print()
+   +
+   +print(a+b)
+   #+end_example
     
-    与 =git diff= 的对比可见这正是我们刚做的修改。
+   与 =git diff= 的对比可见这正是我们刚做的修改。
 
-*** Git 的三个阶段
+** Git 的三个阶段
 
-    为什么 Git 要有三个阶段？理论上两个阶段就够了，用 =git commit -a= 会自动把所有改动的文件 stage 并且 commit，把后两步合并成一步。
+   为什么 Git 要有三个阶段？理论上两个阶段就够了，用 =git commit -a= 会自动把所有改动的文件 stage 并且 commit，把后两步合并成一步。
 
-    三个阶段很重要，增强了 commit 的可定制性。如果有两个文件做了修改，而我们想把修改分成两个 commit，就可以使用 =git add= 其中一个文件有选择性地定制 commit 的内容。有时我们会在既有代码上做试验，有些需要通过 commit 保存下来，有些只是临时的操作不必保留。有时试验中我们不觉做了很多修改，希望把它们分解成逻辑上相对独立的部分。这此情形下三步的操作模型就很实用。
+   三个阶段很重要，增强了 commit 的可定制性。如果有两个文件做了修改，而我们想把修改分成两个 commit，就可以使用 =git add= 其中一个文件有选择性地定制 commit 的内容。有时我们会在既有代码上做试验，有些需要通过 commit 保存下来，有些只是临时的操作不必保留。有时试验中我们不觉做了很多修改，希望把它们分解成逻辑上相对独立的部分。这此情形下三步的操作模型就很实用。
 
-    Git 的历史和说明是非常重要的信息。尤其是在经过了1年，5年，10年之后回顾理解过去的工作时，或者有队友学习既有代码时，逻辑清晰层次分明的 Git commit 有极高的价值。
+   Git 的历史和说明是非常重要的信息。尤其是在经过了1年，5年，10年之后回顾理解过去的工作时，或者有队友学习既有代码时，逻辑清晰层次分明的 Git commit 有极高的价值。
 
-*** 覆盖未 commit 的改动
+** 覆盖未 commit 的改动
 
-    对不需要 commit 的改动，可以通过 =git checkout= 来退回上一 commit，覆盖我现有文件。这是一个很危险的操作，执行命令时，一定注意。这可能是一天的心血，误操作进行 checkout 把有用的修改覆盖了会造成很大的损失。checkout 影响的是“已修改”阶段的文件，不影响“待提交”阶段的文件。
+   对不需要 commit 的改动，可以通过 =git checkout= 来退回上一 commit，覆盖我现有文件。这是一个很危险的操作，执行命令时，一定注意。这可能是一天的心血，误操作进行 checkout 把有用的修改覆盖了会造成很大的损失。checkout 影响的是“已修改”阶段的文件，不影响“待提交”阶段的文件。
 
-*** 退回至“已修改”状态
-    add 的逆向操作是 reset，用于把在“待提交”阶段的文件退回至“已修改”状态。
+** 退回至“已修改”状态
+   add 的逆向操作是 reset，用于把在“待提交”阶段的文件退回至“已修改”状态。
 
-    #+NAME: 3babc3c0-3551-4258-bcb7-6eb6895167b7
-    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb
-      git status
-    #+end_src
+   #+NAME: 3babc3c0-3551-4258-bcb7-6eb6895167b7
+   #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb
+     git status
+   #+end_src
 
-    #+RESULTS: 3babc3c0-3551-4258-bcb7-6eb6895167b7
-    : On branch master
-    : Your branch is ahead of 'origin/master' by 1 commit.
-    :   (use "git push" to publish your local commits)
-    : 
-    : Changes to be committed:
-    :   (use "git restore --staged <file>..." to unstage)
-    : 	modified:   aplusb.py
-    : 
+   #+RESULTS: 3babc3c0-3551-4258-bcb7-6eb6895167b7
+   : On branch master
+   : Your branch is ahead of 'origin/master' by 1 commit.
+   :   (use "git push" to publish your local commits)
+   : 
+   : Changes to be committed:
+   :   (use "git restore --staged <file>..." to unstage)
+   : 	modified:   aplusb.py
+   : 
 
-    要取消这个“待提交”的修改，可以使用 =git reset= ，
-    #+NAME: 459b19ba-4164-4a58-9b8d-5bce8c762dc1
-    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb
-      git reset aplusb.py
-      git status
-    #+end_src
+   要取消这个“待提交”的修改，可以使用 =git reset= ，
+   #+NAME: 459b19ba-4164-4a58-9b8d-5bce8c762dc1
+   #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb
+     git reset aplusb.py
+     git status
+   #+end_src
 
-    #+RESULTS: 459b19ba-4164-4a58-9b8d-5bce8c762dc1
-    #+begin_example
-    Unstaged changes after reset:
-    M	aplusb.py
-    On branch master
-    Your branch is ahead of 'origin/master' by 1 commit.
-      (use "git push" to publish your local commits)
+   #+RESULTS: 459b19ba-4164-4a58-9b8d-5bce8c762dc1
+   #+begin_example
+   Unstaged changes after reset:
+   M	aplusb.py
+   On branch master
+   Your branch is ahead of 'origin/master' by 1 commit.
+     (use "git push" to publish your local commits)
 
-    Changes not staged for commit:
-      (use "git add <file>..." to update what will be committed)
-      (use "git restore <file>..." to discard changes in working directory)
-            modified:   aplusb.py
+   Changes not staged for commit:
+     (use "git add <file>..." to update what will be committed)
+     (use "git restore <file>..." to discard changes in working directory)
+           modified:   aplusb.py
 
-    no changes added to commit (use "git add" and/or "git commit -a")
-    #+end_example
+   no changes added to commit (use "git add" and/or "git commit -a")
+   #+end_example
 
-    我们看到 =aplusb.py= 退到了“已修改”状态，命令中的提示是"unstaged"。
+   我们看到 =aplusb.py= 退到了“已修改”状态，命令中的提示是"unstaged"。
 
-*** 把 commit 推送到远端
+** 把 commit 推送到远端
     大家注意 status 中有一行 “Your branch is ahead of 'origin/master' by 1 commit.”提示我们本地的仓库比远端多了一个 commit，还告诉我们 “use "git push" to publish your local commits”。
 
     #+NAME: 4061d8fd-a2fe-4b0c-ac3d-92d7d8522902
@@ -480,80 +490,80 @@ Counting objects: 100% (5/5), done.
     
     注意“Your branch is up to date with 'origin/master'.”两者已经同步完成。
 
-*** 撤销已有 commit
-    要改动已有 commit ，该怎么办？
+** 撤销已有 commit
+   要改动已有 commit ，该怎么办？
 
-    简单方式是 =git revert= 。它自动生成一个相反的差分，把某一个差分“湮灭”掉，例如在我的仓库中，
-    #+NAME: d517865d-01b8-468d-8c68-708ceda99e18
-    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb
-      git log -n 2
-    #+end_src
+   简单方式是 =git revert= 。它自动生成一个相反的差分，把某一个差分“湮灭”掉，例如在我的仓库中，
+   #+NAME: d517865d-01b8-468d-8c68-708ceda99e18
+   #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb
+     git log -n 2
+   #+end_src
 
-    #+RESULTS: d517865d-01b8-468d-8c68-708ceda99e18
-    #+begin_example
-    commit de27c4f69c894458d51430986360b8c0db527fa5 (HEAD -> master, origin/master, origin/HEAD)
-    Author: Benda Xu <heroxbd@gentoo.org>
-    Date:   Sun Jun 26 21:42:14 2022 +0800
+   #+RESULTS: d517865d-01b8-468d-8c68-708ceda99e18
+   #+begin_example
+   commit de27c4f69c894458d51430986360b8c0db527fa5 (HEAD -> master, origin/master, origin/HEAD)
+   Author: Benda Xu <heroxbd@gentoo.org>
+   Date:   Sun Jun 26 21:42:14 2022 +0800
 
-        加上 a 与 b 的读入并输出两者之和
+       加上 a 与 b 的读入并输出两者之和
 
-    commit 1abf3e5528c824f3e8b1bf873dfc6222bd3fcefb
-    Author: Shengqi Chen <i@harrychen.xyz>
-    Date:   Tue Aug 18 16:36:58 2020 +0800
+   commit 1abf3e5528c824f3e8b1bf873dfc6222bd3fcefb
+   Author: Shengqi Chen <i@harrychen.xyz>
+   Date:   Tue Aug 18 16:36:58 2020 +0800
 
-        Update GitHub Classroom Autograding Workflow
-    #+end_example
+       Update GitHub Classroom Autograding Workflow
+   #+end_example
 
-    我想去掉代号为 de27c4f69c894458d51430986360b8c0db527fa5 的 commit。这个代号是差分的哈希值，无歧义时，取前几位亦可。
+   我想去掉代号为 de27c4f69c894458d51430986360b8c0db527fa5 的 commit。这个代号是差分的哈希值，无歧义时，取前几位亦可。
 
-    #+NAME: 2a186f4c-f84a-4513-a4a6-e56156b167e3
-    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb
-      git revert de27c4f6 --no-edit
-    #+end_src
+   #+NAME: 2a186f4c-f84a-4513-a4a6-e56156b167e3
+   #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb
+     git revert de27c4f6 --no-edit
+   #+end_src
 
-    #+RESULTS: 2a186f4c-f84a-4513-a4a6-e56156b167e3
-    : [master f6066f5] Revert "加上 a 与 b 的读入并输出两者之和"
-    :  Date: Sun Jun 26 21:58:51 2022 +0800
-    :  1 file changed, 1 insertion(+), 3 deletions(-)
+   #+RESULTS: 2a186f4c-f84a-4513-a4a6-e56156b167e3
+   : [master f6066f5] Revert "加上 a 与 b 的读入并输出两者之和"
+   :  Date: Sun Jun 26 21:58:51 2022 +0800
+   :  1 file changed, 1 insertion(+), 3 deletions(-)
 
-    #+NAME: 0c56d7ec-fe1f-4e0e-8cb5-76b5d8e6022b
-    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb
-      git log -n 3
-    #+end_src
+   #+NAME: 0c56d7ec-fe1f-4e0e-8cb5-76b5d8e6022b
+   #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb
+     git log -n 3
+   #+end_src
 
-    #+RESULTS: 0c56d7ec-fe1f-4e0e-8cb5-76b5d8e6022b
-    #+begin_example
-    commit f6066f54aac1bb29aec313b28cb9f0facc90612b (HEAD -> master)
-    Author: Benda Xu <heroxbd@gentoo.org>
-    Date:   Sun Jun 26 21:58:51 2022 +0800
+   #+RESULTS: 0c56d7ec-fe1f-4e0e-8cb5-76b5d8e6022b
+   #+begin_example
+   commit f6066f54aac1bb29aec313b28cb9f0facc90612b (HEAD -> master)
+   Author: Benda Xu <heroxbd@gentoo.org>
+   Date:   Sun Jun 26 21:58:51 2022 +0800
 
-        Revert "加上 a 与 b 的读入并输出两者之和"
+       Revert "加上 a 与 b 的读入并输出两者之和"
 
-        This reverts commit de27c4f69c894458d51430986360b8c0db527fa5.
+       This reverts commit de27c4f69c894458d51430986360b8c0db527fa5.
 
-    commit de27c4f69c894458d51430986360b8c0db527fa5 (origin/master, origin/HEAD)
-    Author: Benda Xu <heroxbd@gentoo.org>
-    Date:   Sun Jun 26 21:42:14 2022 +0800
+   commit de27c4f69c894458d51430986360b8c0db527fa5 (origin/master, origin/HEAD)
+   Author: Benda Xu <heroxbd@gentoo.org>
+   Date:   Sun Jun 26 21:42:14 2022 +0800
 
-        加上 a 与 b 的读入并输出两者之和
+       加上 a 与 b 的读入并输出两者之和
 
-    commit 1abf3e5528c824f3e8b1bf873dfc6222bd3fcefb
-    Author: Shengqi Chen <i@harrychen.xyz>
-    Date:   Tue Aug 18 16:36:58 2020 +0800
+   commit 1abf3e5528c824f3e8b1bf873dfc6222bd3fcefb
+   Author: Shengqi Chen <i@harrychen.xyz>
+   Date:   Tue Aug 18 16:36:58 2020 +0800
 
-        Update GitHub Classroom Autograding Workflow
-    #+end_example
-    这样 de27c4f6 差分就被撤销了，由于撤销也是一种对仓库的更改，因此它对应一个新的 commit，并且有历史记录。
+       Update GitHub Classroom Autograding Workflow
+   #+end_example
+   这样 de27c4f6 差分就被撤销了，由于撤销也是一种对仓库的更改，因此它对应一个新的 commit，并且有历史记录。
 
-*** 改造本地历史记录
-    如果我们不想看到历史记录，希望把 commit 清除掉，这时可以用的命令是 =git rebase= 。它背后的逻辑更加复杂，建议初学者在对 =git= 有了深刻的理解和丰富的经验之后再考虑使用 =rebase= 。
+** 改造本地历史记录
+   如果我们不想看到历史记录，希望把 commit 清除掉，这时可以用的命令是 =git rebase= 。它背后的逻辑更加复杂，建议初学者在对 =git= 有了深刻的理解和丰富的经验之后再考虑使用 =rebase= 。
 
-*** 改造远端的历史记录
-    除了 =git revert= ，初学者不要尝试改造远端的历史记录。
+** 改造远端的历史记录
+   除了 =git revert= ，初学者不要尝试改造远端的历史记录。
 
-    “不好，我 push 上去的 commit 太丑陋了，是我职业生涯的污点”，即使此时，也不要尝试改造远端的历史记录，人人都犯过错，请使用 =git revert= 。
+   “不好，我 push 上去的 commit 太丑陋了，是我职业生涯的污点”，即使此时，也不要尝试改造远端的历史记录，人人都犯过错，请使用 =git revert= 。
 
-    不要这样做，时间是有方向的，这个世界是有熵的，不要尝试清除记忆。实际上，想象这样的场景：一个项目，两个队员，commit 1，commit 2，以及一个错误的 commit 3，都已经 push 到远端。 =git revert= 新添加了一个 commit 3 反向差分，队友不论在哪个 commit 都可以通过 =git pull= 与我保持同步。否则，如果队友已经同步到 commit 3，但是我反悔，通过某种手段把 commit 3 消除了，那么队友会显示它超前于远端，他可能把 commit 3 重新 push 上来。如果我在这之前加了 commit 4，远端的历史变成了 commit 1,2,4，这与队友的 commit 1,2,3 产生冲突，他必须手动处理才能解决。这样的操作会给合作带来困扰，团队越大涉及的队友越多，损失越大。
+   不要这样做，时间是有方向的，这个世界是有熵的，不要尝试清除记忆。实际上，想象这样的场景：一个项目，两个队员，commit 1，commit 2，以及一个错误的 commit 3，都已经 push 到远端。 =git revert= 新添加了一个 commit 3 反向差分，队友不论在哪个 commit 都可以通过 =git pull= 与我保持同步。否则，如果队友已经同步到 commit 3，但是我反悔，通过某种手段把 commit 3 消除了，那么队友会显示它超前于远端，他可能把 commit 3 重新 push 上来。如果我在这之前加了 commit 4，远端的历史变成了 commit 1,2,4，这与队友的 commit 1,2,3 产生冲突，他必须手动处理才能解决。这样的操作会给合作带来困扰，团队越大涉及的队友越多，损失越大。
 
-    永远不要尝试改造远端的历史记录。
+   永远不要尝试改造远端的历史记录。
     
