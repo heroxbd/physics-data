@@ -6615,7 +6615,7 @@ echo ${y}
     #+RESULTS: 5c197e7b-ec20-49e4-9861-01db77e18a08
     : (1, 'Wang')
     : (2, 'Li')
-** 集合操作
+** 集合与线性运算
 *** 集合操作
 - 并 :: =UNION=
 - 差 :: =EXCEPT=
@@ -6625,7 +6625,9 @@ echo ${y}
   UNION
   SELECT column_name(s) FROM table_name2;
   #+end_src
-- 笛卡尔积 :: =SELECT * from A,B= 
+- 笛卡尔积 :: =SELECT * from A,B=
+- 投影 :: =SELECT name from A=
+- 选择 :: =SELECT name from A where ID==1=
 *** 再建新的表格
     #+begin_src sqlite :db ra.db :colnames yes
       CREATE TABLE B(ID integer, name text);
@@ -6690,9 +6692,137 @@ echo ${y}
      | ID | name |
      |----+------|
      |  1 | Wang |
+*** 投影
+    #+begin_src sqlite :db ra.db :colnames yes
+      SELECT name from A;
+    #+end_src
 
-** 课堂练习：成绩录入
-   天才少年爱迪生上课时做了一个梦，梦见自己成为了一门课的助教，协助老师向注册中心系统录成绩。但是少年爱迪生在梦境位面中的超能力减半，无法调用他强大的编程战斗值，所以他找到了你。
+    #+RESULTS:
+    | name |
+    |------|
+    | Wang |
+    | Li   |
+**** 选择：where 代表选择条件
+    #+begin_src sqlite :db ra.db :colnames yes
+      SELECT * from A where ID==1;
+    #+end_src
+
+    #+RESULTS:
+    | ID | name |
+    |----+------|
+    |  1 | Wang |
+
+** 连接运算
+*** 关系代数的特色
+    #+begin_src sqlite :db ra.db :colnames yes
+      SELECT * from A join B ON A.ID=B.ID;
+    #+end_src
+
+    #+RESULTS:
+    | ID | name | ID | name |
+    |----+------+----+------|
+    |  2 | Li   |  2 | Li   |
+
+    - 用笛卡尔积和选择
+    #+begin_src sqlite :db ra.db :colnames yes
+      SELECT * from A, B where A.ID==B.ID;
+    #+end_src
+
+    #+RESULTS:
+    | ID | name | ID | name |
+    |----+------+----+------|
+    |  2 | Li   |  2 | Li   |
+*** 左连接
+    - 左连接，无条件保留左边
+    #+begin_src sqlite :db ra.db :colnames yes
+      SELECT * from A left join B ON A.ID=B.ID;
+    #+end_src
+
+    #+RESULTS:
+    | ID | name | ID | name |
+    |----+------+----+------|
+    |  1 | Wang |    |      |
+    |  2 | Li   |  2 | Li   |
+    - SQLite 不支持右连接
+    #+begin_src sqlite :db ra.db :colnames yes
+      SELECT * from B left join A ON A.ID=B.ID;
+    #+end_src
+
+    #+RESULTS:
+    | ID | name  | ID | name |
+    |----+-------+----+------|
+    |  2 | Li    |  2 | Li   |
+    |  3 | Zhang |    |      |
+** 分组概括
+*** GroupBy
+    #+begin_src sqlite :db ra.db :colnames yes
+      insert into A values(4, 'Li');
+      select * from A;
+    #+end_src
+
+    #+RESULTS:
+    | ID | name |
+    |----+------|
+    |  1 | Wang |
+    |  2 | Li   |
+    |  4 | Li   |
+    #+begin_src sqlite :db ra.db :colnames yes
+      select name,count(*) as '人数' FROM A group by name;
+    #+end_src
+
+    #+RESULTS:
+    | name | 人数 |
+    |------+------|
+    | Li   |    2 |
+    | Wang |    1 |
+
+** 课堂练习
+*** 成绩录入
+    天才少年爱迪生上课时做了一个梦，梦见自己成为了一门课的助教，协助老师向注册中心系统录成绩。但是少年爱迪生在梦境位面中的超能力减半，无法调用他强大的编程战斗值，所以他找到了你。
+*** 查看 CSV
+    #+begin_src bash  :results output
+csvlook dataframe-practice/students.csv | head
+    #+end_src
+
+    #+RESULTS:
+    #+begin_example
+    | 学号 | 姓名 | 性别 | 班级   |           联系方式 |
+    | -- | -- | -- | ---- | -------------- |
+    |  1 | AB | 女  | 物理71 | 50,626,922,811 |
+    |  2 | AC | 女  | 工物61 |  6,533,879,773 |
+    |  3 | AD | 男  | 物理71 | 43,865,400,582 |
+    |  4 | AE | 男  | 工物71 | 58,581,462,691 |
+    |  5 | AF | 女  | 物理72 | 45,017,508,911 |
+    |  6 | AG | 男  | 工物72 | 26,000,243,873 |
+    |  7 | AH | 男  | 物理71 |  4,295,424,729 |
+    |  8 | AI | 男  | 工物83 | 51,193,285,308 |
+    #+end_example
+
+*** SQLite 读入 CSV
+    #+begin_src sqlite :db ra.db :colnames yes
+      .mode csv
+      .import dataframe-practice/students.csv students
+      select * from students limit 5;
+    #+end_src
+
+    #+RESULTS:
+    | 学号 | 姓名 | 性别 | 班级   |    联系方式 |
+    |------+------+------+--------+-------------|
+    |    1 | AB   | 女   | 物理71 | 50626922811 |
+    |    2 | AC   | 女   | 工物61 |  6533879773 |
+    |    3 | AD   | 男   | 物理71 | 43865400582 |
+    |    4 | AE   | 男   | 工物71 | 58581462691 |
+    |    5 | AF   | 女   | 物理72 | 45017508911 |
+
+*** 查看已经有的表格
+    #+begin_src sqlite :db ra.db :colnames yes
+      .tables
+    #+end_src
+
+    #+RESULTS:
+    | A         B         students |
+    |------------------------------|
+    - 任务：读入 =scores.csv= =classes.csv=
 *** 少年爱迪生想
 - 比较物理系和工物系的男女比例
 - 算出大家的总评成绩：
