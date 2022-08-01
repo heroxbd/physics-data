@@ -6444,7 +6444,7 @@ echo ${y}
     #+end_src
     - macOS
     #+begin_src bash
-      brew install sqlite db-browser-for-sqlite
+      brew install sqlite db-browser-for-sqlite csvkit
     #+end_src
 *** 本周提要   
    - 第一周 :: 一切工作都是差分
