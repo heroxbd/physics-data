@@ -6436,7 +6436,10 @@ echo ${y}
 *** 课前准备
     - 安装 SQLite3
     #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+# Debian/Ubuntu
 apt install sqlite3 sqlitebrowser
+# macOS
+brew install sqlite db-browser-for-sqlite
     #+end_src  
 *** 本周提要   
    - 第一周 :: 一切工作都是差分
