@@ -6436,9 +6436,8 @@ echo ${y}
 *** 课前准备
     - 安装 SQLite3 和查看器
     - 安装 CSV 查看器
-    - R 语言的 DB 接口 =r-cran-dbi= 用于运行 csv 到 sqlite 转换器
     #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-      apt install sqlite3 sqlitebrowser csvkit r-cran-dbi
+      apt install sqlite3 sqlitebrowser csvkit
 
       wget "http://hep.tsinghua.edu.cn/~orv/pd/dataframe-practice-r1.tar.gz"
       tar -xf dataframe-practice-r1.tar.gz
