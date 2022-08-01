@@ -6447,14 +6447,14 @@ echo ${y}
     #+begin_src bash
       brew install sqlite db-browser-for-sqlite csvkit
     #+end_src
-*** 本周提要   
+*** 本周提要
    - 第一周 :: 一切工作都是差分
    - 第二周 :: 一切计算都是数组
    - 第三周 :: 一切行为都是命令
      - 程序运行与文件管理：
        1. 外壳 shell: =bash=
-       2. 流水线: =make= （函数式编程、宣告式编程）
-       3. 字符处理：正则表达式 （宣告式编程）
+       2. 流水线: =make= （函数式编程、描述性编程）
+       3. 字符处理：正则表达式 （描述性编程）
    - 第四周 :: *一切数据都是表格*
      - 学习如何有序组织数据，尽一切努力让统计分析和数据洞见更易进行
        - 关系代数
@@ -6570,7 +6570,7 @@ echo ${y}
 
 - MapReduce 分布式大数据算法也受到关系代数的影响，一般都会使用关系代数作为平台高级接口
   - Hadoop 生态圈, Spark, etc.
-*** SQL 宣告式编程：定义清楚“我要什么”。
+*** SQL 描述性编程：定义清楚“我要什么”。
     - =CREATE= :: 创建表格
     - =INSERT= :: 插入行
     - =SELECT= :: 取得内容
@@ -6593,30 +6593,38 @@ echo ${y}
     |  2 | Li   |
 *** Python 的 SQLite 模块
     - 把 SQL 完整语句内嵌到函数调用中。
-    #+NAME: 9f9b4470-25d7-4fe4-9f51-f6b9df8b6c2d
+    #+NAME: 8b4cbb6d-233b-409b-8f4d-1f003dee7eaa
     #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
       import sqlite3
-      c = sqlite3.connect("ra.db")
-      c.execute('CREATE TABLE A(ID integer, name text)')
-      c.execute("insert into A values(1, 'Wang')")
-      c.execute("insert into A values(2, 'Li')")
-      c.commit()
+
+      c = sqlite3.connect("ra-python.db")
+      cur = c.cursor()
+      cur.execute("create table A(ID integer, name text)")
+      cur.execute("insert into A values (1, 'Wang')")
+      cur.execute("insert into A values (2, 'Li')")
+      cur.execute("select * from A")
+      print(cur.fetchall()) # 读取 SQL 返回值
+      c.close() # 关闭
     #+end_src
 
-    #+NAME: 5c197e7b-ec20-49e4-9861-01db77e18a08
-    #+RESULTS: 9f9b4470-25d7-4fe4-9f51-f6b9df8b6c2d
-    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
-      c = sqlite3.connect("ra.db").cursor()
-      c.execute('SELECT * FROM A')
-      print(c.fetchone())
-      print(c.fetchone())
-      c.close()
-    #+end_src
+    #+RESULTS: 8b4cbb6d-233b-409b-8f4d-1f003dee7eaa
+    : [(1, 'Wang'), (2, 'Li')]
 
-    #+RESULTS: 5c197e7b-ec20-49e4-9861-01db77e18a08
-    : (1, 'Wang')
-    : (2, 'Li')
     - 计算机的本质：把一系列指令交给另一个工具执行。
+*** Python 循环减少重复
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      import sqlite3
+
+      c = sqlite3.connect("ra-python.db")
+      cur = c.cursor()
+      cur.execute("create table A(ID integer, name text)")
+      for ID, name in ((1, 'Wang'), (2, 'Li')): 
+          cur.execute(f"insert into A values ({ID}, {name})")
+      cur.execute("select * from A")
+      print(cur.fetchall()) # 读取 SQL 返回值
+      c.close() # 关闭
+    #+end_src
+      
 ** 集合与线性运算
 *** 集合操作
 - 并 :: =UNION=
@@ -6832,6 +6840,41 @@ csvlook dataframe-practice/students.csv | head
   - 大作业占 30% 的成绩
   - 划分出不同的分数段，给出某分数段同学的手机号
 - 画出各班平均小作业成绩的变化曲线
+*** 物理系和工物系的男女比例
+    #+begin_src sqlite :db dataframe-practice/people.db :colnames yes
+select classes.院系, students.性别, count(*) as 人数
+from students join classes
+on students.班级 = classes.班级
+group by classes.院系, students.性别;
+    #+end_src
+
+    #+RESULTS:
+    | 院系 | 性别 | 人数 |
+    |------+------+------|
+    | 工物 | 女   |    4 |
+    | 工物 | 男   |   18 |
+    | 物理 | 女   |   10 |
+    | 物理 | 男   |   25 |
+*** 选出特定成绩段的学生查询手机号
+    #+begin_src sqlite :db dataframe-practice/people.db :colnames yes
+      select 联系方式,姓名,
+      (`curve.fitting`+`gpa.calculator`)/2*0.65 + `大作业`*0.3 as total
+      from students join scores on students.学号 = scores.学号
+      where total < 60;
+    #+end_src
+
+    #+RESULTS:
+    |    联系方式 | 姓名 |  total |
+    |-------------+------+--------|
+    | 26000243873 | AG   |  22.75 |
+    | 11373628062 | AK   |  45.65 |
+    | 11391622912 | AM   |  38.35 |
+    |  9693622361 | AR   | 55.575 |
+    | 73349261755 | AY   | 53.705 |
+    | 99263903250 | BE   | 53.945 |
+    | 99555170920 | BJ   |  58.66 |
+    | 26880267330 | BS   | 36.665 |
+    | 77213592969 | BV   |  47.65 |
 
 * 第四周第二天
   :PROPERTIES:
