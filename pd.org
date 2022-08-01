@@ -6441,6 +6441,7 @@ echo ${y}
       apt install sqlite3 sqlitebrowser csvkit r-cran-dbi
 
       wget "http://hep.tsinghua.edu.cn/~orv/pd/dataframe-practice-r1.tar.gz"
+      tar -xf dataframe-practice-r1.tar.gz
     #+end_src
     - macOS
     #+begin_src bash
@@ -6484,7 +6485,7 @@ echo ${y}
      :BEAMER_col: 0.5
      :END:
 
-     | eid \ ch | 0         | 1         |
+     | ch \ eid | 0         | 1         |
      |----------+-----------+-----------|
      |        0 | (0, 2, 3) | x         |
      |        2 | (0, 0, 1) | (3, 2, 0) |
