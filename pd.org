@@ -6432,126 +6432,146 @@ echo ${y}
   :EXPORT_BEAMER_THEME: Hannover
   :EXPORT_BEAMER_FONT_THEME: professionalfonts
   :END:
-** 概论
-*** 科学范式的演化 Scientific Paradigm Shift
-
-    #+attr_beamer: :overlay <+->
-    - 经验时代：占星术等等
-    - 理论时代(17世纪起)：牛顿力学，微积分，麦克思韦方程，相对论等等
-    - 计算时代(20世纪中)
-      - 理论一般由程序描述，大规模数值模拟成为可能
-      - 计算物理、计算化学等等
-    - 数据时代(21世纪初)
-      - 从数据中直接总结经验模型，与理论模型同等重要
-      - 虚拟天文台等等
-*** 数据时代的要素
-    - 存储空间
-      - 存储介质物美价廉：小于 1GB/元
-    - 计算能力
-      - 每 18 个月翻一倍
-    - 传感器
-      - 取数能力大大增强
-
-**** 数据本身具有价值
-     数据在被采集之外的目的中发挥作用
-
-     - 通过人们对感冒症状相关的搜索预测流感爆发
-     - 黑洞吸积盘“照片”，多个射电望远镜联合交换数据组成相干阵列
-
-*** 工商业与科学的融合
-    - 工商业的决策开始基于数据
-      - 市场调查，AB 测试，用户隐私数据收集
-      - 分析消费习惯，预测需求，进行定价
-      - 制定生产、物流、仓储策略
-    - 金融交易：基于历史数据建立模型，半自动或全自动交易
-
-*** 知识储备与技能组合
-    #+Attr_LaTeX: :height 0.65\textheight
-    [[./fig/Data_Science_VD-r1.pdf]]
-
-    - 数据时代需要专业知识、数理统计和黑客技术等多方面技能
-
-*** 本课程的技能树
-    - Python
-      - 程序的数据类型
-      - 程序的基本结构
-      - 函数、类
-      - 数值计算工具
-
-    \pause
-
-    - 外部驱动 Python
-      - 管理：Git
-      - Shell 命令和 Shell 脚本：文件组织
-        - 独立语言，命令组成脚本，脚本变成命令
-      - GNU Make 和 Makefile：数据处理流水线
-        - 独立语言，内嵌 Shell script 和 Guile Scheme
-      - Jupyter
-
-    \pause
-
-    - 内部增强 Python
-      - 正则表达式
-        - 一门微型的独立语言：也可以增强 Shell Script
-      - 数据类型：csv 最透明
-        - json :: 贴近 Python，适合有结构层次的混合数据
-        - hdf5 :: 效率高，适合大规模的数值型数据
-
-*** 概率是逻辑的扩展 -- Cox 定理
-    - R. T. Cox, E. T. Jaynes，两位对统计学有重大贡献的物理学家
-    - Logical interpretation of probability (面向维基百科的备课)
-      1. Divisibility and comparability -- The plausibility of a
-         proposition is a real number and is dependent on information
-         we have related to the proposition.
-      2. Common sense -- Plausibilities should vary sensibly with the
-         assessment of plausibilities in the model.
-      3. Consistency -- If the plausibility of a proposition can be
-         derived in many ways, all the results must be equal.
-    - 满足以上条件的代表事件可能性的一切实数指标，都与概率等价。
-
-      The theorem states that any system for plausible reasoning that
-      satisfies certain qualitative requirements intended to ensure
-      consistency with classical deductive logic and correspondence
-      with commonsense reasoning is isomorphic to probability theory.
-
-      参考：Van Horn, K.S., 2003. Constructing a logic of plausible
-      inference: a guide to Cox’s theorem. International Journal of
-      Approximate Reasoning 34,
-      3–24. https://doi.org/10.1016/S0888-613X(03)00051-3
-
-*** 结果的不确定度
-    - 结果的不确定度如何给出？
+** 复习
+*** 课前准备
+    - 安装 SQLite3
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+apt install sqlite3 sqlitebrowser
+    #+end_src  
+*** 本周提要   
+   - 第一周 :: 一切工作都是差分
+   - 第二周 :: 一切计算都是数组
+   - 第三周 :: 一切行为都是命令
+     - 程序运行与文件管理：
+       1. 外壳 shell: =bash=
+       2. 流水线: =make= （函数式编程、宣告式编程）
+       3. 字符处理：正则表达式 （宣告式编程）
+   - 第四周 :: *一切数据都是表格*
+     - 学习如何有序组织数据，尽一切努力让统计分析和数据洞见更易进行
+       - 关系代数
+       - 学习新语言 SQL
+     - 应用意义
+       - 直接应用到分布式 SQL 引擎
+     - 1981 年和 2014 年的两届图灵奖工作
      
-      1. 建立演绎的模型，预测观测现象
+** 关系代数
+*** 引例：表格 vs 数组
+    =eid= 指事例编号 event ID ， =ch= 指读数通道 =channel= 。
+**** t                                                                :BMCOL:
+     :PROPERTIES:
+     :BEAMER_col: 0.499
+     :END:
+    | eid | ch | wave      |
+    |-----+----+-----------|
+    |   0 |  0 | (0, 2, 3) |
+    |   0 |  2 | (0, 0, 1) |
+    |   1 |  2 | (3, 2, 0) |
+    |   1 |  3 | (0, 3, 1) |
+    | ... |    |           |
+    - =eid= 的取值可达几百万 \( N_\mathrm{E} \) ， =ch= 的取值是 0 到 29 共 30 个。
+    - 表格定义：把坐标 (0, 0)、(0, 2)、(1, 2)、(1, 3) 写在列上
+    - 长度略小于 \( N_\mathrm{E} \times 30 \) 的表格
+**** a                                                                :BMCOL:
+     :PROPERTIES:
+     :BEAMER_col: 0.5
+     :END:
 
-         大作业第一阶段
+     | eid \ ch | 0         | 1         |
+     |----------+-----------+-----------|
+     |        0 | (0, 2, 3) | x         |
+     |        2 | (0, 0, 1) | (3, 2, 0) |
+     |        3 | x         | (0, 3, 1) |
 
-      2. 在此基础上，从观测现象定出模型中的参数，或者从诸多模型中选出最
-         符合数据的模型，统计推断的程序实现
+     - 如果行与列的标号不连续，则另行开辟 =eid= 和 =ch= 的数组，建立 0, 2, 3 与标号 0, 1, 2 的对应关系。
+     - 形状为 \( (N_\mathrm{E}, 30) \) 的二维数组
+*** 概念
+    | eid | ch | wave      |
+    |-----+----+-----------|
+    |   0 |  0 | (0, 2, 3) |
+    |   0 |  2 | (0, 0, 1) |
+    |   1 |  2 | (3, 2, 0) |
+    |   1 |  3 | (0, 3, 1) |
+    | ... |    |           |
+    
+- 一切都是表，可以表达一切数据
+  - 未必真实存在，可以是逻辑的表
+- 集合运算，交、并、差 \( \cap,  \cup , \setminus \)
+  - 集合元素是表格的行。
+- 线性运算，笛卡尔积、投影、选取 \( \otimes, \Pi, \sigma \)
+  - 表格扩大，列方向与行方向缩小
+- 关系运算，连接 \( \bowtie \)
+  - 非关系代数基本运算，可由 \( \otimes \sigma \) 组合得到，极常用
+- 拓展运算，GroupBy（分组） \( \mathcal{G} \)
+  - 非关系代表运算，不可由基本运算实现，极常用
 
-         大作业第二阶段
+*** 困惑：以代数理论组织数据够图灵奖？
 
-         - 欢迎选修：《概率统计分析及量测技术》（30320344-2）
-         - 2021年9月14日星期二 8:00 第1节 四教4105
-         - 和/或 统计学辅修 和/或 概率论、随机过程
+- Edgar F. Codd，1981年图灵奖得主
 
-**** 某某学家的对话
-    - 数学家：一切都是确定且自洽的
-    - 物理学家：一切都是不确定且纷乱的
-    - 统计学家：我赞同物理学家
-    - 数学家：好，你们被开除数学系了
+  Relational database: a practical foundation for productivity.
+  
+- Michael Stonebraker 2014年图灵奖得主
 
-*** 本周预告
-    - 学习如何有序组织数据，尽一切努力让统计分析更容易进行
-     
-      - 关系代数
+  For fundamental contributions to the concepts and practices underlying modern database systems.
+**** 参考书
+     Hellerstein, Joseph M. and Michael Stonebraker. Readings in Database Systems.
 
-      - 学习新语言 SQL
+*** 反思：如此简明的理论为何影响深远？
+  1. 数据组织在物理学家眼里，是一件微不足道的“小事”：如何组织都无所谓，能用就行
+  2. “自然”地采用树状结构：一个高能量的粒子产生很多“次数粒子”，次数粒子诱导出光子，一个光子被放大成１千万个电子
+  3. 争论：什么样的“树”最好？
+     - 身分 vs. 能力：出身星系 vs. 天体种类
+     - 身分 vs. 能力：母粒子 vs. 粒子种类
+  4. 每个人有自己关注的物理问题，因此争证持续，或者走向分裂
+  5. “都是那些个二货坚持用奇怪的数据格式”
+  6. 反思时，发现自己在“小事”上花了太多精力，非常空虚
+*** 研究这个问题是为了不再研究这个问题
 
-    - 应用意义
-      - 直接应用到分布式 SQL 引擎
+- 按照简明的理论组织数据，从此之后忘掉它。
+- 简明的理论有严格的数学体系
+- 与正则表达式一样，可以有完美的社会分工
+  - 使用者以关系代数的思想和语言描绘出自己要做什么
+  - 研发者以天才的程序技巧实现关系代数的基本运算，优化复合运算
+*** 工业领域的某些反弹
+- 2000年左右，Web 界开始了去“关系数据库”的运动，开发 NoSQL 服务。
+  - SQL 是 structured query language，关系数据库的基本语言
+  - 关系数据库是以关系代数为基础的数据管理程序，有严格的数据规范
+- NoSQL 运动的支持者认为，世界丰富多样，不应该受关系代数的限制。
+  - Web 2.0 被作为商业概念炒作，从业人员四处革命
+  - 关系代数让一切都成为了表格，大大限制了我们的想象力，剥夺了我们自由设计数据格式的权力
+  - 于是大家开浪起来，进行了一轮新的探索，在这个过程中创造了一批卓越的分布式的数据系统
+  - Google 的 MapReduce 也在此运动中，改变了整个大数据处理的格局。
+- 但是，随着时间的推移，这些 NoSQL 的方案逐渐成熟，慢慢发展出关系代数的各种运算
+  - 关系代数系统被重新发明一次，与分布式系统结合起来，成为数据时代的基石
+  
+** SQL 语言
+*** 关系代数的实现
+- SQL：关系代数的天然语言，语法简明
+  - 描述型的语言，描述把什么样的数据取出来
+  - 也可以写数据，但一般是一次写，多次读
 
-    - 1981 年和 2014 年的两届图灵奖工作
+- 关系数据库 Relational Database，使用 SQL 语言描述
+  - MariaDB (MySQL 的后继)
+  - PostgreSQL
+  - SQLite
+
+- 统计软件分支，比如 S 语言中的 SAS/SPSS 中的 Dataset 或 DataFrame
+  - GNU R 以及对应的 R 语言，是一个 S 语言的后继，其中 DataFrame 是语言的核心
+  - Pandas 受 GNU R 的影响，目标是在 Python 的语言环境中实现 DataFrame 及其基本操作
+
+- MapReduce 分布式大数据算法也受到关系代数的影响，一般都会使用关系代数作为平台高级接口
+  - Hadoop 生态圈, Spark, etc.
+
+** 课堂练习：成绩录入
+
+   天才少年爱迪生上课时做了一个梦，梦见自己成为了一门课的助教，协助老师向注册中心系统录成绩。但是少年爱迪生在梦境位面中的超能力减半，无法调用他强大的编程战斗值，所以他找到了你。
+*** 少年爱迪生想
+- 比较物理系和工物系的男女比例
+- 算出大家的总评成绩：
+  - 小作业权相等，总体占 65% 的成绩
+  - 大作业占 30% 的成绩
+  - 划分出不同的分数段，给出某分数段同学的手机号
+- 画出各班平均小作业成绩的变化曲线
 
 * 第四周第二天
   :PROPERTIES:
@@ -6777,6 +6797,51 @@ echo ${y}
      - 张卓婧、陈晟祺、付祈安、陈嘉杰、刘晓义、刘学伟、王宇逸、武益阳、翁俊
    - 全体克服困难返校上课的同学们。
    - 小助教 :: 贾启珑、贾成杰、解森炜、田宗森、于明杨、刘汉青、张震、牟迨秋、刘亦晖、刘欣宇、杨政昊
+
+** 概论
+*** 概率是逻辑的扩展 -- Cox 定理
+    - R. T. Cox, E. T. Jaynes，两位对统计学有重大贡献的物理学家
+    - Logical interpretation of probability (面向维基百科的备课)
+      1. Divisibility and comparability -- The plausibility of a
+         proposition is a real number and is dependent on information
+         we have related to the proposition.
+      2. Common sense -- Plausibilities should vary sensibly with the
+         assessment of plausibilities in the model.
+      3. Consistency -- If the plausibility of a proposition can be
+         derived in many ways, all the results must be equal.
+    - 满足以上条件的代表事件可能性的一切实数指标，都与概率等价。
+
+      The theorem states that any system for plausible reasoning that
+      satisfies certain qualitative requirements intended to ensure
+      consistency with classical deductive logic and correspondence
+      with commonsense reasoning is isomorphic to probability theory.
+
+      参考：Van Horn, K.S., 2003. Constructing a logic of plausible
+      inference: a guide to Cox’s theorem. International Journal of
+      Approximate Reasoning 34,
+      3–24. https://doi.org/10.1016/S0888-613X(03)00051-3
+
+*** 结果的不确定度
+    - 结果的不确定度如何给出？
+     
+      1. 建立演绎的模型，预测观测现象
+
+         大作业第一阶段
+
+      2. 在此基础上，从观测现象定出模型中的参数，或者从诸多模型中选出最
+         符合数据的模型，统计推断的程序实现
+
+         大作业第二阶段
+
+         - 欢迎选修：《概率统计分析及量测技术》（30320344-2）
+         - 2021年9月14日星期二 8:00 第1节 四教4105
+         - 和/或 统计学辅修 和/或 概率论、随机过程
+
+**** 某某学家的对话
+    - 数学家：一切都是确定且自洽的
+    - 物理学家：一切都是不确定且纷乱的
+    - 统计学家：我赞同物理学家
+    - 数学家：好，你们被开除数学系了
 
 * 2020 第四周第四天
   :PROPERTIES:
