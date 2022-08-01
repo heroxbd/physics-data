@@ -6434,13 +6434,18 @@ echo ${y}
   :END:
 ** 复习
 *** 课前准备
-    - 安装 SQLite3
+    - 安装 SQLite3 和查看器
+    - 安装 CSV 查看器
+    - R 语言的 DB 接口 =r-cran-dbi= 用于运行 csv 到 sqlite 转换器
     #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-# Debian/Ubuntu
-apt install sqlite3 sqlitebrowser
-# macOS
-brew install sqlite db-browser-for-sqlite
-    #+end_src  
+      apt install sqlite3 sqlitebrowser csvkit r-cran-dbi
+
+      wget "http://hep.tsinghua.edu.cn/~orv/pd/dataframe-practice-r1.tar.gz"
+    #+end_src
+    - macOS
+    #+begin_src bash
+      brew install sqlite db-browser-for-sqlite
+    #+end_src
 *** 本周提要   
    - 第一周 :: 一切工作都是差分
    - 第二周 :: 一切计算都是数组
@@ -6564,9 +6569,129 @@ brew install sqlite db-browser-for-sqlite
 
 - MapReduce 分布式大数据算法也受到关系代数的影响，一般都会使用关系代数作为平台高级接口
   - Hadoop 生态圈, Spark, etc.
+*** SQL 宣告式编程：定义清楚“我要什么”。
+    - =CREATE= :: 创建表格
+    - =INSERT= :: 插入行
+    - =SELECT= :: 取得内容
+** 基本操作
+*** SQL 基本操作
+    #+begin_src sqlite :db ra.db :var rel="A" :colnames yes
+      CREATE TABLE A(ID integer, name text);
+      insert into A values(1, 'Wang');
+      insert into A values(2, 'Li');
+    #+end_src
+
+    #+begin_src sqlite :db ra.db :colnames yes
+      select * from A;
+    #+end_src
+
+    #+RESULTS:
+    | ID | name |
+    |----+------|
+    |  1 | Wang |
+    |  2 | Li   |
+*** Python 的 SQLite 模块
+    - 把 SQL 完整语句内嵌到函数调用中。
+    #+NAME: 9f9b4470-25d7-4fe4-9f51-f6b9df8b6c2d
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      import sqlite3
+      c = sqlite3.connect("ra.db")
+      c.execute('CREATE TABLE A(ID integer, name text)')
+      c.execute("insert into A values(1, 'Wang')")
+      c.execute("insert into A values(2, 'Li')")
+      c.commit()
+    #+end_src
+
+    #+NAME: 5c197e7b-ec20-49e4-9861-01db77e18a08
+    #+RESULTS: 9f9b4470-25d7-4fe4-9f51-f6b9df8b6c2d
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      c = sqlite3.connect("ra.db").cursor()
+      c.execute('SELECT * FROM A')
+      print(c.fetchone())
+      print(c.fetchone())
+      c.close()
+    #+end_src
+
+    #+RESULTS: 5c197e7b-ec20-49e4-9861-01db77e18a08
+    : (1, 'Wang')
+    : (2, 'Li')
+** 集合操作
+*** 集合操作
+- 并 :: =UNION=
+- 差 :: =EXCEPT=
+- 交 :: =INTERSECT=
+  #+begin_src sqlite :db ra.db :colnames yes
+  SELECT column_name(s) FROM table_name1
+  UNION
+  SELECT column_name(s) FROM table_name2;
+  #+end_src
+- 笛卡尔积 :: =SELECT * from A,B= 
+*** 再建新的表格
+    #+begin_src sqlite :db ra.db :colnames yes
+      CREATE TABLE B(ID integer, name text);
+      insert into B values(2, 'Li');
+      insert into B values(3, 'Zhang');
+    #+end_src
+
+    #+RESULTS:
+
+    #+begin_src sqlite :db ra.db :colnames yes
+      select * from B;
+    #+end_src
+
+    #+RESULTS:
+    | ID | name  |
+    |----+-------|
+    |  2 | Li    |
+    |  3 | Zhang |
+
+*** 并运算
+    #+begin_src sqlite :db ra.db :colnames yes
+      select * from B union
+      select * from A;
+    #+end_src
+
+    #+RESULTS:
+    | ID | name  |
+    |----+-------|
+    |  1 | Wang  |
+    |  2 | Li    |
+    |  3 | Zhang |
+**** 交运算
+     #+begin_src sqlite :db ra.db :colnames yes
+       select * from B intersect
+       select * from A;
+     #+end_src
+
+     #+RESULTS:
+     | ID | name |
+     |----+------|
+     |  2 | Li   |
+*** 笛卡尔积运算
+     #+begin_src sqlite :db ra.db :colnames yes
+       select * from A, B;
+     #+end_src
+
+     #+RESULTS:
+     | ID | name | ID | name  |
+     |----+------+----+-------|
+     |  1 | Wang |  2 | Li    |
+     |  1 | Wang |  3 | Zhang |
+     |  2 | Li   |  2 | Li    |
+     |  2 | Li   |  3 | Zhang |
+**** 差运算
+     #+begin_src sqlite :db ra.db :colnames yes
+       select * from A
+       except
+       select * from B;
+     #+end_src
+
+     #+RESULTS:
+     | ID | name |
+     |----+------|
+     |  1 | Wang |
 
 ** 课堂练习：成绩录入
-*** 背景
    天才少年爱迪生上课时做了一个梦，梦见自己成为了一门课的助教，协助老师向注册中心系统录成绩。但是少年爱迪生在梦境位面中的超能力减半，无法调用他强大的编程战斗值，所以他找到了你。
 *** 少年爱迪生想
 - 比较物理系和工物系的男女比例
