@@ -7098,7 +7098,8 @@ apt install python3-pandas python3-seaborn
 *** 总评成线关联班级
     #+begin_src sqlite :db dataframe-practice/people.db :colnames yes
 SELECT total.班级,院系,姓名,总评,联系方式 from classes join
-(SELECT 姓名,班级,总评,联系方式 from final_score JOIN students on final_score.学号 = students.学号 where 总评 < 60) as total
+(SELECT 姓名,班级,总评,联系方式 from final_score 
+JOIN students on final_score.学号 = students.学号 where 总评 < 60) as total
 on total.班级 = classes.班级
     #+end_src
 
