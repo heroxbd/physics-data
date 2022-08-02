@@ -6899,7 +6899,7 @@ group by classes.院系, students.性别;
     #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
 apt install python3-pandas python3-seaborn
     #+end_src
-      - macOS
+    - macOS
       #+begin_src bash
       pip3 install pandas seaborn
       #+end_src
@@ -6910,8 +6910,8 @@ apt install python3-pandas python3-seaborn
      - Dataframe 流派的关系代数系统 全局最佳工具是 GNU R
        - Python 只是小圈子的最佳工具
      - Grammar of graphics 的全局最佳工具是 R ggplot2
-       - seaborn 只是眼前的妥协
-       - 未来 Python 小圈子的最佳工具可能是 [[https://plotnine.readthedocs.io/en/stable/][plotnine]]
+       - seaborn 只是眼前的妥协，未来 Python 小圈子的最佳工具可能是 [[https://plotnine.readthedocs.io/en/stable/][plotnine]]
+
 *** 关系代数复习
     - 集合运算：\( \cap,  \cup , \setminus \)
       - SQL =INTERSECT= =UNION= =EXCEPT=
