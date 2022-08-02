@@ -7021,17 +7021,17 @@ apt install python3-pandas python3-seaborn
 *** 再计算一次总评
     - 用 =longscores= 分组大大简化
     #+begin_src sqlite :db dataframe-practice/people.db :colnames yes
-      select 作业, avg(分数) from longscores group by 学号 limit 5
+      select 学号, avg(分数) from longscores group by 学号 limit 5
     #+end_src
 
     #+RESULTS:
-    | 作业 |        avg(分数) |
+    | 学号 |        avg(分数) |
     |------+------------------|
     |    1 | 104.411111111111 |
-    |    1 | 92.3333333333333 |
-    |    1 | 94.2222222222222 |
-    |    1 | 104.033333333333 |
-    |    1 | 99.8333333333333 |
+    |    2 | 92.3333333333333 |
+    |    3 | 94.2222222222222 |
+    |    4 | 104.033333333333 |
+    |    5 | 99.8333333333333 |
 *** 加上权重
     :PROPERTIES:
     :ORDERED:  t
@@ -7095,6 +7095,19 @@ apt install python3-pandas python3-seaborn
     |------+-----------+-------------|
     |   49 | 105.16375 | 81920572715 |
     |   55 | 105.70625 | 24891470639 |
+*** 总评成线关联班级
+    #+begin_src sqlite :db dataframe-practice/people.db :colnames yes
+SELECT total.班级,院系,姓名,总评,联系方式 from classes join
+(SELECT 姓名,班级,总评,联系方式 from final_score JOIN students on final_score.学号 = students.学号 where 总评 < 60) as total
+on total.班级 = classes.班级
+    #+end_src
+
+    #+RESULTS:
+    | 班级   | 院系 | 姓名 |    总评 |    联系方式 |
+    |--------+------+------+---------+-------------|
+    | 工物72 | 工物 | AG   |  42.575 | 26000243873 |
+    | 物理71 | 物理 | AM   | 58.0125 | 11391622912 |
+
 *** 成绩按班级计算
 - [X] 比较物理系和工物系的男女比例
 - [X] 算出大家的总评成绩：
@@ -7144,7 +7157,7 @@ apt install python3-pandas python3-seaborn
 
     #+attr_latex: :height 4cm
     #+RESULTS:
-    [[file:img/class_score.pdf]]
+    [[file:]]
 *** 长表与宽表总结
     - 长表，为了恢复列之间的对称性，对计算机系统更友好
     - 宽表，某些时候人类易于理解。
