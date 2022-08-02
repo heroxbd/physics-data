@@ -6422,7 +6422,7 @@ echo ${y}
 * 第四周第一天
   :PROPERTIES:
   :EXPORT_FILE_NAME: pc
-  :EXPORT_BEAMER_HEADER+: \title{关系代数}
+  :EXPORT_BEAMER_HEADER+: \title{关系代数与 SQL}
   :EXPORT_OPTIONS: H:2 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
   :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
   :EXPORT_DATE: 2022-08-01 清华
@@ -6877,103 +6877,201 @@ group by classes.院系, students.性别;
 
 * 第四周第二天
   :PROPERTIES:
-  :EXPORT_FILE_NAME: w4-1
-  :EXPORT_BEAMER_HEADER+: \title{关系代数}
-  :EXPORT_OPTIONS: H:1 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
+  :EXPORT_FILE_NAME: pd
+  :EXPORT_BEAMER_HEADER+: \title{关系代数与 DataFrame}
+  :EXPORT_OPTIONS: H:2 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
   :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
-  :EXPORT_DATE: 2019-07-19 清华
+  :EXPORT_DATE: 2022-08-02 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
-  :EXPORT_BEAMER_THEME: Boadilla
-  :EXPORT_BEAMER_COLOR_THEME: seahorse
+  :EXPORT_BEAMER_HEADER+: \setbeamertemplate{footline}[frame number]  
+  :EXPORT_BEAMER_THEME: Hannover
   :EXPORT_BEAMER_FONT_THEME: professionalfonts
   :END:
-** Git 的 Remote 与 Merge
+** 复习与提示
+*** 安装软件
+    - Pandas: Python 的 R DataFrame 仿制品
+      - 缺点：不完全仿制，存在不一致；无全局设计考量，经常改接口。
+      - 优点：被 Python 数据圈采纳为标准格式
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+apt install python3-pandas python3-seaborn
+    #+end_src
+**** 最佳工具                                                  :B_alertblock:
+     :PROPERTIES:
+     :BEAMER_env: alertblock
+     :END:
+     - Dataframe 流派的关系代数系统 全局最佳工具是 GNU R
+       - Python 只是小圈子的最佳工具
+     - Grammer of graphics 的全局最佳工具是 R ggplot2
+       - seaborn 只是眼前的妥协
+       - 未来 Python 小圈子的最佳工具可能是 [[https://plotnine.readthedocs.io/en/stable/][plotnine]]
+*** 关系代数复习
+    - 集合运算：\( \cap,  \cup , \setminus \)
+      - SQL =INTERSECT= =UNION= =EXCEPT=
+    - 线性运算：\( \otimes, \Pi, \sigma \)
+      - SQL =SELECT= =WHERE=
+    - 关系运算：连接 \( \bowtie \)
+      - SQL =JOIN=
+    - 拓展运算：GroupBy（分组） \( \mathcal{G} \)
+      - SQL =GROUP BY=
+*** [33%]少年爱迪生想
+- [X] 比较物理系和工物系的男女比例
+- [-] 算出大家的总评成绩：
+  - [ ] 小作业权相等，总体占 65% 的成绩
+  - [X] 大作业占 30% 的成绩
+  - [X] 划分出不同的分数段，给出某分数段同学的手机号
+- [ ] 画出各班平均小作业成绩的变化曲线
+#+begin_src sqlite :db dataframe-practice/people.db :colnames yes
+      select 联系方式,姓名,
+      (`curve.fitting`+`gpa.calculator`)/2*0.65 + `大作业`*0.3 as total
+      from students join scores on students.学号 = scores.学号
+      where total < 60;
+#+end_src
+  #+RESULTS:
+  |    联系方式 | 姓名 |  total |
+  |-------------+------+--------|
+  | 26000243873 | AG   |  22.75 |
+  | 11373628062 | AK   |  45.65 |
+  | 11391622912 | AM   |  38.35 |
+  |  9693622361 | AR   | 55.575 |
+  | 73349261755 | AY   | 53.705 |
+  | 99263903250 | BE   | 53.945 |
+  | 99555170920 | BJ   |  58.66 |
+  | 26880267330 | BS   | 36.665 |
+  | 77213592969 | BV   |  47.65 |
 
-** Makefile 的高级应用示范
+** 长表与宽表
+*** 引例：小作业所有加和
+**** schema                                                           :BMCOL:
+     :PROPERTIES:
+     :BEAMER_col: 0.299
+     :END:
+    #+begin_src sqlite :db dataframe-practice/people.db :results output
+.schema scores
+    #+end_src
 
-   - 本课程讲的都是黑客技术，没有讲统计方法？ \to 其它课程
+    #+RESULTS:
+    #+begin_example
+    CREATE TABLE `scores` (
+      `学号` INTEGER,
+      `self.intro` INTEGER,
+      `a.b` INTEGER,
+      `rank.guesser` INTEGER,
+      `hdf5` INTEGER,
+      `prime` INTEGER,
+      `heart.curve` INTEGER,
+      `gpa.calculator` REAL,
+      `curve.fitting` INTEGER,
+      `大作业` REAL
+    );
+    #+end_example
+**** query                                                            :BMCOL:
+     :PROPERTIES:
+     :BEAMER_col: 0.7
+     :END:
+    #+begin_src sqlite :db dataframe-practice/people.db :colnames yes
+      select 联系方式,姓名,
+      (`self.intro`+`a.b`+`rank.guesser`+hdf5+prime
+      +`heart.curve`+`curve.fitting`+`gpa.calculator`)/8*0.65
+      + `大作业`*0.3 as total
+      from students join scores on students.学号 = scores.学号
+      where total < 60;
+    #+end_src
 
-** 数据的存储格式
-   - CSV :: 文本表格
-   - JSON :: 文本字典结构
-   - HDF5 :: 二进制树状结构组织的表格
+    #+RESULTS:
+    |    联系方式 | 姓名 |   total |
+    |-------------+------+---------|
+    | 26000243873 | AG   |  42.575 |
+    | 11391622912 | AM   | 58.0125 |
 
-   - 有没有一种抽象的数据表示，把引擎与应用分离？
-     - 关系代数：一切都是关系，关系都是表格
+*** 太丑了
+    - 四周16次作业全都写上吗？
+    - 不能写循环吗？
+    - 不能自动完成吗，一次原则在哪里？
 
-** Numpy Structured Array
-   - 复合型 =dtype=
+    #+attr_latex: :height 4cm
+    [[./fig/cat_tom.png]]
+** 遗留
+*** 数据的存储格式
+    - CSV :: 文本表格
+    - JSON :: 文本字典结构
+    - HDF5 :: 二进制树状结构组织的表格
 
-     #+BEGIN_SRC python
-       import numpy as np
-       np.zeros(3, dtype=[("i", np.int), ("v", np.float), ("w", np.int, 3)])
-     #+END_SRC
+    - 有没有一种抽象的数据表示，把引擎与应用分离？
+      - 关系代数：一切都是关系，关系都是表格
 
-   - =PE-info.h5=
+*** Numpy Structured Array
+    - 复合型 =dtype=
 
-** Structured Array 基本操作
-   - indexing 取数
-   - 取列
+      #+BEGIN_SRC python
+        import numpy as np
+        np.zeros(3, dtype=[("i", np.int), ("v", np.float), ("w", np.int, 3)])
+      #+END_SRC
 
-** Pandas
-   - Python 中处理表格类数据的工具
+    - =PE-info.h5=
 
-     =apt install python3-pandas=
+*** Structured Array 基本操作
+    - indexing 取数
+    - 取列
 
-   - indexing 取数
-   - 取列
-   - 连接
-     - 左，右
-   - 笛卡尔积
-   - 集合运算
+*** Pandas
+    - Python 中处理表格类数据的工具
 
-** 关系代数
-   #+attr_beamer: :overlay <+->
-   - 关系：${(r, s)|r \in R, s \in S}$
-   - 关系代数：在集合基础上定义关系运算的封闭系统
-     - 封闭系统：运算作用于一个或多个关系上来生成一个关系
+      =apt install python3-pandas=
 
-   - 围绕关系代数设计的关系数据库是存储海量数据的标准
-     - 代表：Structure Query Language (SQL) 语言
-   - 关系代数的思想具有一般性：
-     - 管理数据
-     - 添加数据
-     - 分析数据
+    - indexing 取数
+    - 取列
+    - 连接
+      - 左，右
+    - 笛卡尔积
+    - 集合运算
 
-** 基本动机
-   - 关系代数设计师 Todd，图灵奖工作
-   - 数据都应该自我描述
-     - 即使数据的存储形式变了，对程序进行操作的程序也不应该改变
-     - 反例：链表
-     - 反倒：随意写成的 Excel 表格
-   - 方便扩展到大规模的数据库中
+*** 关系代数
+    #+attr_beamer: :overlay <+->
+    - 关系：${(r, s)|r \in R, s \in S}$
+    - 关系代数：在集合基础上定义关系运算的封闭系统
+      - 封闭系统：运算作用于一个或多个关系上来生成一个关系
 
-*** 实用价值
-   - 引擎优化与应用分工
-   - 引擎：自动 out-of-core computing (超出内存的运算)
-   - 引擎：自动并行计算
+    - 围绕关系代数设计的关系数据库是存储海量数据的标准
+      - 代表：Structure Query Language (SQL) 语言
+    - 关系代数的思想具有一般性：
+      - 管理数据
+      - 添加数据
+      - 分析数据
 
-** 直观理解：一切都是表格
+*** 基本动机
+    - 关系代数设计师 Todd，图灵奖工作
+    - 数据都应该自我描述
+      - 即使数据的存储形式变了，对程序进行操作的程序也不应该改变
+      - 反例：链表
+      - 反倒：随意写成的 Excel 表格
+    - 方便扩展到大规模的数据库中
 
-   | Event | Channel | Time | Weight |
-   |-------+---------+------+--------|
-   |     0 |       0 |    1 |    1.1 |
-   |     0 |       0 |  1.1 |   1.15 |
-   |     0 |       2 |  1.2 |    1.3 |
-   |     1 |       3 |  0.8 |    0.9 |
+**** 实用价值
+    - 引擎优化与应用分工
+    - 引擎：自动 out-of-core computing (超出内存的运算)
+    - 引擎：自动并行计算
 
-   | Event | Channel | Wave          |
-   |-------+---------+---------------|
-   |     0 |       0 | [0,0.1,...,0] |
-   |     0 |       2 | [0,0.2,...,0] |
+*** 直观理解：一切都是表格
 
-** 关系代数的基本运算
-   - 集合运算：交、并、差
-   - 连接(Join)
-   - 投影(Projection)
-   - 笛卡积(Product)
-   - 分类运算(Groupby)
+    | Event | Channel | Time | Weight |
+    |-------+---------+------+--------|
+    |     0 |       0 |    1 |    1.1 |
+    |     0 |       0 |  1.1 |   1.15 |
+    |     0 |       2 |  1.2 |    1.3 |
+    |     1 |       3 |  0.8 |    0.9 |
+
+    | Event | Channel | Wave          |
+    |-------+---------+---------------|
+    |     0 |       0 | [0,0.1,...,0] |
+    |     0 |       2 | [0,0.2,...,0] |
+
+*** 关系代数的基本运算
+    - 集合运算：交、并、差
+    - 连接(Join)
+    - 投影(Projection)
+    - 笛卡积(Product)
+    - 分类运算(Groupby)
 * 第四周第四天
   :PROPERTIES:
   :EXPORT_FILE_NAME: pf
