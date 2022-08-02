@@ -14,8 +14,10 @@
 #+sTARTUP: beamer
 
 #+name: savefig
-#+begin_src python :var figname="plot.pdf" width=3 height=3 :exports none
-  return f"""plt.savefig('{figname}', width={width}, height={height})
+#+begin_src python :var figname="plot.pdf" width=5 height=4 :exports none
+  return f"""fig = plt.gcf()
+  fig.set_size_inches(w={width}, h={height})
+  plt.savefig('{figname}')
   plt.clf()
   '{figname}'"""
 #+end_src
@@ -7137,6 +7139,10 @@ on total.班级 = classes.班级
     | 基科71 |    9 | 110.066666666667 |
     | 基科72 |    1 |            100.0 |
 *** 绘图
+**** p                                                                :BMCOL:
+     :PROPERTIES:
+     :BEAMER_col: 0.569
+     :END:
     #+begin_src python :results value file :session lecture-plot :exports both :noweb strip-export
       from matplotlib import pyplot as plt
       import pandas as pd
@@ -7144,21 +7150,26 @@ on total.班级 = classes.班级
 
       c = sqlite3.connect("dataframe-practice/people.db")
       class_score = pd.read_sql_query("""
-            select 班级, 作业, avg(分数) as 分数
-            from longscores join students on longscores.学号 = students.学号
-            group by 班级, 作业 limit 10
+      select 班级, 作业, avg(分数) as 分数
+      from longscores join students
+      on longscores.学号 = students.学号
+      group by 班级, 作业
       """, c)
 
       one_line = class_score.query("班级 == '基科71'")
-      plt.plot(one_line["作业"].values, one_line["分数"].values)
+      plt.plot(one_line["作业"], one_line["分数"])
       plt.xlabel("作业")
       plt.ylabel("分数")
       <<savefig(figname="img/class_score.pdf")>>
     #+end_src
 
-    #+attr_latex: :height 4cm
+**** i                                                                :BMCOL:
+     :PROPERTIES:
+     :BEAMER_col: 0.43
+     :END:
+    #+attr_latex: :width 5cm
     #+RESULTS:
-    [[file:]]
+    [[file:img/class_score.pdf]]
 *** 长表与宽表总结
     - 长表，为了恢复列之间的对称性，对计算机系统更友好
     - 宽表，某些时候人类易于理解。
@@ -7233,12 +7244,13 @@ on total.班级 = classes.班级
     - 差：无此功能。丑陋的做法如下
     #+NAME: 997c7607-a17b-44ba-8e09-c7f55e541f31
     #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
-      pd.concat([A, B, B], ignore_index=True).drop_duplicates(keep=False)
+      pd.concat([A, B, B]).drop_duplicates(keep=False)
     #+end_src
 
     #+RESULTS: 997c7607-a17b-44ba-8e09-c7f55e541f31
     :    ID  name
     : 0   1  Wang
+
 *** 线性运算 \( \otimes \)
     - 连接运算表征
     #+NAME: 30eb578c-773c-450a-a8c1-27f11a93309b
@@ -7255,13 +7267,14 @@ on total.班级 = classes.班级
 *** 线性运算 \( \Pi \)
     #+NAME: 04af3b39-585e-4399-ad02-021d03695ff5
     #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
-      A["name"]
+      A[["name", "ID"]]
     #+end_src
 
     #+RESULTS: 04af3b39-585e-4399-ad02-021d03695ff5
-    : 0    Wang
-    : 1      Li
-    : Name: name, dtype: object
+    :    name  ID
+    : 0  Wang   1
+    : 1    Li   2
+
 **** 选择 \( \sigma \)
      #+NAME: acd56d64-9b4d-4b31-bc9f-3395b4b0fe3d
      #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
@@ -7272,6 +7285,16 @@ on total.班级 = classes.班级
      : ID       2
      : name    Li
      : Name: 1, dtype: object
+*** 条件选择
+    #+NAME: e95625c0-7d08-4867-bde1-ce3e2effacf4
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      A.query("ID == 2")
+    #+end_src
+
+    #+RESULTS: e95625c0-7d08-4867-bde1-ce3e2effacf4
+    :    ID name
+    : 1   2   Li
+
 *** 连接运算 \( \bowtie \)
     - Pandas 的核心，集合运算当作连接的变种
     #+NAME: 1c035867-8a72-4081-94ee-7ee271373453
@@ -7304,9 +7327,45 @@ on total.班级 = classes.班级
     : 工物   7
     : 物理   4
 
-** 关系代数绘图  
-*** Grammar of Graphics
+** 关系代数绘图
+*** 绘图语法 Grammar of Graphics
+    - 在表格与图形要素之间建立映射关系
+    - 表格对称的同等层次的列，都可以映射到各类图形要素中
+      1. x 轴坐标
+      2. y 轴坐标
+      3. 颜色
+      4. 点形状（圈、三角、方块等）
+      5. 线形状（实线、虚线、点划线等）
+      6. 点的大小
+      7. 线的粗细
+      8. 透明度
+      9. 子图位置
+    - 在绘图时，通过调整映射关系来找到最佳的展现方式
+**** 参考书
+     - Hadley Wickham, A layered grammar of graphics
+*** Seaborn
+    - Python 关系代数绘图实现之一，受到 R ggplot 的影响。
+    #+begin_src python :results value file :session lecture-plot :exports both :noweb strip-export
+      import seaborn as sns
+      sns.lineplot(x="作业", y="分数", hue="班级", data=class_score)
+      <<savefig(figname="img/seaborn_line.pdf")>>
+    #+end_src
     
+    #+attr_latex: :height 5cm
+    #+RESULTS:
+    [[file:img/seaborn_line.pdf]]
+
+*** 换成散点图 =relplot=
+    #+NAME: 8beae5a0-0655-4338-afa5-e7aa45395813
+    #+begin_src python :results value file :session lecture-plot :exports both :noweb strip-export
+      sns.relplot(x="班级", y="分数", style="作业", data=class_score)
+      <<savefig(figname="img/seaborn_scatter.pdf", width=6, height=4)>>
+    #+end_src
+
+    #+attr_latex: :height 5cm
+    #+RESULTS: 8beae5a0-0655-4338-afa5-e7aa45395813
+    [[file:img/seaborn_scatter.pdf]]
+
 ** 后备资料
 *** 关系代数
     #+attr_beamer: :overlay <+->
