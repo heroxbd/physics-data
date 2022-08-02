@@ -6986,6 +6986,7 @@ apt install python3-pandas python3-seaborn
     |-------------+------+---------|
     | 26000243873 | AG   |  42.575 |
     | 11391622912 | AM   | 58.0125 |
+    - 可以用双引号 ="= 代替斜引号 =`=
 
 *** 太丑了
     - 四周16次作业全都写上吗？
@@ -7050,6 +7051,75 @@ apt install python3-pandas python3-seaborn
     |   49 | 105.16375 |
     |   55 | 105.70625 |
 
+*** 储存起来用于下一步使用
+    - =CREATE VIEW= 把中间结果存成虚拟表格
+    #+begin_src sqlite :db dataframe-practice/people.db :colnames yes
+      create view final_scores as
+      select 学号, sum(权重*分数) as 总评 from 
+      (select 学号, case 大作业
+        when 0 then 0.65
+        when 1 then 0.3
+        end as 权重, avg(分数) as 分数 
+        from longscores group by 学号, 大作业)
+      group by 学号
+    #+end_src
+
+    #+RESULTS:
+
+    #+begin_src sqlite :db dataframe-practice/people.db :colnames yes
+        select * from final_scores limit 5
+    #+end_src
+
+    #+RESULTS:
+    | 学号 |      总评 |
+    |------+-----------|
+    |    1 | 104.50375 |
+    |    2 |  87.20625 |
+    |    3 |  94.05625 |
+    |    4 |   103.265 |
+    |    5 |  98.26875 |
+*** 算出大家的总评成绩
+    #+begin_src sqlite :db dataframe-practice/people.db :colnames yes
+      select students.学号, 总评, 联系方式
+      from final_scores join students
+      on final_scores.学号 = students.学号
+      where 总评 > 105
+    #+end_src
+
+    #+RESULTS:
+    | 学号 |      总评 |    联系方式 |
+    |------+-----------+-------------|
+    |   49 | 105.16375 | 81920572715 |
+    |   55 | 105.70625 | 24891470639 |
+*** 成绩按班级计算
+- [X] 比较物理系和工物系的男女比例
+- [X] 算出大家的总评成绩：
+  - [X] 小作业权相等，总体占 65% 的成绩
+  - [X] 大作业占 30% 的成绩
+  - [X] 划分出不同的分数段，给出某分数段同学的手机号
+- [ ] 画出各班平均小作业成绩的变化曲线
+    #+begin_src sqlite :db dataframe-practice/people.db :colnames yes
+      select 班级, 作业, avg(分数) as 分数
+      from longscores join students on longscores.学号 = students.学号
+      group by 班级, 作业 limit 10
+    #+end_src
+
+    #+RESULTS:
+    | 班级   | 作业 |             分数 |
+    |--------+------+------------------|
+    | 基科71 |    1 |            100.0 |
+    | 基科71 |    2 |            100.0 |
+    | 基科71 |    3 |             99.0 |
+    | 基科71 |    4 | 66.6666666666667 |
+    | 基科71 |    5 | 97.3333333333333 |
+    | 基科71 |    6 | 73.3333333333333 |
+    | 基科71 |    7 | 100.333333333333 |
+    | 基科71 |    8 | 86.6666666666667 |
+    | 基科71 |    9 | 110.066666666667 |
+    | 基科72 |    1 |            100.0 |
+** 关系代数绘图  
+*** Grammer of Graphics
+    
 ** 遗留
 *** Numpy Structured Array
     - 复合型 =dtype=
