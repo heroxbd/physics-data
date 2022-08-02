@@ -6909,7 +6909,7 @@ apt install python3-pandas python3-seaborn
      :END:
      - Dataframe 流派的关系代数系统 全局最佳工具是 GNU R
        - Python 只是小圈子的最佳工具
-     - Grammer of graphics 的全局最佳工具是 R ggplot2
+     - Grammar of graphics 的全局最佳工具是 R ggplot2
        - seaborn 只是眼前的妥协
        - 未来 Python 小圈子的最佳工具可能是 [[https://plotnine.readthedocs.io/en/stable/][plotnine]]
 *** 关系代数复习
@@ -7291,7 +7291,7 @@ apt install python3-pandas python3-seaborn
     : 物理   4
 
 ** 关系代数绘图  
-*** Grammer of Graphics
+*** Grammar of Graphics
     
 ** 后备资料
 *** 关系代数
