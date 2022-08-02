@@ -6899,6 +6899,10 @@ group by classes.院系, students.性别;
     #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
 apt install python3-pandas python3-seaborn
     #+end_src
+      - macOS
+      #+begin_src bash
+      pip3 install pandas seaborn
+      #+end_src
 **** 最佳工具                                                  :B_alertblock:
      :PROPERTIES:
      :BEAMER_env: alertblock
