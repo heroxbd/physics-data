@@ -6895,7 +6895,7 @@ group by classes.院系, students.性别;
 *** 安装软件
     - Pandas: Python 的 R DataFrame 仿制品
       - 缺点：不完全仿制，存在不一致；无全局设计考量，经常改接口。
-      - 优点：被 Python 数据圈采纳为标准格式
+      - 优点：被 Python 数据圈采纳为标准格式，补充 NumPy 的功能
     #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
 apt install python3-pandas python3-seaborn
     #+end_src
@@ -7102,6 +7102,7 @@ apt install python3-pandas python3-seaborn
   - [X] 大作业占 30% 的成绩
   - [X] 划分出不同的分数段，给出某分数段同学的手机号
 - [ ] 画出各班平均小作业成绩的变化曲线
+*** 取得班级作业平均数据
     #+begin_src sqlite :db dataframe-practice/people.db :colnames yes
       select 班级, 作业, avg(分数) as 分数
       from longscores join students on longscores.学号 = students.学号
@@ -7121,30 +7122,178 @@ apt install python3-pandas python3-seaborn
     | 基科71 |    8 | 86.6666666666667 |
     | 基科71 |    9 | 110.066666666667 |
     | 基科72 |    1 |            100.0 |
+*** 绘图
+    #+begin_src python :results value file :session lecture-plot :exports both :noweb strip-export
+      from matplotlib import pyplot as plt
+      import pandas as pd
+      import sqlite3
+
+      c = sqlite3.connect("dataframe-practice/people.db")
+      class_score = pd.read_sql_query("""
+            select 班级, 作业, avg(分数) as 分数
+            from longscores join students on longscores.学号 = students.学号
+            group by 班级, 作业 limit 10
+      """, c)
+
+      one_line = class_score.query("班级 == '基科71'")
+      plt.plot(one_line["作业"].values, one_line["分数"].values)
+      plt.xlabel("作业")
+      plt.ylabel("分数")
+      <<savefig(figname="img/class_score.pdf")>>
+    #+end_src
+
+    #+attr_latex: :height 4cm
+    #+RESULTS:
+    [[file:img/class_score.pdf]]
+*** 长表与宽表总结
+    - 长表，为了恢复列之间的对称性，对计算机系统更友好
+    - 宽表，某些时候人类易于理解。
+      - 不同的列有不同的属性，例如权重
+      - 相同属性的列在重复，违反一次原则
+    - 如何相互转换？ =pandas= =R=
+      - =SQLite= 不具备此功能
+
+** DataFrame
+*** Pandas: Python DataFrame 工具
+    #+NAME: a07cce5b-ea67-4e3a-8f91-76b828f112fc
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      import pandas as pd
+      classes = pd.read_csv("dataframe-practice/classes.csv")
+      print(classes)
+    #+end_src
+
+    #+RESULTS: a07cce5b-ea67-4e3a-8f91-76b828f112fc
+    #+begin_example
+          班级  院系
+    0    核71  工物
+    1   工物61  工物
+    2   工物72  工物
+    3   基科71  物理
+    4   物理72  物理
+    5   物理71  物理
+    6   工物73  工物
+    7   工物83  工物
+    8   工物71  工物
+    9   工物70  工物
+    10  基科72  物理
+    #+end_example
+
+*** 集合运算：并
+    - \( \cap,  \cup , \setminus \)
+    #+NAME: cf243858-2832-42fd-9fe2-b9c8cd77c60e
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      A = pd.DataFrame.from_dict({"ID": (1, 2), "name": ("Wang", "Li")})
+      B = pd.DataFrame.from_dict({"ID": (2, 3), "name": ("Li", "Zhang")})
+      U = pd.concat((A, B), ignore_index=True)
+      print(U)
+    #+end_src  
+
+    #+RESULTS: cf243858-2832-42fd-9fe2-b9c8cd77c60e
+    :    ID   name
+    : 0   1   Wang
+    : 1   2     Li
+    : 2   2     Li
+    : 3   3  Zhang
+
+    #+NAME: 16893dd9-c598-4f80-a29f-e60f3aa5c242
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      U.drop_duplicates()
+    #+end_src
+
+    #+RESULTS: 16893dd9-c598-4f80-a29f-e60f3aa5c242
+    :    ID   name
+    : 0   1   Wang
+    : 1   2     Li
+    : 3   3  Zhang
+*** 集合运算：交
+    - 连接可以反过来定义交
+    #+NAME: a57f8e32-7c97-42d6-b585-27f754547d8c
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      pd.merge(A, B, how="inner", on=("ID", "name"))
+    #+end_src
+
+    #+RESULTS: a57f8e32-7c97-42d6-b585-27f754547d8c
+    :    ID name
+    : 0   2   Li
+
+    - 差：无此功能。丑陋的做法如下
+    #+NAME: 997c7607-a17b-44ba-8e09-c7f55e541f31
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      pd.concat([A, B, B], ignore_index=True).drop_duplicates(keep=False)
+    #+end_src
+
+    #+RESULTS: 997c7607-a17b-44ba-8e09-c7f55e541f31
+    :    ID  name
+    : 0   1  Wang
+*** 线性运算 \( \otimes \)
+    - 连接运算表征
+    #+NAME: 30eb578c-773c-450a-a8c1-27f11a93309b
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      pd.merge(A, B, how="cross")
+    #+end_src
+
+    #+RESULTS: 30eb578c-773c-450a-a8c1-27f11a93309b
+    :    ID_x name_x  ID_y name_y
+    : 0     1   Wang     2     Li
+    : 1     1   Wang     3  Zhang
+    : 2     2     Li     2     Li
+    : 3     2     Li     3  Zhang
+*** 线性运算 \( \Pi \)
+    #+NAME: 04af3b39-585e-4399-ad02-021d03695ff5
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      A["name"]
+    #+end_src
+
+    #+RESULTS: 04af3b39-585e-4399-ad02-021d03695ff5
+    : 0    Wang
+    : 1      Li
+    : Name: name, dtype: object
+**** 选择 \( \sigma \)
+     #+NAME: acd56d64-9b4d-4b31-bc9f-3395b4b0fe3d
+     #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+       A.loc[1]
+     #+end_src
+
+     #+RESULTS: acd56d64-9b4d-4b31-bc9f-3395b4b0fe3d
+     : ID       2
+     : name    Li
+     : Name: 1, dtype: object
+*** 连接运算 \( \bowtie \)
+    - Pandas 的核心，集合运算当作连接的变种
+    #+NAME: 1c035867-8a72-4081-94ee-7ee271373453
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      pd.merge(A, B, on="name")
+    #+end_src
+
+    #+RESULTS: 1c035867-8a72-4081-94ee-7ee271373453
+    :    ID_x name  ID_y
+    : 0     2   Li     2
+**** 左连接
+     #+NAME: cb47d4f1-d319-495a-b148-fb58571d4a03
+     #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+       pd.merge(A, B, on="name", how="left")
+     #+end_src
+
+     #+RESULTS: cb47d4f1-d319-495a-b148-fb58571d4a03
+     :    ID_x  name  ID_y
+     : 0     1  Wang   NaN
+     : 1     2    Li   2.0
+*** Group By \( \mathcal{G} \)
+    #+NAME: 441c8035-5ad0-4787-91c6-b5b479e2ec51
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      classes.groupby("院系").count()
+    #+end_src
+
+    #+RESULTS: 441c8035-5ad0-4787-91c6-b5b479e2ec51
+    :     班级
+    : 院系    
+    : 工物   7
+    : 物理   4
+
 ** 关系代数绘图  
 *** Grammer of Graphics
     
-** 遗留
-*** Numpy Structured Array
-    - 复合型 =dtype=
-
-      #+BEGIN_SRC python
-        import numpy as np
-        np.zeros(3, dtype=[("i", np.int), ("v", np.float), ("w", np.int, 3)])
-      #+END_SRC
-
-    - =PE-info.h5=
-
-*** Pandas
-    - Python 中处理表格类数据的工具
-
-    - indexing 取数
-    - 取列
-    - 连接
-      - 左，右
-    - 笛卡尔积
-    - 集合运算
-
+** 后备资料
 *** 关系代数
     #+attr_beamer: :overlay <+->
     - 关系：${(r, s)|r \in R, s \in S}$
