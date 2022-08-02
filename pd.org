@@ -7420,6 +7420,11 @@ on total.班级 = classes.班级
     1   2  self.intro  100.0
     2   3  self.intro  100.0
     #+end_example
+*** =melt=
+    - =id_vars= 指定作为索引的列
+    - =value_vars= 指定作为数值的列
+    - =var_name= 指定长表中组变量的列名
+    - =value_name= 指定长表中值的列名
 *** Pandas 统计班级平均分
     #+begin_src python :results value file :session lecture-plot :exports both :noweb strip-export
       class_credit = pd.merge(students, long_score, on="学号").groupby(
@@ -7432,7 +7437,46 @@ on total.班级 = classes.班级
     #+attr_latex: :height 5.5cm
     #+RESULTS:
     [[file:img/seaborn_pandas_bar.pdf]]
+** Pandas 版总评计算
+*** 注入加权权重列
+    - Pandas 可像字典一样追加列
+    #+begin_src python :results output :session lecture-plot :exports both
+      long_score["大作业"] = (long_score["作业"] == "大作业")
+      long_score["权重"] = list(map(
+          lambda x: 0.3 if x else 0.65 / 8, 
+          long_score["大作业"]))
+    #+end_src
 
+    #+RESULTS:
+
+*** Group By
+    - =as_index=False= 避免分组变量当成 =index= 传入
+    #+begin_src python :results output :session lecture-plot :exports both :noweb strip-export
+      total = long_score.groupby("学号", as_index=True).apply(
+          lambda y: sum(y["分数"] * y["权重"])
+      )
+      print(type(total))
+    #+end_src
+
+    #+RESULTS:
+    : <class 'pandas.core.series.Series'>
+    - 得到一个 Pandas Series ，可与一维数组类比。是 Pandas 列的组成部分。
+    #+begin_src python :results value :session lecture-plot :exports both :noweb strip-export
+      students["总评"] = total
+      students.query("总评 > 105")[["姓名", "总评", "联系方式"]]
+    #+end_src
+
+    #+RESULTS:
+    :     姓名         总评         联系方式
+    : 49  BY  105.16375  57756152377
+    : 55  CE  105.70625  86952597230
+*** 比较 SQL 与 DataFrame 的区别
+    - SQL 是描述性语言，与函数式编程更接近。
+      - 生成的表格不能随意改动。改动只是通过创建新表格实现。
+    - DataFrame 是动态结构
+      - 可以更灵活地更改；
+      - 但过于灵活可能带来调试上的麻烦。
+    - SQL 可以处理大于内存容量的数据， DataFrame 必须借助 Spark 等大数据平台才能实现。
 ** 后备资料
 *** 关系代数
     #+attr_beamer: :overlay <+->
