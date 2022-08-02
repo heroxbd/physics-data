@@ -6823,6 +6823,8 @@ csvlook dataframe-practice/students.csv | head
     |    4 | AE   | 男   | 工物71 | 58581462691 |
     |    5 | AF   | 女   | 物理72 | 45017508911 |
 
+    - 也可直接使用 =dataframe-practice/people.db= 读入数据。
+
 *** 查看已经有的表格
     #+begin_src sqlite :db ra.db :colnames yes
       .tables
@@ -6839,6 +6841,7 @@ csvlook dataframe-practice/students.csv | head
   - 大作业占 30% 的成绩
   - 划分出不同的分数段，给出某分数段同学的手机号
 - 画出各班平均小作业成绩的变化曲线
+     
 *** 物理系和工物系的男女比例
     #+begin_src sqlite :db dataframe-practice/people.db :colnames yes
 select classes.院系, students.性别, count(*) as 人数
@@ -6988,18 +6991,66 @@ apt install python3-pandas python3-seaborn
     - 四周16次作业全都写上吗？
     - 不能写循环吗？
     - 不能自动完成吗，一次原则在哪里？
+    - 问题何在？
+      - 表格列的对称性。
 
     #+attr_latex: :height 4cm
     [[./fig/cat_tom.png]]
+    
+*** 长表
+    #+begin_src sqlite :db dataframe-practice/people.db :colnames yes
+      select * from longscores limit 5
+    #+end_src
+
+    #+RESULTS:
+    | 学号 | 作业 |  分数 | 大作业 |
+    |------+------+-------+--------|
+    |    1 |    1 | 100.0 |      0 |
+    |    2 |    1 | 100.0 |      0 |
+    |    3 |    1 | 100.0 |      0 |
+    |    4 |    1 | 100.0 |      0 |
+    |    5 |    1 | 100.0 |      0 |
+
+    - “作业”一列给出作业编号
+    - “大作业”一列 0 代表非，1 代表是
+*** 再计算一次总评
+    - 用 =longscores= 分组大大简化
+    #+begin_src sqlite :db dataframe-practice/people.db :colnames yes
+      select 作业, avg(分数) from longscores group by 学号 limit 5
+    #+end_src
+
+    #+RESULTS:
+    | 作业 |        avg(分数) |
+    |------+------------------|
+    |    1 | 104.411111111111 |
+    |    1 | 92.3333333333333 |
+    |    1 | 94.2222222222222 |
+    |    1 | 104.033333333333 |
+    |    1 | 99.8333333333333 |
+*** 加上权重
+    :PROPERTIES:
+    :ORDERED:  t
+    :END:
+    - 0 到 0.65 权重， 1 到 0.3 权重
+    - =HAVING= 与 groupby 连用，对 group 进行过滤。
+    #+begin_src sqlite :db dataframe-practice/people.db :colnames yes
+      select 学号, sum(权重*分数) as 总评 from 
+      (select 学号, case 大作业
+        when 0 then 0.65
+        when 1 then 0.3
+        end as 权重, avg(分数) as 分数 
+        from longscores group by 学号, 大作业)
+      group by 学号
+      having 总评 > 105 
+    #+end_src
+
+    #+RESULTS:
+    | 学号 |      总评 |
+    |------+-----------|
+    |   49 | 105.16375 |
+    |   55 | 105.70625 |
+
 ** 遗留
-*** 数据的存储格式
-    - CSV :: 文本表格
-    - JSON :: 文本字典结构
-    - HDF5 :: 二进制树状结构组织的表格
-
-    - 有没有一种抽象的数据表示，把引擎与应用分离？
-      - 关系代数：一切都是关系，关系都是表格
-
 *** Numpy Structured Array
     - 复合型 =dtype=
 
@@ -7010,14 +7061,8 @@ apt install python3-pandas python3-seaborn
 
     - =PE-info.h5=
 
-*** Structured Array 基本操作
-    - indexing 取数
-    - 取列
-
 *** Pandas
     - Python 中处理表格类数据的工具
-
-      =apt install python3-pandas=
 
     - indexing 取数
     - 取列
