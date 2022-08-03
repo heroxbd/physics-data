@@ -7937,7 +7937,7 @@ print(books[["weight", "volume", "cover"]])
     - 分析：有否必要把 =area= 加入回归？
 ** 模型矩阵
 *** 模型矩阵
-- 细致描述变量的依赖关系，扩展公式的表达
+- 细致描述变量的依赖关系，扩展公式的表达 patsy \textipa{["patsi]}
 #+NAME: b754f1a2-8936-4580-987a-0fabd77623af
 #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
 import patsy
