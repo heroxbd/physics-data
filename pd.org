@@ -7544,6 +7544,10 @@ on total.班级 = classes.班级
       apt install python3-statsmodels python3-patsy
       wget http://hep.tsinghua.edu.cn/~orv/pd/lm-examples.tar.gz
     #+end_src
+    - macOS
+      #+begin_src bash
+      pip3 install statsmodels patsy
+      #+end_src
 *** 关系代数工具组
      #+BEGIN_SRC dot :file relational.pdf :cmdline -Kdot -Tpdf :eval yes :exports results
        digraph python {
