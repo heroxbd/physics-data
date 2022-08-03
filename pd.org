@@ -7739,7 +7739,7 @@ books.plot(x="volume", y="weight", kind="scatter", ax=ax)
 
     #+end_example
 *** 结果
-    \( y = 0.7086 X + 107.6793 \)
+    \( y = 0.8193 X \)
 
     - \( y \) : weight
     - \( X \) : volume
@@ -7749,8 +7749,8 @@ books.plot(x="volume", y="weight", kind="scatter", ax=ax)
        - 好处：在方法论上跨学科，有效地检验方法的普适性
        - 坏处：0类学科与Z类学科侧重点不同。
 
-     - endogenous: 生物学概念，内源性 \( X \)
-     - endogenous: 生物学概念，外源性 \( y \)
+     - endogenous: 生物学概念，内源性 \( y \)
+     - exogenous: 生物学概念，外源性 \( X \)
 *** 绘图
     #+NAME: b20c38cc-6321-48a6-9869-bdd084de5ff6
     #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
@@ -7821,7 +7821,7 @@ books.plot(x="volume", y="weight", kind="scatter", ax=ax)
 
 #+attr_latex: :height 4cm
 #+RESULTS: 29051508-6402-4b5e-8e92-d6088e097c4b
-file:ein-images/ob-ein-ea93266e4bec3fa426fde0e774edafbf.png]]
+[[file:ein-images/ob-ein-ea93266e4bec3fa426fde0e774edafbf.png]]
 
 *** 更直观的回归公式
     #+NAME: e47c6cd8-c536-47bb-a985-578543ecf349
@@ -8055,6 +8055,85 @@ print(n_res.summary())
 
     #+end_example
 
+*** 最好的模型1 使用 =area=
+    #+NAME: 9d4de03b-2d75-4087-bc51-f727a778c1a6
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      area_only_res0 = smf.ols(formula="weight ~ volume + area - 1", data=books).fit()
+      print(area_only_res0.summary()) # AIC = 174
+    #+end_src
+
+    #+RESULTS: 9d4de03b-2d75-4087-bc51-f727a778c1a6
+    #+begin_example
+                                     OLS Regression Results                                
+    =======================================================================================
+    Dep. Variable:                 weight   R-squared (uncentered):                   0.991
+    Model:                            OLS   Adj. R-squared (uncentered):              0.990
+    Method:                 Least Squares   F-statistic:                              747.9
+    Date:                Wed, 03 Aug 2022   Prob (F-statistic):                    3.80e-14
+    Time:                        17:21:10   Log-Likelihood:                         -84.987
+    No. Observations:                  15   AIC:                                      174.0
+    Df Residuals:                      13   BIC:                                      175.4
+    Df Model:                           2                                                  
+    Covariance Type:            nonrobust                                                  
+    ==============================================================================
+                     coef    std err          t      P>|t|      [0.025      0.975]
+    ------------------------------------------------------------------------------
+    volume         0.7289      0.028     26.344      0.000       0.669       0.789
+    area           0.4809      0.093      5.146      0.000       0.279       0.683
+    ==============================================================================
+    Omnibus:                       14.845   Durbin-Watson:                   1.885
+    Prob(Omnibus):                  0.001   Jarque-Bera (JB):               12.177
+    Skew:                           1.542   Prob(JB):                      0.00227
+    Kurtosis:                       6.157   Cond. No.                         4.53
+    ==============================================================================
+
+    Notes:
+    [1] R² is computed without centering (uncentered) since the model does not contain a constant.
+    [2] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+
+    #+end_example
+
+*** 最好的模型2 调整 cover 使之只产生 =hb= 参数
+    #+NAME: 56f40a73-d101-4f67-98d9-1eeece9d7392
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      y, X = patsy.dmatrices("weight ~ volume + cover - 1", books, return_type='matrix')
+      cover_hb_res0 = sm.OLS(y, X[:, [0, 2]]).fit()
+      print(cover_hb_res0.summary()) # AIC 174.1
+    #+end_src
+
+    #+RESULTS: 56f40a73-d101-4f67-98d9-1eeece9d7392
+    #+begin_example
+                                     OLS Regression Results                                
+    =======================================================================================
+    Dep. Variable:                 weight   R-squared (uncentered):                   0.991
+    Model:                            OLS   Adj. R-squared (uncentered):              0.990
+    Method:                 Least Squares   F-statistic:                              743.2
+    Date:                Wed, 03 Aug 2022   Prob (F-statistic):                    3.95e-14
+    Time:                        17:20:24   Log-Likelihood:                         -85.033
+    No. Observations:                  15   AIC:                                      174.1
+    Df Residuals:                      13   BIC:                                      175.5
+    Df Model:                           2                                                  
+    Covariance Type:            nonrobust                                                  
+    ==============================================================================
+                     coef    std err          t      P>|t|      [0.025      0.975]
+    ------------------------------------------------------------------------------
+    var_0        187.3360     36.572      5.122      0.000     108.328     266.344
+    var_1          0.7307      0.028     26.522      0.000       0.671       0.790
+    ==============================================================================
+    Omnibus:                       13.917   Durbin-Watson:                   1.897
+    Prob(Omnibus):                  0.001   Jarque-Bera (JB):               11.018
+    Skew:                           1.458   Prob(JB):                      0.00405
+    Kurtosis:                       6.020   Cond. No.                     1.71e+03
+    ==============================================================================
+
+    Notes:
+    [1] R² is computed without centering (uncentered) since the model does not contain a constant.
+    [2] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+    [3] The condition number is large, 1.71e+03. This might indicate that there are
+    strong multicollinearity or other numerical problems.
+
+    #+end_example
+
 ** 广义线性回归
 *** 概念
 - 线性回归中，假设了残差服从正态分布
@@ -8067,18 +8146,77 @@ print(n_res.summary())
 *** 课堂任务
     - 尝试对 =r10500.h5= 进行泊松回归
     - 辅助文件 =geo.csv= , =pmtdata.csv=
-** 回归    
+    #+NAME: fcfd86ca-faa7-4801-a8a2-61006de8c54a
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      PE = pd.read_hdf("lm-examples/r10500.h5", "PETruth")
+      PEs = PE.groupby(["EventID", "ChannelID"]).count().reset_index()
+      PMT = pd.read_csv("lm-examples/pmtdata.csv", header=0, delimiter=" ", names=["ChannelID", "type", "QE"])
+      # 不能种类的 PMT ，预期的信号计数是否一致
+      type_count = pd.merge(PEs, PMT)
+      y, X = patsy.dmatrices("PETime ~ type - 1", type_count)
+      pois_res = sm.GLM(y, X, sm.families.Poisson()).fit()
+    #+end_src
+
+    #+RESULTS: fcfd86ca-faa7-4801-a8a2-61006de8c54a
+
+*** 泊松回归拟合结果
+    #+NAME: dbd4abeb-6129-4213-9bad-b5a5f9387386
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      print(pois_res.summary())
+    #+end_src
+
+    #+RESULTS: dbd4abeb-6129-4213-9bad-b5a5f9387386
+    #+begin_example
+                     Generalized Linear Model Regression Results                  
+    ==============================================================================
+    Dep. Variable:                 PETime   No. Observations:               549654
+    Model:                            GLM   Df Residuals:                   549650
+    Model Family:                 Poisson   Df Model:                            3
+    Link Function:                    Log   Scale:                          1.0000
+    Method:                          IRLS   Log-Likelihood:            -3.9571e+06
+    Date:                Wed, 03 Aug 2022   Deviance:                   5.7277e+06
+    Time:                        17:12:27   Pearson chi2:                 7.26e+06
+    No. Iterations:                     7   Pseudo R-squ. (CS):              1.000
+    Covariance Type:            nonrobust                                         
+    ====================================================================================
+                           coef    std err          z      P>|z|      [0.025      0.975]
+    ------------------------------------------------------------------------------------
+    type[HZC]            0.3697      0.002    197.609      0.000       0.366       0.373
+    type[Hamamatsu]      3.3682      0.001   5738.410      0.000       3.367       3.369
+    type[HighQENNVT]     3.3916      0.000   8503.298      0.000       3.391       3.392
+    type[NNVT]           3.2986      0.001   3460.998      0.000       3.297       3.300
+    ====================================================================================
+    #+end_example
+
+** 回归
 *** 支持向量机
     #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
-      from sklearn.svm import SVC
+      ### SVM regression
+      from sklearn.svm import SVR
+      from sklearn.pipeline import make_pipeline
+      from sklearn.preprocessing import StandardScaler
+      regr = make_pipeline(StandardScaler(), SVR(C=1.0, epsilon=0.2))
+      regr.fit(X, y)
     #+end_src
 *** 决策树
     #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      ### GBoost
       from sklearn.ensemble import GradientBoostingRegressor
+      from sklearn.model_selection import train_test_split
+      X_train, X_test, y_train, y_test = train_test_split(
+          X, y, random_state=0)
+      reg = GradientBoostingRegressor(random_state=0)
+      reg.fit(X_train, y_train)
+      reg.predict(X_test[1:2])
+      reg.score(X_test, y_test)
     #+end_src
 *** 神经网络
     #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      ### 神经网络
       from sklearn.neural_network import MLPRegressor
+      regr = MLPRegressor(random_state=1, max_iter=500).fit(X_train, y_train)
+      regr.predict(X_test[:2])
+      regr.score(X_test, y_test)
     #+end_src
 * 第四周第四天
   :PROPERTIES:
