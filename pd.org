@@ -7543,6 +7543,7 @@ on total.班级 = classes.班级
     #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
       apt install python3-statsmodels python3-patsy python3-sklearn-pandas
       wget http://hep.tsinghua.edu.cn/~orv/pd/lm-examples.tar.gz
+      tar -xf lm-examples.tar.gz
     #+end_src
     - macOS
       #+begin_src bash
@@ -7606,10 +7607,167 @@ on total.班级 = classes.班级
     - \( (y, X) \) 是关系，组成表格
     
     - 表格 DataFrame 之上自然进行回归分析
+*** 例子：书的重量
+**** c                                                                :BMCOL:
+     :PROPERTIES:
+     :BEAMER_col: 0.549
+     :END:
+    #+NAME: 59d2d3cb-8f4e-475d-bed4-f28c5a1d702a
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      csvlook lm-examples/books.csv
+    #+end_src
+
+    #+RESULTS: 59d2d3cb-8f4e-475d-bed4-f28c5a1d702a
+    #+begin_example
+    /usr/lib/python3.9/site-packages/agate/utils.py:285: UnnamedColumnWarning: Column 0 has no name. Using "a".
+    |  a | volume | area | weight | cover |
+    | -- | ------ | ---- | ------ | ----- |
+    |  1 |    885 |  382 |    800 | hb    |
+    |  2 |  1,016 |  468 |    950 | hb    |
+    |  3 |  1,125 |  387 |  1,050 | hb    |
+    |  4 |    239 |  371 |    350 | hb    |
+    |  5 |    701 |  371 |    750 | hb    |
+    |  6 |    641 |  367 |    600 | hb    |
+    |  7 |  1,228 |  396 |  1,075 | hb    |
+    |  8 |    412 |    0 |    250 | pb    |
+    |  9 |    953 |    0 |    700 | pb    |
+    | 10 |    929 |    0 |    650 | pb    |
+    | 11 |  1,492 |    0 |    975 | pb    |
+    | 12 |    419 |    0 |    350 | pb    |
+    | 13 |  1,010 |    0 |    950 | pb    |
+    | 14 |    595 |    0 |    425 | pb    |
+    | 15 |  1,034 |    0 |    725 | pb    |
+    #+end_example
+**** e                                                                :BMCOL:
+     :PROPERTIES:
+     :BEAMER_col: 0.45
+     :END:
+    - =hb= 代表 hard back ，硬质纸壳封面封底
+    - =pb= 代表 paper back ，软纸封面封底
+    - =area= 代表封面的面积
+    - =volume= 代表书的页数
+*** 读入
+    #+NAME: 8e0745ac-1f5b-483e-8c05-fc1ff4e81ab4
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      import pandas as pd
+
+      books = pd.read_csv("lm-examples/books.csv", index_col=0)
+      print(books)
+    #+end_src
+
+    #+RESULTS: 8e0745ac-1f5b-483e-8c05-fc1ff4e81ab4
+    #+begin_example
+        volume  area  weight cover
+    1      885   382     800    hb
+    2     1016   468     950    hb
+    3     1125   387    1050    hb
+    4      239   371     350    hb
+    5      701   371     750    hb
+    6      641   367     600    hb
+    7     1228   396    1075    hb
+    8      412     0     250    pb
+    9      953     0     700    pb
+    10     929     0     650    pb
+    11    1492     0     975    pb
+    12     419     0     350    pb
+    13    1010     0     950    pb
+    14     595     0     425    pb
+    15    1034     0     725    pb
+    #+end_example
+*** 绘制重量与页数的关系
+    #+NAME: b96d82e2-95b9-4ec9-bc90-838f4571cfcc
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+from matplotlib import pyplot as plt
+fig, ax = plt.subplots()
+fig.set_dpi(100)
+books.plot(x="volume", y="weight", kind="scatter", ax=ax)
+    #+end_src
+
+    #+RESULTS: b96d82e2-95b9-4ec9-bc90-838f4571cfcc
+    #+attr_latex: :height 4cm
+    [[file:ein-images/ob-ein-11a07098e008f2af69410173852c04e9.png]]
+
+    - Pandas 提供与 Matplotlib 的集成
 *** =statsmodels= 与 =sklearn=
     - 从 SciPy 分离出独立发展，源于同一团队
     - =statsmodels= 偏重统计学
     - =sklearn= 偏重机器学习
+    - 受到 R 的影响很深，基本设计都源于 R；
+    - 数据的格式是 DataFrame，与关系代数联系紧密。
+*** 线性回归
+    #+NAME: aca6129a-4e56-40df-b1ec-05b6199c3333
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      import statsmodels.api as sm
+      m = sm.OLS(books["weight"], books["volume"]) # 不够直观
+      res = m.fit()
+      print(res.summary())
+    #+end_src
+
+    #+RESULTS: aca6129a-4e56-40df-b1ec-05b6199c3333
+    #+begin_example
+
+                                     OLS Regression Results                                
+    =======================================================================================
+    Dep. Variable:                 weight   R-squared (uncentered):                   0.974
+    Model:                            OLS   Adj. R-squared (uncentered):              0.972
+    Method:                 Least Squares   F-statistic:                              521.0
+    Date:                Wed, 03 Aug 2022   Prob (F-statistic):                    1.78e-12
+    Time:                        11:51:59   Log-Likelihood:                         -93.319
+    No. Observations:                  15   AIC:                                      188.6
+    Df Residuals:                      14   BIC:                                      189.3
+    Df Model:                           1                                                  
+    Covariance Type:            nonrobust                                                  
+    ==============================================================================
+                     coef    std err          t      P>|t|      [0.025      0.975]
+    ------------------------------------------------------------------------------
+    volume         0.8193      0.036     22.825      0.000       0.742       0.896
+    ==============================================================================
+    Omnibus:                        1.234   Durbin-Watson:                   0.778
+    Prob(Omnibus):                  0.540   Jarque-Bera (JB):                1.043
+    Skew:                          -0.501   Prob(JB):                        0.594
+    Kurtosis:                       2.185   Cond. No.                         1.00
+    ==============================================================================
+
+    Notes:
+    [1] R² is computed without centering (uncentered) since the model does not contain a constant.
+    [2] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+
+    #+end_example
+*** 结果
+    \( y = 0.7086 X + 107.6793 \)
+
+    - \( y \) : weight
+    - \( X \) : volume
+    
+**** =sm.OLS=
+     - statsmodels 的开发团队有很强的生物信息背景 bioinformatics
+       - 好处：在方法论上跨学科，有效地检验方法的普适性
+       - 坏处：0类学科与Z类学科侧重点不同。
+
+     - endogenous: 生物学概念，内源性 \( X \)
+     - endogenous: 生物学概念，外源性 \( y \)
+** 探索性分析
+*** 探索性分析
+     #+BEGIN_SRC dot :file regression.pdf :cmdline -Kdot -Tpdf :eval yes :exports results
+           digraph regression {
+
+           node [shape=box]
+           G[label = "绘图\n图形语法"]
+           L -> G[label="直观\n验证"]
+           L[label = "推断\n回归分析"]
+           G -> L[label="发现\n新趋势"]
+           P[label=预测新现象]
+           L -> P
+           E[label="设计新实验\n整理新数据"]
+           P -> E
+           E -> G[label="关系代数"]
+           }
+     #+END_SRC
+
+     #+attr_latex: :height 7cm
+     #+RESULTS:
+     [[file:regression.pdf]]
+
 ** 广义线性回归
 *** 概念
 - 线性回归中，假设了残差服从正态分布
