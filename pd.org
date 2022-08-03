@@ -7340,7 +7340,8 @@ on total.班级 = classes.班级
       9. 子图位置
     - 在绘图时，通过调整映射关系来找到最佳的展现方式
 **** 参考书
-     - Hadley Wickham, A layered grammar of graphics
+     - Leland Wilkinson, The Grammar of Graphics （沉痛缅怀 Wilkinson 教授）
+     - Hadley Wickham, A Layered Grammar of Graphics
 *** Seaborn
     - Python 关系代数绘图实现之一，受到 R ggplot 的影响。
     #+begin_src python :results value file :session lecture-plot :exports both :noweb strip-export
@@ -7437,6 +7438,14 @@ on total.班级 = classes.班级
     #+attr_latex: :height 5.5cm
     #+RESULTS:
     [[file:img/seaborn_pandas_bar.pdf]]
+*** [100%]少年爱迪生想
+- [X] 比较物理系和工物系的男女比例
+- [X] 算出大家的总评成绩：
+  - [X] 小作业权相等，总体占 65% 的成绩
+  - [X] 大作业占 30% 的成绩
+  - [X] 划分出不同的分数段，给出某分数段同学的手机号
+- [X] 画出各班平均小作业成绩的变化曲线
+
 ** Pandas 版总评计算
 *** 注入加权权重列
     - Pandas 可像字典一样追加列
@@ -7477,19 +7486,30 @@ on total.班级 = classes.班级
       - 可以更灵活地更改；
       - 但过于灵活可能带来调试上的麻烦。
     - SQL 可以处理大于内存容量的数据， DataFrame 必须借助 Spark 等大数据平台才能实现。
+
 ** 后备资料
 *** 关系代数
-    #+attr_beamer: :overlay <+->
-    - 关系：${(r, s)|r \in R, s \in S}$
+    - 关系：\( \{(r, s)|r \in R, s \in S\} \)
     - 关系代数：在集合基础上定义关系运算的封闭系统
       - 封闭系统：运算作用于一个或多个关系上来生成一个关系
 
     - 围绕关系代数设计的关系数据库是存储海量数据的标准
       - 代表：Structure Query Language (SQL) 语言
-    - 关系代数的思想具有一般性：
-      - 管理数据
-      - 添加数据
-      - 分析数据
+    - 关系代数的思想具有一般性： 管理、添加和分析数据
+**** 直观理解：一切都是表格
+     #+latex: {\scriptsize
+     | Event | Channel | Time | Weight |
+     |-------+---------+------+--------|
+     |     0 |       0 |    1 |    1.1 |
+     |     0 |       0 |  1.1 |   1.15 |
+     |     0 |       2 |  1.2 |    1.3 |
+     |     1 |       3 |  0.8 |    0.9 |
+
+     | Event | Channel | Wave          |
+     |-------+---------+---------------|
+     |     0 |       0 | [0,0.1,...,0] |
+     |     0 |       2 | [0,0.2,...,0] |
+     #+latex: }
 
 *** 基本动机
     - 关系代数设计师 Todd，图灵奖工作
