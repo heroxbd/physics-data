@@ -7553,7 +7553,7 @@ on total.班级 = classes.班级
     #+end_src
     - macOS
       #+begin_src bash
-      pip3 install statsmodels patsy scikit-learn
+      pip3 install statsmodels patsy scikit-learn sklearn-pandas
       #+end_src
 *** 关系代数工具组
 **** g                                                                :BMCOL:
