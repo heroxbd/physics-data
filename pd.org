@@ -7326,7 +7326,7 @@ on total.班级 = classes.班级
     : 物理   4
 
 ** 关系代数绘图
-*** 绘图语法 Grammar of Graphics
+*** 图形语法 Grammar of Graphics
     - 在表格与图形要素之间建立映射关系
     - 表格对称的同等层次的列，都可以映射到各类图形要素中
       1. x 轴坐标
@@ -7541,17 +7541,17 @@ on total.班级 = classes.班级
 *** 软件安装
     - =lm-examples.tar.gz= 线性回归样例集
     #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-      apt install python3-statsmodels python3-patsy
+      apt install python3-statsmodels python3-patsy python3-sklearn-pandas
       wget http://hep.tsinghua.edu.cn/~orv/pd/lm-examples.tar.gz
     #+end_src
     - macOS
       #+begin_src bash
-      pip3 install statsmodels patsy
+      pip3 install statsmodels patsy sklearn
       #+end_src
 *** 关系代数工具组
 **** g                                                                :BMCOL:
      :PROPERTIES:
-     :BEAMER_col: 0.499
+     :BEAMER_col: 0.479
      :END:
      #+BEGIN_SRC dot :file relational.pdf :cmdline -Kdot -Tpdf :eval yes :exports results
        digraph python {
@@ -7559,37 +7559,57 @@ on total.班级 = classes.班级
 
        node [shape=box]
        R [label = "关系代数"]
-       R -> S
-       S [label = "SQL\n大型数据"]
+       R -> H
+       H [label = "复合数组\nHDF5表格"]
+       D -> H[arrowhead=none]
        R -> D
        D [label = "DataFrame\n中型数据"]
+       R -> S
+       S [label = "SQL\n大型数据"]
        D -> S[arrowhead=none]
-       {rank = same; S; D;}
-       D -> G
-       G[label = 绘图语法]
-       D -> L
-       L[label = 回归分析]
+       {rank = same; H; S; D;}
+       G -> R
+       G[label = "绘图\n图形语法"]
+       L -> R
+       L[label = "推断\n回归分析"]
        }
      #+END_SRC
 
      
-     #+attr_latex: :height 7cm
+     #+attr_latex: :height 5.5cm
      #+RESULTS:
      [[file:relational.pdf]]
 **** i                                                                :BMCOL:
      :PROPERTIES:
-     :BEAMER_col: 0.5
+     :BEAMER_col: 0.52
      :END:
      - 以关系代数的数据形式为基础：列的对称性
      - 工具设计变得简单、工具使用变得简单
        - 一行代码绘图
        - 一行代码回归
        - 类比：一行命令实现一个功能
-       - 它们是最佳工具的标准：只定义必要的信息
+       - 一次原则：只输入必要信息
+       - 保证数据的透明：更易于理解
      - 人类更能专注于高层次的概念与问题，不被细节湮没
+**** 推论：数据分析最佳工具策略
+     - 原始数据尽快等价变换成关系代数形式：站在统计学与图形学巨人的肩膀上
 ** 线性回归
 *** 概念
+    - 复习：线性回归，最小二乘法
+    |   y | X |
+    |-----+---|
+    |   2 | 1 |
+    | 5.5 | 3 |
+    | 6.5 | 4 |
+    |   9 | 7 |
+    - \( y = \beta X + b \)
+    - \( (y, X) \) 是关系，组成表格
     
+    - 表格 DataFrame 之上自然进行回归分析
+*** =statsmodels= 与 =sklearn=
+    - 从 SciPy 分离出独立发展，源于同一团队
+    - =statsmodels= 偏重统计学
+    - =sklearn= 偏重机器学习
 ** 广义线性回归
 *** 概念
 - 线性回归中，假设了残差服从正态分布
