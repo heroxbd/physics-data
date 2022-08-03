@@ -7549,6 +7549,10 @@ on total.班级 = classes.班级
       pip3 install statsmodels patsy
       #+end_src
 *** 关系代数工具组
+**** g                                                                :BMCOL:
+     :PROPERTIES:
+     :BEAMER_col: 0.499
+     :END:
      #+BEGIN_SRC dot :file relational.pdf :cmdline -Kdot -Tpdf :eval yes :exports results
        digraph python {
        rankdir="BT";
@@ -7569,16 +7573,28 @@ on total.班级 = classes.班级
      #+END_SRC
 
      
-     #+attr_latex: :height 6cm
+     #+attr_latex: :height 7cm
      #+RESULTS:
      [[file:relational.pdf]]
-    
+**** i                                                                :BMCOL:
+     :PROPERTIES:
+     :BEAMER_col: 0.5
+     :END:
+     - 以关系代数的数据形式为基础：列的对称性
+     - 工具设计变得简单、工具使用变得简单
+       - 一行代码绘图
+       - 一行代码回归
+       - 类比：一行命令实现一个功能
+       - 它们是最佳工具的标准：只定义必要的信息
+     - 人类更能专注于高层次的概念与问题，不被细节湮没
 ** 线性回归
 *** 概念
+    
 ** 广义线性回归
 *** 概念
 - 线性回归中，假设了残差服从正态分布
-- \(f(E[Y|X]) = \beta X\) \(Y\) 的期望经过连接函数 \(f(y)\) 与 \(X\) 是线性关系
+- \(f(E[Y|X]) = \beta X\)
+  - \(Y\) 的期望经过连接函数 \(f(y)\) 与 \(X\) 是线性关系
 - 可以在保持高效计算的前提下，把这两个条件放宽，可以大大扩展线性模型的适用范围
 ** 回归    
 *** 支持向量机
