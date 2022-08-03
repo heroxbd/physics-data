@@ -5076,7 +5076,7 @@ seqs:=$(shell seq 0 2)
 totals:=$(seqs:%=total-%)
     #+end_src
 **** 内嵌 scheme
-     - 最佳工具原则： =$(shell )= 和 =$(guile )= 哪个简洁用哪个。=iota= \textipa{[2I"9Ut@]}
+     - 最佳工具原则： =$(shell )= 和 =$(guile )= 哪个简洁用哪个。 =iota= \textipa{[2I"9Ut@]}
      #+begin_src makefile -i
 seqs:=$(guile (iota 3))
      #+end_src
