@@ -1,0 +1,3 @@
+#+Title: 关系代数与回归分析
+#+Author: 续本达
+#+PROPERTY: header-args :eval never-export :exports both

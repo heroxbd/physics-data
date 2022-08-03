@@ -7524,191 +7524,201 @@ on total.班级 = classes.班级
     - 引擎：自动 out-of-core computing (超出内存的运算)
     - 引擎：自动并行计算
 
-*** 直观理解：一切都是表格
+* 第四周第三天
+  :PROPERTIES:
+  :EXPORT_FILE_NAME: pe
+  :EXPORT_BEAMER_HEADER+: \title{关系代数与回归分析}
+  :EXPORT_OPTIONS: H:2 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
+  :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+  :EXPORT_DATE: 2022-08-03 清华
+  :EXPORT_BEAMER_HEADER+: \author{续本达}
+  :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
+  :EXPORT_BEAMER_HEADER+: \setbeamertemplate{footline}[frame number]  
+  :EXPORT_BEAMER_THEME: Hannover
+  :EXPORT_BEAMER_FONT_THEME: professionalfonts
+  :END:
+** 复习与提示
+*** 软件安装
+    - =lm-examples.tar.gz= 线性回归样例集
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      apt install python3-statsmodels python3-patsy
+      wget http://hep.tsinghua.edu.cn/~orv/pd/lm-examples.tar.gz
+    #+end_src
+*** 关系代数工具组
+     #+BEGIN_SRC dot :file relational.pdf :cmdline -Kdot -Tpdf :eval yes :exports results
+       digraph python {
+       rankdir="BT";
 
-    | Event | Channel | Time | Weight |
-    |-------+---------+------+--------|
-    |     0 |       0 |    1 |    1.1 |
-    |     0 |       0 |  1.1 |   1.15 |
-    |     0 |       2 |  1.2 |    1.3 |
-    |     1 |       3 |  0.8 |    0.9 |
+       node [shape=box]
+       R [label = "关系代数"]
+       R -> S
+       S [label = "SQL\n大型数据"]
+       R -> D
+       D [label = "DataFrame\n中型数据"]
+       D -> S[arrowhead=none]
+       {rank = same; S; D;}
+       D -> G
+       G[label = 绘图语法]
+       D -> L
+       L[label = 回归分析]
+       }
+     #+END_SRC
 
-    | Event | Channel | Wave          |
-    |-------+---------+---------------|
-    |     0 |       0 | [0,0.1,...,0] |
-    |     0 |       2 | [0,0.2,...,0] |
-
+     
+     #+attr_latex: :height 6cm
+     #+RESULTS:
+     [[file:relational.pdf]]
+    
+** 线性回归
+*** 概念
+** 广义线性回归
+*** 概念
+- 线性回归中，假设了残差服从正态分布
+- \(f(E[Y|X]) = \beta X\) \(Y\) 的期望经过连接函数 \(f(y)\) 与 \(X\) 是线性关系
+- 可以在保持高效计算的前提下，把这两个条件放宽，可以大大扩展线性模型的适用范围
+** 回归    
+*** 支持向量机
+*** 决策树
+*** 神经网络
 * 第四周第四天
   :PROPERTIES:
   :EXPORT_FILE_NAME: pf
   :EXPORT_BEAMER_HEADER+: \title{现实案例与未来方向}
-  :EXPORT_OPTIONS: H:1 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
+  :EXPORT_OPTIONS: H:2 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
   :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
-  :EXPORT_DATE: 2021-09-09 清华
+  :EXPORT_DATE: 2022-08-04 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
-  :EXPORT_BEAMER_THEME: Boadilla
-  :EXPORT_BEAMER_COLOR_THEME: MedStarColors
+  :EXPORT_BEAMER_HEADER+: \setbeamertemplate{footline}[frame number]  
+  :EXPORT_BEAMER_THEME: Hannover
   :EXPORT_BEAMER_FONT_THEME: professionalfonts
   :END:
-** 黑客技能
-*** 科学数据处理的原则 :B_alertblock:
-    :PROPERTIES:
-    :BEAMER_env: alertblock
-    :END:
-    黑客的审美： _复现_ _透明_ _一次_ _最佳工具_
-
-*** 版本控制
-    Git 与队友分工协作，与明天的自己协作
-
-    Git 是“搬砖工地安全帽”，无头盔禁止上岗
-
-*** 关系代数
-    数据表示成关系，数据的操作表示成关系代数运算
-
-*** 数据格式
-    _透明_ CSV, HDF5, JSON, 数据库 SQL
-** 黑客技能（二）
-*** 数据流水线
-    GNU Make 管理数据的依赖与转换，实现错误恢复和并行计算
-
-    实现数据层次的 Python/R/Bash/Scheme/SQL 多语言融合
-
-*** 正则表达式
-    描述字符串的微型语言，数学模型
-
-*** 命令环境
-    POSIX 环境中强大的小工具组合，开发与使用相融合
-    
-*** 计算语言
-    Python 语法友好，工具丰富，统领 C/C++/Fortran/R/SQL 库
-
 ** 现实世界的大数据方法
-** 永远留在古老的计算环境
-   - SuperK 质子衰变和中微子实验，XMASS 暗物质实验
-   - 问题
-     1. 数据处理技术发展停滞，违反“最佳工具”原则
-     2. 新成员需要花精力学习旧技术，人力浪费
-   - 解决方案：test-driven development
+*** 永远留在古老的计算环境
+    - SuperK 质子衰变和中微子实验，XMASS 暗物质实验
+    - 问题
+      1. 数据处理技术发展停滞，违反“最佳工具”原则
+      2. 新成员需要花精力学习旧技术，人力浪费
+    - 解决方案：test-driven development
 
-** 自制二进制格式
-   - KamLAND，JUNO 中微子实验
-   - 问题
-     1. 除了指定的 C++ 工具库，无法读取中间结果，违反“透明”原则
-     2. 新成员必须学习非通用的数据接口和方法，门槛高且无用
-     3. 数据格式与库深层绑定，必须同步升级，新层无法读取旧数据
-   - 解决方案：使用指定语言，以最小代码开发不透明数据到透明关系数据（例如 HDF5）的转换器
-     - 数据格式转换器比函数跨语言调用（如 Python 调用 C++）更可靠，有效解耦合
+*** 自制二进制格式
+    - KamLAND，JUNO 中微子实验
+    - 问题
+      1. 除了指定的 C++ 工具库，无法读取中间结果，违反“透明”原则
+      2. 新成员必须学习非通用的数据接口和方法，门槛高且无用
+      3. 数据格式与库深层绑定，必须同步升级，新层无法读取旧数据
+    - 解决方案：使用指定语言，以最小代码开发不透明数据到透明关系数据（例如 HDF5）的转换器
+      - 数据格式转换器比函数跨语言调用（如 Python 调用 C++）更可靠，有效解耦合
 
-** 自制二进制格式（二）
-   - SuperK 中微子实验的 Zebra 格式
-   - 问题
-     1. 格式已经被上游团队遗弃，除了指定的 Fortran 77 工具库，无法读取原始数据，违反“透明”原则
-     2. 无法升级，必须维护旧计算环境才能运行 g77-3.4
-   - 解决方案：使用新 Fortran 语言研发 Zebra 到 HDF5 的转换器
+*** 自制二进制格式（二）
+    - SuperK 中微子实验的 Zebra 格式
+    - 问题
+      1. 格式已经被上游团队遗弃，除了指定的 Fortran 77 工具库，无法读取原始数据，违反“透明”原则
+      2. 无法升级，必须维护旧计算环境才能运行 g77-3.4
+    - 解决方案：使用新 Fortran 语言研发 Zebra 到 HDF5 的转换器
 
-** 自制 Python 驱动的批量处理流水线
-   - JUNO 中微子实验
-   - 问题
-     1. 使用 Python 调用大量 shell 命令，程序可读性差，违反“最佳工具”原则
-     2. 流水线验证 flag 文件是否存在来确定是否成功执行，误判多，难以 debug
-   - 解决方案：使用 GNU Make 构建流水线，把 =Makefile= 的 =SHELL= 设成任务调度系统
+*** 自制 Python 驱动的批量处理流水线
+    - JUNO 中微子实验
+    - 问题
+      1. 使用 Python 调用大量 shell 命令，程序可读性差，违反“最佳工具”原则
+      2. 流水线验证 flag 文件是否存在来确定是否成功执行，误判多，难以 debug
+    - 解决方案：使用 GNU Make 构建流水线，把 =Makefile= 的 =SHELL= 设成任务调度系统
      
-** 计算历史：大型机
-   #+Attr_LaTeX: :height 0.7\textheight
-   [[./fig/main-frame.jpg]]
+*** 计算历史：大型机
+    #+Attr_LaTeX: :height 0.7\textheight
+    [[./fig/main-frame.jpg]]
 
-   - 一台大型计算机，用户通过终端 (Terminal) 连接
-** 计算历史：个人计算机
-   - 1981年
+    - 一台大型计算机，用户通过终端 (Terminal) 连接
+*** 计算历史：个人计算机
+    - 1981年
 
-   #+Attr_LaTeX: :height 0.7\textheight
-   [[./fig/ibm-pc.jpg]]
-** 计算历史：个人计算机组成集群
-   - 1990s 个人计算机组成集群 "beowulf"
+    #+Attr_LaTeX: :height 0.7\textheight
+    [[./fig/ibm-pc.jpg]]
+*** 计算历史：个人计算机组成集群
+    - 1990s 个人计算机组成集群 "beowulf"
 
-     #+Attr_LaTeX: :height 0.65\textheight
-     [[./fig/computer-cluster.jpg]]
+      #+Attr_LaTeX: :height 0.65\textheight
+      [[./fig/computer-cluster.jpg]]
 
-** 高性能计算与超级计算机
+*** 高性能计算与超级计算机
 
-   #+attrLatex: :height 0.65\textheight
-   [[./fig/supercomputer.jpg]]
+    #+attrLatex: :height 0.65\textheight
+    [[./fig/supercomputer.jpg]]
 
-   - 更大的计算机集群，优化节点间的通信，共享存储。
-** 以本课程为起点
-   - 函数式编程：一切都是函数
-     - 无状态，从而容易从错误中恢复
-   - MapReduce：分布式大数据系统的开始
-     - 在之上建立了关系代数：
-     - Apache Hive，SparkQL，etc.
-   - 信号处理：《信号与系统》课程们
-   - 统计学习与机器学习
-     - “深度学习”是商业概念，即多层神经网络加大数据训练
-     - 黑客技术基础，为统计学习与机器学习提供了基本环境
-     - 基本接口都是 =fit(y, X)=
-       - sklearn, xgboost, etc.
-   - 计算环境的复现原则。
+    - 更大的计算机集群，优化节点间的通信，共享存储。
+*** 以本课程为起点
+    - 函数式编程：一切都是函数
+      - 无状态，从而容易从错误中恢复
+    - MapReduce：分布式大数据系统的开始
+      - 在之上建立了关系代数：
+      - Apache Hive，SparkQL，etc.
+    - 信号处理：《信号与系统》课程们
+    - 统计学习与机器学习
+      - “深度学习”是商业概念，即多层神经网络加大数据训练
+      - 黑客技术基础，为统计学习与机器学习提供了基本环境
+      - 基本接口都是 =fit(y, X)=
+        - sklearn, xgboost, etc.
+    - 计算环境的复现原则。
 
-** 技术问题：TUNA 协会
-   - 清华大学学生开源软件与网络技术协会
-   - TUNA 主页 https://tuna.moe/
+*** 技术问题：TUNA 协会
+    - 清华大学学生开源软件与网络技术协会
+    - TUNA 主页 https://tuna.moe/
 
-   - TUNA 技术群，黑客（广义）技术问题探讨
+    - TUNA 技术群，黑客（广义）技术问题探讨
 
-** 致谢
-   #+attr_beamer: :overlay <+->
-   - 顾问 :: 宁传刚教授、曾鸣教授、唐如麟博士、高一川、郑鈜壬、徐大成、潘晓凡、蒋涵
-   - 助教 :: 学长学姐们
-     - 张卓婧、陈晟祺、付祈安、陈嘉杰、刘晓义、刘学伟、王宇逸、武益阳、翁俊
-   - 全体克服困难返校上课的同学们。
-   - 小助教 :: 贾启珑、贾成杰、解森炜、田宗森、于明杨、刘汉青、张震、牟迨秋、刘亦晖、刘欣宇、杨政昊
+*** 致谢
+    #+attr_beamer: :overlay <+->
+    - 顾问 :: 宁传刚教授、曾鸣教授、郑鈜壬
+    - 助教 :: 学长学姐们
+      - 张卓婧、陈晟祺、付祈安、陈嘉杰、刘晓义、刘一芃、于明杨、张爱强、刘学伟、王宇逸、武益阳
+    - 全体克服困难返校上课的同学们。
+*** 概论
+**** 概率是逻辑的扩展 -- Cox 定理
+     - R. T. Cox, E. T. Jaynes，两位对统计学有重大贡献的物理学家
+     - Logical interpretation of probability (面向维基百科的备课)
+       1. Divisibility and comparability -- The plausibility of a
+          proposition is a real number and is dependent on information
+          we have related to the proposition.
+       2. Common sense -- Plausibilities should vary sensibly with the
+          assessment of plausibilities in the model.
+       3. Consistency -- If the plausibility of a proposition can be
+          derived in many ways, all the results must be equal.
+     - 满足以上条件的代表事件可能性的一切实数指标，都与概率等价。
 
-** 概论
-*** 概率是逻辑的扩展 -- Cox 定理
-    - R. T. Cox, E. T. Jaynes，两位对统计学有重大贡献的物理学家
-    - Logical interpretation of probability (面向维基百科的备课)
-      1. Divisibility and comparability -- The plausibility of a
-         proposition is a real number and is dependent on information
-         we have related to the proposition.
-      2. Common sense -- Plausibilities should vary sensibly with the
-         assessment of plausibilities in the model.
-      3. Consistency -- If the plausibility of a proposition can be
-         derived in many ways, all the results must be equal.
-    - 满足以上条件的代表事件可能性的一切实数指标，都与概率等价。
+       The theorem states that any system for plausible reasoning that
+       satisfies certain qualitative requirements intended to ensure
+       consistency with classical deductive logic and correspondence
+       with commonsense reasoning is isomorphic to probability theory.
 
-      The theorem states that any system for plausible reasoning that
-      satisfies certain qualitative requirements intended to ensure
-      consistency with classical deductive logic and correspondence
-      with commonsense reasoning is isomorphic to probability theory.
+       参考：Van Horn, K.S., 2003. Constructing a logic of plausible
+       inference: a guide to Cox’s theorem. International Journal of
+       Approximate Reasoning 34,
+       3–24. https://doi.org/10.1016/S0888-613X(03)00051-3
 
-      参考：Van Horn, K.S., 2003. Constructing a logic of plausible
-      inference: a guide to Cox’s theorem. International Journal of
-      Approximate Reasoning 34,
-      3–24. https://doi.org/10.1016/S0888-613X(03)00051-3
-
-*** 结果的不确定度
-    - 结果的不确定度如何给出？
+**** 结果的不确定度
+     - 结果的不确定度如何给出？
      
-      1. 建立演绎的模型，预测观测现象
+       1. 建立演绎的模型，预测观测现象
 
-         大作业第一阶段
+          大作业第一阶段
 
-      2. 在此基础上，从观测现象定出模型中的参数，或者从诸多模型中选出最
-         符合数据的模型，统计推断的程序实现
+       2. 在此基础上，从观测现象定出模型中的参数，或者从诸多模型中选出最
+          符合数据的模型，统计推断的程序实现
 
-         大作业第二阶段
+          大作业第二阶段
 
-         - 欢迎选修：《概率统计分析及量测技术》（30320344-2）
-         - 2021年9月14日星期二 8:00 第1节 四教4105
-         - 和/或 统计学辅修 和/或 概率论、随机过程
+          - 欢迎选修：《概率统计分析及量测技术》（30320344-2）
+          - 2021年9月14日星期二 8:00 第1节 四教4105
+          - 和/或 统计学辅修 和/或 概率论、随机过程
 
-**** 某某学家的对话
-    - 数学家：一切都是确定且自洽的
-    - 物理学家：一切都是不确定且纷乱的
-    - 统计学家：我赞同物理学家
-    - 数学家：好，你们被开除数学系了
+***** 某某学家的对话
+     - 数学家：一切都是确定且自洽的
+     - 物理学家：一切都是不确定且纷乱的
+     - 统计学家：我赞同物理学家
+     - 数学家：好，你们被开除数学系了
 
+** 讲义
+*** 建设状况
 * 2020 第四周第四天
   :PROPERTIES:
   :EXPORT_FILE_NAME: pf
