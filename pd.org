@@ -22,6 +22,12 @@
   '{figname}'"""
 #+end_src
 
+#+name: largefig
+#+begin_src python :var dpi=100 :exports none
+fig, ax = plt.subplots()
+fig.set_dpi({dpi})
+#+end_src
+
 * 价值
   - 工具审美
 
@@ -7692,14 +7698,13 @@ books.plot(x="volume", y="weight", kind="scatter", ax=ax)
     - 从 SciPy 分离出独立发展，源于同一团队
     - =statsmodels= 偏重统计学
     - =sklearn= 偏重机器学习
-    - 受到 R 的影响很深，基本设计都源于 R；
+    - 受到 R 的影响很深，是 R 的不完全仿制品；
     - 数据的格式是 DataFrame，与关系代数联系紧密。
 *** 线性回归
     #+NAME: aca6129a-4e56-40df-b1ec-05b6199c3333
     #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
       import statsmodels.api as sm
-      m = sm.OLS(books["weight"], books["volume"]) # 不够直观
-      res = m.fit()
+      res = sm.OLS(books["weight"], books["volume"]).fit() # 不够直观
       print(res.summary())
     #+end_src
 
@@ -7746,27 +7751,309 @@ books.plot(x="volume", y="weight", kind="scatter", ax=ax)
 
      - endogenous: 生物学概念，内源性 \( X \)
      - endogenous: 生物学概念，外源性 \( y \)
+*** 绘图
+    #+NAME: b20c38cc-6321-48a6-9869-bdd084de5ff6
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      pred_ols = res.get_prediction()
+      iv_l = pred_ols.summary_frame()["obs_ci_lower"]
+      iv_u = pred_ols.summary_frame()["obs_ci_upper"]
+
+      fig, ax = plt.subplots(figsize=(8, 6))
+      x, y = books["volume"], books["weight"]
+      ax.plot(x, y, "o", label="data")
+      ax.plot(x, res.fittedvalues, "r--.", label="OLS")
+      ax.plot(x, iv_u, "r--")
+      ax.plot(x, iv_l, "r--")
+      ax.legend(loc="best")
+    #+end_src
+
+    #+attr_latex: :height 3cm
+    #+RESULTS: b20c38cc-6321-48a6-9869-bdd084de5ff6
+    [[file:ein-images/ob-ein-97b2691b51ac12785f078184af776f16.png]]
+*** 残差制图
+    #+NAME: 84e9b3cb-dcac-4fbc-9c7a-824d1821c3d4
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      print(sm.graphics.influence_plot(res))
+    #+end_src
+    
+    #+attr_latex: :height 4cm
+    #+RESULTS: 84e9b3cb-dcac-4fbc-9c7a-824d1821c3d4
+    [[file:ein-images/ob-ein-c1134fa1dec81666839a621c216c8a9e.png]]
+
+*** 回归预测
+    #+NAME: 4aee0786-b9e4-4c94-823e-93939cffca66
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both :noweb strip-export
+      print(sm.graphics.plot_fit(res, "volume", ax=ax))
+    #+end_src
+
+    #+attr_latex: :height 4cm
+    #+RESULTS: 4aee0786-b9e4-4c94-823e-93939cffca66
+    [[file:ein-images/ob-ein-70f1949dcaf6be10a83fb14c3e559f75.png]]
+
 ** 探索性分析
 *** 探索性分析
      #+BEGIN_SRC dot :file regression.pdf :cmdline -Kdot -Tpdf :eval yes :exports results
-           digraph regression {
+       digraph regression {
 
-           node [shape=box]
-           G[label = "绘图\n图形语法"]
-           L -> G[label="直观\n验证"]
-           L[label = "推断\n回归分析"]
-           G -> L[label="发现\n新趋势"]
-           P[label=预测新现象]
-           L -> P
-           E[label="设计新实验\n整理新数据"]
-           P -> E
-           E -> G[label="关系代数"]
-           }
+       node [shape=box]
+       G[label = "绘图\n图形语法"]
+       L -> G[label="直观\n验证"]
+       L[label = "推断\n回归分析"]
+       G -> L[label="发现\n新趋势"]
+       P[label=预测新现象]
+       L -> P
+       E[label="设计新实验\n整理新数据"]
+       P -> E
+       E -> G[label="关系代数"]
+       }
      #+END_SRC
 
      #+attr_latex: :height 7cm
      #+RESULTS:
      [[file:regression.pdf]]
+*** 填加自变量
+- 书的包装有什么影响？画图探索
+#+NAME: 29051508-6402-4b5e-8e92-d6088e097c4b
+#+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both :noweb strip-export
+   import seaborn as sns
+   sns.relplot(x="volume", y="weight", hue="cover", data=books)
+#+end_src
+
+#+attr_latex: :height 4cm
+#+RESULTS: 29051508-6402-4b5e-8e92-d6088e097c4b
+file:ein-images/ob-ein-ea93266e4bec3fa426fde0e774edafbf.png]]
+
+*** 更直观的回归公式
+    #+NAME: e47c6cd8-c536-47bb-a985-578543ecf349
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+import statsmodels.formula.api as smf
+
+res = smf.ols(formula = "weight ~ volume", data=books).fit()
+print(res.summary())
+    #+end_src
+
+    #+RESULTS: e47c6cd8-c536-47bb-a985-578543ecf349
+    #+begin_example
+                                OLS Regression Results                            
+    ==============================================================================
+    Dep. Variable:                 weight   R-squared:                       0.803
+    Model:                            OLS   Adj. R-squared:                  0.787
+    Method:                 Least Squares   F-statistic:                     52.87
+    Date:                Wed, 03 Aug 2022   Prob (F-statistic):           6.26e-06
+    Time:                        12:51:17   Log-Likelihood:                -92.508
+    No. Observations:                  15   AIC:                             189.0
+    Df Residuals:                      13   BIC:                             190.4
+    Df Model:                           1                                         
+    Covariance Type:            nonrobust                                         
+    ==============================================================================
+                     coef    std err          t      P>|t|      [0.025      0.975]
+    ------------------------------------------------------------------------------
+    Intercept    107.6793     88.378      1.218      0.245     -83.249     298.607
+    volume         0.7086      0.097      7.271      0.000       0.498       0.919
+    ==============================================================================
+    Omnibus:                        6.203   Durbin-Watson:                   1.030
+    Prob(Omnibus):                  0.045   Jarque-Bera (JB):                1.566
+    Skew:                          -0.154   Prob(JB):                        0.457
+    Kurtosis:                       1.447   Cond. No.                     2.50e+03
+    ==============================================================================
+
+    Notes:
+    [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+    [2] The condition number is large, 2.5e+03. This might indicate that there are
+    strong multicollinearity or other numerical problems.
+
+    #+end_example
+
+*** 多线性回归
+- 线性回归可以推广到多个变量
+
+**** 也可以包含离散变量
+     - 每个离散变量，实际上对应多个自由参数，个数等于离散变量的取值数
+     #+NAME: f5d4bb58-78fe-4fa4-86ba-ba4dcdc25041
+     #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+print(books[["weight", "volume", "cover"]])
+     #+end_src
+
+     #+RESULTS: f5d4bb58-78fe-4fa4-86ba-ba4dcdc25041
+     #+begin_example
+         weight  volume cover
+     1      800     885    hb
+     2      950    1016    hb
+     3     1050    1125    hb
+     4      350     239    hb
+     5      750     701    hb
+     6      600     641    hb
+     7     1075    1228    hb
+     8      250     412    pb
+     9      700     953    pb
+     10     650     929    pb
+     11     975    1492    pb
+     12     350     419    pb
+     13     950    1010    pb
+     14     425     595    pb
+     15     725    1034    pb
+     #+end_example
+       
+*** 多线性回归
+    #+NAME: 05b99dec-ff7c-497f-8ec5-24ece045bb99
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      g_res = smf.ols(formula = "weight ~ volume + cover", data=books).fit()
+      print(g_res.summary())
+    #+end_src
+
+    #+RESULTS: 05b99dec-ff7c-497f-8ec5-24ece045bb99
+    #+begin_example
+                                OLS Regression Results                            
+    ==============================================================================
+    Dep. Variable:                 weight   R-squared:                       0.927
+    Model:                            OLS   Adj. R-squared:                  0.915
+    Method:                 Least Squares   F-statistic:                     76.73
+    Date:                Wed, 03 Aug 2022   Prob (F-statistic):           1.45e-07
+    Time:                        12:53:06   Log-Likelihood:                -84.999
+    No. Observations:                  15   AIC:                             176.0
+    Df Residuals:                      12   BIC:                             178.1
+    Df Model:                           2                                         
+    Covariance Type:            nonrobust                                         
+    ===============================================================================
+                      coef    std err          t      P>|t|      [0.025      0.975]
+    -------------------------------------------------------------------------------
+    Intercept     197.9628     59.193      3.344      0.006      68.993     326.933
+    cover[T.pb]  -184.0473     40.494     -4.545      0.001    -272.277     -95.818
+    volume          0.7180      0.062     11.669      0.000       0.584       0.852
+    ==============================================================================
+    Omnibus:                       14.403   Durbin-Watson:                   1.971
+    Prob(Omnibus):                  0.001   Jarque-Bera (JB):               11.516
+    Skew:                           1.518   Prob(JB):                      0.00316
+    Kurtosis:                       6.034   Cond. No.                     2.77e+03
+    ==============================================================================
+
+    Notes:
+    [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+    [2] The condition number is large, 2.77e+03. This might indicate that there are
+    strong multicollinearity or other numerical problems.
+
+    #+end_example
+*** 课堂练习
+    - 分析：有否必要把 =area= 加入回归？
+** 模型矩阵
+*** 模型矩阵
+- 细致描述变量的依赖关系，扩展公式的表达
+#+NAME: b754f1a2-8936-4580-987a-0fabd77623af
+#+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+import patsy
+
+y, X = patsy.dmatrices("weight ~ volume", books, return_type='matrix')
+print(X)
+#+end_src
+
+#+RESULTS: b754f1a2-8936-4580-987a-0fabd77623af
+#+begin_example
+[[1.000e+00 8.850e+02]
+ [1.000e+00 1.016e+03]
+ [1.000e+00 1.125e+03]
+ [1.000e+00 2.390e+02]
+ [1.000e+00 7.010e+02]
+ [1.000e+00 6.410e+02]
+ [1.000e+00 1.228e+03]
+ [1.000e+00 4.120e+02]
+ [1.000e+00 9.530e+02]
+ [1.000e+00 9.290e+02]
+ [1.000e+00 1.492e+03]
+ [1.000e+00 4.190e+02]
+ [1.000e+00 1.010e+03]
+ [1.000e+00 5.950e+02]
+ [1.000e+00 1.034e+03]]
+#+end_example
+*** 双变量回归
+    #+NAME: 4928f31d-d117-41b3-90ac-7babcd920bc4
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+y, X = patsy.dmatrices("weight ~ volume + cover", books)
+print(X)
+    #+end_src
+
+    #+RESULTS: 4928f31d-d117-41b3-90ac-7babcd920bc4
+    #+begin_example
+    [[1.000e+00 0.000e+00 8.850e+02]
+     [1.000e+00 0.000e+00 1.016e+03]
+     [1.000e+00 0.000e+00 1.125e+03]
+     [1.000e+00 0.000e+00 2.390e+02]
+     [1.000e+00 0.000e+00 7.010e+02]
+     [1.000e+00 0.000e+00 6.410e+02]
+     [1.000e+00 0.000e+00 1.228e+03]
+     [1.000e+00 1.000e+00 4.120e+02]
+     [1.000e+00 1.000e+00 9.530e+02]
+     [1.000e+00 1.000e+00 9.290e+02]
+     [1.000e+00 1.000e+00 1.492e+03]
+     [1.000e+00 1.000e+00 4.190e+02]
+     [1.000e+00 1.000e+00 1.010e+03]
+     [1.000e+00 1.000e+00 5.950e+02]
+     [1.000e+00 1.000e+00 1.034e+03]]
+    #+end_example
+*** 去除截距
+    #+NAME: ef3d2292-03e7-4029-a949-78ac2d0cab57
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+# 双变量回归
+y, X = patsy.dmatrices("weight ~ volume + cover - 1", books)
+print(X)
+    #+end_src
+
+    #+RESULTS: ef3d2292-03e7-4029-a949-78ac2d0cab57
+    #+begin_example
+    [[1.000e+00 0.000e+00 8.850e+02]
+     [1.000e+00 0.000e+00 1.016e+03]
+     [1.000e+00 0.000e+00 1.125e+03]
+     [1.000e+00 0.000e+00 2.390e+02]
+     [1.000e+00 0.000e+00 7.010e+02]
+     [1.000e+00 0.000e+00 6.410e+02]
+     [1.000e+00 0.000e+00 1.228e+03]
+     [0.000e+00 1.000e+00 4.120e+02]
+     [0.000e+00 1.000e+00 9.530e+02]
+     [0.000e+00 1.000e+00 9.290e+02]
+     [0.000e+00 1.000e+00 1.492e+03]
+     [0.000e+00 1.000e+00 4.190e+02]
+     [0.000e+00 1.000e+00 1.010e+03]
+     [0.000e+00 1.000e+00 5.950e+02]
+     [0.000e+00 1.000e+00 1.034e+03]]
+    #+end_example
+*** 去除截距拟合
+    #+NAME: f88eabb2-a4bb-4c6a-818a-f4e67f41d9c3
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+n_res = smf.ols(formula = "weight ~ volume + cover - 1", data=books).fit()
+print(n_res.summary())
+    #+end_src
+
+    #+RESULTS: f88eabb2-a4bb-4c6a-818a-f4e67f41d9c3
+    #+begin_example
+                                OLS Regression Results                            
+    ==============================================================================
+    Dep. Variable:                 weight   R-squared:                       0.927
+    Model:                            OLS   Adj. R-squared:                  0.915
+    Method:                 Least Squares   F-statistic:                     76.73
+    Date:                Wed, 03 Aug 2022   Prob (F-statistic):           1.45e-07
+    Time:                        12:55:51   Log-Likelihood:                -84.999
+    No. Observations:                  15   AIC:                             176.0
+    Df Residuals:                      12   BIC:                             178.1
+    Df Model:                           2                                         
+    Covariance Type:            nonrobust                                         
+    ==============================================================================
+                     coef    std err          t      P>|t|      [0.025      0.975]
+    ------------------------------------------------------------------------------
+    cover[hb]    197.9628     59.193      3.344      0.006      68.993     326.933
+    cover[pb]     13.9156     59.454      0.234      0.819    -115.624     143.455
+    volume         0.7180      0.062     11.669      0.000       0.584       0.852
+    ==============================================================================
+    Omnibus:                       14.403   Durbin-Watson:                   1.971
+    Prob(Omnibus):                  0.001   Jarque-Bera (JB):               11.516
+    Skew:                           1.518   Prob(JB):                      0.00316
+    Kurtosis:                       6.034   Cond. No.                     3.54e+03
+    ==============================================================================
+
+    Notes:
+    [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+    [2] The condition number is large, 3.54e+03. This might indicate that there are
+    strong multicollinearity or other numerical problems.
+
+    #+end_example
 
 ** 广义线性回归
 *** 概念
@@ -7774,10 +8061,25 @@ books.plot(x="volume", y="weight", kind="scatter", ax=ax)
 - \(f(E[Y|X]) = \beta X\)
   - \(Y\) 的期望经过连接函数 \(f(y)\) 与 \(X\) 是线性关系
 - 可以在保持高效计算的前提下，把这两个条件放宽，可以大大扩展线性模型的适用范围
+**** 种类
+- 泊松回归
+- 二项回归(生存回归)
+*** 课堂任务
+    - 尝试对 =r10500.h5= 进行泊松回归
+    - 辅助文件 =geo.csv= , =pmtdata.csv=
 ** 回归    
 *** 支持向量机
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      from sklearn.svm import SVC
+    #+end_src
 *** 决策树
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      from sklearn.ensemble import GradientBoostingRegressor
+    #+end_src
 *** 神经网络
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      from sklearn.neural_network import MLPRegressor
+    #+end_src
 * 第四周第四天
   :PROPERTIES:
   :EXPORT_FILE_NAME: pf
