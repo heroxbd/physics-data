@@ -6581,16 +6581,19 @@ echo ${y}
     - =CREATE= :: 创建表格
     - =INSERT= :: 插入行
     - =SELECT= :: 取得内容
+
+**** SQL 关键字的大写约定
+     - 为了醒目地展现 SQLite 的关键字，我们约定它们全大写。
 ** 基本操作
 *** SQL 基本操作
     #+begin_src sqlite :db ra.db :var rel="A" :colnames yes
       CREATE TABLE A(ID integer, name text);
-      insert into A values(1, 'Wang');
-      insert into A values(2, 'Li');
+      INSERT INTO A VALUES(1, 'Wang');
+      INSERT INTO A VALUES(2, 'Li');
     #+end_src
 
     #+begin_src sqlite :db ra.db :colnames yes
-      select * from A;
+      SELECT * FROM A;
     #+end_src
 
     #+RESULTS:
@@ -6606,10 +6609,10 @@ echo ${y}
 
       c = sqlite3.connect("ra-python.db")
       cur = c.cursor()
-      cur.execute("create table A(ID integer, name text)")
-      cur.execute("insert into A values (1, 'Wang')")
-      cur.execute("insert into A values (2, 'Li')")
-      cur.execute("select * from A")
+      cur.execute("CREATE TABLE A(ID integer, name text)")
+      cur.execute("INSERT INTO A VALUES (1, 'Wang')")
+      cur.execute("INSERT INTO A VALUES (2, 'Li')")
+      cur.execute("SELECT * FROM A")
       print(cur.fetchall()) # 读取 SQL 返回值
       c.close() # 关闭
     #+end_src
@@ -6624,10 +6627,10 @@ echo ${y}
 
       c = sqlite3.connect("ra-python.db")
       cur = c.cursor()
-      cur.execute("create table A(ID integer, name text)")
+      cur.execute("CREATE TABLE A(ID integer, name text)")
       for ID, name in ((1, 'Wang'), (2, 'Li')): 
-          cur.execute(f"insert into A values ({ID}, {name})")
-      cur.execute("select * from A")
+          cur.execute(f"INSERT INTO A VALUES ({ID}, {name})")
+      cur.execute("SELECT * FROM A")
       print(cur.fetchall()) # 读取 SQL 返回值
       c.close() # 关闭
     #+end_src
@@ -6642,20 +6645,20 @@ echo ${y}
   UNION
   SELECT column_name(s) FROM table_name2;
   #+end_src
-- 笛卡尔积 :: =SELECT * from A,B=
-- 投影 :: =SELECT name from A=
-- 选择 :: =SELECT name from A where ID==1=
+- 笛卡尔积 :: =SELECT * FROM A,B=
+- 投影 :: =SELECT name FROM A=
+- 选择 :: =SELECT name FROM A WHERE ID==1=
 *** 再建新的表格
     #+begin_src sqlite :db ra.db :colnames yes
       CREATE TABLE B(ID integer, name text);
-      insert into B values(2, 'Li');
-      insert into B values(3, 'Zhang');
+      INSERT INTO B VALUES(2, 'Li');
+      INSERT INTO B VALUES(3, 'Zhang');
     #+end_src
 
     #+RESULTS:
 
     #+begin_src sqlite :db ra.db :colnames yes
-      select * from B;
+      SELECT * FROM B;
     #+end_src
 
     #+RESULTS:
@@ -6666,8 +6669,8 @@ echo ${y}
 
 *** 并运算
     #+begin_src sqlite :db ra.db :colnames yes
-      select * from B union
-      select * from A;
+      SELECT * FROM B UNION
+      SELECT * FROM A;
     #+end_src
 
     #+RESULTS:
@@ -6678,8 +6681,8 @@ echo ${y}
     |  3 | Zhang |
 **** 交运算
      #+begin_src sqlite :db ra.db :colnames yes
-       select * from B intersect
-       select * from A;
+       SELECT * FROM B INTERSECT
+       SELECT * FROM A;
      #+end_src
 
      #+RESULTS:
@@ -6688,7 +6691,7 @@ echo ${y}
      |  2 | Li   |
 *** 笛卡尔积运算
      #+begin_src sqlite :db ra.db :colnames yes
-       select * from A, B;
+       SELECT * FROM A, B;
      #+end_src
 
      #+RESULTS:
@@ -6700,9 +6703,9 @@ echo ${y}
      |  2 | Li   |  3 | Zhang |
 **** 差运算
      #+begin_src sqlite :db ra.db :colnames yes
-       select * from A
-       except
-       select * from B;
+       SELECT * FROM A
+       EXCEPT
+       SELECT * FROM B;
      #+end_src
 
      #+RESULTS:
@@ -6711,7 +6714,7 @@ echo ${y}
      |  1 | Wang |
 *** 投影
     #+begin_src sqlite :db ra.db :colnames yes
-      SELECT name from A;
+      SELECT name FROM A;
     #+end_src
 
     #+RESULTS:
@@ -6721,7 +6724,7 @@ echo ${y}
     | Li   |
 **** 选择：where 代表选择条件
     #+begin_src sqlite :db ra.db :colnames yes
-      SELECT * from A where ID==1;
+      SELECT * FROM A WHERE ID==1;
     #+end_src
 
     #+RESULTS:
@@ -6732,7 +6735,7 @@ echo ${y}
 ** 连接运算
 *** 关系代数的特色
     #+begin_src sqlite :db ra.db :colnames yes
-      SELECT * from A join B ON A.ID=B.ID;
+      SELECT * FROM A JOIN B ON A.ID=B.ID;
     #+end_src
 
     #+RESULTS:
@@ -6742,7 +6745,7 @@ echo ${y}
 
     - 用笛卡尔积和选择
     #+begin_src sqlite :db ra.db :colnames yes
-      SELECT * from A, B where A.ID==B.ID;
+      SELECT * FROM A, B WHERE A.ID==B.ID;
     #+end_src
 
     #+RESULTS:
@@ -6752,7 +6755,7 @@ echo ${y}
 *** 左连接
     - 左连接，无条件保留左边
     #+begin_src sqlite :db ra.db :colnames yes
-      SELECT * from A left join B ON A.ID=B.ID;
+      SELECT * FROM A LEFT JOIN B ON A.ID=B.ID;
     #+end_src
 
     #+RESULTS:
@@ -6762,7 +6765,7 @@ echo ${y}
     |  2 | Li   |  2 | Li   |
     - SQLite 不支持右连接
     #+begin_src sqlite :db ra.db :colnames yes
-      SELECT * from B left join A ON A.ID=B.ID;
+      SELECT * FROM B LEFT JOIN A ON A.ID=B.ID;
     #+end_src
 
     #+RESULTS:
@@ -6773,8 +6776,8 @@ echo ${y}
 ** 分组概括
 *** GroupBy
     #+begin_src sqlite :db ra.db :colnames yes
-      insert into A values(4, 'Li');
-      select * from A;
+      INSERT INTO A VALUES(4, 'Li');
+      SELECT * FROM A;
     #+end_src
 
     #+RESULTS:
@@ -6784,7 +6787,7 @@ echo ${y}
     |  2 | Li   |
     |  4 | Li   |
     #+begin_src sqlite :db ra.db :colnames yes
-      select name,count(*) as '人数' FROM A group by name;
+      SELECT name,count(*) AS '人数' FROM A GROUP BY name;
     #+end_src
 
     #+RESULTS:
