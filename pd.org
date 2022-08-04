@@ -8431,10 +8431,46 @@ print(n_res.summary())
      #+latex: {\scriptsize
      Benda Xu, G. Amadio, F.Grffen, and M. Haubenwallner. “Gentoo Prefix as a Physics Software Manager.” EPJ Web of Conferences 245 (2020): 05036.
      #+latex: }
+*** 推荐：软件管理与环境配置
+    #+latex: {\Huge
+    - 自己的机器用 Debian
+    - 别人的机器用 Gentoo Prefix
+    #+latex: }
 ** 讲义
 *** 建设状况
-    https://git.tsinghua.edu.cn/physics-data/lecture
+    - https://git.tsinghua.edu.cn/physics-data/lecture
+**** c                                                                :BMCOL:
+     :PROPERTIES:
+     :BEAMER_col: 0.55
+     :END:
+    #+begin_src bash :results output
+head -q -n1 lecture/l*.org
+    #+end_src  
 
+    #+RESULTS:
+    #+begin_example
+    ,#+TITLE: 第一讲 实验物理的大数据方法总论 DONE
+    ,#+TITLE: 第二讲 Python基础 DONE
+    ,#+TITLE: 第三讲 复合类型与函数 DONE
+    ,#+TITLE: 第四讲 Python 模块 DONE
+    ,#+TITLE: 第五讲 数组 DONE
+    ,#+Title: 第六讲 数据格式 DONE
+    ,#+Title: 第七讲 数据绘图 TODO
+    ,#+Title: 第八讲 蒙特卡罗方法与大作业 TODO
+    ,#+Title: 第九讲 GNU 命令行 TODO
+    ,#+Title: 第十讲 GNU Make 数据生产线 TODO
+    ,#+Title: 第十一讲 正则表达式 TODO
+    ,#+Title: 第十二讲 bash 脚本 TODO
+    ,#+Title: 第十三讲 关系代数 TODO
+    ,#+Title: 第十四讲 DataFrame 表格数据结构 TODO
+    ,#+Title: 第十五讲 关系代数与回归分析 TODO
+    ,#+Title: 第十六讲 现实案例与未来方向 TODO
+    #+end_example
+**** e                                                                :BMCOL:
+     :PROPERTIES:
+     :BEAMER_col: 0.45
+     :END:
+     - 给讲义仓库提 issue 和 merge request ，可获得伍分。
 ** 下一步
 *** 以本课程为起点
     - 函数式编程：一切都是函数
