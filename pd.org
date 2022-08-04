@@ -8232,85 +8232,7 @@ print(n_res.summary())
   :EXPORT_BEAMER_THEME: Hannover
   :EXPORT_BEAMER_FONT_THEME: professionalfonts
   :END:
-** 现实世界的大数据方法
-*** 永远留在古老的计算环境
-    - SuperK 质子衰变和中微子实验，XMASS 暗物质实验
-    - 问题
-      1. 数据处理技术发展停滞，违反“最佳工具”原则
-      2. 新成员需要花精力学习旧技术，人力浪费
-    - 解决方案：test-driven development
-
-*** 自制二进制格式
-    - KamLAND，JUNO 中微子实验
-    - 问题
-      1. 除了指定的 C++ 工具库，无法读取中间结果，违反“透明”原则
-      2. 新成员必须学习非通用的数据接口和方法，门槛高且无用
-      3. 数据格式与库深层绑定，必须同步升级，新层无法读取旧数据
-    - 解决方案：使用指定语言，以最小代码开发不透明数据到透明关系数据（例如 HDF5）的转换器
-      - 数据格式转换器比函数跨语言调用（如 Python 调用 C++）更可靠，有效解耦合
-
-*** 自制二进制格式（二）
-    - SuperK 中微子实验的 Zebra 格式
-    - 问题
-      1. 格式已经被上游团队遗弃，除了指定的 Fortran 77 工具库，无法读取原始数据，违反“透明”原则
-      2. 无法升级，必须维护旧计算环境才能运行 g77-3.4
-    - 解决方案：使用新 Fortran 语言研发 Zebra 到 HDF5 的转换器
-
-*** 自制 Python 驱动的批量处理流水线
-    - JUNO 中微子实验
-    - 问题
-      1. 使用 Python 调用大量 shell 命令，程序可读性差，违反“最佳工具”原则
-      2. 流水线验证 flag 文件是否存在来确定是否成功执行，误判多，难以 debug
-    - 解决方案：使用 GNU Make 构建流水线，把 =Makefile= 的 =SHELL= 设成任务调度系统
-     
-*** 计算历史：大型机
-    #+Attr_LaTeX: :height 0.7\textheight
-    [[./fig/main-frame.jpg]]
-
-    - 一台大型计算机，用户通过终端 (Terminal) 连接
-*** 计算历史：个人计算机
-    - 1981年
-
-    #+Attr_LaTeX: :height 0.7\textheight
-    [[./fig/ibm-pc.jpg]]
-*** 计算历史：个人计算机组成集群
-    - 1990s 个人计算机组成集群 "beowulf"
-
-      #+Attr_LaTeX: :height 0.65\textheight
-      [[./fig/computer-cluster.jpg]]
-
-*** 高性能计算与超级计算机
-
-    #+attrLatex: :height 0.65\textheight
-    [[./fig/supercomputer.jpg]]
-
-    - 更大的计算机集群，优化节点间的通信，共享存储。
-*** 以本课程为起点
-    - 函数式编程：一切都是函数
-      - 无状态，从而容易从错误中恢复
-    - MapReduce：分布式大数据系统的开始
-      - 在之上建立了关系代数：
-      - Apache Hive，SparkQL，etc.
-    - 信号处理：《信号与系统》课程们
-    - 统计学习与机器学习
-      - “深度学习”是商业概念，即多层神经网络加大数据训练
-      - 黑客技术基础，为统计学习与机器学习提供了基本环境
-      - 基本接口都是 =fit(y, X)=
-        - sklearn, xgboost, etc.
-    - 计算环境的复现原则。
-
-*** 技术问题：TUNA 协会
-    - 清华大学学生开源软件与网络技术协会
-    - TUNA 主页 https://tuna.moe/
-
-    - TUNA 技术群，黑客（广义）技术问题探讨
-
-*** 致谢
-    #+attr_beamer: :overlay <+->
-    - 顾问 :: 宁传刚教授、曾鸣教授、郑鈜壬
-    - 助教 :: 学长学姐们
-      - 张卓婧、陈晟祺、付祈安、陈嘉杰、刘晓义、刘一芃、于明杨、张爱强、刘学伟、王宇逸、武益阳
-    - 全体克服困难返校上课的同学们。
+** 大作业
 *** 概论
 **** 概率是逻辑的扩展 -- Cox 定理
      - R. T. Cox, E. T. Jaynes，两位对统计学有重大贡献的物理学家
@@ -8356,6 +8278,99 @@ print(n_res.summary())
      - 统计学家：我赞同物理学家
      - 数学家：好，你们被开除数学系了
 
+
+** 现实世界的大数据方法
+*** 永远留在古老的计算环境
+    - SuperK 质子衰变和中微子实验，XMASS 暗物质实验
+    - 问题
+      1. 数据处理技术发展停滞，违反“最佳工具”原则
+      2. 新成员需要花精力学习旧技术，人力浪费
+    - 解决方案：test-driven development
+
+*** 自制二进制格式
+    - KamLAND，JUNO 中微子实验
+    - 问题
+      1. 除了指定的 C++ 工具库，无法读取中间结果，违反“透明”原则
+      2. 新成员必须学习非通用的数据接口和方法，门槛高且无用
+      3. 数据格式与库深层绑定，必须同步升级，新库无法读取旧数据
+    - 解决方案：使用指定语言，以最小代码开发不透明数据到透明关系数据（例如 HDF5）的转换器
+      - 数据格式转换器比函数跨语言调用更可靠，有效解耦合
+      - 如 Python 调用 C++ 和 R 容易出现内存管理问题。
+
+*** 自制二进制格式（二）
+    - SuperK 中微子实验的 Zebra 格式
+    - 问题
+      1. 格式已经被上游团队遗弃，除了指定的 Fortran 77 工具库，无法读取原始数据，违反“透明”原则
+      2. 无法升级，必须维护旧计算环境才能运行 g77-3.4 （2004 年版本）
+    - 解决方案：使用新 Fortran 语言研发 Zebra 到 HDF5 的转换器
+
+*** 自制 Python 驱动的批量处理流水线
+    - 症状问题
+      1. 使用 Python 调用大量 shell 命令，程序可读性差，违反“最佳工具”原则
+         #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+           for name in args.name:
+             if name not in productions:
+               print('Unknown production: ' + name)
+               continue
+             for script in productions[name]:
+               parg = arguments + ' --name %s ' % name
+               print('python %s %s' % (script, parg))
+               os.system('python %s %s' % (script, parg))
+         #+end_src
+      2. 流水线验证 flag 文件是否存在来确定是否成功执行，误判多，难以 debug
+    - 解决方案：使用 GNU Make 构建流水线
+      - =make= 默认使用 =/bin/sh= 执行命令。 =SHELL=/bin/sh=
+      - 把 =SHELL= 换成提交任务给超级计算机集群的脚本
+        #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+          SHELL=lsf
+          export MAKE_TARGET=$@
+          export MAKE_SOURCE=$^
+        #+end_src
+*** =make= 对接集群的脚本
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      #!/home/jinping/gentoo/bin/bash -e
+      # Platform LSF wrapper to be used as GNU Make shell.
+
+      # GNU Make convention for the first argument.
+      [[ ${1} = '-c' ]] && shift
+
+      for j in ${MAKE_SOURCE}; do
+          [[ -z $(bjobs -J ${j}) ]] && continue
+          DEP+=" && done(${j})" # 把 make 中的依赖关系传递给调度系统
+      done
+
+      cat << EOF > ${MAKE_TARGET}.sh
+      #!/home/jinping/gentoo/bin/bash
+      $@
+      EOF
+
+      chmod +x ${MAKE_TARGET}.sh
+
+      bsub -q normal"${DEP}" -J ${MAKE_TARGET} -o ${MAKE_TARGET}.log ${MAKE_TARGET}.sh
+    #+end_src
+** 计算历史
+*** 计算历史：大型机
+    #+Attr_LaTeX: :height 0.7\textheight
+    [[./fig/main-frame.jpg]]
+
+    - 一台大型计算机，用户通过终端 (Terminal) 连接
+*** 计算历史：个人计算机
+    - 1981年
+
+    #+Attr_LaTeX: :height 0.7\textheight
+    [[./fig/ibm-pc.jpg]]
+*** 计算历史：个人计算机组成集群
+    - 1990s 个人计算机组成集群 "beowulf"
+
+      #+Attr_LaTeX: :height 0.65\textheight
+      [[./fig/computer-cluster.jpg]]
+
+*** 高性能计算与超级计算机
+
+    #+attrLatex: :height 0.65\textheight
+    [[./fig/supercomputer.jpg]]
+
+    - 更大的计算机集群，优化节点间的通信，共享存储。
 ** 用户软件部署
 *** 没有管理员权限
 *** 方案对比
@@ -8366,6 +8381,32 @@ print(n_res.summary())
     - guix
 ** 讲义
 *** 建设状况
+** 下一步
+*** 以本课程为起点
+    - 函数式编程：一切都是函数
+      - 无状态，从而容易从错误中恢复
+    - MapReduce：分布式大数据系统的开始
+      - 在之上建立了关系代数：
+      - Apache Hive，SparkQL，etc.
+    - 信号处理：《信号与系统》课程们
+    - 统计学习与机器学习
+      - “深度学习”是商业概念，即多层神经网络加大数据训练
+      - 黑客技术基础，为统计学习与机器学习提供了基本环境
+      - 基本接口都是 =fit(y, X)=
+        - sklearn, xgboost, etc.
+    - 计算环境的复现原则。
+*** 技术问题：TUNA 协会
+    - 清华大学学生开源软件与网络技术协会
+    - TUNA 主页 https://tuna.moe/
+
+    - TUNA 技术群，黑客（广义）技术问题探讨
+*** 致谢
+    #+attr_beamer: :overlay <+->
+    - 顾问 :: 宁传刚教授、曾鸣教授、郑鈜壬
+    - 助教 :: 学长学姐们
+      - 张卓婧、陈晟祺、付祈安、陈嘉杰、刘晓义、刘一芃、于明杨、张爱强、刘学伟、王宇逸、武益阳
+    - 全体克服困难返校上课的同学们。
+
 * 2020 第四周第四天
   :PROPERTIES:
   :EXPORT_FILE_NAME: pf
