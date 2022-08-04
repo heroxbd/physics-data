@@ -6819,7 +6819,7 @@ csvlook dataframe-practice/students.csv | head
     #+begin_src sqlite :db ra.db :colnames yes
       .mode csv
       .import dataframe-practice/students.csv students
-      select * from students limit 5;
+      SELECT * FROM students LIMIT 5;
     #+end_src
 
     #+RESULTS:
@@ -6852,10 +6852,10 @@ csvlook dataframe-practice/students.csv | head
      
 *** 物理系和工物系的男女比例
     #+begin_src sqlite :db dataframe-practice/people.db :colnames yes
-select classes.院系, students.性别, count(*) as 人数
-from students join classes
-on students.班级 = classes.班级
-group by classes.院系, students.性别;
+SELECT classes.院系, students.性别, count(*) AS 人数
+FROM students JOIN classes
+ON students.班级 = classes.班级
+GROUP BY classes.院系, students.性别;
     #+end_src
 
     #+RESULTS:
@@ -6867,10 +6867,10 @@ group by classes.院系, students.性别;
     | 物理 | 男   |   25 |
 *** 选出特定成绩段的学生查询手机号
     #+begin_src sqlite :db dataframe-practice/people.db :colnames yes
-      select 联系方式,姓名,
-      (`curve.fitting`+`gpa.calculator`)/2*0.65 + `大作业`*0.3 as total
-      from students join scores on students.学号 = scores.学号
-      where total < 60;
+      SELECT 联系方式,姓名,
+      (`curve.fitting`+`gpa.calculator`)/2*0.65 + `大作业`*0.3 AS total
+      FROM students JOIN scores ON students.学号 = scores.学号
+      WHERE total < 60;
     #+end_src
 
     #+RESULTS:
@@ -6937,10 +6937,10 @@ apt install python3-pandas python3-seaborn
   - [X] 划分出不同的分数段，给出某分数段同学的手机号
 - [ ] 画出各班平均小作业成绩的变化曲线
 #+begin_src sqlite :db dataframe-practice/people.db :colnames yes
-      select 联系方式,姓名,
-      (`curve.fitting`+`gpa.calculator`)/2*0.65 + `大作业`*0.3 as total
-      from students join scores on students.学号 = scores.学号
-      where total < 60;
+      SELECT 联系方式,姓名,
+      (`curve.fitting`+`gpa.calculator`)/2*0.65 + `大作业`*0.3 AS total
+      FROM students JOIN scores ON students.学号 = scores.学号
+      WHERE total < 60;
 #+end_src
   #+RESULTS:
   |    联系方式 | 姓名 |  total |
@@ -6985,12 +6985,12 @@ apt install python3-pandas python3-seaborn
      :BEAMER_col: 0.7
      :END:
     #+begin_src sqlite :db dataframe-practice/people.db :colnames yes
-      select 联系方式,姓名,
+      SELECT 联系方式,姓名,
       (`self.intro`+`a.b`+`rank.guesser`+hdf5+prime
       +`heart.curve`+`curve.fitting`+`gpa.calculator`)/8*0.65
-      + `大作业`*0.3 as total
-      from students join scores on students.学号 = scores.学号
-      where total < 60;
+      + `大作业`*0.3 AS total
+      FROM students JOIN scores ON students.学号 = scores.学号
+      WHERE total < 60;
     #+end_src
 
     #+RESULTS:
@@ -7012,7 +7012,7 @@ apt install python3-pandas python3-seaborn
     
 *** 长表
     #+begin_src sqlite :db dataframe-practice/people.db :colnames yes
-      select * from longscores limit 5
+      SELECT * FROM longscores LIMIT 5
     #+end_src
 
     #+RESULTS:
@@ -7029,7 +7029,7 @@ apt install python3-pandas python3-seaborn
 *** 再计算一次总评
     - 用 =longscores= 分组大大简化
     #+begin_src sqlite :db dataframe-practice/people.db :colnames yes
-      select 学号, avg(分数) from longscores group by 学号 limit 5
+      SELECT 学号, avg(分数) FROM longscores GROUP BY 学号 LIMIT 5
     #+end_src
 
     #+RESULTS:
@@ -7047,14 +7047,14 @@ apt install python3-pandas python3-seaborn
     - 0 到 0.65 权重， 1 到 0.3 权重
     - =HAVING= 与 groupby 连用，对 group 进行过滤。
     #+begin_src sqlite :db dataframe-practice/people.db :colnames yes
-      select 学号, sum(权重*分数) as 总评 from 
-      (select 学号, case 大作业
-        when 0 then 0.65
-        when 1 then 0.3
-        end as 权重, avg(分数) as 分数 
-        from longscores group by 学号, 大作业)
-      group by 学号
-      having 总评 > 105 
+      SELECT 学号, sum(权重*分数) AS 总评 FROM 
+      (SELECT 学号, CASE 大作业
+        WHEN 0 THEN 0.65
+        WHEN 1 THEN 0.3
+        END AS 权重, avg(分数) AS 分数 
+        FROM longscores GROUP BY 学号, 大作业)
+      GROUP BY 学号
+      HAVING 总评 > 105 
     #+end_src
 
     #+RESULTS:
@@ -7066,20 +7066,20 @@ apt install python3-pandas python3-seaborn
 *** 储存起来用于下一步使用
     - =CREATE VIEW= 把中间结果存成虚拟表格
     #+begin_src sqlite :db dataframe-practice/people.db :colnames yes
-      create view final_scores as
-      select 学号, sum(权重*分数) as 总评 from 
-      (select 学号, case 大作业
-        when 0 then 0.65
-        when 1 then 0.3
-        end as 权重, avg(分数) as 分数 
-        from longscores group by 学号, 大作业)
-      group by 学号
+      CREATE VIEW final_scores AS
+      SELECT 学号, sum(权重*分数) AS 总评 FROM 
+      (SELECT 学号, CASE 大作业
+        WHEN 0 THEN 0.65
+        WHEN 1 THEN 0.3
+        END AS 权重, avg(分数) AS 分数 
+        FROM longscores GROUP BY 学号, 大作业)
+      GROUP BY 学号
     #+end_src
 
     #+RESULTS:
 
     #+begin_src sqlite :db dataframe-practice/people.db :colnames yes
-        select * from final_scores limit 5
+        SELECT * FROM final_scores LIMIT 5
     #+end_src
 
     #+RESULTS:
@@ -7092,10 +7092,10 @@ apt install python3-pandas python3-seaborn
     |    5 |  98.26875 |
 *** 算出大家的总评成绩
     #+begin_src sqlite :db dataframe-practice/people.db :colnames yes
-      select students.学号, 总评, 联系方式
-      from final_scores join students
-      on final_scores.学号 = students.学号
-      where 总评 > 105
+      SELECT students.学号, 总评, 联系方式
+      FROM final_scores JOIN students
+      ON final_scores.学号 = students.学号
+      WHERE 总评 > 105
     #+end_src
 
     #+RESULTS:
@@ -7105,10 +7105,10 @@ apt install python3-pandas python3-seaborn
     |   55 | 105.70625 | 24891470639 |
 *** 总评成线关联班级
     #+begin_src sqlite :db dataframe-practice/people.db :colnames yes
-SELECT total.班级,院系,姓名,总评,联系方式 from classes join
-(SELECT 姓名,班级,总评,联系方式 from final_score 
-JOIN students on final_score.学号 = students.学号 where 总评 < 60) as total
-on total.班级 = classes.班级
+SELECT total.班级,院系,姓名,总评,联系方式 FROM classes JOIN
+(SELECT 姓名,班级,总评,联系方式 FROM final_score 
+JOIN students on final_score.学号 = students.学号 WHERE 总评 < 60) AS total
+ON total.班级 = classes.班级
     #+end_src
 
     #+RESULTS:
@@ -7126,9 +7126,9 @@ on total.班级 = classes.班级
 - [ ] 画出各班平均小作业成绩的变化曲线
 *** 取得班级作业平均数据
     #+begin_src sqlite :db dataframe-practice/people.db :colnames yes
-      select 班级, 作业, avg(分数) as 分数
-      from longscores join students on longscores.学号 = students.学号
-      group by 班级, 作业 limit 10
+      SELECT 班级, 作业, avg(分数) AS 分数
+      FROM longscores JOIN students ON longscores.学号 = students.学号
+      GROUP BY 班级, 作业 LIMIT 10
     #+end_src
 
     #+RESULTS:
