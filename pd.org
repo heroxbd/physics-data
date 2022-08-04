@@ -8150,7 +8150,8 @@ print(n_res.summary())
     #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
       PE = pd.read_hdf("lm-examples/r10500.h5", "PETruth")
       PEs = PE.groupby(["EventID", "ChannelID"]).count().reset_index()
-      PMT = pd.read_csv("lm-examples/pmtdata.csv", header=0, delimiter=" ", names=["ChannelID", "type", "QE"])
+      PMT = pd.read_csv("lm-examples/pmtdata.csv", header=0, delimiter=" ",
+                        names=["ChannelID", "type", "QE"])
       # 不能种类的 PMT ，预期的信号计数是否一致
       type_count = pd.merge(PEs, PMT)
       y, X = patsy.dmatrices("PETime ~ type - 1", type_count)
