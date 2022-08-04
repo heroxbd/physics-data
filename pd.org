@@ -547,7 +547,7 @@ fig.set_dpi({dpi})
     - 数据时代需要 *黑客技术* Hacking Skills、 *数理统计* Math & Statistics Knowledge 、 *专业知识* Substantive Expertise 等多方面技能。
 
     #+Attr_LaTeX: :height 0.65\textheight
-    [[./fig/Data_Science_VD.png]]
+    [[./fig/Data_Science_VD-r1.pdf]]
 *** 技能树
     #+Attr_LaTeX: :height 0.4\textheight
     [[./fig/Data_Science_VD.png]]
@@ -8232,52 +8232,38 @@ print(n_res.summary())
   :EXPORT_BEAMER_THEME: Hannover
   :EXPORT_BEAMER_FONT_THEME: professionalfonts
   :END:
-** 大作业
-*** 概论
-**** 概率是逻辑的扩展 -- Cox 定理
-     - R. T. Cox, E. T. Jaynes，两位对统计学有重大贡献的物理学家
-     - Logical interpretation of probability
-       1. Divisibility and comparability -- The plausibility of a
-          proposition is a real number and is dependent on information
-          we have related to the proposition.
-       2. Common sense -- Plausibilities should vary sensibly with the
-          assessment of plausibilities in the model.
-       3. Consistency -- If the plausibility of a proposition can be
-          derived in many ways, all the results must be equal.
-     - 概率论的唯一性：
-       Any system for plausible reasoning that satisfies certain
-       qualitative requirements intended to ensure consistency with
-       classical deductive logic and correspondence with commonsense
-       reasoning is isomorphic to probability theory.
+** 总复习
+*** 黑客技能
+**** 科学数据处理的原则                                        :B_alertblock:
+     :PROPERTIES:
+     :BEAMER_env: alertblock
+     :END:
+     黑客的审美： _复现_ _透明_ _一次_ _最佳工具_
 
-       #+latex: {\scriptsize
-       参考：Van Horn, K.S., 2003. Constructing a logic of plausible
-       inference: a guide to Cox’s theorem. International Journal of
-       Approximate Reasoning 34, 3–24.
-       #+latex: }
+**** 版本控制
+     Git 与队友分工协作，与明天的自己协作
 
-**** 结果的不确定度
-     - 结果的不确定度如何给出？
-     
-       1. 建立演绎的模型，预测观测现象
+     Git 是“搬砖工地安全帽”，无头盔禁止上岗
 
-          大作业第一阶段
+**** 关系代数
+     数据表示成关系，数据的操作表示成关系代数运算
 
-       2. 在此基础上，从观测现象定出模型中的参数，或者从诸多模型中选出最
-          符合数据的模型，统计推断的程序实现
+**** 数据格式
+     _透明_ CSV, HDF5, JSON, 数据库 SQL
+*** 黑客技能（二）
+**** 数据流水线
+     GNU Make 管理数据的依赖与转换，实现错误恢复和并行计算
 
-          大作业第二阶段
+     实现数据层次的 Python/R/Bash/Scheme/SQL 多语言融合
 
-          - 欢迎选修：《概率统计分析及量测技术》（30320344-2）
-          - 2021年9月14日星期二 8:00 第1节 四教4105
-          - 和/或 统计学辅修 和/或 概率论、随机过程
+**** 正则表达式
+     描述字符串的微型语言，数学模型
 
-***** 某某学家的对话
-     - 数学家：一切都是确定且自洽的
-     - 物理学家：一切都是不确定且纷乱的
-     - 统计学家：我赞同物理学家
-     - 数学家：好，你们被开除数学系了
-
+**** 命令环境
+     POSIX 环境中强大的小工具组合，开发与使用相融合
+    
+**** 计算语言
+     Python 语法友好，工具丰富，统领 C/C++/Fortran/R/SQL 库
 
 ** 现实世界的大数据方法
 *** 永远留在古老的计算环境
@@ -8471,32 +8457,79 @@ head -q -n1 lecture/l*.org
      :BEAMER_col: 0.45
      :END:
      - 给讲义仓库提 issue 和 merge request ，可获得伍分。
-** 下一步
+** 下一步学习
+*** 数据时代的物理技能
+    [[./fig/Data_Science_VD-migrate.pdf]]
+*** 概率是逻辑的扩展 -- Cox 定理
+    - Laplace: probability theory is nothing but common sense reduced to calculations.
+    - R. T. Cox, E. T. Jaynes，两位对统计学有重大贡献的物理学家
+    - Logical interpretation of probability
+      1. Divisibility and comparability -- The plausibility of a
+         proposition is a real number and is dependent on information
+         we have related to the proposition.
+      2. Common sense -- Plausibilities should vary sensibly with the
+         assessment of plausibilities in the model.
+      3. Consistency -- If the plausibility of a proposition can be
+         derived in many ways, all the results must be equal.
+    - 概率论的唯一性：
+      Any system for plausible reasoning that satisfies certain
+      qualitative requirements intended to ensure consistency with
+      classical deductive logic and correspondence with commonsense
+      reasoning is isomorphic to probability theory.
+
+      #+latex: {\scriptsize
+      参考：Van Horn, K.S., 2003. Constructing a logic of plausible
+      inference: a guide to Cox’s theorem. International Journal of
+      Approximate Reasoning 34, 3–24.
+      #+latex: }
+
 *** 以本课程为起点
     - 函数式编程：一切都是函数
       - 无状态，从而容易从错误中恢复
     - MapReduce：分布式大数据系统的开始
       - 在之上建立了关系代数：
       - Apache Hive，SparkQL，etc.
-    - 信号处理：《信号与系统》课程们
-    - 统计学习与机器学习
-      - “深度学习”是商业概念，即多层神经网络加大数据训练
-      - 黑客技术基础，为统计学习与机器学习提供了基本环境
-      - 基本接口都是 =fit(y, X)=
-        - sklearn, xgboost, etc.
-    - 计算环境的复现原则。
+**** 竞赛
+    - JUNO 大作业 \to Ghost Hunter 2022 中微子数据分析排位赛
+      - 概率统计分析及量测技术课赛结合
+    - GRID 大作业 \to 2022 天格联盟邀请赛
 *** 技术问题：TUNA 协会
     - 清华大学学生开源软件与网络技术协会
     - TUNA 主页 https://tuna.moe/
-
     - TUNA 技术群，黑客（广义）技术问题探讨
 *** 致谢
     #+attr_beamer: :overlay <+->
     - 顾问 :: 宁传刚教授、曾鸣教授、郑鈜壬
     - 助教 :: 学长学姐们
-      - 张卓婧、陈晟祺、付祈安、陈嘉杰、刘晓义、刘一芃、于明杨、张爱强、刘学伟、王宇逸、武益阳
-    - 全体克服困难返校上课的同学们。
+      - 张卓婧、陈晟祺、陈嘉杰、刘晓义、王宇逸、刘一芃、于明杨、高一川、张爱强、刘学伟、武益阳
+    - 小助教 :: 苟诗涵、晏越、陈泽洲、吴限来、赵一飞、吴震鹏
+    - 克服困难上课的同学们 :: 谢谢！
+** 答疑
+*** C 盘已满，把 WSL 移动到其它盘
+    1. =wsl -l --all -v=
 
+       列出所有的 WSL 环境，确定要升级环境的名称
+    2. =wsl --export debian e:wsl-20220804.tar=
+
+       备份当前环境到 =E:= 盘
+    3. =wsl --unregister debian=
+
+       注销 WSL 环境
+    4. =wsl --import debian d:debian e:wsl-20220804.tar=
+
+       导入刚备份的环境到 =D:= 盘
+*** 如何升级 WSL 中的操作系统
+    1. =wsl --export Ubuntu-20.04 e:wsl-20220804.tar=
+
+       备份已有 Ubuntu 环境到 =E:= 盘
+    2. 把 Ubuntu 20.04 升级到 Debian 11
+       - 修改 APT 源
+       - =apt update=
+       - =apt full-upgrade=
+**** 参考资料： Ubuntu 14.04 升级到 Debian 10
+     #+latex: {\scriptsize
+     http://hep.tsinghua.edu.cn/~orv/distfiles/20201102-Ubuntu_Debian10.mp4
+     #+latex: }
 * 2020 第四周第四天
   :PROPERTIES:
   :EXPORT_FILE_NAME: pf
