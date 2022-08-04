@@ -8356,6 +8356,14 @@ print(n_res.summary())
      - 统计学家：我赞同物理学家
      - 数学家：好，你们被开除数学系了
 
+** 用户软件部署
+*** 没有管理员权限
+*** 方案对比
+    - Gentoo Prefix
+    - Spack
+    - conda / mamba
+    - nix
+    - guix
 ** 讲义
 *** 建设状况
 * 2020 第四周第四天
