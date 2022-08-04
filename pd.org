@@ -8236,7 +8236,7 @@ print(n_res.summary())
 *** 概论
 **** 概率是逻辑的扩展 -- Cox 定理
      - R. T. Cox, E. T. Jaynes，两位对统计学有重大贡献的物理学家
-     - Logical interpretation of probability (面向维基百科的备课)
+     - Logical interpretation of probability
        1. Divisibility and comparability -- The plausibility of a
           proposition is a real number and is dependent on information
           we have related to the proposition.
@@ -8244,17 +8244,17 @@ print(n_res.summary())
           assessment of plausibilities in the model.
        3. Consistency -- If the plausibility of a proposition can be
           derived in many ways, all the results must be equal.
-     - 满足以上条件的代表事件可能性的一切实数指标，都与概率等价。
+     - 概率论的唯一性：
+       Any system for plausible reasoning that satisfies certain
+       qualitative requirements intended to ensure consistency with
+       classical deductive logic and correspondence with commonsense
+       reasoning is isomorphic to probability theory.
 
-       The theorem states that any system for plausible reasoning that
-       satisfies certain qualitative requirements intended to ensure
-       consistency with classical deductive logic and correspondence
-       with commonsense reasoning is isomorphic to probability theory.
-
+       #+latex: {\scriptsize
        参考：Van Horn, K.S., 2003. Constructing a logic of plausible
        inference: a guide to Cox’s theorem. International Journal of
-       Approximate Reasoning 34,
-       3–24. https://doi.org/10.1016/S0888-613X(03)00051-3
+       Approximate Reasoning 34, 3–24.
+       #+latex: }
 
 **** 结果的不确定度
      - 结果的不确定度如何给出？
@@ -8366,21 +8366,75 @@ print(n_res.summary())
       [[./fig/computer-cluster.jpg]]
 
 *** 高性能计算与超级计算机
-
-    #+attrLatex: :height 0.65\textheight
+    #+attr_latex: :height 6cm
     [[./fig/supercomputer.jpg]]
 
     - 更大的计算机集群，优化节点间的通信，共享存储。
-** 用户软件部署
-*** 没有管理员权限
-*** 方案对比
-    - Gentoo Prefix
-    - Spack
-    - conda / mamba
-    - nix
-    - guix
+    - 软件环境如何配置？
+** 软件分发与环境整合
+*** 概念
+     #+BEGIN_SRC dot :file distribution.pdf :cmdline -Kdot -Tpdf :eval yes :exports results
+       digraph distribution {
+
+       node [shape=box]
+       U0[label = "上游作者\nSeaborn"]
+       U1[label = "上游作者\nNumPy"]
+       U2[label = "上游作者\nmake"]
+       U3[label = "上游作者\nSQLite"]
+       U1 -> D1
+       U2 -> D1
+       U3 -> D1
+       D1[label = "环境整合\nDebian\nArch\nUbuntu\nGentoo\nConda"]
+       U1 -> D2
+       U0 -> D2
+       D2[label = "语言管理\npip\n"]
+       D1 -> S
+       D2 -> S
+       S[label = "用户环境"]
+       }
+     #+END_SRC
+
+     #+attr_latex: :height 6cm
+     #+RESULTS:
+     [[file:distribution.pdf]]
+
+     - =pip= 没有整合测试，只适合早期试验个别最新 Python 软件，长期维护性差。
+     - 整体生产方案对应多种软件的稳定版本，经过应跨语言整合测试。
+*** 环境整合分发方案
+    - 第三方测试整合提供环境，防止被某上游垄断并偷藏私货
+      - Malicious PyPI package opens backdoors on Windows, Linux, and Macs
+        #+begin_example
+        Allows a remote attacker to gain unauthorized access to the application.
+        #+end_example
+      - =pip= 的软件没有经过第三方测试验证，使用意味者相信上游软件作者。
+      - 环境整合方案会有负责安全、兼容和性能的团队，有大量同样环境的用户反馈问题。
+    - Debian/Arch/Gentoo 志愿者形态与 Ubuntu/Conda 公司免费形态
+      - 志愿者形态的开发团队没有利益关系，人们由于共同的兴趣走到一起。
+        - 无人能强制整个项目的走向，集体决策。
+      - 公司免费形态利用免费服务吸引用户，构建潜在的客户池或者暗藏广告潜移默化改造用户。
+        - 产品服务于公司的盈利或扩大影响的战略，代码由雇工产生。
+**** 不推荐用作科学计算和数据分析
+      - Ubuntu 的源代码 95% 从 Debian （合法）复制，外加公司定制
+      - Conda 的依赖关系的计算效率极低，但在公司层面调动外宣经费公关推广
+*** 只有普通用户权限
+    - 安装和升级软件需要系统管理员权限，具体体现为在 =apt= 前加 =sudo= 。
+    - 课题组共享的服务器、超算中心的登录节点无权限怎么办？用户态软件管理
+
+    |               | 成熟的     | 去中心     | 海量软件   | 超算中心   | 续本达                |
+    |               | 管理工具   | 研发       | +物理学  | 采用       | 召集                  |
+    |---------------+------------+------------+------------+------------+-----------------------|
+    | Gentoo Prefix | \checkmark | \checkmark | \checkmark | \checkmark | \checkmark \checkmark |
+    | nix/guix     | \checkmark | \checkmark | \checkmark |            |                       |
+    | Spack         | \checkmark |            |            | \checkmark |                       |
+    | conda / mamba |            |            |            |            |                       |
+**** 参考
+     #+latex: {\scriptsize
+     Benda Xu, G. Amadio, F.Grffen, and M. Haubenwallner. “Gentoo Prefix as a Physics Software Manager.” EPJ Web of Conferences 245 (2020): 05036.
+     #+latex: }
 ** 讲义
 *** 建设状况
+    https://git.tsinghua.edu.cn/physics-data/lecture
+
 ** 下一步
 *** 以本课程为起点
     - 函数式编程：一切都是函数
