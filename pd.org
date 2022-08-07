@@ -8511,18 +8511,22 @@ head -q -n1 lecture/l*.org
 *** C 盘已满，把 WSL 移动到其它盘
     1. =wsl -l --all -v=
 
-       列出所有的 WSL 环境，确定要升级环境的名称
-    2. =wsl --export debian e:wsl-20220804.tar=
+        列出所有的 WSL 环境，确定要升级环境的名称
+    2. =wsl --export debian e:\\wsl-20220804.tar=
 
-       备份当前环境到 =E:= 盘
+        备份当前环境到 =E:= 盘
     3. =wsl --unregister debian=
 
-       注销 WSL 环境
-    4. =wsl --import debian d:debian e:wsl-20220804.tar=
+        注销 WSL 环境
+    4. =wsl --import debian d:\\debian e:\\wsl-20220804.tar=
 
-       导入刚备份的环境到 =D:= 盘
+        导入刚备份的环境到 =D:= 盘
+    
+    5. =debian config --default-user heroxbd=
+
+        导入后默认用户会变成 root，这一步把默认用户修改回来（把 heroxbd 改回自己的 WSL 内用户名）
 *** 如何升级 WSL 中的操作系统
-    1. =wsl --export Ubuntu-20.04 e:wsl-20220804.tar=
+    1. =wsl --export Ubuntu-20.04 e:\\wsl-20220804.tar=
 
        备份已有 Ubuntu 环境到 =E:= 盘
     2. 把 Ubuntu 20.04 升级到 Debian 11
