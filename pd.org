@@ -8857,3 +8857,95 @@ head -q -n1 lecture/l*.org
   wishlist from real experience with Github Action and Classroom:
 
   Special judge feature in Github Action. 
+* 教改项目中期检查
+  :PROPERTIES:
+  :EXPORT_FILE_NAME: midterm
+  :EXPORT_BEAMER_HEADER+: \title[实验物理的大数据方法：讲义教辅]{《实验物理的大数据方法》研究型实践课程讲义与辅助资源建设 \\ \small{ZY01​\_03 本科教材及教学资源立项建设}}
+  :EXPORT_OPTIONS: H:1 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
+  :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+  :EXPORT_DATE: 2022-09-01 清华
+  :EXPORT_BEAMER_HEADER+: \author{续本达}
+  :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
+  :EXPORT_BEAMER_THEME: Boadilla
+  :EXPORT_BEAMER_COLOR_THEME: MedStarColors
+  :EXPORT_BEAMER_FONT_THEME: professionalfonts
+  :END:
+** 课程简介与改革背景
+   《实验物理的大数据方法》系列课程面向 *工物系* 、 *物理系* 、 *未央
+   书院* 、 *致理书院* 的大二年级学生，在夏季学期集中训练学生的大数据
+   分析。
+   - 把 _原理讲授_ 和 _动手实践_ 相结合
+   - 把 _基本程序设计能力_ 与 _前沿学术问题_ 相结合
+   - 把 _物理学科学目标_ 与 _数据处理工程技术_ 相结合
+*** 参考书繁多，内容庞杂 \to 亟需面向清华学生的讲义和教辅资料
+   1. Python 基础：《Think Python 2e》；
+   2. Python 数值计算：《Scipy Lecture Notes》；
+   3. 命令行数据处理：《Data Science at Command Line》；
+   4. 关系代数大数据组织：《Data Manipulation at Scale: Systems and Algorithms》。
+** 项目进展：课程录像
+   - 制作完成第一批 +带字幕+ 的课程录像；
+     - [[http://hep.tsinghua.edu.cn/~orv/teaching/video.html][2019年]]、[[http://hep.tsinghua.edu.cn/~berrysoft/bdeph2021/][2021年]]、[[http://hep.tsinghua.edu.cn/~berrysoft/bdeph2022/][2022年]]课程录像，制作水平和质量逐年提升。
+   - 经过研判，把精力集中在提升音频录制效果和清晰吐字上，不再制作字幕。
+*** t                                                                 :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.33
+    :END:
+   #+attr_latex: :height 2.8cm
+   [[./img/video-2019.png]]
+*** b                                                                 :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.66
+    :END:
+   #+attr_latex: :height 2.8cm
+   [[./img/video-2021.png]]
+*** i                                                       :B_ignoreheading:
+    :PROPERTIES:
+    :BEAMER_env: ignoreheading
+    :END:
+    - 结合浏览器插件无限调节播放速度，成为学生预习和复习的重要资料
+    - 成为高能物理暑期训练营的参考资料
+** 项目进展：辅助资源网站
+   - [[https://physics-data.meow.plus/faq/][教学辅助网站]] 于 2021 年开课前上线
+     - 内容已逾4万字，配有大量参考资源链接
+   - 尽可能替代群聊答疑，积淀群体智慧。收到上课学生的贡献(GitLab Merge Request)。
+*** t                                                                 :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :END:
+     #+attr_latex: :height 5cm
+     [[./img/faq-web.png]]
+*** i                                                                 :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :END:
+     #+attr_latex: :height 5cm
+     [[./img/gitlab-MR.png]]
+** 项目进展：讲义
+   - [[http://hep.tsinghua.edu.cn/~berrysoft/bdeph2022/lectures/l0.html][草稿]]近 19 万字，完成度 60%。在 2022 年试验使用。
+   - 课件约 26 万字，完成度 100%。
+
+*** t                                                                 :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :END:
+     #+attr_latex: :height 4cm
+     [[./img/notes-1.png]]
+*** i                                                                 :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :END:
+     #+attr_latex: :height 4cm
+     [[./img/notes-2.png]]
+      
+** [75%] 进度总结
+   - [X] 制作课程录像
+   - [X] 建立和维护教学资源网站
+   - [-] 讲义
+     - [X] 第一周 Python 基础
+     - [X] 第二周 Python 数值计算
+     - [-] 第三周 命令行数据处理
+     - [-] 第四周 关系代数大数据组织
+   - [X] 完善美化课件
+*** 讲义工作计划
+    - 把课件与讲义融合，消除重复内容以提升质量。
+    - 10月进行校对。
