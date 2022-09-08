@@ -8959,7 +8959,7 @@ head -q -n1 lecture/l*.org
 **** 经费执行情况说明
      预算5万元。已支出4.9万元，包括设备费10797.8元，资料费 302.2 元，劳务费 37900 元。
 
-* 教材项目中期检查
+* 工物系交流
   :PROPERTIES:
   :EXPORT_FILE_NAME: book
   :EXPORT_BEAMER_HEADER+: \title[实验物理的大数据方法：讲义]{《实验物理的大数据方法》研究型实践课程讲义}
