@@ -2,6 +2,8 @@ build:
   stage: build
   tags:
     - physics-data
+  variables:
+    GIT_CLEAN_FLAGS: none
   script:
     - make all
     - cp upload/* /home/orv/public_html/teaching/physics-data/
