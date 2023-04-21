@@ -1,8 +1,7 @@
 build:
   stage: build
-  image: physdata_lecture
   tags:
-    - physdata
+    - physics-data
   script:
-    - make
-    - cp upload/* /data/
+    - make all
+    - cp upload/* /home/orv/public_html/teaching/physics-data/
