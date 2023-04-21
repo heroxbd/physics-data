@@ -8465,7 +8465,7 @@ head -q -n1 lecture/l*.org
      - 给讲义仓库提 issue 和 merge request ，可获得伍分。
 ** 下一步学习
 *** 数据时代的物理技能
-    [[./fig/Data_Science_VD-migrate.pdf]]
+    [[./out/Data_Science_VD-migrate.pdf]]
 *** 概率是逻辑的扩展 -- Cox 定理
     - Laplace: probability theory is nothing but common sense reduced to calculations.
     - R. T. Cox, E. T. Jaynes，两位对统计学有重大贡献的物理学家

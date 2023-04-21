@@ -14,7 +14,12 @@ p%.tex: pd.org
 # should ultimately fix ob-ein to be friendly to minted.
 # put verbatim into scriptsize, need some better idea with org-mode.
 e%.tex: p%.tex
-	sed -e 's/{sqlite}/{sqlite3}/' -e 's/ein-python/python/' -e 's/ein-bash/bash/' -e '/{minted}/s/\[\]/\[bgcolor=lightgray,fontsize=\\scriptsize\]/' -e 's/\\begin{verbatim}/{\\scriptsize\\begin{verbatim}/' -e 's/end{verbatim}/end{verbatim}}/' < $^ > $@
+	sed -e 's/{sqlite}/{sqlite3}/' -e 's/ein-python/python/' -e 's/ein-bash/bash/' -e '/{minted}/s/\[\]/\[bgcolor=lightgray,fontsize=\\scriptsize\]/' -e 's/\\begin{verbatim}/{\\scriptsize\\begin{verbatim}/' -e 's/end{verbatim}/end{verbatim}}/' < $< > $@
+
+out/%.pdf: fig/%.svg
+	mkdir -p $(@D)
+	rsvg-convert -f ps $^ | gs -dCompatibilityLevel=1.5 -sDEVICE=pdfwrite -sOutputFile=$@ -f -
+ef.tex: out/Data_Science_VD-migrate.pdf
 
 e%.pdf: e%.tex
 	latexmk -shell-escape -lualatex $^
