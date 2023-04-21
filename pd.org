@@ -11,6 +11,7 @@
 #+LaTeX_HEADER: \usepackage{appendixnumberbeamer}
 #+LaTeX_HEADER: \setCJKsansfont{Noto Sans CJK SC}
 #+PROPERTY: header-args :eval never-export :exports both
+#+PROPERTY: header-args:dot :eval yes :cmdline -Kdot -Tpdf :exports results
 #+sTARTUP: beamer
 
 #+name: savefig
@@ -737,7 +738,7 @@ fig.set_dpi({dpi})
      #+attr_beamer: :overlay <+->
      - 石器时代 :: =实验报告-v1=, =实验报告-v2=, =实验报告-v2.2=, =实验报告-v2.2-续本达更新20190629= ……
      - 青铜时代 :: diff, patch 文本差分算法
-       #+BEGIN_SRC dot :file ./diff-patch.pdf :cmdline -Kdot -Tpdf :eval yes :exports results
+       #+BEGIN_SRC dot :file ./diff-patch.pdf
          digraph dataset {
          bgcolor="#ffffff00"
 
@@ -909,7 +910,7 @@ fig.set_dpi({dpi})
  $ man git add
      #+END_EXAMPLE
 *** Git 的状态与命令
-    #+BEGIN_SRC dot :file ./git-stages.pdf :cmdline -Kdot -Tpdf :eval yes :exports results
+    #+BEGIN_SRC dot :file ./git-stages.pdf
       digraph git {
       rankdir="LR";
 
@@ -4008,7 +4009,7 @@ jq < BBH_events_rewrite.json
        - 在麦克思维方程出现之前，已经有光学
        - 不是只有做完实验才能吃饭
 *** Python 程序的支撑
-    #+BEGIN_SRC dot :file ./python-driver.pdf :cmdline -Kdot -Tpdf :eval yes :exports results
+    #+BEGIN_SRC dot :file ./python-driver.pdf
       digraph python {
       rankdir="LR";
 
@@ -4110,7 +4111,7 @@ jq < BBH_events_rewrite.json
      :PROPERTIES:
      :BEAMER_col: 0.299
      :END:
-    #+BEGIN_SRC dot :file ./shell.pdf :cmdline -Kdot -Tpdf :eval yes :exports results
+    #+BEGIN_SRC dot :file ./shell.pdf
       digraph shell {
       rankdir="BT";
       node [shape=box]; H; K; S; P
@@ -4770,7 +4771,7 @@ apt-cache depends games-all
       - 标准输入输出、管道
 ** 任务流水线
 *** 批量处理海量数据
-    #+BEGIN_SRC dot :file ./multi-driver.pdf :cmdline -Kdot -Tpdf :eval yes :exports results
+    #+BEGIN_SRC dot :file ./multi-driver.pdf
       digraph python {
       rankdir="LR";
 
@@ -4951,7 +4952,7 @@ make total
      :PROPERTIES:
      :BEAMER_col: 0.499
      :END:
-         #+BEGIN_SRC dot :file ./sum-prod.pdf :cmdline -Kdot -Tpdf :eval yes :exports results
+         #+BEGIN_SRC dot :file ./sum-prod.pdf
            digraph python {
            rankdir="LR";
 
@@ -5273,7 +5274,7 @@ numbers-%.csv:
 	seq $(shell echo "$* * 100 + 1" | bc ) $(shell echo "($* + 1) * 100" | bc ) > $@
     #+end_src
     - make 在 shell 中执行，make 通过 shell 执行流水线规则和取值
-     #+BEGIN_SRC dot :file ./make-shell.pdf :cmdline -Kdot -Tpdf :eval yes :exports results
+     #+BEGIN_SRC dot :file ./make-shell.pdf
        digraph python {
        rankdir="TB";
 
@@ -7565,7 +7566,7 @@ ON total.班级 = classes.班级
      :PROPERTIES:
      :BEAMER_col: 0.479
      :END:
-     #+BEGIN_SRC dot :file relational.pdf :cmdline -Kdot -Tpdf :eval yes :exports results
+     #+BEGIN_SRC dot :file relational.pdf
        digraph python {
        rankdir="BT";
 
@@ -7797,7 +7798,7 @@ books.plot(x="volume", y="weight", kind="scatter", ax=ax)
 
 ** 探索性分析
 *** 探索性分析
-     #+BEGIN_SRC dot :file regression.pdf :cmdline -Kdot -Tpdf :eval yes :exports results
+     #+BEGIN_SRC dot :file regression.pdf
        digraph regression {
 
        node [shape=box]
@@ -8364,7 +8365,7 @@ print(n_res.summary())
     - 软件环境如何配置？
 ** 软件分发与环境整合
 *** 概念
-     #+BEGIN_SRC dot :file distribution.pdf :cmdline -Kdot -Tpdf :eval yes :exports results
+     #+BEGIN_SRC dot :file distribution.pdf
        digraph distribution {
 
        node [shape=box]
