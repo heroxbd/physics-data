@@ -5,6 +5,7 @@
 #+latex_HEADER: \usepackage[export]{adjustbox}
 #+latex_HEADER: \usepackage{pgf,tikz}
 #+latex_HEADER: \usepackage{wasysym}
+#+latex_HEADER: \usepackage{tipa}
 #+latex_HEADER: \usetikzlibrary{arrows}
 #+LATEX_HEADER: \usepackage[UTF8]{ctex}
 #+LaTeX_HEADER: \usepackage{appendixnumberbeamer}
