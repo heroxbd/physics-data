@@ -34,7 +34,7 @@ fig.set_dpi({dpi})
 
     学物理的同学亟需
 
-  - 实践性的课程：没有必要记忆，但一定要在短时间内实践
+  - 实践性的课程：没有必要记忆，但一定要在短时间内实践.
 * 参考课程
 ** Python for everyone -- control flow
 *** Why do we program?
