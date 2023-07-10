@@ -357,6 +357,8 @@ fig.set_dpi({dpi})
    https://learninglab.inria.fr/en/mooc-recherche-reproductible-principes-methodologiques-pour-une-science-transparente/
 ** 参考书：Linux Sea
    http://swift.siphos.be/linux_sea/
+** 参考书：Introduction to Computation in Physical Sciences
+https://link.springer.com/book/10.1007/978-3-031-17646-3
 ** Berkeley Course
    Data science and Bayesian statistics for physical sciences
 
@@ -451,45 +453,37 @@ fig.set_dpi({dpi})
   :EXPORT_BEAMER_HEADER+: \title{实验物理的大数据方法}
   :EXPORT_OPTIONS: H:2 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
   :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
-  :EXPORT_DATE: 2022-07-11 清华
+  :EXPORT_DATE: 2023-07-10 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
-  :EXPORT_BEAMER_THEME: CambridgeUS
-  :EXPORT_BEAMER_COLOR_THEME: MedStarColors
+  :EXPORT_BEAMER_HEADER+: \setbeamertemplate{footline}[frame number]  
+  :EXPORT_BEAMER_THEME: Hannover
   :EXPORT_BEAMER_FONT_THEME: professionalfonts
   :END:
-** 认识大家
-*** 自我介绍
-    - 2005-2009 :: 在数理基科学习
-    - 2009-2018 :: 在日本神冈地下实验室，学习研究中微子和暗物质
-    - 2018-至今 :: 在工程物理系近代物理研究所任教
+** 为什么
+*** 我为什么在这里？
+#+beamer: \pause
+**** 培养方案要求？
+  + 本课程的“性价比很低”！（由某巨佬结课后评价）
+***** 班主任的观察 :B_block:
+:PROPERTIES:
+:BEAMER_env: block
+:END:
+（学长）每年都劝退（学弟学妹），每年都劝不住……然后劝不住的学完开始劝退下一届
 
-    - 主要工作：锦屏中微子实验
-    - 合作研究
-      1. JUNO江门中微子实验
-      2. 日本SuperK超级神冈实验
-      3. 日本XMASS暗物质实验
-    - 研究兴趣：中微子质量、核子衰变、地球中微子
-    - 爱好：大数据分析、高性能计算、系统架构运维
+#+beamer: \pause
+**** 听说这门课讲 Python？
+- 现在猴子都会 Python，我不会的话会很焦虑
 
-*** 教学团队
-    #+attr_beamer: :overlay <+->
-    - 助教 :: 学长学姐们
-      - 王宇逸 :: 物理系本科毕业，工物系博士生
-      - 刘晓义 :: 计算机系本科生，物理系后援
-      - 张卓婧 :: 物理系本科毕业，工业工程统计中心博士生
-      - 陈晟祺 :: 计算机系本科毕业、博士生
-      - 陈嘉杰 :: 计算机系本科毕业、博士生
-      - 高一川 :: 工物系本科毕业，计算机系硕士生
-      - 刘学伟 :: 工物系本科毕业、博士生
-      - 刘一芃 :: 计算机系本科毕业、交叉信息学院博士生
-      - 张爱强 :: 工物系本科毕业、博士生
-      - 武益阳 :: 物理系本科毕业，工物系博士生
-      - 于明杨 +柳迪潇+ :: 物理系本科生，2021年 A+
-       
-    - 顾问 :: 宁传刚教授、曾鸣教授、刘亦晖
-    - 小助教 :: 已经有2位同学自荐
-** 为什么有这门课
+*** “实验物理”和“大数据方法”哪个更重要
+
+**** 形式逻辑与实验同等重要 
+***** 爱因斯坦 1953 给 J.S.Switzer 的信                             :B_block:
+:PROPERTIES:
+:BEAMER_env: block
+:END:
+西方科学的发展是以两个伟大的成就为基础：希腊哲学家发明形式逻辑体系(在欧几里得几何中)，以及(在文艺复兴时期)发现通过系统的实验可能找出因果关系。
+
 *** 释义
 **** 什么是“实验物理”                                        :B_exampleblock:
      :PROPERTIES:
@@ -503,7 +497,7 @@ fig.set_dpi({dpi})
        - 欧洲核子中心(CERN)一年用电约 \SI{1.3}{\tera\watt\hour}。
 
          北京东城区西城区2016年用电总量 \SI{10.1}{\tera\watt\hour}，人口 200 万。
-
+     #+beamer: \pause
      - 观察物理现象的学科
        - 控制物理现象发生的环境？是 \to “实验”(狭义)；否 \to “观测”。
        - 实验物理的目标：发现物理规律，包括测量物理常数。
@@ -588,6 +582,37 @@ fig.set_dpi({dpi})
         \[ g/2 = 1.001 159 652 180 73 (28) \]
 
         Ref: Phys.Rev.Lett.100:120801,2008
+** 认识大家
+*** 自我介绍
+    - 2005-2009 :: 在数理基科学习
+    - 2009-2018 :: 在日本神冈地下实验室，学习研究中微子和暗物质
+    - 2018-至今 :: 在工程物理系近代物理研究所任教
+
+    - 主要工作：锦屏中微子实验
+    - 合作研究
+      1. JUNO江门中微子实验
+      2. 日本SuperK超级神冈实验
+      3. 日本XMASS暗物质实验
+    - 研究兴趣：中微子质量、核子衰变、地球中微子
+    - 爱好：大数据分析、高性能计算、系统架构运维
+
+*** 教学团队
+    #+attr_beamer: :overlay <+->
+    - 助教 :: 学长学姐们
+      - 王宇逸 :: 物理系本科毕业，工物系博士生
+      - 刘晓义 :: 计算机系本科生，物理系后援
+      - 张卓婧 :: 物理系本科毕业，工业工程统计中心博士生
+      - 陈晟祺 :: 计算机系本科毕业、博士生
+      - 陈嘉杰 :: 计算机系本科毕业、博士生
+      - 高一川 :: 工物系本科毕业，计算机系硕士生
+      - 刘学伟 :: 工物系本科毕业、博士生
+      - 刘一芃 :: 计算机系本科毕业、交叉信息学院博士生
+      - 张爱强 :: 工物系本科毕业、博士生
+      - 武益阳 :: 物理系本科毕业，工物系博士生
+      - 于明杨 +柳迪潇+ :: 物理系本科生，2021年 A+
+       
+    - 顾问 :: 宁传刚教授、曾鸣教授、刘亦晖
+    - 小助教 :: 已经有2位同学自荐
 ** 课程概论
 *** 数据分析的指导原则
 
@@ -832,8 +857,7 @@ fig.set_dpi({dpi})
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
   :EXPORT_BEAMER_HEADER+: \setbeamertemplate{footline}[frame number]  
-  :EXPORT_BEAMER_THEME: CambridgeUS
-  :EXPORT_BEAMER_COLOR_THEME: MedStarColors
+  :EXPORT_BEAMER_THEME: Hannover
   :EXPORT_BEAMER_FONT_THEME: professionalfonts
   :END:
 ** 复习
