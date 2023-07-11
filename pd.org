@@ -968,9 +968,6 @@ https://link.springer.com/book/10.1007/978-3-031-17646-3
 
 *** 提交说明 commit message
     - =git commit= 时需要输入一段话概括本次 commit 所作的修改
-      - =git= 会调用 _环境设定_ 的编辑器
-        - 临时调整：使用 =EDITOR=xxxxx= 前缀
-        - 永久调整：管理员权限执行 =update-alternatives --config editor=
     - 目标：让他人和未来的自己一目了然，只通过读此信息就知道自己做了什么
 
 **** commit 样例
@@ -996,14 +993,33 @@ https://link.springer.com/book/10.1007/978-3-031-17646-3
 
 请查看白盒标准：https://physics-data.meow.plus/faq/rules/whitebox/
 
-如果想要自己玩一下Git的相关操作（强烈推荐这么做，尤其是要学会add和commit如何取消。我个人对于一个操作是否可逆是有追求的），可以自己在GitLab上面创
+- 如果想要自己玩一下Git的相关操作（强烈推荐这么做，尤其是要学会add和commit如何取消。我个人对于一个操作是否可逆是有追求的），可以自己在GitLab上面创
 建一个项目练习。
 
 *** Git 与编辑器的整合
 **** 禁止使用 Gitlab 网页上传和修改工具
      - 远远次于命令行的功能，无推广价值
      - 禁止使用，防止养成不良习惯
-VSCode 
+
+**** 在命令行调用相应的编辑器
+      - =git= 会调用 _环境设定_ 的编辑器
+        - 临时调整：使用 =EDITOR=xxxxx= 前缀
+          + EDITOR="code --wait" 见 [[https://git.tsinghua.edu.cn/physics-data/faq/-/issues/88][李禹锋的 issue 88]]
+          + EDITOR="vim"
+          + EDITOR="emacsclient" 见 [[https://git.tsinghua.edu.cn/physics-data/faq/-/issues/109][黄宇同的 issue 109]]
+            
+      - Debian 上永久调整系统的默认编辑器，管理员权限执行
+        #+begin_src bash
+          update-alternatives --config editor
+        #+end_src
+
+        选择需要的编辑器
+
+      - 配置 git 的编辑器：查看文档配置，关键字是 =core.editor=
+        #+begin_src bash
+          man git config
+        #+end_src
+
 *** 精心撰写提交说明
     - 说明既要给人类读，也要易于自动处理
     - 第一行：高度概括改动
@@ -1077,6 +1093,10 @@ VSCode
        - 我也需要知道它是真的 =git.tsinghua.edu.cn=
      - 建立了与 =git.tsinghua.edu.cn= 的可靠通信
 
+*** 分支
+[[https://gitlab.airelinux.org/xmass/waveform/][例子]]
+
+- 关系
 *** Git 仓库间通信的各阶段
     - fork :: Gitlab 类 Git 平台的术语，对应于 =git clone=
       - 在本人帐号创建复本，用于自己修改和提交
@@ -1093,10 +1113,6 @@ VSCode
     - merge :: 与其他仓库或分支通过交换差分来整合
     - merge request :: GitLab 平台术语，发送 merge 请求。请他人整合自己的差分贡献。
 
-*** 分支
-- 分支
-- fork
-- merge request
 ** Python 入门
 *** 为什么用 Python
     #+attr_beamer: :overlay <+->
