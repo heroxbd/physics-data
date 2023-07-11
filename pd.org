@@ -449,7 +449,7 @@ https://link.springer.com/book/10.1007/978-3-031-17646-3
 * 第一周第一天
   :PROPERTIES:
   :EXPORT_FILE_NAME: p0
-  :EXPORT_LaTeX_CLASS_options: [aspectratio=169]
+  :EXPORT_LaTeX_CLASS_options: [aspectratio=169,handout]
   :EXPORT_BEAMER_HEADER+: \title{实验物理的大数据方法}
   :EXPORT_OPTIONS: H:2 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
   :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
@@ -869,32 +869,52 @@ https://link.springer.com/book/10.1007/978-3-031-17646-3
 * 第一周第二天
   :PROPERTIES:
   :EXPORT_FILE_NAME: p1
-  :EXPORT_LaTeX_CLASS_options: [aspectratio=169,handout]
+  :EXPORT_LaTeX_CLASS_options: [aspectratio=169]
   :EXPORT_BEAMER_HEADER: \title{实验物理的大数据方法}
   :EXPORT_OPTIONS: H:2 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
   :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
-  :EXPORT_DATE: 2022-07-12 清华
+  :EXPORT_DATE: 2023-07-11 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
   :EXPORT_BEAMER_HEADER+: \setbeamertemplate{footline}[frame number]  
   :EXPORT_BEAMER_THEME: Hannover
   :EXPORT_BEAMER_FONT_THEME: professionalfonts
   :END:
-** 复习
+** 准备与复习
+*** 预备
+- 查看是否已经安装 Python
+  #+ATTR_LATEX: :environment verbatim
+  #+begin_example
+    python3
+
+    Python 3.11.2 (main, Mar 13 2023, 12:18:29) [GCC 12.2.0] on linux
+    Type "help", "copyright", "credits" or "license" for more information.
+    >>> 
+  #+end_example
+  - 退出输入 =exit()= 或者按 =Ctrl-d= 。
+  - =Ctrl-d= 代表文件（标准输入）的终止。
+- 如果没有 Python（可能性不大），或想升级 Python
+  #+begin_src bash
+    apt install python3 # Debian @ WSL
+    emerge -vt python:3 # Gentoo Prefix @ macOS
+  #+end_src
+
 *** 黑客审美
     - 四个原则：
-      1. _复现_ - 否则是伪科学
-      2. _透明_ - 否则变成黑箱
+      1. _复现_ - 否则成伪科学
+      2. _透明_ - 否则玄学黑箱
       3. _一次_ - 否则到处是坑
       4. _最佳工具_ - 否则效率低下
+
+#+beamer: \pause
 
     - 推论：
       1. 兼容比性能优先
 
-         #+BEGIN_EXAMPLE
+         #+BEGIN_quote
            Premature optimization is the root of all evil.
            -- Tony Hoare, Donald Knuth
-         #+END_EXAMPLE
+         #+END_quote
 
       2. 人类时间比机器时间宝贵
 
@@ -1013,7 +1033,7 @@ https://link.springer.com/book/10.1007/978-3-031-17646-3
       http://www.ruanyifeng.com/blog/2016/01/commit_message_change_log.html
 
 ** 对 FAQ 和讲义作贡献
-*** 有突出贡献的同学可得 5% 左右的总评鼓励
+*** 有突出贡献的同学可得 8% 左右的总评鼓励
      - 课程 FAQ 
        - https://git.tsinghua.edu.cn/physics-data/faq/
        - 提出好问题，整理问题解答，提交 merge request，……
@@ -1054,7 +1074,7 @@ https://link.springer.com/book/10.1007/978-3-031-17646-3
     - merge :: 与其他仓库或分支通过交换差分来整合
     - merge request :: GitLab 平台术语，发送 merge 请求。请他人整合自己的差分贡献。
 
-** Python
+** Python 入门
 *** 为什么用 Python
     #+attr_beamer: :overlay <+->
     - Python 是一门“解释型语言”，相对于“编译型语言”更易调试。
@@ -1092,9 +1112,392 @@ https://link.springer.com/book/10.1007/978-3-031-17646-3
       https://learnxinyminutes.com/docs/python3/
 
       已经掌握若干门语言的同学，可以通过此提纲快速入门
-        
-*** 实例演示
-    [[http://hep.tsinghua.edu.cn/~berrysoft/bdeph2022/lectures/Python-Basics.slides.html][演示文稿传送门]]
+
+*** Python 环境
+安装了 Python 之后，在命令行界面可以直接进入 Python 的交互模式：
+
+#+ATTR_LATEX: :environment verbatim
+#+begin_example
+  $ python3
+  Python 3.11.2 (main, Mar 13 2023, 12:18:29) [GCC 12.2.0] on linux
+  Type "help", "copyright", "credits" or "license" for more information.
+  >>> 
+#+end_example
+
+**** IPython （Jupyter 前身）增强的额外交互功能环境
+
+#+ATTR_LATEX: :environment verbatim
+#+begin_example
+  # apt install ipython3
+  $ ipython3
+  Python 3.11.2 (main, Mar 13 2023, 12:18:29) [GCC 12.2.0]
+  Type 'copyright', 'credits' or 'license' for more information
+  IPython 8.5.0 -- An enhanced Interactive Python. Type '?' for help.
+
+  In [1]: 
+#+end_example
+
+*** 查看 Python 的基本信息
+#+begin_src python :results output :session local :exports both
+  import sys
+  print(sys.version)
+#+end_src
+
+#+RESULTS:
+: 3.11.2 (main, Mar 13 2023, 12:18:29) [GCC 12.2.0]
+
+#+begin_src python :results output :session local :exports both
+  print("\n".join(sys.path))
+#+end_src
+
+#+RESULTS:
+: 
+: /usr/lib/python311.zip
+: /usr/lib/python3.11
+: /usr/lib/python3.11/lib-dynload
+: /usr/local/lib/python3.11/dist-packages
+: /usr/lib/python3/dist-packages
+: /usr/lib/python3.11/dist-packages
+
+*** Python 之禅
+#+begin_src python :results output :session local :exports both
+import this
+#+end_src
+
+#+RESULTS:
+#+begin_example
+The Zen of Python, by Tim Peters
+
+Beautiful is better than ugly.
+Explicit is better than implicit.
+Simple is better than complex.
+Complex is better than complicated.
+Flat is better than nested.
+Sparse is better than dense.
+Readability counts.
+Special cases aren't special enough to break the rules.
+Although practicality beats purity.
+Errors should never pass silently.
+Unless explicitly silenced.
+In the face of ambiguity, refuse the temptation to guess.
+There should be one-- and preferably only one --obvious way to do it.
+Although that way may not be obvious at first unless you're Dutch.
+Now is better than never.
+Although never is often better than *right* now.
+If the implementation is hard to explain, it's a bad idea.
+If the implementation is easy to explain, it may be a good idea.
+Namespaces are one honking great idea -- let's do more of those!
+#+end_example
+
+*** 算术基本运算
++ =+= 加， =-= 减， =*= 乘， =/= 除， =//= 整除， =%= 取余， =**= 乘方
++ 其它运算由函数来定义
+#+begin_src python :results value :session local :exports both
+2+1
+#+end_src
+
+#+RESULTS:
+: 3
+
+#+begin_src python :results value :session local :exports both
+2*7, 2**7, 3/2, 3//2, 3%2
+#+end_src
+
+#+RESULTS:
+| 14 | 128 | 1.5 | 1 | 1 |
+
+#+begin_src python :results value :session local :exports both
+  import math
+  math.factorial(10) # 10!
+#+end_src
+
+#+RESULTS:
+: 3628800
+
+*** 整数是高精度的
+- 计算机上标准整数运算有界；
+- 高精度整数并没有硬件的底层支持，是 Python 的软件实现，以一些性能损失为代价给予用户便利。
+
+#+begin_src python :results value :session local :exports both
+math.factorial(66)
+#+end_src
+
+#+RESULTS:
+: 544344939077443064003729240247842752644293064388798874532860126869671081148416000000000000000
+
+#+begin_src python :results value :session local :exports both
+2**100
+#+end_src
+
+#+RESULTS:
+: 1267650600228229401496703205376
+
+*** 整除的基本约定
+负数整除：向小的方向截断。
+
+#+begin_src python :results value :session local :exports both
+5 // 3, -5 // 3, 5.0 // 3.0, -5.0 // 3.0
+#+end_src
+
+#+RESULTS:
+| 1 | -2 | 1.0 | -2.0 |
+
+#+begin_src python :results value :session local :exports both
+5 % 3, -5 % 3, 5.0 % 3.0, -5.0 % 3.0
+#+end_src
+
+#+RESULTS:
+| 2 | 1 | 2.0 | 1.0 |
+
+#+begin_src python :results value :session local :exports both
+(-5 // 3) * 3 + (-5 % 3) == -5
+#+end_src
+
+#+RESULTS:
+: True
+
+*** 布尔运算：真与假
+Python 的设计目标是“符合直觉”
+
+#+begin_src python :results value :session local :exports both
+not True, not False
+#+end_src
+
+#+RESULTS:
+| False | True |
+
+#+begin_src python :results value :session local :exports both
+True and False, False or True
+#+end_src
+
+#+RESULTS:
+| False | True |
+
+#+begin_src python :results value :session local :exports both
+True + True, True * False # True 实际上是 1, False 实际上是 0
+#+end_src
+
+#+RESULTS:
+| 2 | 0 |
+
+#+begin_src python :results value :session local :exports both
+True * 8, False - 5 # 只为了说明 True 和 False 的内部表示，不要这样写代码
+#+end_src
+
+#+RESULTS:
+| 8 | -5 |
+
+*** 条件判断
+- 等号写两次用于判断，写一次用于赋值。
+#+begin_src python :results value :session local :exports both
+1 == 1, 2 == 1
+#+end_src
+
+#+RESULTS:
+| True | False |
+
+#+begin_src python :results value :session local :exports both
+1 != 1, 2 != 1
+#+end_src
+
+#+RESULTS:
+| False | True |
+
+#+begin_src python :results value :session local :exports both
+1 < 10, 1 > 10, 2 <= 2, 2 >= 2
+#+end_src
+
+#+RESULTS:
+| True | False | True | True |
+
+*** 数据类型
+=int= 指整型，没有上限； =float= 是浮点型，一般为双精度； =str= 是字符串
+
+#+begin_src python :results value :session local :exports both
+type(1)
+#+end_src
+
+#+RESULTS:
+: <class 'int'>
+
+#+begin_src python :results value :session local :exports both
+type(1.5)
+#+end_src
+
+#+RESULTS:
+: <class 'float'>
+
+#+begin_src python :results value :session local :exports both
+type('Hello')
+#+end_src
+
+#+RESULTS:
+: <class 'str'>
+
+#+begin_src python :results output :session local :exports both
+print(type("a"), type("你好")) # 单个字符和汉字都是字符串
+#+end_src
+
+#+RESULTS:
+: <class 'str'> <class 'str'>
+*** 字符串
+与高精度整数一样，字符串也没有硬件的对应，是 Python 的软件实现。这极大方便了使用 Python 进行文本处理。
+
+#+begin_src python :results value :session local :exports both
+"今天" + "要下雨"
+#+end_src
+
+#+RESULTS:
+: 今天要下雨
+
+#+begin_src python :results value :session local :exports both
+"1" + "2"
+#+end_src
+
+#+RESULTS:
+: 12
+
+*** 标准输入输出
+- 标准输出默认与屏幕连接， =print()= 默认向标准输出写
+- 标准输入默认与键盘连接， =input()= 默认从标准输入读
+
+#+ATTR_LATEX: :environment verbatim
+#+begin_example
+q = input() # 下面由现场输入
+print(q)
+
+frog
+#+end_example
+
+**** Python 的注释
+- 注释使用 '#' 号引出，多行注释则多用几次 '#' 号
+#+ATTR_LATEX: :environment verbatim
+#+begin_example
+# 在这个程序中，我们将使用计算球谐函数对任意
+# 球面上的连续函数进行拟合
+#+end_example
+
+*** 正式入门 Python：输出 Hello World!
+#+begin_src python :results output :session local :exports both
+print("Hello World!")
+#+end_src
+
+#+RESULTS:
+: Hello World!
+
+*** 学习建议：认真阅读英语提示
+- 人生第一次遇到英语不是“屠龙之技”的场景，值得庆贺！
+- 下一个场景：阅读英语科技文献
+- 再下一个场景：与国际同行讨论争吵
+
+#+ATTR_LATEX: :environment verbatim
+#+begin_example
+"1" + 1
+
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: can only concatenate str (not "int") to str
+#+end_example
+
+#+ATTR_LATEX: :environment verbatim
+#+begin_src
+IMPORT　ＳＹＳ
+
+  File "<stdin>", line 1
+    IMPORT　ＳＹＳ
+          ^
+SyntaxError: invalid non-printable character U+3000
+#+end_src
+
+** Python 变量
+*** 变量创建与使用
+- Python 是“弱类型语言”，创建变量可不指定类型。
+#+begin_src python :results output :session local :exports both
+message = "This is an new era. 新时代"
+print(message)
+#+end_src
+
+#+RESULTS:
+: This is an new era. 新时代
+
+- 变量在使用中可以改换类型
+  #+begin_src python :results value :session local :exports both
+    message = 1
+    type(message)
+  #+end_src
+
+  #+RESULTS:
+  : <class 'int'>
+
+*** 字符串函数
+字符串的操作相对于硬件调用，是一项高级功能。Python 有强大的字符串处理工具。
+
+#+begin_src python :results value :session local :exports both
+len('123456'), len('654321') # 字符串长度
+#+end_src
+
+#+RESULTS:
+| 6 | 6 |
+
+#+begin_src python :results value :session local :exports both
+s = "我正在上课。"
+s[0], s[2:4], s[-1] # 字符串可以取子串
+#+end_src
+
+#+RESULTS:
+| 我 | 在上 | 。 |
+
+#+begin_src python :results value :session local :exports both
+"啊" * 10 + "哈" * 20
+#+end_src
+
+#+RESULTS:
+: 啊啊啊啊啊啊啊啊啊啊哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈哈
+
+*** 字符串与变量的联合操作
+#+begin_src python :results value :session local :exports both
+"{} 乘以 {} 等于 {}".format(3, 5, 3*5) # 把其它类型的值嵌入字符串
+#+end_src
+
+#+RESULTS:
+: 3 乘以 5 等于 15
+
+**** f-string 用来把变量值嵌入字符串
+#+begin_src python :results value :session local :exports both
+b=50
+f"b 的取值是 {b}"
+#+end_src
+
+#+RESULTS:
+: b 的取值是 50
+
+*** None 值
+- =None= 是一个特殊的值，代表空集、无、无法表达或者非法的结果
+
+#+begin_src python :results value :session local :exports both
+None
+#+end_src
+
+#+RESULTS:
+: None
+
+#+begin_src python :results value :session local :exports both
+x = None # None 可以被赋值
+1 is None, x is None # 可以被判断
+#+end_src
+
+#+RESULTS:
+| False | True |
+
+- 使用场景：判断某个结果是否是 =None= 有助于我们了解操作是否成功
+
+#+begin_src python :results value :session local :exports both
+bool(None) # None 也可以当作“假”被判断
+#+end_src
+
+#+RESULTS:
+: False
+
 ** Python 的程序结构
 *** 程序结构
     [[http://hep.tsinghua.edu.cn/~berrysoft/bdeph2022/lectures/Python-Constructs.slides.html][演示文稿传送门]]
@@ -1104,16 +1507,9 @@ https://link.springer.com/book/10.1007/978-3-031-17646-3
     :PROPERTIES:
     :ORDERED:  t
     :END:
-    - 6名同学自荐成为小助教（谢谢大家！），经过教学团队审核通过，将学
+    - 7 名同学自荐成为小助教（谢谢大家！），经过教学团队审核通过，将学
       生分组公布于网络学堂“课程文件”栏。
      
-    #+attr_beamer: :overlay <+->
-    - 苟诗涵 :: 致理-物02
-    - 晏越 :: 致理-物01
-    - 陈泽洲 :: 致理-物01
-    - 吴限来 :: 物理01
-    - 赵一飞 :: 物理01
-    - 吴震鹏 :: 基科01
 *** 小助教的职责范围
     - 将本组同学的共性问题及时反馈给助教和老师，帮助老师根据实际情况调
       整教学方案。
