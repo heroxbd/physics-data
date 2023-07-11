@@ -729,7 +729,7 @@ https://link.springer.com/book/10.1007/978-3-031-17646-3
 
 **** 可使用 GNU 环境的操作系统
     - GNU/Linux :: 天然大佬。请帮助周围的同学，并自荐小助教。
-    - Apple macOS :: 使用 =Gentoo= 、　=homebrew= 、 =nix= 、 =macports= 配置
+    - Apple macOS :: 使用 =Gentoo= 、 =homebrew= 、 =nix= 、 =macports= 配置
     - Microsoft Windows :: 本身不满足，但可以使用以下扩展
       1. Windows Subsystem for Linux (WSL)
       2. Cygwin, MinGW
