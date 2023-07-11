@@ -841,31 +841,6 @@ https://link.springer.com/book/10.1007/978-3-031-17646-3
     - 已暂存（staged） :: 已修改的文件被作了标记，将被包含在下一轮提交中
 
        [[./fig/git-modes.png]]
-*** Git 仓库间通信
-    #+Attr_LaTeX: :height 0.7\textheight
-    [[./fig/git-distributed.png]]
-
-    - 建议：通过 SSH (secure shell) 通信。
-
-*** SSH 通信
-   - 通信的认证问题：如何证明我是“我”？
-     #+latex: \pause
-     - 手机验证码
-     - 一次性密码（one-time password，OTP）
-     - 用户名密码
-     - 非对称加密（银行 U 盾）
-   - 生成 SSH 非对称密钥对
-     - 一个公钥：公布， =id_rsa.pub=
-     - 一个私钥：私密， =id_rsa=
-     - 在网页界面把 =id_rsa.pub= 交给 =git.tsinghua.edu.cn=
-     - =git.tsinghua.edu.cn= 用我的公钥加密挑战码，只有我的私钥才能解密
-       - =git.tsinghua.edu.cn= 知道了我是“我”
-       - 我也需要知道它是真的 =git.tsinghua.edu.cn=
-     - 建立了与 =git.tsinghua.edu.cn= 的可靠通信
-*** 分支
-- 分支
-- fork
-- merge request
 * 第一周第二天
   :PROPERTIES:
   :EXPORT_FILE_NAME: p1
@@ -900,6 +875,7 @@ https://link.springer.com/book/10.1007/978-3-031-17646-3
   #+end_src
 
 *** 黑客审美
+    - 当代文明的两大支柱是 _实验_ 和 _逻辑_ 。
     - 四个原则：
       1. _复现_ - 否则成伪科学
       2. _透明_ - 否则玄学黑箱
@@ -935,7 +911,7 @@ https://link.springer.com/book/10.1007/978-3-031-17646-3
      - Vi
      - Visual Studio Code
       
-** Git 续篇
+** Git
 *** 作业：Git 练习
     - [X] DONE 你会在 [[https://git.tsinghua.edu.cn][清华 GitLab]] 收到一个新仓库，是今天的作业
     - [X] DONE 设置本地到 [[https://git.tsinghua.edu.cn][清华 GitLab]] 的访问权限
@@ -996,16 +972,38 @@ https://link.springer.com/book/10.1007/978-3-031-17646-3
         - 临时调整：使用 =EDITOR=xxxxx= 前缀
         - 永久调整：管理员权限执行 =update-alternatives --config editor=
     - 目标：让他人和未来的自己一目了然，只通过读此信息就知道自己做了什么
-    - 反例：
+
+**** commit 样例
+- 不错的例子：“完善了个人信息页面，并填写了课程感言”
+- [[https://gitweb.gentoo.org/repo/gentoo.git/commit/?id=78ede4d591c8c16e65e14414389ab9b6a58f21eb][短的]] ，把事情讲清楚，把涉及到的人讲清楚。
+- [[https://gitweb.gentoo.org/repo/gentoo.git/commit/?id=71a6a81929f88171feb6e829ff0b87b2ed396d91][较长的]] ，把所有的改动概括清楚。
+- [[https://gitweb.gentoo.org/repo/gentoo.git/commit/?id=ed66572a4917c140825ef8cb0a4150bd69296d0c][更长的]] ，在 commit 里说明为什么要这样做，引用相关的讨论。
+
+*** 反例
       1. 数数：1,2,3
       2. 复读：Update,Update,Update
       3. 欺负键盘：aaaaa,wwwww,asdf
+
     - 不太好的例子：“完成作业”
-    - 不错的例子：“完善了个人信息页面，并填写了课程感言”
-**** Gitlab 网页上传和修改工具
+
+**** 来自学长的忠告：作业得分不重要，重要的是优雅地得分        :B_alertblock:
+:PROPERTIES:
+:BEAMER_env: alertblock
+:END:
+我看到的无意义commit message有：“这是一个描述”，“xX”，“1234567899”等等。由于git的特性，后续的提交没有办法覆盖这些无意义的commit，所以这个操作在
+很大程度上是不可逆的。也就是说，批阅作业的助教可以看到这些无意义的提交信息，然后或许会给你的白盒扣上2分。虽然我相信批改作业的助教不会这么残忍，但
+请一定要有“提交信息要有意义”的意识。
+
+请查看白盒标准：https://physics-data.meow.plus/faq/rules/whitebox/
+
+如果想要自己玩一下Git的相关操作（强烈推荐这么做，尤其是要学会add和commit如何取消。我个人对于一个操作是否可逆是有追求的），可以自己在GitLab上面创
+建一个项目练习。
+
+*** Git 与编辑器的整合
+**** 禁止使用 Gitlab 网页上传和修改工具
      - 远远次于命令行的功能，无推广价值
      - 禁止使用，防止养成不良习惯
-
+VSCode 
 *** 精心撰写提交说明
     - 说明既要给人类读，也要易于自动处理
     - 第一行：高度概括改动
@@ -1043,9 +1041,9 @@ https://link.springer.com/book/10.1007/978-3-031-17646-3
        - 补充课堂讲授但讲义遗漏的内容
        - ……
      - 贡献方式
-       - Git
-       - GitLab issue
-       - GitLab Merge Request
+       - [X] Git
+       - [X] GitLab issue
+       - [ ] GitLab Merge Request
 *** GitLab issue
     - https://git.tsinghua.edu.cn/physics-data/faq/-/issues/
     - https://git.tsinghua.edu.cn/physics-data/lecture/-/issues
@@ -1057,6 +1055,27 @@ https://link.springer.com/book/10.1007/978-3-031-17646-3
         2. （可选）分析问题，提出可能的解决方法
     - 回复 issue ，参与讨论
     - 关注 issue ，打开 “Notifications”
+
+*** Git 仓库间通信
+    #+Attr_LaTeX: :height 0.7\textheight
+    [[./fig/git-distributed.png]]
+
+    - 建议：通过 SSH (secure shell) 通信。
+*** SSH 通信
+   - 通信的认证问题：如何证明我是“我”？
+     #+latex: \pause
+     - 手机验证码
+     - 一次性密码（one-time password，OTP）
+     - 用户名密码
+     - 非对称加密（银行 U 盾）
+   - 生成 SSH 非对称密钥对
+     - 一个公钥：公布， =id_rsa.pub=
+     - 一个私钥：私密， =id_rsa=
+     - 在网页界面把 =id_rsa.pub= 交给 =git.tsinghua.edu.cn=
+     - =git.tsinghua.edu.cn= 用我的公钥加密挑战码，只有我的私钥才能解密
+       - =git.tsinghua.edu.cn= 知道了我是“我”
+       - 我也需要知道它是真的 =git.tsinghua.edu.cn=
+     - 建立了与 =git.tsinghua.edu.cn= 的可靠通信
 
 *** Git 仓库间通信的各阶段
     - fork :: Gitlab 类 Git 平台的术语，对应于 =git clone=
@@ -1074,6 +1093,10 @@ https://link.springer.com/book/10.1007/978-3-031-17646-3
     - merge :: 与其他仓库或分支通过交换差分来整合
     - merge request :: GitLab 平台术语，发送 merge 请求。请他人整合自己的差分贡献。
 
+*** 分支
+- 分支
+- fork
+- merge request
 ** Python 入门
 *** 为什么用 Python
     #+attr_beamer: :overlay <+->
