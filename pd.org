@@ -1752,7 +1752,7 @@ print(sc["致理"], sc['未央'])
         OS = "macOS"
         package_manager = {
             "GNU/Linux": "请用 apt",
-            "macOS": "请用 brew",
+            "macOS": "请用 Gentoo，而后用 emerge",
             "Windows": "请安装WSL，而后用 apt"
         }
 
@@ -1764,7 +1764,7 @@ print(sc["致理"], sc['未央'])
       #+end_src
 
       #+RESULTS: 19b1fa10-2461-41df-a86a-2a3dd3c62986
-      : 大佬，请用 brew
+      : 大佬，请用 Gentoo，而后用 emerge
 *** 迭代器基本操作
     - 从字典中取出词和值。 =list()= 把迭代器转成列表。
     #+NAME: d8684788-ccef-46ee-bac9-859658744152
