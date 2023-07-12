@@ -2326,11 +2326,11 @@ https://physics-data.meow.plus/faq/plagiarism/
 * 第一周第四天
   :PROPERTIES:
   :EXPORT_FILE_NAME: p3
-  :EXPORT_LaTeX_CLASS_options: [aspectratio=169,handout]
+  :EXPORT_LaTeX_CLASS_options: [aspectratio=169]
   :EXPORT_BEAMER_HEADER: \title{对象与模块}
   :EXPORT_OPTIONS: H:2 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
   :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
-  :EXPORT_DATE: 2022-07-14 清华
+  :EXPORT_DATE: 2023-07-13 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
   :EXPORT_BEAMER_HEADER+: \setbeamertemplate{footline}[frame number]  
