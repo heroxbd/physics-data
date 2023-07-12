@@ -1424,28 +1424,18 @@ print("Hello World!")
 #+RESULTS:
 : Hello World!
 
-*** 学习建议：认真阅读英语提示
-- 人生第一次遇到英语不是“屠龙之技”的场景，值得庆贺！
-- 下一个场景：阅读英语科技文献
-- 再下一个场景：与国际同行讨论争吵
+**** 创建脚本文件
+使用编辑器创建 =hello.py= ，写入以下内容，第一行是标注脚本由什么来解释。
+#+begin_src python
+  #!/usr/bin/env python3
 
-#+ATTR_LATEX: :environment verbatim
-#+begin_example
-"1" + 1
+  print("Hello World!")
+#+end_src
 
-Traceback (most recent call last):
-  File "<stdin>", line 1, in <module>
-TypeError: can only concatenate str (not "int") to str
-#+end_example
-
-#+ATTR_LATEX: :environment verbatim
-#+begin_src
-IMPORT　ＳＹＳ
-
-  File "<stdin>", line 1
-    IMPORT　ＳＹＳ
-          ^
-SyntaxError: invalid non-printable character U+3000
+给予脚本可执行权限并执行
+#+begin_src bash
+  chmod +x hello.py
+  ./hello.py
 #+end_src
 
 ** Python 变量
@@ -1539,8 +1529,49 @@ bool(None) # None 也可以当作“假”被判断
 
 ** Python 的程序结构
 *** 程序结构
-    [[http://hep.tsinghua.edu.cn/~berrysoft/bdeph2022/lectures/Python-Constructs.slides.html][演示文稿传送门]]
+- 顺序结构
+- 选择结构
+- 循环结构
     
+* 第一周第三天
+  :PROPERTIES:
+  :EXPORT_FILE_NAME: p2
+  :EXPORT_LaTeX_CLASS_options: [aspectratio=169,handout]
+  :EXPORT_BEAMER_HEADER: \title{实验物理的大数据方法}
+  :EXPORT_OPTIONS: H:2 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
+  :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+  :EXPORT_DATE: 2023-07-12 清华
+  :EXPORT_BEAMER_HEADER+: \author{续本达}
+  :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
+  :EXPORT_BEAMER_HEADER+: \setbeamertemplate{footline}[frame number]  
+  :EXPORT_BEAMER_THEME: Hannover
+  :EXPORT_BEAMER_FONT_THEME: professionalfonts
+  :END:
+** 复习
+*** 学习建议：认真阅读英语提示
+- 人生第一次遇到英语不是“屠龙之技”的场景，值得庆贺！
+- 下一个场景：阅读英语科技文献
+- 再下一个场景：与国际同行讨论争吵
+
+#+ATTR_LATEX: :environment verbatim
+#+begin_example
+"1" + 1
+
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+TypeError: can only concatenate str (not "int") to str
+#+end_example
+
+#+ATTR_LATEX: :environment verbatim
+#+begin_src
+IMPORT　ＳＹＳ
+
+  File "<stdin>", line 1
+    IMPORT　ＳＹＳ
+          ^
+SyntaxError: invalid non-printable character U+3000
+#+end_src
+
 ** 小助教与互助限度
 *** 小助教分组
     :PROPERTIES:
@@ -1603,24 +1634,6 @@ bool(None) # None 也可以当作“假”被判断
     
     https://physics-data.meow.plus/faq/plagiarism/
     
-** 娱乐作业
-*** 黑白棋大战
-    - 战斗集结入口：网络学堂作业
-
-* 第一周第三天
-  :PROPERTIES:
-  :EXPORT_FILE_NAME: p2
-  :EXPORT_LaTeX_CLASS_options: [aspectratio=169,handout]
-  :EXPORT_BEAMER_HEADER: \title{实验物理的大数据方法}
-  :EXPORT_OPTIONS: H:2 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
-  :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
-  :EXPORT_DATE: 2022-07-13 清华
-  :EXPORT_BEAMER_HEADER+: \author{续本达}
-  :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
-  :EXPORT_BEAMER_HEADER+: \setbeamertemplate{footline}[frame number]  
-  :EXPORT_BEAMER_THEME: Hannover
-  :EXPORT_BEAMER_FONT_THEME: professionalfonts
-  :END:
 ** 复合数据类型
 *** 简介
      - Python 的基本类型，比如整型、浮点型、布尔型、字符串。
