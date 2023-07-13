@@ -440,14 +440,13 @@
    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb
      print(None)
      x = None
-     2 is None, x is None
+     2 == None, x == None
    #+end_src
 
    #+RESULTS: 139a8a26-8e2a-46f0-b53f-a03e5a46a332
    : None
    : (False, True)
 
-   判断一个值是 None 时，习惯用“is”替代等号，比较符合英语语感。“2 is None”直接读作“two is None”即可。
    转换为布尔类型时，None 的赋值为“假”。
    #+NAME: 6c163239-da0a-4755-9fe5-78bb0f6a75bc
    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb
