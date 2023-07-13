@@ -30,4 +30,4 @@ n = 5
 
 eps = np.zeros((n,) * n)
 for p in it.permutations(range(n)):
-    eps[*p] = parity(p)
+    eps[p] = parity(p)
