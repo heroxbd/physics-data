@@ -2328,7 +2328,7 @@ https://physics-data.meow.plus/faq/plagiarism/
   :PROPERTIES:
   :EXPORT_FILE_NAME: p3
   :EXPORT_LaTeX_CLASS_options: [aspectratio=169]
-  :EXPORT_BEAMER_HEADER: \title{对象与模块}
+  :EXPORT_BEAMER_HEADER: \title{迭代器与数组}
   :EXPORT_OPTIONS: H:2 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
   :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
   :EXPORT_DATE: 2023-07-13 清华
@@ -2339,6 +2339,28 @@ https://physics-data.meow.plus/faq/plagiarism/
   :EXPORT_BEAMER_FONT_THEME: professionalfonts
   :END:
 ** 复习
+*** 课前准备
+- 安装 NumPy
+#+begin_src bash
+apt update
+apt install python3-numpy
+#+end_src
+
+
+#+begin_src bash
+~/Gentoo/startprefix # 进入 Gentoo Prefix
+emerge --sync
+emerge -vt dev-python/numpy
+#+end_src
+
+- 验证是否安装成功
+#+begin_src bash
+python3 -c "from numpy import version; print(version.version)"
+#+end_src
+
+#+RESULTS:
+: 1.24.2
+
 *** 复合数据结构
     - 列表、元组、字典
     - =defaultdict= 、 =Counter= 、 =namedtuple=
@@ -2346,99 +2368,6 @@ https://physics-data.meow.plus/faq/plagiarism/
 **** 函数
      - 定义，名字空间
      - 局部变量，全局变量（不推荐！用类的变量替代）
-** 文件读写
-*** 大批量输入输出
-    - =input()= =print()= 适合少量的信息传递
-    - 大批量的读写宜直接操作文件
-*** 准备样例文件
-    #+NAME: abd137f2-b1aa-4cce-bc60-f497b9dad931
-    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-      apt install wget
-      wget 'http://hep.tsinghua.edu.cn/~orv/pd/iterator.txt'
-    #+end_src
-
-    #+RESULTS: abd137f2-b1aa-4cce-bc60-f497b9dad931
-    #+begin_example
-    --2022-07-14 11:34:39--  http://hep.tsinghua.edu.cn/~orv/pd/iterator.txt
-    Resolving hep.tsinghua.edu.cn... 101.6.6.219, 2402:f000:1:416:101:6:6:219
-    Connecting to hep.tsinghua.edu.cn|101.6.6.219|:80... connected.
-    HTTP request sent, awaiting response... 200 OK
-    Length: 268 [text/plain]
-    Saving to: ‘iterator.txt’
-
-    
-iterator.txt          0%[                    ]       0  --.-KB/s               
-iterator.txt        100%[===================>]     268  --.-KB/s    in 0s      
-
-    2022-07-14 11:34:39 (39.2 MB/s) - ‘iterator.txt’ saved [268/268]
-
-    #+end_example
-*** 文本文件读
-    - 文件是迭代器，逐行。每行是字符串。
-    #+NAME: 236d063d-85b1-4e3c-b8f4-c30455581035
-    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
-      with open("iterator.txt") as f_input:
-          for l in f_input:
-              print(l, end="")
-    #+end_src
-
-    #+RESULTS: 236d063d-85b1-4e3c-b8f4-c30455581035
-    : Iterator Types
-    : 
-    : Python supports a concept of iteration over containers. This is
-    : implemented using two distinct methods; these are used to allow
-    : user-defined classes to support iteration. Sequences, described below
-    : in more detail, always support the iteration methods.
-    - =with= 用来帮助在文件用完后及时关闭，防止占用和争夺资源。
-
-*** 文本文件写
-    #+NAME: 5b4d4307-732a-45bb-953b-b32ed48ce797
-    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
-      with open("log.txt", "w") as f:
-          f.write("第一天 概论\n")
-          f.write("第二天 Python 入门\n")
-    #+end_src
-
-    #+NAME: 1ed3df42-b045-47b8-a1c1-51f1ade8acad
-    #+RESULTS: 5b4d4307-732a-45bb-953b-b32ed48ce797
-    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-      cat log.txt
-    #+end_src
-
-    #+RESULTS: 1ed3df42-b045-47b8-a1c1-51f1ade8acad
-    : 第一天 概论
-    : 第二天 Python 入门
-
-*** 字符处理
-    - Python 内建了丰富的字符处理函数
-    #+NAME: 974e3fbb-e800-4012-8dbe-6e576b97ab8e
-    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
-      s = "今天的气温是 30 摄氏度，明天是 29 摄氏度"
-      print(s.count("度"))
-      print(s.startswith("今天"))
-      print(s.split("，"))
-    #+end_src
-
-    #+RESULTS: 974e3fbb-e800-4012-8dbe-6e576b97ab8e
-    : 2
-    : True
-    : ['今天的气温是 30 摄氏度', '明天是 29 摄氏度']
-*** 字符处理（二）
-    - 娱乐[[https://ljl.li/oreooo/][奥利奥生成器]]
-    #+NAME: 6dc92ea5-378a-4995-9192-20258ae1552b
-    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
-      seed = bin(2324)
-      print(seed)
-      print(seed[2:].replace('0',"奥").replace('1',"利"))
-    #+end_src
-
-    #+RESULTS: 6dc92ea5-378a-4995-9192-20258ae1552b
-    : 0b100100010100
-    : 利奥奥利奥奥奥利奥利奥奥
-
-**** 参考资料
-     - =help(str)=
-     - https://docs.python.org/3.9/library/stdtypes.html#textseq
 ** 类与对象
 *** 为什么
     - Python 的内部实现
@@ -2475,113 +2404,6 @@ iterator.txt        100%[===================>]     268  --.-KB/s    in 0s
     : 3
     - 将 =s= 传递给函数，避免使用全局变量
 
-** 模块
-*** 简介
-    - 函数用来代码复用（ _一次_ 原则）
-    - 模块：相关的函数和类集合起来，整理到名字空间 namespace 中
-      - 模块可以用 Python 实现，也可以由 C 等编译语言实现
-**** 模块导入用 =import=
-     #+NAME: 24c0e631-80a6-4946-a50a-3b91e6a65b71
-     #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
-       import math
-       help(math.factorial)
-     #+end_src
-
-     #+RESULTS: 24c0e631-80a6-4946-a50a-3b91e6a65b71
-     : Help on built-in function factorial in module math:
-     : 
-     : factorial(x, /)
-     :     Find x!.
-     :     
-     :     Raise a ValueError if x is negative or non-integral.
-     : 
-*** 模块别名
-    - 加载模块时，可自定义名称。对长模块名有用
-    #+NAME: b711a2a6-fb87-41a0-8c26-565fd786171f
-    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
-      import math as m
-      m.factorial(10)
-    #+end_src
-
-    #+RESULTS: b711a2a6-fb87-41a0-8c26-565fd786171f
-    : 3628800
-*** 多层名字加载
-    1. 直接使用多层名字空间
-    2. 使用 =from=
-       #+NAME: 09a4b42a-a665-48b4-afe4-eb2b0f019845
-       #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
-         import os
-         help(os.path.abspath)
-       #+end_src
-
-       #+RESULTS: 09a4b42a-a665-48b4-afe4-eb2b0f019845
-       : Help on function abspath in module posixpath:
-       : 
-       : abspath(path)
-       :     Return an absolute path.
-       : 
-       #+NAME: 723d7d16-317d-477d-8707-29d769f8b330
-       #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
-         from os.path import abspath
-         from os.path import abspath as absp
-         abspath is os.path.abspath, abspath is absp
-       #+end_src
-
-       #+RESULTS: 723d7d16-317d-477d-8707-29d769f8b330
-       : (True, True)
-*** 自定义模块
-    - Python 可以方便地定义模块以进行代码复用
-    - 每个 Python 脚本都可以当作模块使用
-      #+NAME: 794821bd-91d4-4a09-b4af-28b391f497dc
-      #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
-        cat physics_data/script.py
-      #+end_src
-
-      #+RESULTS: 794821bd-91d4-4a09-b4af-28b391f497dc
-      #+begin_example
-      def spherical_harmonic_fitter(grid, order):
-          '''
-          求球谐函数拟合的系数
-          
-          输入
-          ~~~
-          grid: 球面上连续函数在固定格点上的取值
-          order: 拟合时球谐函数近似截断的阶数
-          
-          输出
-          ~~~
-          拟合系数矩阵
-          '''
-          
-          # 具体实现省略
-          pass
-      
-      #+end_example
-
-*** 自定义模块（二）
-    #+NAME: c6aadbd3-009e-4b67-9e72-a70ee9d8879e
-    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
-      from physics_data import script
-      help(script.spherical_harmonic_fitter)
-    #+end_src
-
-    #+RESULTS: c6aadbd3-009e-4b67-9e72-a70ee9d8879e
-    #+begin_example
-    Help on function spherical_harmonic_fitter in module physics_data.script:
-
-    spherical_harmonic_fitter(grid, order)
-        求球谐函数拟合的系数
-
-        输入
-        ~~~
-        grid: 球面上连续函数在固定格点上的取值
-        order: 拟合时球谐函数近似截断的阶数
-
-        输出
-        ~~~
-        拟合系数矩阵
-
-    #+end_example
 ** Python 标准库模块
 *** fractions 有理数才是良定义的
     https://docs.python.org/3/library/fractions.html
@@ -2705,48 +2527,268 @@ iterator.txt        100%[===================>]     268  --.-KB/s    in 0s
     #+RESULTS: 522450fe-3f29-46d5-a5c6-083a3a7c265d
     : [0, 13, 26, 39, 52, 65, 78, 91]
     
-*** argparse 命令行传递参数
-    https://docs.python.org/3/library/argparse.html
-    - 构造高级的命令选项
-      - 数据类型
-      - 格式限制
-*** turtle 海龟作图程序框架
-    - 思想：控制海龟在画布上爬行，留下路径痕迹作图
-    - 准备：安装 TK 图形模块 =apt install python3-tk=
-    #+NAME: 343f4c09-709c-4081-a987-0ee4cee2f390
-    #+begin_src python :results output :exports both
-      from turtle import *
-      color('red', 'yellow')
-      begin_fill()
-      while True:
-          forward(200)
-          left(170)
-          if abs(pos()) < 1:
-              break
-      end_fill()
-      done()
+** 文件读写
+*** 大批量输入输出
+    - =input()= =print()= 适合少量的信息传递
+    - 大批量的读写宜直接操作文件
+*** 文本文件读
+    - 文件是迭代器，逐行。每行是字符串。
+    #+NAME: 236d063d-85b1-4e3c-b8f4-c30455581035
+    #+begin_src python :results output :session local :exports both
+      import itertools as it
+      with open("departments.csv") as f_input:
+          for l in it.islice(f_input, 5):
+              print(l, end="")
     #+end_src
 
-    #+RESULTS: 343f4c09-709c-4081-a987-0ee4cee2f390
+    #+RESULTS: 236d063d-85b1-4e3c-b8f4-c30455581035
+    : 数学系
+    : 工物系
+    : 致理书院
+    : 致理书院
+    : 探微书院
+    - =with= 用来帮助在文件用完后及时关闭，防止占用和争夺资源。
 
-    - 用途：娱乐、小学生学习编程
-    - 用途：粒子轨迹（？！）、路径积分（！！）
+    #+begin_src python :results output :session local :exports both
+      from collections import Counter
+      with open("departments.csv") as f_input:
+          print(Counter(f_input))
+    #+end_src
 
-*** turtle 留下路径痕迹作图
-    - 微观世界也是如此 \(c\bar{c} J/\psi \)
-      [[./fig/jpsi.png]]
-*** turtle 留下路径痕迹作图
-    - \(K\) 介子的发现，带电粒子有轨迹，中性粒子没有
-    #+attr_latex: :height 0.5\textheight
-    [[./fig/Kaon-discovery.pdf]]
+    #+RESULTS:
+    : Counter({'致理书院\n': 30, '工物系\n': 20, '未央书院\n': 20, '物理系\n': 7, '上海交大\n': 4, '数学系\n': 1, '探微书院\n': 1})
 
-    云室照片； \(a,b\) 两根线来自 \(K\) 介子衰变。 (Rochester and Butler)
+*** 文本文件写
+    #+NAME: 5b4d4307-732a-45bb-953b-b32ed48ce797
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      with open("log.txt", "w") as f:
+          f.write("第一天 概论\n")
+          f.write("第二天 Python 入门\n")
+    #+end_src
 
+    #+NAME: 1ed3df42-b045-47b8-a1c1-51f1ade8acad
+    #+RESULTS: 5b4d4307-732a-45bb-953b-b32ed48ce797
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      cat log.txt
+    #+end_src
+
+    #+RESULTS: 1ed3df42-b045-47b8-a1c1-51f1ade8acad
+    : 第一天 概论
+    : 第二天 Python 入门
+
+*** 字符处理
+    - Python 内建了丰富的字符处理函数
+    #+NAME: 974e3fbb-e800-4012-8dbe-6e576b97ab8e
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      s = "今天的气温是 30 摄氏度，明天是 29 摄氏度"
+      print(s.count("度"))
+      print(s.startswith("今天"))
+      print(s.split("，"))
+    #+end_src
+
+    #+RESULTS: 974e3fbb-e800-4012-8dbe-6e576b97ab8e
+    : 2
+    : True
+    : ['今天的气温是 30 摄氏度', '明天是 29 摄氏度']
+*** 字符处理（二）
+    - 娱乐[[https://ljl.li/oreooo/][奥利奥生成器]]
+    #+NAME: 6dc92ea5-378a-4995-9192-20258ae1552b
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      seed = bin(2324)
+      print(seed)
+      print(seed[2:].replace('0',"奥").replace('1',"利"))
+    #+end_src
+
+    #+RESULTS: 6dc92ea5-378a-4995-9192-20258ae1552b
+    : 0b100100010100
+    : 利奥奥利奥奥奥利奥利奥奥
+
+**** 参考资料
+     - =help(str)=
+     - https://docs.python.org/3.9/library/stdtypes.html#textseq
+** 模块
+*** 简介
+    - 函数用来代码复用（ _一次_ 原则）
+    - 模块：相关的函数和类集合起来，整理到名字空间 namespace 中
+      - 模块可以用 Python 实现，也可以由 C 等编译语言实现
+**** 模块导入用 =import=
+     #+NAME: 24c0e631-80a6-4946-a50a-3b91e6a65b71
+     #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+       import math
+       help(math.factorial)
+     #+end_src
+
+     #+RESULTS: 24c0e631-80a6-4946-a50a-3b91e6a65b71
+     : Help on built-in function factorial in module math:
+     : 
+     : factorial(x, /)
+     :     Find x!.
+     :     
+     :     Raise a ValueError if x is negative or non-integral.
+     : 
+*** 模块别名
+    - 加载模块时，可自定义名称。对长模块名有用
+    #+NAME: b711a2a6-fb87-41a0-8c26-565fd786171f
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      import math as m
+      m.factorial(10)
+    #+end_src
+
+    #+RESULTS: b711a2a6-fb87-41a0-8c26-565fd786171f
+    : 3628800
+*** 多层名字加载
+    1. 直接使用多层名字空间
+    2. 使用 =from=
+       #+NAME: 09a4b42a-a665-48b4-afe4-eb2b0f019845
+       #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+         import os
+         help(os.path.abspath)
+       #+end_src
+
+       #+RESULTS: 09a4b42a-a665-48b4-afe4-eb2b0f019845
+       : Help on function abspath in module posixpath:
+       : 
+       : abspath(path)
+       :     Return an absolute path.
+       : 
+       #+NAME: 723d7d16-317d-477d-8707-29d769f8b330
+       #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+         from os.path import abspath
+         from os.path import abspath as absp
+         abspath is os.path.abspath, abspath is absp
+       #+end_src
+
+       #+RESULTS: 723d7d16-317d-477d-8707-29d769f8b330
+       : (True, True)
+*** 自定义模块
+    - Python 可以方便地定义模块以进行代码复用
+    - 每个 Python 脚本都可以当作模块使用
+      #+NAME: 794821bd-91d4-4a09-b4af-28b391f497dc
+      #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+        cat physics_data/script.py
+      #+end_src
+
+      #+RESULTS: 794821bd-91d4-4a09-b4af-28b391f497dc
+      #+begin_example
+      def spherical_harmonic_fitter(grid, order):
+          '''
+          求球谐函数拟合的系数
+          
+          输入
+          ~~~
+          grid: 球面上连续函数在固定格点上的取值
+          order: 拟合时球谐函数近似截断的阶数
+          
+          输出
+          ~~~
+          拟合系数矩阵
+          '''
+          
+          # 具体实现省略
+          pass
+      
+      #+end_example
+
+*** 自定义模块（二）
+    #+NAME: c6aadbd3-009e-4b67-9e72-a70ee9d8879e
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      from physics_data import script
+      help(script.spherical_harmonic_fitter)
+    #+end_src
+
+    #+RESULTS: c6aadbd3-009e-4b67-9e72-a70ee9d8879e
+    #+begin_example
+    Help on function spherical_harmonic_fitter in module physics_data.script:
+
+    spherical_harmonic_fitter(grid, order)
+        求球谐函数拟合的系数
+
+        输入
+        ~~~
+        grid: 球面上连续函数在固定格点上的取值
+        order: 拟合时球谐函数近似截断的阶数
+
+        输出
+        ~~~
+        拟合系数矩阵
+
+    #+end_example
 ** 寻找工具
 *** 更多 Python 扩展库
-   - 优先 =apt install python3-xxxxxx=
-   - 混合 apt 与 pip 要极其小心，尽量不引入 pip
+   - 优先使用 APT (Debian) 和 Portage (Gentoo) 软件管理器
+     #+begin_src bash
+       apt install python3-xxxxxx # Debian
+       emerge -vt xxxxxx # Gentoo
+     #+end_src
+
+   - 混合 APT 与 pip 要极其小心，尽量不引入 pip
      - 提 issue 求助
+     - 不要使用 conda
+*** 软件分发与环境整合：概念
+     #+BEGIN_SRC dot :file distribution.pdf
+       digraph distribution {
+
+       node [shape=box]
+       U0[label = "上游作者\nSeaborn"]
+       U1[label = "上游作者\nNumPy"]
+       U2[label = "上游作者\nmake"]
+       U3[label = "上游作者\nSQLite"]
+       U1 -> D1
+       U2 -> D1
+       U3 -> D1
+       D1[label = "环境整合\nDebian\nArch\nUbuntu\nGentoo\nConda"]
+       U1 -> D2
+       U0 -> D2
+       D2[label = "语言管理\npip\n"]
+       D1 -> S
+       D2 -> S
+       S[label = "用户环境"]
+       }
+     #+END_SRC
+
+     #+attr_latex: :height 6cm
+     #+RESULTS:
+     [[file:distribution.pdf]]
+
+     - =pip= 没有整合测试，只适合早期试验个别最新 Python 软件，长期维护性差。
+     - 整体生产方案对应多种软件的稳定版本，经过应跨语言整合测试。
+*** 环境整合分发方案
+    - 第三方测试整合提供环境，防止被某上游垄断并偷藏私货
+      - Malicious PyPI package opens backdoors on Windows, Linux, and Macs
+        #+begin_example
+        Allows a remote attacker to gain unauthorized access to the application.
+        #+end_example
+      - =pip= 的软件没有经过第三方测试验证，使用意味者相信上游软件作者。
+      - 环境整合方案会有负责安全、兼容和性能的团队，有大量同样环境的用户反馈问题。
+    - Debian/Arch/Gentoo 志愿者形态与 Ubuntu/Conda 公司免费形态
+      - 志愿者形态的开发团队没有利益关系，人们由于共同的兴趣走到一起。
+        - 无人能强制整个项目的走向，集体决策。
+      - 公司免费形态利用免费服务吸引用户，构建潜在的客户池或者暗藏广告潜移默化改造用户。
+        - 产品服务于公司的盈利或扩大影响的战略，代码由雇工产生。
+**** 不推荐用作科学计算和数据分析
+      - Ubuntu 的源代码 95% 从 Debian （合法）复制，外加公司定制和[[https://www.oschina.net/news/213712/canonical-ubuntu-ad][广告]]
+      - Conda 的依赖关系的计算效率极低，但在公司层面调动外宣经费公关推广
+*** 只有普通用户权限
+    - 安装和升级软件需要系统管理员权限，具体体现为在 =apt= 前加 =sudo= 。
+    - 课题组共享的服务器、超算中心的登录节点无权限怎么办？用户态软件管理
+
+    |               | 成熟的     | 去中心     | 海量软件   | 超算中心   | 续本达                |
+    |               | 管理工具   | 研发       | +物理学  | 采用       | 召集                  |
+    |---------------+------------+------------+------------+------------+-----------------------|
+    | Gentoo Prefix | \checkmark | \checkmark | \checkmark | \checkmark | \checkmark \checkmark |
+    | nix/guix     | \checkmark | \checkmark | \checkmark |            |                       |
+    | Spack         | \checkmark |            |            | \checkmark |                       |
+    | conda / mamba |            |            |            |            |                       |
+**** 参考
+     #+latex: {\scriptsize
+     Benda Xu, G. Amadio, F.Grffen, and M. Haubenwallner. “Gentoo Prefix as a Physics Software Manager.” EPJ Web of Conferences 245 (2020): 05036.
+     #+latex: }
+*** 推荐：软件管理与环境配置
+    #+latex: {\Large
+    - 自己的机器用 Debian：工具安装用 =apt=
+    - 别人的机器用 Gentoo Prefix：工具安装用 =emerge=
+    #+latex: }
+
 ** Python 科学计算
 *** NumPy: Numeric Python
     - NumPy 起源于使用 Python 语言调用 fortran 进行线性代数运算的需求。
@@ -3020,6 +3062,12 @@ print(np.diag(np.arange(5)))
       #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
         np.array([x + y for x in n for y in n]).reshape(10, 10)
       #+end_src
+** 后备
+*** argparse 命令行传递参数
+    https://docs.python.org/3/library/argparse.html
+    - 构造高级的命令选项
+      - 数据类型
+      - 格式限制
 * 2020年 第一周第四天
   :PROPERTIES:
   :EXPORT_FILE_NAME: p3_2020
