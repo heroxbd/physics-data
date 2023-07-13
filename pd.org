@@ -2254,7 +2254,8 @@ magic(r=real, i=imag)
 *** 辅助工具
     - pylint3
     #+begin_src bash :exports both
-      apt install pylint3
+      apt install pylint # Debian
+      emerge -vt pylint # Gentoo
     #+end_src
     - 编辑器的自动重排功能
       - 学习一款编辑器非常重要：Emacs、Vi、Visual Studio Code
@@ -2746,121 +2747,6 @@ iterator.txt        100%[===================>]     268  --.-KB/s    in 0s
    - 优先 =apt install python3-xxxxxx=
    - 混合 apt 与 pip 要极其小心，尽量不引入 pip
      - 提 issue 求助
-* 2020年 第一周第四天
-  :PROPERTIES:
-  :EXPORT_FILE_NAME: p3_2020
-  :EXPORT_BEAMER_HEADER: \title{Git 进阶}
-  :EXPORT_OPTIONS: H:1 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
-  :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
-  :EXPORT_DATE: 2020-08-20 清华线上
-  :EXPORT_BEAMER_HEADER+: \author{续本达}
-  :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
-  :EXPORT_BEAMER_THEME: Boadilla
-  :EXPORT_BEAMER_COLOR_THEME: MedStarColors
-  :EXPORT_BEAMER_FONT_THEME: professionalfonts
-  :END:
-** 自定义大作业
-   - 如果有同学希望采用其它学科方向的大作业，请提出申请给续本达 =<orv@tsinghua.edu.cn>= ，8月24日 12:00 截止。
-     1. 问题描述和学科背景
-     2. 数据的输入和输出的定义与格式
-     3. 数据分析结果的评价标准
-
-   - 请准备自定义大作业的同学，在 8 月 21 日星期五 21:00 之前，告知续本达
-     =<orv@tsinghua.edu.cn>= 。
-
-     1. 准备定制什么样的大作业
-     2. 当前遇到了什么困难
-
-** Git 三种状态
-   - 已提交（committed） :: 改动安全保存在数据库中
-   - 已修改（modified） :: 自上一次提交，有文件被修改
-   - 已暂存（staged） :: 已修改的文件被作了标记，将被包含在下一轮提交中
-
-      [[./fig/git-modes.png]]
-** Git 仓库间通信
-   #+Attr_LaTeX: :height 0.7\textheight
-   [[./fig/git-distributed.png]]
-
-   - 建议：通过 SSH (secure shell) 通信。
-** Git 基本命令
-   - diff :: 查看改动
-   - status :: 查看状态
-   - add :: 添加文件
-   - commit :: 提交
-   - log :: 查看历史
-   - pull :: 从远程下载
-   - push :: 推送到远程
-   - merge :: 合并分支
-   - config :: 配置 Git
-
-*** 内建手册 =man=                                           :B_exampleblock:
-    :PROPERTIES:
-    :BEAMER_env: exampleblock
-    :END:
-
-    命令的具体含义可以参考 =man= 命令，例如，
-
-    #+BEGIN_EXAMPLE
-$ man git add
-    #+END_EXAMPLE
-
-** 常见问题
-   - 如何改 Github 界面，VSCode 上显示的 Git 状态？
-
-     - Git 最有效的界面在命令行。可视化界面都有问题，至多可作为参考。
-
-     - 以 =git log= 查看已有 commit 为准。
-
-     - 大家可以探索其它方法，但是课程教学和一切评估规则都以命令行 Git 为准。
-
-   - 没有设置好作者的姓名和邮箱
-      
-     #+BEGIN_SRC bash
-       git config --global user.name "Benda Xu"
-       git config --global user.email "orv@tsinghua.edu.cn"
-     #+END_SRC
-
-     这一设置改变整个用户的 Git 状态，会影响所有此后的 commit。
-
-** 作业 Git 规则
-   #+attr_beamer: :overlay <+->
-   - 可以修改 =git push= 之后的 commit 吗？
-     
-     - 不可以。
-     - 可以加一个新的 commit，说明前一个 commit 哪里错了，是如何修改的。
-
-   - 还没有 =git push= 的 commit 可以修改吗？
-
-     - 可以。
-     - 如果只修改 commit message
-
-       =git commit --amend=
-
-     - 作者信息也要改
-
-       =git commit --amend --reset-author=
-
-     - 需要修改 commit 本身
-
-       使用 =git rebase -i=
-
-** git-rebase
-   - @@latex: {\huge 勿对已 push 的 commit 做任何修改！}@@
-   - 以下操作仅限于尚未 push 还在本地的 commit。
-   - ...
-* 第二周第一天
-  :PROPERTIES:
-  :EXPORT_FILE_NAME: p4
-  :EXPORT_BEAMER_HEADER: \title{数组}
-  :EXPORT_OPTIONS: H:2 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
-  :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
-  :EXPORT_DATE: 2022-07-18
-  :EXPORT_BEAMER_HEADER+: \author{续本达}
-  :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
-  :EXPORT_BEAMER_HEADER+: \setbeamertemplate{footline}[frame number]  
-  :EXPORT_BEAMER_THEME: Hannover
-  :EXPORT_BEAMER_FONT_THEME: professionalfonts
-  :END:
 ** Python 科学计算
 *** NumPy: Numeric Python
     - NumPy 起源于使用 Python 语言调用 fortran 进行线性代数运算的需求。
@@ -3134,6 +3020,121 @@ print(np.diag(np.arange(5)))
       #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
         np.array([x + y for x in n for y in n]).reshape(10, 10)
       #+end_src
+* 2020年 第一周第四天
+  :PROPERTIES:
+  :EXPORT_FILE_NAME: p3_2020
+  :EXPORT_BEAMER_HEADER: \title{Git 进阶}
+  :EXPORT_OPTIONS: H:1 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
+  :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+  :EXPORT_DATE: 2020-08-20 清华线上
+  :EXPORT_BEAMER_HEADER+: \author{续本达}
+  :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
+  :EXPORT_BEAMER_THEME: Boadilla
+  :EXPORT_BEAMER_COLOR_THEME: MedStarColors
+  :EXPORT_BEAMER_FONT_THEME: professionalfonts
+  :END:
+** 自定义大作业
+   - 如果有同学希望采用其它学科方向的大作业，请提出申请给续本达 =<orv@tsinghua.edu.cn>= ，8月24日 12:00 截止。
+     1. 问题描述和学科背景
+     2. 数据的输入和输出的定义与格式
+     3. 数据分析结果的评价标准
+
+   - 请准备自定义大作业的同学，在 8 月 21 日星期五 21:00 之前，告知续本达
+     =<orv@tsinghua.edu.cn>= 。
+
+     1. 准备定制什么样的大作业
+     2. 当前遇到了什么困难
+
+** Git 三种状态
+   - 已提交（committed） :: 改动安全保存在数据库中
+   - 已修改（modified） :: 自上一次提交，有文件被修改
+   - 已暂存（staged） :: 已修改的文件被作了标记，将被包含在下一轮提交中
+
+      [[./fig/git-modes.png]]
+** Git 仓库间通信
+   #+Attr_LaTeX: :height 0.7\textheight
+   [[./fig/git-distributed.png]]
+
+   - 建议：通过 SSH (secure shell) 通信。
+** Git 基本命令
+   - diff :: 查看改动
+   - status :: 查看状态
+   - add :: 添加文件
+   - commit :: 提交
+   - log :: 查看历史
+   - pull :: 从远程下载
+   - push :: 推送到远程
+   - merge :: 合并分支
+   - config :: 配置 Git
+
+*** 内建手册 =man=                                           :B_exampleblock:
+    :PROPERTIES:
+    :BEAMER_env: exampleblock
+    :END:
+
+    命令的具体含义可以参考 =man= 命令，例如，
+
+    #+BEGIN_EXAMPLE
+$ man git add
+    #+END_EXAMPLE
+
+** 常见问题
+   - 如何改 Github 界面，VSCode 上显示的 Git 状态？
+
+     - Git 最有效的界面在命令行。可视化界面都有问题，至多可作为参考。
+
+     - 以 =git log= 查看已有 commit 为准。
+
+     - 大家可以探索其它方法，但是课程教学和一切评估规则都以命令行 Git 为准。
+
+   - 没有设置好作者的姓名和邮箱
+      
+     #+BEGIN_SRC bash
+       git config --global user.name "Benda Xu"
+       git config --global user.email "orv@tsinghua.edu.cn"
+     #+END_SRC
+
+     这一设置改变整个用户的 Git 状态，会影响所有此后的 commit。
+
+** 作业 Git 规则
+   #+attr_beamer: :overlay <+->
+   - 可以修改 =git push= 之后的 commit 吗？
+     
+     - 不可以。
+     - 可以加一个新的 commit，说明前一个 commit 哪里错了，是如何修改的。
+
+   - 还没有 =git push= 的 commit 可以修改吗？
+
+     - 可以。
+     - 如果只修改 commit message
+
+       =git commit --amend=
+
+     - 作者信息也要改
+
+       =git commit --amend --reset-author=
+
+     - 需要修改 commit 本身
+
+       使用 =git rebase -i=
+
+** git-rebase
+   - @@latex: {\huge 勿对已 push 的 commit 做任何修改！}@@
+   - 以下操作仅限于尚未 push 还在本地的 commit。
+   - ...
+* 第二周第一天
+  :PROPERTIES:
+  :EXPORT_FILE_NAME: p4
+  :EXPORT_BEAMER_HEADER: \title{数组}
+  :EXPORT_OPTIONS: H:2 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
+  :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+  :EXPORT_DATE: 2022-07-18
+  :EXPORT_BEAMER_HEADER+: \author{续本达}
+  :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
+  :EXPORT_BEAMER_HEADER+: \setbeamertemplate{footline}[frame number]  
+  :EXPORT_BEAMER_THEME: Hannover
+  :EXPORT_BEAMER_FONT_THEME: professionalfonts
+  :END:
 ** 矩阵运算
 *** Pauli 矩阵
     - 构造三个 Pauli 矩阵
