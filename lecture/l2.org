@@ -192,6 +192,111 @@
     : {(0, 0): 6, (0, 1): '您', (1, 0): ['Python', 'Bash']}
     这不奇怪，变量本身就是由内部的字典实现的！
 
+** 复合数据结构删除元素的方法
+
+*** 列表删除元素的方法
+
+     =remove= ，效果为删除特定元素，使用方式为 =list.remove(element)= 。例如对以下样例：
+
+   #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb
+    ls = [1, "f", 3.0]
+    ls.remove("f")
+    print(ls)
+    #+end_src
+
+    输出结果为 =[1,3.0]= 。
+
+     =pop= ，效果为删除指定索引对应的元素，使用方式为 =list.pop(index)= 。例如对以下样例：
+
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb
+    ls = [1, "f", 3.0]
+    ls.pop(0)
+    print(ls)
+    #+end_src
+
+    输出结果为 =["f",3.0]= 。
+
+     切片，效果为删除连续索引对应的多个元素，使用方式为 =list[index_begin:index_end]=[]= 。例如对以下样例：
+
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb
+    ls = [1, "f", 3.0]
+    ls[0:2] = []
+    print(ls)
+    #+end_src
+
+    输出结果为 =[3.0]= 。（注意如0:9表示从index为0到index为8的元素）
+
+     =clear= ，大规模杀伤性武器，效果为清空列表中所有元素，得到空列表，使用方式为 =list.clear()= 。例如对以下样例：
+
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb
+    ls = [1, "f", 3.0]  
+    ls.clear()  
+    print(ls)
+    #+end_src
+
+    输出结果为 =[]= 。使用 =list=[]= 可实现同样效果。
+
+     =del= ，核武器，直接删除了列表对象，使用方式为 =del list= 。例如对以下样例：
+
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb
+    ls = [1, "f", 3.0]
+    del ls
+    print(ls)
+    #+end_src
+
+    会报错：
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb
+    Traceback (most recent call last):
+      File "<stdin>", line 1, in <module>
+    NameError: name 'ls' is not defined
+    #+end_src
+
+*** 元组删除元素的方法
+由于元组具有不可变原则，故想通过类似 =remove= 和 =pop= 这样的方式删除元素无法实现。但由于课上介绍过元组可以实现加法（类似并集），故可以通过切片的方式进行删除操作。例如对以下样例：
+
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb
+    tup = (1, 2, 3, 4)
+
+    #删除元素3
+    tup = tup[:2] + tup[3:]
+
+    print(tup)
+    #+end_src
+    输出结果为 =(1,2,4)= 。与列表类似，可以使用 =tuple=()= 实现全部元素的清理，也可以使用 =del tuple= 删除整个元组。
+
+*** 字典删除元素的方法
+不同于列表，字典的索引是通过keys实现的，是无序的，但仍可以通过对keys的索引进行元素的删除，只是不支持切片操作。字典元素的删除主要有以下几种方式：
+
+     =pop= ,效果为删除指定索引对应的键值对，使用方式为 =dict.pop(keys)= 。例如对以下样例：
+
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb
+    dict = {"A":1, "B":2, "C":3}
+    dict.pop("A")
+    print(dict)
+    #+end_src
+
+    输出结果为 ={"B":2, "C":3}= 。
+
+     =popitem= ，效果为随机返回并删除一对键值对，但似乎从 =Python3.6= 以后一般认为删除的是最后插入的键值对（类似于栈，FILO），使用方式为 =dict.popitem()= 。例如对以下样例：
+
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb
+    dict = {"A":1, "B":2, "C":3, "D":4}
+    x = dict.popitem()
+    print(x)
+    print(dict)
+    #+end_src
+
+    输出结果为
+
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb
+    {"D":4}
+    {"A":1, "B":2, "C":3}
+    #+end_src
+
+     =clear= ，与列表类似，在此不再赘述，同样可以使用 =dict={}= 替代。
+
+     =del= ，与列表类似，在此不再赘述。
+
 * Python 的运行模式
   在命令行输入 python3 进入的是交互模式，每输入一个指令，都即时得到结果。这个环境称为“REPL”，即 “Read-Evaluate-Print-Loop”，命令行界面也属此类。交互界面更适合探索和试验。
   批处理模式可以批量执行命令，组成批量命令的文件叫做“脚本”，也是广义上的程序。因为脚本运行时没有 REPL 部分，可以不受人干涉，适用于处理大量数据。
