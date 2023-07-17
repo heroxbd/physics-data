@@ -10,6 +10,7 @@
 #+LATEX_HEADER: \usepackage[UTF8]{ctex}
 #+LaTeX_HEADER: \usepackage{appendixnumberbeamer}
 #+LaTeX_HEADER: \setCJKsansfont{Noto Sans CJK SC}
+#+LaTeX_HEADER: \DeclareMathOperator{\Tr}{Tr}
 #+PROPERTY: header-args :eval never-export :exports both
 #+PROPERTY: header-args:dot :eval yes :cmdline -Kdot -Tpdf :exports results
 #+sTARTUP: beamer
@@ -3394,6 +3395,7 @@ $ man git add
     - 直接构造张量计算，省去交换关系验证中的循环
     - 书写脚本解决
 
+** Dirac 矩阵
 *** 进阶练习：Dirac 矩阵的对易关系
     \[
 \gamma^0 = \begin{pmatrix} 
@@ -3425,6 +3427,21 @@ $ man git add
 
 - \(\{A, B\} = AB + BA\) 是 *反对易子*
 - \(\eta^{\mu\nu}\) 是闵可夫斯基度规 =np.diag(1, -1, -1, -1)=
+
+*** Dirac 矩阵代数
+- 定义 \(\gamma^5 \equiv i \gamma^0 \gamma^1 \gamma^2 \gamma^3 \)
+- \(\gamma_\mu = \eta_{\mu\nu} \gamma^\nu \)
+  + \eta_{\mu\nu} 也是是闵可夫斯基度规 =np.diag(1, -1, -1, -1)=
+
+**** NumPy 编程验证：
+  + \(\gamma^5\) 是厄米阵
+  + \((\gamma^5)^2 = I\)
+  + \(\{\gamma^5, \gamma^\nu\} = 0\)
+  + \(\gamma^\nu \gamma_\nu = 4 I\)
+  + \(\gamma^\mu \gamma^\nu \gamma^\rho \gamma_\mu = 4 \eta^{\nu\rho} I\)
+  + \(\Tr(\gamma^\mu) = 0\)
+  + \(\Tr(\gamma^\mu\gamma^\nu) = 4 \eta^{\mu\nu}\)
+  + \(\Tr(\gamma^5) = 0\)
 ** 备用
 *** SciPy 模块举例 =scipy.integrate=
     - 数值计算积分
