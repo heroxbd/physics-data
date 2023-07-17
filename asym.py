@@ -2,7 +2,7 @@
 
 import itertools as it
 
-# 课堂练习：构造 n 阶全反称张量
+# p3 课堂练习：构造 n 阶全反称张量
 # n = 1, 1
 #
 # n = 2, \epsilon_{00} = \epsilon_{11} = 0
@@ -26,8 +26,11 @@ def parity(p):
                  for i, j in it.combinations(range(n), 2)])
     return -1 if pairs % 2 else 1
 
-n = 5
-
-eps = np.zeros((n,) * n)
-for p in it.permutations(range(n)):
-    eps[p] = parity(p)
+def eps(n=5):
+    '''
+    返回 n 阶全反称张量。
+    '''
+    rst = np.zeros((n,) * n)
+    for p in it.permutations(range(n)):
+        rst[p] = parity(p)
+    return rst
