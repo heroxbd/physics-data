@@ -3173,16 +3173,64 @@ $ man git add
 * 第二周第一天
   :PROPERTIES:
   :EXPORT_FILE_NAME: p4
-  :EXPORT_BEAMER_HEADER: \title{数组}
+  :EXPORT_BEAMER_HEADER: \title{矩阵与张量运算}
   :EXPORT_OPTIONS: H:2 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
   :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
-  :EXPORT_DATE: 2022-07-18
+  :EXPORT_DATE: 2023-07-17
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
   :EXPORT_BEAMER_HEADER+: \setbeamertemplate{footline}[frame number]  
   :EXPORT_BEAMER_THEME: Hannover
   :EXPORT_BEAMER_FONT_THEME: professionalfonts
   :END:
+** 复习
+*** 课前准备
+下载 =p3-asym.py=
+
+  https://git.tsinghua.edu.cn/physics-data/lecture/-/blob/master/p3-asym.py
+
+保存到课堂练习的路径
+
+*** Python 的模块
+
+模块是一系列相关的变量、函数和类的集合，可以由程序复用。使用 =import=, =from=, =as= 等调用
+
+#+begin_src python
+  import fractions
+  import fractions as frcs
+  from fractions import Fraction
+  from fractions import Fraction as Frc
+#+end_src
+
+**** 模块的例子
+- fractions :: 无限精度分数
+- decimal :: 十进制小数
+- itertools :: 迭代器
+- NumPy :: 数值计算
+- SciPy :: 科学计算
+
+*** 单 Python 脚本式模块
+
+*** NumPy
+** 矩阵乘法
+*** 元素乘法与矩阵乘法的区别
+    - 矩阵乘法是张量缩并的特例
+      \[ \sum_j a_{ij} b_{jk} = c_{ik} \]
+    - 元素乘法是逐个数字相乘
+      \[ a_{ij} b_{ij} = c_{ij} \]
+
+      #+NAME: 7738713a-b2e2-4077-989d-7fceade7f101
+      #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+        a = b = np.ones((2,2))
+        print(a * b)
+        print(a @ b)
+      #+end_src
+
+      #+RESULTS: 7738713a-b2e2-4077-989d-7fceade7f101
+      : [[1. 1.]
+      :  [1. 1.]]
+      : [[2. 2.]
+      :  [2. 2.]]
 ** 矩阵运算
 *** Pauli 矩阵
     - 构造三个 Pauli 矩阵
@@ -3272,30 +3320,11 @@ $ man git add
  \]
 
  \[ \{\gamma^\mu, \gamma^\nu\} = 2 \eta^{\mu\nu}I \]
-** 矩阵乘法
-*** 元素乘法与矩阵乘法的区别
-    - 矩阵乘法是张量缩并的特例
-      \[ \sum_j a_{ij} b_{jk} = c_{ik} \]
-    - 元素乘法是逐个数字相乘
-      \[ a_{ij} b_{ij} = c_{ij} \]
-
-      #+NAME: 7738713a-b2e2-4077-989d-7fceade7f101
-      #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
-        a = b = np.ones((2,2))
-        print(a * b)
-        print(a @ b)
-      #+end_src
-
-      #+RESULTS: 7738713a-b2e2-4077-989d-7fceade7f101
-      : [[1. 1.]
-      :  [1. 1.]]
-      : [[2. 2.]
-      :  [2. 2.]]
-** SciPy 模块举例
-*** 课堂练习 =scipy.integrate=
+** 备用
+*** SciPy 模块举例 =scipy.integrate=
     - 数值计算积分
       \[ \int^{\pi}_{-\pi} (1 + \cos \theta) \mathrm{d} \theta \]
-** 2020年课程问卷反馈回顾
+
 *** 本人心目中的理想给分梯度
     #+attr_beamer: :overlay <+->
     - D :: 学会了用 Git，以 Git 提交了大多数作业。理解了数据处理的复现、透明、
