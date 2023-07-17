@@ -3185,9 +3185,9 @@ $ man git add
   :END:
 ** 复习
 *** 课前准备
-下载 =p3-asym.py=
+下载 =asym.py=
 
-  https://git.tsinghua.edu.cn/physics-data/lecture/-/blob/master/p3-asym.py
+  https://git.tsinghua.edu.cn/physics-data/lecture/-/blob/master/asym.py
 
 保存到课堂练习的路径
 
@@ -3210,8 +3210,45 @@ $ man git add
 - SciPy :: 科学计算
 
 *** 单 Python 脚本式模块
+#+begin_src python :results value :session local :exports both
+  from asym import eps
+
+  eps(4).shape
+#+end_src
+
+#+RESULTS:
+| 4 | 4 | 4 | 4 |
+
+*** 文件读写
+- 文本文件在 Python 中被抽象成迭代器。
+- 使用 =with= 让与外部资源交互（如文件）的代码更简洁。
+
+#+begin_src python :results output :session local :exports both
+  from collections import Counter
+  with open("departments.csv") as f_input:
+      print(Counter(f_input))
+#+end_src
+
+#+RESULTS:
+    : Counter({'致理书院\n': 30, '工物系\n': 20, '未央书院\n': 20, '物理系\n': 7, '上海交大\n': 4, '数学系\n': 1, '探微书院\n': 1})
 
 *** NumPy
+- 数组
+  - 与元组、列表的异同
+  - 创建
+  - 下标的范围
+  - 下标的扩展
+  - 替代循环
+    #+begin_src python :results value :session local :exports both
+      import numpy as np
+      
+      n = np.arange(10)
+      n**2
+    #+end_src
+
+    #+RESULTS:
+    | 0 | 1 | 4 | 9 | 16 | 25 | 36 | 49 | 64 | 81 |
+
 ** 矩阵乘法
 *** 元素乘法与矩阵乘法的区别
     - 矩阵乘法是张量缩并的特例
@@ -3231,6 +3268,70 @@ $ man git add
       :  [1. 1.]]
       : [[2. 2.]
       :  [2. 2.]]
+*** 张量乘法
+- =tensordot= ，可标注哪些下标进行缩并
+
+  #+begin_src python :results value :session local :exports both
+    a = np.arange(60.).reshape(3,4,5)
+    b = np.arange(24.).reshape(4,3,2)
+    np.tensordot(a,b, axes=([1,0],[0,1]))
+  #+end_src
+
+  #+RESULTS:
+  | 4400 | 4730 |
+  | 4532 | 4874 |
+  | 4664 | 5018 |
+  | 4796 | 5162 |
+  | 4928 | 5306 |
+
+*** 爱因斯坦约定
+- =einsum=
+  #+begin_src python :results value :session local :exports both
+    a = np.arange(25).reshape(5,5)
+    b = np.arange(5)
+    np.einsum('ii', a) # 取迹
+  #+end_src
+
+  #+RESULTS:
+  : 60
+  
+  #+begin_src python :results value :session local :exports both
+    np.einsum('ij->i', a) # 对 'j' 方向求和
+  #+end_src
+
+  #+RESULTS:
+  | 10 | 35 | 60 | 85 | 110 |
+
+  #+begin_src python :results value :session local :exports both
+    np.einsum('ij,j', a, b) # 矩阵乘法
+  #+end_src
+
+  #+RESULTS:
+  | 30 | 80 | 130 | 180 | 230 |
+
+*** 爱因斯坦约定用于复杂张量运算
+#+begin_src python :results value :session local :exports both
+  a = np.arange(60.).reshape(3,4,5)
+  b = np.arange(24.).reshape(4,3,2)
+  np.einsum('ijk,jil->kl', a, b)
+#+end_src
+
+#+RESULTS:
+| 4400 | 4730 |
+| 4532 | 4874 |
+| 4664 | 5018 |
+| 4796 | 5162 |
+| 4928 | 5306 |
+
+**** 灵活缩并
+#+begin_src python :results value :session local :exports both
+  a = np.ones(64).reshape(2,4,8)
+  np.einsum('ijk,ilm,njm,nlk',a,a,a,a)
+#+end_src
+
+#+RESULTS:
+: 4096.0
+
 ** 矩阵运算
 *** Pauli 矩阵
     - 构造三个 Pauli 矩阵
@@ -3292,6 +3393,7 @@ $ man git add
     - 构造 Pauli 矩阵时使用了列表和 for 循环，不够简洁
     - 直接构造张量计算，省去交换关系验证中的循环
     - 书写脚本解决
+
 *** 进阶练习：Dirac 矩阵的对易关系
     \[
 \gamma^0 = \begin{pmatrix} 

@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import itertools as it
+import numpy as np
 
 # p3 课堂练习：构造 n 阶全反称张量
 # n = 1, 1
