@@ -3422,6 +3422,9 @@ $ man git add
  \]
 
  \[ \{\gamma^\mu, \gamma^\nu\} = 2 \eta^{\mu\nu}I \]
+
+- \(\{A, B\} = AB + BA\) 是 *反对易子*
+- \(\eta^{\mu\nu}\) 是闵可夫斯基度规 =np.diag(1, -1, -1, -1)=
 ** 备用
 *** SciPy 模块举例 =scipy.integrate=
     - 数值计算积分
