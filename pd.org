@@ -3657,7 +3657,9 @@ $ man git add
 
 - 数据
 #+begin_src bash
-wget http://hep.tsinghua.edu.cn/~orv/distfiles/C3--Trace--99996.txt.xz
+  wget 'http://hep.tsinghua.edu.cn/~orv/distfiles/C3--Trace--99996.txt.xz'
+  unxz C3--Trace--99996.txt.xz
+  wget 'http://hep.tsinghua.edu.cn/~orv/pd/BBH_events_v3.json'
 #+end_src
 
 *** 矩阵与张量运算
@@ -3826,6 +3828,7 @@ cat hz.csv
 - 缺点：需要每次都指定格式和读入时的数据类型
   - 只能表示表格
   - 因为兼容性强，可能被加上额外的非标准信息。
+    + 例子： =C3--Trace--99996.txt=
 #+beamer: \pause
 - 是否可以把数据类型也存到文件中？
   - 人类还可以直接读取吗？
@@ -3836,10 +3839,12 @@ cat hz.csv
     
 ** HDF5
 *** 简介 Hierarchical Data Format
-- 起源于高性能计算领域，目前标准由 The HDF Group 非盈利组织开发和维护
+- 起源于高性能计算领域，目前由 The HDF Group 非盈利组织开发和维护
 - 从 HDF 第 4 代起，获得广泛应用，特别是天文学
+#+beamer: \pause
 - 现在是第 5 代，因此叫做 HDF5
-  - 原始表示：数据不必转换成文本。不涉及转换误差，但不再有文本文件的可读性。
+  - 原始表示：数据不必转换成文本。
+    + 不涉及转换误差，但不再有文本文件的可读性。
   - 自我描述：数据类型写在文件中，可以被自动识别
   - 支持所有主流语言，有多种查看器
   - 缺点：对 ASCII 之外的字符支持没有标准，不保证可以处理中文。
@@ -3852,7 +3857,8 @@ cat hz.csv
 *** Python 的 HDF5 工具
 - h5py: 极简的工具库，允许 Python 调用 HDF5 的 C++ 库。
   - 数据格式兼容性好，可以与其它语言交换数据。
-- PyTables: 在 HDF5 之上进行了自定义格式，对读写有优化，但是损失了兼容性。
+- PyTables: 在 HDF5 之上进行了自定义格式，对读写有优化
+  - 但是损失了兼容性；
   - 可以读入标准 HDF5 文件，但是容易不小心写出非标准 HDF5 文件。
 - 课程选择 h5py，当兼容性和性能冲突时，优先选择兼容性。
   - “透明”原则。
@@ -3982,30 +3988,33 @@ h5dump -A hzg.h5
   }
   }
   #+end_example
-** 复合数组 Structured Array
-*** 数组中的复合数据类型
+** 复合数组
+*** Structured Array: 数组中的复合数据类型
     - 元素从简单类型 int, float 变成自定义的
     - 方便像表格一样组织数据
-    #+NAME: a094e0fa-8cd8-466f-8b45-f11eff571260
-    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+    #+begin_src python :results value :session local :exports both
+      import numpy as np
       t = [('Height', 'f4'), ('Weight', 'f4'), ('Age', 'u2')]
       r = np.empty(3, dtype=t)
       r[0] = (170, 60, 20)
       r[1] = (159, 45, 22)
       r[2] = (185, 72, 26)
-      print(r)
+      r
     #+end_src
 
-    #+RESULTS: a094e0fa-8cd8-466f-8b45-f11eff571260
-    : [(170., 60., 20) (159., 45., 22) (185., 72., 26)]
+    #+RESULTS:
+    | 170 | 60 | 20 |
+    | 159 | 45 | 22 |
+    | 185 | 72 | 26 |
+
 *** 本质上是一维数组
-    #+NAME: c3063f91-6615-4bdc-b52d-9e7d763bb3fb
-    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
-      print(r.shape)
+    #+begin_src python :results value :session local :exports both
+      r.shape
     #+end_src
 
-    #+RESULTS: c3063f91-6615-4bdc-b52d-9e7d763bb3fb
-    : (3,)
+    #+RESULTS:
+    | 3 |
+
 **** 取列
      #+NAME: 958fa7a9-b6b7-462f-91fd-56af90274d16
      #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
@@ -4025,15 +4034,14 @@ h5dump -A hzg.h5
      : (170., 60., 20)
 *** 直接保存到 HDF5 表
 - 复合数组可以直接保存为 HDF5 的表格
-  #+NAME: eb7bd1f8-16a1-49e4-866b-6db19f5d42cb
-  #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+  #+begin_src python :results value :session local :exports both
+    import h5py
     with h5py.File("people.h5", "w") as opt:
         opt['record'] = r
   #+end_src
 
-  #+RESULTS: eb7bd1f8-16a1-49e4-866b-6db19f5d42cb
+  #+RESULTS:
 
-  #+NAME: 2507bacf-1f5a-474c-a6c8-23ec69dbd236
   #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
 h5dump people.h5
   #+end_src
@@ -4071,9 +4079,13 @@ h5dump people.h5
   }
   #+end_example
 *** 图形查看器 ViTables
-    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-vitables people.h5
+    #+begin_src bash
+      vitables people.h5 # Debian
+      hdfview people.h5 # macOS
     #+end_src
+
+    #+Attr_LaTeX: :height 0.4\textheight
+    [[./vitables.png]]
 *** 读复合数组
     #+NAME: 51188465-70de-4d34-a7b0-d391a787c822
     #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
@@ -4085,7 +4097,11 @@ people
     #+RESULTS: 51188465-70de-4d34-a7b0-d391a787c822
     : array([(170., 60., 20), (159., 45., 22), (185., 72., 26)],
     :       dtype=[('Height', '<f4'), ('Weight', '<f4'), ('Age', '<u2')])
-
+*** 课堂练习：转化高度定制的 +.txt+ CSV 文件
+- 相比于 HDF5
+  + CSV 的记录非常随意，无统一标准
+  + CSV 占用的空间大
+- 任务：把 =C3--Trace--99996.txt= 转化为 =C3--Trace--99996.h5=
 ** JSON
 *** 简介 JavaScript Object Notation
 
@@ -4095,28 +4111,6 @@ people
   - 适合传递有层次的数据，特别是文本
   - 优点：与 Python 的字典结构相近
   - 缺点：数字的表达能力较弱
-- 下载示例 json 文件
-  #+NAME: 5d0e78fa-d133-485a-a15e-4e49c4800c3f
-  #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-wget 'http://hep.tsinghua.edu.cn/~orv/pd/BBH_events_v3.json'
-  #+end_src
-
-  #+RESULTS: 5d0e78fa-d133-485a-a15e-4e49c4800c3f
-  #+begin_example
-  --2022-07-19 13:05:01--  http://hep.tsinghua.edu.cn/~orv/pd/BBH_events_v3.json
-  Resolving hep.tsinghua.edu.cn... 101.6.6.219, 2402:f000:1:416:101:6:6:219
-  Connecting to hep.tsinghua.edu.cn|101.6.6.219|:80... connected.
-  HTTP request sent, awaiting response... 200 OK
-  Length: 2202 (2.2K) [application/json]
-  Saving to: ‘BBH_events_v3.json’
-
-  
-BBH_events_v3.json    0%[                    ]       0  --.-KB/s               
-BBH_events_v3.json  100%[===================>]   2.15K  --.-KB/s    in 0s      
-
-  2022-07-19 13:05:01 (228 MB/s) - ‘BBH_events_v3.json’ saved [2202/2202]
-
-  #+end_example
 *** 读 JSON
     #+NAME: a957548e-e023-4d16-96da-4b458a26b328
     #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
@@ -4267,10 +4261,44 @@ jq < BBH_events_rewrite.json
 
     #+RESULTS: d1c23627-8cfa-472c-a876-08ab21750325
 
-** Parquet
-*** 简介
-    - Parquet 是从经过列读取优化的高性能数据格式。在 Java 语言生态的大
-      数据平台，例如 Hadoop、Spark 上非常流行。
+*** 课堂练习：读取 Geek 兔初始和刷新信息
+#+begin_src python
+  message = json.loads(sys.stdin.readline())
+  assert message["commandType"] == "startGame"
+  map_info = message["data"]["map"]
+  width = map_info["width"]
+  height = map_info["height"]
+  borders = map_info["borders"]
+  blocks = map_info["blocks"]
+  my_id = message["data"]["myId"]
+  init_rabbits = message["data"]["rabbits"]
+#+end_src
+
+#+begin_src python
+  message = json.loads(sys.stdin.readline())
+  assert message["commandType"] == "refreshData"
+  last_frame = -1 if len(history) == 0 else history[-1]["frame"]
+  history += message["data"]
+  curr_frame = history[-1]["frame"]
+  assert curr_frame == len(history) - 1
+#+end_src
+
+** 其它格式
+*** Apache Arrow 与 Parquet
+- =Arrow= 提供了跨语言的数据交换格式。
+  + 非常高效，做到 "零拷贝"
+- =Parquet= 是 =Arrow= 在磁盘上的常用存储格式，经过了列读取优化。
+  + 在 Java 语言生态的大数据平台，例如 Hadoop、Spark 上非常流行。
+  + 开始被 Python (Pandas 2.0) 和 R 社区使用
+- 优点：读写性能高
+- 缺点：查看器等配套工具还不完善
+
+*** SQLite 磁盘格式
+- SQLite 数据库在磁盘上的存储格式
+- 在第四周 *关系代数* 阶段学习
+- 优点：交互界面支持 SQL 语法
+- 缺点：科学和数值计算性能平庸
+
 * 第二周第三天
   :PROPERTIES:
   :EXPORT_FILE_NAME: p6
