@@ -3660,6 +3660,8 @@ $ man git add
   wget 'http://hep.tsinghua.edu.cn/~orv/distfiles/C3--Trace--99996.txt.xz'
   unxz C3--Trace--99996.txt.xz
   wget 'http://hep.tsinghua.edu.cn/~orv/pd/BBH_events_v3.json'
+  wget 'http://hep.tsinghua.edu.cn/~orv/pd/4426232.json.xz'
+  unxz 4426232.json.xz
 #+end_src
 
 *** 矩阵与张量运算
