@@ -3426,12 +3426,12 @@ $ man git add
  \[ \{\gamma^\mu, \gamma^\nu\} = 2 \eta^{\mu\nu}I \]
 
 - \(\{A, B\} = AB + BA\) 是 *反对易子*
-- \(\eta^{\mu\nu}\) 是闵可夫斯基度规 =np.diag(1, -1, -1, -1)=
+- \(\eta^{\mu\nu}\) 是闵可夫斯基度规 =np.diag((1, -1, -1, -1))=
 
 *** Dirac 矩阵代数
 - 定义 \(\gamma^5 \equiv i \gamma^0 \gamma^1 \gamma^2 \gamma^3 \)
 - \(\gamma_\mu = \eta_{\mu\nu} \gamma^\nu \)
-  + \eta_{\mu\nu} 也是是闵可夫斯基度规 =np.diag(1, -1, -1, -1)=
+  + \eta_{\mu\nu} 也是是闵可夫斯基度规 =np.diag((1, -1, -1, -1))=
 
 **** NumPy 编程验证：
   + \(\gamma^5\) 是厄米阵
