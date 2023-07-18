@@ -3633,19 +3633,42 @@ $ man git add
   :EXPORT_BEAMER_HEADER+: \title{数据存储格式}
   :EXPORT_OPTIONS: H:2 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
   :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
-  :EXPORT_DATE: 2022-07-19 清华
+  :EXPORT_DATE: 2023-07-18 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
   :EXPORT_BEAMER_HEADER+: \setbeamertemplate{footline}[frame number]  
   :EXPORT_BEAMER_THEME: Hannover
   :EXPORT_BEAMER_FONT_THEME: professionalfonts
   :END:
-** 课前准备
-*** 安装工具软件
-    - HDF5、CSV 和 JSON 的相关工具
-    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-      apt install vitables python3-sip python3-h5py hdf5-tools csvtool jq
-    #+end_src
+** 复习准备
+*** 安装 HDF5、CSV 和 JSON 的相关工具
+
+- Debian
+  #+begin_src bash
+    apt install vitables python3-h5py hdf5-tools jq
+  #+end_src
+- Gentoo @ macOS
+
+  #+begin_src bash
+    emerge --sync
+    emerge -vt dev-python/h5py app-misc/jq
+  #+end_src
+  + 手动下载安装 HDFView
+
+- 数据
+#+begin_src bash
+wget http://hep.tsinghua.edu.cn/~orv/distfiles/C3--Trace--99996.txt.xz
+#+end_src
+
+*** 矩阵与张量运算
+要善于使用 NumPy 的运算替代循环结构。
+
+- =@=
+- =tensordot=
+- =einsum=
+
+- Pauli 矩阵与 Dirac 矩阵代数性质的张量形式验证
+
 ** 数据格式
 *** 透明原则
     - 把大规模的数组高效地存储到磁盘上，是数据处理的关键。
@@ -3654,6 +3677,7 @@ $ man git add
     - 数据格式本质上是内存磁盘的双向数据转化，关键问题是
       - 转化过程中是否有损失？
       - 转化是否方便？
+#+beamer: \pause
 **** 反例
      - 违反透明原则。
      - 只有某个操作系统上才能读取的数据文件，操作系统只能在某种计算机硬件上运行。
@@ -3801,6 +3825,8 @@ cat hz.csv
 - 优点：简单直观，兼容性极强
 - 缺点：需要每次都指定格式和读入时的数据类型
   - 只能表示表格
+  - 因为兼容性强，可能被加上额外的非标准信息。
+#+beamer: \pause
 - 是否可以把数据类型也存到文件中？
   - 人类还可以直接读取吗？
   - 另加约定是否可以成为标准？
