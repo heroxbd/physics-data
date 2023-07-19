@@ -4541,7 +4541,7 @@ jq < BBH_events_rewrite.json
     #+attr_latex: :height 4cm
     #+RESULTS:
     [[file:img/oscillator.pdf]]
-*** 课堂练习：非谐振单摆的相图是什么样子
+*** 课堂练习：非简谐轻杆单摆的相图
     \[ m L \ddot{\theta} = - m g \sin \theta \]
 ** Bessel 函数
 *** 第一类 Bessel 函数
