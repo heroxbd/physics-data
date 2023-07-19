@@ -4307,20 +4307,25 @@ jq < BBH_events_rewrite.json
   :EXPORT_BEAMER_HEADER+: \title{数据绘图}
   :EXPORT_OPTIONS: H:2 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
   :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
-  :EXPORT_DATE: 2022-07-20 清华
+  :EXPORT_DATE: 2023-07-19 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
   :EXPORT_BEAMER_HEADER+: \setbeamertemplate{footline}[frame number]  
   :EXPORT_BEAMER_THEME: Hannover
   :EXPORT_BEAMER_FONT_THEME: professionalfonts
   :END:
-** 基础工具
+** 复习准备
 *** 安装软件
-    - Matplotlib（Python 绘图） gpicview（图片查看器） mupdf（pdf 查看器）
-    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-      apt install python3-matplotlib python3-tk gpicview mupdf
+- Matplotlib（Python 绘图）、SciPy（科学计算）
+  + Debian
+    #+begin_src bash
+      apt install python3-matplotlib python3-tk python3-scipy
     #+end_src
-
+  + Gentoo @ macOS
+    #+begin_src bash
+      emerge --sync
+      emerge --vt dev-python/matplotlib dev-python/scipy
+    #+end_src
 *** 科学绘图
     - A plot worths a thousand words. 图是描述科学对象的载体。
       - 撰写论文甚至可理解为“看图说话”：论文的局部目标是用语言和公式把图片解释清楚。
@@ -4533,12 +4538,12 @@ jq < BBH_events_rewrite.json
       <<savefig(figname="img/oscillator.pdf")>>
     #+end_src
 
-    #+attr_latex: :height 5cm
+    #+attr_latex: :height 4cm
     #+RESULTS:
     [[file:img/oscillator.pdf]]
-*** 思考练习：非谐振单摆的相图是什么样子
+*** 课堂练习：非谐振单摆的相图是什么样子
     \[ m L \ddot{\theta} = - m g \sin \theta \]
-** 练习：Bessel 函数
+** Bessel 函数
 *** 第一类 Bessel 函数
     #+begin_src python :results value file :session lecture-plot :exports both :noweb strip-export
       from scipy import special
@@ -4551,9 +4556,15 @@ jq < BBH_events_rewrite.json
       <<savefig(figname="img/bessel.pdf")>>
     #+end_src
 
-    #+attr_latex: :height 5cm
+    #+attr_latex: :height 4cm
     #+RESULTS:
     [[file:img/bessel.pdf]]
+
+** Geek 兔
+*** 回放文件的绘制
+0. 派遣一个 AI
+1. 绘制陨石的位置
+2. 绘制兔子的行动轨迹
 
 ** 更多样例
 *** Matplotlib 官方图片展
