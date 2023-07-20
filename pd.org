@@ -4589,6 +4589,9 @@ jq < BBH_events_rewrite.json
        #+end_src
      - Gentoo @ macOS
        已有 GNU Make ，不需要额外安装
+**** 进阶使用
+参见 第十讲 GNU Make 数据生产线
+
 *** 科学绘图
     - 原则：复现、透明
       + 艺术性提升，需要花很大精力打磨
@@ -4637,7 +4640,7 @@ jq < BBH_events_rewrite.json
 :END:
 Whether you can observe a thing or not depends on the theory which you use. It is the theory which decides what can be observed.
 #+beamer: \pause
-**** 贝叶期公式
+**** 贝叶斯公式
 #+begin_export latex
 \begin{equation*}
   p(\theta_T|D, T) = \frac{ p(D | \theta_T, T) p(\theta_T|T)}{\int p(D | \theta_T, T)p(\theta_T|T) \mathrm{d} \theta_T}
@@ -4753,7 +4756,7 @@ PMT 的
 :PROPERTIES:
 :BEAMER_env: ignoreheading
 :END:
-\[ p(\theta_T|\theta_E, D, T) = \frac{p(\theta_T|\theta_E, T)}{\int p(D | \theta_T, \theta_E, T)p(\theta_T|\theta_E, T) \mathrm{d} \theta_T} \]
+\[ p(\theta_T|\theta_E, D, T) = \frac{p(D | \theta_T, \theta_E, T)p(\theta_T|\theta_E, T)}{\int p(D | \theta_T, \theta_E, T)p(\theta_T|\theta_E, T) \mathrm{d} \theta_T} \]
 
 *** 举个例子
     #+Attr_LaTeX: :height 0.6\textheight
