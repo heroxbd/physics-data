@@ -5185,8 +5185,110 @@ target: source
       - 需要把传统的蒙特卡罗改造为新型语言的
       - 需要实验验证
 
-*** 江门-台山中微子实验
-液闪探测器的成像探索
+** 江门-台山\(\nu\)
+*** 中微子的微小非零质量
+- Zero neutrino mass
+  - Lee-Yang's two-component Weyl-Fermion $\nu$ model: explain the P-violation.
+  - Inherited by the standard model (Weinberg)
+  - Broken by solar (Homestake, Gallex/GNO/SAGE, SNO+), atmospheric (SuperK) and reactor neutrino (KamLAND) disappearance
+  - Motivation: origin of the tiny non-zero mass, Majorana Fermion by GUT see-saw.
+#+beamer: \pause
+**** Mass ordering
+    - Neutrino mass by quantum interference
+*** 广东：江门-台山地下中微子观测站
+    JUNO:=Jiangmen Underground Neutrino Observatory
+   
+    #+attr_latex: :height 0.7\textheight
+    [[./fig/JUNO-location.pdf]]
+*** 测量质量顺序
+**** NMO                                                              :BMCOL:
+     :PROPERTIES:
+     :BEAMER_col: 0.5
+     :END:
+     #+attr_latex: :width 0.8\textwidth
+     [[./fig/mass-ordering.png]]
+
+     精密测量反中微子能量是重中之重。
+**** Spectra
+     :PROPERTIES:
+     :BEAMER_col: 0.5
+     :END:
+     #+attr_latex: :width \textwidth
+     [[./fig/JUNO-osci.png]]
+
+*** 中微子质量顺序的意义
+    1. 质量排序本身是自然界的基本物理参数
+       - 研究中微子质量本源
+       - 寻找新物理规律
+       #+latex: \pause
+    2. 决定超新星中微子传播过程中的振荡
+       - 推定超新星爆发时 $\nu_e$, $\nu_\mu$, $\nu_\tau$ 的比份
+       - 揭示超新星爆发机理
+       #+latex: \pause
+    3. 决定 $0\nu\beta\beta$ 衰变实验的世界格局
+       - 如果是正排序，人类还需要把现有 _吨级_ 实验扩大 1000 倍
+       - 寻找自然界中的 Majorana 费米子
+       - 寻找自轻子数破坏的稀有衰变
+       #+latex: \pause
+    4. 与轻子 CP 破坏的测量耦合
+       - 关乎自然界的“左右正反”对称在多大意义上近似成立
+       - 探寻宇宙正反物质不对称的起源
+*** 能量分辨率
+   Energy resolution is the figure-of-merit that we push to extreme.
+**** NMO                                                              :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.66
+    :END:
+    [[./fig/survival-en.pdf]]
+
+    \SI{53}{\km} 之外的中微子振荡后能谱
+**** 0vbb                                                             :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.33
+    :END:
+    [[./fig/JUNO-SST.jpg]] 
+    JUNO under construction
+
+**** 重要性能指标
+- 每提升现有能量分辨 0.5% ，都可以缩短 25% 的运行时间。
+
+*** 测量原理
+#+ATTR_LATEX: :height 0.7\textheight
+[[./fig/reconstruction.png]]
+- “非成像”光学探测器，电离发光，单个光子由光电倍增管检出。
+
+*** 逆贝塔衰变
+**** IBD                                                              :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.55
+    :END:
+    #+attr_latex: :width \textwidth
+    [[./fig/IBD-en.pdf]]
+**** KPI                                                              :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.44
+    :END:
+    [[./fig/KPI-r1.pdf]]
+
+**** 诱导蒙卡成功后，我们得到
+- 一系列随机数种子，编码了 \(e^+\) 在探测器中的详细演化历程。
+#+beamer: \pause
+- 等价于在液闪中成像！
+
+*** 简化后的大作业任务
+- 正向：把 \(\gamma\) 在介质中的物理过程描述清楚
+  + 康普顿散射
+  + 光电效应
+
+[[./fig/KPI-r1.pdf]]
+
+- 反向：如果（带有误差地）测量 \(e^-\) 的位置和时间，能否还原 \(\gamma\) 的运动轨迹？
+  - \to 能否精细测量 \(e^+\) 的初始状态？
+  - \to 能否精细测量 \(\nu_e\) 的初始状态？
+
+#+beamer: \pause
+**** 欢迎
+期待大家选择 *Gamma* 粒子物理大作业
 
 ** 备用分隔
 ** Python 环境
