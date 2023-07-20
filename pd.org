@@ -4612,17 +4612,160 @@ jq < BBH_events_rewrite.json
     - 实验仪器是从物理世界到人类的一条信息通道
       - 实验仪器的分辨率有限，我们在进行有损通信
 
+*** 简单的物理实验
+#+BEGIN_SRC dot :file ./theory-experiment.pdf
+  digraph dataset {
+  bgcolor="#ffffff00"
+
+  { rank = same; T E }
+
+  T [label = "理论计算"]
+  E [label = "实验数据"]
+
+  T -> E [label = "预测"]
+  E -> T [label = "验证"]
+  }
+#+end_src
+
+#+attr_latex: :width 0.5\textwidth
+#+RESULTS:
+[[file:./theory-experiment.pdf]]
+
+**** Albert Einstein (1926)                                    :B_alertblock:
+:PROPERTIES:
+:BEAMER_env: alertblock
+:END:
+Whether you can observe a thing or not depends on the theory which you use. It is the theory which decides what can be observed.
+#+beamer: \pause
+**** 贝叶期公式
+#+begin_export latex
+\begin{equation*}
+  p(\theta_T|D, T) = \frac{ p(D | \theta_T, T) p(\theta_T|T)}{\int p(D | \theta_T, T)p(\theta_T|T) \mathrm{d} \theta_T}
+\end{equation*}
+#+end_export
+- \(D\) 是实验数据，\(T\) 是理论， \(\theta_T\) 是理论参数。
+*** 复杂的物理实验
+- 理论计算预测时，不仅有理论参数 \(\theta_T\) 还有仪器参数 \(\theta_E\)。
+#+BEGIN_SRC dot :file ./MC-calibration-experiment.pdf
+  digraph dataset {
+  bgcolor="#ffffff00"
+
+  { rank = same; T X E }
+
+  T [label = "物理参数"]
+  X [label = "理论计算", shape=box]
+  E [label = "实验数据"]
+  C [label = "仪器属性"]
+
+  T -> X 
+  X -> E [label = "预测"]
+  X -> C [dir = back]
+  }
+#+end_src
+
+#+attr_latex: :width 0.6\textwidth
+#+RESULTS:
+[[file:./MC-calibration-experiment.pdf]]
+
+- 仪器变得复杂，需要自己标定仪器属性，才能给出合理的预测。
+#+beamer: \pause
+
+\[ p(D |\theta_T, \theta_E, T) \]
+
+*** 刻度：自行实验确定仪器属性
+- 使用已知的 \(\gamma\) 放射源，例如 \(\ce{^{68}Ge}\)
+**** l                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.6
+:END:
+#+BEGIN_SRC dot :file ./calibration.pdf
+  digraph dataset {
+  bgcolor="#ffffff00"
+
+  { rank = same; T X E }
+
+  T [label = "物理参数"]
+  X [label = "理论计算", shape=box]
+  E [label = "实验数据"]
+  C [label = "仪器属性"]
+
+  T -> X
+  X -> C [label = "刻度"]
+  X -> E [dir=back]
+  }
+#+end_src
+
+#+attr_latex: :width \textwidth
+#+RESULTS:
+[[file:./calibration.pdf]]
+**** r                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.4
+:END:
+液闪的
+- 吸收长度
+- 淬灭因子
+- 散射角分布
+- 色散关系
+  
+PMT 的
+- 量子效率
+- 时间特性
+**** 反过来使用贝叶斯
+\[ p(\theta_E |D, \theta_T, T) = \frac{p(D|\theta_T, \theta_E, T) p(\theta_E)}{\int p(D|\theta_T, \theta_E, T) p(\theta_E) \mathrm{d} \theta_E} \]
+
+*** 重建：推断理论中的参数
+**** l                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.6
+:END:
+#+BEGIN_SRC dot :file ./chart-reconstruction.pdf
+  digraph dataset {
+  bgcolor="#ffffff00"
+
+  { rank = same; T X E }
+
+  T [label = "物理参数"]
+  X [label = "理论计算", shape=box]
+  E [label = "实验数据"]
+  C [label = "仪器属性"]
+
+  T -> X [dir=back, label="重建"]
+  X -> C [dir=back]
+  X -> E [dir=back]
+  }
+#+end_src
+
+#+attr_latex: :width \textwidth
+#+RESULTS:
+[[file:./chart-reconstruction.pdf]]
+**** r                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.4
+:END:
+- \(\gamma\) 的能量，位置
+- \(\nu_e\) 的方向
+- \(\mu\) 的时空径迹
+- 中微子质量顺序
+- \(\theta_{13}\) 振荡参数
+  
+**** i                                                      :B_ignoreheading:
+:PROPERTIES:
+:BEAMER_env: ignoreheading
+:END:
+\[ p(\theta_T|\theta_E, D, T) = \frac{p(\theta_T|\theta_E, T)}{\int p(D | \theta_T, \theta_E, T)p(\theta_T|\theta_E, T) \mathrm{d} \theta_T} \]
+
 *** 举个例子
     #+Attr_LaTeX: :height 0.6\textheight
     [[./fig/reconstruction.png]]
     - 建立模型解释物理世界发生的现象，通过统计方法反推本质。
-** 蒙特卡罗方法
-*** 实验引子：探测效率估计
-    - 实验仪器往往很复杂
-      
-      有一个长度为 \( L=\SI{5}{\cm} \) 的细长棒状的 \( \alpha \) 放射源，棒的左端位于原点，棒体与 \( z \) 轴平行。放射源在棒中均匀分布，发射的 \( \alpha \) 粒子在空间中的角分布各向同性。
+** 蒙特卡罗
+*** 引例：探测效率估计
+实验仪器往往很复杂
 
-      在 \( z \) 轴正向距离原点 \( D=\SI{14}{\cm} \) 处放置了一个圆盘状的探测器用来记录 \( \alpha \) 粒子，圆盘半径 \( R=\SI{7}{\cm} \)，轴线与 \( z \) 轴重合。
+- 有一个长度为 \( L=\SI{5}{\cm} \) 的细长棒状的 \( \alpha \) 放射源，棒的左端位于原点，棒体与 \( z \) 轴平行。放射源在棒中均匀分布，发射的 \( \alpha \) 粒子在空间中的角分布各向同性。
+
+- 在 \( z \) 轴正向距离原点 \( D=\SI{14}{\cm} \) 处放置了一个圆盘状的探测器用来记录 \( \alpha \) 粒子，圆盘半径 \( R=\SI{7}{\cm} \)，轴线与 \( z \) 轴重合。
       
       #+attr_latex: :height 5cm
       [[./fig/alpha-detection.png]]
@@ -4639,9 +4782,9 @@ jq < BBH_events_rewrite.json
 
 *** 理论引子：量子论
     - 微观粒子可能的路径按照作用量叠加起来，给出量子态的概率振幅。
-      \[ \int_{\vec{s}(t) \in S} \exp\left[-i \int \mathcal{L(\vec{s}, \dot{\vec{s}})} \mathrm{d} t\right] \mathrm{d} \vec{s} \]
+      \[ \int_{\vec{s}(t) \in S} \exp\left[-i \int \mathcal{L} (\vec{s}, \dot{\vec{s}}) \mathrm{d} t\right] \mathrm{d} \vec{s} \]
     - 连续统无穷维积分，无严格的数学测度定义。
-    - ……只办了最终得到一个数字：观测结果出现的概率
+    - ……只为了最终得到一个数字：观测结果出现的概率
     
 *** 计算积分
     设 \( X_1, X_2, \cdots X_n \) 是独立同分布的随机变量序列，且 \( X_n \sim U[a,b] (b>a) \) ，\( f(x) \) 是 \( [a,b] \) 上的连续函数。
@@ -4653,16 +4796,191 @@ jq < BBH_events_rewrite.json
 **** 为什么随机数可以胜任？
      - 自然小信息 \( \to \) 大信息复杂过程 \( \to \) 人类小信息
      - 自然小信息 \( \to \) 无所不用其极的方法 \( \to \) 人类小信息
+
+*** 理论计算被计算机蒙特卡罗模拟替代
+- 没有解析形式，人类无法有效运算。
+- 使用程序替代理论模型，模型由程序描述。
+
+**** l                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+***** 狭义的“蒙卡”
+#+BEGIN_SRC dot :file ./MC-predict.pdf
+  digraph dataset {
+  bgcolor="#ffffff00"
+
+  { rank = same; T X E }
+
+  T [label = "物理参数"]
+  X [label = "蒙特卡罗", shape=box]
+  E [label = "实验数据"]
+  C [label = "仪器属性"]
+
+  T -> X
+  X -> C [dir=back]
+  X -> E [label="采样"]
+  }
+#+end_src
+
+#+RESULTS:
+[[file:./MC-predict.pdf]]
+
+- 代价：用采样代替了预测
+- 只能“正向”前进，无法像解析式一样“掉头”。
+\[ p(D|\theta_T, \theta_E, T) \]
+#+beamer: \pause
+
+**** r                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+#+BEGIN_SRC dot :file ./MC-calibration.pdf
+  digraph dataset {
+  bgcolor="#ffffff00"
+
+  { rank = same; T X E }
+
+  T [label = "物理参数"]
+  X [label = "蒙卡?", shape=box]
+  E [label = "实验数据"]
+  C [label = "仪器属性"]
+
+  T -> X
+  X -> C [label="刻度"]
+  X -> E [dir=back]
+  }
+#+end_src
+
+#+RESULTS:
+[[file:./MC-calibration.pdf]]
+
+#+BEGIN_SRC dot :file ./MC-reconstruction.pdf
+  digraph dataset {
+  bgcolor="#ffffff00"
+
+  { rank = same; T X E }
+
+  T [label = "物理参数"]
+  X [label = "蒙卡?", shape=box]
+  E [label = "实验数据"]
+  C [label = "仪器属性"]
+
+  T -> X [dir=back, label="重建"]
+  X -> C [dir=back]
+  X -> E [dir=back]
+  }
+#+end_src
+
+#+RESULTS:
+[[file:./MC-reconstruction.pdf]]
+
+*** 探测器刻度的分析方案
+**** l                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+#+attr_latex: :width \textwidth
+[[./MC-calibration.pdf]]
+
+**** r                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+#+BEGIN_SRC dot :file ./now-calibration.pdf
+  digraph dataset {
+  bgcolor="#ffffff00"
+  C1 [label="仪器参数1"]
+  C2 [label="仪器参数2"]
+  C3 [label="仪器参数3"]
+  P1 [label="预测采样1"]
+  P2 [label="预测采样2"]
+  P3 [label="预测采样3"]
+  C1 -> P1
+  C2 -> P2
+  C3 -> P3
+  E [label="实验数据"]
+  P1 -> E [label="比较"]
+  P2 -> E
+  P3 -> E
+  }
+#+end_src
+
+#+attr_latex: :width \textwidth
+#+RESULTS:
+[[file:./now-calibration.pdf]]
+**** 逆向蒙卡
+- 散弹枪形式，穷举所有可能的仪器参数，分别用正向蒙卡预测
+- 选用与实验相符的仪器参数，实现了“逆向蒙卡”。
+#+beamer: \pause
+- 好用，只是慢，但是值得
+*** 近似模型的事例重建
+**** l                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+#+attr_latex: :width \textwidth
+[[./MC-reconstruction.pdf]]
+**** r                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+
+#+BEGIN_SRC dot :file ./now-reconstruction.pdf
+  digraph dataset {
+  bgcolor="#ffffff00"
+  C1 [label="物理参数1"]
+  C2 [label="物理参数2"]
+  C3 [label="物理参数3"]
+  P1 [label="预测采样1"]
+  P2 [label="预测采样2"]
+  P3 [label="预测采样3"]
+  C1 -> P1
+  C2 -> P2
+  C3 -> P3
+  P1 -> A [label="人工学习"]
+  P2 -> A 
+  P3 -> A [label="机器学习"]
+  A [label="近似模型"]
+  }
+#+end_src
+
+#+RESULTS:
+[[file:./now-reconstruction.pdf]]
+
+**** 近似模型
+- 人为寻找规律，人为概括，得到一个近似的 \( p(D|\theta_T, \theta_E, T) \)
+  + 应用贝叶斯公式求解
+#+beamer: \pause
+- 机器寻找规律，得到一个 \((D, \theta_E, T) \to \theta_T\) 的映射，不再具有数理统计性质
+  + 误差分析必须另外移植缝合
+
 ** 大作业
 *** 大作业安排
-    - 第一阶段 2023-07-21 -- 2023-08-10
-      - 模拟实验测量
+**** l                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+***** 正向第一阶段
+[[file:./MC-predict.pdf]]
 
-    - 第二阶段 2023-08-03 -- 2022-08-24
-      - 分析实验数据
-      - 测量物理模型参数
-      - 发现物理规律
-      - 黑盒分按排名，在不同大作业之间归一化
+- 2023-07-21 -- 2023-08-10
+- 模拟实验测量
+
+**** r                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+***** 逆向第二阶段
+
+[[file:./MC-reconstruction.pdf]]
+    
+- 2023-08-03 -- 2022-08-24
+- 分析实验数据
+- 测量物理模型参数
+- 发现物理规律
+- 黑盒分数按排名
+  + 在不同大作业之间归一化
 
 *** 实验测量的模拟
     - 输入 :: 物理对象的信息，随机因素的概率分布
@@ -4679,9 +4997,6 @@ jq < BBH_events_rewrite.json
 
     - 大作业带有较高难度的附加任务，至多在（黑盒）满分基础上加 10%。
 
-*** 自定义大作业
-    - 没有收到请求。
-
 *** 大作业
 - 物理学是实验科学
 - 实验研究的两个方向：
@@ -4695,6 +5010,9 @@ jq < BBH_events_rewrite.json
     + 台山中微子实验的成像原理探索
   - 宇宙射线物理方向（粒子物理驱动的）
     + 宇宙射线缪子的测量与屏蔽
+**** 自定义大作业
+    - 没有收到请求。
+
 
 *** 批量处理海量数据
     #+BEGIN_SRC dot :file ./multi-driver.pdf
@@ -4748,7 +5066,7 @@ jq < BBH_events_rewrite.json
     - 高效执行，包括并行处理和整合超级计算机等。
     - 错误恢复
       - 修正错误后，可以从最后一步正确的数据开始继续执行。
-** GNU Make
+
 *** Make 是最佳工具
     - =make= 工具已经有 40 多年的历史，最初用来管理 C 语言程序的编译。
       - 根据依赖关系决定命令执行顺序
@@ -4771,37 +5089,30 @@ make --version
      2. 管理程序运行，在超级计算机上运行
      3. 从错误中恢复
 *** Make 要素
-     - =make-guile= 在 =GNU make= 的基础上嵌入了 =GNU guile= \textipa{[g2Il]} 解释器支持 =scheme= 语言。
-     - =scheme= 语言是 =LISP= 语言的一支，是历史悠久的人工智能语言。
-       - =LISP= 与 =fortran= 是最早的高级编程语言，都出现在 1960 年代。
-
     - 文档
       #+BEGIN_SRC bash
         info make
         man make
       #+END_SRC
-
-    - 基本语法单元：清晰写明输入数据，输出数据和计算方法
-
+**** Makefile 对流程的定义
+    - GNU Make 恰好可描述数据流水线的三要素：输入、输出与程序。
+    - 基本结构
       #+BEGIN_SRC makefile -i
 target: source
 	program source target # 必须TAB 起始，记录如何做
       #+END_SRC
-**** 参考书
-     John Graham Cumming, The GNU Make Book
-
-*** Makefile 对流程的定义
-    - GNU Make 恰好可描述数据流水线的三要素：输入、输出与程序。
-    - 基本结构
 
       #+BEGIN_SRC makefile -i
 输出目标: 输入源
     执行的命令 $^ $@
       #+END_SRC
-
       - =$^= 代表输入源
       - =$@= 代表输出目标
     - =make -n= 用来测试即将执行的命令。
+    - 基本语法单元：清晰写明输入数据，输出数据和计算方法
+
+***** 参考书
+     John Graham Cumming, The GNU Make Book
 
 ** TAO 成像
 *** 大作业：中微子液闪探测器的成像探索
@@ -4877,8 +5188,8 @@ target: source
       1. 用概率编程语言实验 \(\gamma\) 能量沉积
       2. 魔改随机数发生器操纵 GEANT4
 
-*** SciPy
-**** SciPy: Scientific Python
+** SciPy
+*** SciPy: Scientific Python
     - SciPy 在 NumPy 的基础上提供的数值计算算法
       #+beamer: {\scriptsize
       - scipy.cluster :: Vector quantization / Kmeans
@@ -4897,23 +5208,20 @@ target: source
       - scipy.special :: Any special mathematical functions
       - scipy.stats :: Statistics
       #+beamer: }
-**** SciPy 模块举例 =scipy.integrate=
+*** SciPy 模块举例 =scipy.integrate=
     - 数值计算积分
       \[ \int^{\pi}_{-\pi} (1 + \cos \theta) \mathrm{d} \theta \]
 
 **** 课堂练习：积分
-
-    - 数值计算积分
-      \[ \int^{\pi}_{-\pi} (1 + \cos \theta) \mathrm{d} \theta \]
 
     - 几种方法举例
       1. 手动矩形法
       2. =scipy= 调库法
       3. 蒙特卡罗法
 
-**** SciPy 模块举例 =scipy.optimize=
-*** Python 环境
-**** Jupyter
+*** SciPy 模块举例 =scipy.optimize=
+** Python 环境
+*** Jupyter
     - Jupyter 从 IPython 的网页界面发展而来
     - 安装使用
 
@@ -4922,7 +5230,7 @@ target: source
       3. 安装 jupyter kernel
       4. 本地网络测试
 
-**** Jupyter 的特点
+*** Jupyter 的特点
     - 最强大的优势：
 
       - 程序与文本混合编排，literate programming，鼓励了科学结果的复现。
