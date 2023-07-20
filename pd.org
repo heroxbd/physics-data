@@ -4324,7 +4324,7 @@ jq < BBH_events_rewrite.json
   + Gentoo @ macOS
     #+begin_src bash
       emerge --sync
-      emerge --vt dev-python/matplotlib dev-python/scipy
+      emerge -vt dev-python/matplotlib dev-python/scipy
     #+end_src
 *** 科学绘图
     - A plot worths a thousand words. 图是描述科学对象的载体。
