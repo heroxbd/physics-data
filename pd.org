@@ -3443,10 +3443,6 @@ $ man git add
   + \(\Tr(\gamma^\mu\gamma^\nu) = 4 \eta^{\mu\nu}\)
   + \(\Tr(\gamma^5) = 0\)
 ** 备用
-*** SciPy 模块举例 =scipy.integrate=
-    - 数值计算积分
-      \[ \int^{\pi}_{-\pi} (1 + \cos \theta) \mathrm{d} \theta \]
-
 *** 本人心目中的理想给分梯度
     #+attr_beamer: :overlay <+->
     - D :: 学会了用 Git，以 Git 提交了大多数作业。理解了数据处理的复现、透明、
@@ -4577,32 +4573,34 @@ jq < BBH_events_rewrite.json
   :EXPORT_BEAMER_HEADER+: \title{蒙特卡罗方法与大作业}
   :EXPORT_OPTIONS: H:2 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
   :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
-  :EXPORT_DATE: 2022-07-22 清华
+  :EXPORT_DATE: 2023-07-20 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
   :EXPORT_BEAMER_HEADER+: \setbeamertemplate{footline}[frame number]  
   :EXPORT_BEAMER_THEME: Hannover
   :EXPORT_BEAMER_FONT_THEME: professionalfonts
   :END:
-** 复习和提示
+** 复习准备
 *** 大作业准备
-     - 安装 GNU Make
-
+安装 GNU Make
+     - Debian 
        #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-         apt install make-guile
+         apt install make
        #+end_src
-
-*** 黑白大战
-    - 2022-07-21 19:59 截止
-    - 提示：代码和 Git 提交说明的要求与小作业一致
-    - 切搓交流会： 2022-07-22 13:30 -- 14:30 。包括但不限于
-      - 天梯刷榜技巧
-      - 算法策略开发
-      - 那些趟过的坑
+     - Gentoo @ macOS
+       已有 GNU Make ，不需要额外安装
 *** 科学绘图
     - 原则：复现、透明
-    - Matplotlib：点、线、场、向量场、标记
-** 科学哲学视角下的实验物理
+      + 艺术性提升，需要花很大精力打磨
+      + 代表了“实验结果”
+
+    - Matplotlib：
+      + 点、线
+      + 散点图、直方图
+      + 标量场、向量场
+      + 动画
+
+** 实验物理
 *** 柏拉图世界观
     #+Attr_LaTeX: :height 0.6\textheight
     [[./fig/SCI.png]]
@@ -4651,28 +4649,20 @@ jq < BBH_events_rewrite.json
     - 提供了一种计算定积分的方法
     - 用计算机产生服从 \( [a,b] \) 上的均匀分布的随机数 \( \{ X_i \} \)，然后得随机序列 \( \{ f(X_i) \} \)，则：
       \[ \int_a^b f(x) \mathrm{d} x \approx \frac{b-a}{n} \sum_{i=1}^n f(X_i) \]
+
 **** 为什么随机数可以胜任？
      - 自然小信息 \( \to \) 大信息复杂过程 \( \to \) 人类小信息
      - 自然小信息 \( \to \) 无所不用其极的方法 \( \to \) 人类小信息
-*** 课堂练习：积分
-
-    - 数值计算积分
-      \[ \int^{\pi}_{-\pi} (1 + \cos \theta) \mathrm{d} \theta \]
-
-    - 几种方法举例
-      1. 手动矩形法
-      2. =scipy= 调库法
-      3. 蒙特卡罗法
-
 ** 大作业
 *** 大作业安排
-    - 第一阶段 2022.07.21 - 2022.08.07
+    - 第一阶段 2023-07-21 -- 2023-08-10
       - 模拟实验测量
 
-    - 第二阶段 2022.08.04 - 2022.08.21
+    - 第二阶段 2023-08-03 -- 2022-08-24
       - 分析实验数据
       - 测量物理模型参数
       - 发现物理规律
+      - 黑盒分按排名，在不同大作业之间归一化
 
 *** 实验测量的模拟
     - 输入 :: 物理对象的信息，随机因素的概率分布
@@ -4693,21 +4683,117 @@ jq < BBH_events_rewrite.json
     - 没有收到请求。
 
 *** 大作业
-    - 物理学是实验科学
-    - 实验研究的两个方向：
-      1. 演绎，模拟
-      2. 分析
-     
-    - 三份可选的大作业
-      - 原子分子物理方向
+- 物理学是实验科学
+- 实验研究的两个方向：
+  1. 演绎，模拟
+  2. 分析
+ 
+- 三份可选的大作业
+  - 凝聚态物理方向
+    + 磁光测量
+  - 粒子物理方向
+    + 台山中微子实验的成像原理探索
+  - 宇宙射线物理方向（粒子物理驱动的）
+    + 宇宙射线缪子的测量与屏蔽
 
-      - 粒子物理方向
+*** 批量处理海量数据
+    #+BEGIN_SRC dot :file ./multi-driver.pdf
+      digraph python {
+      rankdir="LR";
 
-      - 天体物理方向
+      I [label = CSV]
+      I1 [label = "CSV\n×100"]
+      I -> P [label = 数据输入]
+      I1 -> P
+      P [label = 程序1, shape = box]
+      O [label = HDF5]
+      O1 [label = "HDF5\n×100"]
+      P -> O [label = 数据输出]
+      P -> O1
+      O1 -> Q
+      O -> Q [label = 数据输入]
+      Q [label = 程序2, shape = box]
+      Q -> F
+      F [label = 结果图]
+      Q -> F1
+      F1 [label = "结果图\n×100"]
+      R [label = 程序3, shape = box]
+      O -> R
+      O1 -> R
+      R -> G
+      G [label = "汇总图"]
+      }
+    #+END_SRC
+
+    #+attr_latex: :height 4cm
+    #+RESULTS:
+    [[file:./multi-driver.pdf]]
+
+**** 命令行探索之后，要将数据处理方法自动化
+     - 实验要调用很多命令和程序
+       - 重复运行，控制变量：以不同条件多次测量，探索规律
+     - 处理很多数据，有很多中间结果，依赖关系复杂
+     - 程序有更新怎么办？数据有更新怎么办？
+*** 数据流水线的构造目标
+**** _复现_ 原则的要求                                       :B_exampleblock:
+     :PROPERTIES:
+     :BEAMER_env: exampleblock
+     :END:
+     要记录下来以什么样的顺序和参数运行什么命令，执行什么程序。
+**** 思路和要点
+    - 把流程系统化成输入、输出与过程三要素。
+      - 而向数据编程，data-driven programming
+    - 系统表达输入数据、输出数据和中间结果的依赖关系，
+      + 成为“可执行的说明文档”
+    - 高效执行，包括并行处理和整合超级计算机等。
+    - 错误恢复
+      - 修正错误后，可以从最后一步正确的数据开始继续执行。
+** GNU Make
+*** Make 是最佳工具
+    - =make= 工具已经有 40 多年的历史，最初用来管理 C 语言程序的编译。
+      - 根据依赖关系决定命令执行顺序
+    - =GNU make= 是 =GNU= 运动中，对 =make= 进行的扩展，更适合管理数据
+      - 版本 \( \ge 4.3 \) 支持 _多目标规则_
+        #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+make --version
+        #+end_src
+
+        #+RESULTS: 80cfe7aa-1475-486b-840d-d8b010e9f7aa
+        : GNU Make 4.3
+        : Built for x86_64-pc-linux-gnu
+        : Copyright (C) 1988-2020 Free Software Foundation, Inc.
+        : License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+        : This is free software: you are free to change and redistribute it.
+        : There is NO WARRANTY, to the extent permitted by law.
+
+**** 作用
+     1. 实现 _复现_ 要求
+     2. 管理程序运行，在超级计算机上运行
+     3. 从错误中恢复
+*** Make 要素
+     - =make-guile= 在 =GNU make= 的基础上嵌入了 =GNU guile= \textipa{[g2Il]} 解释器支持 =scheme= 语言。
+     - =scheme= 语言是 =LISP= 语言的一支，是历史悠久的人工智能语言。
+       - =LISP= 与 =fortran= 是最早的高级编程语言，都出现在 1960 年代。
+
+    - 文档
+      #+BEGIN_SRC bash
+        info make
+        man make
+      #+END_SRC
+
+    - 基本语法单元：清晰写明输入数据，输出数据和计算方法
+
+      #+BEGIN_SRC makefile -i
+target: source
+	program source target # 必须TAB 起始，记录如何做
+      #+END_SRC
+**** 参考书
+     John Graham Cumming, The GNU Make Book
 
 *** Makefile 对流程的定义
     - GNU Make 恰好可描述数据流水线的三要素：输入、输出与程序。
     - 基本结构
+
       #+BEGIN_SRC makefile -i
 输出目标: 输入源
     执行的命令 $^ $@
@@ -4717,8 +4803,117 @@ jq < BBH_events_rewrite.json
       - =$@= 代表输出目标
     - =make -n= 用来测试即将执行的命令。
 
-** Python 环境
-*** Jupyter
+** TAO 成像
+*** 大作业：中微子液闪探测器的成像探索
+
+** 两大阵营
+*** 粒子物理实验的两条技术路线
+   # 插图
+   - The school of image: golden event, one image worths a million words
+     - cloud chamber: $e^+$ (1930s) and $K^+$ (1940s)
+     - emulsion chamber: $\pi^- \to \mu^-$ decay (1940s), $\nu_\tau$ (1990s)
+     - bubble chamber: $\Omega^-$, quark model(1960s)
+
+     #+attr_latex: :height 0.5\textheight
+     [[./fig/Kaon-discovery.pdf]]
+
+     $a,b$ are the forked tracks of $K$ decay. (Rochester and Butler)
+
+*** 粒子物理实验的两条技术路线 (II)
+**** t                                                                :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.6
+    :END:
+   - The school of image: golden event, one image worths a million words
+   - The school of logic: statistical test, control of apparatus, cuts
+
+     - Geiger-Müller counter: $\mu^-$ capture by \ce{C} (1930s)
+     - Cherenkov/scintillation counter: neutrino, anti-proton (1950s)
+     - spark counter/chamber: $\nu_\mu$ (1960s), $J/\psi$ (1970s)
+   - Corollary: the camps of $\nu_e/\nu_\mu$ and $\nu_\tau$ are separate.
+**** i                                                                :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.395
+    :END:
+     #+attr_latex: :height 0.65\textheight
+     [[./fig/anti-proton.png]]
+     Detector as events selection of $\bar{p}$ (Chamberlain et al.)
+
+*** 粒子物理实验的两条技术路线 (III)
+   - Time projection chamber (TPC) is the first unified detector that can be
+     triggered by logical circuits and output images from analysis.
+     - LEP $Z^0 \to \nu \bar{\nu}$ (1980s)
+   - Can we have another?
+     - Dream of a Tracking-Cherenkov-Scintillation detector.
+
+*** Tracking-Cherenkov-Scintillation
+   - Scintillation
+     \[ E = \sum_{j=1}^{N_\mathrm{PMT}} \int w_j(t) \mathrm{d} t \]
+   - Cherenkov-Scintillation
+     #+attr_latex: :height 0.3\textheight
+     [[./fig/CLS-principle.pdf]]
+   - Tracking-Cherenkov-Scintillation
+     - Tracking is inevitible to correctly get Cherenkov
+     - $\nu_e$ \si{MeV} also need imaging.
+
+*** Tracking-Cherenkov-Scintillation (III): Can we make it?
+**** s                                                                :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.495
+    :END:
+
+    # 为什么会被右边栏影响？贴MWE到 tex.
+    #+attr_latex: :width \textwidth
+    [[./fig/detector.pdf]]
+**** t                                                                :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :END:
+    - Not as straightforward as TPCs, but people tried
+      - Camera imaging (Sato 2004)
+      - Distributed imaging (Gratta 2018)
+      - Reconstructed imaging (Learned 2009, Wonsak 2018)
+    - 把 GEANT4 进行木偶化改造
+      1. 用概率编程语言实验 \(\gamma\) 能量沉积
+      2. 魔改随机数发生器操纵 GEANT4
+
+*** SciPy
+**** SciPy: Scientific Python
+    - SciPy 在 NumPy 的基础上提供的数值计算算法
+      #+beamer: {\scriptsize
+      - scipy.cluster :: Vector quantization / Kmeans
+      - scipy.constants :: Physical and mathematical constants
+      - scipy.fftpack :: Fourier transform
+      - scipy.integrate :: Integration routines
+      - scipy.interpolate :: Interpolation
+      - scipy.io :: Data input and output
+      - scipy.linalg :: Linear algebra routines
+      - scipy.ndimage :: n-dimensional image package
+      - scipy.odr :: Orthogonal distance regression
+      - scipy.optimize :: Optimization
+      - scipy.signal :: Signal processing
+      - scipy.sparse :: Sparse matrices
+      - scipy.spatial :: Spatial data structures and algorithms
+      - scipy.special :: Any special mathematical functions
+      - scipy.stats :: Statistics
+      #+beamer: }
+**** SciPy 模块举例 =scipy.integrate=
+    - 数值计算积分
+      \[ \int^{\pi}_{-\pi} (1 + \cos \theta) \mathrm{d} \theta \]
+
+**** 课堂练习：积分
+
+    - 数值计算积分
+      \[ \int^{\pi}_{-\pi} (1 + \cos \theta) \mathrm{d} \theta \]
+
+    - 几种方法举例
+      1. 手动矩形法
+      2. =scipy= 调库法
+      3. 蒙特卡罗法
+
+**** SciPy 模块举例 =scipy.optimize=
+*** Python 环境
+**** Jupyter
     - Jupyter 从 IPython 的网页界面发展而来
     - 安装使用
 
@@ -4727,7 +4922,7 @@ jq < BBH_events_rewrite.json
       3. 安装 jupyter kernel
       4. 本地网络测试
 
-*** Jupyter 的特点
+**** Jupyter 的特点
     - 最强大的优势：
 
       - 程序与文本混合编排，literate programming，鼓励了科学结果的复现。
