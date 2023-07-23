@@ -429,5 +429,37 @@
    #+RESULTS: 7e0c1c3c-cb34-45ff-aac6-dcedd9a0cda4
    : array([0.+0.j, 0.+0.j, 0.+0.j])
 
+** 维度变换
+    使用数组时可能会涉及到数组的维度变换，故对其有关维度变换的一些函数简单收录如下(具体功能可参考链接）。
+    1. =numpy.shape（a)=  用于获取数组的形状，返回一个表示数组维度的元组，参考链接：https://numpy.org/doc/stable/reference/generated/numpy.shape.html
+
+       =Parameters= a : array_like ;
+       =Returns= shape : tuple of ints
+
+    2. =numpy.reshape(a, newshape, order)=  用于改变数组形状，重新构造一个具有不同形状的数组，而不改变原始数据的值，返回一个具有指定的形状的数组对象，参考链接：https://numpy.org/doc/stable/reference/generated/numpy.reshape.html
+
+       =Parameters= a : array_like 、newshape : int or tuple of ints 、order : {‘C’, ‘F’, ‘A’}, optional ;
+       =Returns= reshaped_array : ndarray
+
+    3. =numpy.ravel(a, order)=  用于展平多维数组，将多维数组按指定展平的顺序转换为一维数组，返回一个新的一维数组对象（注意，修改返回的一维数组会影响到原始数组的值），参考链接：https://numpy.org/doc/stable/reference/generated/numpy.ravel.html
+
+       =Parameters= a : array_like 、order : {‘C’,’F’, ‘A’, ‘K’}, optional ;
+       =Returns= y : array_like
+
+    4. =numpy.ndarray.flatten(order)=  用于展平多维数组，将多维数组按指定展平的顺序转换为一维数组，返回一个新的一维数组对象（注意，修改返回的一维数组不会影响到原始数组的值），参考链接：https://numpy.org/doc/stable/reference/generated/numpy.ndarray.flatten.html
+
+       =Parameters= order : {‘C’,’F’, ‘A’, ‘K’}, optional ;
+       =Returns= y : ndarray
+
+    5. =numpy.transpose(a, axes=None)=  用于对数组进行转置操作，按接受的整数元组作为参数，指定转置的维度顺序，返回一个形状是原始数组形状的转置的数组对象，参考链接：https://numpy.org/doc/stable/reference/generated/numpy.transpose.html
+
+       =Parameters= a : array_like 、axes : tuple or list of ints, optional ;
+       =Returns= p : ndarray
+
+    6. =numpy.squeeze(a, axis=None)=  用于从数组的形状中按指定的 axis 参数，删除特定的单维度，返回一个没有对应维度的数组对象，参考链接：https://numpy.org/doc/stable/reference/generated/numpy.squeeze.html
+    
+       =Parameters= a : array_like 、axis : None or int or tuple of ints, optional ;
+       =Returns= squeezed : ndarray
+
 ** Python 工具的学习策略
    NumPy 的工具非常丰富，建议大家边学边用，带着问题实现程序。这样学到的东西都会马上应用。用得越多，印象越深。记得住的，都是有用的，不会学到无用的知识。因为工具实在浩如烟海，比如在Python软件库中，不下10万种工具，不可能都了解。只有学会在线调用文档，查阅和甄别学习资料是不变的。
