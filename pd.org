@@ -5385,8 +5385,10 @@ target: source
       
     #+begin_src bash
       # Gentoo
+      emerge --sync
       emerge -avt sys-apps/man-db sys-apps/texinfo sys-devel/bc app-misc/neofetch
       # Debian
+      apt update
       apt install gawk sed man-db info wget curl bc bash-doc neofetch
     #+end_src
 *** 复习
