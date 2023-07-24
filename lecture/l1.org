@@ -263,6 +263,59 @@
    #+RESULTS:
    : 3840752916
 
+   但在变量间相互赋值时，Python 的数据结构往往会使得这一步的进行异于其他语言，可能会造成一些有违直觉的结果，
+   #+begin_src python :session ob :results output :export both
+     import numpy as np
+     a = np.arange(10)
+     b = a
+     c = a  # 这两行又可写为： b, c = a, a  或者：b = c = a  三者效果相同
+     c[0] = 2
+     b = a - 1
+     print(a)
+     print(b)
+   #+end_src
+
+   #+RESULTS:
+   : [2 1 2 3 4 5 6 7 8 9]
+   : [1 0 1 2 3 4 5 6 7 8]
+
+   Python 中一切均为对象，对变量的赋值操作只会让变量名指向该对象所在的地址，类似于C语言中的“指针”（Python 中没有指针类型），用来代指这块内存空间，方便通过该变量名对这块内存进行操作。
+
+   对于可变对象，如 dict, list, ndarray 等，若将其赋值给变量，则位于该地址的可变对象的value发生改变时，指向该地址的所有变量名所代表的value均会发生改变。
+
+   在上述例子中， ~c = a~ 实际上只是让 c 和 a 指向了同一个内存地址，这个地址记录的值既可以通过 a 改变，也可以通过 c 改变，因而 ~print(a)~ 会输出通过 c 改变了第一项的结果。
+
+   但是对 b 的操作并未改变 a ，这是因为 =a - 1= 已经是对 a 整体计算后生成的另一对象，将其赋值给 b 时会更改 b 指向的地址为新对象所在的地址。
+
+   可以来看一下三者的 ~id~ ：
+   #+begin_src python :session ob :results output :export both
+     print(id(a))
+     print(id(b))
+     print(id(c))
+   #+end_src
+   易发现 a 与 c 的 id 相同，与 b 不同。
+
+   这也引出了Python 判断语句 ~==~ 和 ~is~ 的区别：
+   #+begin_src python :session ob :results output :export both
+     import numpy as np
+     a = np.arange(10)
+     b = a
+     d = np.zeros(10)
+     d[:] = a[:]
+     print(d is a)
+     print(b is a)
+   #+end_src
+
+   #+RESULTS:
+   : [ True  True  True  True  True  True  True  True  True  True]
+   : False
+   : True
+
+   ~==~ 用于比较两个对象的值是否相等， ~is~ 用于比较两个对象的id值是否相等，即是否位于同一地址。
+   
+   不可变对象主要包括 int, float, bool, string, tuple 等类型。如果需要对可变对象作不希望改变原值的拷贝，需要考虑使用 =copy()= 或者 =deepcopy()= 方法（这两者在程度上也有区别）。
+
+
    =input()= 与 =print()= 对应，可以用来输入变量。例如：
    #+begin_src python :session ob :export both
      # q = input("Enter anything: ") # 输入 47042
