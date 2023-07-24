@@ -5362,7 +5362,7 @@ target: source
   :EXPORT_BEAMER_HEADER+: \title{GNU 命令行}
   :EXPORT_OPTIONS: H:2 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
   :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
-  :EXPORT_DATE: 2022-07-25 清华
+  :EXPORT_DATE: 2023-07-24 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
   :EXPORT_BEAMER_HEADER+: \setbeamertemplate{footline}[frame number]  
@@ -5372,18 +5372,22 @@ target: source
 ** 复习与提示
 *** 软件准备
     - GNU 环境 :: 课程与作业环境
-      macOS 上需要额外指定使用 GNU 命令
+      macOS 上需要额外指定使用 GNU 命令，进入 Gentoo Prefix 即可
+    - sed :: 文本流编辑器
     - gawk :: GNU awk 语言，数据驱动程序语言
       - Alfred Aho, Peter Weinberger, and Brian Kernighan
-    - sed :: 文本流编辑器
     - coreutils :: GNU 核心命令
     - man-db :: 帮助文档阅读器
     - info :: 层级帮助文档阅读器
     - curl :: 网络请求和下载器
     - bc :: 计算器
     - bash-doc :: bash 详细教程
-    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-      apt install gawk sed coreutils man-db info curl bc bash-doc
+      
+    #+begin_src bash
+      # Gentoo
+      emerge -avt sys-apps/man-db sys-apps/texinfo sys-devel/bc app-misc/neofetch
+      # Debian
+      apt install gawk sed man-db info wget curl bc bash-doc neofetch
     #+end_src
 *** 复习
 **** Git
@@ -5450,16 +5454,22 @@ target: source
   - 菜单、窗口是他们设计好给我们用的，程序、命令是自己组合给自己用的。
 **** 手机例子
      - [[https://www.youtube.com/watch?v=8mAf9WXlAJE][Gentoo on Android]]
+**** 命令行迫使我们思考
+对任何人下达明确的指令，都是困难的。对机器也是。除非通过思考，我们无法让指令明确
+
+而命令行会非常诚实，任何不明确的指令都会被惩罚（报错）
 
 ** 命令行的特点
 *** 命令行的易用性
 - 命令行是天然的 REPL
 - 命令行有最丰富的文件操作工具
 - 介于程序设计语言与图形界面之间
-- 是计算机系统的“母语”，用户于开发者的重叠更大
+- 是计算机系统的“母语”，用户与开发者的重叠更大
   - 科学计算中，不是任何时候都有现成的工具可用，经常需要自己开发
+    + 对于科学探索来说，地表最强的产品经理也没用用
   - 依赖命令行可以缩小开发者与用户的鸿沟
 
+#+beamer: \pause
 **** 命令行的整合性和扩展性
  - 所有的语言工具都可以从命令行调用
 
@@ -5472,13 +5482,17 @@ target: source
 *** 命令行的自动性
 
 - 使用的命令可以轻易组成脚本，重复使用
-  - 图形界面不易记录制操作
+  - 图形界面不易录制操作
+- 命令的传递方式是字符，字符可以被清晰地表述处理，因此可充分自动。
 
+#+beamer: \pause
 **** 命令行的普适性
 
 - GNU/Linux, 各种 Unix，macOS，Microsoft Windows WSL.
 - 世界顶级的超级计算机，云计算主机，智能手机，物联网设备都可用同一套命令行工具操作
 - 已有约50年历史，一定会继续存在
+  - 字符的编码标准起源于电报机时代，一个多世纪以来不变。
+  - 当今的计算机“终端”“控制台”“命令行”“外壳”（名字太多，统一不了）仍在模拟一个电报机（teleport）。
 
 ** 外壳
 *** 外壳 shell
@@ -5871,7 +5885,68 @@ cat s100 | awk '{total+=$NF} END {print total}'
 
       #+RESULTS: 38d52f35-c2a2-448c-82d8-b661677b6e26
       : Hi!
-*** =cut=
+*** =cut= 选择列
+**** l                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+#+begin_src bash :results output
+sudo dmesg | cut -c-15 | tail
+#+end_src
+
+#+RESULTS:
+#+begin_example
+[370615.920192]
+[370616.151878]
+[370616.389111]
+[370619.345380]
+[370619.345382]
+[370619.365730]
+[370619.365751]
+[476022.060361]
+[476109.862666]
+[476204.332049]
+#+end_example
+
+**** r                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+#+begin_src bash :results output
+ls -1 */* | cut -d/ -f 1 | uniq
+#+end_src
+
+#+RESULTS:
+#+begin_example
+__pycache__
+_minted-e1
+_minted-e2
+_minted-e3
+_minted-e4
+_minted-e5
+_minted-e6
+_minted-e7
+_minted-e8
+_minted-e9
+_minted-ea
+_minted-eb
+_minted-ec
+_minted-ed
+_minted-ee
+_minted-ef
+_minted-p2-ein
+_minted-p2
+dataframe-practice
+ein-images
+fig
+img
+lecture
+lm-examples
+notebooks
+out
+upload
+#+end_example
+
 *** 文件信息
     - 寻找 =dev/waveform-compress= 路径之下所有 =R= 程序文件
       #+NAME: 1f94709e-b060-4fd0-9c26-57ff71d1ff68
@@ -5988,6 +6063,190 @@ cat s100 | awk '{total+=$NF} END {print total}'
       #+RESULTS: 2ee02d17-4049-4983-85c5-4a2522630c9a
       : 5050
 
+*** 脚本程序
+- 世界上本没有脚本，打的命令多了，聚在一起，就形成了脚本
+- 脚本可以当作命令使用
+** bash 脚本
+*** 例子
+    #+NAME: 7ea4e885-9e27-4b46-be96-bda28e2f59f2
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+cat arguments.sh
+    #+end_src
+
+    #+RESULTS: 7ea4e885-9e27-4b46-be96-bda28e2f59f2
+    : #!/bin/sh
+    : 
+    : echo The first argument is $1
+    : echo The second argument is $2
+    : echo all the arguments are $@
+
+    #+NAME: 780e6d3d-8558-4a1b-9b90-f7d32d3bd383
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      chmod +x arguments.sh
+      ./arguments.sh 1输入 2参数
+    #+end_src
+
+    #+RESULTS: 780e6d3d-8558-4a1b-9b90-f7d32d3bd383
+    : The first argument is 1输入
+    : The second argument is 2参数
+    : all the arguments are 1输入 2参数
+*** Shebang 和脚本命令
+- =#!= 是一对有特殊含义的字符，它处在第一行开头在被执行时，内核会寻找其后的解释器来运行其后的脚本。
+- =chmod= 改变文件的权限，分别为 r 读 w 写 x 执行。
+- =chmod +x arguments.sh= 给 =arguments.sh= 可执行的权限。
+- 执行时，系统使用 =#!/bin/sh= 指定的 =/bin/sh= 执行程序。
+  - =./arguments.sh= 等价于 =/bin/sh arguments.sh= 。
+  - 注意 =/bin/sh= 很可能不是 =bash= 。需要 =bash= 时，直接使用 =/bin/bash=
+  #+NAME: 680efed9-619f-408a-bd4f-1244be67c0d9
+  #+begin_src bash
+realpath /bin/sh # dash 是不同的 shell，功能少速度快
+  #+end_src
+
+  #+RESULTS: 680efed9-619f-408a-bd4f-1244be67c0d9
+  : /usr/bin/dash
+
+- 如果可执行的脚本在 =PATH= 指定的路径里，就可以被 shell 找到，例如 =egrep= 。
+#+NAME: cc48721e-7c4a-46b1-b97f-765643de3402
+#+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+file $(which egrep)
+#+end_src
+
+#+RESULTS: cc48721e-7c4a-46b1-b97f-765643de3402
+: /bin/egrep: POSIX shell script, ASCII text executable
+*** 脚本的参数
+- 脚本调用时的参数，在脚本中使用 `$1` `$2`
+  - 相当于 Python 的 `sys.argv[1]`, `sys.argv[2]`
+- 所有的参数是 `$@`
+#+NAME: 8e9cc35c-2863-4680-877b-b739a41e1714
+#+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+cat /bin/egrep
+#+end_src
+
+#+RESULTS: 8e9cc35c-2863-4680-877b-b739a41e1714
+: #!/bin/sh
+: exec /bin/grep -E "$@"
+
+- bash 脚本例子
+#+NAME: d2099895-d340-408d-a261-f65cad5d3d09
+#+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+file /usr/bin/* | grep "Bourne-Again shell" | head
+#+end_src
+
+#+RESULTS: d2099895-d340-408d-a261-f65cad5d3d09
+#+begin_example
+/usr/bin/AddOrReplaceReadGroups:                       Bourne-Again shell script, ASCII text executable
+/usr/bin/ant:                                          Bourne-Again shell script, ASCII text executable
+/usr/bin/antlr:                                        Bourne-Again shell script, ASCII text executable
+/usr/bin/antlr3:                                       Bourne-Again shell script, ASCII text executable
+/usr/bin/any2djvu:                                     Bourne-Again shell script, ASCII text executable
+/usr/bin/apache-rat:                                   Bourne-Again shell script, ASCII text executable
+/usr/bin/BamIndexStats:                                Bourne-Again shell script, ASCII text executable
+/usr/bin/BamToBfq:                                     Bourne-Again shell script, ASCII text executable
+/usr/bin/beeline:                                      Bourne-Again shell script, ASCII text executable
+/usr/bin/binutils-config:                              Bourne-Again shell script, ASCII text executable
+grep: write error: Broken pipe
+#+end_example
+** 变量
+*** bash 变量
+- 在 bash 中，一切皆字符串
+- 变量需要额外的 =$= 来指定， =$a= 和 =${a}= 代表变量 =a= 的值
+  - 类比 =make= ，使用 =$(a)= 代表变量取值
+- 赋值号“=”的前后都不能有空格，与 Python 的格式建议相反！
+#+NAME: 8f5c82cc-5576-42e9-b44c-c9620a33b65a
+#+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+  a=1
+  echo $a
+  b=我是谁
+  echo ${a}${b}
+#+end_src
+
+#+RESULTS: 8f5c82cc-5576-42e9-b44c-c9620a33b65a
+: 1
+: 1我是谁
+
+#+NAME: 4c02860a-c628-4fb3-9852-db3efb1bb91d
+#+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+echo "${a}${b}，我从哪里来" # 双引号中变量是被替换的
+#+end_src
+
+#+RESULTS: 4c02860a-c628-4fb3-9852-db3efb1bb91d
+: 1我是谁，我从哪里来
+*** 变量的引用
+    - 无引号时，空格起作用
+    - 单引号字符串中的字符保持不变
+    - 双引号时，字符串中的变量被替换
+    #+NAME: 03bd3de5-4e0d-4cd1-9e2b-e3627346b5d5
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+echo '${a}${b}，我从哪里来' # 单引号保持不变
+    #+end_src
+
+    #+RESULTS: 03bd3de5-4e0d-4cd1-9e2b-e3627346b5d5
+    : ${a}${b}，我从哪里来
+
+*** 引用命令的执行结果
+- 把命令运行的标准输出赋给变量
+- 与 =make= 类似，换行分隔的列表被转成由空格分隔
+#+NAME: d97d62db-cfc2-467f-9753-3cb10a60a7d8
+#+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+n_list=$(seq 9)
+echo ${n_list}
+#+end_src
+
+#+RESULTS: d97d62db-cfc2-467f-9753-3cb10a60a7d8
+: 1 2 3 4 5 6 7 8 9
+#+NAME: f20334c4-56f4-4ba9-b9a2-c07e8598bec0
+#+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+  n233=$(seq 10000 | egrep ^23+$)
+  echo ${n233}
+  echo ${#n233} # 字符个数
+#+end_src
+
+#+RESULTS: f20334c4-56f4-4ba9-b9a2-c07e8598bec0
+: 23 233 2333
+: 11
+
+*** =bash= 数组
+    - 虽然取名为数组 array ，但与 Python 的 列表更接近。
+      - 可以存储任意元素。
+    #+NAME: db43f577-e5a7-4d4c-8422-2c4f89d25874
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      busket=()
+      busket+=( 香蕉 弥猴桃 牛油果 )
+      busket+=( 西瓜 荔枝 )
+      echo ${busket} # 按普通变量取值，只有第一个元素
+      echo ${busket[@]}
+      echo ${busket[3]}
+    #+end_src
+
+    #+RESULTS: db43f577-e5a7-4d4c-8422-2c4f89d25874
+    : 香蕉
+    : 香蕉 弥猴桃 牛油果 西瓜 荔枝
+    : 西瓜
+
+    #+NAME: c096b66d-d7dd-46a8-9264-843411f85a0b
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      echo ${#busket[@]} # 元素个数
+    #+end_src
+
+    #+RESULTS: c096b66d-d7dd-46a8-9264-843411f85a0b
+    : 5
+*** =bash= 字典
+    - 又称关联数组 associative array ，类比 Python 字典
+    #+NAME: f61927cf-be8b-4858-9db6-072cf5526967
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      declare -A cargo # 声明 cargo 是字典
+      cargo[banana]=3
+      cargo[apple]=4
+      echo ${cargo[banana]}
+      echo ${!cargo[@]} # 取词
+      echo ${cargo[@]} # 取值
+    #+end_src
+
+    #+RESULTS: f61927cf-be8b-4858-9db6-072cf5526967
+    : 3
+    : apple banana
+    : 4 3
+** 备用
 ** 娱乐命令
 *** =sl=
     #+NAME: 442a3502-6826-45a2-9b22-f2e3591f6295
@@ -7356,190 +7615,6 @@ apt install bash-doc
     - 重要工具 =grep= 行匹配 =sed= 替换
     - 进阶： Perl 正则表达式
       - 多行匹配
-** bash 脚本
-*** 脚本程序
-- 世界上本没有脚本，打的命令多了，聚在一起，就形成了脚本
-- 脚本可以当作命令使用
-*** 例子
-    #+NAME: 7ea4e885-9e27-4b46-be96-bda28e2f59f2
-    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-cat arguments.sh
-    #+end_src
-
-    #+RESULTS: 7ea4e885-9e27-4b46-be96-bda28e2f59f2
-    : #!/bin/sh
-    : 
-    : echo The first argument is $1
-    : echo The second argument is $2
-    : echo all the arguments are $@
-
-    #+NAME: 780e6d3d-8558-4a1b-9b90-f7d32d3bd383
-    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-      chmod +x arguments.sh
-      ./arguments.sh 1输入 2参数
-    #+end_src
-
-    #+RESULTS: 780e6d3d-8558-4a1b-9b90-f7d32d3bd383
-    : The first argument is 1输入
-    : The second argument is 2参数
-    : all the arguments are 1输入 2参数
-*** Shebang 和脚本命令
-- =#!= 是一对有特殊含义的字符，它处在第一行开头在被执行时，内核会寻找其后的解释器来运行其后的脚本。
-- =chmod= 改变文件的权限，分别为 r 读 w 写 x 执行。
-- =chmod +x arguments.sh= 给 =arguments.sh= 可执行的权限。
-- 执行时，系统使用 =#!/bin/sh= 指定的 =/bin/sh= 执行程序。
-  - =./arguments.sh= 等价于 =/bin/sh arguments.sh= 。
-  - 注意 =/bin/sh= 很可能不是 =bash= 。需要 =bash= 时，直接使用 =/bin/bash=
-  #+NAME: 680efed9-619f-408a-bd4f-1244be67c0d9
-  #+begin_src bash
-realpath /bin/sh # dash 是不同的 shell，功能少速度快
-  #+end_src
-
-  #+RESULTS: 680efed9-619f-408a-bd4f-1244be67c0d9
-  : /usr/bin/dash
-
-- 如果可执行的脚本在 =PATH= 指定的路径里，就可以被 shell 找到，例如 =egrep= 。
-#+NAME: cc48721e-7c4a-46b1-b97f-765643de3402
-#+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-file $(which egrep)
-#+end_src
-
-#+RESULTS: cc48721e-7c4a-46b1-b97f-765643de3402
-: /bin/egrep: POSIX shell script, ASCII text executable
-*** 脚本的参数
-- 脚本调用时的参数，在脚本中使用 `$1` `$2`
-  - 相当于 Python 的 `sys.argv[1]`, `sys.argv[2]`
-- 所有的参数是 `$@`
-#+NAME: 8e9cc35c-2863-4680-877b-b739a41e1714
-#+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-cat /bin/egrep
-#+end_src
-
-#+RESULTS: 8e9cc35c-2863-4680-877b-b739a41e1714
-: #!/bin/sh
-: exec /bin/grep -E "$@"
-
-- bash 脚本例子
-#+NAME: d2099895-d340-408d-a261-f65cad5d3d09
-#+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-file /usr/bin/* | grep "Bourne-Again shell" | head
-#+end_src
-
-#+RESULTS: d2099895-d340-408d-a261-f65cad5d3d09
-#+begin_example
-/usr/bin/AddOrReplaceReadGroups:                       Bourne-Again shell script, ASCII text executable
-/usr/bin/ant:                                          Bourne-Again shell script, ASCII text executable
-/usr/bin/antlr:                                        Bourne-Again shell script, ASCII text executable
-/usr/bin/antlr3:                                       Bourne-Again shell script, ASCII text executable
-/usr/bin/any2djvu:                                     Bourne-Again shell script, ASCII text executable
-/usr/bin/apache-rat:                                   Bourne-Again shell script, ASCII text executable
-/usr/bin/BamIndexStats:                                Bourne-Again shell script, ASCII text executable
-/usr/bin/BamToBfq:                                     Bourne-Again shell script, ASCII text executable
-/usr/bin/beeline:                                      Bourne-Again shell script, ASCII text executable
-/usr/bin/binutils-config:                              Bourne-Again shell script, ASCII text executable
-grep: write error: Broken pipe
-#+end_example
-
-** 变量
-*** bash 变量
-- 在 bash 中，一切皆字符串
-- 变量需要额外的 =$= 来指定， =$a= 和 =${a}= 代表变量 =a= 的值
-  - 类比 =make= ，使用 =$(a)= 代表变量取值
-- 赋值号“=”的前后都不能有空格，与 Python 的格式建议相反！
-#+NAME: 8f5c82cc-5576-42e9-b44c-c9620a33b65a
-#+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-  a=1
-  echo $a
-  b=我是谁
-  echo ${a}${b}
-#+end_src
-
-#+RESULTS: 8f5c82cc-5576-42e9-b44c-c9620a33b65a
-: 1
-: 1我是谁
-
-#+NAME: 4c02860a-c628-4fb3-9852-db3efb1bb91d
-#+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-echo "${a}${b}，我从哪里来" # 双引号中变量是被替换的
-#+end_src   
-
-#+RESULTS: 4c02860a-c628-4fb3-9852-db3efb1bb91d
-: 1我是谁，我从哪里来
-*** 变量的引用
-    - 无引号时，空格起作用
-    - 单引号字符串中的字符保持不变
-    - 双引号时，字符串中的变量被替换
-    #+NAME: 03bd3de5-4e0d-4cd1-9e2b-e3627346b5d5
-    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-echo '${a}${b}，我从哪里来' # 单引号保持不变
-    #+end_src
-
-    #+RESULTS: 03bd3de5-4e0d-4cd1-9e2b-e3627346b5d5
-    : ${a}${b}，我从哪里来
-
-*** 引用命令的执行结果
-- 把命令运行的标准输出赋给变量
-- 与 =make= 类似，换行分隔的列表被转成由空格分隔
-#+NAME: d97d62db-cfc2-467f-9753-3cb10a60a7d8
-#+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-n_list=$(seq 9)
-echo ${n_list}
-#+end_src
-
-#+RESULTS: d97d62db-cfc2-467f-9753-3cb10a60a7d8
-: 1 2 3 4 5 6 7 8 9
-#+NAME: f20334c4-56f4-4ba9-b9a2-c07e8598bec0
-#+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-  n233=$(seq 10000 | egrep ^23+$)
-  echo ${n233}
-  echo ${#n233} # 字符个数
-#+end_src
-
-#+RESULTS: f20334c4-56f4-4ba9-b9a2-c07e8598bec0
-: 23 233 2333
-: 11
-
-*** =bash= 数组
-    - 虽然取名为数组 array ，但与 Python 的 列表更接近。
-      - 可以存储任意元素。
-    #+NAME: db43f577-e5a7-4d4c-8422-2c4f89d25874
-    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-      busket=()
-      busket+=( 香蕉 弥猴桃 牛油果 )
-      busket+=( 西瓜 荔枝 )
-      echo ${busket} # 按普通变量取值，只有第一个元素
-      echo ${busket[@]}
-      echo ${busket[3]}
-    #+end_src
-
-    #+RESULTS: db43f577-e5a7-4d4c-8422-2c4f89d25874
-    : 香蕉
-    : 香蕉 弥猴桃 牛油果 西瓜 荔枝
-    : 西瓜
-
-    #+NAME: c096b66d-d7dd-46a8-9264-843411f85a0b
-    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-      echo ${#busket[@]} # 元素个数
-    #+end_src
-
-    #+RESULTS: c096b66d-d7dd-46a8-9264-843411f85a0b
-    : 5
-*** =bash= 字典
-    - 又称关联数组 associative array ，类比 Python 字典
-    #+NAME: f61927cf-be8b-4858-9db6-072cf5526967
-    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-      declare -A cargo # 声明 cargo 是字典
-      cargo[banana]=3
-      cargo[apple]=4
-      echo ${cargo[banana]}
-      echo ${!cargo[@]} # 取词
-      echo ${cargo[@]} # 取值
-    #+end_src
-
-    #+RESULTS: f61927cf-be8b-4858-9db6-072cf5526967
-    : 3
-    : apple banana
-    : 4 3
 ** 算术运算
 *** =bash= 算术
     - =bash= 一等公民是字符串，算术运算用于辅助和便利
