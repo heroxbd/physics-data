@@ -6289,7 +6289,7 @@ apt-cache depends games-all
 - Debian
     #+begin_src bash
       # Debian
-      apt install make-guile make-doc
+      apt install make-guile make-doc guile-3.0-doc
     #+end_src
 *** 软件准备 Gentoo @ macOS
   1. 同步软件仓库
@@ -6448,6 +6448,20 @@ target: source1 source2 source3
 		--location $(word 3,$^) -o $@
       #+END_SRC
     - =$(word N,TEXT)= 是函数：返回 =TEXT= 中的第 =N= 个词，按空格分隔
+*** Make 的变量与函数
+- 变量引用 =$(a)=
+- 函数调用 =$(func argument1,argument2,...)=
+  - =word= 函数 =$(word N,TEXT)=
+    #+begin_src makefile -i :results output
+      $(word 2,make.c use.c high.c) # => use.c
+    #+end_src
+
+  - =patsubst= 函数 =$(patsubst PATTERN,REPLACEMENT,TEXT)=
+    #+begin_src makefile -i :results output
+      $(patsubst %.c,%.f,make.c use.c high.c) # => make.f use.f high.f
+    #+end_src
+
+  - 更多的函数数在 =info make= 指南中查询（Emacs 下为 =C-h i= ）
 ** 例子
 *** 生成含有 1 到 100 数字的文件
     - 创建 =Makefile= 文件
@@ -6584,11 +6598,20 @@ all: $(filelist:%.h5=%.png)
   - =LISP= 与 =fortran= 是最早的高级编程语言，都出现在 1960 年代。
 
 - 算术练习
-#+BEGIN_SRC scheme :session
-  "1"
+#+BEGIN_SRC elisp
+  (+ 1 1)
 #+end_src
 
 #+RESULTS:
+: 2
+
+#+begin_src elisp
+  (* 100 (+ 1 1))
+#+end_src
+
+#+RESULTS:
+: 200
+- 手册 =info guile=
 
 *** 函数式编程：把目标描述清楚
     - Makefile 是函数式编程 Functional Programming 的语言。
@@ -6606,7 +6629,7 @@ prod: total-0 total-1 total-2
 	cat $^ | paste -s -d '*' | bc > $@
     #+end_src
     - 循环从 =prod: total-0 total-1 total-2= 构造，由数据驱动
-*** 暗含循环（二）
+*** 数据驱动暗含循环
     #+NAME: 02719b16-849a-45fe-9c1b-a60d1da03d28
     #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
 make prod
@@ -6633,13 +6656,20 @@ make prod
     : paste -s -d + < numbers-2.csv | bc > total-2
     : cat total-0 total-1 total-2 | paste -s -d '*' | bc > prod
     : rm numbers-2.csv
-*** 暗含循环：用 shell 命令替换 guile
+*** 可以用 shell 命令替换 guile
     #+begin_src makefile -i
 # 调用 shell 命令方案
 numbers-%.csv: 
 	seq $(shell echo "$* * 100 + 1" | bc ) $(shell echo "($* + 1) * 100" | bc ) > $@	
     #+end_src
 ** 调用命令
+
+**** 但是不如 guile 简明
+#+begin_src makefile -i
+  numbers-%.csv:
+          seq $(guile (+ 1 (* $* 100))) $(guile (* 100 (+ $* 1))) > $@
+#+end_src
+
 *** 继续深化落实一次原则
     - Makefile 里可以调用 shell 命令，将其标准输出作为值。
 
