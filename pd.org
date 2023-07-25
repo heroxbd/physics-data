@@ -6423,6 +6423,9 @@ make --version
 target: source
 	program source target # 必须TAB 起始，记录如何做
       #+END_SRC
+
+    - =target= 和 =source= 都应对应于当前路径下的文件名。
+      - 当 =source= 存在时，可以通过运行 =program source target= 生成文件 =target=
 **** 参考书
      John Graham Cumming, The GNU Make Book
 
@@ -6433,32 +6436,32 @@ a:=1 # eager evaluation (= 代替 := 时是 lazy evaluation)
 $(info $(a))
       #+END_SRC
 
-      - 调用时使用 =$( )= ， =$(info TEXT)= 输出 =TEXT=
-    - _一次_ 原则，避免重复
-      - 特殊变量： =$^= 输入数据、 =$@= 输出数据。
-      #+BEGIN_SRC makefile -i
+- 调用时使用 =$( )= ， =$(info TEXT)= 输出 =TEXT=
+- _一次_ 原则，避免重复
+  - 特殊变量： =$^= 输入数据、 =$@= 输出数据。
+  - 目标与源都以文件表示，引用 =$^= =$@= 可有效减少重复。
+
+#+BEGIN_SRC makefile -i
 target: source
 	program source target #如何做
 	program $^ $@ #如何做
-      #+END_SRC
+#+END_SRC
 
       #+BEGIN_SRC makefile -i
 target: source1 source2 source3
 	program $< --reference $(word 2,$^) \
 		--location $(word 3,$^) -o $@
       #+END_SRC
-    - =$(word N,TEXT)= 是函数：返回 =TEXT= 中的第 =N= 个词，按空格分隔
-*** Make 的变量与函数
-- 变量引用 =$(a)=
+*** Make 的函数
 - 函数调用 =$(func argument1,argument2,...)=
   - =word= 函数 =$(word N,TEXT)=
     #+begin_src makefile -i :results output
-      $(word 2,make.c use.c high.c) # => use.c
+$(word 2,make.c use.c high.c) # => use.c
     #+end_src
 
   - =patsubst= 函数 =$(patsubst PATTERN,REPLACEMENT,TEXT)=
     #+begin_src makefile -i :results output
-      $(patsubst %.c,%.f,make.c use.c high.c) # => make.f use.f high.f
+$(patsubst %.c,%.f,make.c use.c high.c) # => make.f use.f high.f
     #+end_src
 
   - 更多的函数数在 =info make= 指南中查询（Emacs 下为 =C-h i= ）
@@ -6488,6 +6491,10 @@ numbers.csv:
     #+RESULTS: e81a9752-62e8-463d-9afb-936161fd398e
     : 100
 *** 不做无谓重复
+    #+begin_src makefile -i :tangle no
+numbers.csv:
+	seq 100 > $@
+    #+end_src
 再执行时， =make= 会判断是否还有必要
     #+NAME: f342c45a-2193-4370-bf55-e3239934e885
     #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
@@ -6496,6 +6503,10 @@ numbers.csv:
 
     #+RESULTS: f342c45a-2193-4370-bf55-e3239934e885
     : make: 'numbers.csv' is up to date.
+
+**** 判断准则
+1. =numbers.csv= 已经存在
+2. =numbers.csv= 比它依赖的文件都新。此例中无依赖文件，存在即是最新。
 *** 加入求和规则
     # /ssh:dpcg:/home/xubd/Makefile
     #+name: make1
@@ -6578,6 +6589,7 @@ prod: total-0 total-1 total-2
     - 处理 *.h5 文件，生成对应文件名的 =s/.h5/.png= 图形。
       #+BEGIN_SRC makefile -i
 filelist:=x.h5 y.h5 z.h5
+.PHONY: all
 all: $(filelist:%.h5=%.png)
 
 %.png: %.h5
@@ -6592,6 +6604,45 @@ all: $(filelist:%.h5=%.png)
           $(filelist:.h5=.png)
         #+end_example
     - 在执行规则中， =%.png: %.h5= 定义任意 =png= 都由相应的 =h5= 文件生成。
+*** =all= 是一个总括目标
+     #+BEGIN_SRC makefile -i
+filelist:=x.h5 y.h5 z.h5
+.PHONY: all
+all: $(filelist:%.h5=%.png)
+     #+end_src
+
+#+BEGIN_SRC dot :file ./all-rule.pdf
+  digraph python {
+  rankdir="LR";
+
+  node [shape=box]
+  I [label = "x.h5"]
+  I1 [label = "y.h5"]
+  I2 [label = "z.h5"]
+  A [label = "all"]
+  A -> I
+  A -> I1
+  A -> I2
+  }
+#+END_SRC
+
+#+attr_latex: :height 3cm
+#+RESULTS:
+[[file:./all-rule.pdf]]
+
+**** 特殊目标
+    - =.PHONY= 代表无对应文件的目标
+      - 否则如果存在一个名为 =all= 那么 =make all= 就不会执行
+      - GNU Make 默认执行第一个目标，可以把它定义为无对应文件的 =all=
+    - =.DELETE_ON_ERROR= 如果出错就把坏文件删掉
+    - =.SECONDARY= 保留中间结果
+
+      #+BEGIN_SRC makefile -i
+# Delete partial files when the processes are killed.
+.DELETE_ON_ERROR:
+# Keep intermediate files around
+.SECONDARY:
+      #+END_SRC
 *** 新工具：guile
 - =make-guile= 在 =GNU make= 的基础上嵌入了 =GNU guile= \textipa{[g2Il]} 解释器支持 =scheme= 语言。
 - =scheme= 语言是 =LISP= 语言的一支，是历史悠久的人工智能语言。
@@ -6662,14 +6713,86 @@ make prod
 numbers-%.csv: 
 	seq $(shell echo "$* * 100 + 1" | bc ) $(shell echo "($* + 1) * 100" | bc ) > $@	
     #+end_src
-** 调用命令
-
 **** 但是不如 guile 简明
 #+begin_src makefile -i
-  numbers-%.csv:
-          seq $(guile (+ 1 (* $* 100))) $(guile (* 100 (+ $* 1))) > $@
+numbers-%.csv:
+	seq $(guile (+ 1 (* $* 100))) $(guile (* 100 (+ $* 1))) > $@
+#+end_src
+** Make 机理
+*** 调试
+- Makefile 的调试器？ =remake= 可以试验。
+- 一般调试使用 =$(info )= 查看中间变量和结果
+- 不要把文件写得太长，太长时分成小文件，分成小单元调试
+- 多写多 bug 少写少 bug，不写无 bug
+- 推论：以最简洁的代码实现目的和四个原则
+- 把不同功能分放在不同文件中
+    #+begin_src makefile -i
+include names.mk
+include process.mk
+
+.PHONY: all
+all: step1 step2
+    #+end_src
+*** 深入理解 make 的执行机理：两个阶段
+#+begin_src makefile -i
+file=numbers
+$(file)-%.csv:
+	seq $(shell echo "$* * 100 + 1" | bc ) $(guile (* 100 (+ $* 1))) > $@
+#+end_src
+**** 替换阶段
+把所有的 =$(...)= 都进行替换：变量换成它的值，函数执行后换成返回值。
+
+当执行 `make numbers-1 numbers-2` 时，
+#+begin_src makefile -i
+file=numbers
+numbers-1.csv: # %=1, $*=1, $@=numbers-1.csv
+	seq 101 200 > numbers-1.csv
+numbers-2.csv: # %=2, $*=2, $@=numbers-2.csv
+	seq 201 300 > numbers-2.csv
 #+end_src
 
+**** 执行阶段
+根据每一个要生成的目标， =numbers-1.csv= =numbers-2.csv= ，先生成它的依赖，再执行对应的命令
+
+#+begin_src bash
+  seq 101 200 > numbers-1.csv
+  seq 201 300 > numbers-2.csv
+#+end_src
+
+*** Make 与 shell 的调用关系
+    #+begin_src makefile -i
+numbers-%.csv:
+	seq $(shell echo "$* * 100 + 1" | bc ) $(shell echo "($* + 1) * 100" | bc ) > $@
+    #+end_src
+    - make 在 shell 中执行，make 通过 shell 执行流水线规则和取值
+     #+BEGIN_SRC dot :file ./make-shell.pdf
+       digraph python {
+       rankdir="TB";
+
+       node [shape=box]
+       S [label = "shell\n执行 make"]
+       S -> M
+       M [label = Make]
+       M -> E
+       E [label = "$(shell ...)\n已扩展？", shape=diamond]
+       S1 [label = "执行 shell 命令\n采集输出\n构造流水线规则"]
+       S1 -> M
+       {rank = same; S1; M;}
+       E:w -> S1:s [label = 否]
+       S2 [label = "调用 shell \n执行流水线规则"]
+       E -> S2 [label = 是]
+       }
+     #+END_SRC
+     #+attr_latex: :height 5cm
+     #+RESULTS:
+     [[file:./make-shell.pdf]]
+
+*** 赋值
+    - “:=”是 eager evaluation，在被调用时，就把运算做完。
+    - “=”是 lazy evaluation，在被使用时，才做运算。
+      - 不同时节运算，可能有不同变量环境，可到不同的效果
+
+** 简化语句
 *** 继续深化落实一次原则
     - Makefile 里可以调用 shell 命令，将其标准输出作为值。
 
@@ -6741,7 +6864,7 @@ a:=$(if CONDITION,THEN-PART[,ELSE-PART])
     #+end_src
     - =$(or COND1,COND2)= =$(and COND1,COND2)= 用于逻辑运算
 
-*** 循环结构与函数
+*** 循环结构与自定义函数
     - 数据本身可以构造一重循环，当循环多于一重时，使用 =$(foreach )=
       #+BEGIN_SRC makefile -i
 # radius list
@@ -6762,43 +6885,7 @@ endef
 
 $(eval $(foreach d,up down transverse,$(call video,$(d))))
       #+END_SRC
-** 常见问题
-*** 调试
-    - Makefile 的调试器？ =remake= 可以试验。
-    - 一般调试使用 =$(info )= 查看中间变量和结果
-    - 不要把文件写得太长，太长时分成小文件，分成小单元调试
-      - 多写多 bug 少写少 bug，不写无 bug
-      - 推论：以最简洁的代码实现目的和四个原则
-    #+begin_src makefile -i
-include names.mk
-include process.mk
 
-.PHONY: all
-all: step1 step2
-    #+end_src
-*** 赋值
-    - “:=”是 eager evaluation，在被调用时，就把运算做完。
-    - “=”是 lazy evaluation，在被使用时，才做运算。
-      - 不同时节运算，可能有不同变量环境，可到不同的效果
-*** 特殊目标
-    - =.PHONY= 代表无对应文件的目标
-      - 否则如果存在一个名为 =all= 那么 =make all= 就不会执行
-      - GNU Make 默认执行第一个目标，可以把它定义为无对应文件的 =all=
-    - =.DELETE_ON_ERROR= 如果出错就把坏文件删掉
-    - =.SECONDARY= 保留中间结果
-
-      #+BEGIN_SRC makefile -i
-.PHONY: all
-all: xxxx
-
-# Delete partial files when the processes are killed.
-.DELETE_ON_ERROR:
-# Keep intermediate files around
-.SECONDARY:
-      #+END_SRC
-*** 技巧
-    - 并行计算 =make -j=
-    - 把 =SHELL= 换成超算任务调度器 \to 超算并行计算
 *** JUNO 真实世界例子
     - 用于数百 TB 蒙特卡罗数据生成的例子
      #+BEGIN_SRC makefile -i
@@ -6852,7 +6939,15 @@ all: $(foreach i,$(ith),$(subst ith,$(i),$(output)))
 
      #+END_SRC
 
-*** 联合目标
+** 进阶使用
+*** 并行计算
+- =make -j=
+- 把 =SHELL= 换成超算任务调度器 \to 超算并行计算
+**** 命令行指定变量
+#+begin_src bash
+make -j SHELL=/bin/bash
+#+end_src
+**** 联合目标
    When 'make' builds any one of the grouped targets, it understands
 that all the other targets in the group are also created as a result of
 the invocation of the recipe.  Furthermore, if only some of the grouped
@@ -6872,34 +6967,6 @@ variable '$@' is set to the name of the particular target in the group
 which triggered the rule.  Caution must be used if relying on this
 variable in the recipe of a grouped target rule.
     
-*** Make 与 shell 的调用关系
-    #+begin_src makefile -i
-numbers-%.csv:
-	seq $(shell echo "$* * 100 + 1" | bc ) $(shell echo "($* + 1) * 100" | bc ) > $@
-    #+end_src
-    - make 在 shell 中执行，make 通过 shell 执行流水线规则和取值
-     #+BEGIN_SRC dot :file ./make-shell.pdf
-       digraph python {
-       rankdir="TB";
-
-       node [shape=box]
-       S [label = "shell\n执行 make"]
-       S -> M
-       M [label = Make]
-       M -> E
-       E [label = "$(shell ...)\n已扩展？", shape=diamond]
-       S1 [label = "执行 shell 命令\n采集输出\n构造流水线规则"]
-       S1 -> M
-       {rank = same; S1; M;}
-       E:w -> S1:s [label = 否]
-       S2 [label = "调用 shell \n执行流水线规则"]
-       E -> S2 [label = 是]
-       }
-     #+END_SRC
-     #+attr_latex: :height 5cm
-     #+RESULTS:
-     [[file:./make-shell.pdf]]
-
 * 第三周第三天
   :PROPERTIES:
   :EXPORT_FILE_NAME: pa
