@@ -6804,6 +6804,8 @@ file_list:=$(shell find . -name "*.h5")
     #+begin_src makefile -i
 seqs:=$(shell seq 0 2)
 totals:=$(seqs:%=total-%)
+# 另一种方法
+totals:=$(addprefix total-,$(seqs))
     #+end_src
 **** 内嵌 scheme
      - 最佳工具原则： =$(shell )= 和 =$(guile )= 哪个简洁用哪个。 =iota= \textipa{[2I"9Ut@]}
