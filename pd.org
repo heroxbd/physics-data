@@ -14,6 +14,8 @@
 #+PROPERTY: header-args :eval never-export :exports both
 #+PROPERTY: header-args:dot :eval yes :cmdline -Kdot -Tpdf :exports results
 #+sTARTUP: beamer
+#+OPTIONS: H:2 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
+#+OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
 
 #+name: savefig
 #+begin_src python :var figname="plot.pdf" width=5 height=4 :exports none
@@ -452,8 +454,6 @@ https://link.springer.com/book/10.1007/978-3-031-17646-3
   :EXPORT_FILE_NAME: p0
   :EXPORT_LaTeX_CLASS_options: [aspectratio=169,handout]
   :EXPORT_BEAMER_HEADER+: \title{实验物理的大数据方法}
-  :EXPORT_OPTIONS: H:2 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
-  :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
   :EXPORT_DATE: 2023-07-10 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
@@ -847,8 +847,6 @@ https://link.springer.com/book/10.1007/978-3-031-17646-3
   :EXPORT_FILE_NAME: p1
   :EXPORT_LaTeX_CLASS_options: [aspectratio=169]
   :EXPORT_BEAMER_HEADER: \title{实验物理的大数据方法}
-  :EXPORT_OPTIONS: H:2 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
-  :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
   :EXPORT_DATE: 2023-07-11 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
@@ -1539,8 +1537,6 @@ bool(None) # None 也可以当作“假”被判断
   :EXPORT_FILE_NAME: p2
   :EXPORT_LaTeX_CLASS_options: [aspectratio=169,handout]
   :EXPORT_BEAMER_HEADER: \title{实验物理的大数据方法}
-  :EXPORT_OPTIONS: H:2 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
-  :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
   :EXPORT_DATE: 2023-07-12 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
@@ -2330,8 +2326,6 @@ https://physics-data.meow.plus/faq/plagiarism/
   :EXPORT_FILE_NAME: p3
   :EXPORT_LaTeX_CLASS_options: [aspectratio=169]
   :EXPORT_BEAMER_HEADER: \title{迭代器与数组}
-  :EXPORT_OPTIONS: H:2 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
-  :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
   :EXPORT_DATE: 2023-07-13 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
@@ -3069,114 +3063,10 @@ print(np.diag(np.arange(5)))
     - 构造高级的命令选项
       - 数据类型
       - 格式限制
-* 2020年 第一周第四天
-  :PROPERTIES:
-  :EXPORT_FILE_NAME: p3_2020
-  :EXPORT_BEAMER_HEADER: \title{Git 进阶}
-  :EXPORT_OPTIONS: H:1 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
-  :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
-  :EXPORT_DATE: 2020-08-20 清华线上
-  :EXPORT_BEAMER_HEADER+: \author{续本达}
-  :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
-  :EXPORT_BEAMER_THEME: Boadilla
-  :EXPORT_BEAMER_COLOR_THEME: MedStarColors
-  :EXPORT_BEAMER_FONT_THEME: professionalfonts
-  :END:
-** 自定义大作业
-   - 如果有同学希望采用其它学科方向的大作业，请提出申请给续本达 =<orv@tsinghua.edu.cn>= ，8月24日 12:00 截止。
-     1. 问题描述和学科背景
-     2. 数据的输入和输出的定义与格式
-     3. 数据分析结果的评价标准
-
-   - 请准备自定义大作业的同学，在 8 月 21 日星期五 21:00 之前，告知续本达
-     =<orv@tsinghua.edu.cn>= 。
-
-     1. 准备定制什么样的大作业
-     2. 当前遇到了什么困难
-
-** Git 三种状态
-   - 已提交（committed） :: 改动安全保存在数据库中
-   - 已修改（modified） :: 自上一次提交，有文件被修改
-   - 已暂存（staged） :: 已修改的文件被作了标记，将被包含在下一轮提交中
-
-      [[./fig/git-modes.png]]
-** Git 仓库间通信
-   #+Attr_LaTeX: :height 0.7\textheight
-   [[./fig/git-distributed.png]]
-
-   - 建议：通过 SSH (secure shell) 通信。
-** Git 基本命令
-   - diff :: 查看改动
-   - status :: 查看状态
-   - add :: 添加文件
-   - commit :: 提交
-   - log :: 查看历史
-   - pull :: 从远程下载
-   - push :: 推送到远程
-   - merge :: 合并分支
-   - config :: 配置 Git
-
-*** 内建手册 =man=                                           :B_exampleblock:
-    :PROPERTIES:
-    :BEAMER_env: exampleblock
-    :END:
-
-    命令的具体含义可以参考 =man= 命令，例如，
-
-    #+BEGIN_EXAMPLE
-$ man git add
-    #+END_EXAMPLE
-
-** 常见问题
-   - 如何改 Github 界面，VSCode 上显示的 Git 状态？
-
-     - Git 最有效的界面在命令行。可视化界面都有问题，至多可作为参考。
-
-     - 以 =git log= 查看已有 commit 为准。
-
-     - 大家可以探索其它方法，但是课程教学和一切评估规则都以命令行 Git 为准。
-
-   - 没有设置好作者的姓名和邮箱
-      
-     #+BEGIN_SRC bash
-       git config --global user.name "Benda Xu"
-       git config --global user.email "orv@tsinghua.edu.cn"
-     #+END_SRC
-
-     这一设置改变整个用户的 Git 状态，会影响所有此后的 commit。
-
-** 作业 Git 规则
-   #+attr_beamer: :overlay <+->
-   - 可以修改 =git push= 之后的 commit 吗？
-     
-     - 不可以。
-     - 可以加一个新的 commit，说明前一个 commit 哪里错了，是如何修改的。
-
-   - 还没有 =git push= 的 commit 可以修改吗？
-
-     - 可以。
-     - 如果只修改 commit message
-
-       =git commit --amend=
-
-     - 作者信息也要改
-
-       =git commit --amend --reset-author=
-
-     - 需要修改 commit 本身
-
-       使用 =git rebase -i=
-
-** git-rebase
-   - @@latex: {\huge 勿对已 push 的 commit 做任何修改！}@@
-   - 以下操作仅限于尚未 push 还在本地的 commit。
-   - ...
 * 第二周第一天
   :PROPERTIES:
   :EXPORT_FILE_NAME: p4
   :EXPORT_BEAMER_HEADER: \title{矩阵与张量运算}
-  :EXPORT_OPTIONS: H:2 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
-  :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
   :EXPORT_DATE: 2023-07-17
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
@@ -3627,8 +3517,6 @@ $ man git add
   :PROPERTIES:
   :EXPORT_FILE_NAME: p5
   :EXPORT_BEAMER_HEADER+: \title{数据存储格式}
-  :EXPORT_OPTIONS: H:2 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
-  :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
   :EXPORT_DATE: 2023-07-18 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
@@ -4301,8 +4189,6 @@ jq < BBH_events_rewrite.json
   :PROPERTIES:
   :EXPORT_FILE_NAME: p6
   :EXPORT_BEAMER_HEADER+: \title{数据绘图}
-  :EXPORT_OPTIONS: H:2 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
-  :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
   :EXPORT_DATE: 2023-07-19 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
@@ -4571,8 +4457,6 @@ jq < BBH_events_rewrite.json
   :PROPERTIES:
   :EXPORT_FILE_NAME: p7
   :EXPORT_BEAMER_HEADER+: \title{蒙特卡罗方法与大作业}
-  :EXPORT_OPTIONS: H:2 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
-  :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
   :EXPORT_DATE: 2023-07-20 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
@@ -5360,8 +5244,6 @@ target: source
   :PROPERTIES:
   :EXPORT_FILE_NAME: p8
   :EXPORT_BEAMER_HEADER+: \title{GNU 命令行}
-  :EXPORT_OPTIONS: H:2 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
-  :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
   :EXPORT_DATE: 2023-07-24 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
@@ -6395,8 +6277,6 @@ apt-cache depends games-all
   :PROPERTIES:
   :EXPORT_FILE_NAME: p9
   :EXPORT_BEAMER_HEADER+: \title{GNU Make 的数据生产线}
-  :EXPORT_OPTIONS: H:2 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
-  :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
   :EXPORT_DATE: 2023-07-25 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
@@ -6411,11 +6291,9 @@ apt-cache depends games-all
       # Debian
       apt install make-guile make-doc
     #+end_src
-
-- Gentoo
+*** 软件准备 Gentoo @ macOS
   1. 同步软件仓库
      #+begin_src bash
-       # Gentoo @ macOS
        emerge --sync
      #+end_src
   2. 用编辑器，在 =${HOME}/Gentoo/etc/portage/package.use= 加入一行。（若文件不存在则先创建之。）
@@ -6446,6 +6324,14 @@ sys-devel/make guile
     - =bash= GNU Bourne-Again SHell 提供最流行的强大命令行环境
       - 五类命令
       - 标准输入输出、管道
+      - 脚本 =#!/usr/bin/env bash= 开头，加上若干命令
+      - 变量 =$A=, =${A}=
+      - 引用
+        | 转译 | 单引号 | 双引号 |
+        |------+--------+--------|
+        | 空格 | x      | x      |
+        | =$=  | x      | o      |
+
 ** 任务流水线
 *** 批量处理海量数据
     #+BEGIN_SRC dot :file ./multi-driver.pdf
@@ -6494,7 +6380,9 @@ sys-devel/make guile
 **** 思路和要点
     - 把流程系统化成输入、输出与过程三要素。
       - 而向数据编程，data-driven programming
-    - 系统表达输入数据、输出数据和中间结果的依赖关系，成为“可执行的说明文档”
+    - 系统表达输入数据、输出数据和中间结果的依赖关系，
+      - 成为“可执行的说明文档”
+    #+beamer: \pause
     - 高效执行，包括并行处理和整合超级计算机等。
     - 错误恢复
       - 修正错误后，可以从最后一步正确的数据开始继续执行。
@@ -6523,10 +6411,6 @@ make --version
      2. 管理程序运行，在超级计算机上运行
      3. 从错误中恢复
 *** Make 要素
-     - =make-guile= 在 =GNU make= 的基础上嵌入了 =GNU guile= \textipa{[g2Il]} 解释器支持 =scheme= 语言。
-     - =scheme= 语言是 =LISP= 语言的一支，是历史悠久的人工智能语言。
-       - =LISP= 与 =fortran= 是最早的高级编程语言，都出现在 1960 年代。
-
     - 文档
       #+BEGIN_SRC bash
  info make     
@@ -6589,7 +6473,8 @@ numbers.csv:
 
     #+RESULTS: e81a9752-62e8-463d-9afb-936161fd398e
     : 100
-    - 再执行时， =make= 会判断是否还有必要
+*** 不做无谓重复
+再执行时， =make= 会判断是否还有必要
     #+NAME: f342c45a-2193-4370-bf55-e3239934e885
     #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
         make numbers.csv
@@ -6693,7 +6578,19 @@ all: $(filelist:%.h5=%.png)
           $(filelist:.h5=.png)
         #+end_example
     - 在执行规则中， =%.png: %.h5= 定义任意 =png= 都由相应的 =h5= 文件生成。
-*** 暗含循环
+*** 新工具：guile
+- =make-guile= 在 =GNU make= 的基础上嵌入了 =GNU guile= \textipa{[g2Il]} 解释器支持 =scheme= 语言。
+- =scheme= 语言是 =LISP= 语言的一支，是历史悠久的人工智能语言。
+  - =LISP= 与 =fortran= 是最早的高级编程语言，都出现在 1960 年代。
+
+- 算术练习
+#+BEGIN_SRC scheme :session
+  "1"
+#+end_src
+
+#+RESULTS:
+
+*** 函数式编程：把目标描述清楚
     - Makefile 是函数式编程 Functional Programming 的语言。
     - 不再关注“执行什么操作”，而是关注“输入到输出的映射”。
       - 类比：Python 的 =map()= ， 迭代器
@@ -6977,8 +6874,6 @@ numbers-%.csv:
   :PROPERTIES:
   :EXPORT_FILE_NAME: pa
   :EXPORT_BEAMER_HEADER+: \title{正则表达式}
-  :EXPORT_OPTIONS: H:2 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
-  :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
   :EXPORT_DATE: 2022-07-27 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
@@ -7620,8 +7515,6 @@ egrep -v '^(#.*)?$' sources.list
   :PROPERTIES:
   :EXPORT_FILE_NAME: pb
   :EXPORT_BEAMER_HEADER+: \title{bash 脚本}
-  :EXPORT_OPTIONS: H:2 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
-  :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
   :EXPORT_DATE: 2022-07-28 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
@@ -7927,8 +7820,6 @@ echo ${y}
   :PROPERTIES:
   :EXPORT_FILE_NAME: pc
   :EXPORT_BEAMER_HEADER+: \title{关系代数与 SQL}
-  :EXPORT_OPTIONS: H:2 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
-  :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
   :EXPORT_DATE: 2022-08-01 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
@@ -8389,8 +8280,6 @@ GROUP BY classes.院系, students.性别;
   :PROPERTIES:
   :EXPORT_FILE_NAME: pd
   :EXPORT_BEAMER_HEADER+: \title{关系代数与 DataFrame}
-  :EXPORT_OPTIONS: H:2 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
-  :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
   :EXPORT_DATE: 2022-08-02 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
@@ -9033,8 +8922,6 @@ ON total.班级 = classes.班级
   :PROPERTIES:
   :EXPORT_FILE_NAME: pe
   :EXPORT_BEAMER_HEADER+: \title{关系代数与回归分析}
-  :EXPORT_OPTIONS: H:2 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
-  :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
   :EXPORT_DATE: 2022-08-03 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
@@ -9722,8 +9609,6 @@ print(n_res.summary())
   :PROPERTIES:
   :EXPORT_FILE_NAME: pf
   :EXPORT_BEAMER_HEADER+: \title{现实案例与未来方向}
-  :EXPORT_OPTIONS: H:2 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
-  :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
   :EXPORT_DATE: 2022-08-04 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
@@ -10038,7 +9923,6 @@ head -q -n1 lecture/l*.org
   :EXPORT_FILE_NAME: pf
   :EXPORT_BEAMER_HEADER+: \title{面向未来}
   :EXPORT_OPTIONS: H:1 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
-  :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
   :EXPORT_DATE: 2020-09-10 清华线上
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
@@ -10251,49 +10135,6 @@ head -q -n1 lecture/l*.org
 
 ** 结语
    我很幸运能得到工物和物理教学委员会的认可和支持，也很幸运有这么多同学与我合作最终把课程开了起来。我还非常感谢关心这门课并不断出谋划策的系友们。此时，我可以欣慰地讲，我最初的四个愿望，都达成了。作为我教学生涯的开始，这门课的点点滴滴，都将被我铭记。
-* 2020 凝聚态讨论会
-  :PROPERTIES:
-  :EXPORT_FILE_NAME: wproject
-  :EXPORT_BEAMER_HEADER+: \title{实验物理的大数据方法：大作业介绍}
-  :EXPORT_OPTIONS: H:1 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
-  :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
-  :EXPORT_DATE: 2020-08-11 清华
-  :EXPORT_BEAMER_HEADER+: \author{续本达}
-  :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
-  :EXPORT_BEAMER_THEME: Boadilla
-  :EXPORT_BEAMER_COLOR_THEME: seahorse
-  :EXPORT_BEAMER_FONT_THEME: professionalfonts
-  :END:
-** 实验物理的大数据方法
-   - 工程物理系(2学分)和物理系(2+2学分)的限选课
-   - 大二与大三之间的暑假小学期进行
-
-     \pause
-   - 以实验物理为主题，学习大数据方法的基础
-     1. 理解数据的科学精神，从一开始养成良好的科研习惯
-     2. 掌握典型工具 Git, Python 和常用命令行工具
-     3. 培养针对具体场景选择合适的工具的品位
-** 大作业
-   - 从实际的科研场景中抽象出相对独立的核心子问题，供同学们探索
-   - 第一阶段：生成——基于物理规律模拟实验观测。
-   - 第二阶段：分析——从实验观测反推物理规律。
-
-     数据分析平台自动打分，实时更新排名。
-
-** 大作业实时排名
-   #+Attr_LaTeX: :height 0.8\textheight
-   [[./isoenergy.png]]
-
-** 大作业选题
-   - 2019 年粒子物理方向：中微子探测器的光电子信号识别
-     - 2020 年：中微子探测器的 \alpha/\beta 粒子鉴别
-       \pause
-   - 2019 年天体物理方向：射电干涉阵测量天体在天球的位置
-     - 2020 年：（讨论中）天体分类问题
-       \pause
-   - 2019 年凝聚态物理方向：扫描隧道显微镜求二维金属等能面
-     - 2020 年：讨论中
-
 * 素材
   #+begin_example
   9月28日下午，清华大学本科教育教学审核评估专家组意见交流会在主楼接待厅举行。教育部审核评估专家组组长丁烈云院士等9位专家组成员，教育部高等教育教学评估中心主任范唯、副主任李智，清华大学党委书记陈旭、校长邱勇等校领导班子成员出席会议。会议由教育部审核评估专家组副组长李志义主持。
@@ -10366,7 +10207,6 @@ head -q -n1 lecture/l*.org
   :EXPORT_FILE_NAME: midterm
   :EXPORT_BEAMER_HEADER+: \title[实验物理的大数据方法：讲义教辅]{《实验物理的大数据方法》研究型实践课程讲义与辅助资源建设 \\ \small{ZY01​\_03 本科教材及教学资源立项建设}}
   :EXPORT_OPTIONS: H:1 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
-  :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
   :EXPORT_DATE: 2022-09-01 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
@@ -10468,7 +10308,6 @@ head -q -n1 lecture/l*.org
   :EXPORT_FILE_NAME: book
   :EXPORT_BEAMER_HEADER+: \title[实验物理的大数据方法：讲义]{《实验物理的大数据方法》研究型实践课程讲义}
   :EXPORT_OPTIONS: H:1 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
-  :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
   :EXPORT_DATE: 2022-09-08 工物系
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{近物所}
@@ -10561,7 +10400,6 @@ head -q -n1 lecture/l*.org
   :EXPORT_FILE_NAME: exp
   :EXPORT_BEAMER_HEADER+: \title[实验物理的大数据方法]{《实验物理的大数据方法》实验内容汇报}
   :EXPORT_OPTIONS: H:1 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
-  :EXPORT_OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
   :EXPORT_DATE: 2023-06-20 刘卿楼
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}

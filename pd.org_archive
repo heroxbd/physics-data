@@ -1,0 +1,51 @@
+#    -*- mode: org -*-
+
+
+Archived entries from file /home/heroxbd/dev/physics-data/pd.org
+
+
+* 2020 凝聚态讨论会
+  :PROPERTIES:
+  :EXPORT_FILE_NAME: wproject
+  :EXPORT_BEAMER_HEADER+: \title{实验物理的大数据方法：大作业介绍}
+  :EXPORT_OPTIONS: H:1 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
+  :EXPORT_DATE: 2020-08-11 清华
+  :EXPORT_BEAMER_HEADER+: \author{续本达}
+  :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
+  :EXPORT_BEAMER_THEME: Boadilla
+  :EXPORT_BEAMER_COLOR_THEME: seahorse
+  :EXPORT_BEAMER_FONT_THEME: professionalfonts
+  :ARCHIVE_TIME: 2023-07-25 Tue 12:03
+  :ARCHIVE_FILE: ~/dev/physics-data/pd.org
+  :ARCHIVE_CATEGORY: pd
+  :END:
+** 实验物理的大数据方法
+   - 工程物理系(2学分)和物理系(2+2学分)的限选课
+   - 大二与大三之间的暑假小学期进行
+
+     \pause
+   - 以实验物理为主题，学习大数据方法的基础
+     1. 理解数据的科学精神，从一开始养成良好的科研习惯
+     2. 掌握典型工具 Git, Python 和常用命令行工具
+     3. 培养针对具体场景选择合适的工具的品位
+** 大作业
+   - 从实际的科研场景中抽象出相对独立的核心子问题，供同学们探索
+   - 第一阶段：生成——基于物理规律模拟实验观测。
+   - 第二阶段：分析——从实验观测反推物理规律。
+
+     数据分析平台自动打分，实时更新排名。
+
+** 大作业实时排名
+   #+Attr_LaTeX: :height 0.8\textheight
+   [[./isoenergy.png]]
+
+** 大作业选题
+   - 2019 年粒子物理方向：中微子探测器的光电子信号识别
+     - 2020 年：中微子探测器的 \alpha/\beta 粒子鉴别
+       \pause
+   - 2019 年天体物理方向：射电干涉阵测量天体在天球的位置
+     - 2020 年：（讨论中）天体分类问题
+       \pause
+   - 2019 年凝聚态物理方向：扫描隧道显微镜求二维金属等能面
+     - 2020 年：讨论中
+
