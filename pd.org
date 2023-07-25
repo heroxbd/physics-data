@@ -6590,7 +6590,7 @@ prod: total-0 total-1 total-2
       #+BEGIN_SRC makefile -i
 filelist:=x.h5 y.h5 z.h5
 .PHONY: all
-all: $(filelist:%.h5=%.png)
+all: $(filelist:.h5=.png)
 
 %.png: %.h5
 	./plot-celestial.py $^ -o $@
@@ -6605,20 +6605,33 @@ all: $(filelist:%.h5=%.png)
         #+end_example
     - 在执行规则中， =%.png: %.h5= 定义任意 =png= 都由相应的 =h5= 文件生成。
 *** =all= 是一个总括目标
+**** l                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
      #+BEGIN_SRC makefile -i
 filelist:=x.h5 y.h5 z.h5
 .PHONY: all
 all: $(filelist:%.h5=%.png)
      #+end_src
-
+**** r                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
 #+BEGIN_SRC dot :file ./all-rule.pdf
   digraph python {
   rankdir="LR";
 
   node [shape=box]
-  I [label = "x.h5"]
-  I1 [label = "y.h5"]
-  I2 [label = "z.h5"]
+  I [label = "x.png"]
+  I1 [label = "y.png"]
+  I2 [label = "z.png"]
+  J [label = "x.h5"]
+  J1 [label = "y.h5"]
+  J2 [label = "z.h5"]
+  I -> J
+  I1 -> J1
+  I2 -> J2
   A [label = "all"]
   A -> I
   A -> I1
@@ -6630,7 +6643,11 @@ all: $(filelist:%.h5=%.png)
 #+RESULTS:
 [[file:./all-rule.pdf]]
 
-**** 特殊目标
+**** i                                                      :B_ignoreheading:
+:PROPERTIES:
+:BEAMER_env: ignoreheading
+:END:
+***** 特殊目标
     - =.PHONY= 代表无对应文件的目标
       - 否则如果存在一个名为 =all= 那么 =make all= 就不会执行
       - GNU Make 默认执行第一个目标，可以把它定义为无对应文件的 =all=
@@ -6638,9 +6655,7 @@ all: $(filelist:%.h5=%.png)
     - =.SECONDARY= 保留中间结果
 
       #+BEGIN_SRC makefile -i
-# Delete partial files when the processes are killed.
 .DELETE_ON_ERROR:
-# Keep intermediate files around
 .SECONDARY:
       #+END_SRC
 *** 新工具：guile
@@ -6750,7 +6765,12 @@ numbers-1.csv: # %=1, $*=1, $@=numbers-1.csv
 numbers-2.csv: # %=2, $*=2, $@=numbers-2.csv
 	seq 201 300 > numbers-2.csv
 #+end_src
-
+*** 深入理解 make 的执行机理：第二阶段
+#+begin_src makefile -i
+file=numbers
+$(file)-%.csv:
+	seq $(shell echo "$* * 100 + 1" | bc ) $(guile (* 100 (+ $* 1))) > $@
+#+end_src
 **** 执行阶段
 根据每一个要生成的目标， =numbers-1.csv= =numbers-2.csv= ，先生成它的依赖，再执行对应的命令
 
@@ -6883,6 +6903,7 @@ $(info $(profile))
 define video
 $(1)/%.avi: $(1)/%.mp4
 	ffmpeg -i $$^ $$@
+
 endef
 
 $(eval $(foreach d,up down transverse,$(call video,$(d))))
