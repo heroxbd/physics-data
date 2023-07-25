@@ -6941,6 +6941,14 @@ all: $(foreach i,$(ith),$(subst ith,$(i),$(output)))
 
      #+END_SRC
 
+*** 更简洁的笛卡尔积：bash
+#+begin_src bash
+echo {w..z}{1,2,5,9}
+#+end_src
+
+#+RESULTS:
+: w1 w2 w5 w9 x1 x2 x5 x9 y1 y2 y5 y9 z1 z2 z5 z9
+
 ** 进阶使用
 *** 并行计算
 - =make -j=
