@@ -7002,7 +7002,7 @@ variable in the recipe of a grouped target rule.
   :PROPERTIES:
   :EXPORT_FILE_NAME: pa
   :EXPORT_BEAMER_HEADER+: \title{正则表达式}
-  :EXPORT_DATE: 2022-07-27 清华
+  :EXPORT_DATE: 2023-07-26 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
   :EXPORT_BEAMER_HEADER+: \setbeamertemplate{footline}[frame number]  
