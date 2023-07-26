@@ -7161,7 +7161,7 @@ seq 10000 | grep -E ^23+$
 $R$ 是正则表达式(Regular Expression，RE) ，若 $R$ 通过以下归纳定义得到：
 
 - $\{a\}$, $a\in \Sigma$，
-- \{\varepsilon\}$ ，即空字符串（长度为0）的集合，
+- \(\{\varepsilon\}\) ，即空字符串（长度为0）的集合，
 - $\emptyset$ （空集）
 - 若 $R_1, R_2$ 是RE，则 $R_1\cup R_2$ 亦然 （对 $\cup$ 运算封闭），
 - 若 $R_1, R_2$ 是RE，则 $R_1.R_2$ 亦然（对 \(.\) 运算封闭），
