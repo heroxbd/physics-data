@@ -7014,13 +7014,14 @@ variable in the recipe of a grouped target rule.
     - pcre2-utils :: Perl 正则表达式工具
     - libpcre2-dev :: Perl 正则表达式文档和开发工具
     - libregexp-debugger-perl :: 正则表达式调试器
-    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-      # Debian/Ubuntu
+    #+begin_src bash
+      # Debian
       apt install pcre2-utils libpcre2-dev libregexp-debugger-perl
-      # macOS
-      brew install pcre2
+      # Gentoo @ macOS
+      emerge --sync
+      emerge -vta libpcre2
     #+end_src
-**** 素材文件准备
+*** 素材文件准备
      #+NAME: 80b071f8-5c6f-489e-a71c-a03a4a41f60b
      #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
        wget "http://hep.tsinghua.edu.cn/~orv/pd/usr_share_doc_list.txt"
@@ -7085,9 +7086,16 @@ ser.h5              100%[===================>]   3.56K  --.-KB/s    in 0s
       - 程序写得尽可能短，特定场景下 Python 之外的工具更能胜任。
       - 不要一切都用“我人生中掌握的第一门程序语言”实现。
     - 函数式编程：一切都是函数，从输入到输出的映射。
-    - 数据驱动编程：循环是暗含的，只关注组成单元的处理。
-    - =make= 与 =shell= 的调用关系。
+      - 数据驱动编程：循环是暗含的，只关注组成单元的处理。
+    - =make= 处理的替换阶段与执行阶段。
     - =guile= 的 scheme 语言在 =make= 中的调用。
+
+    #+BEGIN_SRC makefile -i
+target: source
+	program source target #如何做
+	program $^ $@ #如何做
+    #+END_SRC
+      
 *** 字符搜索匹配
     #+NAME: 0897673d-6bd3-4d55-aa8f-508e629825ab
     #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
@@ -7136,45 +7144,42 @@ seq 10000 | grep -E ^23+$
   2. 有标准或约定俗成的语法 -- 知识迁移
   3. 有广泛的实现 -- 学好正则表达式，走遍天下都不怕
   
-- 实验物理用户：只要能写出正确的表达式，就可以使用高性能的正则表达式引擎。
+- 实验物理用户：
+  - 只要能写出正确的表达式，就可以使用高性能的正则表达式引擎。
 
 **** 参考书
      - Jeffrey Friedl, Mastering Regular Expressions
      - Michael Sipser, Introduction to the Theory of Computation
 *** 正则表达式的形式定义
-    #+begin_export latex
-设$\Sigma$是字母表，$A$和$B$是字母表$\Sigma$上的有限字符串的集合，我们定义：
-\begin{itemize}
-\item 并（Union）: $A\cup B=\{x\mid x\in A\text{ 或  }x\in B\}$
-\item 连接（Concatenation）: $A. B=\{x.y\mid x\in A\text{ 且  }y\in B\}$
-\item Kleene 星号（Kleene star）: $A^*=\bigcup_{k\geq 0} A^k = \bigcup_{k\geq 0}\{x_1x_2\ldots x_k\mid x_k\in A\}$，e.g.， $\{a,ab\}^*=\{\varepsilon,a,ab,aab,aba,aa,abab,aaa,aaab,\ldots\}$
-\end{itemize}
+设 $\Sigma$ 是字母表（不可分符号集）， $A$ 和 $B$ 是字母表 $\Sigma$ 上的有限字符串的集合，我们定义：
 
-$R$是正则表达式(Regular Expression，RE) ，若$R$通过以下归纳定义得到：
-\begin{itemize}
-\item $\{a\}$, $a\in \Sigma$，
-\item $\{\varepsilon\}$，即空字符串（长度为0）的集合，
-\item $\emptyset$ （空集）
-\item 若$R_1$,$R_2$是RE，则$R_1\cup R_2$亦然 （对$\cup$运算封闭），
-\item 若$R_1$,$R_2$是RE，则$R_1.R_2$亦然（对$.$运算封闭），
-\item 若$R_1$是RE，则$(R_1)^*$亦然 （对$*$运算封闭）。
-\end{itemize}
-    #+end_export
+- 并（Union） :: $A\cup B=\{x\mid x\in A\text{ 或  }x\in B\}$
+- 连接（Concatenation） :: $A. B=\{x.y\mid x\in A\text{ 且  }y\in B\}$
+- Kleene 星号（Kleene star） ::  $A^*=\bigcup_{k\geq 0} A^k = \bigcup_{k\geq 0}\{x_1x_2\ldots x_k\mid i \le k \to x_i \in A\}$，e.g.， $\{a,ab\}^*=\{\varepsilon,a,ab,aab,aba,aa,abab,aaa,aaab,\ldots\}$
+
+#+beamer: \pause
+$R$ 是正则表达式(Regular Expression，RE) ，若 $R$ 通过以下归纳定义得到：
+
+- $\{a\}$, $a\in \Sigma$，
+- $\{\varepsilon\}$，即空字符串（长度为0）的集合，
+- $\emptyset$ （空集）
+- 若 $R_1, R_2$ 是RE，则 $R_1\cup R_2$ 亦然 （对 $\cup$ 运算封闭），
+- 若 $R_1, R_2$ 是RE，则 $R_1.R_2$ 亦然（对 \(.\) 运算封闭），
+- 若 $R_1$ 是RE，则 $(R_1)^*$ 亦然 （对 $*$ 运算封闭）。
 *** 正则表达式的等价表述
-    #+begin_export latex
-    以下命题等价：
-    \begin{itemize}
-    \item $R$是正则表达式
-    \item $R$是被有限自动机接受的语言
-    \item $R$是被Chomsky的3-型文法生成的语言
-    \end{itemize}
-    \vspace{1cm}
-    有限自动机$\mathcal{M}=(Q,\Sigma,\delta,q_0,F)$, 其中$Q$是有限的状态集，$\Sigma$是有限的字母表，$\delta:Q\times \Sigma\rightarrow \mathcal{P}(Q)$ 是状态转移关系，$q_0\in Q$是初始状态, $F\subset Q$是接受状态的集合。
+以下命题等价：
 
-    \vspace{0.5cm}
-    3-型文法满足右线性或左线性。右线性的例子：
-    $A\rightarrow w B$，$A\rightarrow w$，$A\rightarrow \varepsilon$，其中$A$，$B$表示非终结符号，$w$是终结符。
-    #+end_export
+- $R$ 是正则表达式
+- $R$ 是被有限自动机接受的语言
+- $R$ 是被 Chomsky 的 3-型文法生成的语言
+
+有限自动机 $\mathcal{M}=(Q,\Sigma,\delta,q_0,F)$ , 其中 $Q$ 是有限的状态集， $\Sigma$ 是有限的字母表， $\delta:Q\times \Sigma\rightarrow \mathcal{P}(Q)$ 是状态转移关系，$q_0\in Q$ 是初始状态, $F\subset Q$ 是接受状态的集合。
+
+**** 3-型文法满足右线性或左线性
+右线性的例子：
+\[ A\rightarrow w B, A\rightarrow w, A\rightarrow \varepsilon \]
+其中 $A, B$ 表示可分符号（non-terminal symbol），$w \in \Sigma$ 是不可分符号（terminal symbol）。
+
 *** 确定与非确定自动机
     #+attr_latex: :height 5cm
     [[./fig/com.png]]
@@ -7196,12 +7201,14 @@ $R$是正则表达式(Regular Expression，RE) ，若$R$通过以下归纳定义
   - =+= 至少一次重复
   - =?= 0或1次
   - ={n,m}= 重复 n 至 m （包含）次
+#+beamer: \pause
 - =()= 组合
 - =|= 或
 - =[]= 字符集
   - =[0-9]=
   - =[a-zA-Z]=
   - =[^abc]=
+#+beamer: \pause
 - =\<=, =\>= 单词的开始和结束处的空白符
 - =\b= 单词两边的空白符
 - =\B= 非单词两边的空白符
@@ -7213,6 +7220,7 @@ $R$是正则表达式(Regular Expression，RE) ，若$R$通过以下归纳定义
    - Perl 正则表达式 :: Perl-Compatible RE
      - 与 Perl 5 语言正则表达式有同样功能
      - 超出有限状态自动机的功能：递归、条件、引用等
+       + 严谨来讲已经不再是数学意义上的正则表达式，但更加实用
 *** =grep=
     - 基本功能：检验输入的第一行是否与正则表达式匹配，若是则输出该行。
     - =egrep= 等价于 =grep -E= ，扩展正则表达式
@@ -7337,7 +7345,7 @@ seq 1000000 | egrep '^23{2,4}$'
   - =[:upper:]= 大写字母
   - =[:xdigit:]= 十六进制数
 ** 文件名匹配练习
-*** =tex=
+*** \TeX
     #+NAME: ad509f0a-98e3-4184-a05a-58dac76afbe6
     #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
 grep tex usr_share_doc_list.txt | head
@@ -7376,7 +7384,7 @@ egrep 'tex([^tgi]|$)' usr_share_doc_list.txt | head
     drwxr-xr-x  2 root root 4096 Feb  8  2021 libpod-latex-perl
     drwxr-xr-x  2 root root 4096 Apr 14 15:44 libptexenc1
     #+end_example
-*** 先有 tex 再有 latex
+*** 先有 \TeX 再有 \LaTeX
     #+NAME: 1b482f9b-8992-4a36-a0ec-37472f517611
     #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
 egrep 'tex\S*latex' usr_share_doc_list.txt | head
@@ -7386,7 +7394,7 @@ egrep 'tex\S*latex' usr_share_doc_list.txt | head
     : drwxr-xr-x  2 root root 4096 Apr 14 15:45 texlive-latex-base
     : drwxr-xr-x  2 root root 4096 Apr 14 15:45 texlive-latex-extra
     : drwxr-xr-x  2 root root 4096 Apr 14 15:45 texlive-latex-recommended
-*** tex 为单词的起始
+*** \TeX 为单词的起始
     #+NAME: 47dcb1f1-1b2e-4665-84aa-8a71fef992d2
     #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
 egrep '\btex' usr_share_doc_list.txt | head
@@ -7586,124 +7594,107 @@ egrep -v '^(#.*)?$' sources.list
     : deb http://archive.canonical.com/ubuntu/ trusty-security main restricted universe multiverse
     : deb-src http://archive.canonical.com/ubuntu/ trusty-security main restricted universe multiverse
     - 达成成就：没有任何字母数字的正则表达式
+** bash 变量
+*** bash 变量
+- 在 bash 中，一切皆字符串
+- 变量需要额外的 =$= 来指定， =$a= 和 =${a}= 代表变量 =a= 的值
+  - 类比 =make= ，使用 =$(a)= 代表变量取值
+- 赋值号“=”的前后都不能有空格，与 Python 的格式建议相反！
+#+NAME: 8f5c82cc-5576-42e9-b44c-c9620a33b65a
+#+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+  a=1
+  echo $a
+  b=我是谁
+  echo ${a}${b}
+#+end_src
 
-** Perl 正则表达式
-*** 多行匹配
-     - =grep= 的多行匹配功能很弱，应当使用 =pcre2grep=
-     - =pcre2= 吸纳了 Perl 的正则表达式，一部分来自 Python 正则表达式。
-       
-     #+NAME: c523234c-6533-4536-bb1f-e5150bd96f85
-     #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-       columns=( "DATASET.*SER"
-                 "DATATYPE.*F64"
-                 "DATASET.*SER_stddev"
-                 "DATATYPE.*F64"
-               )
+#+RESULTS: 8f5c82cc-5576-42e9-b44c-c9620a33b65a
+: 1
+: 1我是谁
 
-       h5dump -A ser.h5| pcre2grep -M "$(echo ${columns[@]} | sed 's/ /(.|\n)*/g')"
-       echo $?
-     #+end_src       
+#+NAME: 4c02860a-c628-4fb3-9852-db3efb1bb91d
+#+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+echo "${a}${b}，我从哪里来" # 双引号中变量是被替换的
+#+end_src
 
-     #+RESULTS: c523234c-6533-4536-bb1f-e5150bd96f85
-     :    DATASET "SER" {
-     :       DATATYPE  H5T_IEEE_F64LE
-     :       DATASPACE  SIMPLE { ( 100 ) / ( 100 ) }
-     :    }
-     :    DATASET "SER_stddev" {
-     :       DATATYPE  H5T_IEEE_F64LE
-     : 0
-
-*** 有限状态自动机之外的功能
-    - 基本正则表达式与有限自动机 finite automata 等价
-    - 在 FA 之外时，可引入更强大的处理功能
-*** 高级构造
-    - 前趋引用匹配：形似 =sed= 的替换
-    - iterative matches =\G= where previous match ends
-    - look ahead behind
-    - atmoic grouping 不再缩短
-**** 选择结构
-     - conditional constructs (140)
-       - 使用之前的匹配 =(<)?\w+(?(1)>)=
-**** 递归结构
-     - 由 =pcre= 提出，用于匹配形如 \( a^n b^n \) 的平衡问题。
-** 调试
-*** =rxrx=
-    - Perl 的正则表达式调试和教学工具
-
-** 常见问题
-*** 匹配长度
-    - greedy: 贪婪匹配
-    - lazy: 最小匹配
-    |        | ?  | +  | *  |
-    |--------+----+----+----|
-    | greedy | ?  | +  | *  |
-    | lazy   | ?? | +? | *? |
-
-* 第三周第四天
-  :PROPERTIES:
-  :EXPORT_FILE_NAME: pb
-  :EXPORT_BEAMER_HEADER+: \title{bash 脚本}
-  :EXPORT_DATE: 2022-07-28 清华
-  :EXPORT_BEAMER_HEADER+: \author{续本达}
-  :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
-  :EXPORT_BEAMER_HEADER+: \setbeamertemplate{footline}[frame number]  
-  :EXPORT_BEAMER_THEME: Hannover
-  :EXPORT_BEAMER_FONT_THEME: professionalfonts
-  :END:
-** 复习与提示
-*** 安装
-    - =bash= 文档
-      #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-apt install bash-doc
-      #+end_src
-    - =info bash=
-*** 正则表达式
-    - 普适的字符串处理工具
-      - =^=, =$= 开始与结束
-      - =+= 至少一次重复
-      - =?= 0或1次
-      - =()= 组合
-      - =|= 或
-    - 重要工具 =grep= 行匹配 =sed= 替换
-    - 进阶： Perl 正则表达式
-      - 多行匹配
-** 算术运算
-*** =bash= 算术
-    - =bash= 一等公民是字符串，算术运算用于辅助和便利
-      - 比用管道 和 =$(...)= 简洁
-    #+NAME: 16f900ed-a36d-49c1-851c-b0dddb3f6a5b
+#+RESULTS: 4c02860a-c628-4fb3-9852-db3efb1bb91d
+: 1我是谁，我从哪里来
+*** 变量的引用
+    - 无引号时，空格起作用
+    - 单引号字符串中的字符保持不变
+    - 双引号时，字符串中的变量被替换
+    #+NAME: 03bd3de5-4e0d-4cd1-9e2b-e3627346b5d5
     #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-      echo $((1+3)) $((3*5))
-      echo $(echo 1+3 | bc) $(echo 3*5 | bc)
+echo '${a}${b}，我从哪里来' # 单引号保持不变
     #+end_src
 
-    #+RESULTS: 16f900ed-a36d-49c1-851c-b0dddb3f6a5b
-    : 4 15
-    : 4 15
-    - 但是计算能力有限，只能做简单运算
-    #+NAME: cac37ef7-78e1-41de-a9c2-99f27393869f
+    #+RESULTS: 03bd3de5-4e0d-4cd1-9e2b-e3627346b5d5
+    : ${a}${b}，我从哪里来
+
+*** 引用命令的执行结果
+- 把命令运行的标准输出赋给变量
+- 与 =make= 类似，换行分隔的列表被转成由空格分隔
+#+NAME: d97d62db-cfc2-467f-9753-3cb10a60a7d8
+#+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+n_list=$(seq 9)
+echo ${n_list}
+#+end_src
+
+#+RESULTS: d97d62db-cfc2-467f-9753-3cb10a60a7d8
+: 1 2 3 4 5 6 7 8 9
+#+NAME: f20334c4-56f4-4ba9-b9a2-c07e8598bec0
+#+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+  n233=$(seq 10000 | egrep ^23+$)
+  echo ${n233}
+  echo ${#n233} # 字符个数
+#+end_src
+
+#+RESULTS: f20334c4-56f4-4ba9-b9a2-c07e8598bec0
+: 23 233 2333
+: 11
+
+*** =bash= 数组
+    - 虽然取名为数组 array ，但与 Python 的 列表更接近。
+      - 可以存储任意元素。
+    #+NAME: db43f577-e5a7-4d4c-8422-2c4f89d25874
     #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-      echo $((2**100))
-      echo $(echo "2^100" | bc)
+      busket=()
+      busket+=( 香蕉 弥猴桃 牛油果 )
+      busket+=( 西瓜 荔枝 )
+      echo ${busket} # 按普通变量取值，只有第一个元素
+      echo ${busket[@]}
+      echo ${busket[3]}
     #+end_src
 
-    #+RESULTS: cac37ef7-78e1-41de-a9c2-99f27393869f
-    : 0
-    : 1267650600228229401496703205376
-*** 使用 =bash= 的原因
-    - =bash= 的列表、字典，形似 Python，计算能力不如 =bc= ，为什么值得使用？
-    - 最佳工具：使用 =bash= 处理文件时，有时需要列表、字典和算术
-      - 但不需要太多。需要更专业的操作时，意味着更高级的工具胜任
-      - “信手拈来”的境界是创新的温床，重大的全新突破都在有了足够积累后不经意间出现
-        - 不经意的前提是：放松、随意
-      - 不让大脑等待双手是最佳工具原则的最高等级
-        - 人机交互，打字，扔掉鼠标
-        - 避免不必要的环境切换
-    - 经济性：有了 Python 基础，学习其它语言门槛大大降低，不再需要额外精力
-      - 第一门语言难度 100% ，思维广度 +100%
-      - 第二门语言难度 25% ，思维广度 +100%
-      - 第三门语言难度 1% ，思维广度 +100%
-      - 回报越来越大
+    #+RESULTS: db43f577-e5a7-4d4c-8422-2c4f89d25874
+    : 香蕉
+    : 香蕉 弥猴桃 牛油果 西瓜 荔枝
+    : 西瓜
+
+    #+NAME: c096b66d-d7dd-46a8-9264-843411f85a0b
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      echo ${#busket[@]} # 元素个数
+    #+end_src
+
+    #+RESULTS: c096b66d-d7dd-46a8-9264-843411f85a0b
+    : 5
+*** =bash= 字典
+    - 又称关联数组 associative array ，类比 Python 字典
+    #+NAME: f61927cf-be8b-4858-9db6-072cf5526967
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      declare -A cargo # 声明 cargo 是字典
+      cargo[banana]=3
+      cargo[apple]=4
+      echo ${cargo[banana]}
+      echo ${!cargo[@]} # 取词
+      echo ${cargo[@]} # 取值
+    #+end_src
+
+    #+RESULTS: f61927cf-be8b-4858-9db6-072cf5526967
+    : 3
+    : apple banana
+    : 4 3
+
 ** =bash= 程序结构
 *** 选择结构
     #+NAME: e0c2f10f-c9d8-4b7d-a1d3-96d3be059199
@@ -7824,7 +7815,6 @@ echo ${y}
       done
     #+end_src
 
-** 函数
 *** 函数定义
     - =bash= 函数是五种命令之一
     #+NAME: 7d2cb440-781d-43a7-a796-2956f8fcda90
@@ -7916,6 +7906,123 @@ echo ${y}
     - =\= 同时在 =bash= 和正则语句意为“除去特殊含义”。需要格外注意
     - 引号在变量赋值时使用时，变量的值不含引号。
       - 在 =[[ ]]= 里写引号时，所有字符都没有特殊含义
+** Perl 正则表达式
+*** 多行匹配
+     - =grep= 的多行匹配功能很弱，应当使用 =pcre2grep=
+     - =pcre2= 吸纳了 Perl 的正则表达式，一部分来自 Python 正则表达式。
+
+     #+NAME: c523234c-6533-4536-bb1f-e5150bd96f85
+     #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+       columns=( "DATASET.*SER"
+                 "DATATYPE.*F64"
+                 "DATASET.*SER_stddev"
+                 "DATATYPE.*F64"
+               )
+
+       h5dump -A ser.h5| pcre2grep -M "$(echo ${columns[@]} | sed 's/ /(.|\n)*/g')"
+       echo $?
+     #+end_src
+
+     #+RESULTS: c523234c-6533-4536-bb1f-e5150bd96f85
+     :    DATASET "SER" {
+     :       DATATYPE  H5T_IEEE_F64LE
+     :       DATASPACE  SIMPLE { ( 100 ) / ( 100 ) }
+     :    }
+     :    DATASET "SER_stddev" {
+     :       DATATYPE  H5T_IEEE_F64LE
+     : 0
+
+*** 有限状态自动机之外的功能
+    - 基本正则表达式与有限自动机 finite automata 等价
+    - 在 FA 之外时，可引入更强大的处理功能
+*** 高级构造
+    - 前趋引用匹配：形似 =sed= 的替换
+    - iterative matches =\G= where previous match ends
+    - look ahead behind
+    - atmoic grouping 不再缩短
+**** 选择结构
+     - conditional constructs (140)
+       - 使用之前的匹配 =(<)?\w+(?(1)>)=
+**** 递归结构
+     - 由 =pcre= 提出，用于匹配形如 \( a^n b^n \) 的平衡问题。
+** 调试
+*** =rxrx=
+    - Perl 的正则表达式调试和教学工具
+
+** 常见问题
+*** 匹配长度
+    - greedy: 贪婪匹配
+    - lazy: 最小匹配
+    |        | ?  | +  | *  |
+    |--------+----+----+----|
+    | greedy | ?  | +  | *  |
+    | lazy   | ?? | +? | *? |
+
+* 第三周第四天
+  :PROPERTIES:
+  :EXPORT_FILE_NAME: pb
+  :EXPORT_BEAMER_HEADER+: \title{bash 脚本}
+  :EXPORT_DATE: 2022-07-28 清华
+  :EXPORT_BEAMER_HEADER+: \author{续本达}
+  :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
+  :EXPORT_BEAMER_HEADER+: \setbeamertemplate{footline}[frame number]  
+  :EXPORT_BEAMER_THEME: Hannover
+  :EXPORT_BEAMER_FONT_THEME: professionalfonts
+  :END:
+** 复习与提示
+*** 安装
+    - =bash= 文档
+      #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+apt install bash-doc
+      #+end_src
+    - =info bash=
+*** 正则表达式
+    - 普适的字符串处理工具
+      - =^=, =$= 开始与结束
+      - =+= 至少一次重复
+      - =?= 0或1次
+      - =()= 组合
+      - =|= 或
+    - 重要工具 =grep= 行匹配 =sed= 替换
+    - 进阶： Perl 正则表达式
+      - 多行匹配
+** 算术运算
+*** =bash= 算术
+    - =bash= 一等公民是字符串，算术运算用于辅助和便利
+      - 比用管道 和 =$(...)= 简洁
+    #+NAME: 16f900ed-a36d-49c1-851c-b0dddb3f6a5b
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      echo $((1+3)) $((3*5))
+      echo $(echo 1+3 | bc) $(echo 3*5 | bc)
+    #+end_src
+
+    #+RESULTS: 16f900ed-a36d-49c1-851c-b0dddb3f6a5b
+    : 4 15
+    : 4 15
+    - 但是计算能力有限，只能做简单运算
+    #+NAME: cac37ef7-78e1-41de-a9c2-99f27393869f
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      echo $((2**100))
+      echo $(echo "2^100" | bc)
+    #+end_src
+
+    #+RESULTS: cac37ef7-78e1-41de-a9c2-99f27393869f
+    : 0
+    : 1267650600228229401496703205376
+*** 使用 =bash= 的原因
+    - =bash= 的列表、字典，形似 Python，计算能力不如 =bc= ，为什么值得使用？
+    - 最佳工具：使用 =bash= 处理文件时，有时需要列表、字典和算术
+      - 但不需要太多。需要更专业的操作时，意味着更高级的工具胜任
+      - “信手拈来”的境界是创新的温床，重大的全新突破都在有了足够积累后不经意间出现
+        - 不经意的前提是：放松、随意
+      - 不让大脑等待双手是最佳工具原则的最高等级
+        - 人机交互，打字，扔掉鼠标
+        - 避免不必要的环境切换
+    - 经济性：有了 Python 基础，学习其它语言门槛大大降低，不再需要额外精力
+      - 第一门语言难度 100% ，思维广度 +100%
+      - 第二门语言难度 25% ，思维广度 +100%
+      - 第三门语言难度 1% ，思维广度 +100%
+      - 回报越来越大
 ** 调试
 *** =bash= 调试
     - 屏幕输出法 :: 用 =echo=
