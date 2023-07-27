@@ -7971,8 +7971,13 @@ echo ${y}
   :EXPORT_BEAMER_THEME: Hannover
   :EXPORT_BEAMER_FONT_THEME: professionalfonts
   :END:
-** 复习与提示
+** 复习准备
 *** 软件安装
+下载文件
+#+begin_src bash
+  wget 'http://hep.tsinghua.edu.cn/~orv/pd/ccompiler_opt.py'
+#+end_src
+
 - Debian
   #+begin_src bash
     apt install gawk-doc
