@@ -481,4 +481,6 @@ class Baz:
 ## 参考资料
 [1] John Sturtz:Python Modules and Packages – An Introduction.Apr 17, 2018.https://realpython.com/python-modules-packages/#the-module-search-path
 
-[2] 门书生:Python中import的用法.July 12, 2021.https://zhuanlan.zhihu.com/p/63143493
+[2] 李轶凡:Python Basic. 2023年清华酒井科协暑期培训. July 18, 2023
+
+[3] 门书生:Python中import的用法.July 12, 2021.https://zhuanlan.zhihu.com/p/63143493
