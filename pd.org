@@ -8007,7 +8007,7 @@ echo ${y}
    + 若是，理论被推翻
    + 若不是，理论经受住了考验，思考更强更精细的可证伪假说
 
-**** 先测试小的部分，再测试大的
+*** 先测试小的部分，再测试大的
 对人也一样，在信任一个人能胜任工作之前，先布置一个小任务
 
 1. 打字
@@ -8023,72 +8023,13 @@ echo ${y}
 - 入门时，程序化解决文本问题花的时间更长
   + 注意不仅要学习如何解决问题，还要学习识别问题
 
-** awk 特点
-*** sed 到 awk
-有些简单的问题可用 sed 解决，复杂一些的问题适合 awk 解决
-
-**** sed 适合解决
-1. 批量修改文本
-2. 把同一个修改应用到多个文件上
-3. 把一种格式的文本转化成另一种
-
-sed 的操作（最常用的是查找-替换），更接近于编辑器
-
-**** awk 是模式匹配语言
-- 用 awk 描述数据中的规律，从而取得对应的信息
-- 单行的 awk 程序可以从命令行直接输入
-- 把文本看成是一直数据仓库，例如 CSV
-  + 在文本处理的同时，集成算术运算
-*** 学习 sed 和 awk 的重要步骤
-- [X] 调用 sed 和 awk
-- [X] 使用正则表达式
-- [X] 从 bash 调用时的引用
-  即用 =\= ='= “费掉他人武功”
-- [ ] 书写 sed 和 awk 的脚本
-*** 学习新语言的原因
-- 经济性：有了 Python 基础，学习其它语言门槛大大降低，不再需要额外精力
-  - 第一门语言难度 100% ，思维广度 +100%
-  - 第二门语言难度 25% ，思维广度 +100%
-  - 第三门语言难度 1% ，思维广度 +100%
-  - 回报越来越大
-
-*** sed 与 awk 的共同点
-- 都是数据流驱动的编程语言
-  但与 Make 语言不同，不是函数式语言
-- 大量使用正则表达式
-- 可以快速从 bash 调用
-- awk 起源于 grep 和 sed，而后两者都脱胎于 =ed= 编辑器
-**** 不同点
-- 命令的风格，决定两者各适用于什么问题
-** ed 编辑
-*** 行编辑器
-- 在显示器大行其道之前
-  - 计算机终端的主要输出方式是打印机，当时最佳的方式行编辑
-**** 试验
-#+begin_src bash
-ed departments.csv
-#+end_src
-- =d=
-- =/regex/= 找到下一个满足 regex 的行
-  - =g/regex/= 找到所有满足 regex 的行
-- =s/pattern/replacement/=
-- =g/propagating/p=
-- =echo 'g/propagating/p' | ed /tmp/texts.log=
-*** sed 与 ed 的区别
-- ed 是交互的，默认作用于一行，用 =/regex/= 扩展编辑范围
-- sed 是批处理的，默认作用于每一行，用 =/regex/= 限制编辑范围
-
-**** awk 与 sed 的区别
-- 不再使用 ed 的单字母命令，改用 C 语言风格的语法，例如
-  =/regex/{ print }=
-**** ed 的命令影响了 ex
-ex 是 vi 的前身，后者发展成 VIM (Vi IMproved)， VIM 的开发停滞，开发者正在转向 neovim
-
 ** sed 进阶
 *** 命令行语法
 =sed/awk script filename=
 *** 数据驱动的编程
-[[fig/data-driven-programming.pdf]]
+#+attr_latex: :height 5cm
+[[./fig/data-driven-programming.pdf]]
+
 **** 匹配变换模式
 1. 通过 =/regex/= 匹配要修改的行
 2. 通过随后的命令修改之
@@ -8190,6 +8131,69 @@ e%.tex: p%.tex
 		-e 's/end{verbatim}/end{verbatim}}/' < $< > $@
 
 #+end_src
+** ed 编辑
+*** 行编辑器
+- 在显示器大行其道之前
+  - 计算机终端的主要输出方式是打印机，当时最佳的方式行编辑
+**** 试验
+#+begin_src bash
+ed departments.csv
+#+end_src
+- =d=
+- =/regex/= 找到下一个满足 regex 的行
+  - =g/regex/= 找到所有满足 regex 的行
+- =s/pattern/replacement/=
+- =g/propagating/p=
+- =echo 'g/propagating/p' | ed /tmp/texts.log=
+*** sed 与 ed 的区别
+- ed 是交互的，默认作用于一行，用 =/regex/= 扩展编辑范围
+- sed 是批处理的，默认作用于每一行，用 =/regex/= 限制编辑范围
+
+**** awk 与 sed 的区别
+- 不再使用 ed 的单字母命令，改用 C 语言风格的语法，例如
+  =/regex/{ print }=
+**** ed 的命令影响了 ex
+ex 是 vi 的前身，后者发展成 VIM (Vi IMproved)， VIM 的开发停滞，开发者正在转向 neovim
+
+** awk 特点
+*** sed 到 awk
+有些简单的问题可用 sed 解决，复杂一些的问题适合 awk 解决
+
+**** sed 适合解决
+1. 批量修改文本
+2. 把同一个修改应用到多个文件上
+3. 把一种格式的文本转化成另一种
+
+sed 的操作（最常用的是查找-替换），更接近于编辑器
+
+#+beamer: \pause
+**** awk 是模式匹配语言
+- 用 awk 描述数据中的规律，从而取得对应的信息
+- 单行的 awk 程序可以从命令行直接输入
+- 把文本看成是一直数据仓库，例如 CSV
+  + 在文本处理的同时，集成算术运算
+*** 学习 sed 和 awk 的重要步骤
+- [X] 调用 sed 和 awk
+- [X] 使用正则表达式
+- [X] 从 bash 调用时的引用
+
+  即用 =\= 和 ='= “废掉他人武功”
+- [ ] 书写 sed 和 awk 的脚本
+*** 学习新语言的原因
+- 经济性：有了 Python 基础，学习其它语言门槛大大降低，不再需要额外精力
+  - 第一门语言难度 100% ，思维广度 +100%
+  - 第二门语言难度 25% ，思维广度 +100%
+  - 第三门语言难度 1% ，思维广度 +100%
+  - 回报越来越大
+
+*** sed 与 awk 的共同点
+- 都是数据流驱动的编程语言
+  但与 Make 语言不同，不是函数式语言
+- 大量使用正则表达式
+- 可以快速从 bash 调用
+- awk 起源于 grep 和 sed，而后两者都脱胎于 =ed= 编辑器
+**** 不同点
+- 命令的风格，决定两者各适用于什么问题
 ** awk 入门
 *** 运行 awk
 #+begin_src bash
@@ -8226,15 +8230,49 @@ echo | awk '{ print "Hello, world!" }'
 : Hello world!
 
 *** awk 的运行模式
+#+attr_latex: :height 5cm
+[[./fig/awk-flow.pdf]]
 
-[[fig/awk-flow.pdf]]
 *** sed 与 awk 的联合
 使用管道
+
 ** awk 练习
 *** 替换文本内容
+- info: gawk \to sample programs \to clones
+  + cut
+  + egrep
+  + id
+  + split
+  + tee
+  + uniq
+  + wc
+
 *** 统计选课人数
+- 使用字典
+
 *** 去掉无用的编译选项
+https://gitweb.gentoo.org/repo/gentoo.git/commit/?id=ea2987349ece6f07da01e1c2f3e9808455fa394c
+
 ** 后备
+*** 回顾
+**** 科学数据处理的原则                                        :B_alertblock:
+     :PROPERTIES:
+     :BEAMER_env: alertblock
+     :END:
+     _复现_ _透明_ _一次_ _最佳工具_
+
+**** 版本控制
+     Git 与队友分工协作，与明天的自己协作
+
+**** 数据流水线
+     GNU Make 管理数据的依赖与转换，实现错误恢复和并行计算
+
+**** 命令环境
+     GNU 环境中强大的小工具组合，开发与使用相融合
+
+**** 计算语言
+     Python 语法友好，工具丰富，统领 C/C++/Fortran 库
+
 ** bash 算术运算
 *** =bash= 算术
     - =bash= 一等公民是字符串，算术运算用于辅助和便利
@@ -8276,25 +8314,6 @@ echo | awk '{ print "Hello, world!" }'
         - =-v= Print shell input lines as they are read.
         - =-x= Print commands and their arguments as they are executed.
           
-** 综合
-*** 回顾
-**** 科学数据处理的原则                                        :B_alertblock:
-     :PROPERTIES:
-     :BEAMER_env: alertblock
-     :END:
-     _复现_ _透明_ _一次_ _最佳工具_
-
-**** 版本控制
-     Git 与队友分工协作，与明天的自己协作
-
-**** 数据流水线
-     GNU Make 管理数据的依赖与转换，实现错误恢复和并行计算
-
-**** 命令环境
-     GNU 环境中强大的小工具组合，开发与使用相融合
-
-**** 计算语言
-     Python 语法友好，工具丰富，统领 C/C++/Fortran 库
 * 第四周第一天
   :PROPERTIES:
   :EXPORT_FILE_NAME: pc
