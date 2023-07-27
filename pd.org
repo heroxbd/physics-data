@@ -8323,7 +8323,7 @@ https://gitweb.gentoo.org/repo/gentoo.git/commit/?id=ea2987349ece6f07da01e1c2f3e
   :PROPERTIES:
   :EXPORT_FILE_NAME: pc
   :EXPORT_BEAMER_HEADER+: \title{关系代数与 SQL}
-  :EXPORT_DATE: 2022-08-01 清华
+  :EXPORT_DATE: 2023-07-31 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
   :EXPORT_BEAMER_HEADER+: \setbeamertemplate{footline}[frame number]  
