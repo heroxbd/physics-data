@@ -7155,7 +7155,9 @@ seq 10000 | grep -E ^23+$
 
 - 并（Union） :: $A\cup B=\{x\mid x\in A\text{ 或  }x\in B\}$
 - 连接（Concatenation） :: $A. B=\{x.y\mid x\in A\text{ 且  }y\in B\}$
-- Kleene 星号（Kleene star） ::  $A^*=\bigcup_{k\geq 0} A^k = \bigcup_{k\geq 0}\{x_1x_2\ldots x_k\mid i \le k \to x_i \in A\}$，e.g.， $\{a,ab\}^*=\{\varepsilon,a,ab,aab,aba,aa,abab,aaa,aaab,\ldots\}$
+- Kleene 星号（Kleene star） ::  $A^*=\bigcup_{k\geq 0} A^k = \bigcup_{k\geq 0}\{x_1x_2\ldots x_k\mid i \le k \to x_i \in A\}$ 例如
+
+  \[ \{a,ab\}^*=\{\varepsilon,a,ab,aab,aba,aa,abab,aaa,aaab,\ldots\} \]
 
 #+beamer: \pause
 $R$ 是正则表达式(Regular Expression，RE) ，若 $R$ 通过以下归纳定义得到：
@@ -7961,8 +7963,8 @@ echo ${y}
 * 第三周第四天
   :PROPERTIES:
   :EXPORT_FILE_NAME: pb
-  :EXPORT_BEAMER_HEADER+: \title{bash 脚本}
-  :EXPORT_DATE: 2022-07-28 清华
+  :EXPORT_BEAMER_HEADER+: \title{从 sed 到 awk}
+  :EXPORT_DATE: 2023-07-27 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
   :EXPORT_BEAMER_HEADER+: \setbeamertemplate{footline}[frame number]  
@@ -7970,12 +7972,15 @@ echo ${y}
   :EXPORT_BEAMER_FONT_THEME: professionalfonts
   :END:
 ** 复习与提示
-*** 安装
-    - =bash= 文档
-      #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-apt install bash-doc
-      #+end_src
-    - =info bash=
+*** 软件安装
+- Debian
+  #+begin_src bash
+    apt install gawk-doc
+  #+end_src
+
+- Gentoo @ macOS
+  不需要操作，已安装。
+
 *** 正则表达式
     - 普适的字符串处理工具
       - =^=, =$= 开始与结束
@@ -7986,7 +7991,105 @@ apt install bash-doc
     - 重要工具 =grep= 行匹配 =sed= 替换
     - 进阶： Perl 正则表达式
       - 多行匹配
-** 算术运算
+*** 正则表达式的写法
+1. 思考清楚我们需要匹配什么文字，这些文字在文本里都可能以什么形式出现
+2. 写出一个正则表达式
+3. 试验正则表达式，改进
+   + 哪些是我想要匹配却没匹配的
+   + 哪些是我不想匹配但却匹配了的
+*** 自动处理文本和字符串的重要性
+- 节省大量的重复劳动
+  + 找到一种解决问题的途径和高效的工作方法，让人满足
+  + 是工作和苦劳的本质区别
+  + 程序化地解决问题，让问题本身变得更有趣
+#+beamer: \pause
+- 入门时，程序化解决文本问题花的时间更长
+  + 注意不仅要学习如何解决问题，还要学习识别问题
+
+** awk 特点
+*** sed 到 awk
+有些简单的问题可用 sed 解决，复杂一些的问题适合 awk 解决
+
+**** sed 适合解决
+1. 批量修改文本
+2. 把同一个修改应用到多个文件上
+3. 把一种格式的文本转化成另一种
+
+sed 的操作（最常用的是查找-替换），更接近于编辑器
+
+**** awk 是模式匹配语言
+- 用 awk 描述数据中的规律，从而取得对应的信息
+- 单行的 awk 程序可以从命令行直接输入
+- 把文本看成是一直数据仓库，例如 CSV
+  + 在文本处理的同时，集成算术运算
+*** 学习 sed 和 awk 的重要步骤
+- [X] 调用 sed 和 awk
+- [X] 使用正则表达式
+- [X] 从 bash 调用时的引用
+  即用 =\= ='= “费掉他人武功”
+- [ ] 书写 sed 和 awk 的脚本
+*** 学习新语言的原因
+- 经济性：有了 Python 基础，学习其它语言门槛大大降低，不再需要额外精力
+  - 第一门语言难度 100% ，思维广度 +100%
+  - 第二门语言难度 25% ，思维广度 +100%
+  - 第三门语言难度 1% ，思维广度 +100%
+  - 回报越来越大
+
+*** sed 与 awk 的共同点
+- 都是数据流驱动的编程语言
+  但与 Make 语言不同，不是函数式语言
+- 大量使用正则表达式
+- 可以快速从 bash 调用
+- awk 起源于 grep 和 sed，而后两者都脱胎于 =ed= 编辑器
+**** 不同点
+- 命令的风格，决定两者各适用于什么问题
+** ed 编辑
+*** 行编辑器
+- 在显示器大行其道之前
+  - 计算机终端的主要输出方式是打印机，当时最佳的方式行编辑
+**** 试验
+#+begin_src bash
+ed departments.csv
+#+end_src
+- =d=
+- =/regex/= 找到下一个满足 regex 的行
+  - =g/regex/= 找到所有满足 regex 的行
+- =s/pattern/replacement/=
+- =g/propagating/p=
+- =echo 'g/propagating/p' | ed /tmp/texts.log=
+*** sed 与 ed 的区别
+- ed 是交互的，默认作用于一行，用 =/regex/= 扩展编辑范围
+- sed 是批处理的，默认作用于每一行，用 =/regex/= 限制编辑范围
+
+**** awk 与 sed 的区别
+- 不再使用 ed 的单字母命令，改用 C 语言风格的语法，例如
+  =/regex/{ print }=
+** 调用方法
+*** 命令行语法
+=sed/awk script filename=
+*** 数据驱动的编程
+[[fig/data-driven-programming.pdf]]
+**** 匹配变换模式
+1. 通过 =/regex/= 匹配要修改的行
+2. 通过随后的命令修改之
+*** 使用脚本
+#+begin_src bash
+sed -f tuna.sed sources.list
+#+end_src
+
+** awk 入门
+*** 运行 awk
+#+begin_src bash
+awk '{print $1}' list
+#+end_src
+*** sed 与 awk 的联合
+使用管道
+** awk 练习
+*** 替换文本内容
+*** 统计选课人数
+*** 去掉无用的编译选项
+** 后备
+** bash 算术运算
 *** =bash= 算术
     - =bash= 一等公民是字符串，算术运算用于辅助和便利
       - 比用管道 和 =$(...)= 简洁
@@ -8018,11 +8121,6 @@ apt install bash-doc
       - 不让大脑等待双手是最佳工具原则的最高等级
         - 人机交互，打字，扔掉鼠标
         - 避免不必要的环境切换
-    - 经济性：有了 Python 基础，学习其它语言门槛大大降低，不再需要额外精力
-      - 第一门语言难度 100% ，思维广度 +100%
-      - 第二门语言难度 25% ，思维广度 +100%
-      - 第三门语言难度 1% ，思维广度 +100%
-      - 回报越来越大
 ** 调试
 *** =bash= 调试
     - 屏幕输出法 :: 用 =echo=
