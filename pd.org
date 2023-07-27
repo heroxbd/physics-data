@@ -8330,8 +8330,8 @@ https://gitweb.gentoo.org/repo/gentoo.git/commit/?id=ea2987349ece6f07da01e1c2f3e
   :EXPORT_BEAMER_THEME: Hannover
   :EXPORT_BEAMER_FONT_THEME: professionalfonts
   :END:
-** 复习
-*** 课前准备
+** 复习准备
+*** 安装软件
     - 安装 SQLite3 和查看器
     - 安装 CSV 查看器
     #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
@@ -8342,7 +8342,8 @@ https://gitweb.gentoo.org/repo/gentoo.git/commit/?id=ea2987349ece6f07da01e1c2f3e
     #+end_src
     - macOS
     #+begin_src bash
-      brew install sqlite db-browser-for-sqlite csvkit
+      emerge --sync
+      emerge -vt sqlite csvkit
     #+end_src
 *** 本周提要
    - 第一周 :: 一切工作都是差分
