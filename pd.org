@@ -7999,6 +7999,21 @@ echo ${y}
    + 哪些是我不想匹配但却匹配了的
 
 这几乎适用于所有程序的写作。
+
+**** 几乎是所有科学实验的思路
+1. 思考清楚我们在证伪什么论断
+2. 设计实验
+3. 做实验，看它是否成功证伪了论断
+   + 若是，理论被推翻
+   + 若不是，理论经受住了考验，思考更强更精细的可证伪假说
+
+**** 先测试小的部分，再测试大的
+对人也一样，在信任一个人能胜任工作之前，先布置一个小任务
+
+1. 打字
+2. 小作业
+3. 大作业
+
 *** 自动处理文本和字符串的重要性
 - 节省大量的重复劳动
   + 找到一种解决问题的途径和高效的工作方法，让人满足
@@ -8066,7 +8081,10 @@ ed departments.csv
 **** awk 与 sed 的区别
 - 不再使用 ed 的单字母命令，改用 C 语言风格的语法，例如
   =/regex/{ print }=
-** 调用方法
+**** ed 的命令影响了 ex
+ex 是 vi 的前身，后者发展成 VIM (Vi IMproved)， VIM 的开发停滞，开发者正在转向 neovim
+
+** sed 进阶
 *** 命令行语法
 =sed/awk script filename=
 *** 数据驱动的编程
@@ -8079,11 +8097,137 @@ ed departments.csv
 sed -f tuna.sed sources.list
 #+end_src
 
+- 所有命令先处理第一行，再处理第二行，……
+*** 定位行
+1. 什么都不写代表所有行
+2. =/regex/= 代表满足 regex 的行
+3. 1, 2, 3 行号，例如
+   #+begin_example
+1d
+   #+end_example
+   为删除第一行。
+
+   =$= 代表最后一行。
+
+4. =line1,line2= 代表从 line1 行到 line2 行，闭区间
+
+   #+begin_example
+50,$d
+   #+end_example
+
+   把从第 50 行到最后一行都删除
+
+5. 在行的定位后加 =!= 代表反义
+
+   #+begin_example
+50,$!d
+   #+end_example
+
+   与
+
+   #+begin_example
+1,49d
+   #+end_example
+
+   等价
+*** 定位行的嵌套
+可以把行的定位嵌套，例如，删除所有从第 1 到 49 行中的空行，并把 lo 换成 do
+
+#+begin_example
+  1,49{
+    /^\s*$/d
+    s/lo/do/
+  }
+#+end_example
+
+*** 比较新旧文件的区别
+#+begin_src bash :results output
+  sed '1,100s/Aug/ 08/' usr_share_doc_list.txt > usr_share_doc_list.txt.new
+  diff -u usr_share_doc_list.txt{,.new}
+#+end_src
+
+#+RESULTS:
+#+begin_example
+--- usr_share_doc_list.txt	2021-08-30 11:59:19.000000000 +0800
++++ usr_share_doc_list.txt.new	2023-07-27 12:18:20.209493339 +0800
+@@ -1,5 +1,5 @@
+ total 8868
+-drwxr-xr-x  2 root root 4096 Aug  8  2017 abootimg
++drwxr-xr-x  2 root root 4096  08  8  2017 abootimg
+ drwxr-xr-x  2 root root 4096 Feb  8  2021 acl
+ drwxr-xr-x  2 root root 4096 Jul  2  2019 acpi
+ drwxr-xr-x  2 root root 4096 Feb  8  2021 adb
+@@ -92,7 +92,7 @@
+ drwxr-xr-x  2 root root 4096 Apr 14 15:44 cl-swank
+ drwxr-xr-x  2 root root 4096 Feb  8  2021 cl-trivial-gray-streams
+ drwxr-xr-x  2 root root 4096 Feb  8  2021 cl-unicode
+-drwxr-xr-x  2 root root 4096 Aug 30 10:21 cmatrix
++drwxr-xr-x  2 root root 4096  08 30 10:21 cmatrix
+ drwxr-xr-x  2 root root 4096 Feb  8  2021 coreutils
+ drwxr-xr-x  3 root root 4096 Feb  8  2021 cowsay
+ drwxr-xr-x  2 root root 4096 Feb  8  2021 cowsay-off
+#+end_example
+
+*** 数据清洗
+数据清理：把数据整理成方便的格式
+
+- 在物理学之外的其它“大数据”学科，90% 的工作是数据清洗。
+*** sed 的典型使用场景
+- 一文多改 :: 一个文件上投入多个改动
+- 一脚多文 :: 一个脚本用在多个文件上
+- 高级 grep :: 在查找关键词之前，先对待找的文本进行清洗
+- 管道过滤 :: 直接对着标准输入过滤，给到标准输出
+
+*** 例子：课件中的代码块
+https://git.tsinghua.edu.cn/physics-data/lecture/-/blob/master/Makefile
+
+#+begin_src makefile -i
+e%.tex: p%.tex
+	sed -e 's/{sqlite}/{sqlite3}/' -e 's/ein-python/python/' \
+		-e 's/ein-bash/bash/' \
+		-e '/{minted}/s/\[\]/\[bgcolor=lightgray,fontsize=\\scriptsize\]/' \
+		-e 's/\\begin{verbatim}/{\\scriptsize\\begin{verbatim}/' \
+		-e 's/end{verbatim}/end{verbatim}}/' < $< > $@
+
+#+end_src
 ** awk 入门
 *** 运行 awk
 #+begin_src bash
 awk '{print $1}' list
 #+end_src
+
+**** 计算 1 到 100 的和
+      #+begin_src bash :results output
+seq 100 | awk '{total+=$NF} END {print total}'
+      #+end_src
+
+      #+RESULTS:
+      : 5050
+*** 正式入门
+#+begin_src bash :results output
+echo | awk '{ print "Hello, world!" }'
+#+end_src
+
+#+RESULTS:
+: Hello, world!
+
+#+begin_src bash :results output
+  echo "Hello, world!" | awk '{ print }'
+#+end_src
+
+#+RESULTS:
+: Hello, world!
+
+#+begin_src bash :results output
+  awk 'BEGIN { print "Hello world!" }'
+#+end_src
+
+#+RESULTS:
+: Hello world!
+
+*** awk 的运行模式
+
+[[fig/awk-flow.pdf]]
 *** sed 与 awk 的联合
 使用管道
 ** awk 练习
