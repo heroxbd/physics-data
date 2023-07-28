@@ -11,6 +11,7 @@
 #+LaTeX_HEADER: \usepackage{appendixnumberbeamer}
 #+LaTeX_HEADER: \setCJKsansfont{Noto Sans CJK SC}
 #+LaTeX_HEADER: \DeclareMathOperator{\Tr}{Tr}
+#+LaTeX_HEADER: \setbeamercovered{dynamic}
 #+PROPERTY: header-args :eval never-export :exports both
 #+PROPERTY: header-args:dot :eval yes :cmdline -Kdot -Tpdf :exports results
 #+sTARTUP: beamer
