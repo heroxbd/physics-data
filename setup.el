@@ -12,3 +12,12 @@
     (makefile . t)
     (python . t)
     (C . t)))
+
+(setq org-latex-classes
+      '(("book" "\\documentclass[a4paper,11pt]{ctexbook}"
+         ("\\chapter{%s}" . "\\chapter*{%s}")
+         ("\\section{%s}" . "\\section*{%s}")
+         ("\\subsection{%s}" . "\\subsection*{%s}")
+         ("\\subsubsection{%s}" . "\\subsubsection*{%s}"))))
+
+(setq org-latex-compiler "lualatex")

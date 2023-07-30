@@ -1,4 +1,9 @@
 #+LaTeX_CLASS_options: [ignorenonframetext,aspectratio=169]
+#+LATEX_HEADER: \usepackage[UTF8]{ctex}
+#+OPTIONS: H:2 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
+#+OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+
+#+sTARTUP: beamer
 #+latex_HEADER: \usepackage{siunitx}
 #+latex_HEADER: \usepackage[version=3]{mhchem}
 #+latex_HEADER: \usepackage{mathrsfs}
@@ -7,16 +12,13 @@
 #+latex_HEADER: \usepackage{wasysym}
 #+latex_HEADER: \usepackage{tipa}
 #+latex_HEADER: \usetikzlibrary{arrows}
-#+LATEX_HEADER: \usepackage[UTF8]{ctex}
 #+LaTeX_HEADER: \usepackage{appendixnumberbeamer}
 #+LaTeX_HEADER: \setCJKsansfont{Noto Sans CJK SC}
 #+LaTeX_HEADER: \DeclareMathOperator{\Tr}{Tr}
 #+LaTeX_HEADER: \setbeamercovered{dynamic}
+
 #+PROPERTY: header-args :eval never-export :exports both
 #+PROPERTY: header-args:dot :eval yes :cmdline -Kdot -Tpdf :exports results
-#+sTARTUP: beamer
-#+OPTIONS: H:2 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
-#+OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
 
 #+name: savefig
 #+begin_src python :var figname="plot.pdf" width=5 height=4 :exports none
@@ -5985,11 +5987,18 @@ make --version
         : License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
         : This is free software: you are free to change and redistribute it.
         : There is NO WARRANTY, to the extent permitted by law.
-
 **** 作用
      1. 实现 _复现_ 要求
      2. 管理程序运行，在超级计算机上运行
      3. 从错误中恢复
+
+*** GNU Make                                                :B_ignoreheading:
+:PROPERTIES:
+:BEAMER_env: ignoreheading
+:END:
+
+当今的超级计算机，大多由分布式的集群构成。集群是多台独立的，可互相高速通信的计算机构成。每台计算机相对于集群，是一个“节点”。人类操作集群，在一个“登录节点”上交互实现。通过登录节点，把任务提交给调度器，调度器根据情况，如节点的计算饱和度和任务需求等，把任务分配给计算节点，达到协调把千万个节点协同运算的效果。调度器能接受多名用户的任务提交，从而实现计算资源的共享。
+
 *** Make 要素
     - 文档
       #+BEGIN_SRC bash
@@ -10002,3 +10011,4 @@ head -q -n1 lecture/l*.org
      #+latex: {\scriptsize
      http://hep.tsinghua.edu.cn/~orv/distfiles/20201102-Ubuntu_Debian10.mp4
      #+latex: }
+
