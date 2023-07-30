@@ -35,10 +35,9 @@ fig, ax = plt.subplots()
 fig.set_dpi({dpi})
 #+end_src
 
-* 第一周第一天
+* 总论
   :PROPERTIES:
   :EXPORT_FILE_NAME: p0
-  :EXPORT_BEAMER_HEADER+: \title{实验物理的大数据方法}
   :EXPORT_DATE: 2023-07-10 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
@@ -427,10 +426,9 @@ fig.set_dpi({dpi})
     - 已暂存（staged） :: 已修改的文件被作了标记，将被包含在下一轮提交中
 
        [[./fig/git-modes.png]]
-* 第一周第二天
+* Python 入门
   :PROPERTIES:
   :EXPORT_FILE_NAME: p1
-  :EXPORT_BEAMER_HEADER: \title{实验物理的大数据方法}
   :EXPORT_DATE: 2023-07-11 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
@@ -1116,10 +1114,9 @@ bool(None) # None 也可以当作“假”被判断
 - 选择结构
 - 循环结构
     
-* 第一周第三天
+* 复合类型与函数
   :PROPERTIES:
   :EXPORT_FILE_NAME: p2
-  :EXPORT_BEAMER_HEADER: \title{实验物理的大数据方法}
   :EXPORT_DATE: 2023-07-12 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
@@ -1904,10 +1901,9 @@ magic(r=real, i=imag)
 
 https://physics-data.meow.plus/faq/plagiarism/
 
-* 第一周第四天
+* 迭代器与数组
   :PROPERTIES:
   :EXPORT_FILE_NAME: p3
-  :EXPORT_BEAMER_HEADER: \title{迭代器与数组}
   :EXPORT_DATE: 2023-07-13 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
@@ -2645,10 +2641,9 @@ print(np.diag(np.arange(5)))
     - 构造高级的命令选项
       - 数据类型
       - 格式限制
-* 第二周第一天
+* 矩阵与张量运算
   :PROPERTIES:
   :EXPORT_FILE_NAME: p4
-  :EXPORT_BEAMER_HEADER: \title{矩阵与张量运算}
   :EXPORT_DATE: 2023-07-17
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
@@ -3095,10 +3090,9 @@ print(np.diag(np.arange(5)))
 
     - 当你的问题得到解答后，助教可能觉得此问题非常有价值。请配合助教发
       Pull Request，将它收集到 https://physics-data.meow.plus/faq/ 。
-* 第二周第二天
+* 数据存储格式
   :PROPERTIES:
   :EXPORT_FILE_NAME: p5
-  :EXPORT_BEAMER_HEADER+: \title{数据存储格式}
   :EXPORT_DATE: 2023-07-18 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
@@ -3767,10 +3761,9 @@ jq < BBH_events_rewrite.json
 - 优点：交互界面支持 SQL 语法
 - 缺点：科学和数值计算性能平庸
 
-* 第二周第三天
+* 数据绘图
   :PROPERTIES:
   :EXPORT_FILE_NAME: p6
-  :EXPORT_BEAMER_HEADER+: \title{数据绘图}
   :EXPORT_DATE: 2023-07-19 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
@@ -4035,10 +4028,9 @@ jq < BBH_events_rewrite.json
     https://matplotlib.org/stable/gallery/index.html
 
     - 看到需要的图，点进去可查看代码
-* 第二周第四天
+* 蒙特卡罗方法与大作业
   :PROPERTIES:
   :EXPORT_FILE_NAME: p7
-  :EXPORT_BEAMER_HEADER+: \title{蒙特卡罗方法与大作业}
   :EXPORT_DATE: 2023-07-20 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
@@ -4822,10 +4814,9 @@ target: source
       3. 蒙特卡罗法
 
 *** SciPy 模块举例 =scipy.optimize=
-* 第三周第一天
+* GNU 命令行
   :PROPERTIES:
   :EXPORT_FILE_NAME: p8
-  :EXPORT_BEAMER_HEADER+: \title{GNU 命令行}
   :EXPORT_DATE: 2023-07-24 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
@@ -5855,10 +5846,9 @@ apt-cache depends games-all
     #+end_src
     - 欢迎大家以 merge request 的形式补充更多的游戏
       - +尤其是能在校园网内联网的！+
-* 第三周第二天
+* GNU Make 数据生产线
   :PROPERTIES:
   :EXPORT_FILE_NAME: p9
-  :EXPORT_BEAMER_HEADER+: \title{GNU Make 的数据生产线}
   :EXPORT_DATE: 2023-07-25 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
@@ -6587,10 +6577,9 @@ variable '$@' is set to the name of the particular target in the group
 which triggered the rule.  Caution must be used if relying on this
 variable in the recipe of a grouped target rule.
     
-* 第三周第三天
+* 正则表达式
   :PROPERTIES:
   :EXPORT_FILE_NAME: pa
-  :EXPORT_BEAMER_HEADER+: \title{正则表达式}
   :EXPORT_DATE: 2023-07-26 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
@@ -7549,10 +7538,9 @@ echo ${y}
     | greedy | ?  | +  | *  |
     | lazy   | ?? | +? | *? |
 
-* 第三周第四天
+* 从 sed 到 awk
   :PROPERTIES:
   :EXPORT_FILE_NAME: pb
-  :EXPORT_BEAMER_HEADER+: \title{从 sed 到 awk}
   :EXPORT_DATE: 2023-07-27 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
@@ -7908,10 +7896,9 @@ https://gitweb.gentoo.org/repo/gentoo.git/commit/?id=ea2987349ece6f07da01e1c2f3e
         - =-v= Print shell input lines as they are read.
         - =-x= Print commands and their arguments as they are executed.
           
-* 第四周第一天
+* 关系代数与 SQL
   :PROPERTIES:
   :EXPORT_FILE_NAME: pc
-  :EXPORT_BEAMER_HEADER+: \title{关系代数与 SQL}
   :EXPORT_DATE: 2023-07-31 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
@@ -8369,10 +8356,9 @@ GROUP BY classes.院系, students.性别;
     | 26880267330 | BS   | 36.665 |
     | 77213592969 | BV   |  47.65 |
 
-* 第四周第二天
+* 关系代数与 DataFrame
   :PROPERTIES:
   :EXPORT_FILE_NAME: pd
-  :EXPORT_BEAMER_HEADER+: \title{关系代数与 DataFrame}
   :EXPORT_DATE: 2022-08-02 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
@@ -9011,10 +8997,9 @@ ON total.班级 = classes.班级
     - 引擎：自动 out-of-core computing (超出内存的运算)
     - 引擎：自动并行计算
 
-* 第四周第三天
+* 关系代数与回归分析
   :PROPERTIES:
   :EXPORT_FILE_NAME: pe
-  :EXPORT_BEAMER_HEADER+: \title{关系代数与回归分析}
   :EXPORT_DATE: 2022-08-03 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
@@ -9698,10 +9683,9 @@ print(n_res.summary())
       regr.predict(X_test[:2])
       regr.score(X_test, y_test)
     #+end_src
-* 第四周第四天
+* 未来方向与大作业
   :PROPERTIES:
   :EXPORT_FILE_NAME: pf
-  :EXPORT_BEAMER_HEADER+: \title{现实案例与未来方向}
   :EXPORT_DATE: 2022-08-04 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
