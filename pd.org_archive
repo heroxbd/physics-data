@@ -49,3 +49,1117 @@ Archived entries from file /home/heroxbd/dev/physics-data/pd.org
    - 2019 年凝聚态物理方向：扫描隧道显微镜求二维金属等能面
      - 2020 年：讨论中
 
+
+* 参考课程
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-07-30 Sun 21:53
+:ARCHIVE_FILE: ~/dev/physics-data/pd.org
+:ARCHIVE_CATEGORY: pd
+:END:
+** Python for everyone -- control flow
+*** Why do we program?
+    - Delegate repeatative tasks
+    - Record what you did
+**** Digital age
+     - We just buy device, use devices.
+     - How about we understanding devices, fixing devices and making devices?
+     - Programming is one important step. You build your world, change
+       the world and participate in creating and nurturing of
+       civilization by programming in this age.
+     - If you don't know programming, someone else will design your world for you.
+**** Not only a programmer needs to learn program
+     - Not even a physicist.
+     - Everyone needs to a bit of programming
+       - Secretary
+       - Sales champion
+       - Accountant
+       - Manager
+       - Cab driver
+*** Why Python?
+    - Python is a self-organized community.
+*** Python environment
+    - Real GNU/Linux
+      + Debian
+      + Gentoo
+    - Jupyter based
+    - Windows based
+
+      Windows based Python installation has caveats, because Python is
+      developed under Unix.  Be prepared for unexpected bugs if you
+      decide to use Python on windows.
+
+    - Can't or don't want to install software on your computer?  Check
+      out PythonAnywhere, Trinket, Cloud9, or CodeAnywhere.
+
+*** Choose an editor
+    - Emacs
+      https://github.com/redguardtoo/mastering-emacs-in-one-year-guide
+    - Vi
+    - Others
+      - Visual Studio Code
+      - Atom Both Emacs and Vi have steep learning curves, they are not
+        easy to learn.  But if you master any of them, they pays you.
+
+        Don't use Microsoft Word or Windows Notepad, they are not for
+        programs.  Because we need an editor that do plain text and
+        syntactically correct.
+*** Playground
+    https://www.py4e.com/tools/pythonauto
+
+    Do we need one?  I don't think so.
+
+*** Jupyter
+    - Causal way to completing classes.
+*** Installing Python
+    + Windows
+      - Not impossible.
+      - No good package manager.
+        - ... what is package manager?
+        - pip on windows is a hack.
+      - Snipping tool.
+    + macOS
+      - No good package manager.
+        - Need extra care when using pip, easy to screw up.
+    + GNU/Linux
+      - steep learning curve.
+      - not everything is obvious.
+      - pays you back if you are committed to deal with data and
+        programs: experimental physicist, data scientist, quant, etc.
+        That is the main audience this course is targeting.
+      - I am going to give lectures, examples, demonstrations on
+        GNU/Linux with Emacs.
+    + You can try them if you are brave, and you are encouraged to find
+      your own work style.
+*** Submit screen shots
+    - Needed skill for online discussion.
+    - Anonymous discussion groups, piazza "Not good", commented by
+      Harry
+    - git
+      classroom
+      https://github.com/CS50Demo/assignment-1-introduction-to-programming-heroxbd-1
+*** Version control and Git
+    - jiegec's lectures.
+
+    https://cloud.tsinghua.edu.cn/d/f3f13a46ed4c4b5386f9/
+*** Write paragraphs of code
+    - Basic
+ programming
+ structures
+      - sequential
+      - conditinoal
+      - iterative
+      - recursive
+    - Early
+ exit
+
+
+**** Further Reading
+     - A proof that all reasonable programs can be decoupled into
+       combinations of the 3 constructs. ???
+     - Structured program theorem
+       - Goto statement considered harmful
+
+     - https://en.wikipedia.org/wiki/Structured_programming
+     - https://en.wikipedia.org/wiki/Goto#Criticism
+*** Expressions (including statements)
+    - Reserved words.  Not used for anything else.
+    - Variable
+      - Case sensitive
+    - Insane vs letter vs mnemonic
+    - Covered in 程序设计基础
+      - 设计成练习，作为 git 和 jupyterhub 的熟练练习
+    - Keyword is historical
+      - **
+      - *
+      - /
+      - %
+*** How to debug
+    - Read error message
+    - type()
+    - duanzi: 不要用浮点数表示钱——电影 Office Space
+      银行用浮点数记账，有误差，被主角用来薅羊毛
+*** User input
+    - 在数据分析中没什么用
+*** Branching
+    - Python 语法的特殊之处
+    - 强制缩进: 程序员编辑器非常重要
+      - Tab vs space
+    - Conditionals: if.. elif..  else
+    - Try... except
+      - Why can't it be replaced by if.. else?
+*** Loops and iteration
+    - Computers to repetitive task human don't want to do.
+    - while loop
+    - for loop
+    - counting in loop
+    - filtering
+    - 都作为习惯考察，视同学的基础压缩授课时间
+*** Types
+    - None
+*** Functions
+    - Reuse code
+
+      Dont repeat yourself
+    - Function with a return
+
+      consistant with mathematical definition
+    - Argument variable
+    - 太简单了，引入递归
+
+    通过练习保证同学们掌握
+** Python for everyone -- data structure
+   What python distinguishes itself from C
+*** String
+    - length
+    - indexing, slicing
+    - Why index starting with 0?
+      Dijkstra argument
+    - string concatenation, compare with C
+      - unicode string
+    - in: logical operator
+    - string library is a set of toolkit to use
+      - dir(str): very useful tools
+*** 参观科学博物馆 可选
+*** Files
+    - read text files: just use for to loop through.
+    - open, close and `with` context
+*** List
+    - List a powerful container.
+    - Indexing compared to strings.
+    - Append.
+    - List and string combo into text parser.
+*** Dictionary
+    - The central data structure of Python.
+    - Dictionary: key-value pair
+      - As opposed to List: ordered collection
+    - Python itself is implemented with namespace and dictionaries.
+      - What is a language namespace?
+        #+BEGIN_SRC C++
+          using namespace std;
+
+          std::stdout
+        #+END_SRC
+    - Example: word counter.
+      - get with a default counter value.
+    - 2 iteration looping mode:
+      #+BEGIN_SRC python
+        for k,v in d.items():
+      #+END_SRC
+*** Tuple
+    - Tuple is non-mutable.
+    - tuple can be used on the left-side of an assignment statement.
+    - List comprehension: beauty of Python.
+
+*** 课堂教学，例子
+    - 使用邮件库，文本处理
+*** 参考书
+    - Think Python 2e
+*** 辅助资料
+    - https://www.tutorialspoint.com/
+
+      印度的编程样例网站，适合通过例子快速入门一项技能。
+
+    - https://scipy-lectures.org/intro/intro.html
+
+      由 Python 科学计算领域最资深作者亲自执笔编写。
+** 用 Python 玩转数据
+   http://www.icourse163.org/learn/NJU-1001571005
+*** Python 入门介绍
+    - 主线是 Python 的广泛应用
+    - 交互模式和文件执行模式
+    - 缩进
+    - Python 中的常量
+      - stu-name 不是合法的变量名
+    - 屏幕书写很适合制作 MOOC
+    - 讲课很口语化，在 MOOC 上更有亲和力
+*** 模块
+    - 模块是一个逻辑概念，文件是与之对应的实体概念
+*** range 迭代器
+    好处：用多少就生成多少，甚至可以制作无穷的迭代器。适合大数据应用场景。
+*** 作业
+**** 寻找第6个默尼森数
+** Learn to Program -- The Fundamentals
+** 计算机科学和Python编程导论
+** Linux 入门基础 - 网易云课堂
+   苏勇
+   https://study.163.com/course/courseLearn.htm?courseId=232007
+*** Linux 系统安装
+    - VirtualBox
+      - 针对运维工作
+        - 软件保守，不适合学术
+        - 命令行为主，与科学计算很类似
+      - 运行在 macOS
+    - 使用英语环境
+      - 中文的高质量资料很少，中文的社区非常薄弱且小众
+      - 英语是程序的天然语言，对科技表达更丰富
+      - 世界目前的约定，各国科学家都在通过英语交流
+    - 如果立志建设中文社区，请先通过英语学习成为高手
+*** 命令行界面
+    - 与计算机交互的精髓
+      - 比随意点选更有助于可复现性
+    - 更方便地操作远程的计算资源
+*** GNOME
+    - 有助于渐进地加入命令行
+    - 图形界面未必能真切表达人类的意图
+    - 图形界面的开发更耗时费力，“易用性”是以开发难度为代价
+      - 科学研究更关注本质
+*** CLI shell, bash / zsh
+    - shell 相对于 kernel，在 kernel 之外
+    - 用户通过 shell 把命令传给 kernel
+    - bash 的提示
+    - 命令、选项、参数
+      - hostname
+      - ls
+      - uname
+      - clear
+      - id
+      - passwd
+    - 参数：短线、双线，GNU 约定
+    - Shell 后台进程
+    - Tab 自动补全
+      - unique
+    - zsh 可以补全参数
+    - 上下方向查找历史，Ctrl-r 搜索命令。
+      - emacs 快捷键约定
+    - ESC-. 上一个命令的选项
+    - *, ?, [0-9], {}
+    - Ctrl-Z 挂起
+      - jobs
+      - bg
+      - fg
+    - 其它命令
+      date, uptime, head, tail, less, cat, lspci, zip, tar, find
+*** 编辑器 vi, emacs
+    - Unix 一切都是文本，因为一切皆可用文本编辑器修改。
+*** 文件系统
+    - 目录结构，当前工作目录
+    - "."开头的是隐藏文件
+    - touch 更新文件时间，不存在则先创建
+    - ls -d: list directories themselves, not their contents
+    - file 类型
+    - 绝对路径、相对路径
+      - Linuxcast 图
+    - . .. ~ -
+
+    不仔细讲，只做练习
+*** 文件操作
+    - cp, mv, rm, mkdir, rmdir
+
+    不仔细讲，只做练习
+*** 系统目录 FHS
+    - /bin, /sbin
+    - /boot
+    - /etc
+      文本的配置文件
+    - /tmp
+      临时目录
+
+*** 硬盘在系统中的表示
+    - /dev/sda, /dev/nvme0
+** 实验楼 - Linux 基础入门（新版）
+   - 交互式地学习
+   - 文件的基本操作
+** Data Manipulation at Scale
+*** Big data
+    Any data that is expensive to manage and hard to extract value
+    from. - Michael Franklin UC Berkeley
+
+    - 10000 100KB Excel 表格
+    - 134万条边，1万个节点的复杂网络
+
+    - Erik Larson, 1989
+      - The keepers of big data say that they do it for the consumer's
+        benefit. Data have a way of being used for purposes other than
+        originally intended.
+** data science foundations R
+   https://www.coursera.org/specializations/data-science-foundations-r
+** Reproducible research: new self-paced session from March 20, 2020!
+   https://learninglab.inria.fr/en/mooc-recherche-reproductible-principes-methodologiques-pour-une-science-transparente/
+** 参考书：Linux Sea
+   http://swift.siphos.be/linux_sea/
+** 参考书：Introduction to Computation in Physical Sciences
+https://link.springer.com/book/10.1007/978-3-031-17646-3
+** Berkeley Course
+   Data science and Bayesian statistics for physical sciences
+
+   https://data.berkeley.edu/news/new-physics-data-science-course
+
+*** Goal
+    Modern tools in data science and data analysis in physics.
+
+*** Audience
+    Upper division undergraduates.
+
+*** Topic
+    - Theoretical, practical, their most common applications in
+      physical sciences.
+*** Grades
+    30% projects, 40% homeworks, 30% class participation.
+*** Table of contents
+    - Numerical integration
+    - Introduction to probability and Bayesian inference
+    - More on Bayesian inference and intro to data modeling
+    - Linear Algebra
+    - Information theory
+    - Nonlinear equations and 1-d optimization
+    - Optimization in many dimensions
+    - Monte Carlo methods for integration and posteriors
+    - More advanced Bayesian analysis
+    - Variational approximations
+    - Interpolation and extrapolation of data
+    - Fourier methods
+    - Ordinary and partial differential equations
+    - Classification and inference with machine learning
+*** Programming environment
+    - Jupyter notebook
+
+*** Planck
+    A series of tasks
+
+    Use measurement of Planck satellite power spectrum to determine
+    cosmological parameters.
+
+    - Optimization, find MAP/MLE best fit parameters
+    - Determine covariances of all parameters using Laplace approximation.
+    - Fisher matrix experiment design predictions.
+    - analyze MCMC chains burn-in phase, Gelman-Rubin statistics, and chain
+      correlations.
+    - Plot 1-d and 2-d distributions and compare them
+      to MAP/Laplace approximation.
+    - Change one parameter and use importance sampling to produce new
+      posteriors.
+
+*** LIGO
+    Use matched filtering methods and FFT to analyze first LIGO event
+    and show it has detected gravitational waves.
+
+*** Machine learning on galaxies
+    - train the ML algorithms for regression
+    - test the training algorithms
+    - try KNN, gaussian processes, linear and quadratic regression,
+      support vector machines, neural networks, random forest...
+    - classification: use galaxy zoo galaxy
+      morphology (spirals ellipticals, irregulars...) training dat.
+    - Use photometry first, then add image information and observe how
+      the accuracy improves.
+*** grader
+    https://okpy.org/
+
+* GEANT4
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-07-30 Sun 21:53
+:ARCHIVE_FILE: ~/dev/physics-data/pd.org
+:ARCHIVE_CATEGORY: pd
+:END:
+  https://groups.lal.in2p3.fr/ED-geant4/ttt/program/
+
+  - 从 Python 起，非常友好的入门。注重可视化。
+  - Structure of Geant
+    - Run
+    - Event
+    - Track
+    - Step
+    - 每天一种，一个可视化的方法
+  - Run an application
+  - Collect information
+  - 只做入门教学，教给同学深入学习的方法
+** Introduction
+** Geometry
+** Primary Paricles
+** Physics
+** Scoring
+
+* 平时作业
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-07-30 Sun 21:53
+:ARCHIVE_FILE: ~/dev/physics-data/pd.org
+:ARCHIVE_CATEGORY: pd
+:END:
+  - 细化，标准输入输出
+** 学风
+   ……追求短浅，境界低，不肯有更长远的设计。这是非常重要的学风问题，但是有好多人谈学风问题时，还是不抄作业，论文自己写。这个问题为什么在研究生层次更突出，就是和破五唯有深刻的联系。学生中很有市场的“攻略观”实在是很普遍。攻略就是目标函数值外部给定的，我只要多快好省，maximize 我的结果，minimize 我的 cost。这是功利的一种体现。我们在评特奖时，现在清华的某些老师，甚至某些院系都在强调“攻略观”，因为他们希望自己的院系能常年保有特等奖学金。博士选题，希望早出成果，快出成果。
+
+* 价值
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-07-30 Sun 21:53
+:ARCHIVE_FILE: ~/dev/physics-data/pd.org
+:ARCHIVE_CATEGORY: pd
+:END:
+  - 工具审美
+
+    学物理的同学亟需
+
+  - 实践性的课程：没有必要记忆，但一定要在短时间内实践.
+
+* 2020 第四周第四天
+  :PROPERTIES:
+  :EXPORT_FILE_NAME: pf
+  :EXPORT_BEAMER_HEADER+: \title{面向未来}
+  :EXPORT_OPTIONS: H:1 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
+  :EXPORT_DATE: 2020-09-10 清华线上
+  :EXPORT_BEAMER_HEADER+: \author{续本达}
+  :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
+  :EXPORT_BEAMER_THEME: Boadilla
+  :EXPORT_BEAMER_COLOR_THEME: MedStarColors
+  :EXPORT_BEAMER_FONT_THEME: professionalfonts
+  :ARCHIVE_TIME: 2023-07-30 Sun 21:53
+  :ARCHIVE_FILE: ~/dev/physics-data/pd.org
+  :ARCHIVE_CATEGORY: pd
+  :END:
+** 大作业网站
+   https://dc.applysquare.com/
+
+   - 如果算力不够，请向教学团队求助
+   - 联系物理系和工物系学生科协
+
+** 技能集合
+   #+Attr_LaTeX: :height 0.65\textheight
+   [[./fig/Data_Science_VD.png]]
+
+   - 数据时代需要 *专业知识* 、 *数理统计* 和 *黑客技术* 等多方面技能。
+** 黑客技能
+*** 科学数据处理的原则 :B_alertblock:
+    :PROPERTIES:
+    :BEAMER_env: alertblock
+    :END:
+    黑客的审美： _复现_ _透明_ _一次_ _最佳工具_
+
+*** 版本控制
+    Git 与队友分工协作，与明天的自己协作
+
+    Git 是“搬砖工地安全帽”，无头盔禁止上岗
+
+*** 关系代数
+    数据表示成关系，数据的操作表示成关系代数运算
+
+*** 数据格式
+    _透明_ CSV, HDF5, JSON, 数据库 SQL
+
+** 黑客技能（二）
+*** 数据流水线
+    GNU Make 管理数据的依赖与转换，实现错误恢复和并行计算
+
+    实现数据层次的 Python/R/Bash/Scheme/SQL 多语言融合
+
+*** 正则表达式
+    描述字符串的微型语言，数学模型
+
+*** 命令环境
+    POSIX 环境中强大的小工具组合，开发与使用相融合
+    
+*** 计算语言
+    Python 语法友好，工具丰富，统领 C/C++/Fortran/R/SQL 库
+
+** 以本课程为起点
+   - 函数式编程：一切都是函数
+     - 无状态，从而容易从错误中恢复
+   - MapReduce：分布式大数据系统的开始
+     - 在之上建立了关系代数：
+     - Apache Hive，SparkQL，etc.
+   - 信号处理：《信号与系统》课程们
+   - 统计学习与机器学习
+     - “深度学习”是商业概念，即多层神经网络加大数据训练
+     - 黑客技术基础，为统计学习与机器学习提供了基本环境
+     - 基本接口都是 =fit(y, X)=
+       - sklearn, xgboost, etc.
+** 计算历史：大型机
+   [[./fig/main-frame.jpg]]
+
+   - 一台大型计算机，用户通过终端 (Terminal) 连接
+** 计算历史：个人计算机
+   - 1981年
+
+   [[./fig/ibm-pc.jpg]]
+** 计算历史：个人计算机组成集群
+   - 1990s 个人计算机组成集群 "beowulf"
+
+     #+Attr_LaTeX: :height 0.65\textheight
+     [[./fig/computer-cluster.jpg]]
+
+** 高性能计算与超级计算机
+   [[./fig/supercomputer.jpg]]
+
+   - 更大的计算机集群，优化节点间的通信，共享存储。
+
+** 虚拟机与云计算
+   - 虚拟机：软件模拟计算机
+   - 云计算：开放平台，自动生成虚拟机
+
+** 技术问题：TUNA 协会
+   - 清华大学学生开源软件与网络技术协会
+   - TUNA 主页 https://tuna.moe/
+
+   - TUNA 技术群，黑客（广义）技术问题探讨
+
+** 中微子 NUS Seminar
+   - 9月11日下午1点，新水301与 zoom 621 219 8453
+
+     答疑现场+远程
+
+   - The Saga of Neutrino Oscillation
+
+** 教学团队
+   #+attr_beamer: :overlay <+->
+   - 教师续本达 :: 对，我就是那个最菜的。
+   - 助教 :: 他们是最强的：
+     - 郑鈜壬 :: 请叫我红人，星际玩家，我的 bug 全都是 feature。
+     - 陈嘉杰 :: 嘿嘿嘿，这不够好玩，为什么不讲 Rust。
+     - 陈晟祺 :: 我是 +Harry Chen+ 蛤蜊橙，bug 小王子，不信你试试。
+     - 刘学伟 :: 哇，这也太强了吧，但是我早已搞定，呵呵。
+     - 张卓婧 :: 卓卓什么资料都有，卓卓什么都会。
+     - 翁俊 :: 这也太简单了吧，你套个公式不就算出来了。
+     - 少年爱迪生 :: 学长们作业做得开心吗？不要问我谁是迪生，问[[https://cloud.tsinghua.edu.cn/d/ca4dc48637e4432b88f0/][这里]]。
+** 教学团队
+   #+attr_beamer: :overlay <+->
+   - 快乐的学长 :: 暗中观察受不了的时候就会说话。
+     - 高一川 :: 我会七十二般变化，高二川、高三川、大一川、大二川、大三川、大四川、研一川
+     - 付祈安 :: 我见到学弟学妹就会触发 _付钱_ 的被动技能
+     - 刘晓义 :: 喵喵跑得快
+   - 小助教 :: 来自同学中间
+     - 李子鸣、陈烁天、尹嘉恒、王宇昂、徐大成、孙鑫礼
+     - 孙嘉祎、陶泓耕、胡鸿源、王雨晴、孙泽昌
+** 致谢
+   - 顾问 :: 毛淑德教授、郝镇齐博士、冯骅教授、翟荟教授
+     - 阮东教授、陈少敏教授
+
+* meta
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-07-30 Sun 21:53
+:ARCHIVE_FILE: ~/dev/physics-data/pd.org
+:ARCHIVE_CATEGORY: pd
+:END:
+  - [X] 讲义 working-in-progress，Git 练习 / 加分
+  - [X] faq site / 加分
+  - [X] 提问的智慧 / 黑客的精神
+
+
+* 素材
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-07-30 Sun 21:53
+:ARCHIVE_FILE: ~/dev/physics-data/pd.org
+:ARCHIVE_CATEGORY: pd
+:END:
+  #+begin_example
+  9月28日下午，清华大学本科教育教学审核评估专家组意见交流会在主楼接待厅举行。教育部审核评估专家组组长丁烈云院士等9位专家组成员，教育部高等教育教学评估中心主任范唯、副主任李智，清华大学党委书记陈旭、校长邱勇等校领导班子成员出席会议。会议由教育部审核评估专家组副组长李志义主持。
+　　陈旭首先代表学校对各位专家来校参加审核评估表示欢迎和感谢。陈旭表示，这次评估是教育部在教育强国战略背景下启动实施的新一轮审核评估，是深化新时代教育评价、教育督导改革的重要举措，意义重大。作为全国首家高校接受新一轮本科教育教学审核评估，这是教育部和专家组对清华的高度重视、充分信任，清华大学深知责任重大，必须配合好、完成好这次评估工作。评估工作能够切实帮助我们查找问题和不足，提升本科教育水平，是对学校本科教育教学工作和一流大学建设的一次全面体检。这次评估有助于推动学校进一步实现内涵式高质量发展，落实中央要求，找准发力点。从学校长远发展来看，这次评估也是对学校发展进入新阶段、迈入世界一流大学前列的有力促进。
+　　陈旭指出，对专家组提出的真知灼见、意见建议，我们一定诚恳接受、认真改进，对专家和各位领导带来的宝贵经验、创新做法，我们一定积极借鉴、虚心学习、互学互促。学校党委要进一步强化责任担当，深刻领悟“旗帜”“标杆”含义，高标准落实立德树人根本任务，深化教育综合改革，厚植师生家国情怀，着力培养社会主义建设者和接班人，切实履行好为党育人、为国育才的光荣使命。
+　　作为首家接受此轮本科教育教学审核评估的高校，清华大学高度重视、认真完成了自我评估和相关准备工作，召开多场研讨会深入总结本科人才培养的经验和不足，研讨面向未来的人才培养目标和本科教育教学组织模式。本次评估中，专家组以多种形式对清华本科教学情况进行了全面深入的考察，对清华本科教学工作有了深入了解，对本科教学工作中存在的问题形成了基本看法。书院制培养模式的改革探索，写作与沟通课程的建设成效，受到了专家们的普遍关注和充分肯定。
+　　丁烈云代表评估专家组与清华大学交流了审核评估总体情况。根据教育部评估中心的安排，本次评估以线上线下相结合的方式开展。线上评估自4月27日启动，22名专家（含1名学生观察员）参加，通过在线访谈、师生座谈、听课看课，调阅培养方案、试卷、毕业论文等方式深入考察。在春季学期在线评估基础上，专家组9位成员和1位来自兄弟学校的学生观察员于9月27日-28日入校评估，开展广泛调研，交流考察感受，对清华大学本科教学工作形成了集体意见。
+　　丁烈云代表审核评估专家组对清华大学本科教学工作提出四点看法：
+　　第一，以立德树人为根本任务，以服务国家为最高追求，坚守为党育人、为国育才的崇高使命。学校把立德树人成效作为检验学校一切工作的根本标准，把服务中华民族伟大复兴作为重要使命。在“三位一体”的教育理念和人才培养模式中，把“价值塑造”放在首位；开设“新生导引课”，为大学生扣好第一粒扣子；把思想政治教育元素融入课程教学的各环节，形成课程思政特色；提质增效深化课程改革，不断创新人才培养模式，为广大学生提供优质教育资源；持续深入推进全员全过程全方位育人，支持学生的全面发展等，都体现了学校立德树人中心地位突出，社会主义办学方向明确，为国家培养了一批批德智体美劳全面发展的社会主义建设者和接班人。
+　　第二，坚持“以学生学习与发展成效为核心的教育质量观”，坚守“课比天大”“卓越教学”的教学质量文化传统，质量保障体系健全有效。学校推动“以教为主”向“以学为主”转变，注重发挥教师和学生在质量保障体系中的主体作用。完善学分绩（GPA）方案，体现学生成长性评价；将“教师投入”和“学生收获”作为课程教学评价体系的关键指标；建立“教学档案袋”，多维度记录教师教学过程、教学成效和教师成长；特别是面对疫情挑战，率先开展全体系、成建制、严格按照教学计划时间表进行在线教学，并进行教学质量保障性听课。这些新举措和新成效切实体现了“教书育人是教师的第一学术责任”的深刻内涵，成为不断进行自我超越的内生动力，推动教育教学质量不断提升。
+　　第三，注重价值引领，实现通专融合，在创新人才培养上不断出成果出示范。学校在领导重视、师资投入、资源配置等多方面，都充分体现了“以本为本”。把价值塑造视为根本，提升思政课教学水平，强化各类课程的育人功能，二者同向同行，卓有成效。学校坚定不移地推进和深化教育教学改革，形成了以通识教育为基础、通专融合的本科教学体系。书院制人才培养模式和贯穿全学程的大类培养，使人才培养体系发生了格局性变化。通过学习发展、心理健康、职业发展、全球胜任力等的指导和培养，全方位支持学生发展。
+　　第四，大胆创新本科教育组织模式，勇于在变局中开新局，不断实现新跨越。2014年，清华率先启动综合改革，确立了“三位一体，通专融合，以学为主，多样成长”教育教学改革的总体思路，经过七年持续深入的教育教学改革攻坚战，学校在教育理念、育人实践等方面积累了丰富的经验，为推动我国高等教育理念创新、实践创新、制度创新发挥了先行先试的作用。
+　　专家组一致认为：清华大学以立德树人为根本任务，提出“一流的本科教育是一流大学的底色。”学校树立价值塑造、能力培养、知识传授“三位一体”的教育理念和人才培养模式，深入推进本科教育教学改革，精心谋划，大胆实施，蹄疾步稳，成效显著。清华的本科教育给学生打上了深刻的清华烙印，让他们在永不褪色的底色上成就绚烂的人生。清华大学在我国高校本科教育教学改革中充分发挥了出经验、出示范的重要作用，是当之无愧的中国高等教育的一面旗帜。清华的实践让我们坚信，新时代中国的高等教育完全有能力培养出第一流的创新人才。
+　　会上，专家组各位成员和学生观察员突出问题导向，本着帮助学校发现问题、实现发展的目的，逐一进行了个人意见交流。在对清华大学本科教学工作予以充分肯定的同时，专家组成员围绕思想政治教育、课程体系优化、教学质量保障体系建设、劳动教育体系设计、书院制建设、创新能力培养、医学教育、学生多样化培养等方面提出了意见建议，并希望清华大学作为高等教育的一面旗帜，在本科教育教学中进一步打造“升级版”的清华范式和清华方案。
+　　交流会上，邱勇代表学校再次向各位专家的辛勤付出及对清华本科教育教学工作提出的中肯意见建议表示感谢。邱勇说，面向高校开展本科教育教学审核评估是全面落实中央教育评价改革要求，引导高校坚定正确办学方向、抓实人才培养质量“最后一公里”的重要举措。在教育部高等教育教学评估中心的安排下，评估专家组全体专家以习近平总书记关于教育的重要论述为根本遵循，用心用情创新评估方式方法，通过线上线下相结合等多种方式，既全面、深刻、具体地了解和把握清华本科教育教学情况，又大幅减轻受评高校的评估负担，特别是对学校自2017年上一轮评估以来教育教学改革的一系列举措给予了充分肯定，并对清华未来的本科教育发展提出了宝贵的意见和建议，为推动清华进一步深化改革、提升本科教育教学质量提供了强大助力。
+　　邱勇表示，2017年以来，清华大学在深化实施综合改革的进程中，着重推进本科教育教学改革，同时充分发挥本科评估“以评促建”的作用，通过召开第25次教育工作讨论会，在培养方案、课程体系、实践教学、师资建设、评价体系、国际交流合作等方面推出40项行动计划，将“三位一体”培养模式上升为教育理念；通过组织学风建设年活动及召开学风建设大会、研究生教育改革发展大会、第18次科研工作讨论会，系统总结反思人才培养中存在的问题。清华人始终坚持使命驱动与问题导向，不断强化“教书育人是教师的第一学术责任”，并以实际行动践行价值塑造、能力培养、知识传授“三位一体”教育理念。
+　　邱勇表示，今年4月19日，习近平总书记来校考察时发表重要讲话，对清华大学的育人传统和办学特色给予高度肯定。总书记指出，110年来，清华大学深深扎根中国大地，培育了爱国奉献、追求卓越的光荣传统，形成了又红又专、全面发展的教书育人特色，为国家、为民族、为人民培养了大批可堪大任的杰出英才。总书记强调，建设一流大学，关键是要不断提高人才培养质量。要想国家之所想、急国家之所急、应国家之所需，抓住全面提高人才培养能力这个重点，坚持把立德树人作为根本任务，着力培养担当民族复兴大任的时代新人。教师是教育工作的中坚力量，要成为“大先生”，做学生为学、为事、为人的示范，促进学生成长为全面发展的人。总书记的重要讲话精神为学校深化本科教育教学改革、坚定“中国教育是能够培养出大师来的”信心提供了重要理论基础与强大精神动力。
+　　邱勇指出，清华大学刚刚迎来110周年校庆，站在新的历史起点上，我们要继续加强理论研究与模式探索，推动育人理念不断创新；要着力提升整体办学水平，为高质量人才培养提供全方位保障；要大力加强师资队伍建设，只有一流的师资才能保证一流大学本科教育的底色。面向新的征程，清华大学将始终坚持党对学校工作的全面领导，坚决贯彻落实党的教育方针，坚持社会主义办学方向；将进一步加强制度建设和文化建设，不断提升学校治理体系与治理能力现代化水平；将持续深化改革，着力提升改革的系统性、整体性、协同性，坚决走内涵式高质量发展道路；通过制定实施“2030高层次人才培养方案”“2030创新行动计划”和“2030全球战略”等中长期战略规划，真正发挥“旗帜”“标杆”的责任担当，在出人才、出成果、出经验、出示范方面发挥引领作用，努力开拓中国特色世界一流大学建设的崭新局面。
+　　范唯代表教育部评估中心对专家组成员的付出表示感谢。她充分肯定了清华大学率先参与新一轮本科教育教学审核评估的使命担当，并围绕三个关键词谈了考察感受：一是从容，清华有从容的气质，舍得为本科教育下力气花功夫，投入精力和资源，从制度设计层面考虑本科人才培养，脚踏实地地推进各项工作；二是醇香，这次审核评估是一次难得的交流活动，专家组成员有不同的学术背景和经验认识，能够从不同角度观察清华办学，提出宝贵意见，评估的过程有着醇香的味道，值得慢慢品味；三是初心，评估中心的初心是希望用审核评估的方式帮助学校改进提升，助力学校改革和“双一流”建设。范唯最后表示，希望清华以评估结果为参照，进一步提高办学水平，祝愿清华未来越办越好，把中国特色社会主义一流大学建设的旗帜越举越高。
+　　清华大学各单位主要负责人，学校教学委员会委员，学校教学督导组成员，学校学生工作指导委员会委员，各院系主管教学工作副院长（副系主任）、各院系主管学生工作副书记参加会议。
+  #+end_example
+
+
+* 2021 吐槽
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-07-30 Sun 21:54
+:ARCHIVE_FILE: ~/dev/physics-data/pd.org
+:ARCHIVE_CATEGORY: pd
+:END:
+之所以没有写成“反思”，是因为这篇日志是一则阴暗的吐槽。吐完继续吃饭，切勿对号入座，切勿转载。
+
+《实验物理的大数据方法》在 2019 年开课，完成了初步的摸索，老师和学生的体验都不错。因为课第一次开，没有人知道给分怎么样，来上课的学生都是有想法，大多是要提升计算机使用品位的学生。上课颇有一种“坐而论道”的教学相长的享受。
+
+2020年只能线上教学，有近10人并不认同课程传递的“复现”、“一次"，"透明"，"最佳工具"等原则和价值，反复针对平时作业中的扣分申诉，讨论中我感觉到申诉者并不在乎什么原则，只是“老子一向最牛B，谁他妈敢扣老子的作业分，谁他妈有病”的心态。有学生为了把自己从 B+ 申诉到 A- 寻找各种可能的点申诉，有学生算出了自己稳拿 A-，直接躺平放弃继续上课和作业。我看了几位能闹能精打细算的学生的总评成绩，发现他们大都是年级前几名，不禁倒吸一口凉气，这些学生是代表清华学风的。杨斌说学生上课像刷副本做任务打怪，讲投入产出比，讲学分绩的最优化函数，这种学习失去了灵魂。这个问题非常严重。
+
+但是看到连原本十拿九稳的推研都卷成一片血海，我能说同学位不应该刷绩点吗？不能。但我是有精神洁癖的，我不想让我的课成为水刷4.0的工具。
+
+2021年，我觉得2020年教学体验差的原因是，虽然大多数学生在努力学习，但是闹得最欢的想刷绩点的学生主导了讨论氛围。因此我作了最终被证明实践证明是错误的决定：提升课程难度，严格查重，留下想讨论科学、技术的学生，劝退刷绩点的打怪者。
+
+这个决定的 2B 之处在于，本来有更好的办法，如记 P/F，或者把课容量限制到 30，拐弯抹角地做是没有意义的。拐弯抹角的结果是，因为作业难，反复针对作业扣分申诉者变得更多。
+
+这个决定最令我痛心之处在于：有想学习认真来上课的学生因为作业做不完，只能在上课时做作业了，许多想发展数据处理能力的学生因为经历了作业的摧残，反而因此折损了兴趣。
+
+年级的大佬们是这样计算的：本大佬已经独步江湖了，一个月都他妈不用来上课，稳稳拿4.0。但是现实的剧本变成了，我本来想躺出4.0，但你却让我花了整整六个星期时间肝出了4.0，老师你他妈不讲武德！我他妈六个星期能做多少事情，能看多少论文，能发多少论文，能上多少门研究生课，能做多少实验，结果你他妈让我六个星期都没学物理，你打着物理的旗号让我写程序折磨我，我按计算器就够了为什么让我学这些傻B玩意，你他妈就是批着物理系系友外皮的计算机系内奸，你他妈就是物理系的罪人，祝你明年关门！ 如履薄冰地上完了课，大佬没有学习课程传递的价值，使用他高中摸索出的技能完成大数据的任务。这门课对他的收效甚微，确实是没法达到打副本刷怪的投入产出比。
+
+我对不起大佬们。我觉得我们一起在不适当的时间做了不适当的事，我很内疚，我的课成为了大佬封神路上的无意义支线任务。
+
+这门课应该是给谁开的呢？我觉得大部分学生是这门课的受众，但我要道歉的是，对不起，我本应更关注大家的学习跟大家论道，但是我没有把控住自己，精力被按闹分配了。
+
+* 2020 学生
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-07-30 Sun 21:54
+:ARCHIVE_FILE: ~/dev/physics-data/pd.org
+:ARCHIVE_CATEGORY: pd
+:END:
+   尊敬的续老师：
+
+   我是清华大学物理系的毕业生陈奕儒，现在在天文系做助研一年，我在2020夏季学期参加了您实验物理的大数据方法课程的学习，之前的学号是2018012238，由于现在在申请2023年的研究生或博士项目，想请您写封推荐信。
+
+   因为当时的学生很多，我想您应该已经对我没有什么印象了（为了让您更熟悉一点，我将CV也附到邮件中），而我在这门课上的成绩也仅为B+，确实算不上您的优秀学生。但您的这门课确实对我帮助极大，您在那么短的时间内能帮我训练学习了如此多种的编程语言和技巧，很多内容在我之后的研究工作中也经常用到。对我帮助最大的是您最后的大作业环节——对造父变星光度的分析，我承认当时我们组最后的分析结果并不算好，但这是我第一次对天文方向研究的尝试，虽然不算成功但确实积累了一些天文方向研究的经验。也通过这次大作业，我和天文系的毛淑德和许丹丹老师进行了交流，最后也在许老师的组里一直学习如何做天文研究。可以说是您的这门课程开启了我的天文研究之路，我也非常希望能将在您这门课上的经历写在CV上作为我研究经历的开始，所以也非常希望您能愿意为我写一封推荐信。我承认自己能力有限，当时对计算机的了解也不够多，所以当时您这门课上的成绩也不算好，但我在这门课上确实认真学习了很多东西，也积极地和老师同学助教进行了交流，虽然成绩不佳，但收获真的很大。
+
+   非常感激您这门课对我的帮助，也祝您新学期顺利。
+   陈奕儒
+
+   P.S.如果您有其他想了解的内容，请随时联系我。
+
+* Github Classroom
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-07-30 Sun 21:54
+:ARCHIVE_FILE: ~/dev/physics-data/pd.org
+:ARCHIVE_CATEGORY: pd
+:END:
+  My first series of lectures started in 2019.  It was prepared
+  together with Github Classroom.  These were the first time I
+  establish and teach a complete course. I have rapport with Github
+  Classroom and want it to be better.
+
+  We have met glitches of Github Actions during the summer of 2021,
+  when the Github development team did a series of quick iteration in
+  features.  I want to join the advisory board to keep the impact of
+  agile software development on Classroom to a minimum.  Here is our
+  wishlist from real experience with Github Action and Classroom:
+
+  Special judge feature in Github Action. 
+
+* 教改项目中期检查
+  :PROPERTIES:
+  :EXPORT_FILE_NAME: midterm
+  :EXPORT_BEAMER_HEADER+: \title[实验物理的大数据方法：讲义教辅]{《实验物理的大数据方法》研究型实践课程讲义与辅助资源建设 \\ \small{ZY01​\_03 本科教材及教学资源立项建设}}
+  :EXPORT_OPTIONS: H:1 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
+  :EXPORT_DATE: 2022-09-01 清华
+  :EXPORT_BEAMER_HEADER+: \author{续本达}
+  :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
+  :EXPORT_BEAMER_THEME: Boadilla
+  :EXPORT_BEAMER_COLOR_THEME: MedStarColors
+  :EXPORT_BEAMER_FONT_THEME: professionalfonts
+  :ARCHIVE_TIME: 2023-07-30 Sun 21:54
+  :ARCHIVE_FILE: ~/dev/physics-data/pd.org
+  :ARCHIVE_CATEGORY: pd
+  :END:
+** 课程简介与改革背景
+   《实验物理的大数据方法》系列课程面向 *工物系* 、 *物理系* 、 *未央
+   书院* 、 *致理书院* 的大二年级学生，在夏季学期集中训练学生的大数据
+   分析。
+   - 把 _原理讲授_ 和 _动手实践_ 相结合
+   - 把 _基本程序设计能力_ 与 _前沿学术问题_ 相结合
+   - 把 _物理学科学目标_ 与 _数据处理工程技术_ 相结合
+*** 参考书繁多，内容庞杂 \to 亟需面向清华学生的讲义和教辅资料
+   1. Python 基础：《Think Python 2e》；
+   2. Python 数值计算：《Scipy Lecture Notes》；
+   3. 命令行数据处理：《Data Science at Command Line》；
+   4. 关系代数大数据组织：《Data Manipulation at Scale: Systems and Algorithms》。
+** 项目进展：课程录像
+   - 制作完成第一批 +带字幕+ 的课程录像；
+     - [[http://hep.tsinghua.edu.cn/~orv/teaching/video.html][2019年]]、[[http://hep.tsinghua.edu.cn/~berrysoft/bdeph2021/][2021年]]、[[http://hep.tsinghua.edu.cn/~berrysoft/bdeph2022/][2022年]]课程录像，制作水平和质量逐年提升。
+   - 经过研判，把精力集中在提升音频录制效果和清晰吐字上，不再制作字幕。
+*** t                                                                 :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.33
+    :END:
+   #+attr_latex: :height 2.8cm
+   [[./img/video-2019.png]]
+*** b                                                                 :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.66
+    :END:
+   #+attr_latex: :height 2.8cm
+   [[./img/video-2021.png]]
+*** i                                                       :B_ignoreheading:
+    :PROPERTIES:
+    :BEAMER_env: ignoreheading
+    :END:
+    - 结合浏览器插件无限调节播放速度，成为学生预习和复习的重要资料
+    - 成为高能物理暑期训练营的参考资料
+** 项目进展：辅助资源网站
+   - [[https://physics-data.meow.plus/faq/][教学辅助网站]] 于 2021 年开课前上线
+     - 内容已逾4万字，配有大量参考资源链接
+   - 尽可能替代群聊答疑，积淀群体智慧。收到上课学生的贡献(GitLab Merge Request)。
+*** t                                                                 :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :END:
+     #+attr_latex: :height 5cm
+     [[./img/faq-web.png]]
+*** i                                                                 :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :END:
+     #+attr_latex: :height 5cm
+     [[./img/gitlab-MR.png]]
+** 项目进展：讲义
+   - [[http://hep.tsinghua.edu.cn/~berrysoft/bdeph2022/lectures/l0.html][草稿]]近 19 万字，完成度 60%。在 2022 年试验使用。
+   - 课件约 26 万字，完成度 100%。
+
+*** t                                                                 :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :END:
+     #+attr_latex: :height 4cm
+     [[./img/notes-1.png]]
+*** i                                                                 :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :END:
+     #+attr_latex: :height 4cm
+     [[./img/notes-2.png]]
+      
+** [75%] 进度总结
+   - [X] 制作课程录像
+   - [X] 建立和维护教学资源网站
+   - [-] 讲义
+     - [X] 第一周 Python 基础
+     - [X] 第二周 Python 数值计算
+     - [-] 第三周 命令行数据处理
+     - [-] 第四周 关系代数大数据组织
+   - [X] 完善美化课件
+*** 讲义工作计划
+    - 把课件与讲义融合，消除重复内容以提升质量。
+    - 10月进行校对。
+*** 填表                                                    :B_ignoreheading:
+**** 项目进展情况
+     完成了三轮课程录像制作，教辅资源网站建设完成，讲义撰写进度 60%。
+**** 已取得的阶段性成果
+     教辅资源网站建设完成， https://physics-data.meow.plus/faq/ 。课程录像和讲义草稿在 http://hep.tsinghua.edu.cn/~berrysoft/bdeph2022/ 。
+**** 下一阶段计划
+     把课件与讲义融合，消除重复内容以提升质量。10月开始校对。
+**** 经费执行情况说明
+     预算5万元。已支出4.9万元，包括设备费10797.8元，资料费 302.2 元，劳务费 37900 元。
+
+
+* 工物系交流
+  :PROPERTIES:
+  :EXPORT_FILE_NAME: book
+  :EXPORT_BEAMER_HEADER+: \title[实验物理的大数据方法：讲义]{《实验物理的大数据方法》研究型实践课程讲义}
+  :EXPORT_OPTIONS: H:1 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
+  :EXPORT_DATE: 2022-09-08 工物系
+  :EXPORT_BEAMER_HEADER+: \author{续本达}
+  :EXPORT_BEAMER_HEADER+: \institute[清华工物]{近物所}
+  :EXPORT_BEAMER_THEME: Boadilla
+  :EXPORT_BEAMER_COLOR_THEME: MedStarColors
+  :EXPORT_BEAMER_FONT_THEME: professionalfonts
+  :ARCHIVE_TIME: 2023-07-30 Sun 21:54
+  :ARCHIVE_FILE: ~/dev/physics-data/pd.org
+  :ARCHIVE_CATEGORY: pd
+  :END:
+** 课程简介
+   《实验物理的大数据方法》系列课程面向 *工物系* 、 *物理系* 、 *未央
+   书院* 、 *致理书院* 的大二年级学生，在夏季学期集中训练学生的大数据
+   分析。
+   - 把 _原理讲授_ 和 _动手实践_ 相结合
+   - 把 _基本程序设计能力_ 与 _前沿学术问题_ 相结合
+   - 把 _物理学科学目标_ 与 _数据处理工程技术_ 相结合
+   - 起始部分 "ZY01​_03 本科教材及教学资源立项建设" 教改项目支持，2022年结题
+*** 大作业体现课程目标
+    - 天体物理、粒子物理、原子分子物理、凝聚态物理
+
+** 参考书繁多，内容庞杂
+   1. Python 基础：《Think Python 2e》；
+   2. Python 数值计算：《Scipy Lecture Notes》；
+   3. 命令行数据处理：《Data Science at Command Line》；
+   4. 关系代数大数据组织：《Data Manipulation at Scale: Systems and Algorithms》。
+*** 亟需面向清华学生的讲义
+    - 同类课程：
+      UC Berkeley Data Science and Bayesian Statistics for Physical Sciences
+      - https://phy151-ucb.github.io/seljak-phy151-fall-2018/
+      - 无教材，10本参考书。
+      #+attr_latex: :height 2cm
+      [[./fig/literature.png]]
+    - 国内无同类课程。
+      - 讲义草稿和课程录像由国科大的同事用在学生暑期训练营。
+
+** 相关进展：课程录像
+   - 制作完成第一批 +带字幕+ 的课程录像；
+     - [[http://hep.tsinghua.edu.cn/~orv/teaching/video.html][2019年]]、[[http://hep.tsinghua.edu.cn/~berrysoft/bdeph2021/][2021年]]、[[http://hep.tsinghua.edu.cn/~berrysoft/bdeph2022/][2022年]]课程录像，制作水平和质量逐年提升。
+   - 经过研判，把精力集中在提升音频录制效果和清晰吐字上，不再制作字幕。
+*** t                                                                 :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.33
+    :END:
+   #+attr_latex: :height 2.8cm
+   [[./img/video-2019.png]]
+*** b                                                                 :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.66
+    :END:
+   #+attr_latex: :height 2.8cm
+   [[./img/video-2021.png]]
+*** i                                                       :B_ignoreheading:
+    :PROPERTIES:
+    :BEAMER_env: ignoreheading
+    :END:
+    - 结合浏览器插件无限调节播放速度，成为学生预习和复习的重要资料
+*** 讲义撰写策略
+    回看4年的授课录像，回味课堂气氛写作。
+** 相关进展：讲义
+   - [[http://hep.tsinghua.edu.cn/~berrysoft/bdeph2022/lectures/l0.html][草稿]]近 19 万字，完成度 60%。在 2022 年试验使用。
+   - 课件约 26 万字，完成度 100%。
+
+*** t                                                                 :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :END:
+     #+attr_latex: :height 4cm
+     [[./img/notes-1.png]]
+*** i                                                                 :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :END:
+     #+attr_latex: :height 4cm
+     [[./img/notes-2.png]]
+      
+** [66%] 进度总结
+   - [X] 制作课程录像
+   - [-] 讲义
+     - [X] 第一周 Python 基础
+     - [X] 第二周 Python 数值计算
+     - [-] 第三周 命令行数据处理
+     - [-] 第四周 关系代数大数据组织
+   - [X] 完善美化课件
+*** 讲义工作计划
+    - 把课件与讲义融合，消除重复内容以提升质量。
+    - 10月进行校对。
+*** 十四五长远规划
+    - 在中文版成型出版之后，撰写英文版。
+
+
+* 工物系汇报
+  :PROPERTIES:
+  :EXPORT_FILE_NAME: exp
+  :EXPORT_BEAMER_HEADER+: \title[实验物理的大数据方法]{《实验物理的大数据方法》实验内容汇报}
+  :EXPORT_OPTIONS: H:1 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
+  :EXPORT_DATE: 2023-06-20 刘卿楼
+  :EXPORT_BEAMER_HEADER+: \author{续本达}
+  :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
+  :EXPORT_BEAMER_THEME: Boadilla
+  :EXPORT_BEAMER_COLOR_THEME: MedStarColors
+  :EXPORT_BEAMER_FONT_THEME: professionalfonts
+  :ARCHIVE_TIME: 2023-07-30 Sun 21:54
+  :ARCHIVE_FILE: ~/dev/physics-data/pd.org
+  :ARCHIVE_CATEGORY: pd
+  :END:
+** 课程简介
+   《实验物理的大数据方法》系列课程面向 *工物系* 、 *物理系* 、 *未央
+   书院* 、 *致理书院* 的大二年级学生，在夏季学期集中训练学生的大数据
+   分析。
+   - 把 _原理讲授_ 和 _动手实践_ 相结合
+   - 把 _基本程序设计能力_ 与 _前沿学术问题_ 相结合
+   - 4 学分，分成两个 2 学分课程：1号课程 ~80人，2号课程 ~40人
+#+beamer: \pause
+*** l                                                                 :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+**** 实验内容：上机实际操作
+   1. Python 基础
+   2. Python 数值计算
+   3. 命令行数据处理
+   4. 关系代数大数据组织
+*** r                                                                 :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.45
+:END:
+**** 学生在自建环境中练习
+
+#+begin_example
+    seq -s, -w 00 49 | sed 's/9,/9\n/g'
+#+end_example
+
+    #+begin_example
+    00,01,02,03,04,05,06,07,08,09
+    10,11,12,13,14,15,16,17,18,19
+    20,21,22,23,24,25,26,27,28,29
+    30,31,32,33,34,35,36,37,38,39
+    40,41,42,43,44,45,46,47,48,49
+    #+end_example
+
+** 授课效果
+   - 制作完成第一批 +带字幕+ 的课程录像；
+     - [[http://hep.tsinghua.edu.cn/~orv/teaching/video.html][2019年]]、[[http://hep.tsinghua.edu.cn/~berrysoft/bdeph2021/][2021年]]、[[http://hep.tsinghua.edu.cn/~berrysoft/bdeph2022/][2022年]]课程录像，制作水平和质量逐年提升。
+   - 口碑慢慢在学生中建立：“很难但很有用”，“认真学习收获很大，开启了全新的模式”
+     #+beamer: \pause
+     + 开始有数学、能动、机械、环境和化学方向学生选课
+     + 致理书院班主任：“（学长）每年都劝退（学弟），每年都劝不住……然后劝不住的学完开始劝退下一届”
+#+beamer: \pause
+*** t                                                                 :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.33
+    :END:
+   #+attr_latex: :height 2.8cm
+   [[./img/video-2019.png]]
+*** b                                                                 :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.66
+    :END:
+   #+attr_latex: :height 2.8cm
+   [[./img/video-2021.png]]
+*** i                                                       :B_ignoreheading:
+    :PROPERTIES:
+    :BEAMER_env: ignoreheading
+    :END:
+    - 学生的正面反馈：“毕业后最重的技能”，“上过最醋的课”，“学习到全套技能”
+    - 负面反馈：“有些‘fly bitch’，作业难到破防”，“学完之后不想在实验物理领域发展了”
+      + “上完课已耗尽精力，还要做一个月的大作业，假期等于没有”
+** 辅助资源网站
+   - [[https://physics-data.meow.plus/faq/][教学辅助网站]] 于 2021 年上线
+     - 内容已逾4万字，配有大量参考资源链接
+   - 尽可能替代群聊答疑，积淀群体智慧。收到上课学生的贡献(GitLab Merge Request)。
+*** t                                                                 :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :END:
+     #+attr_latex: :height 5cm
+     [[./img/faq-web.png]]
+*** i                                                                 :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.5
+    :END:
+     #+attr_latex: :height 5cm
+     [[./img/gitlab-MR.png]]
+** 实验条件
+- 学生自备计算机
+#+beamer: \pause
+- 大作业用额外机时由工物系学生科创计算平台 (=cat=) 提供
+  + 由系学生科协管理和分配
+  + 与天格计划共用
+- 有学生自费购买云计算写大作业，应引导学生使用系设平台
+  + 有扩充学生科创计算平台（~10万元）的意愿
+*** 大作业三选一，可自订
+|           | 粒子与核物理             | 天体物理      | 凝聚态与原子分子物理   |
+|-----------+--------------------------+---------------+------------------------|
+|      2019 | PMT 波形分析             | TOLA 微波干涉 | 二维准粒子成像         |
+|      2020 | \(\alpha/\beta\)粒子鉴别 | 造父变星      | 二维准粒子成像         |
+|      2021 | 大型液闪探测器光学       | 天格 GRB 定位 | 光电子能谱测量         |
+|      2022 | 大型液闪探测器光学       | 天格 GRB 定位 | 光电子能谱测量         |
+| 2023 待定 | MeV 伽马的能量沉积       | 原行星盘演化  | 二维拓扑材料的光电效应 |
+** 助教队伍
+*** l                                                                 :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.35
+:END:
+- 职责：出作业题，批作业，答疑等
+  + 从科研项目中，出大作业选题
+- 来源：历届优秀学生、计算系有教学理想的学生、课题组学生
+  + 自觉、积极、有热情
+- 困难：自行发放“勤工助学”，缺乏校设助教的荣誉
+*** r                                                                 :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.65
+:END:
+**** 2022 年助教队伍
+   - 王宇逸 :: 物理系本科毕业，工物系博士生
+   - 刘晓义 :: 计算机系本科生，物理系后援
+   - 张卓婧 :: 物理系本科毕业，工业工程统计中心博士生
+   - 陈晟祺 :: 计算机系本科毕业、博士生
+   - 陈嘉杰 :: 计算机系本科毕业、博士生
+   - 高一川 :: 工物系本科毕业，计算机系硕士生
+   - 刘学伟 :: 工物系本科毕业、博士生
+   - 刘一芃 :: 计算机系本科毕业、交叉信息学院博士生
+   - 张爱强 :: 工物系本科毕业、博士生
+   - 武益阳 :: 物理系本科毕业，工物系博士生
+   - 于明杨 :: 物理系本科生，2021年 A+
+
+** 反思
+*** 应尽快撰写完成课程讲义，完成教学改革项目
+   - [X] 制作课程录像
+   - [X] 建立和维护教学资源网站，鼓励其它高校与社会人士自学
+   - [-] 讲义
+     - [X] 第一周 Python 基础
+     - [X] 第二周 Python 数值计算
+     - [-] 第三周 命令行数据处理
+     - [-] 第四周 关系代数大数据组织
+   - [X] 完善美化课件
+*** 进一步完成内容融合
+- 将作业命题内容更多地与我系研究工作相结合。
+
+* 总结
+:PROPERTIES:
+:ARCHIVE_TIME: 2023-07-30 Sun 21:54
+:ARCHIVE_FILE: ~/dev/physics-data/pd.org
+:ARCHIVE_CATEGORY: pd
+:END:
+** 海天盛筵
+   8月份，教学团队享用了一顿海天盛筵，故而有这个名字，只是可惜没有拍照。我很喜欢这个词，我觉得上课的过程真是一场享受，用这个词描绘再好不过了。我希望能把其中的敏感引申义去掉，把这个词从废青们那里夺回来。
+
+   从 2019 年小学期上过课到现在，我几乎每次和朋友的闲谈都会无意中谈起小学期上课的感觉。这好比一个刚生了娃的母亲，三句话之内必提起自己的孩子一样，我好像入戏太深了。
+
+   感谢助教呕心沥血的付出，感谢同学们在课上课下与我热情地互动，讨论和吐槽，帮助和鼓舞我完成了一个我和前辈们无法想象的高强度课程。到了最后一周，我已经没有了力气在课内休息时走到同学中间和大家聊天，只是默默坐在窗子旁边，静静看着大家还在对课上的内容进行着分享和讨论。那一天，我在课间倚着窗台望着洒在树梢的斜阳，听着教室里同样细细簌簌的讨论声音，不禁感叹我定会很快怀念并迷恋这种感觉。果然，结课之后，我还是会经常想起那时内心的宁静的感觉。
+
+** 备课，焦虑并欢乐着
+   开始我觉得授课的强度将是不可想象的：每天4节课，每周4天，从零开始设计课程，没有参考，想想都会觉得自己会累得飞起来，找不到东南西北。所以一开始的设想是，提前把讲义写完，这样能让自己整个七月份压力相对小一点。故而我想6月份 Ghost Hunter 决赛之后，就好好备课吧。然而我真的应了戈亮总结的青年教师第一定律：永远希望开课前备足课，但是永远无法达到。到了6月底，我还是没有把讲义写好，只是有一个细化的大纲，眼看着同学们都已经开始开心地选小学期课程了，我真的想穿越回去把自己捏死。
+
+   不过这期间也没有完全闲着，我参考了一门 Charles Russell Severance 的 Python for Everyone 的课程，一门苏勇的《Linux 入门基础》，一门南京大学张莉的《用 Python 玩转数据》。希望把听课时做的笔记变成我的讲义。可是最后发现笔记是记了不少，但是与我想要讲授的内容重叠并不多。此外，最重要的事，是请到了蛤蜊、杰哥和爱强做我的助教。似乎有个谣传说小学期是不设助教的，我也没有求证。但是我很清楚这门课如果没有助教，会被我祸害到什么程度。可是到了月底快开课时，我还是很焦虑，毕竟第一次课要讲什么都还没有想清楚。
+
+   第一次开会是2019年6月24日，教学团队以及所有对课程感兴趣的同学都到了，有郑煦韬、龙翔云（讨论大作业设计）、杰哥、付主席、刘喵喵、张爱强、唐如麟、一川。我还从校外赶回来光荣地迟到了。会上，同学们给我的压力比教学委员会还大。一个焦点是，为什么要设计这么难的大作业，而且还要每周一个大作业，占大多数分数。大家本来开心上小学期水水更开心，我压了这么大的担子，同学们会起义的。我说如果难，我们可以降低难度，但是还是要模拟科研的场景，为同学们大三进入科研训练做好准备。大家争论不休，最后各方达成一致采用唐如麟的大作业方案：同学只需要做一个大作业，占30%，分成两个阶段，第一阶段是生成，第二阶段是分析。这样，同学有充分的时间深刻理解大作业所描述的物理实验场景和内部机制，而且也可以放弃做大作业以70%的小作业成绩低空水过。事实证明这个方案设计得非常巧妙，我真的幸运在开课之前组织了这一场讨论。
+
+   第二个焦点是讲义要不要详细写，我知道自己的德性，看起来是万难写出来的。于是我狡辩说：“我还是列一条主线，直接讲，作为实践性课程，真的那么需要讲义吗？”一川和付主席异口同声道：“你觉得同学们会听课吗？过去会的听了课还是会，不会的听了课还是不会，完全没有用啊！你还不如厚道一点，贴出个讲义，大家至少还能参考着写作业。”我也急了：“那还要我开课做甚么！我把参考书一指定，写一点学习材料，大家都快活，把课取消算了。”大家齐声道：“当然要开课啊！不然怎么拿学分，怎么完成培养方案。”接着有同学说：“我觉得教编程的课都没什么用，看语言定义就能高效完成的事，为什么还要讲一个月课。”我在争论中，陷入了无限的自我怀疑之中，再想想我自己也是自学的，同学们的讨论真是给我进行了一场长达几小时的灵魂拷问，让我死去活来。在这个信息爆炸的时代，学习资料极大丰富，还要课堂做什么？还要老师和大家面对面上课做什么？不回答这个问题，就真的没办法开课。这使我更加压抑，如同泰山压顶一般，过了好多天，我才勉强有了一个回答：我只讲前人没有讲过的或者以某种方式表述过的内容，一切网上有的资料我都以参考资料给出。但是如果我只讲新内容，我的专业水平够吗？这也是我回答不了的，最幸运的是，我得到了蛤蜊、杰哥、喵喵等计算机系科班同学的帮助，还有宇翔和主席的内容建议，他们保证了我讲授的内容不至于出现根本错误。
+
+   最后，我在付主席的挟持下，写出了第一周细化的大纲。会上付主席一直保持批判的态度，说的最多的是三句话：“你这样做会坑死助教的”，“你这样做会坑死同学的”，“心疼助教心疼同学”。我被拍得怀疑人生，所以当付主席说“那么我们来把每天讲什么定下来吧！”我非常振奋地照做了，大家七嘴八舌，总算把第一周和后面要讲的内容定了下来。半夜，我拖着疲惫的身躯，揣着对教学的怀疑，翻来覆去睡不着。唯一让我感到一丝欣慰的，就是一张写着第一周详细教学计划的纸。
+
+
+   到了马上开课的时候，爱强、蛤蜊、杰哥、一川和我又开了个会，确定了小作业的形式为 GitHub Classroom，这样可以保证大家即使忘了课上学了什么，至少通过作业题入门了 Git，也算是我的最低目标了。作业给分为黑盒 80%，白盒 20%。小作业不使用 Online Judge，大作业第二阶段借用竞赛平台实行课赛结合。这次会和前一次的风格完全不同，课程准备进行得非常顺利。我突然觉得面对迷茫，无论从生活跳到哲学，还是从哲学跳到生活，只要切换了模式，都可以对自己起到稳定的作用。
+
+   开课的那一天，好多人潜到了最后一排来棒场，看我的开场白。从前来听课的大佬们的反馈来看，效果蛮不错的。我才舒了一口气，看来我已经进入了教学的激跃状态。
+
+** 小学期奇遇记
+   不论如何，每天四学时，每周四天的教学强度都是很难扛得住的。我和老教授们交流时，大家都觉得第一次开课就这么高的强度，真是比登天还难。于是最初的设计是上一堂课，练习一堂课，相当于我每天只讲两学时，让同学们在课堂上就把作业都做完了，大家都很开心。然而现实非常不一样，课上大家都很放松，和我的互动很多，大家像在一起谈心一样就上完了四节课。实际上，讲授和练习没有分开，融为一体了，这是我始料未及的局面。同学们驱动了上课的形态，比我预先设定的更好。这让我非常开心，也非常自豪。
+
+   课程预备会上顾问们对我提出的最大质疑“课备好了吗？”真的应验了。我首先备了三天的课，但是课程进展得太快，我的备课速度根本追不上讲课，最后变成了“敏捷备课”。“敏捷备课”看起来很高大上，实际上是助教和顾问们黑我的。在软件工程中“敏捷开发”的意思是把工作流程变成一个 pipeline，没有阶段性准备，一直都在生产(上课)一直都在开发(备课)，边生产边开发，开发出来的东西马上投入生产。现备课现上课，这在课堂上是要出教学事故的，因此除了最开始的三天，后面我一直都是如履薄冰。在那一个月中，我连做梦都能梦见助教们围着我说“敏捷备课”“教学事故警告”，神经高度紧张。好在一年以来，我自己学习了大量类似的课程，做了很多笔记，一些“教学定势”留在了脑海里。同时，在 TUNA 协会的金枪鱼之夜活动 (tunight) 中，技术分享的风格非常适合技术实践类的小学期课程，给了我巨大的启发。最重要的是，同学们的互动和快速反馈，为课程的内容做出了巨大贡献，让课堂时间更有针对性，弥补了我备课上的严重不足。所以我每天的生活状态是，上午在焦虑中度过，总是觉得下午的课准备得太少。下午，开始上课，我就神奇地进入了宠辱偕忘的状态，不知不觉就完成了课程。而且，我觉得自己遇到一个很难的教学挑战，反而抛弃了心中的完美主义执念，不对自己要求太高，彻底放飞了自我。如果一次上课准备的内容太少，三节课讲完了四节课的内容，没问题，直接放学就好了。如果我课上给大家要展示的效果没实现，翻车了，没问题，告诉大家这就是技术不同于科学之处，翻车和调试就是日常，老司机也会翻车。大家七嘴八舌打乱我原有的教学设计，没问题，同学们对一个问题感兴趣，我们就深入讨论下去，把疑问搞透。于是在这一个月里，我最焦虑的是每天晚上，最忙的是每天上午，最开心的是每天下午。
+
+   论欢快的课堂气氛，一位奇才同学功不可没。我第一天走进教室，奇才就跟我打招呼说“学长，我是特地为了来支持您工作选的您的课，顺便鄙视一下 XXX 同学，他作为您的直系校友竟然在关键时刻叛逃了”，我觉得有趣，以为只是玩笑。但是后面的课程里，奇才简直成了课程的主角。在课上，她非常积极地思考，心直口快地提问题，把我没有讲到的知识点都彻底覆盖了一遍。这让我这个“敏捷备课”的不合格教师在课堂现场实现了迅速迭代，迅速弥补了知识的盲点。她的提问还激励了其他同学积极提问和讨论，原来大家都怕自己的问题太幼稚不敢说话——这是当前教育环境不争的事实——但是看到奇才的问题都那么基础，大家也就没有了心理负担，经常还能大范围讨论起来。我觉得我作为一名教师，上课最幸福的时刻莫过于被同学们打断，我静静地站在一旁，看着同学们就我刚才讲的话题自发地讨论，那种感觉，真是太美好了。大家知道，这样做其实是有风险的，许多人是不太喜欢经常接老师话头并打断老师思路的同学的，所以奇才同学确实是在支持我的工作。令人惊叹的是，奇才生成了一种傻白甜的形象，浑然天成地活跃了课堂气氛，引出了更大范围同学的讨论和参与。为什么说是“生成”的傻白甜，而不是真傻白甜呢？因为到了大作业的第二阶段，奇才露出了她学霸的凶恶原形，硬生生用双眼看了大作业中的几万张图片，总体出近十条经验公式，烧10个G的手机流量，屠了大作业的积分榜。我也在反思，几万张图片是不是罔称“大数据”，2020年的大作业得从一百万起步。线上听课的同学和朋友们不止一次问我，在课上一直提问的同学到底是不是我的托，但是我自己也不知道啊。我知道的是，在改革开放初期，我们辽源人确实是这样闻名全国的。
+
+   我都已经把课上成了“敏捷备课”，一个月以来没有任何精力做备课和上课以外的事，甚至是作业的设计和批改都没有精力顾及。学校并没有为小学期设助教岗位。可以想见，如果只是我一个人承担这些任务，必然是一直捉襟见肘，必然是顶不住的。事实上，我一人在教学团队中的工作和发挥的作用甚至不到一半，剩下的一大半都是助教同学完成了。我真是非常幸运有蛤蜊、杰哥、爱强的全程鼎力相助，还有一川、宗煜、镇齐和喵喵从各个方面的支持，不然这门课会变成样子简直不堪设想。为什么这样说呢？课程的内容决定了它是任务驱动的，大作业贯穿整个课程。这相当于一场集训，如果不把所学内容马上应用到实践上，纸上谈兵就不会有任何意义。从这个角度来讲，这门课的作业是比较课堂讲授更重要的，甚至说讲授完全是为了作业服务都不为过。这也是我完全没有要求出勤的原因，即使学生不来上课把作业完成，也是可以拿 A+ 的。大作业的设计思路沿用了唐如麟的方案，第一阶段生成，第二阶段分析，思路清晰，同学们非常好理解。但实际操作起来需要消耗大量心血。在生成阶段，需要准备详细的物理学背景说明。有许多知识点，是我的盲区，我发现自己确实力不从心。镇齐和宗煜友情出场和文档准备，爱强配合镇齐完成了衔接工作，把作业设计得非常有科学意义和严谨性同时又非常有趣。从某位同学的评价中，“这是我做过的最 Cool 的大作业”，可见一斑。而另一份课赛结合的大作业也是凝聚了科协同学们的心血，整整 用了一年的时间筹备才锤炼出来。这不仅包括文档，还有第二阶段大作业的竞赛平台，它们给同学们以非常新的作业体验，可以看到大家做作业的过程都很开心。蛤蜊是整个大作业的汇总者和质检员，文档、数据最后都由他来把关发布，所以几次突击，他都是最后一位睡下的。作业的批改需要花的精力更多，因为每一位同学都有独特的解法，是一个很烧脑的过程，这里杰哥为课程特地开发的批作业工具与蛤蜊写的网络学堂 learn-helper 一起发挥了有力的支撑，把批作业过程中的重复劳动都自动完成了，让大家专注于本质。大作业的工作量还是很大，爱强、宗煜、蛤蜊、一川和杰哥都上了，一连批改了一个多星期才完成。
+
+   我也鼓励同学们自己提出大作业，有两位同学尝试，但是最后没有能够设计完全。是这次的一个遗憾，今后如何让同学们做自己大作业，值得深入地探究。
+
+   不用提大作业，小作业中更是体现了几位助教是多么用心。为了增强作业的趣味性，蛤蜊带头按照 OI 竞赛和 ACM 竞赛的出题风格，给每个作业都加了一段童话故事。不仅如此，童话故事们还是连载的，故事的主角芃芃秒天秒地，一个未成年人就已经开启了开挂的人生，在通往人生淫家的路上飞奔。芃芃的故事影响力太大，连物理系科协的伟大内容建设运动“维饥百渴”都采用了与芃芃相关的名字。更刺激的是，芃芃还从童话世界走进现实，每天都混进课堂暗中观察，不时露出邪恶的得意的微笑，给本来欢快的课堂平添了几份魔幻现实的色调。除去小作业的魔幻部分，它们的任务设计都紧扣课程内容，甚至对课程内容作出了指引。几位助教一直在观察着大家的反馈，及时调整了小作业的难度，给同学们提供了贴心的反馈。杰哥的自动批作业工具表现出色，许多作业只要设计好，基本上是一键出分。在杰哥自己的主页上，他把这个工具打出了最高的趣味性，令我深感欣慰。蛤蜊的 learn-helper 也在批作业的过程中，加入了助教和老师的功能，格外好用。而蛤蜊的最得意之作，GPA calculator，是我们在月夜下躺在紫操上，伙同宇翔和主席，喝着快乐水咬着坏人的哈尔滨红肠想出来的。也是在在那个夜晚，宇翔和主席的几点鼓励和肯定，与助教们的“药丸”、“教学事故预定”、“敏捷备课”等担心奇妙地中和了，在我自我怀疑的关头，给了我信心。作业的提交完全通过 Git 进行，这是我的最低要求。当代的科研项目中，团队协作是最基本的要求，Git 正是代码和论文协作的神器。即使学生从课堂上什么都没有学到，在一个月作业的潜移默化中，学会使用 Git，理解版本控制也是值得的。使用 Git 的另一个深远的影响是，它大大提高了作业抄袭和伪造的成本，为良好的学风建设发挥了不可磨灭的作用，在第一年就彻底逆转了物理系小学期祖传作业的陋习。出人意料的是，这一副产品得到了已经毕业的系友们的高度评价。
+
+   令我最为开心的是，即使我没有要求出勤，即使我课程在暑假小学期，大家来上课的热情都非常之高。第一天到最后一天，我没有看到显著的人数变化。而从最后一天的匿名问卷的回收结果来看，除了一名同学提前去实践请假、一名同学电脑损坏缺席、一名同学申请网上上课，所有同学都出席了。真是太令我振奋了。一些同学的水平确实已经不必上课，但是他们以小助教的形式帮助周围的同伴，课上课下和大家一起讨论，对整个教学的效果也做出了不可替代的贡献。令我惊讶的是，这门课还有校外的同学和几位博士生来旁听，有不少朋友在线旁听，好不热闹。
+
+   在课程的匿名问卷统计中，大多数同学都给了课程很高的评价，但也有同学提出了批评。其中一个批评是课的难度太低了，没有挑战性。这一点很中肯，从同学们最后的得分来看，确实有点简单。解决方法很直接，加大大作业难度，甚至引入学术界的开放问题。还有的批评是课程难度太高了，上课云里雾里，跟不上。解决方法我也想好了，把2019年的课程录像整理好供同学们课下观看，并根据录像提取出讲义，可以解决课上教材过多过繁的问题，让学着吃力的同学能在复习中得到支持。还有的同学看穿了我的“敏捷备课”，委婉地劝我要注意身体，不要临时抱佛脚彻夜备课。第二年，有了课程视频和讲义，情况会好不少。有同学不适应小作业中自动评分的规则，觉得不近人情，我跟同学们讲了其中的原因是在科研的场景中的输入输出标准要很严格，不然会返工耗费大量精力，同学们支持了这个观点。
+
+   课上也有暂时学习有困难的同学。一位同学的完美主义情怀比较强，在学习里遇到巨大困难。实践课程的风格与物理课不一样，许多时候在没有搞清原理之前也得先迈出第一步，之后再回过头来领悟。所以这位同学就一直在原地打转，无法行动起来。我非常理解这种状态，因为我本科时也是这样的学习态度。我和他有了几次长谈，连他自己都觉得他在给自己不写作业找理由，我还是可以理解那种无法行动时的痛苦。最后，我给了他一个外部条件：在我的办公室里做作业。这样做是有争议的，一个大学生，不能想小学生一样被监督着写作业。但是我相信，在完美主义者中，有了一个最初行动的种子才可以继续行动下去。如果我恰好能提供这个种子，就是我的荣幸了。
+
+   还有一位同学有了极大的困难，生活中受家长的管束比较多。他已经修满学分，但还是来自愿选课。上课期间他的电脑坏了，也就自然没有办法做作业和学习，他没有求助，只是默默等着电脑修好，顺便看点课程相关的书，打打手机游戏。我也想在办公室监督他把作业做了。他表现出非常强的求知欲，令我有些奇怪对问题这么感兴趣的同学为什么无法上课无法写作业。反思起来，我并没有理解这位同学的思维方式，他好像会自然无视各种 deadline 在自己的世界里探索，电脑坏了，只不过是推迟一下这种探索。然而当他慢慢恢复进度时，他父亲给我打电话，要求他假期快点回家。回家之后，他被家长带去串了几天亲戚，也就松懈下来。到了开学，他依然没有写完作业，而且他已经不回应我的电话、信息和邮件了。在和辅导员与班主任沟通之后，我也想过实在不行就挂了这位同学。然而录成绩的最后一天，我还是想试试，就请了一川去宿舍找他，他不在，舍友说他的手机确实坏了。晚上11点，就在我即将放弃准备睡觉的时候，这位同学借舍友的手机给我打了电话。我兴奋地起床和他约到了办公室，他的电脑上还在查找如何解决手机接不到电话的 bug。我给他讲了大作业的目标，他越来越起劲，一个任务一个任务地完成，让我很是感动。最后到了凌晨4点多我快顶不住的时候，他把大作业的基本要求做了出来。我们伴着熹微的晨光各自回到宿舍，我才长舒了一口气。
+
+   记得尚仁成老师在基科二十年的发言中，并没有像其他老师那样如数家珍地讲他世界各地的学生都多么优秀，而是讲了几位在本科阶段遇到很大困难的同学，讲了他如何帮助这些同学走出心理的怪圈，讲了院系和学校可以为暂时掉队的同学们做点什么。我的印象非常深刻。我眼睁睁看着我的舍友和隔壁的好同学们无助退学或肄业的过程，我对大学阶段的这种无法上课完成学业的状态有着切肤之痛和刻骨的感受。此时，作为一名教师，我可以做的事比十年前更多了，这是我的幸运。
+
+   大家可能已经发现了，这样一门课，我和它的感情非同一般。那么它是从哪里来的呢？这可就说来话长了。
+
+** 缘起基科二十年
+   我是基科2005级的学生，当年大二小学期的课程是 Windows MFC C++ 编程。上课时我没有太理解培养计划中的用意，直到2009年我毕业时才从阮老师那里了解到，设置计算机类课程是为了加强同学们在物理研究中使用计算机的能力。后来我一直和科协的学弟们保持有联系，听到了科协的一些技术大牛对大二小学期的看法和希望。当时朦胧觉得或许有朝一日我可以假期回学校开个学习小组，带着大家学习一点数据分析的新技术。
+
+   时间快进到2018年的基科二十年庆祝纪念活动和学术交流会。一次和阮老师在王刚的办公室里闲聊，正好说到暑假小学期。阮老师说从十多年的毕业生座谈中，许多同学希望能在计算机课程和物理课程之间，加一门课帮助大家把两者联系起来。我说是啊，从我跟师弟师妹们的交流来看，大家在把编程技能迁移到物理研究实践中时普遍遇到很多困难。实际上同学开始进入研究时，要么是自己摸索，要么是接受学长指导，一不留神会掉坑，或者在赶时间的过程中图省事养成一些不良习惯。阮老师说确实很苦恼，原来是 Windows 下的 C++，后面他发现物理研究中使用 Linux 系统很多，就在培养方案中换成了 Linux 下的 C++。可是计算机系的老师会从自身的学科要求出发，不会照顾物理系同学，物理系的老师又比较难支撑整个计算机类课程。我抚掌道，我本科时代不务正业，在科协玩了不少计算机类的奇怪东西，神奇的是，它们现在正好都对应着商界工业界造出的云计算、大数据的概念，而且我在粒子物理实验中，恰好把这些曾经歪门斜道的屠龙之技发挥到了极致。如果有大二同学想做实验物理，我倒是一直有组织一个讨论班的想法。阮老师笑道：“对啊，你赶快入职吧，今年暑假马上就开一门课。”
+
+   我打了个机灵，锅从天降，任重而道远啊。我说既然如此，我愿意试试，只是现在开始准备估计很难来得及啊。好在后来阮老师联系了教务部门询问开课事宜，得知最早开课也是2019年的暑假。我才长出了一口气，不然自己肯定上课挂白菜了。
+
+   这事我越想越美，越想越激动，就直接写了一个课程大纲推到了 [[https://github.com/heroxbd/physics-data/blob/master/pd.org][Github]] 上 。我为何如此振奋呢？仔细想来主要有四点：
+
+   其一，这个课程的内容，代表我作为一名以物理为主业的人，十几年以来探索出的一条计算机技术的整体方案。从前，我没有在物理系的培养方案中习得如何用编程帮助我做研究，为了寻找好的方法，我甚至在本科阶段花的精力超过了我学习物理。而和我一起研究这些技能的系科协学弟们都发现自己更热爱计算机，转行做CS研究或（年薪百万的）程序员，只有我还在留在物理界抱着自行研发的技术自娱自乐。我也曾经试着给同课题组的同学们介绍一些当代的高级计算机技术，大家都不是很适应，觉得为了工具改变习惯太不值得了。因此最终我还是一名独行者，我早年一直在怀疑自己探索这些是否值得，直到最近才坦然了：管它有用没用，我高兴就好，没用就当作业余爱好嘛。通过开课来把这些技能教给我的学弟学妹，让我感到特别兴奋。大二的同学们正好没有既有程序风格惯性，更乐于接受新技术。我自己也可以从同学的反馈中验证十年前来一直让我感到人格分裂的难题：我在物理研究中所玩的，看似很专业实际三脚猫的计算机技能，到底是独门绝技还是自娱自乐，全靠我的学弟学妹们是否授受来评判了。
+
+   其二，这件事情是受阮老师的委托，受各个年级系友的委托。我应当仁不让，把担子挑起来，不论如何也应把同学们的在物理和计算机之间建一架桥，削除数物大类学生对计算机的神秘感和畏惧，溶解“我只对物理感兴趣，不学别的”和“学计算机？不就是修电脑吗？”的物理系式误区。
+
+   其三，我正在组建中微子实验的研究团队，工物系的同学有很多了解的渠道，我也希望能吸引到物理系的同学。本来在清华中微子物理这样的基础物理学研究在工物系就是历史路径依赖的，我希望我的研究能被物理系的同学了解。一门以大规模实验数据分析为主线的课程，正好代表了我研究工作的日常，对大二同学进入实验室之前，肯定会发挥非常切实的体验作用。想到今后在我的组里，会有工物系和物理系的同学一起研究讨论，大家大类分流之后再聚到一起，也是非常令人激动的。
+
+   其四，一门四学分的小学期课，实在是太适合我了！作为教研系列青年教师，每年的教学任务是64学时，即4学分。以一个月的奋斗，换取一年自由身，学期中开会访学都不会受到上课的限制，还有余力帮助同事代课，简直无法想象有比这个更美好的事情了。目前青椒的考核重点还是科研，但是教学的工作量必须与科研相等，这对刚起步的教师有非常大的压力。部分院系给出了入职几年以内允许不达到教学工作量的优惠政策，正好从侧面反映了这个事实。这样一门课会让我一下子进入非常稳定的教学状态和格局。
+
+   这四点，任何一点单独拿出来，都足够我欢喜雀跃地去达成，何况有四点！所以我高兴得一下子就把课程大纲想出来了，之后很快就落实在书面上。
+
+** 开课路漫漫
+   实际开课的过程还是很扣人心弦的，大概有5个时间点。
+
+   第一个节点让恢复理性。我很有兴趣地把开课计划和陈老师讲了。陈老师比较担心课程缺乏特色，因为工物系已经有粒子物理的数据分析研究生课程了。我说可以把重心放在当代计算机科学技术发展的新工具上，陈老师表达了我并非科班出身，是否能讲得专业的顾虑。这让我心里的热锅冷静了下来，仔细思考我的课除了满足我的需求和院系培养方案的需要之外，会给同学带来什么。于是在多方征求意见的同时，我自己也和自己进行了一场旷日持久的大辩论：到底有开课的必要吗，我开计算机为主的课是不是不务正业？
+
+   第二个时间点上，我被注入了一轮兴奋剂。2018年11月我十分不务正业地与冬波、振齐、欣彤和卓卓组队打了一场计算机系组织的论文作者去重的比赛。本来我是来体验一下竞赛的，以更好地准备之后的 Ghost Hunter 中微子数据分析排位赛。比赛准备时，欣彤提出了数据格式的规定，我按照这个规定使用 =Makefile= 把整个复杂的处理流程都串了起来。本来我心里没底，比较担心大家是否能接受 =Makefile= 这样鬼畜的上古语法，没想到大家非常开心地使用了。这让我无比振奋！因为我们虽然号称是基科战队，但是完全是五种人类。诚然，这也从侧面反映了基科的多元性。我是物理系大凝聚态传统下的另类，再加上对计算机的洁癖，代表小众的物理审美。冬波是去文科世界使用数据进行跨界打劫的理科学者，他用严谨的数学和物理思维对不确定的世界进行建模讲故事，自成一派为数据工程学，这次竞赛正是他的主场。镇齐代表物理系的主流，既有强大的直觉又有深刻的思想，做实验一丝不苟，使用计算机模式是对师兄的（祖传）代码进行改进，渴望学习新技术但为精力所限。欣彤在机器学习和大数据领域研究，代表当代数据处理的尖端，建模、拟合、调参更如入无人之境，已有成熟的数据处理流水线。卓卓代表应用数学和统计学习，进入所有学科的后花园，对一切新事物具有如饥似渴的学习热情。这样一个采样，基本上覆盖了物理系的同学的所有可能的形态，样本甚至神奇地囊括了团委、学生会和科协，大家竟然一致认为 Git 加 Makefile 的工作流程太科学太强大太神奇了。我对工物系的同学并不担心对我未来的课的接受程度，工物系的同学们已经有学习工具软件的课程，反而物理系的同学的偏好我确实心里没底。这一经历对我的触动有多么深刻和强大，它一下子消解了我对开课意义本身的怀疑。
+
+   于是我又行动起来，把几个月前写的大纲放在了饥渴乐园征求意见。大家很开心，七嘴八舌提建议。这期间得到了唐如麟、史冬波、孙慧辰、吕铭、付祈安、魏胜禹、郑鑫宇、陆思锐、王泉、陈思维、代一、鲍亦澄的多角度评论和指点。在大家的热烈讨论中，很多方案和设计都保留在了最后，比如课程名，课程录像，Git/Makefile 主线，GitHub Classroom，大作业的风格等等。这一稿被拍得最多的是：太难了，给学弟学妹们留条活路吧！还有课程不要变成 Installation party。同学们也奔走相告，大纲被传到各个年级群里，引发了各种争论。我也不断修改着课程的设计，融合集体的智慧。霍师兄也正有此意，正在筹备到大学开天体物理数据类的硬课，我们围绕大纲交换了不少看法。这时，箭已在弦畜势待发，我的担心变成了这门课得能满足行政审批的要求，按时开课。
+
+   到了新课申请的季节，我先和阮老师讨论了一次。我拿着大纲先卖了个关子没有给阮老师看，请阮老师谈对课程的期待。阮老师说，要让同学们在物理研究中熟练使用计算机，为大三开始 seminar 进入科研训练打好基础。我拿出了大纲，教学目标竟然和阮老师说得一模一样！讨论非常顺利，阮老师在物理系教学委员会上提议进行了讨论，课程获得通过，物理系向工物系发出教学任务书。教学委员会的一个反馈是，取名为《实验物理的大数据方法》是否太大，何不按课程内容取名为《Python 数据分析入门》。我的回答是课程专注于讲授当代的计算机技术和工具，此时 Python 最结合进行数据分析，但未来可能被其它更好的语言取代，课程的侧重点不应在 Python。
+
+   在工物系，我依旧没有把握，因为系里所开新课较多，驳回率偏高。陈老师帮我分析了课程设计的主题，指出教学委员会评估的开课必要性时的考查点。我对课程在在工物系培养方案中的地位进行了重点阐述，对国内外和其它院系开设的类似课程进行了深入调研。在教学委员会上，开课受到的质疑在于使用4学分学习软件的必要性：理工科学生，通过阅读文档和说明书，就可以快速上手一件工具，有必要用正式的课程来达到目的吗？这个质疑一针见血，也是我与自己辩论的焦点。我举了两个例子，讲述了在实际工作中，同学们的数据分析工作上手很难，缺乏系统性和良好的习惯，会浪费时间或者弱化科研成果。总体上，我还是得到了委员会比较多的支持。系里的老教授还跟我讲暑假要来听我的课，和我一起分析最新物理实验的公开数据，这给了我莫大的鼓励。工物系大二小学期已经安排得很满，高老师最终建议了完美的解决方案：把课程分成两部分，各两学分，工物系同学选第一门课，物理系同学选两门课，两系的同学统一给分。
+
+   接下来我在两系教务办公室穿梭了多次，在（小）陈老师和葛老师的帮助下，最终完成了开课手续。
+
+** 结语
+   我很幸运能得到工物和物理教学委员会的认可和支持，也很幸运有这么多同学与我合作最终把课程开了起来。我还非常感谢关心这门课并不断出谋划策的系友们。此时，我可以欣慰地讲，我最初的四个愿望，都达成了。作为我教学生涯的开始，这门课的点点滴滴，都将被我铭记。
