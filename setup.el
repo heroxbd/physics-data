@@ -14,7 +14,11 @@
     (C . t)))
 
 (setq org-latex-classes
-      '(("book" "\\documentclass[a4paper,11pt]{ctexbook}"
+      '(("beamer" "\\documentclass[presentation]{beamer}"
+         ("\\section{%s}" . "\\section*{%s}")
+         ("\\subsection{%s}" . "\\subsection*{%s}")
+         ("\\subsubsection{%s}" . "\\subsubsection*{%s}"))
+        ("book" "\\documentclass[a4paper,11pt]{ctexbook}"
          ("\\chapter{%s}" . "\\chapter*{%s}")
          ("\\section{%s}" . "\\section*{%s}")
          ("\\subsection{%s}" . "\\subsection*{%s}")

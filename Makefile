@@ -13,8 +13,8 @@ p%.tex: pd.org
 
 note.org: pd.org
 	sed '/LaTeX_CLASS_options/,/not-in-toc/c#+INCLUDE: book.org' $^ > $@
-note.tex: note.org
-	emacs $^ --batch --load=setup.el --eval="(org-latex-export-to-latex)" --kill
+note.tex: note.org book.org
+	emacs $< --batch --load=setup.el --eval="(org-latex-export-to-latex)" --kill
 	sed -f minted.sed -i $@
 note.pdf: note.tex out/Data_Science_VD-migrate.pdf
 	latexmk -shell-escape -lualatex $<
