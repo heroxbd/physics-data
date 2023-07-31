@@ -1,12 +1,11 @@
 progress:=$(shell (seq 0 9)) a b c d e f
 
-.PHONY: all slides notes jupyter clean
-all: notes slides jupyter
+.PHONY: all slides notes clean
+all: notes slides
 slides: $(progress:%=upload/p%.pdf)
-notes: $(progress:%=upload/l%.html) upload/note.pdf
+notes: upload/note.pdf
 
 j_list:=Python-Basics
-jupyter: $(j_list:%=upload/%.slides.html)
 
 p%.tex: pd.org
 	emacs $^ --batch --load=setup.el --eval="(search-forward \":EXPORT_FILE_NAME: $(basename $@)\")" --eval="(org-beamer-export-to-latex nil t nil)" --kill
@@ -44,9 +43,6 @@ upload/note.pdf: note.pdf
 	cp $^ $@
 
 upload/l%.html: lecture/l%.html
-	mkdir -p $(@D)
-	cp $^ $@
-upload/%.slides.html: notebooks/%.slides.html
 	mkdir -p $(@D)
 	cp $^ $@
 
