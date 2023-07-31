@@ -7907,13 +7907,15 @@ https://gitweb.gentoo.org/repo/gentoo.git/commit/?id=ea2987349ece6f07da01e1c2f3e
   :EXPORT_BEAMER_FONT_THEME: professionalfonts
   :END:
 ** 复习准备
-*** 安装软件
+*** 下载课堂练习数据并安装软件
+#+begin_src bash
+  wget "http://hep.tsinghua.edu.cn/~orv/pd/dataframe-practice-r1.tar.gz"
+  tar -xf dataframe-practice-r1.tar.gz
+#+end_src
+
     - 安装 SQLite3 和查看器，以及 CSV 查看器
       #+begin_src bash
         apt install sqlite3 sqlitebrowser csvkit
-
-        wget "http://hep.tsinghua.edu.cn/~orv/pd/dataframe-practice-r1.tar.gz"
-        tar -xf dataframe-practice-r1.tar.gz
       #+end_src
     - macOS
       #+begin_src bash
