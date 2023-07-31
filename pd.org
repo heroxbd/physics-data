@@ -7908,19 +7908,20 @@ https://gitweb.gentoo.org/repo/gentoo.git/commit/?id=ea2987349ece6f07da01e1c2f3e
   :END:
 ** 复习准备
 *** 安装软件
-    - 安装 SQLite3 和查看器
-    - 安装 CSV 查看器
-    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-      apt install sqlite3 sqlitebrowser csvkit
+    - 安装 SQLite3 和查看器，以及 CSV 查看器
+      #+begin_src bash
+        apt install sqlite3 sqlitebrowser csvkit
 
-      wget "http://hep.tsinghua.edu.cn/~orv/pd/dataframe-practice-r1.tar.gz"
-      tar -xf dataframe-practice-r1.tar.gz
-    #+end_src
+        wget "http://hep.tsinghua.edu.cn/~orv/pd/dataframe-practice-r1.tar.gz"
+        tar -xf dataframe-practice-r1.tar.gz
+      #+end_src
     - macOS
-    #+begin_src bash
-      emerge --sync
-      emerge -vt sqlite csvkit
-    #+end_src
+      #+begin_src bash
+        emerge --sync
+        emerge -vt sqlite csvkit
+      #+end_src
+      通过 https://sqlitebrowser.org/dl/ 介绍的其它方式安装 sqlitebrowser
+
 *** 本周提要
    - 第一周 :: 一切工作都是差分
    - 第二周 :: 一切计算都是数组
