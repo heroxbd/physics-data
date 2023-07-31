@@ -1,6 +1,7 @@
 #+LaTeX_CLASS: book
 #+LaTeX_CLASS_options: [fontset=ubuntu]
 #+latex_HEADER: \usepackage{beamerarticle}
+#+latex_HEADER: \usepackage[margin=2.5cm]{geometry}
 #+latex_HEADER: \setcounter{tocdepth}{1}
 #+OPTIONS: H:3 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
 #+OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
