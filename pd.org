@@ -8624,7 +8624,6 @@ ON total.班级 = classes.班级
       - 不同的列有不同的属性，例如权重
       - 相同属性的列在重复，违反一次原则
 
-
 * DataFrame
   :PROPERTIES:
   :EXPORT_FILE_NAME: pd
@@ -9166,28 +9165,40 @@ sql_render(classes %>% filter(院系=='物理'))
     - 引擎：自动 out-of-core computing (超出内存的运算)
     - 引擎：自动并行计算
 
-* 关系代数与回归分析
+* 回归分析
   :PROPERTIES:
   :EXPORT_FILE_NAME: pe
-  :EXPORT_DATE: 2022-08-03 清华
+  :EXPORT_DATE: 2023-08-02 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
   :EXPORT_BEAMER_HEADER+: \setbeamertemplate{footline}[frame number]  
   :EXPORT_BEAMER_THEME: Hannover
   :EXPORT_BEAMER_FONT_THEME: professionalfonts
   :END:
-** 复习与提示
-*** 软件安装
+** 复习提示
+*** 数据集下载
     - =lm-examples.tar.gz= 线性回归样例集
-    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-      apt install python3-statsmodels python3-patsy python3-sklearn-pandas
-      wget http://hep.tsinghua.edu.cn/~orv/pd/lm-examples.tar.gz
-      tar -xf lm-examples.tar.gz
-    #+end_src
-    - macOS
       #+begin_src bash
-      pip3 install statsmodels patsy scikit-learn sklearn-pandas
+        wget http://hep.tsinghua.edu.cn/~orv/pd/lm-examples.tar.gz
+        tar -xf lm-examples.tar.gz
       #+end_src
+*** DataFrame
+- DataFrame （数据表格） 与 SQL 一样，是关系代数的具体实现
+  - DataFrame 更动态，可联用更多丰富的语言功能
+- GNU R 语言是统计学领域的编程语言
+  - 提供了跨领域的与统计学高效的对话方式
+**** ggplot2
+- 把数据表格的列映射到图中的要素
+  + 例如 x 轴、 y 轴、颜色等
+    #+begin_src R
+      ggplot(mtcars, aes(x=wt, y=hp)) + geom_point()
+    #+end_src
+**** dplyr 与 dbplyr
+- 关系代数的基本操作对应到命令
+  #+begin_src R
+    students %>% inner_join(longscores) %>%
+      group_by(班级, 作业) %>% summarise(平均分=mean(分数))
+  #+end_src
 *** 关系代数工具组
 **** g                                                                :BMCOL:
      :PROPERTIES:
@@ -9223,7 +9234,8 @@ sql_render(classes %>% filter(院系=='物理'))
      :PROPERTIES:
      :BEAMER_col: 0.52
      :END:
-     - 以关系代数的数据形式为基础：列的对称性
+     - 以关系代数的数据形式为核心
+       + 实现列的对称性
      - 工具设计变得简单、工具使用变得简单
        - 一行代码绘图
        - 一行代码回归
@@ -9822,7 +9834,17 @@ print(n_res.summary())
     ====================================================================================
     #+end_example
 
-** 回归
+** 无脑回归
+*** 可用 sklearn
+    - Debian
+      #+begin_src bash
+        apt install python3-sklearn-pandas
+      #+end_src
+    - macOS @ Gentoo
+      #+begin_src bash
+        pip3 install sklearn-pandas
+      #+end_src
+
 *** 支持向量机
     #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
       ### SVM regression
