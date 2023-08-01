@@ -8755,7 +8755,7 @@ Debian
  *呼叫传送门*
 
 - numeric :: 数值型：分成整型、浮点型和复数型
-- charactor :: 字符型
+- character :: 字符型
 - factor :: 枚举型
   #+begin_src R
 # 获得帮助
