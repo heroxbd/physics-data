@@ -9258,36 +9258,35 @@ sql_render(classes %>% filter(院系=='物理'))
     - \( (y, X) \) 是关系，组成表格
     
     - 表格 DataFrame 之上自然进行回归分析
-*** 例子：书的重量
-**** c                                                                :BMCOL:
-     :PROPERTIES:
-     :BEAMER_col: 0.549
-     :END:
-    #+NAME: 59d2d3cb-8f4e-475d-bed4-f28c5a1d702a
-    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-      csvlook lm-examples/books.csv
+*** 读入例子：书的重量
+**** l                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.55
+:END:
+    #+begin_src R :session pd :results output
+      books = read.csv("lm-examples/books.csv",
+                       row.names=1)
+      books
     #+end_src
 
-    #+RESULTS: 59d2d3cb-8f4e-475d-bed4-f28c5a1d702a
+    #+RESULTS: 8e0745ac-1f5b-483e-8c05-fc1ff4e81ab4
     #+begin_example
-    /usr/lib/python3.9/site-packages/agate/utils.py:285: UnnamedColumnWarning: Column 0 has no name. Using "a".
-    |  a | volume | area | weight | cover |
-    | -- | ------ | ---- | ------ | ----- |
-    |  1 |    885 |  382 |    800 | hb    |
-    |  2 |  1,016 |  468 |    950 | hb    |
-    |  3 |  1,125 |  387 |  1,050 | hb    |
-    |  4 |    239 |  371 |    350 | hb    |
-    |  5 |    701 |  371 |    750 | hb    |
-    |  6 |    641 |  367 |    600 | hb    |
-    |  7 |  1,228 |  396 |  1,075 | hb    |
-    |  8 |    412 |    0 |    250 | pb    |
-    |  9 |    953 |    0 |    700 | pb    |
-    | 10 |    929 |    0 |    650 | pb    |
-    | 11 |  1,492 |    0 |    975 | pb    |
-    | 12 |    419 |    0 |    350 | pb    |
-    | 13 |  1,010 |    0 |    950 | pb    |
-    | 14 |    595 |    0 |    425 | pb    |
-    | 15 |  1,034 |    0 |    725 | pb    |
+       volume area weight cover
+    1     885  382    800    hb
+    2    1016  468    950    hb
+    3    1125  387   1050    hb
+    4     239  371    350    hb
+    5     701  371    750    hb
+    6     641  367    600    hb
+    7    1228  396   1075    hb
+    8     412    0    250    pb
+    9     953    0    700    pb
+    10    929    0    650    pb
+    11   1492    0    975    pb
+    12    419    0    350    pb
+    13   1010    0    950    pb
+    14    595    0    425    pb
+    15   1034    0    725    pb
     #+end_example
 **** e                                                                :BMCOL:
      :PROPERTIES:
@@ -9297,91 +9296,41 @@ sql_render(classes %>% filter(院系=='物理'))
     - =pb= 代表 paper back ，软纸封面封底
     - =area= 代表封面的面积
     - =volume= 代表书的页数
-*** 读入
-    #+NAME: 8e0745ac-1f5b-483e-8c05-fc1ff4e81ab4
-    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
-      import pandas as pd
-
-      books = pd.read_csv("lm-examples/books.csv", index_col=0)
-      print(books)
-    #+end_src
-
-    #+RESULTS: 8e0745ac-1f5b-483e-8c05-fc1ff4e81ab4
-    #+begin_example
-        volume  area  weight cover
-    1      885   382     800    hb
-    2     1016   468     950    hb
-    3     1125   387    1050    hb
-    4      239   371     350    hb
-    5      701   371     750    hb
-    6      641   367     600    hb
-    7     1228   396    1075    hb
-    8      412     0     250    pb
-    9      953     0     700    pb
-    10     929     0     650    pb
-    11    1492     0     975    pb
-    12     419     0     350    pb
-    13    1010     0     950    pb
-    14     595     0     425    pb
-    15    1034     0     725    pb
-    #+end_example
 *** 绘制重量与页数的关系
-    #+NAME: b96d82e2-95b9-4ec9-bc90-838f4571cfcc
-    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
-from matplotlib import pyplot as plt
-fig, ax = plt.subplots()
-fig.set_dpi(100)
-books.plot(x="volume", y="weight", kind="scatter", ax=ax)
-    #+end_src
+#+begin_src R :session pd :file fig/scatter.pdf :results graphics file :width 7 :height 5
+  plot(weight ~ volume, books)
+#+end_src
 
-    #+RESULTS: b96d82e2-95b9-4ec9-bc90-838f4571cfcc
-    #+attr_latex: :height 4cm
-    [[file:ein-images/ob-ein-11a07098e008f2af69410173852c04e9.png]]
+#+attr_latex: :height 5cm
+#+RESULTS:
+[[file:fig/scatter.pdf]]
 
-    - Pandas 提供与 Matplotlib 的集成
-*** =statsmodels= 与 =sklearn=
-    - 从 SciPy 分离出独立发展，源于同一团队
-    - =statsmodels= 偏重统计学
-    - =sklearn= 偏重机器学习
-    - 受到 R 的影响很深，是 R 的不完全仿制品；
-    - 数据的格式是 DataFrame，与关系代数联系紧密。
 *** 线性回归
-    #+NAME: aca6129a-4e56-40df-b1ec-05b6199c3333
-    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
-      import statsmodels.api as sm
-      res = sm.OLS(books["weight"], books["volume"]).fit() # 不够直观
-      print(res.summary())
+    #+begin_src R :session pd :file :results output
+      res = lm(weight ~ volume, books)
+      summary(res)
     #+end_src
 
-    #+RESULTS: aca6129a-4e56-40df-b1ec-05b6199c3333
+    #+RESULTS:
     #+begin_example
 
-                                     OLS Regression Results                                
-    =======================================================================================
-    Dep. Variable:                 weight   R-squared (uncentered):                   0.974
-    Model:                            OLS   Adj. R-squared (uncentered):              0.972
-    Method:                 Least Squares   F-statistic:                              521.0
-    Date:                Wed, 03 Aug 2022   Prob (F-statistic):                    1.78e-12
-    Time:                        11:51:59   Log-Likelihood:                         -93.319
-    No. Observations:                  15   AIC:                                      188.6
-    Df Residuals:                      14   BIC:                                      189.3
-    Df Model:                           1                                                  
-    Covariance Type:            nonrobust                                                  
-    ==============================================================================
-                     coef    std err          t      P>|t|      [0.025      0.975]
-    ------------------------------------------------------------------------------
-    volume         0.8193      0.036     22.825      0.000       0.742       0.896
-    ==============================================================================
-    Omnibus:                        1.234   Durbin-Watson:                   0.778
-    Prob(Omnibus):                  0.540   Jarque-Bera (JB):                1.043
-    Skew:                          -0.501   Prob(JB):                        0.594
-    Kurtosis:                       2.185   Cond. No.                         1.00
-    ==============================================================================
+    Call:
+    lm(formula = weight ~ volume, data = books)
 
-    Notes:
-    [1] R² is computed without centering (uncentered) since the model does not contain a constant.
-    [2] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+    Residuals:
+        Min      1Q  Median      3Q     Max 
+    -189.97 -109.86   38.08  109.73  145.57 
 
+    Coefficients:
+                 Estimate Std. Error t value Pr(>|t|)    
+    (Intercept) 107.67931   88.37758   1.218    0.245    
+    volume        0.70864    0.09746   7.271 6.26e-06 ***
+    ---
+    Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+    Residual standard error: 123.9 on 13 degrees of freedom
+    Multiple R-squared:  0.8026,	Adjusted R-squared:  0.7875 
+    F-statistic: 52.87 on 1 and 13 DF,  p-value: 6.262e-06
     #+end_example
 *** 结果
     \( y = 0.8193 X \)
@@ -9389,13 +9338,6 @@ books.plot(x="volume", y="weight", kind="scatter", ax=ax)
     - \( y \) : weight
     - \( X \) : volume
     
-**** =sm.OLS=
-     - statsmodels 的开发团队有很强的生物信息背景 bioinformatics
-       - 好处：在方法论上跨学科，有效地检验方法的普适性
-       - 坏处：0类学科与Z类学科侧重点不同。
-
-     - endogenous: 生物学概念，内源性 \( y \)
-     - exogenous: 生物学概念，外源性 \( X \)
 *** 绘图
     #+NAME: b20c38cc-6321-48a6-9869-bdd084de5ff6
     #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
