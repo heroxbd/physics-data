@@ -8929,6 +8929,16 @@ sql_render(classes %>% filter(院系=='物理'))
         wget http://hep.tsinghua.edu.cn/~orv/pd/lm-examples.tar.gz
         tar -xf lm-examples.tar.gz
       #+end_src
+
+**** 安装 rhdf5
+#+begin_src bash
+  # Debian
+  apt install r-bioc-rhdf5
+  # Gentoo @ macOS
+  emaint sync -r R_Overlay
+  emerge -vt sci-BIOC/rhdf5
+#+end_src
+
 *** DataFrame
 - DataFrame （数据表格） 与 SQL 一样，是关系代数的具体实现
   - DataFrame 更动态，可联用更多丰富的语言功能
