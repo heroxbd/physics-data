@@ -8639,7 +8639,7 @@ ON total.班级 = classes.班级
 Debian
 
 #+begin_src bash
-    apt install r-cran-ggplot2 r-cran-dbplyr
+    apt install r-cran-ggplot2 r-cran-dbplyr r-cran-dplyr r-cran-reshape2
 #+end_src
 
 *** Gentoo @ macOS
@@ -8669,7 +8669,7 @@ Debian
      #+end_src
 3. 安装 ggplot2 和 dbplyr
    #+begin_src bash
-     emerge -vt sci-CRAN/ggplot2 sci-CRAN/dbplyr
+     emerge -vt sci-CRAN/ggplot2 sci-CRAN/dplyr sci-CRAN/dbplyr sci-CRAN/reshape2
    #+end_src
 **** 最佳工具                                                  :B_alertblock:
      :PROPERTIES:
