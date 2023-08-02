@@ -9430,6 +9430,7 @@ Cook scaling-location 理论残差图
       abline(0, 1)
     #+end_src
 
+    #+attr_latex: :height 5cm
     #+RESULTS:
     [[file:fig/prediction.pdf]]
 
