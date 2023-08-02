@@ -9432,7 +9432,7 @@ model.matrix(weight ~ volume + cover - 1, books)
   2. 变量越多，拟合越精确
   3. 变量越少，模型越简明
 
-\[ \mathrm{AIC} = 2 n - 2 \mathcal{L} \]
+\[ \mathrm{AIC} = 2 n - 2 \log \mathcal{L} \]
 其中 \(n\) 是变量个数，\(\mathcal{L}\) 是拟合似然函数 (likelihood)
  
 **** Von Neumann's elephant                                    :B_alertblock:
