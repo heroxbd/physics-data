@@ -9375,8 +9375,7 @@ sql_render(classes %>% filter(院系=='物理'))
     #+begin_src R :session pd :file fig/lm.pdf :results graphics file :width 7 :height 5
       library(ggplot2)
       p = ggplot(books, aes(x=volume, y=weight)) + geom_point()
-      p = p + geom_smooth(method="lm")
-      print(p)
+      print(p + geom_smooth(method="lm"))
     #+end_src
 
     #+attr_latex: :height 5cm
@@ -9457,15 +9456,13 @@ Cook scaling-location 理论残差图
      [[file:regression.pdf]]
 *** 填加自变量
 - 书的包装有什么影响？画图探索
-#+NAME: 29051508-6402-4b5e-8e92-d6088e097c4b
-#+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both :noweb strip-export
-   import seaborn as sns
-   sns.relplot(x="volume", y="weight", hue="cover", data=books)
+#+begin_src R :session pd :file fig/covers.pdf :results graphics file :width 7 :height 5
+  print(p + aes(color=cover))
 #+end_src
 
-#+attr_latex: :height 4cm
-#+RESULTS: 29051508-6402-4b5e-8e92-d6088e097c4b
-[[file:ein-images/ob-ein-ea93266e4bec3fa426fde0e774edafbf.png]]
+#+attr_latex: :height 5cm
+#+RESULTS:
+[[file:fig/covers.pdf]]
 
 *** 更直观的回归公式
     #+NAME: e47c6cd8-c536-47bb-a985-578543ecf349
