@@ -8639,7 +8639,7 @@ ON total.班级 = classes.班级
 Debian
 
 #+begin_src bash
-    apt install r-cran-ggplot2 r-cran-dbplyr r-cran-dplyr r-cran-reshape2
+    apt install r-cran-ggplot2 r-cran-dbplyr r-cran-dplyr r-cran-reshape2 r-cran-rsqlite
 #+end_src
 
 *** Gentoo @ macOS
@@ -8669,7 +8669,7 @@ Debian
      #+end_src
 3. 安装 ggplot2 和 dbplyr
    #+begin_src bash
-     emerge -vt sci-CRAN/ggplot2 sci-CRAN/dplyr sci-CRAN/dbplyr sci-CRAN/reshape2
+     emerge -vt sci-CRAN/ggplot2 sci-CRAN/dplyr sci-CRAN/dbplyr sci-CRAN/reshape2 sci-CRAN/RSQLite
    #+end_src
 **** 最佳工具                                                  :B_alertblock:
      :PROPERTIES:
@@ -8715,6 +8715,7 @@ Debian
 ** DataFrame
 *** DataFrame
 由 R 语言提出的数据表格形式：与 SQL 一样都脱胎于关系代数思想
+
 **** SQL 的区别
 - SQL 是描述性语言，与函数式编程更接近。
   - 生成的表格不能随意改动。改动只是通过创建新表格实现。
