@@ -9017,6 +9017,26 @@ sql_render(classes %>% filter(院系=='物理'))
       books
     #+end_src
 
+    #+RESULTS:
+    #+begin_example
+       volume area weight cover
+    1     885  382    800    hb
+    2    1016  468    950    hb
+    3    1125  387   1050    hb
+    4     239  371    350    hb
+    5     701  371    750    hb
+    6     641  367    600    hb
+    7    1228  396   1075    hb
+    8     412    0    250    pb
+    9     953    0    700    pb
+    10    929    0    650    pb
+    11   1492    0    975    pb
+    12    419    0    350    pb
+    13   1010    0    950    pb
+    14    595    0    425    pb
+    15   1034    0    725    pb
+    #+end_example
+
     #+RESULTS: 8e0745ac-1f5b-483e-8c05-fc1ff4e81ab4
     #+begin_example
        volume area weight cover
@@ -9180,6 +9200,122 @@ Cook scaling-location 理论残差图
     #+RESULTS:
     [[file:fig/prediction.pdf]]
 
+*** 模型矩阵
+- 细致描述变量的依赖关系，扩展公式的表达。使用 =model.matrix= 厘清内部机理
+#+begin_src R :results output :session pd
+model.matrix(weight ~ volume, books)
+#+end_src
+
+#+RESULTS:
+#+begin_example
+   (Intercept) volume
+1            1    885
+2            1   1016
+3            1   1125
+4            1    239
+5            1    701
+6            1    641
+7            1   1228
+8            1    412
+9            1    953
+10           1    929
+11           1   1492
+12           1    419
+13           1   1010
+14           1    595
+15           1   1034
+attr(,"assign")
+[1] 0 1
+#+end_example
+
+*** 双变量回归情形
+    #+begin_src R :results output :session pd
+model.matrix(weight ~ volume + cover, books)
+    #+end_src
+
+    #+RESULTS:
+    #+begin_example
+       (Intercept) volume coverpb
+    1            1    885       0
+    2            1   1016       0
+    3            1   1125       0
+    4            1    239       0
+    5            1    701       0
+    6            1    641       0
+    7            1   1228       0
+    8            1    412       1
+    9            1    953       1
+    10           1    929       1
+    11           1   1492       1
+    12           1    419       1
+    13           1   1010       1
+    14           1    595       1
+    15           1   1034       1
+    attr(,"assign")
+    [1] 0 1 2
+    attr(,"contrasts")
+    attr(,"contrasts")$cover
+    [1] "contr.treatment"
+    #+end_example
+*** 去除截距情形
+    #+begin_src R :results output :session pd
+model.matrix(weight ~ volume + cover - 1, books)
+    #+end_src
+
+    #+RESULTS:
+    #+begin_example
+       volume coverhb coverpb
+    1     885       1       0
+    2    1016       1       0
+    3    1125       1       0
+    4     239       1       0
+    5     701       1       0
+    6     641       1       0
+    7    1228       1       0
+    8     412       0       1
+    9     953       0       1
+    10    929       0       1
+    11   1492       0       1
+    12    419       0       1
+    13   1010       0       1
+    14    595       0       1
+    15   1034       0       1
+    attr(,"assign")
+    [1] 1 2 2
+    attr(,"contrasts")
+    attr(,"contrasts")$cover
+    [1] "contr.treatment"
+    #+end_example
+
+*** 去除截距拟合
+    #+begin_src R :results output :session pd
+      lm3.books = lm(weight ~ volume + cover - 1, books)
+      summary(lm3.books)
+    #+end_src
+
+    #+RESULTS:
+    #+begin_example
+
+    Call:
+    lm(formula = weight ~ volume + cover - 1, data = books)
+
+    Residuals:
+        Min      1Q  Median      3Q     Max 
+    -110.10  -32.32  -16.10   28.93  210.95 
+
+    Coefficients:
+             Estimate Std. Error t value Pr(>|t|)    
+    volume    0.71795    0.06153  11.669  6.6e-08 ***
+    coverhb 197.96284   59.19274   3.344  0.00584 ** 
+    coverpb  13.91557   59.45408   0.234  0.81889    
+    ---
+    Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+    Residual standard error: 78.2 on 12 degrees of freedom
+    Multiple R-squared:  0.9914,	Adjusted R-squared:  0.9892 
+    F-statistic: 459.5 on 3 and 12 DF,  p-value: 1.207e-12
+    #+end_example
+
 ** 探索性分析
 *** 探索性分析
      #+BEGIN_SRC dot :file regression.pdf
@@ -9211,326 +9347,161 @@ Cook scaling-location 理论残差图
 #+RESULTS:
 [[file:fig/covers.pdf]]
 
-*** 更直观的回归公式
-    #+NAME: e47c6cd8-c536-47bb-a985-578543ecf349
-    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
-import statsmodels.formula.api as smf
-
-res = smf.ols(formula = "weight ~ volume", data=books).fit()
-print(res.summary())
-    #+end_src
-
-    #+RESULTS: e47c6cd8-c536-47bb-a985-578543ecf349
-    #+begin_example
-                                OLS Regression Results                            
-    ==============================================================================
-    Dep. Variable:                 weight   R-squared:                       0.803
-    Model:                            OLS   Adj. R-squared:                  0.787
-    Method:                 Least Squares   F-statistic:                     52.87
-    Date:                Wed, 03 Aug 2022   Prob (F-statistic):           6.26e-06
-    Time:                        12:51:17   Log-Likelihood:                -92.508
-    No. Observations:                  15   AIC:                             189.0
-    Df Residuals:                      13   BIC:                             190.4
-    Df Model:                           1                                         
-    Covariance Type:            nonrobust                                         
-    ==============================================================================
-                     coef    std err          t      P>|t|      [0.025      0.975]
-    ------------------------------------------------------------------------------
-    Intercept    107.6793     88.378      1.218      0.245     -83.249     298.607
-    volume         0.7086      0.097      7.271      0.000       0.498       0.919
-    ==============================================================================
-    Omnibus:                        6.203   Durbin-Watson:                   1.030
-    Prob(Omnibus):                  0.045   Jarque-Bera (JB):                1.566
-    Skew:                          -0.154   Prob(JB):                        0.457
-    Kurtosis:                       1.447   Cond. No.                     2.50e+03
-    ==============================================================================
-
-    Notes:
-    [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
-    [2] The condition number is large, 2.5e+03. This might indicate that there are
-    strong multicollinearity or other numerical problems.
-
-    #+end_example
-
 *** 多线性回归
 - 线性回归可以推广到多个变量
 
-**** 也可以包含离散变量
+**** 还可以包含离散变量
      - 每个离散变量，实际上对应多个自由参数，个数等于离散变量的取值数
-     #+NAME: f5d4bb58-78fe-4fa4-86ba-ba4dcdc25041
-     #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
-print(books[["weight", "volume", "cover"]])
+     #+begin_src R :session pd :results output
+       books$cover = as.factor(books$cover)
+       books[c("weight", "volume", "cover")]
      #+end_src
 
-     #+RESULTS: f5d4bb58-78fe-4fa4-86ba-ba4dcdc25041
+     #+RESULTS:
      #+begin_example
-         weight  volume cover
-     1      800     885    hb
-     2      950    1016    hb
-     3     1050    1125    hb
-     4      350     239    hb
-     5      750     701    hb
-     6      600     641    hb
-     7     1075    1228    hb
-     8      250     412    pb
-     9      700     953    pb
-     10     650     929    pb
-     11     975    1492    pb
-     12     350     419    pb
-     13     950    1010    pb
-     14     425     595    pb
-     15     725    1034    pb
+        weight volume cover
+     1     800    885    hb
+     2     950   1016    hb
+     3    1050   1125    hb
+     4     350    239    hb
+     5     750    701    hb
+     6     600    641    hb
+     7    1075   1228    hb
+     8     250    412    pb
+     9     700    953    pb
+     10    650    929    pb
+     11    975   1492    pb
+     12    350    419    pb
+     13    950   1010    pb
+     14    425    595    pb
+     15    725   1034    pb
      #+end_example
-       
+
 *** 多线性回归
-    #+NAME: 05b99dec-ff7c-497f-8ec5-24ece045bb99
-    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
-      g_res = smf.ols(formula = "weight ~ volume + cover", data=books).fit()
-      print(g_res.summary())
+    #+begin_src R :session pd :results output
+      lm2.books = lm(weight ~ volume + cover, books)
+      summary(lm2.books)
     #+end_src
 
-    #+RESULTS: 05b99dec-ff7c-497f-8ec5-24ece045bb99
+    #+RESULTS:
     #+begin_example
-                                OLS Regression Results                            
-    ==============================================================================
-    Dep. Variable:                 weight   R-squared:                       0.927
-    Model:                            OLS   Adj. R-squared:                  0.915
-    Method:                 Least Squares   F-statistic:                     76.73
-    Date:                Wed, 03 Aug 2022   Prob (F-statistic):           1.45e-07
-    Time:                        12:53:06   Log-Likelihood:                -84.999
-    No. Observations:                  15   AIC:                             176.0
-    Df Residuals:                      12   BIC:                             178.1
-    Df Model:                           2                                         
-    Covariance Type:            nonrobust                                         
-    ===============================================================================
-                      coef    std err          t      P>|t|      [0.025      0.975]
-    -------------------------------------------------------------------------------
-    Intercept     197.9628     59.193      3.344      0.006      68.993     326.933
-    cover[T.pb]  -184.0473     40.494     -4.545      0.001    -272.277     -95.818
-    volume          0.7180      0.062     11.669      0.000       0.584       0.852
-    ==============================================================================
-    Omnibus:                       14.403   Durbin-Watson:                   1.971
-    Prob(Omnibus):                  0.001   Jarque-Bera (JB):               11.516
-    Skew:                           1.518   Prob(JB):                      0.00316
-    Kurtosis:                       6.034   Cond. No.                     2.77e+03
-    ==============================================================================
 
-    Notes:
-    [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
-    [2] The condition number is large, 2.77e+03. This might indicate that there are
-    strong multicollinearity or other numerical problems.
+    Call:
+    lm(formula = weight ~ volume + cover, data = books)
 
+    Residuals:
+        Min      1Q  Median      3Q     Max 
+    -110.10  -32.32  -16.10   28.93  210.95 
+
+    Coefficients:
+                  Estimate Std. Error t value Pr(>|t|)    
+    (Intercept)  197.96284   59.19274   3.344 0.005841 ** 
+    volume         0.71795    0.06153  11.669  6.6e-08 ***
+    coverpb     -184.04727   40.49420  -4.545 0.000672 ***
+    ---
+    Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+    Residual standard error: 78.2 on 12 degrees of freedom
+    Multiple R-squared:  0.9275,	Adjusted R-squared:  0.9154 
+    F-statistic: 76.73 on 2 and 12 DF,  p-value: 1.455e-07
     #+end_example
-*** 课堂练习
-    - 分析：有否必要把 =area= 加入回归？
-** 模型矩阵
-*** 模型矩阵
-- 细致描述变量的依赖关系，扩展公式的表达 patsy \textipa{["patsi]}
-#+NAME: b754f1a2-8936-4580-987a-0fabd77623af
-#+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
-import patsy
 
-y, X = patsy.dmatrices("weight ~ volume", books, return_type='matrix')
-print(X)
+*** 多线性回归结果图
+#+begin_src R :session pd :file fig/lm2.pdf :results graphics file :width 7 :height 5
+  print(p + aes(color=cover) + geom_smooth(method="lm"))
 #+end_src
 
-#+RESULTS: b754f1a2-8936-4580-987a-0fabd77623af
+#+attr_latex: :height 5cm
+#+RESULTS:
+[[file:fig/lm2.pdf]]
+    
+** 模型选择
+*** Akaike's An Information Criterion
+- 赤池信息判据
+  1. 应当用多少个变量描述模型？
+  2. 变量越多，拟合越精确
+  3. 变量越少，模型越简明
+
+\[ \mathrm{AIC} = 2 n - 2 \mathcal{L} \]
+其中 \(n\) 是变量个数，\(\mathcal{L}\) 是拟合似然函数 (likelihood)
+ 
+**** Von Neumann's elephant                                    :B_alertblock:
+:PROPERTIES:
+:BEAMER_env: alertblock
+:END:
+With four parameters I can fit an elephant, and with five I can make him wiggle his trunk.
+
+*** R 下的 AIC
+#+begin_src R :session pd :results output
+  AIC(lm.books) # weight ~ volume
+  AIC(lm2.books) # weight ~ volume + cover
+  AIC(lm3.books) # weight ~ volume + cover - 1
+#+end_src
+
+#+RESULTS:
+: [1] 191.016
+: [1] 177.9986
+: [1] 177.9986
+
+- 可见 lm2 与 lm3 等价
+  + 因为两者的 =model.matrix= 可用通过线性变换等价互换
+
+*** 改进模型的灵感
+- 回归结果说明 paper back （纸皮）不应该有截距，只有 hard back （硬皮） 才有截距。
+  + 使用公式已经无法表达这个需求
+
 #+begin_example
-[[1.000e+00 8.850e+02]
- [1.000e+00 1.016e+03]
- [1.000e+00 1.125e+03]
- [1.000e+00 2.390e+02]
- [1.000e+00 7.010e+02]
- [1.000e+00 6.410e+02]
- [1.000e+00 1.228e+03]
- [1.000e+00 4.120e+02]
- [1.000e+00 9.530e+02]
- [1.000e+00 9.290e+02]
- [1.000e+00 1.492e+03]
- [1.000e+00 4.190e+02]
- [1.000e+00 1.010e+03]
- [1.000e+00 5.950e+02]
- [1.000e+00 1.034e+03]]
+    Coefficients:
+             Estimate Std. Error t value Pr(>|t|)    
+    volume    0.71795    0.06153  11.669  6.6e-08 ***
+    coverhb 197.96284   59.19274   3.344  0.00584 ** 
+    coverpb  13.91557   59.45408   0.234  0.81889    
 #+end_example
-*** 双变量回归
-    #+NAME: 4928f31d-d117-41b3-90ac-7babcd920bc4
-    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
-y, X = patsy.dmatrices("weight ~ volume + cover", books)
-print(X)
+
+*** 使用 =model.matrix= 改进模型
+- 直接修改 =model.matrix=
+
+*** 课堂练习
+    - 分析：有否必要把 =area= 加入回归？
+
+*** 试验使用 =area=
+    #+begin_src R :results output :session pd
+      lm5.books = lm(weight ~ volume + area - 1, books)
+      summary(lm5.books) # AIC = 175.9741
     #+end_src
 
-    #+RESULTS: 4928f31d-d117-41b3-90ac-7babcd920bc4
+    #+RESULTS:
     #+begin_example
-    [[1.000e+00 0.000e+00 8.850e+02]
-     [1.000e+00 0.000e+00 1.016e+03]
-     [1.000e+00 0.000e+00 1.125e+03]
-     [1.000e+00 0.000e+00 2.390e+02]
-     [1.000e+00 0.000e+00 7.010e+02]
-     [1.000e+00 0.000e+00 6.410e+02]
-     [1.000e+00 0.000e+00 1.228e+03]
-     [1.000e+00 1.000e+00 4.120e+02]
-     [1.000e+00 1.000e+00 9.530e+02]
-     [1.000e+00 1.000e+00 9.290e+02]
-     [1.000e+00 1.000e+00 1.492e+03]
-     [1.000e+00 1.000e+00 4.190e+02]
-     [1.000e+00 1.000e+00 1.010e+03]
-     [1.000e+00 1.000e+00 5.950e+02]
-     [1.000e+00 1.000e+00 1.034e+03]]
-    #+end_example
-*** 去除截距
-    #+NAME: ef3d2292-03e7-4029-a949-78ac2d0cab57
-    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
-# 双变量回归
-y, X = patsy.dmatrices("weight ~ volume + cover - 1", books)
-print(X)
-    #+end_src
+    Call:
+    lm(formula = weight ~ volume + area - 1, data = books)
 
-    #+RESULTS: ef3d2292-03e7-4029-a949-78ac2d0cab57
-    #+begin_example
-    [[1.000e+00 0.000e+00 8.850e+02]
-     [1.000e+00 0.000e+00 1.016e+03]
-     [1.000e+00 0.000e+00 1.125e+03]
-     [1.000e+00 0.000e+00 2.390e+02]
-     [1.000e+00 0.000e+00 7.010e+02]
-     [1.000e+00 0.000e+00 6.410e+02]
-     [1.000e+00 0.000e+00 1.228e+03]
-     [0.000e+00 1.000e+00 4.120e+02]
-     [0.000e+00 1.000e+00 9.530e+02]
-     [0.000e+00 1.000e+00 9.290e+02]
-     [0.000e+00 1.000e+00 1.492e+03]
-     [0.000e+00 1.000e+00 4.190e+02]
-     [0.000e+00 1.000e+00 1.010e+03]
-     [0.000e+00 1.000e+00 5.950e+02]
-     [0.000e+00 1.000e+00 1.034e+03]]
-    #+end_example
-*** 去除截距拟合
-    #+NAME: f88eabb2-a4bb-4c6a-818a-f4e67f41d9c3
-    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
-n_res = smf.ols(formula = "weight ~ volume + cover - 1", data=books).fit()
-print(n_res.summary())
-    #+end_src
+    Residuals:
+        Min      1Q  Median      3Q     Max 
+    -112.53  -28.73  -10.52   24.62  213.80 
 
-    #+RESULTS: f88eabb2-a4bb-4c6a-818a-f4e67f41d9c3
-    #+begin_example
-                                OLS Regression Results                            
-    ==============================================================================
-    Dep. Variable:                 weight   R-squared:                       0.927
-    Model:                            OLS   Adj. R-squared:                  0.915
-    Method:                 Least Squares   F-statistic:                     76.73
-    Date:                Wed, 03 Aug 2022   Prob (F-statistic):           1.45e-07
-    Time:                        12:55:51   Log-Likelihood:                -84.999
-    No. Observations:                  15   AIC:                             176.0
-    Df Residuals:                      12   BIC:                             178.1
-    Df Model:                           2                                         
-    Covariance Type:            nonrobust                                         
-    ==============================================================================
-                     coef    std err          t      P>|t|      [0.025      0.975]
-    ------------------------------------------------------------------------------
-    cover[hb]    197.9628     59.193      3.344      0.006      68.993     326.933
-    cover[pb]     13.9156     59.454      0.234      0.819    -115.624     143.455
-    volume         0.7180      0.062     11.669      0.000       0.584       0.852
-    ==============================================================================
-    Omnibus:                       14.403   Durbin-Watson:                   1.971
-    Prob(Omnibus):                  0.001   Jarque-Bera (JB):               11.516
-    Skew:                           1.518   Prob(JB):                      0.00316
-    Kurtosis:                       6.034   Cond. No.                     3.54e+03
-    ==============================================================================
+    Coefficients:
+           Estimate Std. Error t value Pr(>|t|)    
+    volume  0.72891    0.02767  26.344 1.15e-12 ***
+    area    0.48087    0.09344   5.146 0.000188 ***
+    ---
+    Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-    Notes:
-    [1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
-    [2] The condition number is large, 3.54e+03. This might indicate that there are
-    strong multicollinearity or other numerical problems.
-
-    #+end_example
-
-*** 最好的模型1 使用 =area=
-    #+NAME: 9d4de03b-2d75-4087-bc51-f727a778c1a6
-    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
-      area_only_res0 = smf.ols(formula="weight ~ volume + area - 1", data=books).fit()
-      print(area_only_res0.summary()) # AIC = 174
-    #+end_src
-
-    #+RESULTS: 9d4de03b-2d75-4087-bc51-f727a778c1a6
-    #+begin_example
-                                     OLS Regression Results                                
-    =======================================================================================
-    Dep. Variable:                 weight   R-squared (uncentered):                   0.991
-    Model:                            OLS   Adj. R-squared (uncentered):              0.990
-    Method:                 Least Squares   F-statistic:                              747.9
-    Date:                Wed, 03 Aug 2022   Prob (F-statistic):                    3.80e-14
-    Time:                        17:21:10   Log-Likelihood:                         -84.987
-    No. Observations:                  15   AIC:                                      174.0
-    Df Residuals:                      13   BIC:                                      175.4
-    Df Model:                           2                                                  
-    Covariance Type:            nonrobust                                                  
-    ==============================================================================
-                     coef    std err          t      P>|t|      [0.025      0.975]
-    ------------------------------------------------------------------------------
-    volume         0.7289      0.028     26.344      0.000       0.669       0.789
-    area           0.4809      0.093      5.146      0.000       0.279       0.683
-    ==============================================================================
-    Omnibus:                       14.845   Durbin-Watson:                   1.885
-    Prob(Omnibus):                  0.001   Jarque-Bera (JB):               12.177
-    Skew:                           1.542   Prob(JB):                      0.00227
-    Kurtosis:                       6.157   Cond. No.                         4.53
-    ==============================================================================
-
-    Notes:
-    [1] R² is computed without centering (uncentered) since the model does not contain a constant.
-    [2] Standard Errors assume that the covariance matrix of the errors is correctly specified.
-
-    #+end_example
-
-*** 最好的模型2 调整 cover 使之只产生 =hb= 参数
-    #+NAME: 56f40a73-d101-4f67-98d9-1eeece9d7392
-    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
-      y, X = patsy.dmatrices("weight ~ volume + cover - 1", books, return_type='matrix')
-      cover_hb_res0 = sm.OLS(y, X[:, [0, 2]]).fit()
-      print(cover_hb_res0.summary()) # AIC 174.1
-    #+end_src
-
-    #+RESULTS: 56f40a73-d101-4f67-98d9-1eeece9d7392
-    #+begin_example
-                                     OLS Regression Results                                
-    =======================================================================================
-    Dep. Variable:                 weight   R-squared (uncentered):                   0.991
-    Model:                            OLS   Adj. R-squared (uncentered):              0.990
-    Method:                 Least Squares   F-statistic:                              743.2
-    Date:                Wed, 03 Aug 2022   Prob (F-statistic):                    3.95e-14
-    Time:                        17:20:24   Log-Likelihood:                         -85.033
-    No. Observations:                  15   AIC:                                      174.1
-    Df Residuals:                      13   BIC:                                      175.5
-    Df Model:                           2                                                  
-    Covariance Type:            nonrobust                                                  
-    ==============================================================================
-                     coef    std err          t      P>|t|      [0.025      0.975]
-    ------------------------------------------------------------------------------
-    var_0        187.3360     36.572      5.122      0.000     108.328     266.344
-    var_1          0.7307      0.028     26.522      0.000       0.671       0.790
-    ==============================================================================
-    Omnibus:                       13.917   Durbin-Watson:                   1.897
-    Prob(Omnibus):                  0.001   Jarque-Bera (JB):               11.018
-    Skew:                           1.458   Prob(JB):                      0.00405
-    Kurtosis:                       6.020   Cond. No.                     1.71e+03
-    ==============================================================================
-
-    Notes:
-    [1] R² is computed without centering (uncentered) since the model does not contain a constant.
-    [2] Standard Errors assume that the covariance matrix of the errors is correctly specified.
-    [3] The condition number is large, 1.71e+03. This might indicate that there are
-    strong multicollinearity or other numerical problems.
-
+    Residual standard error: 75.07 on 13 degrees of freedom
+    Multiple R-squared:  0.9914,	Adjusted R-squared:  0.9901 
+    F-statistic: 747.9 on 2 and 13 DF,  p-value: 3.799e-14
     #+end_example
 
 ** 广义线性回归
 *** 概念
 - 线性回归中，假设了残差服从正态分布
-- \(f(E[Y|X]) = \beta X\)
+- \(f(E[Y|X]) = b X\)
   - \(Y\) 的期望经过连接函数 \(f(y)\) 与 \(X\) 是线性关系
 - 可以在保持高效计算的前提下，把这两个条件放宽，可以大大扩展线性模型的适用范围
 **** 种类
 - 泊松回归
-- 二项回归(生存回归)
+- 二项回归(生存回归, cloglog回归)
+- 伽马回归
+- Tweedie 回归
 *** 课堂任务
     - 尝试对 =r10500.h5= 进行泊松回归
     - 辅助文件 =geo.csv= , =pmtdata.csv=
@@ -9576,6 +9547,16 @@ print(n_res.summary())
     type[NNVT]           3.2986      0.001   3460.998      0.000       3.297       3.300
     ====================================================================================
     #+end_example
+
+** 总结
+*** 模型的选择
+1. 关系代数让回归分析变得极其直观，让我们专注于问题的本质
+2. 模型的选择极其重要，应当使用客观标准
+   + AIC 是最简单直接的客观标准
+   + 找到“最佳模型”的过程充满曲折，是实验“研究”的主体过程
+3. 广义线性回归，把误差分布从高斯替换为其它指数族分布
+   + 把连接函数从恒等替换为非线性函数
+   + 几乎可以解决所有日常工作中的非线性问题，惊喜！
 
 ** 无脑回归
 *** 可用 sklearn
