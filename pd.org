@@ -9186,6 +9186,7 @@ sql_render(classes %>% filter(院系=='物理'))
 *** DataFrame
 - DataFrame （数据表格） 与 SQL 一样，是关系代数的具体实现
   - DataFrame 更动态，可联用更多丰富的语言功能
+
 - GNU R 语言是统计学领域的编程语言
   - 提供了跨领域的与统计学高效的对话方式
 **** ggplot2
@@ -9249,14 +9250,14 @@ sql_render(classes %>% filter(院系=='物理'))
 ** 线性回归
 *** 概念
     - 复习：线性回归，最小二乘法
-    |   y | X |
+    |   Y | x |
     |-----+---|
     |   2 | 1 |
     | 5.5 | 3 |
     | 6.5 | 4 |
     |   9 | 7 |
-    - \( y = \beta X + b \)
-    - \( (y, X) \) 是关系，组成表格
+    - \( Y = a + b x + \epsilon \)
+    - \( (Y, x) \) 是关系，组成表格
     
     - 表格 DataFrame 之上自然进行回归分析
 *** 读入例子：书的重量
@@ -9308,8 +9309,8 @@ sql_render(classes %>% filter(院系=='物理'))
 
 *** 线性回归
     #+begin_src R :session pd :file :results output
-      res = lm(weight ~ volume, books)
-      summary(res)
+      lm.books = lm(weight ~ volume, books)
+      summary(lm.books)
     #+end_src
 
     #+RESULTS:
@@ -9333,50 +9334,105 @@ sql_render(classes %>% filter(院系=='物理'))
     Multiple R-squared:  0.8026,	Adjusted R-squared:  0.7875 
     F-statistic: 52.87 on 1 and 13 DF,  p-value: 6.262e-06
     #+end_example
-*** 结果
-    \( y = 0.8193 X \)
+*** 拟合结果解读
+- \( Y = a + b x + \epsilon \)
+  + \(\hat{a} = 108\) 不显著
+  + \(\hat{b} = 0.71\) 显著
+- 回归方程为
 
-    - \( y \) : weight
-    - \( X \) : volume
-    
-*** 绘图
-    #+NAME: b20c38cc-6321-48a6-9869-bdd084de5ff6
-    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
-      pred_ols = res.get_prediction()
-      iv_l = pred_ols.summary_frame()["obs_ci_lower"]
-      iv_u = pred_ols.summary_frame()["obs_ci_upper"]
+  \( Y = 0.71 x + \epsilon \)
 
-      fig, ax = plt.subplots(figsize=(8, 6))
-      x, y = books["volume"], books["weight"]
-      ax.plot(x, y, "o", label="data")
-      ax.plot(x, res.fittedvalues, "r--.", label="OLS")
-      ax.plot(x, iv_u, "r--")
-      ax.plot(x, iv_l, "r--")
-      ax.legend(loc="best")
+- 显著度
+  + \(\hat{a}\) 和 \(\hat{b}\) 都服从 \(t\)-分布
+
+#+begin_example
+    Coefficients:
+                 Estimate Std. Error t value Pr(>|t|)    
+    (Intercept) 107.67931   88.37758   1.218    0.245    
+    volume        0.70864    0.09746   7.271 6.26e-06 ***
+    ---
+    Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#+end_example
+
+*** \(F\)-检验
+    \[ H_0: b=0, H_1: b \neq 0 \]
+    #+begin_export latex
+    \begin{equation*}
+      \underbrace{\sum_{i=1}^n (y_i - \overline{y})^2}_{S_T, \nu_T = n-1} = \underbrace{\sum_{i=1}^n (y_i - \hat{y}_i)^2}_{S_E: \nu_E=n-p} + \underbrace{\sum_{i=1}^n(\overline{y} - \hat{y}_i)^2}_{S_M: \nu_M = p-1} - \underbrace{\sum_{i=1}^n(y_i - \hat{y}_i)(\overline{y} - \hat{y}_i)}_0
+    \end{equation*}
+    #+end_export
+    - \(S_M\) :: 模型变差。进行线性回归的预测值与 \(Y\) 样本均值的差异
+    - \(p\) :: 回归参数个数，一元线数回归取 \(2\)
+
+    \[ \frac{S_M/1}{S_E/(n-2)} = F \sim F(1, n-2) \]
+    \[ R^2 = \frac{S_M}{S_T} \]
+
+    #+begin_example
+    Multiple R-squared:  0.8026,	Adjusted R-squared:  0.7875 
+    F-statistic: 52.87 on 1 and 13 DF,  p-value: 6.262e-06
+    #+end_example      
+*** 拟合效果图
+    #+begin_src R :session pd :file fig/lm.pdf :results graphics file :width 7 :height 5
+      library(ggplot2)
+      p = ggplot(books, aes(x=volume, y=weight)) + geom_point()
+      p = p + geom_smooth(method="lm")
+      print(p)
     #+end_src
 
-    #+attr_latex: :height 3cm
-    #+RESULTS: b20c38cc-6321-48a6-9869-bdd084de5ff6
-    [[file:ein-images/ob-ein-97b2691b51ac12785f078184af776f16.png]]
-*** 残差制图
-    #+NAME: 84e9b3cb-dcac-4fbc-9c7a-824d1821c3d4
-    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
-      print(sm.graphics.influence_plot(res))
+    #+attr_latex: :height 5cm
+    #+RESULTS:
+    [[file:fig/lm.pdf]]
+*** 拟合优度的制图判定
+    #+begin_src R :session pd :file fig/lm-internal.pdf :results graphics file :width 7 :height 5
+      plot(lm.books)
     #+end_src
-    
-    #+attr_latex: :height 4cm
-    #+RESULTS: 84e9b3cb-dcac-4fbc-9c7a-824d1821c3d4
-    [[file:ein-images/ob-ein-c1134fa1dec81666839a621c216c8a9e.png]]
+
+**** 残差图                                                           :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+    #+attr_latex: :height 5cm :options page=1
+    #+RESULTS:
+    [[file:fig/lm-internal.pdf]]
+
+**** 正态分布检验                                                     :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+#+attr_latex: :height 5cm :options page=2
+#+RESULTS:
+[[file:fig/lm-internal.pdf]]
+
+*** 平移缩放关系
+**** l                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+#+attr_latex: :height 5cm :options page=3
+#+RESULTS:
+[[file:fig/lm-internal.pdf]]
+
+标准化的残差图
+
+**** r                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+#+attr_latex: :height 5cm :options page=4
+#+RESULTS:
+[[file:fig/lm-internal.pdf]]
+
+Cook scaling-location 理论残差图
 
 *** 回归预测
-    #+NAME: 4aee0786-b9e4-4c94-823e-93939cffca66
-    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both :noweb strip-export
-      print(sm.graphics.plot_fit(res, "volume", ax=ax))
+    #+begin_src R :session pd :file fig/prediction.pdf :results graphics file :width 5 :height 5
+      books$predicted = predict(lm.books)
+      plot(weight~predicted, books)
+      abline(0, 1)
     #+end_src
 
-    #+attr_latex: :height 4cm
-    #+RESULTS: 4aee0786-b9e4-4c94-823e-93939cffca66
-    [[file:ein-images/ob-ein-70f1949dcaf6be10a83fb14c3e559f75.png]]
+    #+RESULTS:
+    [[file:fig/prediction.pdf]]
 
 ** 探索性分析
 *** 探索性分析
