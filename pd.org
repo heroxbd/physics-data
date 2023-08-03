@@ -9956,14 +9956,14 @@ head -q -n1 lecture/l*.org
 如果你认同实验物理与形式逻辑是文明的两大支柱，并喜欢课程的内容，可以考虑与我继续探索：
 
 #+beamer: \pause
-- 分析力学的 Scheme 描述
+- 分析力学的 Scheme 描述：
   + Structure and Interpretation of Classical Mechanics, MIT 本科课程
   + 分析力学完成后，计划拓展至量子力学和电动力学
 
 #+beamer: \pause
 - 自动推理机：
   + 利用第一阶段大作业成果，直接生成第二阶段大作业的解答程序
-  + 语言 Anglican ，为 Clojure 语言的一种
+  + 语言为 Anglican ，为 Clojure 语言的一种
   + Clojure 语言是 Scheme 语言在 Java 平台上的实现
 
 *** 致谢
