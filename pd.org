@@ -146,6 +146,28 @@ fig.set_dpi({dpi})
       - 晶体管替代真空电子管
       - 计算机功耗和体积大幅减小
     - Monte Carlo 算法成为大型物理实验设计的一部分
+*** 计算历史：大型机
+    #+Attr_LaTeX: :height 0.7\textheight
+    [[./fig/main-frame.jpg]]
+
+    - 一台大型计算机，用户通过终端 (Terminal) 连接
+*** 计算历史：个人计算机
+    - 1981年
+
+    #+Attr_LaTeX: :height 0.7\textheight
+    [[./fig/ibm-pc.jpg]]
+*** 计算历史：个人计算机组成集群
+    - 1990s 个人计算机组成集群 "beowulf"
+
+      #+Attr_LaTeX: :height 0.65\textheight
+      [[./fig/computer-cluster.jpg]]
+
+*** 高性能计算与超级计算机
+    #+attr_latex: :height 6cm
+    [[./fig/supercomputer.jpg]]
+
+    - 更大的计算机集群，优化节点间的通信，共享存储。
+    - 软件环境如何配置？
 *** 大物理与大数据
 
     - 大型物理实验，产生大数据，多台计算机协同工作：分布式计算。
@@ -9608,16 +9630,116 @@ With four parameters I can fit an elephant, and with five I can make him wiggle 
       regr.predict(X_test[:2])
       regr.score(X_test, y_test)
     #+end_src
-* 未来方向与大作业
+* 大作业与未来方向
   :PROPERTIES:
   :EXPORT_FILE_NAME: pf
-  :EXPORT_DATE: 2022-08-04 清华
+  :EXPORT_DATE: 2023-08-03 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
   :EXPORT_BEAMER_HEADER+: \setbeamertemplate{footline}[frame number]  
   :EXPORT_BEAMER_THEME: Hannover
   :EXPORT_BEAMER_FONT_THEME: professionalfonts
   :END:
+** 复习
+*** 广义线性回归
+1. 关系代数让回归分析变得极其直观，让我们专注于问题的本质
+2. 模型的选择极其重要，应当使用客观标准
+   + AIC 是最简单直接的客观标准
+   + 找到“最佳模型”的过程充满曲折，是实验“研究”的主体过程
+3. 广义线性回归，把误差分布从高斯替换为其它指数族分布
+   + 把连接函数从恒等替换为非线性函数
+   + 几乎可以解决所有日常工作中的非线性问题，惊喜！
+** 大作业
+*** 大作业安排
+**** l                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+***** 正向第一阶段
+[[file:./MC-predict.pdf]]
+
+- 2023-07-21 -- 2023-08-10
+- 模拟实验测量
+
+**** r                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+***** 逆向第二阶段
+
+[[file:./MC-reconstruction.pdf]]
+    
+- 2023-08-03 -- 2022-08-24
+- 分析实验数据
+- 测量物理模型参数
+- 发现物理规律
+- 黑盒分数按排名
+  + 在不同大作业之间归一化
+
+*** 实验测量的分析
+    - 输入 :: （模拟的）实验测量原始数据
+      + 如果不是模拟的，则无法评分
+      + 但是助教会尽可能把它做得和真的一样
+    - 输出 :: 物理对象的信息
+    - 采分 :: 与助教手中的模拟输入相比
+
+**** 第二阶段分组
+- 同学们先联络好，组队信息在网络学堂提交
+  + 到 https://physics-data.meow.plus 注册账号，一并提交
+  + 可能需要重新组队
+- 每队至多三人
+  - 单人队：大作业得分 $\times 1.03$
+  - 三人队：每人大作业得分 = 队伍得分 $\times 0.95$
+  - 不同队伍间请勿直接交换代码
+#+beamer: \pause
+- 如果大作业结果含有学术突破，总评保送 A+。
+*** https://physics-data.meow.plus 的使用
+1. 注册账号：注意邮箱的“垃圾箱”等，如果收到不到注册邮件尝试更换邮箱
+   + 遇到困难开 issue 提问
+
+2. 找到大作业的位置
+
+   注意平台上还有很多其它的作业，不要走错了
+   
+   - https://physics-data.meow.plus/challenges/pd2023-gamma
+   - https://physics-data.meow.plus/challenges/pd2023-muon
+   - https://physics-data.meow.plus/challenges/pd2023-spectroscopy
+
+3. 前往 "submissions" 选项卡，点击 "CREATE SUBMISSION"
+
+   - 上传你的解答文件。
+
+*** 大作业的可复现性
+**** _复现_ 原则的要求                                       :B_exampleblock:
+     :PROPERTIES:
+     :BEAMER_env: exampleblock
+     :END:
+     
+提交到 https://physics-data.meow.plus 的结果必须可复现，否则无效。
+
+**** 思路和要点
+- 组队完成后，将获得
+  
+  https://git.tsinghua.edu.cn/physics-data/2023/project_2
+
+  之下的仓库一份，使用 GNU Make 构建整个分析流程，连同报告、程序整理到
+  仓库中。
+
+  + 注意小组分工中 Git 使用的规范
+  + 善于使用 Git =branch=, Gitlab =merge request= 等团队协作功能
+
+- 把流程系统化成输入、输出与过程三要素。
+  - 而向数据编程，data-driven programming
+- 系统表达输入数据、输出数据和中间结果的依赖关系，
+  + 成为“可执行的说明文档”
+*** 具体说明
+- gamma :: 刘学伟
+  - 粒子物理方向：台山中微子实验的成像原理探索
+  - Ghost Hunter 2023 课赛结合
+- muontagging :: 刘明昊
+  - 宇宙射线缪子的测量与屏蔽
+- spectroscopy :: 吴致颉
+
 ** 总复习
 *** 黑客技能
 **** 科学数据处理的原则                                        :B_alertblock:
@@ -9720,94 +9842,7 @@ With four parameters I can fit an elephant, and with five I can make him wiggle 
 
       bsub -q normal"${DEP}" -J ${MAKE_TARGET} -o ${MAKE_TARGET}.log ${MAKE_TARGET}.sh
     #+end_src
-** 计算历史
-*** 计算历史：大型机
-    #+Attr_LaTeX: :height 0.7\textheight
-    [[./fig/main-frame.jpg]]
 
-    - 一台大型计算机，用户通过终端 (Terminal) 连接
-*** 计算历史：个人计算机
-    - 1981年
-
-    #+Attr_LaTeX: :height 0.7\textheight
-    [[./fig/ibm-pc.jpg]]
-*** 计算历史：个人计算机组成集群
-    - 1990s 个人计算机组成集群 "beowulf"
-
-      #+Attr_LaTeX: :height 0.65\textheight
-      [[./fig/computer-cluster.jpg]]
-
-*** 高性能计算与超级计算机
-    #+attr_latex: :height 6cm
-    [[./fig/supercomputer.jpg]]
-
-    - 更大的计算机集群，优化节点间的通信，共享存储。
-    - 软件环境如何配置？
-** 软件分发与环境整合
-*** 概念
-     #+BEGIN_SRC dot :file distribution.pdf
-       digraph distribution {
-
-       node [shape=box]
-       U0[label = "上游作者\nSeaborn"]
-       U1[label = "上游作者\nNumPy"]
-       U2[label = "上游作者\nmake"]
-       U3[label = "上游作者\nSQLite"]
-       U1 -> D1
-       U2 -> D1
-       U3 -> D1
-       D1[label = "环境整合\nDebian\nArch\nUbuntu\nGentoo\nConda"]
-       U1 -> D2
-       U0 -> D2
-       D2[label = "语言管理\npip\n"]
-       D1 -> S
-       D2 -> S
-       S[label = "用户环境"]
-       }
-     #+END_SRC
-
-     #+attr_latex: :height 6cm
-     #+RESULTS:
-     [[file:distribution.pdf]]
-
-     - =pip= 没有整合测试，只适合早期试验个别最新 Python 软件，长期维护性差。
-     - 整体生产方案对应多种软件的稳定版本，经过应跨语言整合测试。
-*** 环境整合分发方案
-    - 第三方测试整合提供环境，防止被某上游垄断并偷藏私货
-      - Malicious PyPI package opens backdoors on Windows, Linux, and Macs
-        #+begin_example
-        Allows a remote attacker to gain unauthorized access to the application.
-        #+end_example
-      - =pip= 的软件没有经过第三方测试验证，使用意味者相信上游软件作者。
-      - 环境整合方案会有负责安全、兼容和性能的团队，有大量同样环境的用户反馈问题。
-    - Debian/Arch/Gentoo 志愿者形态与 Ubuntu/Conda 公司免费形态
-      - 志愿者形态的开发团队没有利益关系，人们由于共同的兴趣走到一起。
-        - 无人能强制整个项目的走向，集体决策。
-      - 公司免费形态利用免费服务吸引用户，构建潜在的客户池或者暗藏广告潜移默化改造用户。
-        - 产品服务于公司的盈利或扩大影响的战略，代码由雇工产生。
-**** 不推荐用作科学计算和数据分析
-      - Ubuntu 的源代码 95% 从 Debian （合法）复制，外加公司定制
-      - Conda 的依赖关系的计算效率极低，但在公司层面调动外宣经费公关推广
-*** 只有普通用户权限
-    - 安装和升级软件需要系统管理员权限，具体体现为在 =apt= 前加 =sudo= 。
-    - 课题组共享的服务器、超算中心的登录节点无权限怎么办？用户态软件管理
-
-    |               | 成熟的     | 去中心     | 海量软件   | 超算中心   | 续本达                |
-    |               | 管理工具   | 研发       | +物理学  | 采用       | 召集                  |
-    |---------------+------------+------------+------------+------------+-----------------------|
-    | Gentoo Prefix | \checkmark | \checkmark | \checkmark | \checkmark | \checkmark \checkmark |
-    | nix/guix     | \checkmark | \checkmark | \checkmark |            |                       |
-    | Spack         | \checkmark |            |            | \checkmark |                       |
-    | conda / mamba |            |            |            |            |                       |
-**** 参考
-     #+latex: {\scriptsize
-     Benda Xu, G. Amadio, F.Grffen, and M. Haubenwallner. “Gentoo Prefix as a Physics Software Manager.” EPJ Web of Conferences 245 (2020): 05036.
-     #+latex: }
-*** 推荐：软件管理与环境配置
-    #+latex: {\Huge
-    - 自己的机器用 Debian
-    - 别人的机器用 Gentoo Prefix
-    #+latex: }
 ** 讲义
 *** 建设状况
     - https://git.tsinghua.edu.cn/physics-data/lecture
@@ -9842,7 +9877,7 @@ head -q -n1 lecture/l*.org
      :PROPERTIES:
      :BEAMER_col: 0.45
      :END:
-     - 给讲义仓库提 issue 和 merge request ，可获得伍分。
+     - 给讲义仓库提 issue 和 merge request ，可获得伍至捌分。
 ** 下一步学习
 *** 数据时代的物理技能
     [[./out/Data_Science_VD-migrate.pdf]]
@@ -9885,39 +9920,10 @@ head -q -n1 lecture/l*.org
     - TUNA 技术群，黑客（广义）技术问题探讨
 *** 致谢
     #+attr_beamer: :overlay <+->
-    - 顾问 :: 宁传刚教授、曾鸣教授、郑鈜壬
-    - 助教 :: 学长学姐们
-      - 张卓婧、陈晟祺、陈嘉杰、刘晓义、王宇逸、刘一芃、于明杨、高一川、张爱强、刘学伟、武益阳
-    - 小助教 :: 苟诗涵、晏越、陈泽洲、吴限来、赵一飞、吴震鹏
+    - 顾问 :: 杨鲁懿教授、高飞教授、陈晟祺、陈嘉杰
+    - 助教 ::
+      王宇逸、刘晓义、刘学伟、刘明昊、盘笛、徐闯、陶嘉燊、孙迅、吴致颉、刘逸祺
+    - 小助教 :: 李卓航、温欣洋、胡楚坤、陈诗洋、许威、徐一恺、胡宇阳、卢一鸣、宋明卓
+    - 科协 :: 物理系科协环境配置培训，担任助教；工物系科协提供算力支持；
+      计算系科协提供 saiblo 平台，第二阶段大作业平台，担任助教。
     - 克服困难上课的同学们 :: 谢谢！
-** 答疑
-*** C 盘已满，把 WSL 移动到其它盘
-    1. =wsl -l --all -v=
-
-        列出所有的 WSL 环境，确定要升级环境的名称
-    2. =wsl --export debian e:\\wsl-20220804.tar=
-
-        备份当前环境到 =E:= 盘
-    3. =wsl --unregister debian=
-
-        注销 WSL 环境
-    4. =wsl --import debian d:\\debian e:\\wsl-20220804.tar=
-
-        导入刚备份的环境到 =D:= 盘
-    
-    5. =debian config --default-user heroxbd=
-
-        导入后默认用户会变成 root，这一步把默认用户修改回来（把 heroxbd 改回自己的 WSL 内用户名）
-*** 如何升级 WSL 中的操作系统
-    1. =wsl --export Ubuntu-20.04 e:\\wsl-20220804.tar=
-
-       备份已有 Ubuntu 环境到 =E:= 盘
-    2. 把 Ubuntu 20.04 升级到 Debian 11
-       - 修改 APT 源
-       - =apt update=
-       - =apt full-upgrade=
-**** 参考资料： Ubuntu 14.04 升级到 Debian 10
-     #+latex: {\scriptsize
-     http://hep.tsinghua.edu.cn/~orv/distfiles/20201102-Ubuntu_Debian10.mp4
-     #+latex: }
-
