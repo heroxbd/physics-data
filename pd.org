@@ -9878,6 +9878,8 @@ head -q -n1 lecture/l*.org
      :BEAMER_col: 0.45
      :END:
      - 给讲义仓库提 issue 和 merge request ，可获得伍至捌分。
+     - 一次原则的应用：把讲议与课件写到一起
+       + 把课堂口述内容通过 speech-to-text 引擎合成文字
 ** 下一步学习
 *** 数据时代的物理技能
     [[./out/Data_Science_VD-migrate.pdf]]
@@ -9913,9 +9915,26 @@ head -q -n1 lecture/l*.org
 **** 竞赛
     - gamma 大作业 \to Ghost Hunter 2023 中微子数据分析排位赛
       - 概率统计分析及量测技术课赛结合
+*** 技术问题：TUNA 协会
+    - 清华大学学生开源软件与网络技术协会
+    - TUNA 主页 https://tuna.moe/
+    - TUNA 技术群，黑客（广义）技术问题探讨
+*** 暑期实习
+如果你觉得配环境是一个非常快乐的事，并且经常帮助同学配环境。
+
+计算环境的可复现性是而容易被忽视，但也最重要的环节。
+
+- Google Summer of Code：Google
+  + Gentoo、Debian 操作系统相关项目
+- 开源之夏活动：中科院软件所、华为、TUNA
+  + Gentoo、Debian 操作系统相关项目
+
+- 脱去资本枷锁，为人类数字化的自由而战(bs，有点中二
+
 *** SRT 与大创：Scheme
 如果你认同实验物理与形式逻辑是文明的两大支柱，并喜欢课程的内容，可以考虑与我继续探索：
 
+#+beamer: \pause
 - 分析力学的 Scheme 描述
   + Structure and Interpretation of Classical Mechanics, MIT 本科课程
   + 分析力学完成后，计算拓展至量子力学和电动力学
@@ -9926,10 +9945,6 @@ head -q -n1 lecture/l*.org
   + 语言 Anglican ，为 Clojure 语言的一种
   + Clojure 语言是 Scheme 语言在 Java 平台上的实现
 
-*** 技术问题：TUNA 协会
-    - 清华大学学生开源软件与网络技术协会
-    - TUNA 主页 https://tuna.moe/
-    - TUNA 技术群，黑客（广义）技术问题探讨
 *** 致谢
     #+attr_beamer: :overlay <+->
     - 顾问 :: 杨鲁懿教授、高飞教授、陈晟祺、陈嘉杰
