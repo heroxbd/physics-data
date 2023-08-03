@@ -9912,13 +9912,24 @@ head -q -n1 lecture/l*.org
     - MapReduce：分布式大数据系统的开始
       - 在之上建立了关系代数：
       - Apache Hive，SparkQL，etc.
+    - 机器学习：与回归分析有同样的程序接口
+      - 算法上更一般，需要更多的“调参”
 **** 竞赛
     - gamma 大作业 \to Ghost Hunter 2023 中微子数据分析排位赛
       - 概率统计分析及量测技术课赛结合
+        
 *** 技术问题：TUNA 协会
     - 清华大学学生开源软件与网络技术协会
     - TUNA 主页 https://tuna.moe/
     - TUNA 技术群，黑客（广义）技术问题探讨
+    - 为课程提供了
+      + Gentoo 的镜像支持
+
+        https://mirrors.tuna.tsinghua.edu.cn/gentoo/
+
+      + Debian 的镜像支持
+
+        https://mirrors.tuna.tsinghua.edu.cn/debian/
 *** 暑期实习
 如果你觉得配环境是一个非常快乐的事，并且经常帮助同学配环境。
 
@@ -9929,6 +9940,7 @@ head -q -n1 lecture/l*.org
 - 开源之夏活动：中科院软件所、华为、TUNA
   + Gentoo、Debian 操作系统相关项目
 
+#+beamer: \pause
 - 脱去资本枷锁，为人类数字化的自由而战(bs，有点中二
 
 *** SRT 与大创：Scheme
