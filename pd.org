@@ -9934,10 +9934,15 @@ head -q -n1 lecture/l*.org
       + Debian 的镜像支持
 
         https://mirrors.tuna.tsinghua.edu.cn/debian/
+
+    - 为大家提供了
+      + 清华大学学位论文 LaTeX 模版 =thuthesis=
 *** 暑期实习
 如果你觉得配环境是一个非常快乐的事，并且经常帮助同学配环境。
 
 计算环境的可复现性是而容易被忽视，但也最重要的环节。
+
+#+beamer: \pause
 
 - Google Summer of Code：Google
   + Gentoo、Debian 操作系统相关项目
