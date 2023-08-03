@@ -9779,6 +9779,7 @@ With four parameters I can fit an elephant, and with five I can make him wiggle 
     - 问题
       1. 数据处理技术发展停滞，违反“最佳工具”原则
       2. 新成员需要花精力学习旧技术，人力浪费
+    #+beamer:\pause
     - 解决方案：test-driven development
 
 *** 自制二进制格式
@@ -9787,6 +9788,7 @@ With four parameters I can fit an elephant, and with five I can make him wiggle 
       1. 除了指定的 C++ 工具库，无法读取中间结果，违反“透明”原则
       2. 新成员必须学习非通用的数据接口和方法，门槛高且无用
       3. 数据格式与库深层绑定，必须同步升级，新库无法读取旧数据
+    #+beamer:\pause
     - 解决方案：使用指定语言，以最小代码开发不透明数据到透明关系数据（例如 HDF5）的转换器
       - 数据格式转换器比函数跨语言调用更可靠，有效解耦合
       - 如 Python 调用 C++ 和 R 容易出现内存管理问题。
@@ -9796,6 +9798,7 @@ With four parameters I can fit an elephant, and with five I can make him wiggle 
     - 问题
       1. 格式已经被上游团队遗弃，除了指定的 Fortran 77 工具库，无法读取原始数据，违反“透明”原则
       2. 无法升级，必须维护旧计算环境才能运行 g77-3.4 （2004 年版本）
+    #+beamer:\pause
     - 解决方案：使用新 Fortran 语言研发 Zebra 到 HDF5 的转换器
 
 *** 自制 Python 驱动的批量处理流水线
@@ -9812,6 +9815,7 @@ With four parameters I can fit an elephant, and with five I can make him wiggle 
                os.system('python %s %s' % (script, parg))
          #+end_src
       2. 流水线验证 flag 文件是否存在来确定是否成功执行，误判多，难以 debug
+    #+beamer:\pause
     - 解决方案：使用 GNU Make 构建流水线
       - =make= 默认使用 =/bin/sh= 执行命令。 =SHELL=/bin/sh=
       - 把 =SHELL= 换成提交任务给超级计算机集群的脚本
