@@ -9958,7 +9958,7 @@ head -q -n1 lecture/l*.org
 #+beamer: \pause
 - 分析力学的 Scheme 描述
   + Structure and Interpretation of Classical Mechanics, MIT 本科课程
-  + 分析力学完成后，计算拓展至量子力学和电动力学
+  + 分析力学完成后，计划拓展至量子力学和电动力学
 
 #+beamer: \pause
 - 自动推理机：
