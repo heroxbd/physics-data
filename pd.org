@@ -9911,9 +9911,21 @@ head -q -n1 lecture/l*.org
       - 在之上建立了关系代数：
       - Apache Hive，SparkQL，etc.
 **** 竞赛
-    - JUNO 大作业 \to Ghost Hunter 2022 中微子数据分析排位赛
+    - gamma 大作业 \to Ghost Hunter 2023 中微子数据分析排位赛
       - 概率统计分析及量测技术课赛结合
-    - GRID 大作业 \to 2022 天格联盟邀请赛
+*** SRT 与大创：Scheme
+如果你认同实验物理与形式逻辑是文明的两大支柱，并喜欢课程的内容，可以考虑与我继续探索：
+
+- 分析力学的 Scheme 描述
+  + Structure and Interpretation of Classical Mechanics, MIT 本科课程
+  + 分析力学完成后，计算拓展至量子力学和电动力学
+
+#+beamer: \pause
+- 自动推理机：
+  + 利用第一阶段大作业成果，直接生成第二阶段大作业的解答程序
+  + 语言 Anglican ，为 Clojure 语言的一种
+  + Clojure 语言是 Scheme 语言在 Java 平台上的实现
+
 *** 技术问题：TUNA 协会
     - 清华大学学生开源软件与网络技术协会
     - TUNA 主页 https://tuna.moe/
