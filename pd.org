@@ -1851,7 +1851,7 @@ c = (a+b) * (a-b)
 magic(r=real, i=imag)
       #+end_src
 *** 辅助工具
-    - pylint3
+    - pylint
     #+begin_src bash :exports both
       apt install pylint # Debian
       emerge -vt pylint # Gentoo
