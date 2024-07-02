@@ -36,54 +36,50 @@ fig.set_dpi({dpi})
 #+end_src
 
 * 总论
-  :PROPERTIES:
-  :EXPORT_FILE_NAME: p0
-  :EXPORT_DATE: 2023-07-10 清华
-  :EXPORT_BEAMER_HEADER+: \author{续本达}
-  :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
-  :EXPORT_BEAMER_HEADER+: \setbeamertemplate{footline}[frame number]  
-  :EXPORT_BEAMER_THEME: Hannover
-  :EXPORT_BEAMER_FONT_THEME: professionalfonts
-  :END:
+:PROPERTIES:
+:EXPORT_FILE_NAME: p0
+:EXPORT_DATE: 2024-07-02 清华
+:EXPORT_BEAMER_HEADER+: \author{续本达}
+:EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
+:EXPORT_BEAMER_HEADER+: \setbeamertemplate{footline}[frame number]  
+:EXPORT_BEAMER_THEME: Hannover
+:EXPORT_BEAMER_FONT_THEME: professionalfonts
+:END:
 ** 认识大家
 *** 自我介绍
-    - 2005-2009 :: 在数理基科学习 （科协）
-    - 2009-2018 :: 在日本神冈地下实验室，学习研究中微子和暗物质
-    - 2018-至今 :: 在工程物理系近代物理研究所任教
+- 2005-2009 :: 在数理基科学习 （科协）
+- 2009-2018 :: 在日本神冈地下实验室，学习研究中微子和暗物质
+- 2018-至今 :: 在工程物理系近代物理研究所任教
 
-    - 主要工作：锦屏中微子实验
-    - 合作研究
-      1. JUNO 江门中微子实验
-      2. 日本 SuperK 超级神冈实验
-      3. 日本 XMASS 暗物质实验
-    - 研究兴趣：中微子质量、核子衰变、地球中微子
-    - 爱好：大数据分析、高性能计算、系统架构运维
+- 主要工作：锦屏中微子实验
+- 合作研究
+  1. JUNO 江门中微子实验
+  2. 日本 SuperK 超级神冈实验
+- 研究兴趣：中微子质量、核子衰变、地球中微子
+- 爱好：大数据分析、高性能计算、系统架构运维
 
 *** 教学团队
-    #+attr_beamer: :overlay <+->
 **** 助教
-      - 王宇逸 :: 物理系本科毕业（科协），工物系博士生
-      - 刘晓义 :: 计算机系本科毕业，物理系后援
-      - 刘学伟 :: 工物系本科毕业、博士生
-      - 刘明昊 :: 物理系本科生（科协）
-      - 盘笛 :: 物理系本科生（科协）
-      - 徐闯 :: 工物系本科毕业、博士生
-      - 陶嘉燊 :: 物理系本科毕业
-      - 孙迅 :: 计算机系本科毕业（科协）
-      - 吴致颉 :: 物理系本科毕业，德国马普所博士生
-      - 陈嘉杰（线上） :: 计算机系本科毕业（科协）、博士生
+#+attr_beamer: :overlay <+->
+- 张爱强 :: 工物系本科毕业、博士生
+- 王宇逸 :: 物理系本科毕业，工物系博士生
+- 武益阳 :: 物理系本科毕业，工物系博士生
+- 徐闯 :: 工物系本科毕业、博士生
+- 郝传晖 :: 物理系本科毕业，工物系博士生
+- 刘逸祺 :: 工物系本科毕业、博士生
+- 陶嘉燊 :: 物理系本科毕业
 *** 教学团队（续）
 **** 顾问
-      - 陈晟祺 :: 计算机系本科毕业、博士生
+- 陈晟祺 :: 计算机系本科毕业、博士生
 **** 小助教
-- 已经有 5 位同学自荐，请踊跃报名。
+- 请踊跃报名。
 **** 算力支持
-工物系科协
+物理系科协（somnia）、工物系科协（cat）
 ** 为什么
 *** 我为什么在这里？
 #+beamer: \pause
 **** 培养方案要求？
-  + 本课程的“性价比很低”！（由某巨佬结课后评价道）
++ 本课程的“性价比很低”！（由某巨佬结课后评价道）
 ***** 班主任的观察 :B_block:
 :PROPERTIES:
 :BEAMER_env: block
@@ -111,143 +107,144 @@ fig.set_dpi({dpi})
 
 *** 释义
 **** 什么是“实验物理”                                        :B_exampleblock:
-     :PROPERTIES:
-     :BEAMER_env: exampleblock
-     :END:
+:PROPERTIES:
+:BEAMER_env: exampleblock
+:END:
 
-     - 一切费电的物理！
+- 一切费电的物理！
 
-       “理论学家费纸，实验学家费电，理论实验物理学家费米”
+  “理论学家费纸，实验学家费电，理论实验物理学家费米”
 
-       - 欧洲核子中心(CERN)一年用电约 \SI{1.3}{\tera\watt\hour}。
+  - 欧洲核子中心(CERN)一年用电约 \SI{1.3}{\tera\watt\hour}。
 
-         北京东城区西城区2016年用电总量 \SI{10.1}{\tera\watt\hour}，人口 200 万。
-     #+beamer: \pause
-     - 观察物理现象的学科
-       - 控制物理现象发生的环境？是 \to “实验”(狭义)；否 \to “观测”。
-       - 实验物理的目标：发现物理规律，包括测量物理常数。
+    北京东城区西城区2016年用电总量 \SI{10.1}{\tera\watt\hour}，人口 200 万。
+#+beamer: \pause
+- 观察物理现象的学科
+  - 控制物理现象发生的环境？是 \to “实验”(狭义)；否 \to “观测”。
+  - 实验物理的目标：发现物理规律，包括测量物理常数。
 
-         从取得的数据出发，进行统计推断，证伪物理规律的假设。
+    从取得的数据出发，进行统计推断，证伪物理规律的假设。
 
 **** 什么是“大数据”
 
-     商业概念。“大”是相对的，大数据是指无法用一台计算机处理的数据。
+商业概念。“大”是相对的，大数据是指无法用一台计算机处理的数据。
 
 *** 实验物理与计算机
-    - 逻辑电路的起源
-      - 盖革计数器，电离辐射通过时给出脉冲信号
-      - 需要构造：顶端探测器无计数，中间有计数的逻辑
-      - 真空电子管“与”、“或”、“非”等逻辑门出现
-      - 真空电子管通用电子计算机：ENIAC （1945）
-    - 中子和辐射输运问题
-      - 第一代电子计算机大多用来进行 Metropolis Monte Carlo 算法
-      - 模拟预测氢弹中的输运过程
-    - 半导体逻辑电路
-      - 晶体管替代真空电子管
-      - 计算机功耗和体积大幅减小
-    - Monte Carlo 算法成为大型物理实验设计的一部分
+- 逻辑电路的起源
+  - 盖革计数器，电离辐射通过时给出脉冲信号
+  - 需要构造：顶端探测器无计数，中间有计数的逻辑
+  - 真空电子管“与”、“或”、“非”等逻辑门出现
+  - 真空电子管通用电子计算机：ENIAC （1945）
+- 中子和辐射输运问题
+  - 第一代电子计算机大多用来进行 Metropolis Monte Carlo 算法
+  - 模拟预测氢弹中的输运过程
+- 半导体逻辑电路
+  - 晶体管替代真空电子管
+  - 计算机功耗和体积大幅减小
+- Monte Carlo 算法成为大型物理实验设计的一部分
 *** 计算历史：大型机
-    #+Attr_LaTeX: :height 0.7\textheight
-    [[./fig/main-frame.jpg]]
+#+Attr_LaTeX: :height 0.7\textheight
+[[./fig/main-frame.jpg]]
 
-    - 一台大型计算机，用户通过终端 (Terminal) 连接
+- 一台大型计算机，用户通过终端 (Terminal) 连接
+
 *** 计算历史：个人计算机
-    - 1981年
+- 1981年
 
-    #+Attr_LaTeX: :height 0.7\textheight
-    [[./fig/ibm-pc.jpg]]
+#+Attr_LaTeX: :height 0.7\textheight
+[[./fig/ibm-pc.jpg]]
+
 *** 计算历史：个人计算机组成集群
-    - 1990s 个人计算机组成集群 "beowulf"
+- 1990s 个人计算机组成集群 "beowulf"
 
-      #+Attr_LaTeX: :height 0.65\textheight
-      [[./fig/computer-cluster.jpg]]
+  #+Attr_LaTeX: :height 0.65\textheight
+  [[./fig/computer-cluster.jpg]]
 
 *** 高性能计算与超级计算机
-    #+attr_latex: :height 6cm
-    [[./fig/supercomputer.jpg]]
+#+attr_latex: :height 6cm
+[[./fig/supercomputer.jpg]]
 
-    - 更大的计算机集群，优化节点间的通信，共享存储。
-    - 软件环境如何配置？
+- 更大的计算机集群，优化节点间的通信，共享存储。
+- 软件环境如何配置？
 *** 大物理与大数据
+- 大型物理实验，产生大数据，多台计算机协同工作：分布式计算。
+- 跨地理的分布式计算称为“网格”(grid)，在早期促进和影响了互联网的发
+  展。
 
-    - 大型物理实验，产生大数据，多台计算机协同工作：分布式计算。
-    - 跨地理的分布式计算称为“网格”(grid)，在早期促进和影响了互联网的发
-      展。
+  - FAST 天眼：每年@@latex:$\SI{\sim 1}{\peta B} = \SI{1e15}{B}$@@。
+  - JUNO 江门中微子实验：每年 \(\SI{\sim 2}{\peta B}\) 。
 
-      - FAST 天眼：每年@@latex:$\SI{\sim 1}{\peta B} = \SI{1e15}{B}$@@。
-      - JUNO 江门中微子实验：每年 \(\SI{\sim 2}{\peta B}\) 。
+- CERN 在 90 年代决定使用 Intel 民用计算机组成的集群来完成 LHC 的计
+  算任务，是个人电脑级硬件集群成为科学计算主流的标志。
 
-    - CERN 在 90 年代决定使用 Intel 民用计算机组成的集群来完成 LHC 的计
-      算任务，是个人电脑级硬件集群成为科学计算主流的标志。
+  - X86(Intel 和 AMD) 计算集群是当今大数据工业界的主流配置。
 
-      - X86(Intel 和 AMD) 计算集群是当今大数据工业界的主流配置。
+- 近年来，大数据方法独立于实验物理，被工业界广泛采用，与神经网络结
+  合，催生了“深度神经网络”，或“深度学习”。
 
-    - 近年来，大数据方法独立于实验物理，被工业界广泛采用，与神经网络结
-      合，催生了“深度神经网络”，或“深度学习”。
-
-      - 一系列新方法被应用到实验物理。
+  - 一系列新方法被应用到实验物理。
 *** 此课在知识体系中的地位
-    - 这是一个数据的时代。
-    - 数据时代需要 *黑客技术* Hacking Skills、 *数理统计* Math & Statistics Knowledge 、 *专业知识* Substantive Expertise 等多方面技能。
+- 这是一个数据的时代。
+- 数据时代需要 *黑客技术* Hacking Skills、 *数理统计* Math & Statistics Knowledge 、 *专业知识* Substantive Expertise 等多方面技能。
 
-    #+Attr_LaTeX: :height 0.65\textheight
-    [[./fig/Data_Science_VD-r1.pdf]]
+#+Attr_LaTeX: :height 0.65\textheight
+[[./fig/Data_Science_VD-r1.pdf]]
 *** 技能树
-    #+Attr_LaTeX: :height 0.4\textheight
-    [[./fig/Data_Science_VD.png]]
+#+Attr_LaTeX: :height 0.4\textheight
+[[./fig/Data_Science_VD.png]]
 
-    1. 本课程目标为数理大类的同学补齐 *黑客技术* 。
-    2. 警惕 *Danger Zone!* 。
-       - 黑客技术 :: 人类掌握工具的最高水平
-       - 数学与统计 :: 人类理性思维的最高水平，欢迎选修《概率统计分析及量测技术》
-    3. *专业知识* 根据自己的兴趣选择。
-       - 物理学的思维方式和实践方法是一切专业知识的标杆。
-    4. 本科时代要积极认真学习以上硬知识。
+1. 本课程目标为数理大类的同学补齐 *黑客技术* 。
+2. 警惕 *Danger Zone!* 。
+   - 黑客技术 :: 人类掌握工具的最高水平
+   - 数学与统计 :: 人类理性思维的最高水平，欢迎选修《概率统计分析及量测技术》
+3. *专业知识* 根据自己的兴趣选择。
+   - 物理学的思维方式和实践方法是一切专业知识的标杆。
+4. 本科时代要积极认真学习以上硬知识。
 *** 物理学是“硬科学”
-    以知识的量化程度排序：
+以知识的量化程度排序：
 
-    #+attr_beamer: :overlay <+->
-    - 0类学科：努力区分偶然统计关联和因果关系
+#+attr_beamer: :overlay <+->
+- 0类学科：努力区分偶然统计关联和因果关系
 
-      - 到底哪些是决定性因素？
+  - 到底哪些是决定性因素？
 
-      - X基因决定了此性状，Y基因决定了此性状？XY一起决定？
-      - $X \bar{Y}$ ， $\bar{X} Y$ ？
+  - X基因决定了此性状，Y基因决定了此性状？XY一起决定？
+  - $X \bar{Y}$ ， $\bar{X} Y$ ？
 
-    - 1类学科：努力确认变量之间影响的趋势
+- 1类学科：努力确认变量之间影响的趋势
 
-      - “房价加速增长的势头得到遏制”
+  - “房价加速增长的势头得到遏制”
 
-    - A类学科：努力算出具体的数字
+- A类学科：努力算出具体的数字
 
-      - 地球的年龄是46亿年，45--47亿年，还是 46--48 亿年？
+  - 地球的年龄是46亿年，45--47亿年，还是 46--48 亿年？
 
-    - Z类学科：没有不确定度的结果不是科学结论！
-     
-      - 电子磁矩，以玻尔磁子 $\mu_B$ 为单位
+- Z类学科：没有不确定度的结果不是科学结论！
+ 
+  - 电子磁矩，以玻尔磁子 $\mu_B$ 为单位
 
-        \[ g/2 = 1.001 159 652 180 73 (28) \]
+    \[ g/2 = 1.001 159 652 180 73 (28) \]
 
-        Ref: Phys.Rev.Lett.100:120801,2008
+    Ref: Phys.Rev.Lett.100:120801,2008
 ** 课程概论
 *** 数据分析的指导原则
 
-    #+attr_beamer: :overlay <+->
-    - “复现”原则 :: 以人类语言和计算机语言的形式，详细记录每一步计算。
+#+attr_beamer: :overlay <+->
+- “复现”原则 :: 以人类语言和计算机语言的形式，详细记录每一步计算。
 
-       这是科学的基本精神，与可证伪性一起，是区分科学与伪科学的标志。
+   这是科学的基本精神，与可证伪性一起，是区分科学与伪科学的标志。
 
-    - “透明”原则 :: 每一步的数据都应尽量可以被人类直接阅读，比如 JSON, CSV。如果不得
-       不用二进制模式，一定是使用最普遍最开放的格式，比如 HDF5。
+- “透明”原则 :: 每一步的数据都应尽量可以被人类直接阅读，比如 JSON, CSV。如果不得
+   不用二进制模式，一定是使用最普遍最开放的格式，比如 HDF5。
 
-    - “一次”原则 :: Single Point of Truth, Don't Repeat Yourself. 不可在分析做任何
-       重复，任何有意义的信息都应该被共享。
+- “一次”原则 :: Single Point of Truth, Don't Repeat Yourself. 不可在分析做任何
+   重复，任何有意义的信息都应该被共享。
 
-    - “最佳工具”原则 :: 尽量使用高级语言和语法糖，为每个子任务选择合适的工具。只有在性能
-       分析之后，才在必要时使用低级语言进行性能加速。
+- “最佳工具”原则 :: 尽量使用高级语言和语法糖，为每个子任务选择合适的工具。只有在性能
+   分析之后，才在必要时使用低级语言进行性能加速。
 
-       - 最佳工具会随时间变化，因此课程名不是 +Python 数据处理与科学计算+
-       - 推论：入手研究之前，应当优先调研现有工具。
+   - 最佳工具会随时间变化，因此课程名不是 +Python 数据处理与科学计算+
+   - 推论：入手研究之前，应当优先调研现有工具。
 
 *** 课程内容
     - 以实验物理为主题，学习大数据方法的基础。
@@ -256,42 +253,43 @@ fig.set_dpi({dpi})
       3. 培养工具的品位，针对具体场景选择合适的工具
 #+beamer: \pause
 **** 计划安排
-     - 实验物理的大数据方法(1) 三教1103
-       - 第一周 :: Git 入门，Python 入门
-       - 第二周 :: Python 科学计算与可视化
-     - 实验物理的大数据方法(2) 三教1102
-       - 第三周 :: 数据处理的命令行工具
-       - 第四周 :: 基于关系代数的数据组织
-     - 上课：周一至周四，三四大节
-     - 答疑：周一至周四课后 4:55--5:30
+- 实验物理的大数据方法(1) 经管新楼A119
+  - 第一周 :: Git，Python 基础
+    + 周二至周五，三四大节
+  - 第二周 :: Python 科学计算与可视化
+    + 周一至周四，三四大节
+- 实验物理的大数据方法(2) 经管新楼
+  - 第三周 :: 数据处理的命令行工具
+  - 第四周 :: 基于关系代数的数据组织
+- 答疑：课后 4:55--5:30
 *** 课程评估 按百分制记分 录入成绩时映射为等级
 **** 平时作业 62%
-     - 覆盖课堂学习的知识要点
-       - 平时作业中的 80% 为黑盒测试，20% 为白盒测试。
-       - 白盒测试重点考察：Git commit 的内容必须有意义，程序书写规范
+- 覆盖课堂学习的知识要点
+  - 平时作业中的 80% 为黑盒测试，20% 为白盒测试。
+  - 白盒测试重点考察：Git commit 的内容必须有意义，程序书写规范
 **** 大作业 30%
-     - 取材自实验物理不同方向的真实场景。也可以由同学自行提出。
-       - 分两个阶段，对应前两周“生成”和后两周“分析”，互为逆过程。
+- 取材自实验物理不同方向的真实场景。也可以由同学自行提出。
+  - 分两个阶段，对应前两周“生成”和后两周“分析”，互为逆过程。
 **** 捌分 8%
-     - 小助教(A)，贡献 FAQ 内容(B)，审校讲义内容(C)，课堂贡献(D)，娱乐作业(E)
-     - 计入总评 \( \min(8, \sqrt{A^2 + B^2 + C^2 + D^2 + E^2}) \)
+- 小助教(A)，贡献 FAQ 内容(B)，审校讲义内容(C)，课堂贡献(D)，娱乐作业(E)
+- 计入总评 \( \min(8, \sqrt{A^2 + B^2 + C^2 + D^2 + E^2}) \)
 *** 教材
-    - 自编讲义：《实验物理的大数据方法》
+- 自编讲义：《实验物理的大数据方法》
 **** 参考资料
-    - 往年课程录像：http://hep.tsinghua.edu.cn/~orv/teaching/physics-data/
+- 往年课程录像：http://hep.tsinghua.edu.cn/~orv/teaching/physics-data/
 **** 辅助资料
-      - Allen Downey, Think Python 2e
-      - Fernando Perez et al., Scipy Lecture Notes
-      - Jeroen Janssens, Data Science at the Command Line
-      - David MacKay, Information Theory, Inference, and Learning Algorithms
-      - https://learnxinyminutes.com/ 从已经有编程基础迅速入门 Python。
+- Allen Downey, Think Python 2e
+- Fernando Perez et al., Scipy Lecture Notes
+- Jeroen Janssens, Data Science at the Command Line
+- David MacKay, Information Theory, Inference, and Learning Algorithms
+- https://learnxinyminutes.com/ 从已经有编程基础迅速入门 Python。
 *** 大作业预告
-    - 课赛结合：Ghost Hunter 2023 中微子实验数据分析
-      - MeV Gamma 射线的能量沉积模型
-    - 粒子天体物理
-      - 宇宙射线缪子测量
-    - 凝聚态物理
-      - noise spectrometer
+- 课赛结合：Ghost Hunter 2023 中微子实验数据分析
+  - MeV Gamma 射线的能量沉积模型
+- 粒子天体物理
+  - 宇宙射线缪子测量
+- 凝聚态物理
+  - noise spectrometer
 
 **** 自定义                                                  :B_exampleblock:
      :PROPERTIES:
@@ -303,75 +301,79 @@ fig.set_dpi({dpi})
        2. 数据的输入和输出的定义与格式
        3. 数据分析结果的评价标准
 *** 有智慧地提问
-    - 遇到困难多求助
-      - 特别是那些可以把人“卡住”的“小”问题。一定不要自己扛，及时求助：
-        老师、助教、小助教。
-      - 学长忠告 +不要问我是怎么知道的系列+
-        #+beamer: \pause
-        - 不要用某度，用 Google 或 Bing 海外版
-        - 以 CSDN 为代表的中文网站 99% 的信息都是错的（或过时的）
-        - stackexchange 系列英文网站 70% 信息可信，其它英文网站 50% 可信
-        - 官方文档 100% 可信
-        - 综合多种信息来源，作出自己的判断，不要轻信小学生博主。
+- 遇到困难多求助
+  - 特别是那些可以把人“卡住”的“小”问题。一定不要自己扛，及时求助：
+    老师、助教、小助教。
+  - 学长忠告 +不要问我是怎么知道的系列+
     #+beamer: \pause
+    - 不要用某度，用 Google 或 Bing 海外版
+    - 以 CSDN 为代表的中文网站 99% 的信息都是错的（或过时的）
+    - stackexchange 系列英文网站 70% 信息可信，其它英文网站 50% 可信
+    - 官方文档 100% 可信
+    - 综合多种信息来源，作出自己的判断，不要轻信小学生博主。
+#+beamer: \pause
 **** [[http://www.catb.org/~esr/faqs/smart-questions.html][求助时要有智慧]] 作者 Eric Raymond
-    - 原则：让他人以最小的努力复现出你的问题
-      1. 不要这样说话： +救命! 我的程序坏了！哪位大神快来帮帮我！急！在线等！哭了！+
-      2. 使用最简洁的语言，借助最简单的例子描述问题
-        
-    - 原则：努力让你的问题使更多的人受益
-      1. 非隐私问题，尽可能公开提问，公开讨论。 _不要私信_
+- 原则：让他人以最小的努力复现出你的问题
+  1. 不要这样说话： +救命! 我的程序坏了！哪位大神快来帮帮我！急！在线等！哭了！+
+  2. 使用最简洁的语言，借助最简单的例子描述问题
+    
+- 原则：努力让你的问题使更多的人受益
+  1. 非隐私问题，尽可能公开提问，公开讨论。 _不要私信_
 *** 如何使用 Gitlab 提问和解答
 - issue （议题）
+  + 创建要讨论的问题；
+  + 注意指定 issue 的负责人。
 - merge request （合并请求）
+  + 提交代码审核。
 ** 计算环境
 *** GNU 环境
-    - POSIX 是 /Portable Operating System Interface/ 的缩写，是关于计算机
-      操作系统的国际标准。它规定了操作系统的基本工具和程序接口。
+- POSIX 是 /Portable Operating System Interface/ 的缩写，是关于计算机
+  操作系统的国际标准。它规定了操作系统的基本工具和程序接口。
 
-    - GNU 是 /GNU is not Unix/ 的缩写，是自由软件运动形成的 POSIX 环境。
+- GNU 是 /GNU is not Unix/ 的缩写，是自由软件运动形成的 POSIX 环境。
 
-    - 科学研究中时间和空间跨度都很大，需要使用公开的国际标准化接口，才
-      能满足 _复现_ _透明_ 和 _最佳工具_ 原则。
+- 科学研究中时间和空间跨度都很大，需要使用公开的国际标准化接口，才
+  能满足 _复现_ _透明_ 和 _最佳工具_ 原则。
 
 **** 可使用 GNU 环境的操作系统
-    - GNU/Linux :: 天然大佬。请帮助周围的同学，并自荐小助教。
-    - Apple macOS :: 使用 =Gentoo= 、 =homebrew= 、 =nix= 、 =macports= 配置
-    - Microsoft Windows :: 本身不满足，但可以使用以下扩展
-      1. Windows Subsystem for Linux (WSL)
-      2. Cygwin, MinGW
-    - 权威指南：https://physics-data.meow.plus/faq/
+- GNU/Linux :: 天然大佬。请帮助周围的同学，并自荐小助教。
+- Apple macOS :: 使用 =UTM= 虚拟机。
+  + 
+- Microsoft Windows :: 本身不满足，但可以使用以下扩展
+  1. Windows Subsystem for Linux (WSL)
+  2. Cygwin, MinGW
+- 权威指南：https://physics-data.meow.plus/faq/
 
 *** GNU 环境的基本操作
-    #+attr_beamer: :overlay <+->
-    - ls :: list structure, 列出当前路径中的文件
-    - cd :: change directory, 改变当前路径
-    - sudo :: 使用管理员权限执行操作
-    - apt :: Advanced Package Tool 软件管理器
-      - =apt update=
-      - =apt install nano diffutils patch=
-    - nano :: 文件编辑器，与 emacs, vi, VSCode 等互换
+#+attr_beamer: :overlay <+->
+- ls :: list structure, 列出当前路径中的文件
+- cd :: change directory, 改变当前路径
+- sudo :: 使用管理员权限执行操作
+- apt :: Advanced Package Tool 软件管理器
+  - =apt update=
+  - =apt install nano diffutils patch=
+- nano :: 文件编辑器，与 emacs, vi, VSCode 等互换
 
-      - 查找 =^W= 、替换 =^R= 、保存 =^O= 、退出 =^X=
+  - 查找 =^W= 、替换 =^R= 、保存 =^O= 、退出 =^X=
 
-         注： =^W= 代表按住 Ctrl 键，再按 W。
+     注： =^W= 代表按住 Ctrl 键，再按 W。
 *** 命令参数标准
-    - GNU 标准定义了推荐的参数格式
-    - =git config --global user.name "Benda Xu"= 
-    - 命令的各个部分由 *半角* 空格分隔
-      - 不作为分隔符的空格由 *半角* 引号标出
-    - 短参数：一条短线接一个字母
-      - =ls -a=
-      - =kill -9 xxxx=
-      - =sudo -s=
-      - 可以缩写在一起
-        - =ls -lrta=
-        - =sudo -sE=
-    - 长参数：两条短线接一个单词
-      - =ls --color=tty=
-      - =git show --pretty=short --show-signature=
-      - 由 GNU 推荐，是在 POSIX 标准之上的扩展
-    - 更多参数，使用 =man= 查看文档 =man ls=, =man git=
+- GNU 标准定义了推荐的参数格式
+- =git config --global user.name "Benda Xu"= 
+- 命令的各个部分由 *半角* 空格分隔
+  - 不作为分隔符的空格由 *半角* 引号标出
+- 短参数：一条短线接一个字母
+  - =ls -a=
+  - =kill -9 xxxx=
+  - =sudo -s=
+  - 可以缩写在一起
+    - =ls -lrta=
+    - =sudo -sE=
+- 长参数：两条短线接一个单词
+  - =ls --color=tty=
+  - =git show --pretty=short --show-signature=
+  - 由 GNU 推荐，是在 POSIX 标准之上的扩展
+- 更多参数，使用 =man= 查看文档 =man ls=, =man git=
 ** 学习建议
 *** 学术共同体意识
 - 我们在一个月的时间里，共同理解物理和逻辑，沉淀下来我们的探索过程
@@ -381,13 +383,13 @@ fig.set_dpi({dpi})
 - 客户端
 *** 编辑器
 **** 程序编辑器三大流派
-    - Emacs
-    - Vi
-    - Visual Studio Code
+- Emacs
+- Vi
+- Visual Studio Code
 
 ** 版本控制
 *** 版本控制
-    - “我和同学合写文章，结果他是在昨天的版本上改的！我还得重改！”
+- “我和同学合写文章，结果他是在昨天的版本上改的！我还得重改！”
 **** 发展历史
      #+attr_beamer: :overlay <+->
      - 石器时代 :: =实验报告-v1=, =实验报告-v2=, =实验报告-v2.2=, =实验报告-v2.2-续本达更新20190629= ……
@@ -449,15 +451,15 @@ fig.set_dpi({dpi})
 
        [[./fig/git-modes.png]]
 * Python 入门
-  :PROPERTIES:
-  :EXPORT_FILE_NAME: p1
-  :EXPORT_DATE: 2023-07-11 清华
-  :EXPORT_BEAMER_HEADER+: \author{续本达}
-  :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
-  :EXPORT_BEAMER_HEADER+: \setbeamertemplate{footline}[frame number]  
-  :EXPORT_BEAMER_THEME: Hannover
-  :EXPORT_BEAMER_FONT_THEME: professionalfonts
-  :END:
+:PROPERTIES:
+:EXPORT_FILE_NAME: p1
+:EXPORT_DATE: 2023-07-11 清华
+:EXPORT_BEAMER_HEADER+: \author{续本达}
+:EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
+:EXPORT_BEAMER_HEADER+: \setbeamertemplate{footline}[frame number]  
+:EXPORT_BEAMER_THEME: Hannover
+:EXPORT_BEAMER_FONT_THEME: professionalfonts
+:END:
 ** 准备与复习
 *** 预备
 - 查看是否已经安装 Python
@@ -478,26 +480,26 @@ fig.set_dpi({dpi})
   #+end_src
 
 *** 黑客审美
-    - 当代文明的两大支柱是 _实验_ 和 _逻辑_ 。
-    - 四个原则：
-      1. _复现_ - 否则成伪科学
-      2. _透明_ - 否则玄学黑箱
-      3. _一次_ - 否则到处是坑
-      4. _最佳工具_ - 否则效率低下
+- 当代文明的两大支柱是 _实验_ 和 _逻辑_ 。
+- 四个原则：
+  1. _复现_ - 否则成伪科学
+  2. _透明_ - 否则玄学黑箱
+  3. _一次_ - 否则到处是坑
+  4. _最佳工具_ - 否则效率低下
 
 #+beamer: \pause
 
-    - 推论：
-      1. 兼容比性能优先
+- 推论：
+  1. 兼容比性能优先
 
-         #+BEGIN_quote
-           Premature optimization is the root of all evil.
-           -- Tony Hoare, Donald Knuth
-         #+END_quote
+     #+BEGIN_quote
+       Premature optimization is the root of all evil.
+       -- Tony Hoare, Donald Knuth
+     #+END_quote
 
-      2. 人类时间比机器时间宝贵
+  2. 人类时间比机器时间宝贵
 
-      3. 使用工具进行版本控制
+  3. 使用工具进行版本控制
 
 *** 最佳工具
      - GNU 环境、 POSIX 标准：用于促进程序有几十年跨度的兼容性。
