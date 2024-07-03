@@ -1133,12 +1133,38 @@ bool(None) # None 也可以当作“假”被判断
 #+RESULTS:
 : False
 
+** 阅读英语提示
+*** 不要害怕英文提示
+- 人生第一次遇到英语不是“屠龙之技”的场景，值得庆贺。
+- 下一个场景：阅读英语科技文献。
+- 再下一个场景：与国际同行讨论争吵。
+
+#+begin_src python :results value :session local :exports both
+ ---------------------------------------------------------------------------
+TypeError                                 Traceback (most recent call last)
+<ipython-input-3-f40f0b3453ee> in <module>
+----> 1 message + 1
+
+TypeError: can only concatenate str (not "int") to str
+#+end_src
+
 ** Python 的程序结构
 *** 程序结构
 - 顺序结构
 - 选择结构
 - 循环结构
     
+** Python 脚本
+
+- 世界上本没有脚本，把输入的命令记录下来就成了脚本
+- Python 脚本一般以 =.py= 结尾
+
+#+begin_src python :results value :exports both
+#!/usr/bin/python3
+
+print("Hello, thank you.  Thank you very much!")
+#+end_src
+
 * 复合类型与函数
   :PROPERTIES:
   :EXPORT_FILE_NAME: p2
