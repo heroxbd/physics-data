@@ -323,8 +323,18 @@ fig.set_dpi({dpi})
 - issue （议题）
   + 创建要讨论的问题；
   + 注意指定 issue 的负责人。
-- merge request （合并请求）
-  + 提交代码审核。
+**** GitLab issue
+    - https://git.tsinghua.edu.cn/physics-data/faq/-/issues/
+    - https://git.tsinghua.edu.cn/physics-data/lecture/-/issues
+
+    - 创建 issue
+      - 标题：概括问题
+      - 正文：详细描述问题
+        1. 给出复现问题的方法，提供 _最小可复现单元_
+        2. （可选）分析问题，提出可能的解决方法
+    - 回复 issue ，参与讨论
+    - 关注 issue ，打开 “Notifications”
+
 ** 计算环境
 *** GNU 环境
 - POSIX 是 /Portable Operating System Interface/ 的缩写，是关于计算机
@@ -450,6 +460,200 @@ fig.set_dpi({dpi})
     - 已暂存（staged） :: 已修改的文件被作了标记，将被包含在下一轮提交中
 
        [[./fig/git-modes.png]]
+*** 作业：Git 练习
+    - [X] DONE 你会在 [[https://git.tsinghua.edu.cn][清华 GitLab]] 收到一个新仓库，是今天的作业
+    - [X] DONE 设置本地到 [[https://git.tsinghua.edu.cn][清华 GitLab]] 的访问权限
+      - [X] 生成 SSH 密钥对
+      - [X] 上传到 https://git.tsinghua.edu.cn
+
+    - [X] DONE 同步你的 Git 仓库，输入你的基本信息
+      #+BEGIN_EXAMPLE
+ 我的姓名：
+ 我的学号：
+ 我的 Python 版本信息：
+
+ 课程感言：
+      #+END_EXAMPLE
+    - [ ] TODO 查看修改 (diff)，预估得分
+    - [ ] TODO 添加修改 (add)，提交 (commit)，推送 (push)
+      
+*** Git 基本命令
+    - diff :: 查看改动
+    - status :: 查看状态
+    - add :: 添加文件
+    - commit :: 提交
+    - log :: 查看历史
+    - pull :: 从远程下载
+    - push :: 推送到远程
+    - merge :: 合并分支
+
+**** 内建手册 =man=                                          :B_exampleblock:
+     :PROPERTIES:
+     :BEAMER_env: exampleblock
+     :END:
+
+     命令的具体含义可以参考 =man= 命令，例如，
+
+     #+BEGIN_EXAMPLE
+ $ man git add
+     #+END_EXAMPLE
+*** Git 的状态与命令
+    #+BEGIN_SRC dot :file ./git-stages.pdf
+      digraph git {
+      rankdir="LR";
+
+      C -> M [label = "编辑\ngit diff"]
+      C [label = 已提交]
+      M [label = 已修改]
+      M -> S [label = "git add\ngit reset\ngit rm"]
+      S [label = 待提交]
+      S -> C [label = "git diff --cached\ngit commit"]
+      }
+    #+end_src
+
+    #+RESULTS:
+    [[file:./git-stages.pdf]]
+
+*** Git 仓库间通信
+    #+Attr_LaTeX: :height 0.7\textheight
+    [[./fig/git-distributed.png]]
+
+    - 建议：通过 SSH (secure shell) 通信。
+*** SSH 通信
+   - 通信的认证问题：如何证明我是“我”？
+     #+latex: \pause
+     - 手机验证码
+     - 一次性密码（one-time password，OTP）
+     - 用户名密码
+     - 非对称加密（银行 U 盾）
+   - 生成 SSH 非对称密钥对
+     - 一个公钥：公布， =id_rsa.pub=
+     - 一个私钥：私密， =id_rsa=
+     - 在网页界面把 =id_rsa.pub= 交给 =git.tsinghua.edu.cn=
+     - =git.tsinghua.edu.cn= 用我的公钥加密挑战码，只有我的私钥才能解密
+       - =git.tsinghua.edu.cn= 知道了我是“我”
+       - 我也需要知道它是真的 =git.tsinghua.edu.cn=
+     - 建立了与 =git.tsinghua.edu.cn= 的可靠通信
+
+
+*** 提交说明 commit message
+    - =git commit= 时需要输入一段话概括本次 commit 所作的修改
+    - 目标：让他人和未来的自己一目了然，只通过读此信息就知道自己做了什么
+
+**** commit 样例
+- 不错的例子：“完善了个人信息页面，并填写了课程感言”
+- [[https://gitweb.gentoo.org/repo/gentoo.git/commit/?id=78ede4d591c8c16e65e14414389ab9b6a58f21eb][短的]] ，把事情讲清楚，把涉及到的人讲清楚。
+- [[https://gitweb.gentoo.org/repo/gentoo.git/commit/?id=71a6a81929f88171feb6e829ff0b87b2ed396d91][较长的]] ，把所有的改动概括清楚。
+- [[https://gitweb.gentoo.org/repo/gentoo.git/commit/?id=ed66572a4917c140825ef8cb0a4150bd69296d0c][更长的]] ，在 commit 里说明为什么要这样做，引用相关的讨论。
+*** 精心撰写提交说明
+    - 说明既要给人类读，也要易于自动处理
+    - 第一行：高度概括改动
+    - 空一行后，撰写具体改动内容
+      - 形式不限，可分段、分要点。
+      - 篇幅不限，以描述清楚为目标。
+    - 备注：感谢其他贡献者。
+
+**** 何时提交 commit ？
+     - 完成一件事，有一个较独立的“版本”：添加一个功能，修复一个问题，
+       重构一块代码。
+     - 初学者可尝试多提交，可以充分练习 Git 操作，也可以获得更细致的开
+       发历史。
+       - _不要_ 把多个不相关的修改攒成一次巨大的提交。
+
+*** 反例
+      1. 数数：1,2,3
+      2. 复读：Update,Update,Update
+      3. 欺负键盘：aaaaa,wwwww,asdf
+
+    - 不太好的例子：“完成作业”
+
+**** 来自学长的忠告：作业得分不重要，重要的是优雅地得分        :B_alertblock:
+:PROPERTIES:
+:BEAMER_env: alertblock
+:END:
+我看到的无意义 commit message 有：“这是一个描述”，“xX”，“1234567899”等等。由于 Git 的特性，后续的提交没有办法覆盖这些无意义的 commit ，所以这个操作在
+很大程度上是不可逆的。也就是说，批阅作业的助教可以看到这些无意义的提交信息，然后或许会给你的白盒扣上2分。虽然我相信批改作业的助教不会这么残忍，但
+请一定要有“提交信息要有意义”的意识。
+
+请查看白盒标准：https://physics-data.meow.plus/faq/rules/whitebox/
+
+- 如果想要自己玩一下 Git 的相关操作（强烈推荐这么做，尤其是要学会 add 和 commit 如何取消。我个人对于一个操作是否可逆是有追求的），可以自己在 GitLab 上面创
+建一个项目练习。
+
+*** Git 与编辑器的整合
+**** 禁止使用 Gitlab 网页上传和修改工具
+- 远远次于命令行的功能，无推广价值
+- 禁止使用，防止养成不良习惯
+
+**** 在命令行调用相应的编辑器
+- =git= 会调用 _环境设定_ 的编辑器
+  - 临时调整：使用 =EDITOR=xxxxx= 前缀
+    + EDITOR="code --wait" 见 [[https://git.tsinghua.edu.cn/physics-data/faq/-/issues/88][李禹锋的 issue 88]]
+    + EDITOR="vim"
+    + EDITOR="emacsclient" 见 [[https://git.tsinghua.edu.cn/physics-data/faq/-/issues/109][黄宇同的 issue 109]]
+      
+- Debian 上永久调整系统的默认编辑器，管理员权限执行
+  #+begin_src bash
+    update-alternatives --config editor
+  #+end_src
+
+  选择需要的编辑器
+
+- 配置 git 的编辑器：查看文档配置，关键字是 =core.editor=
+  #+begin_src bash
+    man git config
+  #+end_src
+
+*** 参考资料
+    - Git 提交说明的白盒采分项：
+      
+      https://physics-data.meow.plus/faq/whitebox/#git
+
+    - 写好提交说明的七大原则 by cbeams
+      https://chris.beams.io/posts/git-commit/
+      
+    - 提交说明编写指南 by 阮一峰
+
+      http://www.ruanyifeng.com/blog/2016/01/commit_message_change_log.html
+
+** 对 FAQ 和讲义作贡献
+*** 有突出贡献的同学可得 8% 左右的总评鼓励
+     - 课程 FAQ 
+       - https://git.tsinghua.edu.cn/physics-data/faq/
+       - 提出好问题，整理问题解答，提交 merge request，……
+     - 课程讲义
+       - 修正错别字、语言错误、常识错误
+       - 指出逻辑不明的地方
+       - 补充课堂讲授但讲义遗漏的内容
+       - ……
+     - 贡献方式
+       - [X] Git
+       - [X] GitLab issue
+       - [ ] GitLab Merge Request
+*** 分支
+[[https://gitlab.airelinux.org/xmass/waveform/][例子]]
+
+- 关系
+- merge request （合并请求）
+  + 提交代码审核。
+
+*** Git 仓库间通信的各阶段
+    - fork :: Gitlab 类 Git 平台的术语，对应于 =git clone=
+      - 在本人帐号创建复本，用于自己修改和提交
+      - 提交说明的备注：关闭哪个 issue
+    - remote :: Git 的远程仓库
+        #+begin_src bash
+          git remote -v
+        #+end_src
+        #+begin_example
+          origin  git@git.tsinghua.edu.cn:physics-data/lecture.git (fetch)
+          origin  git@git.tsinghua.edu.cn:physics-data/lecture.git (push)
+        #+end_example
+    - pull, push :: 从远程下载和上传改动，单元为差分 commit
+    - merge :: 与其他仓库或分支通过交换差分来整合
+    - merge request :: GitLab 平台术语，发送 merge 请求。请他人整合自己的差分贡献。
+
+
 * Python 基础
   :PROPERTIES:
   :EXPORT_FILE_NAME: p1
@@ -515,209 +719,6 @@ fig.set_dpi({dpi})
      - Emacs
      - Vi
      - Visual Studio Code
-      
-** Git
-*** 作业：Git 练习
-    - [X] DONE 你会在 [[https://git.tsinghua.edu.cn][清华 GitLab]] 收到一个新仓库，是今天的作业
-    - [X] DONE 设置本地到 [[https://git.tsinghua.edu.cn][清华 GitLab]] 的访问权限
-      - [X] 生成 SSH 密钥对
-      - [X] 上传到 https://git.tsinghua.edu.cn
-
-    - [X] DONE 同步你的 Git 仓库，输入你的基本信息
-      #+BEGIN_EXAMPLE
- 我的姓名：
- 我的学号：
- 我的 Python 版本信息：
-
- 课程感言：
-      #+END_EXAMPLE
-    - [ ] TODO 查看修改 (diff)，预估得分
-    - [ ] TODO 添加修改 (add)，提交 (commit)，推送 (push)
-      
-*** Git 基本命令
-    - diff :: 查看改动
-    - status :: 查看状态
-    - add :: 添加文件
-    - commit :: 提交
-    - log :: 查看历史
-    - pull :: 从远程下载
-    - push :: 推送到远程
-    - merge :: 合并分支
-
-**** 内建手册 =man=                                          :B_exampleblock:
-     :PROPERTIES:
-     :BEAMER_env: exampleblock
-     :END:
-
-     命令的具体含义可以参考 =man= 命令，例如，
-
-     #+BEGIN_EXAMPLE
- $ man git add
-     #+END_EXAMPLE
-*** Git 的状态与命令
-    #+BEGIN_SRC dot :file ./git-stages.pdf
-      digraph git {
-      rankdir="LR";
-
-      C -> M [label = "编辑\ngit diff"]
-      C [label = 已提交]
-      M [label = 已修改]
-      M -> S [label = "git add\ngit reset\ngit rm"]
-      S [label = 待提交]
-      S -> C [label = "git diff --cached\ngit commit"]
-      }
-    #+end_src
-
-    #+RESULTS:
-    [[file:./git-stages.pdf]]
-
-*** 提交说明 commit message
-    - =git commit= 时需要输入一段话概括本次 commit 所作的修改
-    - 目标：让他人和未来的自己一目了然，只通过读此信息就知道自己做了什么
-
-**** commit 样例
-- 不错的例子：“完善了个人信息页面，并填写了课程感言”
-- [[https://gitweb.gentoo.org/repo/gentoo.git/commit/?id=78ede4d591c8c16e65e14414389ab9b6a58f21eb][短的]] ，把事情讲清楚，把涉及到的人讲清楚。
-- [[https://gitweb.gentoo.org/repo/gentoo.git/commit/?id=71a6a81929f88171feb6e829ff0b87b2ed396d91][较长的]] ，把所有的改动概括清楚。
-- [[https://gitweb.gentoo.org/repo/gentoo.git/commit/?id=ed66572a4917c140825ef8cb0a4150bd69296d0c][更长的]] ，在 commit 里说明为什么要这样做，引用相关的讨论。
-
-*** 反例
-      1. 数数：1,2,3
-      2. 复读：Update,Update,Update
-      3. 欺负键盘：aaaaa,wwwww,asdf
-
-    - 不太好的例子：“完成作业”
-
-**** 来自学长的忠告：作业得分不重要，重要的是优雅地得分        :B_alertblock:
-:PROPERTIES:
-:BEAMER_env: alertblock
-:END:
-我看到的无意义commit message有：“这是一个描述”，“xX”，“1234567899”等等。由于git的特性，后续的提交没有办法覆盖这些无意义的commit，所以这个操作在
-很大程度上是不可逆的。也就是说，批阅作业的助教可以看到这些无意义的提交信息，然后或许会给你的白盒扣上2分。虽然我相信批改作业的助教不会这么残忍，但
-请一定要有“提交信息要有意义”的意识。
-
-请查看白盒标准：https://physics-data.meow.plus/faq/rules/whitebox/
-
-- 如果想要自己玩一下Git的相关操作（强烈推荐这么做，尤其是要学会add和commit如何取消。我个人对于一个操作是否可逆是有追求的），可以自己在GitLab上面创
-建一个项目练习。
-
-*** Git 与编辑器的整合
-**** 禁止使用 Gitlab 网页上传和修改工具
-     - 远远次于命令行的功能，无推广价值
-     - 禁止使用，防止养成不良习惯
-
-**** 在命令行调用相应的编辑器
-      - =git= 会调用 _环境设定_ 的编辑器
-        - 临时调整：使用 =EDITOR=xxxxx= 前缀
-          + EDITOR="code --wait" 见 [[https://git.tsinghua.edu.cn/physics-data/faq/-/issues/88][李禹锋的 issue 88]]
-          + EDITOR="vim"
-          + EDITOR="emacsclient" 见 [[https://git.tsinghua.edu.cn/physics-data/faq/-/issues/109][黄宇同的 issue 109]]
-            
-      - Debian 上永久调整系统的默认编辑器，管理员权限执行
-        #+begin_src bash
-          update-alternatives --config editor
-        #+end_src
-
-        选择需要的编辑器
-
-      - 配置 git 的编辑器：查看文档配置，关键字是 =core.editor=
-        #+begin_src bash
-          man git config
-        #+end_src
-
-*** 精心撰写提交说明
-    - 说明既要给人类读，也要易于自动处理
-    - 第一行：高度概括改动
-    - 空一行后，撰写具体改动内容
-      - 形式不限，可分段、分要点。
-      - 篇幅不限，以描述清楚为目标。
-    - 备注：感谢其他贡献者。
-
-**** 何时提交 commit ？
-     - 完成一件事，有一个较独立的“版本”：添加一个功能，修复一个问题，
-       重构一块代码。
-     - 初学者可尝试多提交，可以充分练习 Git 操作，也可以获得更细致的开
-       发历史。
-       - _不要_ 把多个不相关的修改攒成一次巨大的提交。
-*** 参考资料
-    - Git 提交说明的白盒采分项：
-      
-      https://physics-data.meow.plus/faq/whitebox/#git
-
-    - 写好提交说明的七大原则 by cbeams
-      https://chris.beams.io/posts/git-commit/
-      
-    - 提交说明编写指南 by 阮一峰
-
-      http://www.ruanyifeng.com/blog/2016/01/commit_message_change_log.html
-
-** 对 FAQ 和讲义作贡献
-*** 有突出贡献的同学可得 8% 左右的总评鼓励
-     - 课程 FAQ 
-       - https://git.tsinghua.edu.cn/physics-data/faq/
-       - 提出好问题，整理问题解答，提交 merge request，……
-     - 课程讲义
-       - 修正错别字、语言错误、常识错误
-       - 指出逻辑不明的地方
-       - 补充课堂讲授但讲义遗漏的内容
-       - ……
-     - 贡献方式
-       - [X] Git
-       - [X] GitLab issue
-       - [ ] GitLab Merge Request
-*** GitLab issue
-    - https://git.tsinghua.edu.cn/physics-data/faq/-/issues/
-    - https://git.tsinghua.edu.cn/physics-data/lecture/-/issues
-
-    - 创建 issue
-      - 标题：概括问题
-      - 正文：详细描述问题
-        1. 给出复现问题的方法，提供 _最小可复现单元_
-        2. （可选）分析问题，提出可能的解决方法
-    - 回复 issue ，参与讨论
-    - 关注 issue ，打开 “Notifications”
-
-*** Git 仓库间通信
-    #+Attr_LaTeX: :height 0.7\textheight
-    [[./fig/git-distributed.png]]
-
-    - 建议：通过 SSH (secure shell) 通信。
-*** SSH 通信
-   - 通信的认证问题：如何证明我是“我”？
-     #+latex: \pause
-     - 手机验证码
-     - 一次性密码（one-time password，OTP）
-     - 用户名密码
-     - 非对称加密（银行 U 盾）
-   - 生成 SSH 非对称密钥对
-     - 一个公钥：公布， =id_rsa.pub=
-     - 一个私钥：私密， =id_rsa=
-     - 在网页界面把 =id_rsa.pub= 交给 =git.tsinghua.edu.cn=
-     - =git.tsinghua.edu.cn= 用我的公钥加密挑战码，只有我的私钥才能解密
-       - =git.tsinghua.edu.cn= 知道了我是“我”
-       - 我也需要知道它是真的 =git.tsinghua.edu.cn=
-     - 建立了与 =git.tsinghua.edu.cn= 的可靠通信
-
-*** 分支
-[[https://gitlab.airelinux.org/xmass/waveform/][例子]]
-
-- 关系
-*** Git 仓库间通信的各阶段
-    - fork :: Gitlab 类 Git 平台的术语，对应于 =git clone=
-      - 在本人帐号创建复本，用于自己修改和提交
-      - 提交说明的备注：关闭哪个 issue
-    - remote :: Git 的远程仓库
-        #+begin_src bash
-          git remote -v
-        #+end_src
-        #+begin_example
-          origin  git@git.tsinghua.edu.cn:physics-data/lecture.git (fetch)
-          origin  git@git.tsinghua.edu.cn:physics-data/lecture.git (push)
-        #+end_example
-    - pull, push :: 从远程下载和上传改动，单元为差分 commit
-    - merge :: 与其他仓库或分支通过交换差分来整合
-    - merge request :: GitLab 平台术语，发送 merge 请求。请他人整合自己的差分贡献。
-
 ** Python 入门
 *** 为什么用 Python
     #+attr_beamer: :overlay <+->
