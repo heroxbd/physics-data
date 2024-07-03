@@ -1031,6 +1031,8 @@ print("Hello World!")
 : Hello World!
 
 **** 创建脚本文件
+世界上本没有脚本，把输入的命令记录下来就成了脚本。  Python 脚本一般以 =.py= 结尾。
+
 使用编辑器创建 =hello.py= ，写入以下内容，第一行是标注脚本由什么来解释。
 #+begin_src python
   #!/usr/bin/env python3
@@ -1150,20 +1152,11 @@ TypeError: can only concatenate str (not "int") to str
 
 ** Python 的程序结构
 *** 程序结构
+head to =Python-Constructs.slides=.
+
 - 顺序结构
 - 选择结构
 - 循环结构
-    
-** Python 脚本
-
-- 世界上本没有脚本，把输入的命令记录下来就成了脚本
-- Python 脚本一般以 =.py= 结尾
-
-#+begin_src python :results value :exports both
-#!/usr/bin/python3
-
-print("Hello, thank you.  Thank you very much!")
-#+end_src
 
 * 复合类型与函数
   :PROPERTIES:
