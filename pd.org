@@ -588,9 +588,9 @@ fig.set_dpi({dpi})
 **** 在命令行调用相应的编辑器
 - =git= 会调用 _环境设定_ 的编辑器
   - 临时调整：使用 =EDITOR=xxxxx= 前缀
-    + EDITOR="code --wait" 见 [[https://git.tsinghua.edu.cn/physics-data/faq/-/issues/88][李禹锋的 issue 88]]
-    + EDITOR="vim"
-    + EDITOR="emacsclient" 见 [[https://git.tsinghua.edu.cn/physics-data/faq/-/issues/109][黄宇同的 issue 109]]
+    + @@latex:\texttt{EDITOR="code --wait"}@@ 见 [[https://git.tsinghua.edu.cn/physics-data/faq/-/issues/88][李禹锋的 issue 88]]
+    + @@latex:\texttt{EDITOR="vim"}@@
+    + @@latex:\texttt{EDITOR="emacsclient"}@@ 见 [[https://git.tsinghua.edu.cn/physics-data/faq/-/issues/109][黄宇同的 issue 109]]
       
 - Debian 上永久调整系统的默认编辑器，管理员权限执行
   #+begin_src bash
