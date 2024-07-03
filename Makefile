@@ -5,8 +5,6 @@ all: notes slides
 slides: $(progress:%=upload/p%.pdf)
 notes: upload/note.pdf
 
-j_list:=Python-Basics
-
 p%.tex: pd.org
 	emacs $^ --batch --load=setup.el --eval="(search-forward \":EXPORT_FILE_NAME: $(basename $@)\")" --eval="(org-beamer-export-to-latex nil t nil)" --kill
 

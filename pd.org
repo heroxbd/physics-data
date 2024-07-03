@@ -1,4 +1,4 @@
-#+LaTeX_CLASS_options: [ignorenonframetext,aspectratio=169]
+#+LaTeX_CLASS_options: [aspectratio=169]
 #+LATEX_HEADER: \usepackage[UTF8]{ctex}
 #+OPTIONS: H:2 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
 #+OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
@@ -450,16 +450,16 @@ fig.set_dpi({dpi})
     - 已暂存（staged） :: 已修改的文件被作了标记，将被包含在下一轮提交中
 
        [[./fig/git-modes.png]]
-* Python 入门
-:PROPERTIES:
-:EXPORT_FILE_NAME: p1
-:EXPORT_DATE: 2023-07-11 清华
-:EXPORT_BEAMER_HEADER+: \author{续本达}
-:EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
-:EXPORT_BEAMER_HEADER+: \setbeamertemplate{footline}[frame number]  
-:EXPORT_BEAMER_THEME: Hannover
-:EXPORT_BEAMER_FONT_THEME: professionalfonts
-:END:
+* Python 基础
+  :PROPERTIES:
+  :EXPORT_FILE_NAME: p1
+  :EXPORT_DATE: 2024-07-03 清华
+  :EXPORT_BEAMER_HEADER+: \author{续本达}
+  :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
+  :EXPORT_BEAMER_HEADER+: \setbeamertemplate{footline}[frame number]  
+  :EXPORT_BEAMER_THEME: Hannover
+  :EXPORT_BEAMER_FONT_THEME: professionalfonts
+  :END:
 ** 准备与复习
 *** 预备
 - 查看是否已经安装 Python
