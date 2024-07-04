@@ -1423,7 +1423,78 @@ print(sc["致理"], sc['未央'])
 
     - 值 value 可以是任意类型
 
-** 高级数据结构
+** 集合 set
+*** 简介
+- 集合具有互异不重复性，对其做添加操作时自动滤除重复元素。
+- 集合的取交、并和差集等运算应用广泛。
+#+beamer: \pause
+
+**** 创建集合
+#+begin_src python :results output :session local :exports both
+  A = set(range(4))
+  B = {0, 1, 2, 3}
+  print(A, B)
+#+end_src
+
+#+RESULTS:
+: {0, 1, 2, 3} {0, 1, 2, 3}
+
+#+begin_src python :results output :session local :exports both
+  print(type({}), type(set()), type(dict())) # {} 是空字典
+#+end_src
+
+#+RESULTS:
+: <class 'dict'> <class 'set'> <class 'dict'>
+
+*** 元素操作
+#+begin_src python :results output :session local :exports both
+  A.add(7) # 加元素进集合
+  A.discard(3) # 从集合除去元素
+  print(A)
+#+end_src
+
+#+RESULTS:
+: {0, 1, 2, 7}
+
+#+begin_src python :results output :session local :exports both
+  A.clear() # 集合清空
+  print(A)
+#+end_src
+
+#+RESULTS:
+: set()
+
+#+begin_src python :results value :session local :exports both
+  B.pop() # 随机取出一个元素返回
+#+end_src
+
+#+RESULTS:
+: 0
+
+#+begin_src python :results value :session local :exports both
+  B
+#+end_src
+
+#+RESULTS:
+| 1 | 2 | 3 |
+
+*** 集合运算
+#+begin_src python :results value :session local :exports both
+{1, 2} - {2, 3}　# 差集
+#+end_src
+
+#+RESULTS:
+| 1 |
+
+#+begin_src python :results output :session local :exports both
+  print({1, 2}.union({2, 3}), # 并集
+        {1, 2}.intersection({2, 3})) # 交集
+#+end_src
+
+#+RESULTS:
+: {1, 2, 3} {2}
+
+** 其它数据结构
 *** defaultdict -- 带有默认值的字典
     #+NAME: 7947f42e-020b-4930-b5e0-5c9ee543209d
     #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
@@ -1649,6 +1720,13 @@ $ python3 sys-demo.py 第一个参数 第二个参数
   ^sys.argv[0]  sys.argv[1]  sys.argv[2]
    #+end_src
 ** 文档
+*** 文档的重要性
+- 保证程序对人类友好，实现“透明”原则。
+- 对人友好，就是对自己友好，给自己的程序写笔记备忘。
+
+**** 己所不欲，勿施于人
+- 我们学习别人的代码时，最讨厌的是“看不懂”，“没说明”。
+
 *** 函数文档
     - 在函数定义后，紧跟一个字符串，可以定义函数的文档。
     - 用多行字符串很方便。
