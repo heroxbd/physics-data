@@ -1161,7 +1161,7 @@ head to =Python-Constructs.slides=.
 * 复合类型与函数
   :PROPERTIES:
   :EXPORT_FILE_NAME: p2
-  :EXPORT_DATE: 2023-07-12 清华
+  :EXPORT_DATE: 2024-07-04 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
   :EXPORT_BEAMER_HEADER+: \setbeamertemplate{footline}[frame number]  
@@ -1176,7 +1176,7 @@ head to =Python-Constructs.slides=.
 wget http://hep.tsinghua.edu.cn/~orv/teaching/physics-data/departments.csv
 #+end_src
 
-*** Python 入门
+*** Python 基础
 - 基本数据类型和基本运算
   + 整型、浮点型和字符串
 - 基本程序结构
@@ -1189,34 +1189,11 @@ wget http://hep.tsinghua.edu.cn/~orv/teaching/physics-data/departments.csv
     # ...
     # ...
   #+end_src
-*** 学习建议：认真阅读英语提示
-- 人生第一次遇到英语不是“屠龙之技”的场景，值得庆贺！
-- 下一个场景：阅读英语科技文献
-- 再下一个场景：与国际同行讨论争吵
-
-#+ATTR_LATEX: :environment verbatim
-#+begin_example
-"1" + 1
-
-Traceback (most recent call last):
-  File "<stdin>", line 1, in <module>
-TypeError: can only concatenate str (not "int") to str
-#+end_example
-
-#+ATTR_LATEX: :environment verbatim
-#+begin_src
-IMPORT　ＳＹＳ
-
-  File "<stdin>", line 1
-    IMPORT　ＳＹＳ
-          ^
-SyntaxError: invalid non-printable character U+3000
-#+end_src
-
 ** 复合数据类型
 *** 简介
      - Python 的基本类型，比如整型、浮点型、布尔型、字符串。
      - 它们可以复合起来，成为tuple（元组）、列表或字典。
+       - =()=, =[]=, ={}=
        - 复合类型之间可以嵌套，变化丰富
 
 ** 列表 list
@@ -1332,30 +1309,31 @@ xt[1]=5
     : (True, False)
 ** 字典 dict(ionary)
 *** 简介
-    - 字典是一个可以索引的数据结构
-      #+begin_example
-工物 => 42
-物理 => 52
-致理 => 4
-未央 => 8
-      #+end_example
-    #+NAME: 22a1aa7c-2d91-48f6-9eca-881e1f512ba3
-    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
-      sc = {'工物': 42, '物理': 52}
-      sc['工物'], sc['物理']
-    #+end_src
+- 字典是一个可以索引的数据结构
+#+begin_example
+工物 => 19
+物理 => 16
+致理 => 38
+未央 => 19
+#+end_example
 
-    #+RESULTS: 22a1aa7c-2d91-48f6-9eca-881e1f512ba3
-    : (42, 52)
+#+NAME: 22a1aa7c-2d91-48f6-9eca-881e1f512ba3
+#+begin_src python :results output :session local :exports both
+  sc = {'工物': 19, '物理': 16}
+  print(sc['工物'], sc['物理'])
+#+end_src
+
+#+RESULTS: 22a1aa7c-2d91-48f6-9eca-881e1f512ba3
+: 19 16
 *** 在字典中填加词条
-    #+NAME: fc1414cd-de1c-40dd-a96a-a9c552cb5664
-    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
-sc['致理'], sc['未央'] = 4, 8 # 元组赋值
+#+NAME: fc1414cd-de1c-40dd-a96a-a9c552cb5664
+#+begin_src python :results output :session local :exports both
+sc['致理'], sc['未央'] = 38, 19 # 元组赋值
 print(sc["致理"], sc['未央'])
-    #+end_src
+#+end_src
 
-    #+RESULTS: fc1414cd-de1c-40dd-a96a-a9c552cb5664
-    : 4 8
+#+RESULTS: fc1414cd-de1c-40dd-a96a-a9c552cb5664
+: 38 19
 
 **** 判断是否属于
      #+NAME: f56c70fa-83d5-456d-9f14-75dafbb38d66
@@ -1369,12 +1347,12 @@ print(sc["致理"], sc['未央'])
 *** 简化条件语句
     - 在需要多重判断时，使用字典会有奇效。
       #+NAME: 19b1fa10-2461-41df-a86a-2a3dd3c62986
-      #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      #+begin_src python :results output :session local :exports both
         OS = "macOS"
         package_manager = {
-            "GNU/Linux": "请用 apt",
-            "macOS": "请用 Gentoo，而后用 emerge",
-            "Windows": "请安装WSL，而后用 apt"
+            "GNU/Linux": "请用 Debian 的 APT 工具",
+            "macOS": "请用 UTM，然后安装 Debian",
+            "Windows": "请安装 WSL，然后安装 Debian"
         }
 
         print("大佬，", end="")
@@ -1385,24 +1363,24 @@ print(sc["致理"], sc['未央'])
       #+end_src
 
       #+RESULTS: 19b1fa10-2461-41df-a86a-2a3dd3c62986
-      : 大佬，请用 Gentoo，而后用 emerge
+      : 大佬，请用 UTM，然后安装 Debian
 *** 迭代器基本操作
     - 从字典中取出词和值。 =list()= 把迭代器转成列表。
     #+NAME: d8684788-ccef-46ee-bac9-859658744152
-    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+    #+begin_src python :results value :session local :exports both
       list(sc.keys()), list(sc.values())
     #+end_src
 
     #+RESULTS: d8684788-ccef-46ee-bac9-859658744152
-    : (['工物', '物理', '致理', '未央'], [42, 52, 4, 8])
+    | 工物 | 物理 | 致理 | 未央 |
+    |  19 |  16 |  38 |  19 |
 
     #+NAME: fdb8f0a1-277b-4e1a-b23c-5b024e4bea04
-    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+    #+begin_src python :results output :session local :exports both
       for k in sc:
           print(k)
       for v in sc.values():
           print(v)
-
     #+end_src
 
     #+RESULTS: fdb8f0a1-277b-4e1a-b23c-5b024e4bea04
@@ -1410,24 +1388,24 @@ print(sc["致理"], sc['未央'])
     : 物理
     : 致理
     : 未央
-    : 42
-    : 52
-    : 4
-    : 8
+    : 19
+    : 16
+    : 38
+    : 19
 
 *** 元组迭代器
     - =items()= 返回“词”和“值”组成的二元组。
       #+NAME: 353bba20-eef1-4e4b-848d-4aa346ba8674
-      #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      #+begin_src python :results output :session local :exports both
         for k,v in sc.items():
             print(f"教室里有{k}学生{v}人")
       #+end_src
 
       #+RESULTS: 353bba20-eef1-4e4b-848d-4aa346ba8674
-      : 教室里有工物学生42人
-      : 教室里有物理学生52人
-      : 教室里有致理学生4人
-      : 教室里有未央学生8人
+      : 教室里有工物学生19人
+      : 教室里有物理学生16人
+      : 教室里有致理学生38人
+      : 教室里有未央学生19人
 
 *** 字典中的数据类型
     - 词 key 应当是“不可变” immutable 类型
@@ -1536,21 +1514,6 @@ print(sc["致理"], sc['未央'])
     : 1 2
     : 1 2
 
-** 命令行参数
-*** 命令行参数从终端向 Python 内部传递信息
-   #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
-     import sys
-
-     print(sys.argv)
-   #+end_src
-
-调用 =sys= 模块， =sys.argv= 是一个列表，内含程序调用的参数
-
-   #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-$ python3 sys-demo.py 第一个参数 第二个参数
-['sys-demo.py', '第一个参数', '第二个参数']
-  ^sys.argv[0]  sys.argv[1]  sys.argv[2]
-   #+end_src
 ** 函数
 *** 简介
     - 函数是程序的基本组成部分。
@@ -1670,6 +1633,21 @@ $ python3 sys-demo.py 第一个参数 第二个参数
     : 3
     : 1
 
+** 命令行参数
+*** 命令行参数从终端向 Python 内部传递信息
+   #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+     import sys
+
+     print(sys.argv)
+   #+end_src
+
+调用 =sys= 模块， =sys.argv= 是一个列表，内含程序调用的参数
+
+   #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+$ python3 sys-demo.py 第一个参数 第二个参数
+['sys-demo.py', '第一个参数', '第二个参数']
+  ^sys.argv[0]  sys.argv[1]  sys.argv[2]
+   #+end_src
 ** 文档
 *** 函数文档
     - 在函数定义后，紧跟一个字符串，可以定义函数的文档。
@@ -1748,7 +1726,7 @@ $ python3 sys-demo.py 第一个参数 第二个参数
      |      Create and return a new object.  See help(type) for accurate signature.
 
     #+end_example
-** 调试
+** 调试测试
 *** 程序调试
     - 透明原则：程序运行的中间结果应当被人类理解
     - 调试方法：
@@ -1761,7 +1739,6 @@ $ python3 sys-demo.py 第一个参数 第二个参数
         - where 给出当前位置
         - list 列出附近的程序
         - help
-** 测试
 *** 程序的正确性保证
 - 如果保证修改程序不引入新的问题？
   - 修改越多，引入新问题的概率越大吗？
