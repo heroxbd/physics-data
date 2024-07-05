@@ -2069,6 +2069,113 @@ python3 -c "from numpy import version; print(version.version)"
 : 3
 - 将 =s= 传递给函数，避免使用全局变量
 
+** 模块
+*** 简介
+    - 函数用来代码复用（ _一次_ 原则）
+    - 模块：相关的函数和类集合起来，整理到名字空间 namespace 中
+      - 模块可以用 Python 实现，也可以由 C 等编译语言实现
+**** 模块导入用 =import=
+     #+NAME: 24c0e631-80a6-4946-a50a-3b91e6a65b71
+     #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+       import math
+       help(math.factorial)
+     #+end_src
+
+     #+RESULTS: 24c0e631-80a6-4946-a50a-3b91e6a65b71
+     : Help on built-in function factorial in module math:
+     : 
+     : factorial(x, /)
+     :     Find x!.
+     :     
+     :     Raise a ValueError if x is negative or non-integral.
+     : 
+*** 模块别名
+    - 加载模块时，可自定义名称。对长模块名有用
+    #+NAME: b711a2a6-fb87-41a0-8c26-565fd786171f
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      import math as m
+      m.factorial(10)
+    #+end_src
+
+    #+RESULTS: b711a2a6-fb87-41a0-8c26-565fd786171f
+    : 3628800
+*** 多层名字加载
+    1. 直接使用多层名字空间
+    2. 使用 =from=
+       #+NAME: 09a4b42a-a665-48b4-afe4-eb2b0f019845
+       #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+         import os
+         help(os.path.abspath)
+       #+end_src
+
+       #+RESULTS: 09a4b42a-a665-48b4-afe4-eb2b0f019845
+       : Help on function abspath in module posixpath:
+       : 
+       : abspath(path)
+       :     Return an absolute path.
+       : 
+       #+NAME: 723d7d16-317d-477d-8707-29d769f8b330
+       #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+         from os.path import abspath
+         from os.path import abspath as absp
+         abspath is os.path.abspath, abspath is absp
+       #+end_src
+
+       #+RESULTS: 723d7d16-317d-477d-8707-29d769f8b330
+       : (True, True)
+*** 自定义模块
+    - Python 可以方便地定义模块以进行代码复用
+    - 每个 Python 脚本都可以当作模块使用
+      #+NAME: 794821bd-91d4-4a09-b4af-28b391f497dc
+      #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+        cat physics_data/script.py
+      #+end_src
+
+      #+RESULTS: 794821bd-91d4-4a09-b4af-28b391f497dc
+      #+begin_example
+      def spherical_harmonic_fitter(grid, order):
+          '''
+          求球谐函数拟合的系数
+          
+          输入
+          ~~~
+          grid: 球面上连续函数在固定格点上的取值
+          order: 拟合时球谐函数近似截断的阶数
+          
+          输出
+          ~~~
+          拟合系数矩阵
+          '''
+          
+          # 具体实现省略
+          pass
+      
+      #+end_example
+
+*** 自定义模块（二）
+    #+NAME: c6aadbd3-009e-4b67-9e72-a70ee9d8879e
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      from physics_data import script
+      help(script.spherical_harmonic_fitter)
+    #+end_src
+
+    #+RESULTS: c6aadbd3-009e-4b67-9e72-a70ee9d8879e
+    #+begin_example
+    Help on function spherical_harmonic_fitter in module physics_data.script:
+
+    spherical_harmonic_fitter(grid, order)
+        求球谐函数拟合的系数
+
+        输入
+        ~~~
+        grid: 球面上连续函数在固定格点上的取值
+        order: 拟合时球谐函数近似截断的阶数
+
+        输出
+        ~~~
+        拟合系数矩阵
+
+    #+end_example
 ** Python 标准库模块
 *** fractions 有理数才是良定义的
 https://docs.python.org/3/library/fractions.html
@@ -2287,113 +2394,6 @@ https://docs.python.org/3/library/itertools.html
 **** 参考资料
      - =help(str)=
      - https://docs.python.org/3.9/library/stdtypes.html#textseq
-** 模块
-*** 简介
-    - 函数用来代码复用（ _一次_ 原则）
-    - 模块：相关的函数和类集合起来，整理到名字空间 namespace 中
-      - 模块可以用 Python 实现，也可以由 C 等编译语言实现
-**** 模块导入用 =import=
-     #+NAME: 24c0e631-80a6-4946-a50a-3b91e6a65b71
-     #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
-       import math
-       help(math.factorial)
-     #+end_src
-
-     #+RESULTS: 24c0e631-80a6-4946-a50a-3b91e6a65b71
-     : Help on built-in function factorial in module math:
-     : 
-     : factorial(x, /)
-     :     Find x!.
-     :     
-     :     Raise a ValueError if x is negative or non-integral.
-     : 
-*** 模块别名
-    - 加载模块时，可自定义名称。对长模块名有用
-    #+NAME: b711a2a6-fb87-41a0-8c26-565fd786171f
-    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
-      import math as m
-      m.factorial(10)
-    #+end_src
-
-    #+RESULTS: b711a2a6-fb87-41a0-8c26-565fd786171f
-    : 3628800
-*** 多层名字加载
-    1. 直接使用多层名字空间
-    2. 使用 =from=
-       #+NAME: 09a4b42a-a665-48b4-afe4-eb2b0f019845
-       #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
-         import os
-         help(os.path.abspath)
-       #+end_src
-
-       #+RESULTS: 09a4b42a-a665-48b4-afe4-eb2b0f019845
-       : Help on function abspath in module posixpath:
-       : 
-       : abspath(path)
-       :     Return an absolute path.
-       : 
-       #+NAME: 723d7d16-317d-477d-8707-29d769f8b330
-       #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
-         from os.path import abspath
-         from os.path import abspath as absp
-         abspath is os.path.abspath, abspath is absp
-       #+end_src
-
-       #+RESULTS: 723d7d16-317d-477d-8707-29d769f8b330
-       : (True, True)
-*** 自定义模块
-    - Python 可以方便地定义模块以进行代码复用
-    - 每个 Python 脚本都可以当作模块使用
-      #+NAME: 794821bd-91d4-4a09-b4af-28b391f497dc
-      #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
-        cat physics_data/script.py
-      #+end_src
-
-      #+RESULTS: 794821bd-91d4-4a09-b4af-28b391f497dc
-      #+begin_example
-      def spherical_harmonic_fitter(grid, order):
-          '''
-          求球谐函数拟合的系数
-          
-          输入
-          ~~~
-          grid: 球面上连续函数在固定格点上的取值
-          order: 拟合时球谐函数近似截断的阶数
-          
-          输出
-          ~~~
-          拟合系数矩阵
-          '''
-          
-          # 具体实现省略
-          pass
-      
-      #+end_example
-
-*** 自定义模块（二）
-    #+NAME: c6aadbd3-009e-4b67-9e72-a70ee9d8879e
-    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
-      from physics_data import script
-      help(script.spherical_harmonic_fitter)
-    #+end_src
-
-    #+RESULTS: c6aadbd3-009e-4b67-9e72-a70ee9d8879e
-    #+begin_example
-    Help on function spherical_harmonic_fitter in module physics_data.script:
-
-    spherical_harmonic_fitter(grid, order)
-        求球谐函数拟合的系数
-
-        输入
-        ~~~
-        grid: 球面上连续函数在固定格点上的取值
-        order: 拟合时球谐函数近似截断的阶数
-
-        输出
-        ~~~
-        拟合系数矩阵
-
-    #+end_example
 ** 寻找工具
 *** 更多 Python 扩展库
 - 优先使用 APT (Debian) 软件管理器
