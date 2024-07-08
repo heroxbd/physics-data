@@ -3094,18 +3094,6 @@ https://physics-data.meow.plus/faq/plagiarism/
       '''
       反对易子操作
       ===========
-      传入 x 和 y，两个三阶张量，
-      其后两阶可以解读为矩阵。
-
-      返回, xy + yx 的四阶张量值。
-      '''
-      xy = np.einsum('ixy,jyz->ijxz', x, y)
-      return xy + np.transpose(xy, (1, 0, 2, 3))
-
-  def anticomm2(x, y):
-      '''
-      反对易子操作
-      ===========
       传入 x（二阶） 和 y（三阶）张量，
       其后两阶可以解读为矩阵。
 
@@ -3119,7 +3107,7 @@ https://physics-data.meow.plus/faq/plagiarism/
 *** Dirac 的反对易关系
 #+begin_src python :results value :session local :exports both
   mkov = np.diag((1,-1,-1,-1))
-  np.all(anticomm(dirac, dirac) == 2 * np.einsum('ij,xz->ijxz', mkov, np.eye(4)))
+  np.all(anticomm(dirac[None], dirac[:, None]) == 2 * np.einsum('ij,xz->ijxz', mkov, np.eye(4)))
 #+end_src
 
 #+RESULTS:
@@ -3144,7 +3132,7 @@ https://physics-data.meow.plus/faq/plagiarism/
 
 *** \(\Gamma^5\) 与 \(\Gamma^\mu\) 的反对易关系
 #+begin_src python :results value :session local :exports both
-  np.all(anticomm2(gamma5[None,:,:], dirac) == 0)
+  np.all(anticomm(gamma5[None], dirac) == 0)
 #+end_src
 
 #+RESULTS:
