@@ -1719,6 +1719,12 @@ $ python3 sys-demo.py 第一个参数 第二个参数
 ['sys-demo.py', '第一个参数', '第二个参数']
   ^sys.argv[0]  sys.argv[1]  sys.argv[2]
    #+end_src
+*** argparse 命令行传递参数
+    https://docs.python.org/3/library/argparse.html
+    - 构造高级的命令选项
+      - 数据类型
+      - 格式限制
+
 ** 文档
 *** 文档的重要性
 - 保证程序对人类友好，实现“透明”原则。
@@ -2153,8 +2159,7 @@ https://docs.python.org/3/library/decimal.html
 - 列表和元组的迭代器恰好是按顺序访问每个元素，因此容易与列表和元组本身混淆。
 
 **** 应用
-- =for= 循环由迭代器实现。
-- 列表、元组等能从迭代器创建。
+- =for= 循环由迭代器实现。列表、元组等能从迭代器创建。
 
 #+beamer: {\scriptsize credit: 王希呈}
 *** itertools 高级迭代器变换
@@ -2300,7 +2305,7 @@ https://docs.python.org/3/library/itertools.html
 
     #+RESULTS: 1ed3df42-b045-47b8-a1c1-51f1ade8acad
     : 第一天 概论
-    : 第二天 Python 入门
+    : 第二天 Python 基础
 
 *** 字符处理
     - Python 内建了丰富的字符处理函数
@@ -2589,7 +2594,7 @@ print(np.diag(np.arange(5)))
     #+Attr_LaTeX: :height 0.4\textheight
     [[./fig/array-index.png]]
 *** 二维任意索引
-    - 分别传两个相等形状的索引数组，按索引数组状状排列对应的输出
+    - 分别传两个相等形状的索引数组，按索引数组形状排列对应的输出
     #+NAME: 36a17f43-aa4c-40cc-83e9-ba4e5d5b05d9
     #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
       print(m6)
@@ -2680,12 +2685,6 @@ print(np.diag(np.arange(5)))
       #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
         np.array([x + y for x in n for y in n]).reshape(10, 10)
       #+end_src
-** 后备
-*** argparse 命令行传递参数
-    https://docs.python.org/3/library/argparse.html
-    - 构造高级的命令选项
-      - 数据类型
-      - 格式限制
 * 矩阵与张量运算
   :PROPERTIES:
   :EXPORT_FILE_NAME: p4
