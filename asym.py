@@ -22,7 +22,6 @@ import numpy as np
 
 def parity(p):
     n = len(p)
-    # TODO: 假设了 combinations 结果是有序的
     pairs = sum([p[i] > p[j]
                  for i, j in it.combinations(range(n), 2)])
     return -1 if pairs % 2 else 1
@@ -35,3 +34,4 @@ def eps(n=5):
     for p in it.permutations(range(n)):
         rst[p] = parity(p)
     return rst
+

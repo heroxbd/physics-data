@@ -3094,10 +3094,22 @@ https://physics-data.meow.plus/faq/plagiarism/
       '''
       反对易子操作
       ===========
-      传入 x 和 y，两个张量，
+      传入 x 和 y，两个三阶张量，
       其后两阶可以解读为矩阵。
 
-      返回, xy + yx 的张量值。
+      返回, xy + yx 的四阶张量值。
+      '''
+      xy = np.einsum('ixy,jyz->ijxz', x, y)
+      return xy + np.transpose(xy, (1, 0, 2, 3))
+
+  def anticomm2(x, y):
+      '''
+      反对易子操作
+      ===========
+      传入 x（二阶） 和 y（三阶）张量，
+      其后两阶可以解读为矩阵。
+
+      返回, xy + yx 的三阶张量值。
       '''
       return x @ y + y @ x
 #+end_src
@@ -3111,7 +3123,7 @@ https://physics-data.meow.plus/faq/plagiarism/
 #+end_src
 
 #+RESULTS:
-: False
+: True
 
 *** \(\Gamma^5\) 是 Hermite 阵
 #+begin_src python :results value :session local :exports both
@@ -3132,13 +3144,50 @@ https://physics-data.meow.plus/faq/plagiarism/
 
 *** \(\Gamma^5\) 与 \(\Gamma^\mu\) 的反对易关系
 #+begin_src python :results value :session local :exports both
-  np.all(anticomm(gamma5[None,:,:], dirac) == 0)
+  np.all(anticomm2(gamma5[None,:,:], dirac) == 0)
 #+end_src
 
 #+RESULTS:
 : True
 
+*** 归一性
+#+begin_src python :results value :session local :exports both
+  np.all(np.einsum('ixy,ij,jyz->xz', dirac, mkov, dirac) == 4 * np.eye(4))
+#+end_src
 
+#+RESULTS:
+: True
+
+*** 四 \(\Gamma\) 同框
+#+begin_src python :results value :session local :exports both
+  np.all(np.einsum('xab,jbc,kcd,xy,yde->jkae', dirac,dirac,dirac,mkov,dirac)
+         == 4 * np.einsum('ij,xy->ijxy', mkov, np.eye(4)))
+#+end_src
+
+#+RESULTS:
+: True
+
+*** 迹
+#+begin_src python :results value :session local :exports both
+  np.all(np.einsum('ixx', dirac) == 0)
+#+end_src
+
+#+RESULTS:
+: True
+
+#+begin_src python :results value :session local :exports both
+  np.trace(gamma5)
+#+end_src
+
+#+RESULTS:
+: 0j
+
+#+begin_src python :results value :session local :exports both
+  np.all(np.einsum('ixy,jyx', dirac, dirac) == 4 * mkov)
+#+end_src
+
+#+RESULTS:
+: True
 
 ** 备用
 *** 同学们的建议反馈（一）
