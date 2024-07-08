@@ -3073,6 +3073,73 @@ https://physics-data.meow.plus/faq/plagiarism/
   + \(\Tr(\gamma^\mu) = 0\)
   + \(\Tr(\gamma^\mu\gamma^\nu) = 4 \eta^{\mu\nu}\)
   + \(\Tr(\gamma^5) = 0\)
+*** Dirac 矩阵
+#+begin_src python :results value :session local :exports both
+  import numpy as np
+  pauli = np.array([[[0,1],[1,0]],
+                    [[0,-1j],[1j,0]],
+                    [[1,0],[0,-1]]])
+  gamma0 = np.diag((1,1,-1,-1))
+  gamma2p = np.diag((-1j,1j,1j,-1j))
+  dirac = np.array((gamma0,
+                    gamma0[:, ::-1],
+                    gamma2p[:, ::-1],
+                    np.roll(np.diag((1,-1,-1,1)), 2, axis=1)))
+#+end_src
+
+#+RESULTS:
+*** 验证反对易关系
+#+begin_src python :results value :session local :exports both
+  def anticomm(x, y):
+      '''
+      反对易子操作
+      ===========
+      传入 x 和 y，两个张量，
+      其后两阶可以解读为矩阵。
+
+      返回, xy + yx 的张量值。
+      '''
+      return x @ y + y @ x
+#+end_src
+
+#+RESULTS:
+
+*** Dirac 的反对易关系
+#+begin_src python :results value :session local :exports both
+  mkov = np.diag((1,-1,-1,-1))
+  np.all(anticomm(dirac, dirac) == 2 * np.einsum('ij,xz->ijxz', mkov, np.eye(4)))
+#+end_src
+
+#+RESULTS:
+: False
+
+*** \(\Gamma^5\) 是 Hermite 阵
+#+begin_src python :results value :session local :exports both
+  gamma5 = 1j * dirac[0] @ dirac[1] @ dirac[2] @ dirac[3]
+  np.all(np.conj(gamma5.T) == gamma5)
+#+end_src
+
+#+RESULTS:
+: True
+
+*** \(\Gamma^5\) 平方是单位阵
+#+begin_src python :results value :session local :exports both
+  np.all(gamma5 @ gamma5 == np.eye(4))
+#+end_src
+
+#+RESULTS:
+: True
+
+*** \(\Gamma^5\) 与 \(\Gamma^\mu\) 的反对易关系
+#+begin_src python :results value :session local :exports both
+  np.all(anticomm(gamma5[None,:,:], dirac) == 0)
+#+end_src
+
+#+RESULTS:
+: True
+
+
+
 ** 备用
 *** 同学们的建议反馈（一）
     #+attr_beamer: :overlay <+->
