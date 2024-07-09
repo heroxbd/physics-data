@@ -3389,7 +3389,7 @@ Pin-Priority: 400
 
 - =python3-fastparquet= 需要 =testing= ，未来将在 Debian 13 中。
 #+begin_src bash
-  apt install python3-fastparquet
+  apt install -t sid python3-fastparquet python3-numpy
 #+end_src
 
 - 数据
