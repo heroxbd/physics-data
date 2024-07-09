@@ -3362,6 +3362,7 @@ https://physics-data.meow.plus/faq/plagiarism/
 *** 环境准备
 - 加入 Debian testing 软件源。
   + Debian 中软件库的分类： =unstable=, =testing=, =stable=
+    + 2024 年三者的代码分别为 =sid=, =trexie=, =bookworm=
   + Debian 12 是 =stable= ，环境稳定，可堪重用
   + 新软件进入 Debian =unstable= 如果经过一星期没有问题，则转入 =testing=
   + 将 =testing= 定期整理发布成 =stable=
@@ -3387,9 +3388,9 @@ Pin-Priority: 400
   apt install vitables csvkit python3-h5py hdf5-tools jq python3-pandas
 #+end_src
 
-- =python3-fastparquet= 需要 =testing= ，未来将在 Debian 13 中。
+- =python3-fastparquet= 需要 =unstable= ，未来将在 Debian 13 中。
 #+begin_src bash
-  apt install -t sid python3-fastparquet python3-numpy
+  apt install -t unstable python3-fastparquet python3-numpy
 #+end_src
 
 - 数据
@@ -3458,32 +3459,33 @@ Pauli 矩阵与 Dirac 矩阵的代数性质。
 - 适合传递整数，文字或者对精度没有要求的浮点数
 - CSV 工具
 *** 试验写 CSV
-    #+NAME: dcb25013-1361-416f-bda2-610e309f0e19
-    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
-      import numpy as np
-      hz = np.arange(100).reshape(10, 10)
-      print(hz)
-    #+end_src
+#+NAME: dcb25013-1361-416f-bda2-610e309f0e19
+#+begin_src python :results output :session local :exports both
+  import numpy as np
+  hz = np.arange(100).reshape(10, 10)
+  print(hz)
+#+end_src
 
-    #+RESULTS: dcb25013-1361-416f-bda2-610e309f0e19
-    #+begin_example
-    [[ 0  1  2  3  4  5  6  7  8  9]
-     [10 11 12 13 14 15 16 17 18 19]
-     [20 21 22 23 24 25 26 27 28 29]
-     [30 31 32 33 34 35 36 37 38 39]
-     [40 41 42 43 44 45 46 47 48 49]
-     [50 51 52 53 54 55 56 57 58 59]
-     [60 61 62 63 64 65 66 67 68 69]
-     [70 71 72 73 74 75 76 77 78 79]
-     [80 81 82 83 84 85 86 87 88 89]
-     [90 91 92 93 94 95 96 97 98 99]]
-    #+end_example
-    #+NAME: 711eb2e3-92d1-4957-b508-1373ce93ef21
-    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
-      np.savetxt("hz.csv", hz)
-    #+end_src
+#+RESULTS: dcb25013-1361-416f-bda2-610e309f0e19
+#+begin_example
+[[ 0  1  2  3  4  5  6  7  8  9]
+ [10 11 12 13 14 15 16 17 18 19]
+ [20 21 22 23 24 25 26 27 28 29]
+ [30 31 32 33 34 35 36 37 38 39]
+ [40 41 42 43 44 45 46 47 48 49]
+ [50 51 52 53 54 55 56 57 58 59]
+ [60 61 62 63 64 65 66 67 68 69]
+ [70 71 72 73 74 75 76 77 78 79]
+ [80 81 82 83 84 85 86 87 88 89]
+ [90 91 92 93 94 95 96 97 98 99]]
+#+end_example
+#+NAME: 711eb2e3-92d1-4957-b508-1373ce93ef21
+#+begin_src python :results value :session local :exports both
+  np.savetxt("hz.csv", hz)
+#+end_src
 
-    #+RESULTS: 711eb2e3-92d1-4957-b508-1373ce93ef21
+#+RESULTS: 711eb2e3-92d1-4957-b508-1373ce93ef21
+: None
 
 *** 查看文件
     - =cat= 命令，“concatenate” 的缩写，可以显示文件内容，即向标准输出写入。
@@ -3536,30 +3538,31 @@ cat hz.csv
     90 91 92 93 94 95 96 97 98 99
     #+end_example
 *** 读取 CSV
-    #+NAME: 2d2bce9b-3e65-44ea-bcef-538c01c8652f
-    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
-      csv_hz = np.loadtxt("hz.csv")
-      print(csv_hz)
-    #+end_src
+#+NAME: 2d2bce9b-3e65-44ea-bcef-538c01c8652f
+#+begin_src python :results output :session local :exports both
+  csv_hz = np.loadtxt("hz.csv")
+  print(csv_hz)
+#+end_src
 
-    #+RESULTS: 2d2bce9b-3e65-44ea-bcef-538c01c8652f
-    #+begin_example
-    [[ 0.  1.  2.  3.  4.  5.  6.  7.  8.  9.]
-     [10. 11. 12. 13. 14. 15. 16. 17. 18. 19.]
-     [20. 21. 22. 23. 24. 25. 26. 27. 28. 29.]
-     [30. 31. 32. 33. 34. 35. 36. 37. 38. 39.]
-     [40. 41. 42. 43. 44. 45. 46. 47. 48. 49.]
-     [50. 51. 52. 53. 54. 55. 56. 57. 58. 59.]
-     [60. 61. 62. 63. 64. 65. 66. 67. 68. 69.]
-     [70. 71. 72. 73. 74. 75. 76. 77. 78. 79.]
-     [80. 81. 82. 83. 84. 85. 86. 87. 88. 89.]
-     [90. 91. 92. 93. 94. 95. 96. 97. 98. 99.]]
-    #+end_example
+#+RESULTS: 2d2bce9b-3e65-44ea-bcef-538c01c8652f
+#+begin_example
+[[ 0.  1.  2.  3.  4.  5.  6.  7.  8.  9.]
+ [10. 11. 12. 13. 14. 15. 16. 17. 18. 19.]
+ [20. 21. 22. 23. 24. 25. 26. 27. 28. 29.]
+ [30. 31. 32. 33. 34. 35. 36. 37. 38. 39.]
+ [40. 41. 42. 43. 44. 45. 46. 47. 48. 49.]
+ [50. 51. 52. 53. 54. 55. 56. 57. 58. 59.]
+ [60. 61. 62. 63. 64. 65. 66. 67. 68. 69.]
+ [70. 71. 72. 73. 74. 75. 76. 77. 78. 79.]
+ [80. 81. 82. 83. 84. 85. 86. 87. 88. 89.]
+ [90. 91. 92. 93. 94. 95. 96. 97. 98. 99.]]
+#+end_example
 **** 数据类型
      - Numpy 数组需要指定数据类型
        - `np.int16`, `np.int32`, `np.int64`, `int`
        - `np.float16`, `np.float32`, `np.float64`, `float`
        - `np.complex64`
+*** 类型的变化
               #+NAME: 037031e4-e982-46be-aa54-e579fbc388d1
               #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
                 print(hz.dtype, csv_hz.dtype)
@@ -3893,6 +3896,14 @@ people
 *** CSV 表格
 - 可以把复合数组写到 CSV 中，形成一个表格。
   
+*** Apache Arrow 与 Parquet
+- =Arrow= 提供了跨语言的数据交换格式。
+  + 非常高效，做到 "零拷贝"
+- =Parquet= 是 =Arrow= 在磁盘上的常用存储格式，经过了列读取优化。
+  + 在 Java 语言生态的大数据平台，例如 Hadoop、Spark 上非常流行。
+  + 开始被 Python (Pandas 2.0) 和 R 社区使用
+- 优点：读写性能高
+- 缺点：查看器等配套工具还不完善
 *** 课堂练习：转化高度定制的 +.txt+ CSV 文件
 - 相比于 HDF5
   + CSV 的记录非常随意，无统一标准
@@ -4060,15 +4071,6 @@ jq < BBH_events_rewrite.json
     #+RESULTS: d1c23627-8cfa-472c-a876-08ab21750325
 
 ** 其它格式
-*** Apache Arrow 与 Parquet
-- =Arrow= 提供了跨语言的数据交换格式。
-  + 非常高效，做到 "零拷贝"
-- =Parquet= 是 =Arrow= 在磁盘上的常用存储格式，经过了列读取优化。
-  + 在 Java 语言生态的大数据平台，例如 Hadoop、Spark 上非常流行。
-  + 开始被 Python (Pandas 2.0) 和 R 社区使用
-- 优点：读写性能高
-- 缺点：查看器等配套工具还不完善
-
 *** SQLite 磁盘格式
 - SQLite 数据库在磁盘上的存储格式
 - 在第四周 *关系代数* 阶段学习
