@@ -3351,7 +3351,7 @@ https://physics-data.meow.plus/faq/plagiarism/
 * 数据存储格式
   :PROPERTIES:
   :EXPORT_FILE_NAME: p5
-  :EXPORT_DATE: 2023-07-18 清华
+  :EXPORT_DATE: 2024-07-09 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
   :EXPORT_BEAMER_HEADER+: \setbeamertemplate{footline}[frame number]  
@@ -3359,19 +3359,37 @@ https://physics-data.meow.plus/faq/plagiarism/
   :EXPORT_BEAMER_FONT_THEME: professionalfonts
   :END:
 ** 复习准备
+*** 环境准备
+- 加入 Debian testing 软件源。
+  + Debian 中软件库的分类： =unstable=, =testing=, =stable=
+  + Debian 12 是 =stable= ，环境稳定，可堪重用
+  + 新软件进入 Debian =unstable= 如果经过一星期没有问题，则转入 =testing=
+  + 将 =testing= 定期整理发布成 =stable=
+- =/etc/apt/sources.list=    
+- =/etc/apt/preferences.d/stable=
+#+begin_example
+Package: *
+Pin: release a=unstable
+Pin-Priority: 200
+
+Package: *
+Pin: release a=testing
+Pin-Priority: 300
+
+Package: *
+Pin: release a=stable-backports
+Pin-Priority: 400
+#+end_example
+
 *** 安装 HDF5、CSV 和 JSON 的相关工具
+#+begin_src bash
+  apt install vitables csvkit python3-h5py hdf5-tools jq python3-pandas
+#+end_src
 
-- Debian
-  #+begin_src bash
-    apt install vitables python3-h5py hdf5-tools jq
-  #+end_src
-- Gentoo @ macOS
-
-  #+begin_src bash
-    emerge --sync
-    emerge -vt dev-python/h5py app-misc/jq
-  #+end_src
-  + 手动下载安装 HDFView
+- =python3-fastparquet= 需要 =testing= ，未来将在 Debian 13 中。
+#+begin_src bash
+  apt install python3-fastparquet
+#+end_src
 
 - 数据
 #+begin_src bash
@@ -3389,26 +3407,55 @@ https://physics-data.meow.plus/faq/plagiarism/
 - =tensordot=
 - =einsum=
 
-- Pauli 矩阵与 Dirac 矩阵代数性质的张量形式验证
+**** 张量形式验证
+Pauli 矩阵与 Dirac 矩阵的代数性质。
 
 ** 数据格式
+在操作层面上，我们做实验的目标是取得数据，数据是实验结果的载体。有了数据才能获得科学结果。
+而数据格式的重要性，在于影响透明原则的贯彻。
+
 *** 透明原则
-    - 把大规模的数组高效地存储到磁盘上，是数据处理的关键。
-      - 大时间尺度上看，数据 = 储存的文件
-    - 数据处理的结果，不仅在符合计算机的约定标准，还要对人类友好。
-    - 数据格式本质上是内存磁盘的双向数据转化，关键问题是
-      - 转化过程中是否有损失？
-      - 转化是否方便？
+- 把大规模的数组高效地存储到磁盘上，是数据处理的关键。
+  - 大时间尺度上看，数据 = 储存的文件
+- 数据处理的结果，不仅在符合计算机的约定标准，还要对人类友好。
+- 数据格式本质上是内存磁盘的双向数据转化，关键问题是
+  - 转化过程中是否有损失？
+  - 转化是否方便？
 #+beamer: \pause
 **** 反例
-     - 违反透明原则。
-     - 只有某个操作系统上才能读取的数据文件，操作系统只能在某种计算机硬件上运行。
+- 违反透明原则。
+- 只有某个操作系统上才能读取的数据文件，操作系统只能在某种计算机硬件上运行。
+*** lecture                                                 :B_ignoreheading:
+:PROPERTIES:
+:BEAMER_env: ignoreheading
+:END:
+但世界上有诸多情况下，数据的格式会被无意或故意地做成不透明的。在此我们介绍四类推荐的透明数据格式。
+
+*** 自制二进制格式
+- KamLAND，JUNO 中微子实验
+- 问题
+  1. 除了指定的 C++ 工具库，无法读取中间结果，违反“透明”原则
+  2. 新成员必须学习非通用的数据接口和方法，门槛高且无用
+  3. 数据格式与库深层绑定，必须同步升级，新库无法读取旧数据
+#+beamer:\pause
+- 解决方案：使用指定语言，以最小代码开发不透明数据到透明关系数据（例如 HDF5）的转换器
+  - 数据格式转换器比函数跨语言调用更可靠，有效解耦合
+  - 如 Python 调用 C++ 和 R 容易出现内存管理问题。
+
+*** 自制二进制格式（二）
+- SuperK 中微子实验的 Zebra 格式
+- 问题
+  1. 格式已经被上游团队遗弃，除了指定的 Fortran 77 工具库，无法读取原始数据，违反“透明”原则
+  2. 无法升级，必须维护旧计算环境才能运行 g77-3.4 （2004 年版本）
+#+beamer:\pause
+- 解决方案：使用新 Fortran 语言研发 Zebra 到 HDF5 的转换器
+
 ** CSV
 *** 简介 comma separated values
-    - 文本文件，易于阅读
-    - 文本天然是一个表格
-    - 适合传递整数，文字或者对精度没有要求的浮点数
-    - CSV 工具
+- 文本文件，易于阅读
+- 文本天然是一个表格
+- 适合传递整数，文字或者对精度没有要求的浮点数
+- CSV 工具
 *** 试验写 CSV
     #+NAME: dcb25013-1361-416f-bda2-610e309f0e19
     #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
@@ -3817,11 +3864,40 @@ people
     #+RESULTS: 51188465-70de-4d34-a7b0-d391a787c822
     : array([(170., 60., 20), (159., 45., 22), (185., 72., 26)],
     :       dtype=[('Height', '<f4'), ('Weight', '<f4'), ('Age', '<u2')])
+*** DataFrame 表格
+- DataFrame 特指二维表格，每行代表一条数据，每列代表一种变量。
+  #+begin_src python :results value :session local :exports both
+    import pandas as pd
+    pd.DataFrame.from_records(r)
+  #+end_src
+
+  #+RESULTS:
+  :    Height  Weight  Age
+  : 0   170.0    60.0   20
+  : 1   159.0    45.0   22
+  : 2   185.0    72.0   26
+
+- 复合数组与 DataFrame 可相互转换，逻辑结构相同
+
+*** 复合数组与 DataFrame 的不同
+- 复合数组是逐行保存的，DataFrame 是逐列保存的。
+
+#+Attr_LaTeX: :height 0.6\textheight
+[[fig/column-oriented.jpeg]]
+  
+- 逐行保存有利于逐步积累数据，HDF5 是逐行保存的
+- 逐列保存有利于处理数据，parquet 是逐列保存的
+- CSV 是逐行的还是逐列的？
+
+*** CSV 表格
+- 可以把复合数组写到 CSV 中，形成一个表格。
+  
 *** 课堂练习：转化高度定制的 +.txt+ CSV 文件
 - 相比于 HDF5
   + CSV 的记录非常随意，无统一标准
   + CSV 占用的空间大
 - 任务：把 =C3--Trace--99996.txt= 转化为 =C3--Trace--99996.h5=
+
 ** JSON
 *** 简介 JavaScript Object Notation
 
@@ -3831,6 +3907,7 @@ people
   - 适合传递有层次的数据，特别是文本
   - 优点：与 Python 的字典结构相近
   - 缺点：数字的表达能力较弱
+
 *** 读 JSON
     #+NAME: a957548e-e023-4d16-96da-4b458a26b328
     #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
@@ -3980,28 +4057,6 @@ jq < BBH_events_rewrite.json
     #+end_src
 
     #+RESULTS: d1c23627-8cfa-472c-a876-08ab21750325
-
-*** 课堂练习：读取 Geek 兔初始和刷新信息
-#+begin_src python
-  message = json.loads(sys.stdin.readline())
-  assert message["commandType"] == "startGame"
-  map_info = message["data"]["map"]
-  width = map_info["width"]
-  height = map_info["height"]
-  borders = map_info["borders"]
-  blocks = map_info["blocks"]
-  my_id = message["data"]["myId"]
-  init_rabbits = message["data"]["rabbits"]
-#+end_src
-
-#+begin_src python
-  message = json.loads(sys.stdin.readline())
-  assert message["commandType"] == "refreshData"
-  last_frame = -1 if len(history) == 0 else history[-1]["frame"]
-  history += message["data"]
-  curr_frame = history[-1]["frame"]
-  assert curr_frame == len(history) - 1
-#+end_src
 
 ** 其它格式
 *** Apache Arrow 与 Parquet
@@ -8175,11 +8230,6 @@ https://gitweb.gentoo.org/repo/gentoo.git/commit/?id=ea2987349ece6f07da01e1c2f3e
       #+begin_src bash
         apt install sqlite3 sqlitebrowser csvkit
       #+end_src
-    - macOS
-      #+begin_src bash
-        emerge --sync
-        emerge -vt sqlite csvkit
-      #+end_src
       通过 https://sqlitebrowser.org/dl/ 介绍的其它方式安装 sqlitebrowser
 
 *** 本周提要
@@ -8900,36 +8950,7 @@ Debian
     apt install r-cran-ggplot2 r-cran-dbplyr r-cran-dplyr r-cran-reshape2 r-cran-rsqlite
 #+end_src
 
-*** Gentoo @ macOS
-1. 开启并同步 Gentoo 的 R 扩展仓库
-  #+begin_src bash
-    emerge --sync
-    emerge -vt eselect-repository
-    eselect repository enable R_Overlay
-    emaint sync -r R_Overlay # 注意网络需要能访问到 https://github.com
-  #+end_src
-
-2. 进行必须的配置
-   - 在 =~/Gentoo/etc/portage/package.use= 中加入
-     #+begin_example
-       sys-libs/zlib minizip
-     #+end_example
-
-     提示：如果之前使用了带有 =guile= 的 =make= ，那么文件中已经有一行
-     #+begin_example
-       sys-devel/make guile
-     #+end_example
-
-   - 临时禁用 =install_name= 检查，这个问题还没有彻底解决，详见 https://bugs.gentoo.org/910401
-     #+begin_src bash
-       sed -r '/\s+install_qa_check_macho/d' \
-           -i /Users/*/Gentoo/usr/lib/portage/python3*/misc-functions.sh
-     #+end_src
-3. 安装 ggplot2 和 dbplyr
-   #+begin_src bash
-     emerge -vt sci-CRAN/ggplot2 sci-CRAN/dplyr sci-CRAN/dbplyr sci-CRAN/reshape2 sci-CRAN/RSQLite
-   #+end_src
-**** 最佳工具                                                  :B_alertblock:
+*** 最佳工具                                                   :B_alertblock:
      :PROPERTIES:
      :BEAMER_env: alertblock
      :END:
@@ -10017,25 +10038,6 @@ With four parameters I can fit an elephant, and with five I can make him wiggle 
       2. 新成员需要花精力学习旧技术，人力浪费
     #+beamer:\pause
     - 解决方案：test-driven development
-
-*** 自制二进制格式
-    - KamLAND，JUNO 中微子实验
-    - 问题
-      1. 除了指定的 C++ 工具库，无法读取中间结果，违反“透明”原则
-      2. 新成员必须学习非通用的数据接口和方法，门槛高且无用
-      3. 数据格式与库深层绑定，必须同步升级，新库无法读取旧数据
-    #+beamer:\pause
-    - 解决方案：使用指定语言，以最小代码开发不透明数据到透明关系数据（例如 HDF5）的转换器
-      - 数据格式转换器比函数跨语言调用更可靠，有效解耦合
-      - 如 Python 调用 C++ 和 R 容易出现内存管理问题。
-
-*** 自制二进制格式（二）
-    - SuperK 中微子实验的 Zebra 格式
-    - 问题
-      1. 格式已经被上游团队遗弃，除了指定的 Fortran 77 工具库，无法读取原始数据，违反“透明”原则
-      2. 无法升级，必须维护旧计算环境才能运行 g77-3.4 （2004 年版本）
-    #+beamer:\pause
-    - 解决方案：使用新 Fortran 语言研发 Zebra 到 HDF5 的转换器
 
 *** 自制 Python 驱动的批量处理流水线
     - 症状问题
