@@ -3367,6 +3367,7 @@ https://physics-data.meow.plus/faq/plagiarism/
   + 将 =testing= 定期整理发布成 =stable=
 - =/etc/apt/sources.list=    
 - =/etc/apt/preferences.d/stable=
+
 #+begin_example
 Package: *
 Pin: release a=unstable
@@ -3883,7 +3884,7 @@ people
 - 复合数组是逐行保存的，DataFrame 是逐列保存的。
 
 #+Attr_LaTeX: :height 0.6\textheight
-[[fig/column-oriented.jpeg]]
+[[./fig/column-oriented.jpeg]]
   
 - 逐行保存有利于逐步积累数据，HDF5 是逐行保存的
 - 逐列保存有利于处理数据，parquet 是逐列保存的
