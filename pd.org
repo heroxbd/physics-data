@@ -283,23 +283,6 @@ fig.set_dpi({dpi})
 - Jeroen Janssens, Data Science at the Command Line
 - David MacKay, Information Theory, Inference, and Learning Algorithms
 - https://learnxinyminutes.com/ 从已经有编程基础迅速入门 Python。
-*** 大作业预告
-- 课赛结合：Ghost Hunter 2023 中微子实验数据分析
-  - MeV Gamma 射线的能量沉积模型
-- 粒子天体物理
-  - 宇宙射线缪子测量
-- 凝聚态物理
-  - noise spectrometer
-
-**** 自定义                                                  :B_exampleblock:
-     :PROPERTIES:
-     :BEAMER_env: exampleblock
-     :END:
-
-     - 如果有同学希望采用其它学科方向的大作业，请提出申请给续本达 =<orv@tsinghua.edu.cn>= ，7月17日截止。
-       1. 问题描述和学科背景
-       2. 数据的输入和输出的定义与格式
-       3. 数据分析结果的评价标准
 *** 有智慧地提问
 - 遇到困难多求助
   - 特别是那些可以把人“卡住”的“小”问题。一定不要自己扛，及时求助：
@@ -4183,6 +4166,27 @@ jq < BBH_events_rewrite.json
   :EXPORT_BEAMER_THEME: Hannover
   :EXPORT_BEAMER_FONT_THEME: professionalfonts
   :END:
+** 大作业
+*** 预告
+- 课赛结合：Ghost Hunter 2024 中微子实验数据分析；
+  + 江门中微子实验 JUNO 的光学模型。
+
+*** 自定义                                                   :B_exampleblock:
+:PROPERTIES:
+:BEAMER_env: exampleblock
+:END:
+
+- 如果有同学希望自定义大作业，请在 11 日 10 点之前向
+  
+  https://git.tsinghua.edu.cn/physics-data/projects/proposal
+
+  仓库发送 merge request ，内容至少包含
+
+  1. 问题描述和学科背景；
+  2. 预期的目标和评价方式；
+  3. 时间安排；
+  4. 大作业项目导师，一名获得过《实验物理的大数据方法》课程 A 以上（或有同等水平）的学长。
+
 ** 复习准备
 *** 安装软件
 - Matplotlib（Python 绘图）、SciPy（科学计算）
