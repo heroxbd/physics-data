@@ -4264,6 +4264,73 @@ jq < BBH_events_rewrite.json
 #+RESULTS:
 [[file:img/blue-cross.pdf]]
 
+*** 点形状
+#+begin_example
+**Markers**
+
+=============   ===============================
+character       description
+=============   ===============================
+``'.'``         point marker
+``','``         pixel marker
+``'o'``         circle marker
+``'v'``         triangle_down marker
+``'^'``         triangle_up marker
+``'<'``         triangle_left marker
+``'>'``         triangle_right marker
+``'1'``         tri_down marker
+``'2'``         tri_up marker
+``'3'``         tri_left marker
+``'4'``         tri_right marker
+``'8'``         octagon marker
+``'s'``         square marker
+``'p'``         pentagon marker
+``'P'``         plus (filled) marker
+``'*'``         star marker
+``'h'``         hexagon1 marker
+``'H'``         hexagon2 marker
+``'+'``         plus marker
+``'x'``         x marker
+``'X'``         x (filled) marker
+``'D'``         diamond marker
+``'d'``         thin_diamond marker
+``'|'``         vline marker
+``'_'``         hline marker
+=============   ===============================
+#+end_example
+
+*** 线的形状
+#+begin_example
+**Line Styles**
+
+=============    ===============================
+character        description
+=============    ===============================
+``'-'``          solid line style
+``'--'``         dashed line style
+``'-.'``         dash-dot line style
+``':'``          dotted line style
+=============    ===============================
+#+end_example
+*** 颜色
+#+begin_example
+**Colors**
+
+The supported color abbreviations are the single letter codes
+
+=============    ===============================
+character        color
+=============    ===============================
+``'b'``          blue
+``'g'``          green
+``'r'``          red
+``'c'``          cyan
+``'m'``          magenta
+``'y'``          yellow
+``'k'``          black
+``'w'``          white
+=============    ===============================
+#+end_example
 ** 图片的调整
 *** 调整必要性
     - 默认的图片，会有各类值得改进之处。
@@ -4322,6 +4389,15 @@ jq < BBH_events_rewrite.json
     #+RESULTS:
     [[file:img/histogram.pdf]]
 
+*** 画院系的统计
+#+begin_src python :results value :session local :exports both
+  import pandas as pd
+  dep = pd.read_csv("departments.csv", header=None)
+  plt.hist(list(dep[0]))
+#+end_src
+
+图的横轴间距不太理想。
+
 ** 多维元素的表现
 *** 平铺
     - 表现简单的三维数据
@@ -4360,8 +4436,8 @@ jq < BBH_events_rewrite.json
       rv = multivariate_normal(mean=(0, 0), cov = ((1,0.5), (0.5,0.5)))
       print(rv.pdf((0, 0))) # (x, y) -> f(x, y)
 
-      x, y = np.mgrid[-1:1:.01, -1:1:.01]
-      pos = np.dstack((x, y))
+      norm_x, norm_y = np.mgrid[-1:1:.01, -1:1:.01]
+      pos = np.dstack((norm_x, norm_y))
       prob_density = rv.pdf(pos)
       print(pos.shape, prob_density.shape)
     #+end_src
@@ -4377,7 +4453,7 @@ jq < BBH_events_rewrite.json
 
 *** 绘制等高线图
     #+begin_src python :results value file :session lecture-plot :exports both :noweb strip-export
-      plt.contourf(x, y, prob_density)
+      plt.contourf(norm_x, norm_y, prob_density)
       plt.colorbar()
       plt.xlabel("x")
       plt.ylabel("y")
@@ -4397,6 +4473,35 @@ jq < BBH_events_rewrite.json
     #+attr_latex: :height 5cm
     #+RESULTS:
     [[file:img/gauss-imshow.pdf]]
+
+*** 真三维图
+来自 https://matplotlib.org/stable/gallery/mplot3d/contour3d_3.html#sphx-glr-gallery-mplot3d-contour3d-3-py 例子，用来绘制二维高斯分布
+#+begin_src python :results value file :session lecture-plot :exports both :noweb strip-export
+  from mpl_toolkits.mplot3d import axes3d
+
+  ax = plt.figure().add_subplot(projection='3d')
+  # Plot the 3D surface
+  ax.plot_surface(norm_x, norm_y, prob_density, 
+                  edgecolor='royalblue', lw=0.5, rstride=8, cstride=8,
+                  alpha=0.3)
+
+  ax.set(xlim=(-1, 1), ylim=(-1, 1), zlim=(0, 0.4),
+         xlabel='x', ylabel='y', zlabel='f(x,y)')
+  plt.show()      
+#+end_src
+*** 制作动画
+- =FuncAnimation=
+- 不断画图法
+  #+begin_src python :results value file :session lecture-plot :exports both :noweb strip-export
+      from matplotlib.backends.backend_pdf import PdfPages
+      with PdfPages("normal2d.pdf") as pp:
+          for angle in range(0, 720, 5):
+              ax.view_init(elev=angle, azim=45, roll=30)
+              pp.savefig()
+  #+end_src
+  #+begin_src bash
+convert -verbose -delay 50 -density 100 normal2d.pdf normal2d.gif
+  #+end_src
 *** 绘制流线图
     - 相图： \( (p, q) \) 的演化图， \( p = m \dot{q} \)
     - 经典谐振子
@@ -4420,17 +4525,25 @@ jq < BBH_events_rewrite.json
     [[file:img/oscillator.pdf]]
 *** 课堂练习：非简谐轻杆单摆的相图
     \[ m L \ddot{\theta} = - m g \sin \theta \]
+#+begin_src python :results value file :session lecture-plot :exports both :noweb strip-export
+  θ, η = np.mgrid[-2*np.pi:2*np.pi:.005, -2*np.pi:2*np.pi:.005]
+  dθ = η
+  dη = -np.sin(θ)
+  plt.streamplot(η, θ, dη, dθ)
+#+end_src
 ** Bessel 函数
 *** 第一类 Bessel 函数
     #+begin_src python :results value file :session lecture-plot :exports both :noweb strip-export
-      from scipy import special
+       from scipy import special
 
-      x = np.linspace(0, 6, 100)
-      y_values = [ special.jv(n, x) for n in range(0, 5) ] # 第一类 Bessel 函数
-      for i, y in enumerate(y_values):
-          plt.plot(x, y, label=f"Order {i}")
-      plt.legend()
-      <<savefig(figname="img/bessel.pdf")>>
+       x = np.linspace(0, 6, 100)
+       y_values = [ special.jv(n, x) for n in range(0, 5) ] # 第一类 Bessel 函数
+       for i, y in enumerate(y_values):
+           plt.plot(x, y, label=f"Order {i}")
+       plt.legend()
+       plt.xlabel("x")
+       plt.ylabel("values of Bessel function")
+       <<savefig(figname="img/bessel.pdf")>>
     #+end_src
 
     #+attr_latex: :height 4cm
