@@ -4186,15 +4186,9 @@ jq < BBH_events_rewrite.json
 ** 复习准备
 *** 安装软件
 - Matplotlib（Python 绘图）、SciPy（科学计算）
-  + Debian
-    #+begin_src bash
-      apt install python3-matplotlib python3-tk python3-scipy
-    #+end_src
-  + Gentoo @ macOS
-    #+begin_src bash
-      emerge --sync
-      emerge -vt dev-python/matplotlib dev-python/scipy
-    #+end_src
+  #+begin_src bash
+    apt install python3-matplotlib python3-tk python3-scipy
+  #+end_src
 *** 科学绘图
 - A plot worths a thousand words. 图是描述科学对象的载体。
   - 撰写论文甚至可理解为“看图说话”：论文的局部目标是用语言和公式把图片解释清楚。
@@ -4206,7 +4200,7 @@ jq < BBH_events_rewrite.json
 **** X Window System 也被称为 “X11”
 - 图形显示事实上的国际标准
 - Server-client 架构
-- Server 为显示图形提供服务 (=VcXsrv=)
+- Server 为显示图形提供服务 (=WSLg= 用的 =FreeRDP=，或 =VcXsrv=)
 - Client 连接 X11 server，请求显示图形 (=xeyes=, =ViTables=, =Matplotlib=)
 ** Matplotlib
 *** 一条直线
@@ -4247,14 +4241,24 @@ jq < BBH_events_rewrite.json
     [[file:img/sin.pdf]]
 
 *** 变成红色的点
-    #+begin_src python :results value file :session lecture-plot :exports both :noweb strip-export
-      plt.plot(t, C, "ro") # 改成红色的圆点
-      <<savefig(figname="img/red-circle.pdf")>>
-    #+end_src
+#+begin_src python :results value file :session lecture-plot :exports both :noweb strip-export
+  plt.plot(t, C, "ro") # 改成红色的圆点
+  <<savefig(figname="img/red-circle.pdf")>>
+#+end_src
 
-    #+attr_latex: :height 5cm
-    #+RESULTS:
-    [[file:img/red-circle.pdf]]
+#+attr_latex: :height 5cm
+#+RESULTS:
+[[file:img/red-circle.pdf]]
+
+*** 点的形状
+#+begin_src python :results value file :session lecture-plot :exports both :noweb strip-export
+  plt.plot(t, C, "bx") # 改成红色的圆点
+  <<savefig(figname="img/blue-cross.pdf")>>
+#+end_src
+
+#+attr_latex: :height 5cm
+#+RESULTS:
+[[file:img/blue-cross.pdf]]
 
 ** 图片的调整
 *** 调整必要性
