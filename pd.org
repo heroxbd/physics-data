@@ -3634,19 +3634,16 @@ cat hz.csv
 - 课程选择 h5py，当兼容性和性能冲突时，优先选择兼容性。
   - “透明”原则。
 *** 写 HDF5 文件
-    #+NAME: deff847b-175f-41d2-895a-8c0cf1ad1853
-    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
-import h5py
+#+NAME: deff847b-175f-41d2-895a-8c0cf1ad1853
+#+begin_src python :results value :session local :exports both
+  import h5py
 
-with h5py.File("hz.h5", "w") as opt:
-    opt["hz"] = hz
-    #+end_src
+  with h5py.File("hz.h5", "w") as opt:
+      opt["hz"] = hz
+#+end_src
 
-    #+NAME: 72560e0c-313d-4ff6-a9d1-af9da5128ef0
-    #+RESULTS: deff847b-175f-41d2-895a-8c0cf1ad1853
-    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-h5dump -A hz.h5
-    #+end_src
+#+NAME: 72560e0c-313d-4ff6-a9d1-af9da5128ef0
+#+RESULTS: deff847b-175f-41d2-895a-8c0cf1ad1853
 
     #+RESULTS: 72560e0c-313d-4ff6-a9d1-af9da5128ef0
     : HDF5 "hz.h5" {
@@ -3662,26 +3659,26 @@ h5dump -A hz.h5
 - =h5py.File= 返回的 opt 可以看作一个字典。
 
 *** 读 HDF5 文件
-    #+NAME: baa0c130-7e08-497a-94ff-fde5fbe558e5
-    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
-      with h5py.File("hz.h5") as ipt:
-          h5_hz = ipt["hz"][...]
-      print(h5_hz)
-    #+end_src
+#+NAME: baa0c130-7e08-497a-94ff-fde5fbe558e5
+#+begin_src python :results output :session local :exports both
+  with h5py.File("hz.h5") as ipt:
+      h5_hz = ipt["hz"][...]
+  print(h5_hz)
+#+end_src
 
-    #+RESULTS: baa0c130-7e08-497a-94ff-fde5fbe558e5
-    #+begin_example
-    [[ 0  1  2  3  4  5  6  7  8  9]
-     [10 11 12 13 14 15 16 17 18 19]
-     [20 21 22 23 24 25 26 27 28 29]
-     [30 31 32 33 34 35 36 37 38 39]
-     [40 41 42 43 44 45 46 47 48 49]
-     [50 51 52 53 54 55 56 57 58 59]
-     [60 61 62 63 64 65 66 67 68 69]
-     [70 71 72 73 74 75 76 77 78 79]
-     [80 81 82 83 84 85 86 87 88 89]
-     [90 91 92 93 94 95 96 97 98 99]]
-    #+end_example
+#+RESULTS: baa0c130-7e08-497a-94ff-fde5fbe558e5
+#+begin_example
+[[ 0  1  2  3  4  5  6  7  8  9]
+ [10 11 12 13 14 15 16 17 18 19]
+ [20 21 22 23 24 25 26 27 28 29]
+ [30 31 32 33 34 35 36 37 38 39]
+ [40 41 42 43 44 45 46 47 48 49]
+ [50 51 52 53 54 55 56 57 58 59]
+ [60 61 62 63 64 65 66 67 68 69]
+ [70 71 72 73 74 75 76 77 78 79]
+ [80 81 82 83 84 85 86 87 88 89]
+ [90 91 92 93 94 95 96 97 98 99]]
+#+end_example
 - =[...]= 或 =[()]= 代表把数据全部读入内存。
 - 如果内存不够，h5py 提供了部分读入的功能，也叫做 "out of core computing"。
 *** 在文件上直接操作
@@ -3806,7 +3803,6 @@ h5dump -A hzg.h5
 *** 直接保存到 HDF5 表
 - 复合数组可以直接保存为 HDF5 的表格
   #+begin_src python :results value :session local :exports both
-    import h5py
     with h5py.File("people.h5", "w") as opt:
         opt['record'] = r
   #+end_src
@@ -3852,27 +3848,28 @@ h5dump people.h5
 *** 图形查看器 ViTables
     #+begin_src bash
       vitables people.h5 # Debian
-      hdfview people.h5 # macOS
     #+end_src
 
     #+Attr_LaTeX: :height 0.4\textheight
     [[./vitables.png]]
 *** 读复合数组
-    #+NAME: 51188465-70de-4d34-a7b0-d391a787c822
-    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+#+NAME: 51188465-70de-4d34-a7b0-d391a787c822
+#+begin_src python :results value :session local :exports both
 with h5py.File("people.h5", 'r') as ipt:
     people = ipt['record'][()]
 people
-    #+end_src
+#+end_src
 
-    #+RESULTS: 51188465-70de-4d34-a7b0-d391a787c822
-    : array([(170., 60., 20), (159., 45., 22), (185., 72., 26)],
-    :       dtype=[('Height', '<f4'), ('Weight', '<f4'), ('Age', '<u2')])
+#+RESULTS: 51188465-70de-4d34-a7b0-d391a787c822
+| 170 | 60 | 20 |
+| 159 | 45 | 22 |
+| 185 | 72 | 26 |
 *** DataFrame 表格
 - DataFrame 特指二维表格，每行代表一条数据，每列代表一种变量。
   #+begin_src python :results value :session local :exports both
     import pandas as pd
-    pd.DataFrame.from_records(r)
+    df_r = pd.DataFrame.from_records(r)
+    df_r
   #+end_src
 
   #+RESULTS:
@@ -3895,7 +3892,24 @@ people
 
 *** CSV 表格
 - 可以把复合数组写到 CSV 中，形成一个表格。
-  
+#+begin_src python :results value :session local :exports both
+  df_r.to_csv("people.csv", index=False)
+#+end_src  
+
+#+RESULTS:
+: None
+
+**** 读回来
+#+begin_src python :results value :session local :exports both
+  pd.read_csv("people.csv")
+#+end_src
+
+#+RESULTS:
+:    Height  Weight  Age
+: 0   170.0    60.0   20
+: 1   159.0    45.0   22
+: 2   185.0    72.0   26
+
 *** Apache Arrow 与 Parquet
 - =Arrow= 提供了跨语言的数据交换格式。
   + 非常高效，做到 "零拷贝"
@@ -3904,11 +3918,94 @@ people
   + 开始被 Python (Pandas 2.0) 和 R 社区使用
 - 优点：读写性能高
 - 缺点：查看器等配套工具还不完善
-*** 课堂练习：转化高度定制的 +.txt+ CSV 文件
+  + 王宇逸写了 =pqdump=
+*** 读写 parquet
+#+begin_src python :results value :session local :exports both
+  df_r.to_parquet("people.pq", index=False)
+#+end_src
+
+#+RESULTS:
+: None
+
+#+begin_src python :results value :session local :exports both
+  pq_r = pd.read_parquet('people.pq')
+  pq_r
+#+end_src
+
+#+RESULTS:
+:    Height  Weight  Age
+: 0   170.0    60.0   20
+: 1   159.0    45.0   22
+: 2   185.0    72.0   26
+
+** 课堂练习
+*** 转化高度定制的 +.txt+ CSV 文件
 - 相比于 HDF5
   + CSV 的记录非常随意，无统一标准
   + CSV 占用的空间大
 - 任务：把 =C3--Trace--99996.txt= 转化为 =C3--Trace--99996.h5=
+*** 读取定制的 CSV 文件
+#+begin_src python :results output :session local :exports both
+  import numpy as np
+  import itertools as it
+
+  meta = {}
+  with open("C3--Trace--99996.txt") as metadata:
+      l = next(metadata).strip() # 读第一行
+      meta["model"], meta["model_param"], ds_name = l.split(",")
+      l = next(metadata).strip() # 读第二行
+      _, _, _, ds_length = l.split(",")
+      l = next(metadata).strip() # 读第三行
+      l = next(metadata).strip() # 读第四行
+      _, meta["TrigTime"], _ = l.split(",")
+  print(meta)
+#+end_src
+
+#+RESULTS:
+: {'model': 'LECROYHDO9404', 'model_param': '30486', 'TrigTime': '03-Jul-2023 14:41:14'}
+
+*** 读取数据主体
+#+begin_src python :results value :session local :exports both
+  ds = pd.read_csv("C3--Trace--99996.txt", skiprows=4)
+  ds
+#+end_src
+
+#+RESULTS:
+#+begin_example
+              Time      Ampl
+0     3.195045e-09 -0.012751
+1     3.220045e-09 -0.016558
+2     3.245045e-09 -0.013280
+3     3.270045e-09 -0.005773
+4     3.295045e-09  0.003425
+...            ...       ...
+7997  2.031200e-07  1.603280
+7998  2.031450e-07  1.596830
+7999  2.031700e-07  1.589380
+8000  2.031950e-07  1.584830
+8001  2.032200e-07  1.586100
+
+[8002 rows x 2 columns]
+#+end_example
+*** 保存成 HDF5
+#+begin_src python :results value :session local :exports both
+  ds.to_hdf("osci.h5", ds_name)
+#+end_src
+
+#+RESULTS:
+: None
+
+用 PyTables 写出，兼容性较差。
+
+*** 标准的 HDF5 输出
+#+begin_src python :results value :session local :exports both
+  with h5py.File("osci.h5", "w") as opt:
+      opt[ds_name] = ds.to_records(index=False)
+      for k, v in meta.items():
+          opt[ds_name].attrs[k] = v
+#+end_src
+
+#+RESULTS:
 
 ** JSON
 *** 简介 JavaScript Object Notation
@@ -3922,18 +4019,17 @@ people
 
 *** 读 JSON
     #+NAME: a957548e-e023-4d16-96da-4b458a26b328
-    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+    #+begin_src python :results value :session local :exports both
       import json
 
-      with open("BBH_events_v3.json","r") as ipt:
+      with open("BBH_events_v3.json", "r") as ipt:
           events = json.load(ipt)
       print(type(events)) # 就是一个字典
       print(events.keys())
     #+end_src
 
     #+RESULTS: a957548e-e023-4d16-96da-4b458a26b328
-    : <class 'dict'>
-    : dict_keys(['GW150914', 'LVT151012', 'GW151226', 'GW170104'])
+    : None
 
 *** JSON 结构字典
     #+NAME: c73658ba-a357-42f0-b5b9-3fa037912893
@@ -3960,7 +4056,7 @@ events['GW150914']
     #+end_example
 *** JSON 输出
     #+NAME: 2b151a96-1f27-4914-81a0-10a79b03756b
-    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+    #+begin_src python :results value :session local :exports both
       with open("BBH_events_rewrite.json", 'w') as opt:
           json.dump(events, opt)
     #+end_src
