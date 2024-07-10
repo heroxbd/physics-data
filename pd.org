@@ -4080,7 +4080,7 @@ jq < BBH_events_rewrite.json
 * 数据绘图
   :PROPERTIES:
   :EXPORT_FILE_NAME: p6
-  :EXPORT_DATE: 2023-07-19 清华
+  :EXPORT_DATE: 2024-07-10 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
   :EXPORT_BEAMER_HEADER+: \setbeamertemplate{footline}[frame number]  
@@ -4332,12 +4332,6 @@ jq < BBH_events_rewrite.json
     #+attr_latex: :height 4cm
     #+RESULTS:
     [[file:img/bessel.pdf]]
-
-** Geek 兔
-*** 回放文件的绘制
-0. 派遣一个 AI
-1. 绘制陨石的位置
-2. 绘制兔子的行动轨迹
 
 ** 更多样例
 *** Matplotlib 官方图片展
