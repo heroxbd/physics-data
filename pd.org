@@ -636,7 +636,6 @@ fig.set_dpi({dpi})
     - merge :: 与其他仓库或分支通过交换差分来整合
     - merge request :: GitLab 平台术语，发送 merge 请求。请他人整合自己的差分贡献。
 
-
 * Python 基础
   :PROPERTIES:
   :EXPORT_FILE_NAME: p1
@@ -4561,7 +4560,7 @@ convert -verbose -delay 50 -density 100 normal2d.pdf normal2d.gif
 * 蒙特卡罗方法与大作业
   :PROPERTIES:
   :EXPORT_FILE_NAME: p7
-  :EXPORT_DATE: 2023-07-20 清华
+  :EXPORT_DATE: 2024-07-11 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
   :EXPORT_BEAMER_HEADER+: \setbeamertemplate{footline}[frame number]  
@@ -4571,37 +4570,408 @@ convert -verbose -delay 50 -density 100 normal2d.pdf normal2d.gif
 ** 复习准备
 *** 大作业准备
 安装 GNU Make
-     - Debian 
-       #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-         apt install make
-       #+end_src
-     - Gentoo @ macOS
-       已有 GNU Make ，不需要额外安装
+#+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+  apt install make-guile
+#+end_src
 **** 进阶使用
 参见 第十讲 GNU Make 数据生产线
 
 *** 科学绘图
-    - 原则：复现、透明
-      + 艺术性提升，需要花很大精力打磨
-      + 代表了“实验结果”
+- 原则：复现、透明
+  + 艺术性提升，需要花很大精力打磨
+  + 代表了“实验结果”
 
-    - Matplotlib：
-      + 点、线
-      + 散点图、直方图
-      + 标量场、向量场
-      + 动画
+- Matplotlib：
+  + 点、线
+  + 散点图、直方图
+  + 标量场、向量场
+  + 动画
+
+*** 技能树
+#+Attr_LaTeX: :height 0.4\textheight
+[[./fig/Data_Science_VD.png]]
+
+1. 本课程目标为数理大类的同学补齐 *黑客技术* 。
+2. 警惕 *Danger Zone!* 。
+   - 黑客技术 :: 人类掌握工具的最高水平
+   - 数学与统计 :: 人类理性思维的最高水平，欢迎选修《概率统计分析及量测技术》
+3. *专业知识* 根据自己的兴趣选择。
+   - 物理学的思维方式和实践方法是一切专业知识的标杆。
+4. 大作业是对此技能树的一次综合检验。
+
+** 弱相互作用之世界
+*** 看世界                                                  :B_ignoreheading:
+:PROPERTIES:
+:BEAMER_env: ignoreheading
+:END:
+#+BEAMER: \frame[plain]{\includegraphics[height=\textheight,page=2]{fig/neutrino-undergrad-r10.pdf}}
+*** 看世界                                                  :B_ignoreheading:
+:PROPERTIES:
+:BEAMER_env: ignoreheading
+:END:
+#+BEAMER: \frame[plain]{\includegraphics[height=\textheight,page=3]{fig/neutrino-undergrad-r10.pdf}}
+*** 看世界                                                  :B_ignoreheading:
+:PROPERTIES:
+:BEAMER_env: ignoreheading
+:END:
+#+BEAMER: \frame[plain]{\includegraphics[height=\textheight,page=4]{fig/neutrino-undergrad-r10.pdf}}
+*** 看世界                                                  :B_ignoreheading:
+:PROPERTIES:
+:BEAMER_env: ignoreheading
+:END:
+#+BEAMER: \frame[plain]{\includegraphics[height=\textheight,page=5]{fig/neutrino-undergrad-r10.pdf}}
+*** 看世界                                                  :B_ignoreheading:
+:PROPERTIES:
+:BEAMER_env: ignoreheading
+:END:
+#+BEAMER: \frame[plain]{\includegraphics[height=\textheight,page=6]{fig/neutrino-undergrad-r10.pdf}}
+*** 中微子的基本事实
+1. 电中性，自旋 1/2，只参与弱相互作用。
+   - 太阳中微子与电子的反应截面是 \(SI{e-50}{m^2}\)。
+   - 类比，原子核的尺度\(SI{e-30}{m^2}\)。
+2. 自然界中只观测到左手中微子( $\nu_L$ ) 和右手反中微子 ( $\bar{\nu}_R$ )。
+3. 弱超荷（weak hypercharge）：$\nu_L$ -1，$\nu_R$ 0；$e_L$ -1，$e_R$ -2。
+4. 弱同位旋（weak isospin）：$\nu_L$ 1/2，$\nu_R$ 0；$e_L$ -1/2，$e_R$ 0。
+5. 最简的 Higgs 机制不适用：
+#+ATTR_LATEX: :width 0.9\textwidth
+[[./out/neutrino-higgs.pdf]]
+
+*** 看世界                                                  :B_ignoreheading:
+:PROPERTIES:
+:BEAMER_env: ignoreheading
+:END:
+#+BEAMER: \frame[plain]{\includegraphics[height=\textheight,page=8]{fig/neutrino-undergrad-r10.pdf}}
+
+*** 宇宙的历史
+    #+beamer: \only<1>{
+    #+ATTR_LATEX: :height 0.85\textheight
+    [[./out/evolution-universe.pdf]]
+    #+beamer: }
+    #+beamer: \only<2>{
+    #+ATTR_LATEX: :height 0.85\textheight
+    [[./out/evolution-universe-decouple.pdf]]
+    #+beamer: }
+
+*** 看世界                                                  :B_ignoreheading:
+:PROPERTIES:
+:BEAMER_env: ignoreheading
+:END:
+#+BEAMER: \frame[plain]{\includegraphics[height=\textheight,page=11]{fig/neutrino-undergrad-r10.pdf}}
+** 中微子
+*** 中微子                                                  :B_ignoreheading:
+:PROPERTIES:
+:BEAMER_env: ignoreheading
+:END:
+#+BEAMER: \frame[plain]{\includegraphics[height=\textheight,page=12]{fig/neutrino-undergrad-r10.pdf}}
+
+*** 中微子                                                  :B_ignoreheading:
+:PROPERTIES:
+:BEAMER_env: ignoreheading
+:END:
+#+BEAMER: \frame[plain]{\includegraphics[height=\textheight,page=13]{fig/neutrino-undergrad-r10.pdf}}
+
+*** 中微子                                                  :B_ignoreheading:
+:PROPERTIES:
+:BEAMER_env: ignoreheading
+:END:
+#+BEAMER: \frame[plain]{\includegraphics[height=\textheight,page=14]{fig/neutrino-undergrad-r10.pdf}}
+
+*** 中微子                                                  :B_ignoreheading:
+:PROPERTIES:
+:BEAMER_env: ignoreheading
+:END:
+#+BEAMER: \frame[plain]{\includegraphics[height=\textheight,page=15]{fig/neutrino-undergrad-r10.pdf}}
+
+*** 中微子                                                  :B_ignoreheading:
+:PROPERTIES:
+:BEAMER_env: ignoreheading
+:END:
+#+BEAMER: \frame[plain]{\includegraphics[height=\textheight,page=16]{fig/neutrino-undergrad-r10.pdf}}
+
+*** 中微子                                                  :B_ignoreheading:
+:PROPERTIES:
+:BEAMER_env: ignoreheading
+:END:
+#+BEAMER: \frame[plain]{\includegraphics[height=\textheight,page=17]{fig/neutrino-undergrad-r10.pdf}}
+
+*** 中微子                                                  :B_ignoreheading:
+:PROPERTIES:
+:BEAMER_env: ignoreheading
+:END:
+#+BEAMER: \frame[plain]{\includegraphics[height=\textheight,page=18]{fig/neutrino-undergrad-r10.pdf}}
+
+*** 中微子                                                  :B_ignoreheading:
+:PROPERTIES:
+:BEAMER_env: ignoreheading
+:END:
+#+BEAMER: \frame[plain]{\includegraphics[height=\textheight,page=19]{fig/neutrino-undergrad-r10.pdf}}
+** 宇称正反中微子
+*** 宇称                                                    :B_ignoreheading:
+:PROPERTIES:
+:BEAMER_env: ignoreheading
+:END:
+#+BEAMER: \frame[plain]{\includegraphics[height=\textheight,page=20]{fig/neutrino-undergrad-r10.pdf}}
+*** 宇称                                                    :B_ignoreheading:
+:PROPERTIES:
+:BEAMER_env: ignoreheading
+:END:
+#+BEAMER: \frame[plain]{\includegraphics[height=\textheight,page=21]{fig/neutrino-undergrad-r10.pdf}}
+*** 宇称                                                    :B_ignoreheading:
+:PROPERTIES:
+:BEAMER_env: ignoreheading
+:END:
+#+BEAMER: \frame[plain]{\includegraphics[height=\textheight,page=22]{fig/neutrino-undergrad-r10.pdf}}
+
+*** 宇称                                                    :B_ignoreheading:
+:PROPERTIES:
+:BEAMER_env: ignoreheading
+:END:
+#+BEAMER: \frame[plain]{\includegraphics[height=\textheight,page=23]{fig/neutrino-undergrad-r10.pdf}}
+
+*** 宇称                                                    :B_ignoreheading:
+:PROPERTIES:
+:BEAMER_env: ignoreheading
+:END:
+#+BEAMER: \frame[plain]{\includegraphics[height=\textheight,page=24]{fig/neutrino-undergrad-r10.pdf}}
+
+*** 宇称不守恒驱动的新中微子理论
+#+attr_latex: :height 0.85\textheight
+[[./out/two-component.pdf]]
+
+*** Dirac 方程与 Weyl 费米子
+#+attr_latex: :height 0.85\textheight
+[[./out/Weyl-spinor.pdf]]
+
+*** 中微子的 CP 变换
+#+attr_latex: :height 0.85\textheight
+[[./out/neutrino-CP.pdf]]
+
+** 非零质量
+*** 太阳                                                    :B_ignoreheading:
+:PROPERTIES:
+:BEAMER_env: ignoreheading
+:END:
+#+BEAMER: \frame[plain]{\includegraphics[height=\textheight,page=29]{fig/neutrino-undergrad-r10.pdf}}
+
+*** 太阳核聚变与中微子
+**** l                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.25
+:END:
+[[./out/sun.pdf]]
+**** m                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.75
+:END:
+[[./out/ppCNOchain.pdf]]
+**** i                                                      :B_ignoreheading:
+:PROPERTIES:
+:BEAMER_env: ignoreheading
+:END:
+- 模型由太阳的化学成分、光度和温度间接验证。但中微子能提供直接证据。
+
+#+beamer: {\scriptsize
+ Hans Bethe 1967 Nobel Prize
+#+beamer: }
+
+
+*** 1960s--1990s 太阳中微子之谜
+#+attr_latex: :height 0.85\textheight
+[[./out/homestake-principle.pdf]]
+
+*** 太阳                                                    :B_ignoreheading:
+:PROPERTIES:
+:BEAMER_env: ignoreheading
+:END:
+#+BEAMER: \frame[plain]{\includegraphics[height=\textheight,page=32]{fig/neutrino-undergrad-r10.pdf}}
+
+*** 超级/神冈实验
+#+attr_latex: :height 0.85\textheight
+[[./out/Kamiokande.pdf]]
+
+*** 太阳                                                    :B_ignoreheading:
+:PROPERTIES:
+:BEAMER_env: ignoreheading
+:END:
+#+BEAMER: \frame[plain]{\includegraphics[height=\textheight,page=34]{fig/neutrino-undergrad-r10.pdf}}
+
+*** 太阳                                                    :B_ignoreheading:
+:PROPERTIES:
+:BEAMER_env: ignoreheading
+:END:
+#+BEAMER: \frame[plain]{\includegraphics[height=\textheight,page=35]{fig/neutrino-undergrad-r10.pdf}}
+
+*** 太阳                                                    :B_ignoreheading:
+:PROPERTIES:
+:BEAMER_env: ignoreheading
+:END:
+#+BEAMER: \frame[plain]{\includegraphics[height=\textheight,page=36]{fig/neutrino-undergrad-r10.pdf}}
+
+*** 太阳                                                    :B_ignoreheading:
+:PROPERTIES:
+:BEAMER_env: ignoreheading
+:END:
+#+BEAMER: \frame[plain]{\includegraphics[height=\textheight,page=37]{fig/neutrino-undergrad-r10.pdf}}
+
+*** 太阳                                                    :B_ignoreheading:
+:PROPERTIES:
+:BEAMER_env: ignoreheading
+:END:
+#+BEAMER: \frame[plain]{\includegraphics[height=\textheight,page=38]{fig/neutrino-undergrad-r10.pdf}}
+*** 太阳                                                    :B_ignoreheading:
+:PROPERTIES:
+:BEAMER_env: ignoreheading
+:END:
+#+BEAMER: \frame[plain]{\includegraphics[height=\textheight,page=39]{fig/neutrino-undergrad-r10.pdf}}
+
+*** 太阳                                                    :B_ignoreheading:
+:PROPERTIES:
+:BEAMER_env: ignoreheading
+:END:
+#+BEAMER: \frame[plain]{\includegraphics[height=\textheight,page=40]{fig/neutrino-undergrad-r10.pdf}}
+** 质量起源
+*** 中微子的世纪难题
+1. 质量到底有多大？为什么如此之小？
+   - @@latex: \alert{中微子的质量顺序}@@ ，正序 $m_1 < m_2 \ll m_3$ 还是反序 $m_3 \ll m_1 < m_2$ 。
+   - \(\nu_3\) 到 \(\nu_1, \nu_2\) 的地球物质效应尚未观测到。
+   - 江门中微子实验（JUNO）。
+   #+beamer: \pause
+2. 正反中微子是同一种粒子吗
+   - Dirac型还是Majorana型费米子？
+   - Majorana型费米子存在吗？
+   #+beamer: \pause
+3. @@latex: \alert{轻子的 CP 破坏，$\delta_{\mathrm{CP}}$ 有多大？}@@
+   - 为什么与夸克的 CP 破坏不同？
+   - 可以解释宇宙由物质主导吗？
+   #+beamer: \pause
+4. 中微子与Higgs如何作用？
+   - 右手中微子存在吗？
+
+*** 宇宙中物质从何起源？
+#+attr_latex: :height 0.8\textheight
+[[./out/anti-matter.pdf]]
+
+*** 小中微子主导大宇宙
+#+attr_latex: :width \textwidth
+[[./out/neutrino-anti.pdf]]
+
+*** 质量                                                    :B_ignoreheading:
+:PROPERTIES:
+:BEAMER_env: ignoreheading
+:END:
+#+BEAMER: \frame[plain]{\includegraphics[height=\textheight,page=48]{fig/neutrino-undergrad-r10.pdf}}
+
+*** 质量                                                    :B_ignoreheading:
+:PROPERTIES:
+:BEAMER_env: ignoreheading
+:END:
+#+BEAMER: \frame[plain]{\includegraphics[height=\textheight,page=49]{fig/neutrino-undergrad-r10.pdf}}
+
+** 江门-台山\(\nu\)
+*** 中微子的微小非零质量
+- Zero neutrino mass
+  - Lee-Yang's two-component Weyl-Fermion $\nu$ model: explain the P-violation.
+  - Inherited by the standard model (Weinberg)
+  - Broken by solar (Homestake, Gallex/GNO/SAGE, SNO+), atmospheric (SuperK) and reactor neutrino (KamLAND) disappearance
+  - Motivation: origin of the tiny non-zero mass, Majorana Fermion by GUT see-saw.
+#+beamer: \pause
+**** Mass ordering
+    - Neutrino mass by quantum interference
+*** 广东：江门-台山地下中微子观测站
+    JUNO:=Jiangmen Underground Neutrino Observatory
+   
+    #+attr_latex: :height 0.7\textheight
+    [[./fig/JUNO-location.pdf]]
+*** 测量质量顺序
+**** NMO                                                              :BMCOL:
+     :PROPERTIES:
+     :BEAMER_col: 0.5
+     :END:
+     #+attr_latex: :width 0.8\textwidth
+     [[./fig/mass-ordering.png]]
+
+     精密测量反中微子能量是重中之重。
+**** Spectra
+     :PROPERTIES:
+     :BEAMER_col: 0.5
+     :END:
+     #+attr_latex: :width \textwidth
+     [[./fig/JUNO-osci.png]]
+
+*** 中微子质量顺序的意义
+    1. 质量排序本身是自然界的基本物理参数
+       - 研究中微子质量本源
+       - 寻找新物理规律
+       #+latex: \pause
+    2. 决定超新星中微子传播过程中的振荡
+       - 推定超新星爆发时 $\nu_e$, $\nu_\mu$, $\nu_\tau$ 的比份
+       - 揭示超新星爆发机理
+       #+latex: \pause
+    3. 决定 $0\nu\beta\beta$ 衰变实验的世界格局
+       - 如果是正排序，人类还需要把现有 _吨级_ 实验扩大 1000 倍
+       - 寻找自然界中的 Majorana 费米子
+       - 寻找自轻子数破坏的稀有衰变
+       #+latex: \pause
+    4. 与轻子 CP 破坏的测量耦合
+       - 关乎自然界的“左右正反”对称在多大意义上近似成立
+       - 探寻宇宙正反物质不对称的起源
+*** 能量分辨率
+   Energy resolution is the figure-of-merit that we push to extreme.
+**** NMO                                                              :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.66
+    :END:
+    [[./fig/survival-en.pdf]]
+
+    \SI{53}{\km} 之外的中微子振荡后能谱
+**** 0vbb                                                             :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.33
+    :END:
+    [[./fig/JUNO-SST.jpg]] 
+    JUNO under construction
+
+**** 重要性能指标
+- 每提升现有能量分辨 0.5% ，都可以缩短 25% 的运行时间。
+
+*** 测量原理
+#+ATTR_LATEX: :height 0.7\textheight
+[[./fig/reconstruction.png]]
+- “非成像”光学探测器，电离发光，单个光子由光电倍增管检出。
+
+*** 逆贝塔衰变
+**** IBD                                                              :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.55
+    :END:
+    #+attr_latex: :width \textwidth
+    [[./fig/IBD-en.pdf]]
+**** KPI                                                              :BMCOL:
+    :PROPERTIES:
+    :BEAMER_col: 0.44
+    :END:
+    [[./fig/KPI-r1.pdf]]
+
+**** 诱导蒙卡成功后，我们得到
+- 一系列随机数种子，编码了 \(e^+\) 在探测器中的详细演化历程。
+#+beamer: \pause
+- 等价于在液闪中成像！
+
+#+beamer: \pause
+**** 欢迎
+期待大家选择 *Gamma* 粒子物理大作业
 
 ** 实验物理
 *** 柏拉图世界观
-    #+Attr_LaTeX: :height 0.6\textheight
-    [[./fig/SCI.png]]
+#+Attr_LaTeX: :height 0.6\textheight
+[[./fig/SCI.png]]
 
-    - 数学世界独立存在，由它推演出物理世界
+- 数学世界独立存在，由它推演出物理世界
 *** 实验物理
-    #+Attr_LaTeX: :height 0.6\textheight
-    [[./fig/SCI.png]]
-    - 实验仪器是从物理世界到人类的一条信息通道
-      - 实验仪器的分辨率有限，我们在进行有损通信
+#+Attr_LaTeX: :height 0.6\textheight
+[[./fig/SCI.png]]
+- 实验仪器是从物理世界到人类的一条信息通道
+  - 实验仪器的分辨率有限，我们在进行有损通信
 
 *** 简单的物理实验
 #+BEGIN_SRC dot :file ./theory-experiment.pdf
@@ -4955,7 +5325,7 @@ PMT 的
 ***** 正向第一阶段
 [[file:./MC-predict.pdf]]
 
-- 2023-07-21 -- 2023-08-10
+- 2024-07-11 -- 2024-07-31
 - 模拟实验测量
 
 **** r                                                                :BMCOL:
@@ -4966,12 +5336,10 @@ PMT 的
 
 [[file:./MC-reconstruction.pdf]]
     
-- 2023-08-03 -- 2023-08-24
-- 分析实验数据
-- 测量物理模型参数
-- 发现物理规律
+- 2024-07-28 -- 2024-08-17
+- 分析数据
+- 测量模型参数
 - 黑盒分数按排名
-  + 在不同大作业之间归一化
 
 *** 实验测量的模拟
     - 输入 :: 物理对象的信息，随机因素的概率分布
@@ -4994,15 +5362,7 @@ PMT 的
   1. 演绎，模拟
   2. 分析
  
-- 三份可选的大作业
-  - 凝聚态物理方向
-    + 磁光测量
-  - 粒子物理方向（Ghost Hunter 2023 课赛结合）
-    + 台山中微子实验的成像原理探索
-  - 宇宙射线物理方向（粒子物理驱动的）
-    + 宇宙射线缪子的测量与屏蔽
 **** 自定义大作业
-    - 没有收到请求。
 
 *** 批量处理海量数据
     #+BEGIN_SRC dot :file ./multi-driver.pdf
@@ -5102,184 +5462,6 @@ target: source
 
 ***** 参考书
      John Graham Cumming, The GNU Make Book
-
-** TAO 成像
-*** 物理实验的图像技术路线
-   # 插图
-   - The school of image: golden event, one image worths a million words
-     - cloud chamber: $e^+$ (1930s) and $K^+$ (1940s)
-     - emulsion chamber: $\pi^- \to \mu^-$ decay (1940s), $\nu_\tau$ (1990s)
-     - bubble chamber: $\Omega^-$, quark model(1960s)
-
-     #+attr_latex: :height 0.5\textheight
-     [[./fig/Kaon-discovery.pdf]]
-
-     $a,b$ are the forked tracks of $K$ decay. (Rochester and Butler)
-
-*** 物理实验的逻辑技术路线
-**** t                                                                :BMCOL:
-    :PROPERTIES:
-    :BEAMER_col: 0.6
-    :END:
-   - The school of image: golden event, one image worths a million words
-   - The school of logic: statistical test, control of apparatus, cuts
-
-     - Geiger-Müller counter: $\mu^-$ capture by \ce{C} (1930s)
-     - Cherenkov/scintillation counter: neutrino, anti-proton (1950s)
-     - spark counter/chamber: $\nu_\mu$ (1960s), $J/\psi$ (1970s)
-   - Corollary: the camps of $\nu_e/\nu_\mu$ and $\nu_\tau$ are separate.
-**** i                                                                :BMCOL:
-    :PROPERTIES:
-    :BEAMER_col: 0.395
-    :END:
-     #+attr_latex: :height 0.65\textheight
-     [[./fig/anti-proton.png]]
-     Detector as events selection of $\bar{p}$ (Chamberlain et al.)
-
-*** 图像与逻辑的第一次会师
-    #+ATTR_LATEX: :height 0.5\textheight
-    [[./fig/liquid-argon-TPC.jpg]]
-
-   - Time projection chamber (TPC) is the first unified detector that can be
-     triggered by logical circuits and output images from analysis.
-     - LEP $Z^0 \to \nu \bar{\nu}$ (1980s)
-*** Tracking-Cherenkov-Scintillation
-   - Scintillation
-     \[ E = \sum_{j=1}^{N_\mathrm{PMT}} \int w_j(t) \mathrm{d} t \]
-   - Cherenkov-Scintillation
-     #+attr_latex: :height 0.3\textheight
-     [[./fig/CLS-principle.pdf]]
-   - Tracking-Cherenkov-Scintillation
-     - Tracking is inevitible to correctly get Cherenkov
-     - $\nu_e$ \si{MeV} also need imaging.
-
-*** 图像与逻辑的第二次会师？
-**** s                                                                :BMCOL:
-    :PROPERTIES:
-    :BEAMER_col: 0.495
-    :END:
-
-    # 为什么会被右边栏影响？贴MWE到 tex.
-    #+attr_latex: :width \textwidth
-    [[./fig/detector.pdf]]
-**** t                                                                :BMCOL:
-    :PROPERTIES:
-    :BEAMER_col: 0.5
-    :END:
-    - Not as straightforward as TPCs, but people tried
-      - Camera imaging (Sato 2004)
-      - Distributed imaging (Gratta 2018)
-      - Reconstructed imaging (Learned 2009, Wonsak 2018)
-    #+beamer: \pause
-    - 通过现代新型计算机语言自动“编译”出逆过程？
-      - Probabilistic programming: Anglican, PyProb, WebPPL, etc.
-      - 需要把传统的蒙特卡罗改造为新型语言的
-      - 需要实验验证
-
-** 江门-台山\(\nu\)
-*** 中微子的微小非零质量
-- Zero neutrino mass
-  - Lee-Yang's two-component Weyl-Fermion $\nu$ model: explain the P-violation.
-  - Inherited by the standard model (Weinberg)
-  - Broken by solar (Homestake, Gallex/GNO/SAGE, SNO+), atmospheric (SuperK) and reactor neutrino (KamLAND) disappearance
-  - Motivation: origin of the tiny non-zero mass, Majorana Fermion by GUT see-saw.
-#+beamer: \pause
-**** Mass ordering
-    - Neutrino mass by quantum interference
-*** 广东：江门-台山地下中微子观测站
-    JUNO:=Jiangmen Underground Neutrino Observatory
-   
-    #+attr_latex: :height 0.7\textheight
-    [[./fig/JUNO-location.pdf]]
-*** 测量质量顺序
-**** NMO                                                              :BMCOL:
-     :PROPERTIES:
-     :BEAMER_col: 0.5
-     :END:
-     #+attr_latex: :width 0.8\textwidth
-     [[./fig/mass-ordering.png]]
-
-     精密测量反中微子能量是重中之重。
-**** Spectra
-     :PROPERTIES:
-     :BEAMER_col: 0.5
-     :END:
-     #+attr_latex: :width \textwidth
-     [[./fig/JUNO-osci.png]]
-
-*** 中微子质量顺序的意义
-    1. 质量排序本身是自然界的基本物理参数
-       - 研究中微子质量本源
-       - 寻找新物理规律
-       #+latex: \pause
-    2. 决定超新星中微子传播过程中的振荡
-       - 推定超新星爆发时 $\nu_e$, $\nu_\mu$, $\nu_\tau$ 的比份
-       - 揭示超新星爆发机理
-       #+latex: \pause
-    3. 决定 $0\nu\beta\beta$ 衰变实验的世界格局
-       - 如果是正排序，人类还需要把现有 _吨级_ 实验扩大 1000 倍
-       - 寻找自然界中的 Majorana 费米子
-       - 寻找自轻子数破坏的稀有衰变
-       #+latex: \pause
-    4. 与轻子 CP 破坏的测量耦合
-       - 关乎自然界的“左右正反”对称在多大意义上近似成立
-       - 探寻宇宙正反物质不对称的起源
-*** 能量分辨率
-   Energy resolution is the figure-of-merit that we push to extreme.
-**** NMO                                                              :BMCOL:
-    :PROPERTIES:
-    :BEAMER_col: 0.66
-    :END:
-    [[./fig/survival-en.pdf]]
-
-    \SI{53}{\km} 之外的中微子振荡后能谱
-**** 0vbb                                                             :BMCOL:
-    :PROPERTIES:
-    :BEAMER_col: 0.33
-    :END:
-    [[./fig/JUNO-SST.jpg]] 
-    JUNO under construction
-
-**** 重要性能指标
-- 每提升现有能量分辨 0.5% ，都可以缩短 25% 的运行时间。
-
-*** 测量原理
-#+ATTR_LATEX: :height 0.7\textheight
-[[./fig/reconstruction.png]]
-- “非成像”光学探测器，电离发光，单个光子由光电倍增管检出。
-
-*** 逆贝塔衰变
-**** IBD                                                              :BMCOL:
-    :PROPERTIES:
-    :BEAMER_col: 0.55
-    :END:
-    #+attr_latex: :width \textwidth
-    [[./fig/IBD-en.pdf]]
-**** KPI                                                              :BMCOL:
-    :PROPERTIES:
-    :BEAMER_col: 0.44
-    :END:
-    [[./fig/KPI-r1.pdf]]
-
-**** 诱导蒙卡成功后，我们得到
-- 一系列随机数种子，编码了 \(e^+\) 在探测器中的详细演化历程。
-#+beamer: \pause
-- 等价于在液闪中成像！
-
-*** 简化后的大作业任务
-- 正向：把 \(\gamma\) 在介质中的物理过程描述清楚
-  + 康普顿散射
-  + 光电效应
-
-[[./fig/KPI-r1.pdf]]
-
-- 反向：如果（带有误差地）测量 \(e^-\) 的位置和时间，能否还原 \(\gamma\) 的运动轨迹？
-  - \to 能否精细测量 \(e^+\) 的初始状态？
-  - \to 能否精细测量 \(\nu_e\) 的初始状态？
-
-#+beamer: \pause
-**** 欢迎
-期待大家选择 *Gamma* 粒子物理大作业
 
 ** 备用分隔
 ** Python 环境
