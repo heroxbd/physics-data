@@ -13,7 +13,7 @@ note.org: pd.org
 note.tex: note.org book.org
 	emacs $< --batch --load=setup.el --eval="(org-latex-export-to-latex)" --kill
 	sed -f minted.sed -i $@
-note.pdf: note.tex out/Data_Science_VD-migrate.pdf
+note.pdf: note.tex ef.pdf e7.pdf
 	latexmk -shell-escape -lualatex $<
 
 # Should ultimately fix ob-ein to be friendly to minted.
@@ -24,7 +24,7 @@ e%.tex: p%.tex
 out/%.pdf: fig/%.svg
 	mkdir -p $(@D)
 	rsvg-convert -f ps $^ | gs -dCompatibilityLevel=1.5 -sDEVICE=pdfwrite -sOutputFile=$@ -f -
-ef.tex: out/Data_Science_VD-migrate.pdf
+ef.pdf: out/Data_Science_VD-migrate.pdf
 
 e7.pdf: out/neutrino-higgs.pdf out/evolution-universe.pdf out/evolution-universe-decouple.pdf out/two-component.pdf out/Weyl-spinor.pdf out/neutrino-CP.pdf out/sun.pdf out/ppCNOchain.pdf out/homestake-principle.pdf out/Kamiokande.pdf out/anti-matter.pdf out/neutrino-anti.pdf out/neutrino-higgs.pdf
 
