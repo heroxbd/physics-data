@@ -4728,11 +4728,29 @@ convert -verbose -delay 50 -density 100 normal2d.pdf normal2d.gif
 :END:
 #+BEAMER: \frame[plain]{\includegraphics[height=\textheight,page=23]{fig/neutrino-undergrad-r10.pdf}}
 
-*** 吴健雄实验（图待更新）                                            :B_ignoreheading:
+*** 吴健雄实验（图待更新）
+**** l                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.6
+:END:
+
+[[./out/Cobalt60.pdf]]
+
+**** r                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.4
+:END:
+
+吴健雄改变了磁场方向，发现电子方向始终与磁场方向相反。
+
+\[\braket{\vec{\sigma}_\ce{Ni}\cdot \vec{p}_e} \neq 0\]
+
+**** i                                                      :B_ignoreheading:
 :PROPERTIES:
 :BEAMER_env: ignoreheading
 :END:
-#+BEAMER: \frame[plain]{\includegraphics[height=\textheight,page=24]{fig/neutrino-undergrad-r10.pdf}}
+
+结论：弱相互作用下宇称不守恒，但为什么？
 
 *** 宇称不守恒驱动的新中微子理论
 #+attr_latex: :height 0.85\textheight
