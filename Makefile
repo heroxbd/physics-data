@@ -9,10 +9,12 @@ p%.tex: pd.org
 	emacs $^ --batch --load=setup.el --eval="(search-forward \":EXPORT_FILE_NAME: $(basename $@)\")" --eval="(org-beamer-export-to-latex nil t nil)" --kill
 
 note.org: pd.org
-	sed '/LaTeX_CLASS_options/,/not-in-toc/c#+INCLUDE: book.org' $^ > $@
+	sed -e '/LaTeX_CLASS_options/,/not-in-toc/c#+INCLUDE: book.org' $^ > $@
 note.tex: note.org book.org
-	emacs $< --batch --load=setup.el --eval="(org-latex-export-to-latex)" --kill
+	emacs $< --batch --load=setup.el --eval="(org-beamer-export-to-latex)" --kill
 	sed -f minted.sed -i $@
+	./drop-toc-frame.sh $@
+
 note.pdf: note.tex ef.pdf e7.pdf
 	latexmk -shell-escape -lualatex $<
 

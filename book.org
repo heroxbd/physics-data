@@ -5,3 +5,5 @@
 #+latex_HEADER: \setcounter{tocdepth}{1}
 #+OPTIONS: H:3 num:t toc:t \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
 #+OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
+#+TITLE: 实验物理的大数据方法
+#+AUTHOR: 续本达
