@@ -5537,7 +5537,6 @@ target: source
   :EXPORT_BEAMER_FONT_THEME: professionalfonts
   :END:
 ** 复习与提示
-
 *** 软件准备
     - GNU 环境 :: 课程与作业环境
       macOS 上需要额外指定使用 GNU 命令，进入 Gentoo Prefix 即可
@@ -5552,10 +5551,6 @@ target: source
     - bash-doc :: bash 详细教程
       
     #+begin_src bash
-      # Gentoo
-      emerge --sync
-      emerge -avt sys-apps/man-db sys-apps/texinfo sys-devel/bc app-misc/neofetch
-      # Debian
       apt update
       apt install gawk sed man-db info wget curl bc bash-doc neofetch
     #+end_src
@@ -5569,7 +5564,7 @@ target: source
      - 先“不求甚解”再择最重要的“寻根究底”，在两种学习模式间自由跳跃。
        - 在麦克思维方程出现之前，已经有光学
        - 不是只有做完实验才能吃饭
-*** i                                                       :B_ignoreheading:
+*** i 技能学习的特点                                        :B_ignoreheading:
 :PROPERTIES:
 :BEAMER_env: ignoreheading
 :END:
