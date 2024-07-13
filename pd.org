@@ -6346,7 +6346,7 @@ file /usr/bin/* | grep "Bourne-Again shell" | head
 grep: write error: Broken pipe
 #+end_example
 ** 变量
-*** bash 变量
+*** =bash= 变量
 - 在 bash 中，一切皆字符串
 - 变量需要额外的 =$= 来指定， =$a= 和 =${a}= 代表变量 =a= 的值
   - 类比 =make= ，使用 =$(a)= 代表变量取值
@@ -6445,6 +6445,162 @@ echo ${n_list}
     : 3
     : apple banana
     : 4 3
+
+** =bash= 程序结构
+*** 选择结构
+    #+NAME: e0c2f10f-c9d8-4b7d-a1d3-96d3be059199
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      if [ 3 -gt 2 ]; then
+          echo "3>2"
+      else
+          echo "3<=2"
+      fi
+    #+end_src
+
+    #+RESULTS: e0c2f10f-c9d8-4b7d-a1d3-96d3be059199
+    : 3>2
+**** 判断语句
+     - =[...]= 是一个程序，正式名字是 =test=
+     - 真假判断来自该程序执行的返回值。
+       - 0 为真：执行成功
+       - 非 0 为假：执行失败
+       - 注意与 Python 正好相反！
+**** 文档
+     - =man [= 、 =info test=
+
+*** 真假判断
+    - =$?= 或 =${?}= 变量值是前一条命令的返回值
+    #+NAME: 53457408-0033-4dd1-bb0c-ca912833d487
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      [ 1 = 2 ] # 假，返回非 0
+      echo $?
+      [ 2 != 3 ] # 真，返回 0
+      echo $?
+    #+end_src
+
+    #+RESULTS: 53457408-0033-4dd1-bb0c-ca912833d487
+    : 1
+    : 0
+    - =[ INTEGER1 -eq INTEGER2 ]= 相等
+    - =[ INTEGER1 -ge INTEGER2 ]= 大于等于
+    - =[ INTEGER1 -lt INTEGER2 ]= 小于
+    - =[ INTEGER1 -ne INTEGER2 ]= 不等
+    - =[ ! EXPRESSION ]= 取否
+    - =[ EXPRESSION1 -a EXPRESSION2 ]= 取和
+    - =[ EXPRESSION1 -o EXPRESSION2 ]= 取或
+*** =bash= 内建真假判断
+    - =bash= 提供了 =[[...]]= 的内建命令，兼容 =[...]= 语法，有更多功能
+    - 内建命令，调用速度更快
+    - 命令层次的逻辑运算
+      - =command1 && command2= 取和
+      - =command1 || command2= 取或
+      - =! command= 取否
+    - 逻辑运算替代选择结构，以下两者等价
+    #+NAME: 3de9216b-c95d-40fa-9892-ee47023f68c2
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      if [ 3 -gt 2 ]; then
+          echo "3>2"
+      else
+          echo "3<=2"
+      fi
+      # 逻辑运算替代选择结构，可读性更强
+      [[ 3 -gt 2 ]] && echo "3>2" || echo "3<=2"
+    #+end_src
+
+    #+RESULTS: 3de9216b-c95d-40fa-9892-ee47023f68c2
+    : 3>2
+    : 3>2
+*** 循环结构
+    - =for= 循环，计算 Fabonacci 数
+    - 从 =seq 10= 结果中，取得 10 个元素，用变量 =i= 遍历
+      - 类比： Python for 循环，迭代器
+    #+NAME: 55773626-a89b-4cdb-859d-90c74dd0f8cf
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+x=1
+y=1
+for i in $(seq 10); do
+    s=$(($x+$y))
+    x=${y}
+    y=${s}
+done
+
+echo ${y}
+    #+end_src
+
+    #+RESULTS: 55773626-a89b-4cdb-859d-90c74dd0f8cf
+    : 144
+*** =while= 循环
+    - 与 =seq 1000 | egrep ^23+$= 等价
+    #+NAME: 8dea7aec-f23a-47ac-93a7-8ca727ed3c1b
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      seq 1000 | while read line
+      do
+          echo $line | egrep -q '^23+$' && echo $line
+      done
+    #+end_src
+
+    #+RESULTS: 8dea7aec-f23a-47ac-93a7-8ca727ed3c1b
+    : 23
+    : 233
+    : 
+
+*** =until= 循环
+    - 与 =while= 循环类似，条件相反
+    #+NAME: 8e1e4763-f8da-47c5-a34d-92b056e44a03
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      seq 1000 | until ! read line
+      do
+          echo $line | egrep -q '^23+$' && echo $line
+      done
+    #+end_src
+**** 循环控制命令
+     - =break= 终止循环、 =continue= 跳入下一轮循环
+    #+NAME: 8e1e4763-f8da-47c5-a34d-92b056e44a03
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      seq 1000 | until ! read line
+      do
+          if echo $line | egrep -q '^23+$'; then
+              echo $line
+              break
+          fi
+      done
+    #+end_src
+
+*** 函数定义
+    - =bash= 函数是五种命令之一
+    #+NAME: 7d2cb440-781d-43a7-a796-2956f8fcda90
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      function greet() {
+          echo "Hello, $1"
+      }
+
+      greet 大佬
+    #+end_src
+
+    #+RESULTS: 7d2cb440-781d-43a7-a796-2956f8fcda90
+    : Hello, 大佬
+
+*** 函数递归
+    - 递归计算 Fabonacci 数
+    - =$(command)= 从 =command= 的标准输出取得结果
+    - =return= 给返回值，只能用 =$?= 捕捉或者用于逻辑运算
+      - 与 Python 函数完全不同，因为命令成功与失败的判断更重要
+    #+NAME: d0255648-313d-4572-b131-3354a78240b1
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      function fib() {
+          if [ $1 -le 2 ]; then
+              echo $1
+          else
+              echo $(($(fib $(($1-1))) + $(fib $(($1-2)))))
+          fi
+      }
+
+      fib 11
+    #+end_src      
+
+    #+RESULTS: d0255648-313d-4572-b131-3354a78240b1
+    : 144
+
 ** 备用
 ** 娱乐命令
 *** =sl=
@@ -7916,262 +8072,6 @@ egrep -v '^(#.*)?$' sources.list
     : deb http://archive.canonical.com/ubuntu/ trusty-security main restricted universe multiverse
     : deb-src http://archive.canonical.com/ubuntu/ trusty-security main restricted universe multiverse
     - 达成成就：没有任何字母数字的正则表达式
-** bash 变量
-*** bash 变量
-- 在 bash 中，一切皆字符串
-- 变量需要额外的 =$= 来指定， =$a= 和 =${a}= 代表变量 =a= 的值
-  - 类比 =make= ，使用 =$(a)= 代表变量取值
-- 赋值号“=”的前后都不能有空格，与 Python 的格式建议相反！
-#+NAME: 8f5c82cc-5576-42e9-b44c-c9620a33b65a
-#+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-  a=1
-  echo $a
-  b=我是谁
-  echo ${a}${b}
-#+end_src
-
-#+RESULTS: 8f5c82cc-5576-42e9-b44c-c9620a33b65a
-: 1
-: 1我是谁
-
-#+NAME: 4c02860a-c628-4fb3-9852-db3efb1bb91d
-#+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-echo "${a}${b}，我从哪里来" # 双引号中变量是被替换的
-#+end_src
-
-#+RESULTS: 4c02860a-c628-4fb3-9852-db3efb1bb91d
-: 1我是谁，我从哪里来
-*** 变量的引用
-    - 无引号时，空格起作用
-    - 单引号字符串中的字符保持不变
-    - 双引号时，字符串中的变量被替换
-    #+NAME: 03bd3de5-4e0d-4cd1-9e2b-e3627346b5d5
-    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-echo '${a}${b}，我从哪里来' # 单引号保持不变
-    #+end_src
-
-    #+RESULTS: 03bd3de5-4e0d-4cd1-9e2b-e3627346b5d5
-    : ${a}${b}，我从哪里来
-
-*** 引用命令的执行结果
-- 把命令运行的标准输出赋给变量
-- 与 =make= 类似，换行分隔的列表被转成由空格分隔
-#+NAME: d97d62db-cfc2-467f-9753-3cb10a60a7d8
-#+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-n_list=$(seq 9)
-echo ${n_list}
-#+end_src
-
-#+RESULTS: d97d62db-cfc2-467f-9753-3cb10a60a7d8
-: 1 2 3 4 5 6 7 8 9
-#+NAME: f20334c4-56f4-4ba9-b9a2-c07e8598bec0
-#+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-  n233=$(seq 10000 | egrep ^23+$)
-  echo ${n233}
-  echo ${#n233} # 字符个数
-#+end_src
-
-#+RESULTS: f20334c4-56f4-4ba9-b9a2-c07e8598bec0
-: 23 233 2333
-: 11
-
-*** =bash= 数组
-    - 虽然取名为数组 array ，但与 Python 的 列表更接近。
-      - 可以存储任意元素。
-    #+NAME: db43f577-e5a7-4d4c-8422-2c4f89d25874
-    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-      busket=()
-      busket+=( 香蕉 弥猴桃 牛油果 )
-      busket+=( 西瓜 荔枝 )
-      echo ${busket} # 按普通变量取值，只有第一个元素
-      echo ${busket[@]}
-      echo ${busket[3]}
-    #+end_src
-
-    #+RESULTS: db43f577-e5a7-4d4c-8422-2c4f89d25874
-    : 香蕉
-    : 香蕉 弥猴桃 牛油果 西瓜 荔枝
-    : 西瓜
-
-    #+NAME: c096b66d-d7dd-46a8-9264-843411f85a0b
-    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-      echo ${#busket[@]} # 元素个数
-    #+end_src
-
-    #+RESULTS: c096b66d-d7dd-46a8-9264-843411f85a0b
-    : 5
-*** =bash= 字典
-    - 又称关联数组 associative array ，类比 Python 字典
-    #+NAME: f61927cf-be8b-4858-9db6-072cf5526967
-    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-      declare -A cargo # 声明 cargo 是字典
-      cargo[banana]=3
-      cargo[apple]=4
-      echo ${cargo[banana]}
-      echo ${!cargo[@]} # 取词
-      echo ${cargo[@]} # 取值
-    #+end_src
-
-    #+RESULTS: f61927cf-be8b-4858-9db6-072cf5526967
-    : 3
-    : apple banana
-    : 4 3
-
-** =bash= 程序结构
-*** 选择结构
-    #+NAME: e0c2f10f-c9d8-4b7d-a1d3-96d3be059199
-    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-      if [ 3 -gt 2 ]; then
-          echo "3>2"
-      else
-          echo "3<=2"
-      fi
-    #+end_src
-
-    #+RESULTS: e0c2f10f-c9d8-4b7d-a1d3-96d3be059199
-    : 3>2
-**** 判断语句
-     - =[...]= 是一个程序，正式名字是 =test=
-     - 真假判断来自该程序执行的返回值。
-       - 0 为真：执行成功
-       - 非 0 为假：执行失败
-       - 注意与 Python 正好相反！
-**** 文档
-     - =man [= 、 =info test=
-
-*** 真假判断
-    - =$?= 或 =${?}= 变量值是前一条命令的返回值
-    #+NAME: 53457408-0033-4dd1-bb0c-ca912833d487
-    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-      [ 1 = 2 ] # 假，返回非 0
-      echo $?
-      [ 2 != 3 ] # 真，返回 0
-      echo $?
-    #+end_src
-
-    #+RESULTS: 53457408-0033-4dd1-bb0c-ca912833d487
-    : 1
-    : 0
-    - =[ INTEGER1 -eq INTEGER2 ]= 相等
-    - =[ INTEGER1 -ge INTEGER2 ]= 大于等于
-    - =[ INTEGER1 -lt INTEGER2 ]= 小于
-    - =[ INTEGER1 -ne INTEGER2 ]= 不等
-    - =[ ! EXPRESSION ]= 取否
-    - =[ EXPRESSION1 -a EXPRESSION2 ]= 取和
-    - =[ EXPRESSION1 -o EXPRESSION2 ]= 取或
-*** =bash= 内建真假判断
-    - =bash= 提供了 =[[...]]= 的内建命令，兼容 =[...]= 语法，有更多功能
-    - 内建命令，调用速度更快
-    - 命令层次的逻辑运算
-      - =command1 && command2= 取和
-      - =command1 || command2= 取或
-      - =! command= 取否
-    - 逻辑运算替代选择结构，以下两者等价
-    #+NAME: 3de9216b-c95d-40fa-9892-ee47023f68c2
-    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-      if [ 3 -gt 2 ]; then
-          echo "3>2"
-      else
-          echo "3<=2"
-      fi
-      # 逻辑运算替代选择结构，可读性更强
-      [[ 3 -gt 2 ]] && echo "3>2" || echo "3<=2"
-    #+end_src
-
-    #+RESULTS: 3de9216b-c95d-40fa-9892-ee47023f68c2
-    : 3>2
-    : 3>2
-*** 循环结构
-    - =for= 循环，计算 Fabonacci 数
-    - 从 =seq 10= 结果中，取得 10 个元素，用变量 =i= 遍历
-      - 类比： Python for 循环，迭代器
-    #+NAME: 55773626-a89b-4cdb-859d-90c74dd0f8cf
-    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-x=1
-y=1
-for i in $(seq 10); do
-    s=$(($x+$y))
-    x=${y}
-    y=${s}
-done
-
-echo ${y}
-    #+end_src
-
-    #+RESULTS: 55773626-a89b-4cdb-859d-90c74dd0f8cf
-    : 144
-*** =while= 循环
-    - 与 =seq 1000 | egrep ^23+$= 等价
-    #+NAME: 8dea7aec-f23a-47ac-93a7-8ca727ed3c1b
-    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-      seq 1000 | while read line
-      do
-          echo $line | egrep -q '^23+$' && echo $line
-      done
-    #+end_src
-
-    #+RESULTS: 8dea7aec-f23a-47ac-93a7-8ca727ed3c1b
-    : 23
-    : 233
-    : 
-
-*** =until= 循环
-    - 与 =while= 循环类似，条件相反
-    #+NAME: 8e1e4763-f8da-47c5-a34d-92b056e44a03
-    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-      seq 1000 | until ! read line
-      do
-          echo $line | egrep -q '^23+$' && echo $line
-      done
-    #+end_src
-**** 循环控制命令
-     - =break= 终止循环、 =continue= 跳入下一轮循环
-    #+NAME: 8e1e4763-f8da-47c5-a34d-92b056e44a03
-    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-      seq 1000 | until ! read line
-      do
-          if echo $line | egrep -q '^23+$'; then
-              echo $line
-              break
-          fi
-      done
-    #+end_src
-
-*** 函数定义
-    - =bash= 函数是五种命令之一
-    #+NAME: 7d2cb440-781d-43a7-a796-2956f8fcda90
-    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-      function greet() {
-          echo "Hello, $1"
-      }
-
-      greet 大佬
-    #+end_src
-
-    #+RESULTS: 7d2cb440-781d-43a7-a796-2956f8fcda90
-    : Hello, 大佬
-
-*** 函数递归
-    - 递归计算 Fabonacci 数
-    - =$(command)= 从 =command= 的标准输出取得结果
-    - =return= 给返回值，只能用 =$?= 捕捉或者用于逻辑运算
-      - 与 Python 函数完全不同，因为命令成功与失败的判断更重要
-    #+NAME: d0255648-313d-4572-b131-3354a78240b1
-    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-      function fib() {
-          if [ $1 -le 2 ]; then
-              echo $1
-          else
-              echo $(($(fib $(($1-1))) + $(fib $(($1-2)))))
-          fi
-      }
-
-      fib 11
-    #+end_src      
-
-    #+RESULTS: d0255648-313d-4572-b131-3354a78240b1
-    : 144
-
 ** =bash= 正则表达式
 *** =bash= 内建正则判断
     - 由 =[[ EXPR =~ REGEX ]]= 判断 =EXPR= 是否能被 =REGEX= 匹配。
