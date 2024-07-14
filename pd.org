@@ -7542,9 +7542,6 @@ variable in the recipe of a grouped target rule.
     #+begin_src bash
       # Debian
       apt install pcre2-utils libpcre2-dev libregexp-debugger-perl
-      # Gentoo @ macOS
-      emerge --sync
-      emerge -vta libpcre2
     #+end_src
 
 *** 文件列表素材
