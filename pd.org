@@ -4255,7 +4255,7 @@ jq < BBH_events_rewrite.json
 
 *** 点的形状
 #+begin_src python :results value file :session lecture-plot :exports both :noweb strip-export
-  plt.plot(t, C, "bx") # 改成红色的圆点
+  plt.plot(t, C, "bx") # 改成蓝色的×
   <<savefig(figname="img/blue-cross.pdf")>>
 #+end_src
 
