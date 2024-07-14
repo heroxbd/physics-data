@@ -10,6 +10,7 @@
 #+latex_HEADER: \usepackage[export]{adjustbox}
 #+latex_HEADER: \usepackage{pgf,tikz}
 #+latex_HEADER: \usepackage{wasysym}
+#+LATEX_HEADER: \usepackage{braket}
 #+latex_HEADER: \usepackage{tipa}
 #+latex_HEADER: \usetikzlibrary{arrows}
 #+LaTeX_HEADER: \usepackage{appendixnumberbeamer}
@@ -4734,7 +4735,8 @@ convert -verbose -delay 50 -density 100 normal2d.pdf normal2d.gif
 :BEAMER_col: 0.6
 :END:
 
-[[./out/Cobalt60.pdf]]
+#+attr_latex: :width 0.8\linewidth
+[[./fig/Cobalt60.png]]
 
 **** r                                                                :BMCOL:
 :PROPERTIES:
@@ -4742,15 +4744,14 @@ convert -verbose -delay 50 -density 100 normal2d.pdf normal2d.gif
 :END:
 
 吴健雄改变了磁场方向，发现电子方向始终与磁场方向相反。
+#+begin_export latex
+\begin{equation*}
+  \braket{\vec{\sigma}_{\ce{Ni}}\cdot \vec{p}_e} \neq 0
+\end{equation*}
+#+end_export
 
-\[\braket{\vec{\sigma}_\ce{Ni}\cdot \vec{p}_e} \neq 0\]
-
-**** i                                                      :B_ignoreheading:
-:PROPERTIES:
-:BEAMER_env: ignoreheading
-:END:
-
-结论：弱相互作用下宇称不守恒，但为什么？
+***** 结论
+弱相互作用下宇称不守恒，但为什么？
 
 *** 宇称不守恒驱动的新中微子理论
 #+attr_latex: :height 0.85\textheight
