@@ -7452,6 +7452,18 @@ endef
 $(eval $(foreach d,up down transverse,$(call video,$(d))))
       #+END_SRC
 
+*** 更简洁的笛卡尔积：bash
+#+begin_src bash
+echo {w..z}{1,2,5,9}
+#+end_src
+
+#+RESULTS:
+: w1 w2 w5 w9 x1 x2 x5 x9 y1 y2 y5 y9 z1 z2 z5 z9
+
+*** lecture 仓库的 Makefile
+- https://git.tsinghua.edu.cn/physics-data/lecture/
+  + 仓库使用的 =Makefile= 描述如何生成课件和讲义。
+  + 尝试阅读 =Makefile= 给出文件的依赖关系。
 *** JUNO 真实世界例子
     - 用于数百 TB 蒙特卡罗数据生成的例子
      #+BEGIN_SRC makefile -i
@@ -7479,39 +7491,6 @@ all: $(foreach i,$(ith),$(subst ith,$(i),$(output)))
 .SECONDARY:
 
      #+END_SRC
-     #+BEGIN_SRC makefile -i
-# 1=model, 2=imh, 3=dist, 4=iter
-define SN-tpl
-
-output+=data/det/$(1)/$(2)/$(3)/ith/$(4).root
-
-data/$(1)/$(2)/$(3)/%.root:
-	./genSN.sh $(1) $(2) $(3) $$@
-
-data/det/%/$(4).root: data/%.root
-	./exeDet.sh $$^ $$@ $(4)
-endef
-
-$(eval $(foreach i,$(imod),$(foreach j,$(imh),\
-	$(foreach k,$(dist),$(call SN-tpl,$(i),$(j),$(k),0))\
-	$(foreach l,$(ip),$(call SN-tpl,$(i),$(j),10,$(l))))))
-
-all: $(foreach i,$(ith),$(subst ith,$(i),$(output)))
-
-# Delete partial files when the processes are killed.
-.DELETE_ON_ERROR:
-# Keep intermediate files around
-.SECONDARY:
-
-     #+END_SRC
-
-*** 更简洁的笛卡尔积：bash
-#+begin_src bash
-echo {w..z}{1,2,5,9}
-#+end_src
-
-#+RESULTS:
-: w1 w2 w5 w9 x1 x2 x5 x9 y1 y2 y5 y9 z1 z2 z5 z9
 
 ** 进阶使用
 *** 并行计算
