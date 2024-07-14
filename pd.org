@@ -5557,7 +5557,6 @@ target: source
 ** 复习与提示
 *** 软件准备
     - GNU 环境 :: 课程与作业环境
-      macOS 上需要额外指定使用 GNU 命令，进入 Gentoo Prefix 即可
     - sed :: 文本流编辑器
     - gawk :: GNU awk 语言，数据驱动程序语言
       - Alfred Aho, Peter Weinberger, and Brian Kernighan
@@ -5566,11 +5565,12 @@ target: source
     - info :: 层级帮助文档阅读器
     - curl :: 网络请求和下载器
     - bc :: 计算器
+    - file :: 查看文件类型
     - bash-doc :: bash 详细教程
       
     #+begin_src bash
       apt update
-      apt install gawk sed man-db info wget curl bc bash-doc neofetch
+      apt install gawk file sed man-db info wget curl bc bash-doc neofetch
     #+end_src
 *** 复习
 **** Git
@@ -6583,41 +6583,6 @@ echo ${y}
           fi
       done
     #+end_src
-
-*** 函数定义
-    - =bash= 函数是五种命令之一
-    #+NAME: 7d2cb440-781d-43a7-a796-2956f8fcda90
-    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-      function greet() {
-          echo "Hello, $1"
-      }
-
-      greet 大佬
-    #+end_src
-
-    #+RESULTS: 7d2cb440-781d-43a7-a796-2956f8fcda90
-    : Hello, 大佬
-
-*** 函数递归
-    - 递归计算 Fabonacci 数
-    - =$(command)= 从 =command= 的标准输出取得结果
-    - =return= 给返回值，只能用 =$?= 捕捉或者用于逻辑运算
-      - 与 Python 函数完全不同，因为命令成功与失败的判断更重要
-    #+NAME: d0255648-313d-4572-b131-3354a78240b1
-    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-      function fib() {
-          if [ $1 -le 2 ]; then
-              echo $1
-          else
-              echo $(($(fib $(($1-1))) + $(fib $(($1-2)))))
-          fi
-      }
-
-      fib 11
-    #+end_src      
-
-    #+RESULTS: d0255648-313d-4572-b131-3354a78240b1
-    : 144
 
 ** 备用
 ** 娱乐命令
@@ -8120,6 +8085,42 @@ egrep -v '^(#.*)?$' sources.list
     - =\= 同时在 =bash= 和正则语句意为“除去特殊含义”。需要格外注意
     - 引号在变量赋值时使用时，变量的值不含引号。
       - 在 =[[ ]]= 里写引号时，所有字符都没有特殊含义
+** =bash= 函数
+*** 函数定义
+    - =bash= 函数是五种命令之一
+    #+NAME: 7d2cb440-781d-43a7-a796-2956f8fcda90
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      function greet() {
+          echo "Hello, $1"
+      }
+
+      greet 大佬
+    #+end_src
+
+    #+RESULTS: 7d2cb440-781d-43a7-a796-2956f8fcda90
+    : Hello, 大佬
+
+*** 函数递归
+    - 递归计算 Fabonacci 数
+    - =$(command)= 从 =command= 的标准输出取得结果
+    - =return= 给返回值，只能用 =$?= 捕捉或者用于逻辑运算
+      - 与 Python 函数完全不同，因为命令成功与失败的判断更重要
+    #+NAME: d0255648-313d-4572-b131-3354a78240b1
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      function fib() {
+          if [ $1 -le 2 ]; then
+              echo $1
+          else
+              echo $(($(fib $(($1-1))) + $(fib $(($1-2)))))
+          fi
+      }
+
+      fib 11
+    #+end_src      
+
+    #+RESULTS: d0255648-313d-4572-b131-3354a78240b1
+    : 144
+
 ** Perl 正则表达式
 *** 多行匹配
      - =grep= 的多行匹配功能很弱，应当使用 =pcre2grep=
