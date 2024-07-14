@@ -15,7 +15,7 @@ note.tex: note.org book.org
 	sed -f minted.sed -i $@
 	./drop-toc-frame.sh $@
 
-note.pdf: note.tex ef.pdf e7.pdf
+note.pdf: note.tex ef.pdf e7.pdf e9.pdf
 	latexmk -shell-escape -lualatex $<
 
 # Should ultimately fix ob-ein to be friendly to minted.
