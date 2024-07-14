@@ -6779,32 +6779,6 @@ apt-cache depends games-all
       # Debian
       apt install make-guile make-doc guile-3.0-doc
     #+end_src
-*** 软件准备 Gentoo @ macOS
-  1. 同步软件仓库
-     #+begin_src bash
-       emerge --sync
-     #+end_src
-  2. 用编辑器，在 =${HOME}/Gentoo/etc/portage/package.use= 加入一行。（若文件不存在则先创建之。）
-
-     #+begin_example
-sys-devel/make guile
-     #+end_example
-
-     开启 =make= 的 =guile= 功能（称为 USE flag）
-
-     参考：https://wiki.gentoo.org/wiki//etc/portage/package.use
-
-  3. 重新编译新功能的 =make= ，注意确认 =guile= 被开启的 "guile*" 星号提示。
-     #+begin_src bash
-       emerge -avt make
-     #+end_src
-
-     #+begin_example
-[ebuild   R    ] sys-devel/make-4.4.1-r1::gentoo_prefix  USE="guile* nls -static -verify-sig" 0 KiB
-[ebuild  N     ]  dev-scheme/guile-2.2.7-r1:12/2.2-1::gentoo_prefix  USE="deprecated networking nls regex threads -debug -debug-malloc" 10627 KiB
-[ebuild  N     ]   dev-libs/boehm-gc-8.2.4::gentoo_prefix  USE="large threads -cxx -static-libs" 1183 KiB
-[ebuild  N     ]    dev-libs/libatomic_ops-7.8.0::gentoo_prefix  514 KiB
-     #+end_example
 *** 命令行
     - 命令行操作系统外壳 shell 的一种，介于内核 kernel 与用户程序之间。
     - 最佳工具：调度用户程序、管理文件。
