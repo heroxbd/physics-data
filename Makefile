@@ -28,7 +28,7 @@ out/%.pdf: fig/%.svg
 	rsvg-convert -f ps $^ | gs -dCompatibilityLevel=1.5 -sDEVICE=pdfwrite -sOutputFile=$@ -f -
 ef.pdf: out/Data_Science_VD-migrate.pdf
 
-e7.pdf: out/neutrino-higgs.pdf out/evolution-universe.pdf out/evolution-universe-decouple.pdf out/two-component.pdf out/Weyl-spinor.pdf out/neutrino-CP.pdf out/sun.pdf out/ppCNOchain.pdf out/homestake-principle.pdf out/Kamiokande.pdf out/anti-matter.pdf out/neutrino-anti.pdf out/neutrino-higgs.pdf
+e7.pdf: out/neutrino-higgs.pdf out/evolution-universe.pdf out/evolution-universe-decouple.pdf out/two-component.pdf out/Weyl-spinor.pdf out/neutrino-CP.pdf out/sun.pdf out/ppCNOchain.pdf out/homestake-principle.pdf out/Kamiokande.pdf out/anti-matter.pdf out/neutrino-anti.pdf out/neutrino-higgs.pdf out/Cobalt60.pdf
 
 e%.pdf: e%.tex
 	latexmk -shell-escape -lualatex $<
