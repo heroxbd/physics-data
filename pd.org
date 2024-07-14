@@ -6245,7 +6245,7 @@ upload
     NumPy.ipynb		   Visualization.ipynb
     NumPy-SciPy.ipynb
     #+end_example
-** bash 的运行模式
+** =bash= 的运行模式
 *** 交互模式
     - +REPL+
 **** 脚本模式
@@ -6284,8 +6284,7 @@ upload
 *** 脚本程序
 - 世界上本没有脚本，打的命令多了，聚在一起，就形成了脚本
 - 脚本可以当作命令使用
-** bash 脚本
-*** 例子
+*** 例子：=bash= 脚本
     #+NAME: 7ea4e885-9e27-4b46-be96-bda28e2f59f2
     #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
 cat arguments.sh
@@ -6364,7 +6363,7 @@ file /usr/bin/* | grep "Bourne-Again shell" | head
 /usr/bin/binutils-config:                              Bourne-Again shell script, ASCII text executable
 grep: write error: Broken pipe
 #+end_example
-** 变量
+** =bash= 变量
 *** =bash= 变量
 - 在 bash 中，一切皆字符串
 - 变量需要额外的 =$= 来指定， =$a= 和 =${a}= 代表变量 =a= 的值
@@ -6465,6 +6464,28 @@ echo ${n_list}
     : apple banana
     : 4 3
 
+*** =bash= 算术
+    - =bash= 一等公民是字符串，算术运算用于辅助和便利
+      - 比用管道 和 =$(...)= 简洁
+    #+NAME: 16f900ed-a36d-49c1-851c-b0dddb3f6a5b
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      echo $((1+3)) $((3*5))
+      echo $(echo 1+3 | bc) $(echo 3*5 | bc)
+    #+end_src
+
+    #+RESULTS: 16f900ed-a36d-49c1-851c-b0dddb3f6a5b
+    : 4 15
+    : 4 15
+    - 但是计算能力有限，只能做简单运算
+    #+NAME: cac37ef7-78e1-41de-a9c2-99f27393869f
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      echo $((2**100))
+      echo $(echo "2^100" | bc)
+    #+end_src
+
+    #+RESULTS: cac37ef7-78e1-41de-a9c2-99f27393869f
+    : 0
+    : 1267650600228229401496703205376
 ** =bash= 程序结构
 *** 选择结构
     #+NAME: e0c2f10f-c9d8-4b7d-a1d3-96d3be059199
@@ -6584,6 +6605,79 @@ echo ${y}
           fi
       done
     #+end_src
+
+** =bash= 函数
+*** 函数定义
+    - =bash= 函数是五种命令之一
+    #+NAME: 7d2cb440-781d-43a7-a796-2956f8fcda90
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      function greet() {
+          echo "Hello, $1"
+      }
+
+      greet 大佬
+    #+end_src
+
+    #+RESULTS: 7d2cb440-781d-43a7-a796-2956f8fcda90
+    : Hello, 大佬
+
+*** 函数递归
+    - 递归计算 Fabonacci 数
+    - =$(command)= 从 =command= 的标准输出取得结果
+    - =return= 给返回值，只能用 =$?= 捕捉或者用于逻辑运算
+      - 与 Python 函数完全不同，因为命令成功与失败的判断更重要
+    #+NAME: d0255648-313d-4572-b131-3354a78240b1
+    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+      function fib() {
+          if [ $1 -le 2 ]; then
+              echo $1
+          else
+              echo $(($(fib $(($1-1))) + $(fib $(($1-2)))))
+          fi
+      }
+
+      fib 11
+    #+end_src      
+
+    #+RESULTS: d0255648-313d-4572-b131-3354a78240b1
+    : 144
+*** =bash= 的代码块与子进程
+- ={...}= 代表一个代码块，把多行代码汇总成一个单元。
+- =(...)= 使用复刻(=fork=) 一个子 =bash= 运行代码。
+  + 子 =bash= 中的变量设置不影响外层 =bash= 。
+    #+begin_src bash
+      s=1
+      ( s=2; )
+      echo $s
+    #+end_src
+
+    #+RESULTS:
+    : 1
+
+  + 类比： =$(seq 100)= 代表复刻后运行 =seq= 提取标准输出。
+
+** =bash= 调试
+*** =bash= 调试
+- 交互法 :: 在 =bash= 环境试验获得想要的语句
+- 屏幕输出法 :: 用 =echo=
+- 额外调试信息输出法 :: =set -xv= 开启调试输出
+  - =set +xv= 关闭调试输出
+  - =bash -xv script.sh= 以调试模式执行脚本
+**** bash(1)
+- =-v= Print shell input lines as they are read.
+- =-x= Print commands and their arguments as they are executed.
+
+** 总结
+*** 使用 =bash= 的原因
+- =bash= 的列表、字典，形似 Python，计算能力不如 =bc= ，为什么值得使用？
+- 最佳工具：使用 =bash= 处理文件时，有时需要列表、字典和算术
+  - 但不需要太多。需要更专业的操作时，意味着更高级的工具胜任
+  - “信手拈来”的境界是创新的温床，重大的全新突破都在有了足够积累后不经意间出现
+    - 不经意的前提是：放松、随意
+  - 不让大脑等待双手是最佳工具原则的最高等级
+    - 人机交互，打字，扔掉鼠标
+    - 避免不必要的环境切换
+
 
 ** 备用
 ** 娱乐命令
@@ -6847,7 +6941,7 @@ make --version
 
 *** Make 要素
     - 文档
-      #+BEGIN_SRC bash
+      #+BEGIN_SRC bash :exports both
  info make     
  man make
       #+END_SRC
@@ -8086,42 +8180,6 @@ egrep -v '^(#.*)?$' sources.list
     - =\= 同时在 =bash= 和正则语句意为“除去特殊含义”。需要格外注意
     - 引号在变量赋值时使用时，变量的值不含引号。
       - 在 =[[ ]]= 里写引号时，所有字符都没有特殊含义
-** =bash= 函数
-*** 函数定义
-    - =bash= 函数是五种命令之一
-    #+NAME: 7d2cb440-781d-43a7-a796-2956f8fcda90
-    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-      function greet() {
-          echo "Hello, $1"
-      }
-
-      greet 大佬
-    #+end_src
-
-    #+RESULTS: 7d2cb440-781d-43a7-a796-2956f8fcda90
-    : Hello, 大佬
-
-*** 函数递归
-    - 递归计算 Fabonacci 数
-    - =$(command)= 从 =command= 的标准输出取得结果
-    - =return= 给返回值，只能用 =$?= 捕捉或者用于逻辑运算
-      - 与 Python 函数完全不同，因为命令成功与失败的判断更重要
-    #+NAME: d0255648-313d-4572-b131-3354a78240b1
-    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-      function fib() {
-          if [ $1 -le 2 ]; then
-              echo $1
-          else
-              echo $(($(fib $(($1-1))) + $(fib $(($1-2)))))
-          fi
-      }
-
-      fib 11
-    #+end_src      
-
-    #+RESULTS: d0255648-313d-4572-b131-3354a78240b1
-    : 144
-
 ** Perl 正则表达式
 *** 多行匹配
      - =grep= 的多行匹配功能很弱，应当使用 =pcre2grep=
@@ -8491,47 +8549,6 @@ https://gitweb.gentoo.org/repo/gentoo.git/commit/?id=ea2987349ece6f07da01e1c2f3e
 **** 计算语言
      Python 语法友好，工具丰富，统领 C/C++/Fortran 库
 
-** bash 算术运算
-*** =bash= 算术
-    - =bash= 一等公民是字符串，算术运算用于辅助和便利
-      - 比用管道 和 =$(...)= 简洁
-    #+NAME: 16f900ed-a36d-49c1-851c-b0dddb3f6a5b
-    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-      echo $((1+3)) $((3*5))
-      echo $(echo 1+3 | bc) $(echo 3*5 | bc)
-    #+end_src
-
-    #+RESULTS: 16f900ed-a36d-49c1-851c-b0dddb3f6a5b
-    : 4 15
-    : 4 15
-    - 但是计算能力有限，只能做简单运算
-    #+NAME: cac37ef7-78e1-41de-a9c2-99f27393869f
-    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-      echo $((2**100))
-      echo $(echo "2^100" | bc)
-    #+end_src
-
-    #+RESULTS: cac37ef7-78e1-41de-a9c2-99f27393869f
-    : 0
-    : 1267650600228229401496703205376
-*** 使用 =bash= 的原因
-    - =bash= 的列表、字典，形似 Python，计算能力不如 =bc= ，为什么值得使用？
-    - 最佳工具：使用 =bash= 处理文件时，有时需要列表、字典和算术
-      - 但不需要太多。需要更专业的操作时，意味着更高级的工具胜任
-      - “信手拈来”的境界是创新的温床，重大的全新突破都在有了足够积累后不经意间出现
-        - 不经意的前提是：放松、随意
-      - 不让大脑等待双手是最佳工具原则的最高等级
-        - 人机交互，打字，扔掉鼠标
-        - 避免不必要的环境切换
-** 调试
-*** =bash= 调试
-    - 屏幕输出法 :: 用 =echo=
-    - 额外调试信息输出法 :: =set -xv= 开启调试输出
-      - =set +xv= 关闭调试输出
-      - =bash -xv script.sh= 以调试模式执行脚本
-        - =-v= Print shell input lines as they are read.
-        - =-x= Print commands and their arguments as they are executed.
-          
 * 关系代数与 SQL
   :PROPERTIES:
   :EXPORT_FILE_NAME: pc
