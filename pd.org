@@ -7523,7 +7523,7 @@ variable in the recipe of a grouped target rule.
 * 正则表达式
   :PROPERTIES:
   :EXPORT_FILE_NAME: pa
-  :EXPORT_DATE: 2023-07-26 清华
+  :EXPORT_DATE: 2024-07-15 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
   :EXPORT_BEAMER_HEADER+: \setbeamertemplate{footline}[frame number]  
@@ -7531,6 +7531,10 @@ variable in the recipe of a grouped target rule.
   :EXPORT_BEAMER_FONT_THEME: professionalfonts
   :END:
 ** 复习与提示
+大数据方法的两大支柱数值运算和字符串处理。处理数据时常用 Python 程序，它胜任数值运算。但在在命令行中控制程序和管理数据，都是整理文件，其本质是在处理文件名，即字符串处理。命令和程序本身，都是计算机与人通过符合语法的字符串交流，把要做的事表达清楚，编译器、解释器是字符的语义和语法处理器。写程序与命令，和《写作与沟通》有着类似的目的。
+
+本节课我们学习处理文字的微语言，正则表达式。相比 Python、Bash、Scheme，正则表达式的语法很少，没有程序结构，不是通用编程语言，图灵不完全。正则表达式的重要性在于它嵌入到了所有通用语言中。Python、Bash、Scheme 都内嵌正则表达式，使用成为普适的字符串处理工具。掌握了它之后，用命令行说话会变得简洁，使用管理文件得心应手。
+
 *** 软件准备
     - pcre2-utils :: Perl 正则表达式工具
     - libpcre2-dev :: Perl 正则表达式文档和开发工具
@@ -7542,7 +7546,8 @@ variable in the recipe of a grouped target rule.
       emerge --sync
       emerge -vta libpcre2
     #+end_src
-*** 素材文件准备
+
+*** 文件列表素材
      #+NAME: 80b071f8-5c6f-489e-a71c-a03a4a41f60b
      #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
        wget "http://hep.tsinghua.edu.cn/~orv/pd/usr_share_doc_list.txt"
@@ -7557,7 +7562,8 @@ variable in the recipe of a grouped target rule.
      Length: 128653 (126K) [text/plain]
      Saving to: ‘usr_share_doc_list.txt’
      #+end_example
-*** 系统配置文件素材
+
+*** Debian 系统配置文件素材
     #+NAME: cf8fb4f5-7ff1-4efe-a9bb-c30c76041522
     #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
       wget "http://hep.tsinghua.edu.cn/~orv/pd/sources.list"
@@ -7616,7 +7622,7 @@ target: source
 	program source target #如何做
 	program $^ $@ #如何做
     #+END_SRC
-      
+
 *** 字符搜索匹配
     #+NAME: 0897673d-6bd3-4d55-aa8f-508e629825ab
     #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
