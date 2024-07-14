@@ -22,6 +22,7 @@ note.pdf: note.tex ef.pdf e7.pdf
 # put verbatim into scriptsize, need some better idea with org-mode.
 e%.tex: p%.tex
 	sed -f minted.sed < $< > $@
+	sed -e 's/\\maketitle/\\begin{frame}\\titlepage\\end{frame}/' -i $@
 
 out/%.pdf: fig/%.svg
 	mkdir -p $(@D)
