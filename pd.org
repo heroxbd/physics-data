@@ -6610,7 +6610,7 @@ echo ${y}
 *** 函数定义
     - =bash= 函数是五种命令之一
     #+NAME: 7d2cb440-781d-43a7-a796-2956f8fcda90
-    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+    #+begin_src bash :results output :exports both
       function greet() {
           echo "Hello, $1"
       }
@@ -6627,10 +6627,10 @@ echo ${y}
     - =return= 给返回值，只能用 =$?= 捕捉或者用于逻辑运算
       - 与 Python 函数完全不同，因为命令成功与失败的判断更重要
     #+NAME: d0255648-313d-4572-b131-3354a78240b1
-    #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
+    #+begin_src bash :results output :exports both
       function fib() {
           if [ $1 -le 2 ]; then
-              echo $1
+              echo 1
           else
               echo $(($(fib $(($1-1))) + $(fib $(($1-2)))))
           fi
@@ -6640,7 +6640,7 @@ echo ${y}
     #+end_src      
 
     #+RESULTS: d0255648-313d-4572-b131-3354a78240b1
-    : 144
+    : 89
 *** =bash= 的代码块与子进程
 - ={...}= 代表一个代码块，把多行代码汇总成一个单元。
 - =(...)= 使用复刻(=fork=) 一个子 =bash= 运行代码。
@@ -6659,7 +6659,7 @@ echo ${y}
 ** =bash= 调试
 *** =bash= 调试
 - 交互法 :: 在 =bash= 环境试验获得想要的语句
-- 屏幕输出法 :: 用 =echo=
+- 屏幕输出法 :: 用 =echo ... >&2= 输出到标准错误 =stderr=
 - 额外调试信息输出法 :: =set -xv= 开启调试输出
   - =set +xv= 关闭调试输出
   - =bash -xv script.sh= 以调试模式执行脚本
@@ -6975,12 +6975,12 @@ target: source
 ** 变量
 *** 变量取值
       #+BEGIN_SRC makefile -i
-a:=1 # eager evaluation (= 代替 := 时是 lazy evaluation)
+a:=1 # eager evaluation (= 是 lazy evaluation)
 $(info $(a))
       #+END_SRC
 
 - 调用时使用 =$( )= ， =$(info TEXT)= 输出 =TEXT=
-- _一次_ 原则，避免重复
+- _一次_ 原则，避免重复 
   - 特殊变量： =$^= 输入数据、 =$@= 输出数据。
   - 目标与源都以文件表示，引用 =$^= =$@= 可有效减少重复。
 
