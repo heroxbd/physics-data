@@ -8207,6 +8207,19 @@ egrep -v '^(#.*)?$' sources.list
     : deb http:// /ubuntu/
     : deb-src http:// /ubuntu/
 
+*** 例子
+OSIRIS 的文件整理。
+
+#+begin_example
+  /eos/juno/Commissioning_Dryrun/OSIRIS/2024/0311/OSIRISData_hybrid_20240311_101439.dat
+#+end_example
+
+链接成
+
+#+begin_example
+  /junofs/OSIRIS/0311/101439.h5
+#+end_example
+
 *** 引用常见问题
     #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
       pattern='\.' # 引号被 bash 处理
