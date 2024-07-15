@@ -7781,7 +7781,7 @@ $R$ 是正则表达式(Regular Expression，RE) ，若 $R$ 通过以下归纳定
 #+beamer: \pause
 - =\<=, =\>= 单词的开始和结束处的空白符
 - =\b= 单词两边的空白符
-- =\B= 非单词两边的空白符
+- =\B= 非单词两边的空白符， =\b= 的补集
 *** 正则表达式流派
    - 基础正则表达式 :: Basic RE
      - =?= =+= ={= =|= =(= =)= 是字符本身，需要特殊含义得加上 =\= ，例如 =\?= =\+= 等
@@ -8220,6 +8220,12 @@ egrep -v '^(#.*)?$' sources.list
     - =\= 同时在 =bash= 和正则语句意为“除去特殊含义”。需要格外注意
     - 引号在变量赋值时使用时，变量的值不含引号。
       - 在 =[[ ]]= 里写引号时，所有字符都没有特殊含义
+** Python 正则表达式
+*** =re= 模块
+#+begin_src python :results value :session local :exports both
+  import re
+  help(re)
+#+end_src
 ** Perl 正则表达式
 *** 多行匹配
      - =grep= 的多行匹配功能很弱，应当使用 =pcre2grep=
