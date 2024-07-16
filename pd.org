@@ -8410,6 +8410,9 @@ OSIRIS 的文件整理。
 ** sed 进阶
 *** 命令行语法
 =sed/awk script filename=
+
+1. 一行写不下时
+2. 担心特殊字符在 =shell= 被转义时
 *** 数据驱动的编程
 #+attr_latex: :height 5cm
 [[./fig/data-driven-programming.pdf]]
@@ -8494,15 +8497,15 @@ sed -f tuna.sed sources.list
  drwxr-xr-x  2 root root 4096 Feb  8  2021 cowsay-off
 #+end_example
 
-*** 数据清洗
-数据清理：把数据整理成方便的格式
-
-- 在物理学之外的其它“大数据”学科，90% 的工作是数据清洗。
 *** sed 的典型使用场景
 - 一文多改 :: 一个文件上投入多个改动
 - 一脚多文 :: 一个脚本用在多个文件上
 - 高级 grep :: 在查找关键词之前，先对待找的文本进行清洗
 - 管道过滤 :: 直接对着标准输入过滤，给到标准输出
+**** 数据清洗
+数据清理：把数据整理成方便的格式
+
+- 在物理学之外的其它“大数据”学科，90% 的工作是数据清洗。
 
 *** 例子：课件中的代码块
 https://git.tsinghua.edu.cn/physics-data/lecture/-/blob/master/Makefile
@@ -8530,17 +8533,15 @@ This is your dog
 : This is your dog,  my dog's name is frank
 
 *** Hold space
-接下来，我们需要了解一下Hold Space的概念，我们先来看四个命令：
+为 =sed= 自动机配了一个队列。
 
-g： 将 hold space 中的内容拷贝到 pattern space 中，原来 pattern space 里的内容清除
-G： 将 hold space 中的内容 append 到 pattern space 后
-h： 将 pattern space 中的内容拷贝到 hold space 中，原来的 hold space 里的内容被清除
-H： 将 pattern space 中的内容 append 到 hold space 后
-x： 交换 pattern space 和 hold space 的内容
+- g :: 将 hold space 中的内容拷贝到 pattern space 中，原来 pattern space 里的内容清除
+- G :: 将 hold space 中的内容 append 到 pattern space 后
+- h :: 将 pattern space 中的内容拷贝到 hold space 中，原来的 hold space 里的内容被清除
+- H :: 将 pattern space 中的内容 append 到 hold space 后
+- x :: 交换 pattern space 和 hold space 的内容
 
-- 给自动机配了一个队列。
-
-*** 收集
+*** 收集-积累-输出
 #+begin_src bash :results output :session local :exports both
   echo "one
   two
@@ -8557,9 +8558,10 @@ x： 交换 pattern space 和 hold space 的内容
 : two
 : three
 
-#+attr_latex: :height 4cm
+#+attr_latex: :height 4.5cm
 [[./fig/sed_demo.jpg]]
-
+*** 10 乘 10 矩阵
+seq -w 00 99 | sed $(python3 -c "print('N;'*9)")'s/\n/,/g'
 *** 反序
 #+begin_src bash :results output :session local :exports both
 seq 5 | sed '1!G;h;$!d'
@@ -8716,13 +8718,55 @@ echo | awk '{ print "Hello, world!" }'
 
 *** 课堂练习： =wc=
 - =wc -l=
+  #+begin_src bash :results output :session local :exports both
+    seq 3 100 | awk '{lines++} END {print lines}'
+  #+end_src
+
+  #+RESULTS:
+  : 98
+
 - =wc -c=
+  #+begin_src bash :results output :session local :exports both
+    seq 3 100 | awk '{chars+=length($0)+1} END {print chars}'
+  #+end_src
+
+  #+RESULTS:
+  : 288
+
+  #+begin_src bash :results output :session local :exports both
+    seq 3 100 | wc -c
+  #+end_src
+
+  #+RESULTS:
+  : 288
 
 *** 课堂练习： =uniq=
 - =uniq -c=
+  #+begin_src bash :results output :session local :exports both
+    echo "a
+    a
+    b
+    c
+    c
+    c" | awk -f uniq.awk
+  #+end_src
+
+  #+RESULTS:
+  : 2 a
+  : 1 b
+  : 3 c
 
 *** 课堂练习： =egrep=
 - =egrep=
+  #+begin_src bash :results output :session local :exports both
+    seq 10000 | awk '/^23+$/ { print }'
+  #+end_src
+
+  #+RESULTS:
+  : 23
+  : 233
+  : 2333
+
 *** sed 与 awk 的联合
 使用管道
 
@@ -8743,7 +8787,22 @@ echo | awk '{ print "Hello, world!" }'
 : 1x8=8	2x8=16	3x8=24	4x8=32	5x8=40	6x8=48	7x8=56	8x8=64
 : 1x9=9	2x9=18	3x9=27	4x9=36	5x9=45	6x9=54	7x9=63	8x9=72	9x9=81
 
-- 如何把前4行对齐。
+*** 乘法表
+#+begin_src bash :results output :session local :exports both
+  seq 9 | sed 'H;g;s/\n/ /g' | awk '{for(i=1;i<=NF;i++)
+          printf("%dx%d=%d%s", i, NR, i*NR, i==NR?"\n":"\t")}'    
+#+end_src
+
+#+RESULTS:
+: 1x1=1
+: 1x2=2	2x2=4
+: 1x3=3	2x3=6	3x3=9
+: 1x4=4	2x4=8	3x4=12	4x4=16
+: 1x5=5	2x5=10	3x5=15	4x5=20	5x5=25
+: 1x6=6	2x6=12	3x6=18	4x6=24	5x6=30	6x6=36
+: 1x7=7	2x7=14	3x7=21	4x7=28	5x7=35	6x7=42	7x7=49
+: 1x8=8	2x8=16	3x8=24	4x8=32	5x8=40	6x8=48	7x8=56	8x8=64
+: 1x9=9	2x9=18	3x9=27	4x9=36	5x9=45	6x9=54	7x9=63	8x9=72	9x9=81
 
 ** feedgnuplot
 *** 在命令行制图
