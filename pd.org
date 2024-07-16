@@ -7501,7 +7501,7 @@ all: $(foreach i,$(ith),$(subst ith,$(i),$(output)))
 make -j SHELL=/bin/bash
 #+end_src
 **** 联合目标
-   When 'make' builds any one of the grouped targets, it understands
+When 'make' builds any one of the grouped targets, it understands
 that all the other targets in the group are also created as a result of
 the invocation of the recipe.  Furthermore, if only some of the grouped
 targets are out of date or missing 'make' will realize that running the
@@ -8233,12 +8233,6 @@ OSIRIS 的文件整理。
     - =\= 同时在 =bash= 和正则语句意为“除去特殊含义”。需要格外注意
     - 引号在变量赋值时使用时，变量的值不含引号。
       - 在 =[[ ]]= 里写引号时，所有字符都没有特殊含义
-** Python 正则表达式
-*** =re= 模块
-#+begin_src python :results value :session local :exports both
-  import re
-  help(re)
-#+end_src
 ** Perl 正则表达式
 *** 多行匹配
      - =grep= 的多行匹配功能很弱，应当使用 =pcre2grep=
@@ -8268,6 +8262,19 @@ OSIRIS 的文件整理。
 *** 有限状态自动机之外的功能
     - 基本正则表达式与有限自动机 finite automata 等价
     - 在 FA 之外时，可引入更强大的处理功能
+**** 提供类似 =sed= 的命令语法
+- Perl 的 =-p= 选项
+
+  causes Perl to assume the following loop around your program, which
+  makes it iterate over filename arguments somewhat like sed:
+
+  #+begin_src perl
+    while (<>) {
+        ...             # your program goes here
+    } continue {
+        print or die "-p destination: $!\n";
+    }
+  #+end_src
 *** 高级构造
     - 前趋引用匹配：形似 =sed= 的替换
     - iterative matches =\G= where previous match ends
@@ -8278,6 +8285,41 @@ OSIRIS 的文件整理。
        - 使用之前的匹配 =(<)?\w+(?(1)>)=
 **** 递归结构
      - 由 =pcre= 提出，用于匹配形如 \( a^n b^n \) 的平衡问题。
+
+*** 例子：使用“回头看”构造
+- 如果逗号之前为 4 或 9 ，就把它替换成换行。
+  #+begin_src bash :results output :session local :exports both
+    seq -s, -w 00 49 | perl -p -e 's/(?<=[49]),/\n/g'
+  #+end_src
+
+  #+RESULTS:
+  #+begin_example
+  00,01,02,03,04
+  05,06,07,08,09
+  10,11,12,13,14
+  15,16,17,18,19
+  20,21,22,23,24
+  25,26,27,28,29
+  30,31,32,33,34
+  35,36,37,38,39
+  40,41,42,43,44
+  45,46,47,48,49
+  #+end_example
+
+** Python 正则表达式
+*** =re= 模块
+受 Perl 正则表达的影响，语法参数了 Perl 正则表达式。
+
+#+begin_src python :results value :session local :exports both
+  import re
+
+  m = re.search('(?<=abc)def', 'abcdef')
+  m.group(0)
+#+end_src
+
+#+RESULTS:
+: def
+
 ** 调试
 *** =rxrx=
     - Perl 的正则表达式调试和教学工具
@@ -8294,7 +8336,7 @@ OSIRIS 的文件整理。
 * 从 sed 到 awk
   :PROPERTIES:
   :EXPORT_FILE_NAME: pb
-  :EXPORT_DATE: 2023-07-27 清华
+  :EXPORT_DATE: 2024-07-16 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
   :EXPORT_BEAMER_HEADER+: \setbeamertemplate{footline}[frame number]  
@@ -8310,11 +8352,8 @@ OSIRIS 的文件整理。
 
 - Debian
   #+begin_src bash
-    apt install gawk-doc
+    apt install gawk-doc feedgnuplot
   #+end_src
-
-- Gentoo @ macOS
-  不需要操作，已安装。
 
 *** 正则表达式
     - 普适的字符串处理工具
@@ -8570,6 +8609,32 @@ echo | awk '{ print "Hello, world!" }'
 
 *** sed 与 awk 的联合
 使用管道
+
+** feedgnuplot
+*** 在命令行制图
+#+begin_src bash :results output :session local :exports both
+  seq 0 0.1 1 | awk '{print $1, $1, sqrt($1)}' | \
+      feedgnuplot --domain --lines --points --terminal 'dumb 60,16' --unset grid --exit
+#+end_src
+
+#+RESULTS:
+#+begin_example
+                                                            
+    1 +-------------------------------------------------+   
+      |         +         +         +       ##B####B##  |   
+  0.8 |-+                              ##B## *A**     +-|   
+      |                           ##B##    **           |   
+      |                 ##B####B##     **A*             |   
+  0.6 |-+           #B##          **A**               +-|   
+      |           ##         **A**                      |   
+  0.4 |-+     ##B#      **A**                         +-|   
+      |    B##      *A**                                |   
+      |   #       **                                    |   
+  0.2 |-##    **A*                                    +-|   
+      |# **A**  +         +         +         +         |   
+    0 +-------------------------------------------------+   
+      0        0.2       0.4       0.6       0.8        1
+#+end_example
 
 ** awk 练习
 *** 替换文本内容
