@@ -8561,7 +8561,11 @@ This is your dog
 #+attr_latex: :height 4.5cm
 [[./fig/sed_demo.jpg]]
 *** 10 乘 10 矩阵
-seq -w 00 99 | sed $(python3 -c "print('N;'*9)")'s/\n/,/g'
+- 执行 =N= 9 次。重复过多，不如使用 =python= 辅助构建字符串。
+#+begin_src bash :results output :session local :exports both
+  seq -w 00 99 | sed $(python3 -c "print('N;'*9)")'s/\n/,/g'
+#+end_src
+
 *** 反序
 #+begin_src bash :results output :session local :exports both
 seq 5 | sed '1!G;h;$!d'
