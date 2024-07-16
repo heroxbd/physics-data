@@ -8645,7 +8645,7 @@ sed 的操作（最常用的是查找-替换），更接近于编辑器
   - 第一门语言难度 100% ，思维广度 +100%
   - 第二门语言难度 25% ，思维广度 +100%
   - 第三门语言难度 1% ，思维广度 +100%
-  - 回报越来越大，[[https://learnxinyminutes.com/][learn x in y mintes]]。
+  - 回报越来越大，[[https://learnxinyminutes.com/][learn x in y minutes]]。
 
 ** awk 基础
 *** 运行 awk
