@@ -7123,7 +7123,7 @@ total-1: numbers-1.csv
 total-2: numbers-2.csv
 	paste -s -d + < $^ | bc > $@
 prod: total-0 total-1 total-2
-	cat $^ | paste -s -d '*' | bc > $@
+	paste -d '*' $^ | bc > $@
      #+end_src
      - 召唤一次原则！
      - 循环程序结构是共通的。
@@ -7235,7 +7235,7 @@ total-%: numbers-%.csv
 	paste -s -d + < $^ | bc > $@
 # 求积
 prod: total-0 total-1 total-2
-	cat $^ | paste -s -d '*' | bc > $@  # 或者paste -d* $^ | bc > $@
+	paste -d* $^ | bc > $@
     #+end_src
     - 循环从 =prod: total-0 total-1 total-2= 构造，由数据驱动
 *** 数据驱动暗含循环
@@ -7390,7 +7390,7 @@ total-%: numbers-%.csv
 	paste -s -d + < $^ | bc > $@
 # 求积
 prod: $(totals)
-	cat $^ | paste -s -d '*' | bc > $@
+	paste -d '*' $^ | bc > $@
     #+end_src
 
 *** 运行
