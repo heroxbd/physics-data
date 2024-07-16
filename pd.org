@@ -8382,8 +8382,12 @@ OSIRIS 的文件整理。
    + 若是，理论被推翻
    + 若不是，理论经受住了考验，思考更强更精细的可证伪假说
 
-*** 先测试小的部分，再测试大的
-对人也一样，在信任一个人能胜任工作之前，先布置一个小任务
+*** 先试用功能集小的，再试用大的
+#+attr_latex: :height 3.5cm
+[[./out/gsap.pdf]]
+
+**** 对人也一样
+在信任一个人能胜任工作之前，先布置一个小任务
 
 1. 打字
 2. 小作业
@@ -8397,6 +8401,11 @@ OSIRIS 的文件整理。
 #+beamer: \pause
 - 入门时，程序化解决文本问题花的时间更长
   + 注意不仅要学习如何解决问题，还要学习识别问题
+
+**** 参考资料
+- Dougherty and Robbins, Sed & Awk, 1997.
+- 陈皓，AWK 简明教程
+- =info sed=, =info awk=
 
 ** sed 进阶
 *** 命令行语法
@@ -8415,6 +8424,7 @@ sed -f tuna.sed sources.list
 
 - 所有命令先处理第一行，再处理第二行，……
 *** 定位行
+#+attr_beamer: :overlay <+->
 1. 什么都不写代表所有行
 2. =/regex/= 代表满足 regex 的行
 3. 1, 2, 3 行号，例如
@@ -8506,6 +8516,73 @@ e%.tex: p%.tex
 		-e 's/end{verbatim}/end{verbatim}}/' < $< > $@
 
 #+end_src
+*** 多行匹配
+- 部分 =pcre2grep -M= 的功能。
+#+begin_src bash :results output :session local :exports both
+  echo "This is your cat
+  my cat's name is betty
+This is your dog
+  my dog's name is frank" | sed 'N;s/\n/,/'
+#+end_src
+
+#+RESULTS:
+: This is your cat,  my cat's name is betty
+: This is your dog,  my dog's name is frank
+
+*** Hold space
+接下来，我们需要了解一下Hold Space的概念，我们先来看四个命令：
+
+g： 将 hold space 中的内容拷贝到 pattern space 中，原来 pattern space 里的内容清除
+G： 将 hold space 中的内容 append 到 pattern space 后
+h： 将 pattern space 中的内容拷贝到 hold space 中，原来的 hold space 里的内容被清除
+H： 将 pattern space 中的内容 append 到 hold space 后
+x： 交换 pattern space 和 hold space 的内容
+
+- 给自动机配了一个队列。
+
+*** 收集
+#+begin_src bash :results output :session local :exports both
+  echo "one
+  two
+  three" | sed "H;g"
+#+end_src
+
+#+RESULTS:
+: one
+: 
+: one
+: two
+: 
+: one
+: two
+: three
+
+#+attr_latex: :height 4cm
+[[./fig/sed_demo.jpg]]
+
+*** 反序
+#+begin_src bash :results output :session local :exports both
+seq 5 | sed '1!G;h;$!d'
+#+end_src
+
+#+RESULTS:
+: 5
+: 4
+: 3
+: 2
+: 1
+
+#+begin_src bash :results output :session local :exports both
+seq 5 | tac 
+#+end_src
+
+#+RESULTS:
+: 5
+: 4
+: 3
+: 2
+: 1
+
 ** ed 编辑
 *** 行编辑器
 - 在显示器大行其道之前
@@ -8547,7 +8624,13 @@ sed 的操作（最常用的是查找-替换），更接近于编辑器
 - 单行的 awk 程序可以从命令行直接输入
 - 把文本看成是一直数据仓库，例如 CSV
   + 在文本处理的同时，集成算术运算
-*** 学习 sed 和 awk 的重要步骤
+*** sed 与 awk 的共同点
+- 都是数据流驱动的编程语言
+  但与 Make 语言不同，不是函数式语言
+- 大量使用正则表达式
+- 可以快速从 bash 调用
+- awk 起源于 grep 和 sed，而后两者都脱胎于 =ed= 编辑器
+**** 学习 sed 和 awk 的步骤
 - [X] 调用 sed 和 awk
 - [X] 使用正则表达式
 - [X] 从 bash 调用时的引用
@@ -8555,33 +8638,29 @@ sed 的操作（最常用的是查找-替换），更接近于编辑器
   即用 =\= 和 ='= “废掉他人武功”
 - [ ] 书写 sed 和 awk 的脚本
 *** 学习新语言的原因
+- +实验物理的大数据方法+
+  - 28 天速成七种语言：Python, Bash, Make, Regex, Awk, R, SQL
+
 - 经济性：有了 Python 基础，学习其它语言门槛大大降低，不再需要额外精力
   - 第一门语言难度 100% ，思维广度 +100%
   - 第二门语言难度 25% ，思维广度 +100%
   - 第三门语言难度 1% ，思维广度 +100%
-  - 回报越来越大
+  - 回报越来越大，[[https://learnxinyminutes.com/][learn x in y mintes]]。
 
-*** sed 与 awk 的共同点
-- 都是数据流驱动的编程语言
-  但与 Make 语言不同，不是函数式语言
-- 大量使用正则表达式
-- 可以快速从 bash 调用
-- awk 起源于 grep 和 sed，而后两者都脱胎于 =ed= 编辑器
-**** 不同点
-- 命令的风格，决定两者各适用于什么问题
-** awk 入门
+** awk 基础
 *** 运行 awk
 #+begin_src bash
 awk '{print $1}' list
 #+end_src
 
 **** 计算 1 到 100 的和
-      #+begin_src bash :results output
-seq 100 | awk '{total+=$NF} END {print total}'
-      #+end_src
+#+begin_src bash :results output
+  seq 100 | awk '{total+=$NF} END {print total}'
+#+end_src
 
-      #+RESULTS:
-      : 5050
+#+RESULTS:
+: 5050
+
 *** 正式入门
 #+begin_src bash :results output
 echo | awk '{ print "Hello, world!" }'
@@ -8605,11 +8684,66 @@ echo | awk '{ print "Hello, world!" }'
 : Hello world!
 
 *** awk 的运行模式
+- 数据驱动的编程风格。
 #+attr_latex: :height 5cm
 [[./fig/awk-flow.pdf]]
 
+*** 内建的变量
+| 变量        | 含义                                           |
+|------------+-----------------------------------------------|
+| =$0=       | 当前记录（这个变量中存放着整个行的内容）             |
+| =$1~$n=    | 当前记录的第n个字段，字段间由FS分隔                 |
+| =FS=       | 输入字段分隔符 默认是空格或Tab                     |
+| =NF=       | 当前记录中的字段个数，就是有多少列                  |
+| =NR=       | 已经读出的记录数，就是行号，从1开始。               |
+|            | 如果有多个文件话，这个值也是不断累加。               |
+| =FNR=      | 当前记录数，与NR不同的是，这个值会是各个文件自己的行号 |
+| =RS=       | 输入的记录分隔符， 默认为换行符                    |
+| =OFS=      | 输出字段分隔符， 默认也是空格                      |
+| =ORS=      | 输出的记录分隔符，默认为换行符                     |
+| =FILENAME= | 当前输入文件的名字                               |
+
+- =-F= 可以改变 =FS= 的值，例如 =awk -F,=
+*** 替换文本内容
+- info: gawk \to sample programs \to clones
+  + cut
+  + egrep
+  + id
+  + split
+  + tee
+  + uniq
+  + wc
+
+*** 课堂练习： =wc=
+- =wc -l=
+- =wc -c=
+
+*** 课堂练习： =uniq=
+- =uniq -c=
+
+*** 课堂练习： =egrep=
+- =egrep=
 *** sed 与 awk 的联合
 使用管道
+
+#+begin_src bash :results output :session local :exports both
+  seq 9 | sed 'H;g' |\
+      awk -v RS='' '{for(i=1;i<=NF;i++)
+          printf("%dx%d=%d%s", i, NR, i*NR, i==NR?"\n":"\t")}'
+#+end_src
+
+#+RESULTS:
+: 1x1=1
+: 1x2=2	2x2=4
+: 1x3=3	2x3=6	3x3=9
+: 1x4=4	2x4=8	3x4=12	4x4=16
+: 1x5=5	2x5=10	3x5=15	4x5=20	5x5=25
+: 1x6=6	2x6=12	3x6=18	4x6=24	5x6=30	6x6=36
+: 1x7=7	2x7=14	3x7=21	4x7=28	5x7=35	6x7=42	7x7=49
+: 1x8=8	2x8=16	3x8=24	4x8=32	5x8=40	6x8=48	7x8=56	8x8=64
+: 1x9=9	2x9=18	3x9=27	4x9=36	5x9=45	6x9=54	7x9=63	8x9=72	9x9=81
+
+- 如何把前4行对齐。
 
 ** feedgnuplot
 *** 在命令行制图
@@ -8638,20 +8772,25 @@ echo | awk '{ print "Hello, world!" }'
 #+end_example
 
 ** awk 练习
-*** 替换文本内容
-- info: gawk \to sample programs \to clones
-  + cut
-  + egrep
-  + id
-  + split
-  + tee
-  + uniq
-  + wc
-
 *** 统计选课人数
 - 使用字典
 
 *** 去掉无用的编译选项
+#+begin_src awk
+  {
+      GENTOO_ENABLE=1;
+      if (match($0, /flags="([^"=]*)"/, cflags)) {
+          split(cflags[1], fields);
+          for (i in fields) {
+              if (match(fields[i], /-m([[:graph:]]*)/, inst)) {
+                  if (!index(enabled_flags, inst[1])) {
+                      GENTOO_ENABLE=0;
+                  }}}}
+      if (!GENTOO_ENABLE) { sub(cflags[1], "-mGENTOO_DISABLE"); }
+      print; 
+  }
+#+end_src
+
 https://gitweb.gentoo.org/repo/gentoo.git/commit/?id=ea2987349ece6f07da01e1c2f3e9808455fa394c
 
 ** 后备
