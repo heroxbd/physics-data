@@ -6970,7 +6970,8 @@ target: source
     - =target= 和 =source= 都应对应于当前路径下的文件名。
       - 当 =source= 存在时，可以通过运行 =program source target= 生成文件 =target=
 **** 参考书
-     John Graham Cumming, The GNU Make Book
+    - John Graham Cumming, The GNU Make Book
+    - [[https://seisman.github.io/how-to-write-makefile/Makefile.pdf][陈皓，跟我一起写 Makefile]]
 
 ** 变量
 *** 变量取值
