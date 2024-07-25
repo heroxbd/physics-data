@@ -9147,7 +9147,7 @@ NumPy 把这个概念继续推广，允许复合数据类型本身是数组。
   #+end_src
 - 笛卡尔积 :: =SELECT * FROM A,B=
 - 投影 :: =SELECT name FROM A=
-- 选择 :: =SELECT name FROM A WHERE ID==1=
+- 选择 :: =SELECT name FROM A WHERE ID=1=
 *** 再建新的表格
     #+begin_src sqlite :db ra.db :colnames yes
       CREATE TABLE B(ID integer, name text);
@@ -9224,7 +9224,7 @@ NumPy 把这个概念继续推广，允许复合数据类型本身是数组。
     | Li   |
 **** 选择：where 代表选择条件
     #+begin_src sqlite :db ra.db :colnames yes
-      SELECT * FROM A WHERE ID==1;
+      SELECT * FROM A WHERE ID=1;
     #+end_src
 
     #+RESULTS:
@@ -9245,7 +9245,7 @@ NumPy 把这个概念继续推广，允许复合数据类型本身是数组。
 
     - 用笛卡尔积和选择
     #+begin_src sqlite :db ra.db :colnames yes
-      SELECT * FROM A, B WHERE A.ID==B.ID;
+      SELECT * FROM A, B WHERE A.ID=B.ID;
     #+end_src
 
     #+RESULTS:
@@ -9491,7 +9491,7 @@ GROUP BY classes.院系, students.性别;
         END AS 权重, avg(分数) AS 分数 
         FROM longscores GROUP BY 学号, 大作业)
       GROUP BY 学号
-      HAVING 总评 > 105 
+      HAVING 总评 > 105
     #+end_src
 
     #+RESULTS:
