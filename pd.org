@@ -9466,11 +9466,11 @@ GROUP BY classes.院系, students.性别;
 *** 再计算一次总评
     - 用 =longscores= 分组大大简化
     #+begin_src sqlite :db dataframe-practice/people.db :colnames yes
-      SELECT 学号, avg(分数) FROM longscores GROUP BY 学号 LIMIT 5
+      SELECT 学号, AVG(分数) FROM longscores GROUP BY 学号 LIMIT 5
     #+end_src
 
     #+RESULTS:
-    | 学号 |        avg(分数) |
+    | 学号 |        AVG(分数) |
     |------+------------------|
     |    1 | 104.411111111111 |
     |    2 | 92.3333333333333 |
@@ -9484,11 +9484,11 @@ GROUP BY classes.院系, students.性别;
     - 0 到 0.65 权重， 1 到 0.3 权重
     - =HAVING= 与 groupby 连用，对 group 进行过滤。
     #+begin_src sqlite :db dataframe-practice/people.db :colnames yes
-      SELECT 学号, sum(权重*分数) AS 总评 FROM 
+      SELECT 学号, SUM(权重*分数) AS 总评 FROM
       (SELECT 学号, CASE 大作业
         WHEN 0 THEN 0.65
         WHEN 1 THEN 0.3
-        END AS 权重, avg(分数) AS 分数 
+        END AS 权重, AVG(分数) AS 分数
         FROM longscores GROUP BY 学号, 大作业)
       GROUP BY 学号
       HAVING 总评 > 105
@@ -9500,15 +9500,32 @@ GROUP BY classes.院系, students.性别;
     |   49 | 105.16375 |
     |   55 | 105.70625 |
 
+*** 建立中间结果的表格
+使用 =CREATE VIEW= 为中间结果命名。这是 lazy evaluation，不必担心中间变量的资源占用。
+
+#+begin_src sqlite :db dataframe-practice/people.db :colnames yes
+  CREATE VIEW weights AS
+  SELECT 学号, CASE 大作业
+    WHEN 0 THEN 0.65
+    WHEN 1 THEN 0.3
+    END AS 权重, AVG(分数) AS 分数
+    FROM longscores GROUP BY 学号, 大作业;
+
+  CREATE VIEW finals AS
+  SELECT 学号, SUM(权重*分数) AS 总评 FROM weights
+  GROUP BY 学号 HAVING 总评 > 105;
+
+  SELECT finals.学号,总评,联系方式 FROM finals JOIN students ON finals.学号 = students.学号;
+#+end_src
 *** 储存起来用于下一步使用
     - =CREATE VIEW= 把中间结果存成虚拟表格
     #+begin_src sqlite :db dataframe-practice/people.db :colnames yes
       CREATE VIEW final_scores AS
-      SELECT 学号, sum(权重*分数) AS 总评 FROM 
+      SELECT 学号, SUM(权重*分数) AS 总评 FROM
       (SELECT 学号, CASE 大作业
         WHEN 0 THEN 0.65
         WHEN 1 THEN 0.3
-        END AS 权重, avg(分数) AS 分数 
+        END AS 权重, AVG(分数) AS 分数
         FROM longscores GROUP BY 学号, 大作业)
       GROUP BY 学号
     #+end_src
@@ -9563,7 +9580,7 @@ ON total.班级 = classes.班级
 - [ ] 画出各班平均小作业成绩的变化曲线
 *** 取得班级作业平均数据
     #+begin_src sqlite :db dataframe-practice/people.db :colnames yes
-      SELECT 班级, 作业, avg(分数) AS 分数
+      SELECT 班级, 作业, AVG(分数) AS 分数
       FROM longscores JOIN students ON longscores.学号 = students.学号
       GROUP BY 班级, 作业 LIMIT 10
     #+end_src
@@ -9593,10 +9610,10 @@ ON total.班级 = classes.班级
 
       c = sqlite3.connect("dataframe-practice/people.db")
       class_score = pd.read_sql_query("""
-      select 班级, 作业, avg(分数) as 分数
-      from longscores join students
-      on longscores.学号 = students.学号
-      group by 班级, 作业
+      SELECT 班级, 作业, AVG(分数) AS 分数
+      FROM longscores JOIN students
+      ON longscores.学号 = students.学号
+      GROUP BY 班级, 作业
       """, c)
 
       one_line = class_score.query("班级 == '基科71'")
@@ -9663,11 +9680,11 @@ Debian
   - [X] 划分出不同的分数段，给出某分数段同学的手机号
 - [ ] 画出各班平均小作业成绩的变化曲线
     #+begin_src sqlite :db dataframe-practice/people.db :colnames yes
-      SELECT 学号, sum(权重*分数) AS 总评 FROM 
+      SELECT 学号, SUM(权重*分数) AS 总评 FROM
       (SELECT 学号, CASE 大作业
         WHEN 0 THEN 0.65
         WHEN 1 THEN 0.3
-        END AS 权重, avg(分数) AS 分数 
+        END AS 权重, AVG(分数) AS 分数
         FROM longscores GROUP BY 学号, 大作业)
       GROUP BY 学号
       HAVING 总评 > 105 
