@@ -10112,7 +10112,8 @@ help(numeric)
 :BEAMER_col: 0.5
 :END:
 #+begin_src R :session pd
-  people <- c('男', '男', '男', '女', '女', '男', '女', '女')
+  people <- c('男', '男', '男','女',
+              '女', '男', '女', '女')
 #+end_src
 
 #+RESULTS:
@@ -10141,6 +10142,7 @@ help(numeric)
 | 男 |
 | 女 |
 | 女 |
+*** 枚举型的机制
 **** r                                                                :BMCOL:
 :PROPERTIES:
 :BEAMER_col: 0.5
@@ -10166,6 +10168,11 @@ help(numeric)
 #+RESULTS:
 | 女 |
 | 男 |
+
+**** r                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
 
 #+begin_src R :session pd
   levels(p) <- c("woman", "man")
@@ -10620,6 +10627,7 @@ help(numeric)
 : 1  1 Wang   3  NA
 : 2  2   Li   4  18
 
+*** 连接（续）
 **** 右连接
 #+begin_src R :session pd :results output
   merge(A, B, all.y=TRUE)
@@ -10629,7 +10637,7 @@ help(numeric)
 :   ID  name GPA age
 : 1  2    Li   4  18
 : 2  3 Zhang  NA  20
-*** 外连接
+**** 外连接
 #+begin_src R :session pd
   merge(A, B, all=TRUE)
 #+end_src
@@ -10748,6 +10756,7 @@ print(p)
 #+RESULTS:
 [[file:plot/mtcars.pdf]]
 
+*** 上色
 #+begin_src R :session pd
 p <- p + aes(color=am)
 print(p)
