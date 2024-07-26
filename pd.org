@@ -10901,7 +10901,7 @@ sql_render(classes %>% filter(院系=='物理'))
 * 回归分析
   :PROPERTIES:
   :EXPORT_FILE_NAME: pe
-  :EXPORT_DATE: 2023-08-02 清华
+  :EXPORT_DATE: 2024-07-27 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
   :EXPORT_BEAMER_HEADER+: \setbeamertemplate{footline}[frame number]  
@@ -10922,9 +10922,6 @@ HDF5 是工业标准，可在多种语言直接读取，例如 C、Fortran、Pyt
 #+begin_src bash
   # Debian
   apt install r-bioc-rhdf5
-  # Gentoo @ macOS
-  emaint sync -r R_Overlay
-  emerge -vt sci-BIOC/rhdf5
 #+end_src
 
 *** DataFrame
