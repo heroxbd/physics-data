@@ -9727,13 +9727,13 @@ ON total.班级 = classes.班级
 
 - 非常适合快速试验并找到统计方法上的 _最佳工具_
 
+**** R 的重要数据处理模块
 - =dplyr= :: 数据整理的利器，简洁的语法表达关系代数
-- =dbplyr= :: 与 SQL 浑然连成一体，统一 DataFrame 与 SQL
-- =ggplot2= :: 科学制图利器，易用性远好于 matplotlib
+- =dbplyr= :: 与 SQL 浑然连成一体，统一 =DataFrame= 与 SQL
+- =ggplot2= :: 科学制图利器，数据制图易用性优于 =matplotlib=
 
+** R数据类型
 *** 数据类型
- *呼叫传送门*
-
 - numeric :: 数值型：分成整型、浮点型和复数型
 - character :: 字符型
 - factor :: 枚举型
@@ -9742,19 +9742,273 @@ ON total.班级 = classes.班级
 help(help)
 help(numeric)
   #+end_src
+
+#+begin_src R :session pd
+  10 + 66
+#+end_src
+
+#+RESULTS:
+: 76
+
+#+begin_src R :session pd
+  class(76)
+#+end_src
+
+#+RESULTS:
+: numeric
+
+*** numeric 包括整型与浮点型
+#+begin_src R :session pd
+  class(1.3)
+#+end_src
+
+#+RESULTS:
+: numeric
+
+#+begin_src R :session pd
+  (53.2 + 5)*2
+#+end_src
+
+#+RESULTS:
+: 116.4
+
+#+begin_src R :session pd
+  2^8
+#+end_src
+
+#+RESULTS:
+: 256
+
+*** 数组
+使用 =c= 命令构造数组
+#+begin_src R :session pd
+  help(c)
+#+end_src
+
+#+begin_src R :session pd
+  c(3,2,1)
+#+end_src
+
+#+RESULTS:
+| 3 |
+| 2 |
+| 1 |
+
+#+begin_src R :session pd
+  c(3,2,1) + c(4,7,8)
+#+end_src
+
+#+RESULTS:
+| 7 |
+| 9 |
+| 9 |
+
+*** 变量
+#+begin_src R :session pd
+  a <- c(3,2,1)
+#+end_src
+
+#+RESULTS:
+| 3 |
+| 2 |
+| 1 |
+
+#+begin_src R :session pd
+  a^2 + 7
+#+end_src
+
+#+RESULTS:
+| 16 |
+| 11 |
+|  8 |
+
+*** 数组的索引
+- R 的数组索引从 1 开始。
+#+begin_src R :session pd
+  a[3]
+#+end_src
+
+#+RESULTS:
+: 1
+
+#+begin_src R :session pd
+  a[2]
+#+end_src
+
+#+RESULTS:
+: 2
+
+- 闭区间。非 Python 的左开右闭。
+#+begin_src R :session pd
+  a[2:3]
+#+end_src
+
+#+RESULTS:
+| 2 |
+| 1 |
+
+*** 数组作为索引
+#+begin_src R :session pd
+  a[c(3,3,3,1,2)]
+#+end_src
+
+#+RESULTS:
+| 1 |
+| 1 |
+| 1 |
+| 3 |
+| 2 |
+
+*** 所有数字都是数组
+#+begin_src R :session pd
+  length(a)
+#+end_src
+
+#+RESULTS:
+: 3
+
+#+begin_src R :session pd
+  class(a)
+#+end_src
+
+#+RESULTS:
+: numeric
+
+#+begin_src R :session pd
+  length(1)
+#+end_src
+
+#+RESULTS:
+: 1
+
+*** 字符型
+#+begin_src R :session pd
+  "Hello World!"
+#+end_src
+
+#+RESULTS:
+: Hello World!
+
+#+begin_src R :session pd
+  class("Hello World!")
+#+end_src
+
+#+RESULTS:
+: character
+
+- 字符型的数组
+
+#+begin_src R :session pd
+  class(c("Hello", "World!"))
+#+end_src
+
+#+RESULTS:
+: character
+
+*** 字符串操作
+#+begin_src R :session pd
+  greek <- c("alpha", "beta", "gamma", "delta")
+  length(greek)
+#+end_src
+
+#+RESULTS:
+: 4
+
+*** 取子字符串
+**** l                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.49
+:END:
+#+begin_src R :session pd
+  substr(greek, 2, 3)
+#+end_src
+
+#+RESULTS:
+| lp |
+| et |
+| am |
+| el |
+
+#+begin_src R :session pd
+  gsub('a', 'A', greek)
+#+end_src
+
+#+RESULTS:
+| AlphA |
+| betA  |
+| gAmmA |
+| deltA |
+
+**** r                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.49
+:END:
+#+begin_src R :session pd
+  gsub('^a', 'A', greek)
+#+end_src
+
+#+RESULTS:
+| Alpha |
+| beta  |
+| gamma |
+| delta |
+
+#+begin_src R :session pd
+  gsub('a$', 'A', greek)
+#+end_src
+
+#+RESULTS:
+| alphA |
+| betA  |
+| gammA |
+| deltA |
+
+*** 寻找子串
+- =grep= 返回匹配的索引
+#+begin_src R :session pd
+  grep('e', greek)
+#+end_src
+
+#+RESULTS:
+| 2 |
+| 4 |
+
+#+begin_src R :session pd
+  greek[grep('e', greek)]
+#+end_src
+
+#+RESULTS:
+| beta  |
+| delta |
+
+*** 布尔型
+#+begin_src R :session pd
+  class(TRUE)
+#+end_src
+
+#+RESULTS:
+: logical
+
+#+begin_src R :session pd
+  greek == "alpha"
+#+end_src
+
+#+RESULTS:
+| TRUE  |
+| FALSE |
+| FALSE |
+| FALSE |
+
 *** 数值型
-- 数组
-- 数组的索引
-- 字符型
-- 字符串操作
-- 布尔型
 - 枚举型
+** R 程序结构
 *** 程序结构
 **** 选择结构
 **** 循环结构
 **** 函数
 *** 各类概率分布
 - 正态分布
+** R DataFrame
 *** DataFrame 用法
 - 简单制图
 - 线性回归
