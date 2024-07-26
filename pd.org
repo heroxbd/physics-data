@@ -9737,6 +9737,7 @@ ON total.班级 = classes.班级
 - numeric :: 数值型：分成整型、浮点型和复数型
 - character :: 字符型
 - factor :: 枚举型
+- logical :: 布尔型
   #+begin_src R
 # 获得帮助
 help(help)
@@ -9756,6 +9757,20 @@ help(numeric)
 
 #+RESULTS:
 : numeric
+*** 数值的类型
+#+begin_src R :session pd
+  typeof(76)
+#+end_src
+
+#+RESULTS:
+: double
+
+#+begin_src R :session pd
+  typeof(as.integer(76))
+#+end_src
+
+#+RESULTS:
+: integer
 
 *** numeric 包括整型与浮点型
 #+begin_src R :session pd
@@ -9766,7 +9781,7 @@ help(numeric)
 : numeric
 
 #+begin_src R :session pd
-  (53.2 + 5)*2
+  (53.2+5) * 2
 #+end_src
 
 #+RESULTS:
@@ -9779,8 +9794,8 @@ help(numeric)
 #+RESULTS:
 : 256
 
-*** 数组
-使用 =c= 命令构造数组
+*** 向量
+使用 =c= 命令构造向量
 #+begin_src R :session pd
   help(c)
 #+end_src
@@ -9803,6 +9818,22 @@ help(numeric)
 | 9 |
 | 9 |
 
+*** 向量的数据类型
+#+begin_src R :session pd
+  c(3, "a")
+#+end_src
+
+#+RESULTS:
+| 3 |
+| a |
+
+#+begin_src R :session pd
+  typeof(c(3, "a"))
+#+end_src
+
+#+RESULTS:
+: character
+
 *** 变量
 #+begin_src R :session pd
   a <- c(3,2,1)
@@ -9814,6 +9845,16 @@ help(numeric)
 | 1 |
 
 #+begin_src R :session pd
+  c(4,7,9) -> b
+#+end_src
+
+#+RESULTS:
+| 4 |
+| 7 |
+| 9 |
+
+*** 向量的运算
+#+begin_src R :session pd
   a^2 + 7
 #+end_src
 
@@ -9822,8 +9863,30 @@ help(numeric)
 | 11 |
 |  8 |
 
-*** 数组的索引
-- R 的数组索引从 1 开始。
+*** 向量永远是一维的
+#+begin_src R :session pd
+  c(c(2,3), c(0,1))
+#+end_src
+
+#+RESULTS:
+| 2 |
+| 3 |
+| 0 |
+| 1 |
+
+#+begin_src R :session pd
+  c(c(2,3), 4)
+#+end_src
+
+#+RESULTS:
+| 2 |
+| 3 |
+| 4 |
+*** 多维数组
+- 需要用 =array=
+
+*** 向量的索引
+- R 的向量索引从 1 开始。
 #+begin_src R :session pd
   a[3]
 #+end_src
@@ -9847,7 +9910,7 @@ help(numeric)
 | 2 |
 | 1 |
 
-*** 数组作为索引
+*** 向量作为索引
 #+begin_src R :session pd
   a[c(3,3,3,1,2)]
 #+end_src
@@ -9859,7 +9922,7 @@ help(numeric)
 | 3 |
 | 2 |
 
-*** 所有数字都是数组
+*** 所有数字都是向量
 #+begin_src R :session pd
   length(a)
 #+end_src
@@ -9896,7 +9959,7 @@ help(numeric)
 #+RESULTS:
 : character
 
-- 字符型的数组
+- 字符型的向量
 
 #+begin_src R :session pd
   class(c("Hello", "World!"))
