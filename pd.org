@@ -9733,8 +9733,9 @@ ON total.班级 = classes.班级
 - =ggplot2= :: 科学制图利器，数据制图易用性优于 =matplotlib=
 
 ** R数据类型
-*** 数据类型
+*** TODO 数据类型
 - numeric :: 数值型：分成整型、浮点型和复数型
+  + 错误： =numeric= 就是 =double= ，不包括整型。
 - character :: 字符型
 - factor :: 枚举型
 - logical :: 布尔型
@@ -9757,7 +9758,8 @@ help(numeric)
 
 #+RESULTS:
 : numeric
-*** 数值的类型
+*** TODO 数值的类型
+=class= 与 =typeof= 的区别是什么？
 #+begin_src R :session pd
   typeof(76)
 #+end_src
@@ -10775,19 +10777,18 @@ print(p)
 
 ** 宽表到长表
 *** 表格的等价变换
- *呼叫传送门* =Merge-GroupBy.slides.html=
-
-    - =R= 和 =Pandas= DataFrame 可以将长表与宽表相互转换
-      - =SQLite= 不具备此功能
-    - =melt= 函数
-
+- =R= 和 =Pandas= DataFrame 可以将长表与宽表相互转换
+  - =SQLite= 不具备此功能
+- =melt= 函数
+*** TODO 使用 tidyr
+- 发展历史为 =reshape=, =reshape2=, =tidyr= 。 =tidyr= 是最新的库。
 *** =melt=
 - =id.vars= 指定作为索引的列
 - =value.vars= 指定作为数值的列
 - =var.name= 指定长表中组变量的列名
 - =value.name= 指定长表中值的列名
 #+begin_src R :session pd
-  library(melt)
+  library(reshape2)
   scores <- read.csv("dataframe-practice/scores.csv")
   longscores <- melt(scores, id.vars="学号")
   head(longscores)
