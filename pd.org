@@ -9901,7 +9901,7 @@ help(numeric)
 #+RESULTS:
 : 2
 
-- 闭区间。非 Python 的左开右闭。
+- 闭区间。非 Python 的左闭右开。
 #+begin_src R :session pd
   a[2:3]
 #+end_src
@@ -10045,12 +10045,34 @@ help(numeric)
 | delta |
 
 *** 布尔型
+**** l                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
 #+begin_src R :session pd
   class(TRUE)
 #+end_src
 
 #+RESULTS:
 : logical
+
+#+begin_src R :session pd
+  TRUE & FALSE
+#+end_src
+
+#+RESULTS:
+: FALSE
+
+**** r                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+#+begin_src R :session pd
+  !FALSE | FALSE
+#+end_src
+
+#+RESULTS:
+: TRUE
 
 #+begin_src R :session pd
   greek == "alpha"
@@ -10063,14 +10085,220 @@ help(numeric)
 | FALSE |
 
 *** 数值型
-- 枚举型
+#+begin_src R :session pd
+  typeof(NaN)
+#+end_src
+
+#+RESULTS:
+: double
+
+#+begin_src R :session pd
+  1 + NaN
+#+end_src
+
+#+begin_src R :session pd
+  Inf + 1
+#+end_src
+
+#+RESULTS:
+: Inf
+
+#+begin_src R :session pd
+  Inf - Inf
+#+end_src
+
+#+RESULTS:
+
+*** 枚举型
+#+begin_src R :session pd
+  people <- c('男', '男', '男', '女', '女', '男', '女', '女')
+#+end_src
+
+#+RESULTS:
+| 男 |
+| 男 |
+| 男 |
+| 女 |
+| 女 |
+| 男 |
+| 女 |
+| 女 |
+
+#+begin_src R :session pd
+  p <- as.factor(people)
+#+end_src
+
+#+RESULTS:
+| 男 |
+| 男 |
+| 男 |
+| 女 |
+| 女 |
+| 男 |
+| 女 |
+| 女 |
+**** r                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+#+begin_src R :session pd
+  as.numeric(p)
+#+end_src
+
+#+RESULTS:
+| 2 |
+| 2 |
+| 2 |
+| 1 |
+| 1 |
+| 2 |
+| 1 |
+| 1 |
+
+#+begin_src R :session pd
+  levels(p)
+#+end_src
+
+#+RESULTS:
+| 女 |
+| 男 |
+
+#+begin_src R :session pd
+  levels(p) <- c("woman", "man")
+  p
+#+end_src
+
+#+RESULTS:
+| man   |
+| man   |
+| man   |
+| woman |
+| woman |
+| man   |
+| woman |
+| woman |
+
 ** R 程序结构
 *** 程序结构
 **** 选择结构
+#+begin_src R :session pd
+  g <- 4
+  result <- if (g %% 2) {
+    "奇数"
+  } else {
+    "偶数"
+  }
+#+end_src
+
+#+RESULTS:
+: 偶数
+
+#+begin_src R :session pd
+  rep(result, 3)
+#+end_src
+
+#+RESULTS:
+| 偶数 |
+| 偶数 |
+| 偶数 |
+
 **** 循环结构
+#+begin_src R :session pd :results output
+  for (i in 1:5) {
+    print(i)
+  }
+#+end_src
+
+#+RESULTS:
+: [1] 1
+: [1] 2
+: [1] 3
+: [1] 4
+: [1] 5
+
+#+begin_src R :session pd
+  -1:3
+#+end_src
+
+#+RESULTS:
+| -1 |
+|  0 |
+|  1 |
+|  2 |
+|  3 |
+
+**** for 遍历了元素
+#+begin_src R :session pd :results output
+  for (i in greek) {
+    print(i)
+  }
+#+end_src
+
+#+RESULTS:
+: [1] "alpha"
+: [1] "beta"
+: [1] "gamma"
+: [1] "delta"
+
+**** while 循环
+#+begin_src R :session pd :results output
+  i <- 0
+  while (i < 10) {
+    print(i)
+    i <- i+1
+  }
+#+end_src
+
+#+RESULTS:
+#+begin_example
+[1] 0
+[1] 1
+[1] 2
+[1] 3
+[1] 4
+[1] 5
+[1] 6
+[1] 7
+[1] 8
+[1] 9
+#+end_example
+
 **** 函数
-*** 各类概率分布
-- 正态分布
+#+begin_src R :session pd
+  jiggle <- function(x) {
+    x + rnorm(1, sd=0.1)
+  }
+  jiggle(6)
+#+end_src
+
+#+RESULTS:
+: 6.04786267351062
+
+*** 正态分布
++ =d= 代表概率密度函数
+#+begin_src R :session pd
+  dnorm(0, mean=0, sd=1)
+#+end_src
+
+#+RESULTS:
+: 0.398942280401433
+
++ =p= 代表累积分布函数
+#+begin_src R :session pd
+  pnorm(3) - pnorm(-3)
+#+end_src
+
+#+RESULTS:
+: 0.99730020393674
+
++ =q= 代表分位数
+#+begin_src R :session pd
+  qnorm(0.5)
+#+end_src
+
+#+RESULTS:
+: 0
+
 ** R DataFrame
 *** DataFrame 用法
 - 简单制图
