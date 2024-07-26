@@ -9638,7 +9638,7 @@ ON total.班级 = classes.班级
 * DataFrame
   :PROPERTIES:
   :EXPORT_FILE_NAME: pd
-  :EXPORT_DATE: 2023-08-01 清华
+  :EXPORT_DATE: 2024-07-26 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
   :EXPORT_BEAMER_HEADER+: \setbeamertemplate{footline}[frame number]  
@@ -9647,8 +9647,6 @@ ON total.班级 = classes.班级
   :END:
 ** 复习与提示
 *** 安装软件 R 的 ggplot2 与 dbplyr
-Debian
-
 #+begin_src bash
     apt install r-cran-ggplot2 r-cran-dbplyr r-cran-dplyr r-cran-reshape2 r-cran-rsqlite
 #+end_src
