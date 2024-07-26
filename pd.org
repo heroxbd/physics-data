@@ -10298,6 +10298,34 @@ help(numeric)
 
 #+RESULTS:
 : 0
+*** 其它概率分布
+- unif :: 均匀
+- pois :: 泊松
+- binom :: 二项
+- gamma :: 伽马
+- exp :: 指数
+
+**** l                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+#+begin_src R :session pd
+  dunif(0.5)
+#+end_src
+
+#+RESULTS:
+: 1
+
+**** r                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+#+begin_src R :session pd
+  dunif(2)
+#+end_src
+
+#+RESULTS:
+: 0
 
 ** R DataFrame
 *** DataFrame 用法
