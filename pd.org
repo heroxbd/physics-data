@@ -5583,7 +5583,7 @@ target: source
      - 先“不求甚解”再择最重要的“寻根究底”，在两种学习模式间自由跳跃。
        - 在麦克斯韦方程出现之前，已经有光学
        - 不是只有做完实验才能吃饭
-** i 技能学习的特点                                         :B_ignoreheading:
+*** i 技能学习的特点                                        :B_ignoreheading:
 :PROPERTIES:
 :BEAMER_env: ignoreheading
 :END:
@@ -5628,7 +5628,7 @@ target: source
      - 如何高效地在不同组输入数据上重复运行亿万次？
      - 四大基本原则在此依然适用。
 
-** i Python 程序的支撑                                      :B_ignoreheading:
+*** i Python 程序的支撑                                     :B_ignoreheading:
 :PROPERTIES:
 :BEAMER_env: ignoreheading
 :END:
@@ -7638,7 +7638,7 @@ target: source
 - 更高级的文件管理
 - 文件内容识别
 
-** i 字符搜索匹配                                           :B_ignoreheading:
+*** i 字符搜索匹配                                          :B_ignoreheading:
 :PROPERTIES:
 :BEAMER_env: ignoreheading
 :END:
@@ -7670,7 +7670,7 @@ seq 10000 | grep -E ^23+$
     : 23
     : 233
     : 2333
-** i 高级匹配                                               :B_ignoreheading:
+*** i 高级匹配                                              :B_ignoreheading:
 :PROPERTIES:
 :BEAMER_env: ignoreheading
 :END:
@@ -9003,7 +9003,7 @@ For fundamental contributions to the concepts and practices underlying modern da
 ***** 参考书
      Hellerstein, Joseph M. and Michael Stonebraker. Readings in Database Systems.
 
-** 关系代数                                                 :B_ignoreheading:
+*** 关系代数                                                :B_ignoreheading:
 :PROPERTIES:
 :BEAMER_env: ignoreheading
 :END:
@@ -10909,6 +10909,8 @@ sql_render(classes %>% filter(院系=='物理'))
   :EXPORT_BEAMER_FONT_THEME: professionalfonts
   :END:
 ** 复习提示
+HDF5 是工业标准，可在多种语言直接读取，例如 C、Fortran、Python 和 R。在 R 中读写 HDF5 的为 =rhdf5= ，把 HDF5 的结构化数组的 dataset 映射成 R 的 data.frame 处理，因为它们都是表格可自然对应。
+
 *** 数据集下载
     - =lm-examples.tar.gz= 线性回归样例集
       #+begin_src bash
