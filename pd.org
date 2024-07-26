@@ -10074,15 +10074,12 @@ help(numeric)
 #+RESULTS:
 : TRUE
 
-#+begin_src R :session pd
+#+begin_src R :session pd :results output
   greek == "alpha"
 #+end_src
 
 #+RESULTS:
-| TRUE  |
-| FALSE |
-| FALSE |
-| FALSE |
+: [1]  TRUE FALSE FALSE FALSE
 
 *** 数值型
 #+begin_src R :session pd
@@ -10110,6 +10107,10 @@ help(numeric)
 #+RESULTS:
 
 *** 枚举型
+**** l                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
 #+begin_src R :session pd
   people <- c('男', '男', '男', '女', '女', '男', '女', '女')
 #+end_src
@@ -10123,7 +10124,10 @@ help(numeric)
 | 男 |
 | 女 |
 | 女 |
-
+**** r                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
 #+begin_src R :session pd
   p <- as.factor(people)
 #+end_src
@@ -10598,30 +10602,33 @@ help(numeric)
 : 2  3 Zhang  20
 
 *** 连接
-#+begin_src R :session pd
+#+begin_src R :session pd :results output
   merge(A, B)
 #+end_src
 
 #+RESULTS:
-| 2 | Li | 4 | 18 |
+:   ID name GPA age
+: 1  2   Li   4  18
 
 **** 左连接
-#+begin_src R :session pd
+#+begin_src R :session pd :results output
   merge(A, B, all.x=TRUE)
 #+end_src
 
 #+RESULTS:
-| 1 | Wang | 3 |    |
-| 2 | Li   | 4 | 18 |
+:   ID name GPA age
+: 1  1 Wang   3  NA
+: 2  2   Li   4  18
 
 **** 右连接
-#+begin_src R :session pd
+#+begin_src R :session pd :results output
   merge(A, B, all.y=TRUE)
 #+end_src
 
 #+RESULTS:
-| 2 | Li    | 4 | 18 |
-| 3 | Zhang |   | 20 |
+:   ID  name GPA age
+: 1  2    Li   4  18
+: 2  3 Zhang  NA  20
 *** 外连接
 #+begin_src R :session pd
   merge(A, B, all=TRUE)
@@ -10672,6 +10679,48 @@ help(numeric)
 : 1    1   Wang    2     Li
 : 3    1   Wang    3  Zhang
 
+*** R 版本的统计
+#+begin_src R :session pd :results output
+  students <- read.csv("dataframe-practice/students.csv")
+  head(students)
+#+end_src
+
+#+RESULTS:
+:   学号 姓名 性别   班级    联系方式
+: 1    1   AB   女 物理71 50626922811
+: 2    2   AC   女 工物61  6533879773
+: 3    3   AD   男 物理71 43865400582
+: 4    4   AE   男 工物71 58581462691
+: 5    5   AF   女 物理72 45017508911
+: 6    6   AG   男 工物72 26000243873
+
+#+begin_src R :session pd :results output
+  classes <- read.csv("dataframe-practice/classes.csv")
+  head(classes)
+#+end_src
+
+#+RESULTS:
+:     班级 院系
+: 1   核71 工物
+: 2 工物61 工物
+: 3 工物72 工物
+: 4 基科71 物理
+: 5 物理72 物理
+: 6 物理71 物理
+
+*** 统计男女比例
+#+begin_src R :session pd
+  merge(students, classes) %>%
+  group_by(性别, 院系) %>%
+  summarise(人数=n())
+#+end_src
+
+#+RESULTS:
+| 女 | 工物 |  4 |
+| 女 | 物理 | 10 |
+| 男 | 工物 | 18 |
+| 男 | 物理 | 25 |
+
 ** 关系代数制图
 *** 图形语法 Grammar of Graphics
     - 在表格与图形要素之间建立映射关系
@@ -10690,25 +10739,30 @@ help(numeric)
      - Leland Wilkinson, The Grammar of Graphics （沉痛缅怀 Wilkinson 教授）
      - Hadley Wickham, A Layered Grammar of Graphics
 *** ggplot
- *呼叫传送门* =Merge-GroupBy.slides.html=
-#+begin_src R
-require(ggplot2)
-data(mtcars)
+#+begin_src R :session pd :file plot/mtcars.pdf :results graphics file :width 12 :height 5 :family GB1
+library(ggplot2)
 p <- ggplot(mtcars, aes(x=wt, y=hp)) + geom_point()
 print(p)
 #+end_src
 
-#+begin_src R
+#+RESULTS:
+[[file:plot/mtcars.pdf]]
+
+#+begin_src R :session pd
 p <- p + aes(color=am)
 print(p)
 #+end_src
 
 *** ggplot 枚举型制图
-#+begin_src R
+#+begin_src R :session pd
   mtcars$am <- factor(mtcars$am, levels=c(0, 1), labels=c("automatic", "manual"))
   p <- p %+% mtcars
+  pdf("mtcars.pdf")
   print(p)
+  dev.off()
 #+end_src
+
+#+RESULTS:
 
 ** 宽表到长表
 *** 表格的等价变换
@@ -10719,11 +10773,87 @@ print(p)
     - =melt= 函数
 
 *** =melt=
-    - =id_vars= 指定作为索引的列
-    - =value_vars= 指定作为数值的列
-    - =var_name= 指定长表中组变量的列名
-    - =value_name= 指定长表中值的列名
+- =id.vars= 指定作为索引的列
+- =value.vars= 指定作为数值的列
+- =var.name= 指定长表中组变量的列名
+- =value.name= 指定长表中值的列名
+#+begin_src R :session pd
+  library(melt)
+  scores <- read.csv("dataframe-practice/scores.csv")
+  longscores <- melt(scores, id.vars="学号")
+  head(longscores)
+#+end_src
+
+#+RESULTS:
+| 1 | self.intro | 100 |
+| 2 | self.intro | 100 |
+| 3 | self.intro | 100 |
+| 4 | self.intro | 100 |
+| 5 | self.intro | 100 |
+| 6 | self.intro | 100 |
+
+*** 变成枚举型
+#+begin_src R :session pd
+  longscores$variable <- as.factor(longscores$variable)
+  levels(longscores$variable)
+#+end_src
+
+#+RESULTS:
+| self.intro     |
+| a.b            |
+| rank.guesser   |
+| hdf5           |
+| prime          |
+| heart.curve    |
+| gpa.calculator |
+| curve.fitting  |
+| 大作业          |
+
+*** 加上大作业的类型
+#+begin_src R :session pd :results output
+  longscores$类型 <- longscores$variable == "大作业"
+  summary(longscores$类型)
+#+end_src
+
+#+RESULTS:
+:    Mode   FALSE    TRUE 
+: logical     456      57
+
 *** 统计班级平均分
+#+begin_src R :session pd :file plot/score-class.pdf :results graphics file :width 12 :height 5 :family GB1
+  merge(students, longscores) %>%
+    group_by(班级, variable) %>%
+    summarise(平均分=mean(value)) %>%
+    ggplot(aes(x=variable, y=平均分, color=班级)) +
+    geom_point() + facet_wrap(~班级)
+#+end_src
+
+#+RESULTS:
+[[file:plot/score-class.pdf]]
+*** 四个子图
+#+begin_src R :session pd
+  students$班类 <- as.factor(gsub('[[:digit:]]*', '', students$班级))
+  unique(students$班类)
+#+end_src
+
+#+RESULTS:
+| 物理 |
+| 工物 |
+| 核   |
+| 基科 |
+
+*** 统计班级平均分
+#+begin_src R :session pd :file plot/scores.pdf :results graphics file :width 12 :height 5 :family GB1
+  merge(students, longscores) %>%
+    group_by(班级, variable) %>%
+    reframe(平均分=mean(value), 班类=班类) %>% 
+    ggplot(aes(x=variable, y=平均分, color=班级)) +
+    geom_point() + facet_wrap(~班类)
+#+end_src
+
+#+RESULTS:
+[[file:plot/scores.pdf]]
+
 *** [100%]少年爱迪生想
 - [X] 比较物理系和工物系的男女比例
 - [X] 算出大家的总评成绩：
@@ -10732,8 +10862,6 @@ print(p)
   - [X] 划分出不同的分数段，给出某分数段同学的手机号
 - [X] 画出各班平均小作业成绩的变化曲线
 
-** R 版总评计算
-*** 课堂练习
 ** dbplyr
 *** SQL 的 DataFrame 接口
 #+begin_src R :session dbplyr
