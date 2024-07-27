@@ -18,7 +18,6 @@
 #+LATEX_HEADER: \usepackage{amsmath}
 #+LaTeX_HEADER: \setmonofont{Liberation Mono}
 #+BEAMER_HEADER: \usepackage{appendixnumberbeamer}
-#+BEAMER_HEADER: \usepackage[beamer]{hf-tikz}
 #+LaTeX_HEADER: \usepackage{tikz,tikz-3dplot}
 #+LaTeX_HEADER: \usetikzlibrary{decorations.pathreplacing}
 #+BEAMER_HEADER: \usetikzlibrary{arrows.meta,backgrounds,ext.paths.ortho,ext.positioning-plus,ext.node-families.shapes.geometric,calc}
@@ -12232,10 +12231,6 @@ F-statistic:  1734 on 3 and 436 DF,  p-value: < 2.2e-16
 
 #+RESULTS:
 #+begin_example
-[1m[22m`summarise()` has grouped output by 'EventID'. You can override
-using the `.groups` argument.
-[1m[22mJoining with `by = join_by(ChannelID)`
-
 Call:
 glm(formula = nPE ~ type - 1, family = poisson(), data = d)
 
