@@ -11821,6 +11821,34 @@ With four parameters I can fit an elephant. With five I can make him wiggle his 
 
 *** 使用 =model.matrix= 改进模型
 - 直接修改 =model.matrix=
+#+begin_src R :session pd :results output
+  lm4.books <- lm(weight ~ model4 - 1, books)
+  AIC(lm4.books)
+  summary(lm4.books)
+#+end_src
+
+#+RESULTS:
+#+begin_example
+[1] 176.0669
+
+Call:
+lm(formula = weight ~ model4 - 1, data = books)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-115.208  -32.277   -9.768   30.447  211.991 
+
+Coefficients:
+               Estimate Std. Error t value Pr(>|t|)    
+model4volume    0.73070    0.02755  26.522 1.05e-12 ***
+model4coverhb 187.33601   36.57152   5.122 0.000196 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 75.3 on 13 degrees of freedom
+Multiple R-squared:  0.9913,	Adjusted R-squared:   0.99 
+F-statistic: 743.2 on 2 and 13 DF,  p-value: 3.954e-14
+#+end_example
 
 *** 课堂练习
     - 分析：有否必要把 =area= 加入回归？
@@ -12188,50 +12216,46 @@ F-statistic:  1734 on 3 and 436 DF,  p-value: < 2.2e-16
 - Tweedie 回归
 
 *** 课堂任务
-    - 尝试对 =r10500.h5= 进行泊松回归
-    - 辅助文件 =geo.csv= , =pmtdata.csv=
-    #+NAME: fcfd86ca-faa7-4801-a8a2-61006de8c54a
-    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
-      PE = pd.read_hdf("lm-examples/r10500.h5", "PETruth")
-      PEs = PE.groupby(["EventID", "ChannelID"]).count().reset_index()
-      PMT = pd.read_csv("lm-examples/pmtdata.csv", header=0, delimiter=" ",
-                        names=["ChannelID", "type", "QE"])
-      # 不能种类的 PMT ，预期的信号计数是否一致
-      type_count = pd.merge(PEs, PMT)
-      y, X = patsy.dmatrices("PETime ~ type - 1", type_count)
-      pois_res = sm.GLM(y, X, sm.families.Poisson()).fit()
-    #+end_src
+- 尝试对 =r10500.h5= 进行泊松回归
+- 辅助文件 =geo.csv= , =pmtdata.csv=
 
-    #+RESULTS: fcfd86ca-faa7-4801-a8a2-61006de8c54a
+#+begin_src R :session pd :results output
+  library(rhdf5)
+  library(dplyr)
+  PEs <- h5read("lm-examples/r10500.h5", "PETruth")
+  PEs %>% group_by(EventID, ChannelID) %>% summarise(nPE=n()) -> nPE
+  PMT <- read.table("lm-examples/pmtdata.csv", col.names=c("ChannelID", "type", "QE"))
+  nPE %>% inner_join(PMT) -> d
+  lm0.d <- glm(nPE ~ type - 1, d, family = poisson())
+  summary(lm0.d)
+#+end_src
 
-*** 泊松回归拟合结果
-    #+NAME: dbd4abeb-6129-4213-9bad-b5a5f9387386
-    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
-      print(pois_res.summary())
-    #+end_src
+#+RESULTS:
+#+begin_example
+[1m[22m`summarise()` has grouped output by 'EventID'. You can override
+using the `.groups` argument.
+[1m[22mJoining with `by = join_by(ChannelID)`
 
-    #+RESULTS: dbd4abeb-6129-4213-9bad-b5a5f9387386
-    #+begin_example
-                     Generalized Linear Model Regression Results                  
-    ==============================================================================
-    Dep. Variable:                 PETime   No. Observations:               549654
-    Model:                            GLM   Df Residuals:                   549650
-    Model Family:                 Poisson   Df Model:                            3
-    Link Function:                    Log   Scale:                          1.0000
-    Method:                          IRLS   Log-Likelihood:            -3.9571e+06
-    Date:                Wed, 03 Aug 2022   Deviance:                   5.7277e+06
-    Time:                        17:12:27   Pearson chi2:                 7.26e+06
-    No. Iterations:                     7   Pseudo R-squ. (CS):              1.000
-    Covariance Type:            nonrobust                                         
-    ====================================================================================
-                           coef    std err          z      P>|z|      [0.025      0.975]
-    ------------------------------------------------------------------------------------
-    type[HZC]            0.3697      0.002    197.609      0.000       0.366       0.373
-    type[Hamamatsu]      3.3682      0.001   5738.410      0.000       3.367       3.369
-    type[HighQENNVT]     3.3916      0.000   8503.298      0.000       3.391       3.392
-    type[NNVT]           3.2986      0.001   3460.998      0.000       3.297       3.300
-    ====================================================================================
-    #+end_example
+Call:
+glm(formula = nPE ~ type - 1, family = poisson(), data = d)
+
+Coefficients:
+                Estimate Std. Error z value Pr(>|z|)    
+typeHamamatsu  3.3682078  0.0005870  5738.4   <2e-16 ***
+typeHighQENNVT 3.3916647  0.0003988  8504.3   <2e-16 ***
+typeHZC        0.3696733  0.0018707   197.6   <2e-16 ***
+typeNNVT       3.2986176  0.0009531  3461.0   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for poisson family taken to be 1)
+
+    Null deviance: 55350655  on 549674  degrees of freedom
+Residual deviance:  5729167  on 549670  degrees of freedom
+AIC: 7915838
+
+Number of Fisher Scoring iterations: 5
+#+end_example
 
 ** 总结
 *** 模型的选择
