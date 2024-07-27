@@ -11987,44 +11987,6 @@ F-statistic:  4632 on 1 and 438 DF,  p-value: < 2.2e-16
 #+RESULTS:
 [[file:plot/thermistor-lm.pdf]]
 
-#+beamer: \pause
-**** r                                                                :BMCOL:
-:PROPERTIES:
-:BEAMER_col: 0.5
-:BEAMER_opt: t
-:END:
-#+begin_export latex
-\begin{equation*}
-  \begin{aligned}
-    &\frac{1}{t/\si{\celsius} + 273.15} = \hat{a} + \hat{b} \log \frac{R}{\si{\kilo\ohm}} \\
-    \implies &\frac{t}{\si{\celsius}} = \left(\hat{a} + \hat{b} \log \frac{R}{\si{\kilo\ohm}}\right)^{-1} - 273.15
-  \end{aligned}
-\end{equation*}
-#+end_export
-
-#+begin_src R :session pd :file plot/thermistor-lm-curve.pdf :results graphics file :width 7 :height 5 :family GB1 :exports code
-  par(mar = c(4.5, 4.5, 0.8, 0.8))
-  plot(1/(温度 + 273.15) ~ log(电阻), d, , cex.lab=2, cex.axis=2)
-  blue = sort(d$电阻)
-  lines(blue, 1/predict(lm.therm, data.frame(电阻=blue)) - 273.15, col="blue", lwd=4)
-#+end_src
-
-- 通过电路测得 \(R\) ，即可通过公式转化得到温度 \(t\) 的读数。
-
-*** \(\sigma^2\) 的估计
-    \[ \hat{y} = \hat{a} + \hat{b} x \]
-    一元线性回归模型
-    \[ y = a + bx + \epsilon, \epsilon \sim N(0, \sigma^2) \]
-    - 因随机因素引起的误差称为 *残差平方和*
-     \[ Q_e = \sum_{i=1}^n (y-\hat{y})^2 \]
-     #+begin_export latex
-     \begin{equation*}
-       \begin{aligned}
-         & \frac{Q_e}{\sigma^2} \sim \chi^2(n-2) \\
-         \implies & \hat{\sigma^2} = \frac{Q_e}{n-2}
-       \end{aligned}
-     \end{equation*}
-     #+end_export
 *** \(t\) 检验
 检验假设 \( \displaystyle{H_0: b=0, H_1: b \neq 0}\)
 #+attr_beamer: :overlay <+->
