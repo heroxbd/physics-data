@@ -2,21 +2,40 @@
 #+LATEX_HEADER: \usepackage[UTF8]{ctex}
 #+OPTIONS: H:2 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
 #+OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
-
 #+sTARTUP: beamer
-#+latex_HEADER: \usepackage{siunitx}
+#+LATEX_HEADER: \usepackage{ascmac}
+#+LATEX_HEADER: \usepackage[subrefformat=parens]{subcaption}
+#+LATEX_HEADER: \usepackage{siunitx}
+#+LATEX_HEADER: \usepackage{animate}
+#+LATEX_HEADER: \usepackage{mathtools}
 #+latex_HEADER: \usepackage[version=3]{mhchem}
 #+latex_HEADER: \usepackage{mathrsfs}
-#+latex_HEADER: \usepackage[export]{adjustbox}
-#+latex_HEADER: \usepackage{pgf,tikz}
 #+latex_HEADER: \usepackage{wasysym}
 #+LATEX_HEADER: \usepackage{braket}
 #+latex_HEADER: \usepackage{tipa}
-#+latex_HEADER: \usetikzlibrary{arrows}
-#+LaTeX_HEADER: \usepackage{appendixnumberbeamer}
+#+LATEX_HEADER: \usepackage{fontspec}
+#+LATEX_HEADER: \usepackage{cancel}
+#+LATEX_HEADER: \usepackage{amsmath}
+#+LaTeX_HEADER: \setmonofont{Liberation Mono}
+#+BEAMER_HEADER: \usepackage{appendixnumberbeamer}
+#+BEAMER_HEADER: \usepackage[beamer]{hf-tikz}
+#+LaTeX_HEADER: \usepackage{tikz,tikz-3dplot}
+#+LaTeX_HEADER: \usetikzlibrary{decorations.pathreplacing}
+#+BEAMER_HEADER: \usetikzlibrary{arrows.meta,backgrounds,ext.paths.ortho,ext.positioning-plus,ext.node-families.shapes.geometric,calc}
 #+LaTeX_HEADER: \setCJKsansfont{Noto Sans CJK SC}
-#+LaTeX_HEADER: \DeclareMathOperator{\Tr}{Tr}
 #+LaTeX_HEADER: \setbeamercovered{dynamic}
+#+LaTeX_HEADER: \DeclareMathOperator{\Tr}{Tr}
+#+LaTeX_HEADER: \DeclareMathOperator{\Var}{Var}
+#+LaTeX_HEADER: \DeclareMathOperator{\tr}{tr}
+#+LaTeX_HEADER: \DeclareMathOperator{\MSE}{MSE}
+#+LaTeX_HEADER: \DeclareMathOperator{\Cov}{Cov}
+#+LaTeX_HEADER: \DeclareMathOperator{\Exp}{Exp}
+#+LaTeX_HEADER: \DeclareMathOperator{\Beta}{Beta}
+#+LaTeX_HEADER: \DeclareMathOperator{\E}{E}
+#+LaTeX_HEADER: \DeclareMathOperator{\D}{D}
+#+LaTeX_HEADER: \DeclareMathOperator{\Ga}{Ga}
+#+LaTeX_HEADER: \DeclareMathOperator{\Be}{Be}
+#+LaTeX_HEADER: \DeclareMathOperator{\erf}{erf}
 
 #+PROPERTY: header-args :eval never-export :exports both
 #+PROPERTY: header-args:dot :eval yes :cmdline -Kdot -Tpdf :exports results
@@ -11054,39 +11073,50 @@ HDF5 是工业标准，可在多种语言直接读取，例如 C、Fortran、Pyt
     14    595    0    425    pb
     15   1034    0    725    pb
     #+end_example
-
-    #+RESULTS: 8e0745ac-1f5b-483e-8c05-fc1ff4e81ab4
-    #+begin_example
-       volume area weight cover
-    1     885  382    800    hb
-    2    1016  468    950    hb
-    3    1125  387   1050    hb
-    4     239  371    350    hb
-    5     701  371    750    hb
-    6     641  367    600    hb
-    7    1228  396   1075    hb
-    8     412    0    250    pb
-    9     953    0    700    pb
-    10    929    0    650    pb
-    11   1492    0    975    pb
-    12    419    0    350    pb
-    13   1010    0    950    pb
-    14    595    0    425    pb
-    15   1034    0    725    pb
-    #+end_example
 **** e                                                                :BMCOL:
-     :PROPERTIES:
-     :BEAMER_col: 0.45
-     :END:
-    - =hb= 代表 hard back ，硬质纸壳封面封底
-    - =pb= 代表 paper back ，软纸封面封底
-    - =area= 代表封面的面积
-    - =volume= 代表书的页数
+ :PROPERTIES:
+ :BEAMER_col: 0.45
+ :END:
+- =hb= 代表 hard back ，硬质纸壳封面封底
+- =pb= 代表 paper back ，软纸封面封底
+- =area= 代表封面的面积
+- =volume= 代表书的页数
+
 *** i 读入例子：书的重量                                    :B_ignoreheading:
 :PROPERTIES:
 :BEAMER_env: ignoreheading
 :END:
 现在来在 R 中执行最小二乘法。
+
+*** hard back：硬纸壳封面
+**** l                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+#+attr_latex: :height 6cm
+[[./fig/hardback1.jpg]]
+
+**** r                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+#+attr_latex: :height 6cm
+[[./fig/hardback2.jpg]]
+
+*** paper back: 普通纸封面
+**** l                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+
+[[./fig/paperback1.jpg]]
+
+**** r                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+
+[[./fig/paperback2.jpg]]
 
 *** 绘制重量与页数的关系
 #+begin_src R :session pd :file fig/scatter.pdf :results graphics file :width 7 :height 5
@@ -11097,6 +11127,148 @@ HDF5 是工业标准，可在多种语言直接读取，例如 C、Fortran、Pyt
 #+RESULTS:
 [[file:fig/scatter.pdf]]
 
+*** 直线表征规律
+**** l                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+#+beamer: \only<1>{
+#+Attr_LaTeX: :height 4cm
+file:fig/b_scatter-nc.pdf
+#+beamer: }
+
+#+beamer: \only<2->{
+#+Attr_LaTeX: :height 4cm
+[[file:fig/b_scatter-line.pdf]]
+#+beamer: }
+
+**** r                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+
+- 变量\(x\) 和 \(y\) 于图中呈\alert{直线关系}。
+#+beamer: \onslide<2->
+- 欲求出与各点最\alert{匹配}的直线，
+  \[ y = a + b x \]
+  匹配：横向、纵向@@beamer:\visible<3->{\checkmark \alert{预测}}@@、垂线？
+#+beamer: \onslide<3->
+- 记观测值为 \((x_1, y_1), \cdots, (x_N, y_N)\)
+
+**** 最小二乘法@@beamer:@@估计 \(a,b\)
+取\alert{残差平方和} \( \displaystyle{E^2(a, b) = \sum_{i=1}^N [y_i - (a + b x_i)]^2} \) 刻画点与线的差异，@@beamer:\onslide<4->@@
+
+以使 \(E^2\) 最小时的 \(a, b\) 为估计值 \(\displaystyle{\hat{a}, \hat{b} = \underset{a, b}{\arg\min} E^2(a, b)} \)
+
+*** 最小二乘法的求解
+\(\displaystyle{\hat{a}, \hat{b} = \underset{a, b}{\arg\min} E^2(a, b)} \) 有多种解法：配平方；求导 \(\displaystyle{\frac{\partial E^2}{\partial(a, b)} = 0}\)。
+
+#+beamer: \pause
+**** 线性代数视角
+把残差记为 \(\epsilon_i  = y_i - (a + b x_i)\)，有 \( y_i = 1 a + x_i b + \epsilon_i \)，@@beamer:\pause@@ 写成 \(N\) 维列向量，
+   #+begin_export latex
+   \begin{equation*}
+     \begin{aligned}
+       \left(
+         \begin{array}{c}
+           y_1 \\
+           y_2 \\
+           \vdots \\
+           y_N
+         \end{array}
+       \right) & =
+         \left(
+           \begin{array}{c}
+             1 \\
+             1 \\
+             \vdots \\
+             1
+           \end{array}
+         \right) a + \left(
+           \begin{array}{c}
+             x_1 \\
+             x_2 \\
+             \vdots \\
+             x_N
+           \end{array}
+         \right) b
+       & + & \left(
+         \begin{array}{c}
+           \epsilon_1 \\
+           \epsilon_2 \\
+           \vdots \\
+           \epsilon_N
+         \end{array}
+       \right) \\
+       \visible<4>{
+       \vec{Y} & = (\vec{X}_1, \vec{X}_2)
+       \left(
+       \begin{array}{c}
+       a \\
+       b
+       \end{array}
+       \right)
+       + \vec{E}
+       }
+     \end{aligned}
+   \end{equation*}
+   #+end_export
+#+beamer: \visible<4>{
+- 残差平方和 \(E^2 = \sum \epsilon_i^2\) 是 \(\vec{E}\) 欧几里得距离的平方 \(\lVert \vec{E} \rVert^2\)
+#+beamer: }
+*** 向子空间投影
+#+begin_export latex
+\(\displaystyle{\vec{Y} = (\vec{X}_1, \vec{X}_2) \left(
+      \begin{array}{c}
+        a \\
+        b
+      \end{array}
+    \right)
+    + \vec{E}}\)，
+#+end_export
+当 \(a, b\) 为何值能使\(\lVert \vec{E} \rVert^2\) 最小？
+
+#+beamer: \pause
+- \(N\) 维线性空间中，@@beamer: \onslide<3->{@@当 \(a \vec{X}_1 + b \vec{X}_2 \) 是 \(\vec{Y}\) 向子空间的投影时，\(\lVert \vec{E} \rVert^2\) 最小。@@beamer: }@@
+  #+begin_export latex
+  \tdplotsetmaincoords{70}{200}
+  \begin{tikzpicture}[scale = 2.5,thick,tdplot_main_coords]
+  \coordinate (A1) at (0,0,0);
+  \coordinate (A2) at (2,0,0);
+  \coordinate (A3) at (2,2,0);
+  \coordinate (A4) at (0,2,0);
+
+  \coordinate (S) at (0.5,0.5,0);
+  \coordinate (E) at (0.5,3,1.5);
+  \coordinate (P) at (1.15,1.15,0);
+  \fill[fill=blue!20] (A1) -- (A2) -- (A3)  -- (A4) -- cycle;
+  \draw[black, -latex] (S) -- (E);
+  \draw[black!80, -latex] (S) -- (P);
+  \draw[black!50,dashed] (E) -- (P);
+  \node[above] at (E) {$\vec{Y}$};
+  \node[below] at (P) {$a \vec{X}_1 + b \vec{X}_2$};
+
+  \draw[red!70] (2,2.3,1.2) node[above] 
+   {$\vec{E} = \vec{Y} - (a \vec{X}_1 + b \vec{X}_2)$取极小} to [out=-90,in=180] ($0.5*($(E)+(P)$)$);
+
+   \draw[red!70] (2.3,2.3,0.4) node[above] 
+   {$\vec{X}_1$ 与 $\vec{X}_2$ 张成2维子空间} to [out=-90,in=90] ($(A3)+(-0.2,-0.2,0)$);
+  \end{tikzpicture}
+  #+end_export
+  #+beamer: \vspace{-0.5cm}\onslide<4->
+- 因此 \(\vec{E}\) 必与子空间垂直
+  #+begin_export latex
+  \begin{equation*}
+    \begin{aligned}
+      \left\{
+      \begin{array}{cc}
+      \vec{E} \cdot \vec{X}_1 & = \only<5>{\displaystyle{\sum_i [y_i - (a + b x_i)] 1 = \frac{\partial E^2}{\partial a}}=} 0 \\
+      \vec{E} \cdot \vec{X}_2 & = \only<5>{\displaystyle{\sum_i [y_i - (a + b x_i)] x_i = \frac{\partial E^2}{\partial b}}=} 0
+      \end{array}\right.
+    \end{aligned}
+  \end{equation*}
+  #+end_export
+    
 *** 线性回归
     #+begin_src R :session pd :file :results output
       lm.books = lm(weight ~ volume, books)
@@ -11130,7 +11302,7 @@ HDF5 是工业标准，可在多种语言直接读取，例如 C、Fortran、Pyt
   + \(\hat{b} = 0.71\) 显著
 - 回归方程为
 
-  \( Y = 0.71 x + \epsilon \)
+  \( Y = 108 + 0.71 x + \epsilon \)
 
 - 显著度
   + \(\hat{a}\) 和 \(\hat{b}\) 都服从 \(t\)-分布
@@ -11143,6 +11315,110 @@ HDF5 是工业标准，可在多种语言直接读取，例如 C、Fortran、Pyt
     ---
     Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #+end_example
+
+*** 显著性检验的必要性
+
+即使两个量毫无关联，仍可（流于形式地）做最小二乘法。
+
+**** l                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+#+begin_src R :session pd :file plot/uncorrelated.pdf :results graphics file :width 5 :height 4 :family GB1 :exports none
+  set.seed(98)
+  x = rnorm(500) # 从标准正态分布抽取 1000 个数
+  y = rnorm(500)
+  par(mar = c(4.5, 4.5, 0.8, 0.8))
+  lm.xy = lm(y ~ x)
+  plot(y ~ x, cex.lab=2, cex.axis=2)
+  abline(lm.xy, lwd=4, col="blue")
+#+end_src
+
+#+RESULTS:
+[[file:plot/uncorrelated.pdf]]
+
+#+Attr_LaTeX: :height 5cm
+[[file:plot/uncorrelated.pdf]]
+
+
+**** r                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+
+#+begin_src R :session pd :file plot/thermistor-lm-zoomout.pdf :results graphics file :width 5 :height 4 :family GB1 :exports results
+  par(mar = c(4.5, 4.5, 0.8, 0.8))
+  plot(1/(温度 + 273.15) ~ log(电阻), d, ylab="K/T", xlab="log(R/kΩ)", cex.lab=2, cex.axis=2, ylim=c(0.0000, 0.0068))
+  abline(lm.therm, col="blue", lwd=4)
+#+end_src
+
+#+beamer: \visible<3->{
+#+Attr_LaTeX: :height 5cm
+#+RESULTS:
+[[file:plot/thermistor-lm-zoomout.pdf]]
+#+beamer: }
+
+**** i                                                      :B_ignoreheading:
+:PROPERTIES:
+:BEAMER_env: ignoreheading
+:END:
+#+beamer: \pause
+- 必须对回归结果进行\alert{假设检验}，才能理解回归系数的含义。
+- 回归所得的 \(b\) ，与 \(0\) 有显著差异吗？
+
+*** 平方和分解
+**** 假设：残差服从正态分布
+\[ \epsilon_i = y_i - (a + bx_i) \sim N(0, \sigma^2) \]
+
+经过最小二乘法获得的最佳 \(a, b\) 记为 \(\hat{a}, \hat{b}\)
+\vspace{0.3em}
+**** l                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.65
+:END:
+记 \( \hat{y}_i = \hat{a} + \hat{b} x_i \)，称为回归的\alert{预测值}：
+#+begin_export latex
+    \begin{equation*}
+      \underbrace{\sum_{i=1}^N (y_i - \overline{y})^2}_{S_T \text{偏差平方和}} = \underbrace{\sum_{i=1}^N (y_i - \hat{y}_i)^2}_{S_E \text{误差平方和}} + \underbrace{\sum_{i=1}^N(\overline{y} - \hat{y}_i)^2}_{S_A \text{效应平方和}}
+    \end{equation*}
+#+end_export
+**** r                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.35
+:END:
+
+#+begin_export latex
+  \tdplotsetmaincoords{70}{200}
+  \begin{tikzpicture}[scale = 2,thick,tdplot_main_coords]
+  \coordinate (A1) at (0,0,0);
+  \coordinate (A2) at (2,0,0);
+  \coordinate (A3) at (2,2,0);
+  \coordinate (A4) at (0,2,0);
+
+  \coordinate (S) at (0.5,0.5,0);
+  \coordinate (E) at (0.5,3,1.5);
+  \coordinate (P) at (1.15,1.15,0);
+  \fill[fill=blue!20] (A1) -- (A2) -- (A3)  -- (A4) -- cycle;
+  \draw[black, -latex] (S) -- (E);
+  \draw[black!80, -latex] (S) -- (P);
+  \draw[black!50,dashed] (E) -- (P);
+  \node[below] at (S) {};
+  \node[above] at (E) {};
+  \node[below] at (P) {};
+  \node[left] at ($0.5*($(E)+(P)$)$) {$S_E$};
+  \node[below] at ($0.5*($(P)+(S)$)$) {$S_A$};
+  \node[above right] at ($0.5*($(E)+(S)$)$) {$S_T$};
+  \end{tikzpicture}
+#+end_export
+
+*** \(R^2\) 值
+\[ R^2 = \frac{S_A}{S_T} \]
+越接近于 \(1\) ，越说明 \(S_A\) 主导 \(S_T\)，相关性越强。
+#+beamer: \pause
+**** 假设检验问题
+- 对任意两个变量的一组观察值 \(\{(x_i, y_i)\}\) 都可以用最小二乘法形式上求得 \(y\) 对 \(x\)的回归方程,   如果\(y\) 与\(x\) 没有线性相关关系,  这种形式的回归方程就没有意义 
+  #+beamer: \pause
+- 因此需要考察 \(y\) 与 \(x\) 间是否确有线性相关关系, 这就是回归效果的 *检验问题* .
 
 *** \(F\)-检验
     \[ H_0: b=0, H_1: b \neq 0 \]
@@ -11162,15 +11438,17 @@ HDF5 是工业标准，可在多种语言直接读取，例如 C、Fortran、Pyt
     F-statistic: 52.87 on 1 and 13 DF,  p-value: 6.262e-06
     #+end_example      
 *** 拟合效果图
-    #+begin_src R :session pd :file fig/lm.pdf :results graphics file :width 7 :height 5
-      library(ggplot2)
-      p = ggplot(books, aes(x=volume, y=weight)) + geom_point()
-      print(p + geom_smooth(method="lm"))
-    #+end_src
+#+begin_src R :session pd :file fig/lm.pdf :results graphics file :width 7 :height 5
+  library(ggplot2)
+  p = ggplot(books, aes(x=volume, y=weight)) + geom_point()
+  print(p + geom_smooth(method="lm"))
+#+end_src
 
-    #+attr_latex: :height 5cm
-    #+RESULTS:
-    [[file:fig/lm.pdf]]
+#+attr_latex: :height 5cm
+#+RESULTS:
+[[file:fig/lm.pdf]]
+
+=ggplot2= 中内嵌了 =lm= 自动给出回归结果。
 *** 拟合优度的制图判定
     #+begin_src R :session pd :file fig/lm-internal.pdf :results graphics file :width 7 :height 5
       plot(lm.books)
@@ -11225,7 +11503,7 @@ Cook scaling-location 理论残差图
     [[file:fig/prediction.pdf]]
 
 *** 模型矩阵
-- 细致描述变量的依赖关系，扩展公式的表达。使用 =model.matrix= 厘清内部机理
+- 细致描述变量依赖，扩展公式表达。使用 =model.matrix= 厘清内部机理
 #+begin_src R :results output :session pd
 model.matrix(weight ~ volume, books)
 #+end_src
@@ -11251,6 +11529,60 @@ model.matrix(weight ~ volume, books)
 attr(,"assign")
 [1] 0 1
 #+end_example
+
+*** 线性回归的推广
+- 令 \(\vec{X}_0 = \vec{1}, \vec{X}_1 = \vec{x}, \vec{X}_2 = \vec{x^2}\)：
+  #+begin_export latex
+  \tdplotsetmaincoords{70}{200}
+  \begin{tikzpicture}[scale = 2.5,thick,tdplot_main_coords]
+  \coordinate (A1) at (0,0,0);
+  \coordinate (A2) at (2,0,0);
+  \coordinate (A3) at (2,2,0);
+  \coordinate (A4) at (0,2,0);
+
+  \coordinate (S) at (0.5,0.5,0);
+  \coordinate (E) at (0.5,3,1.5);
+  \coordinate (P) at (1.15,1.15,0);
+  \fill[fill=blue!20] (A1) -- (A2) -- (A3)  -- (A4) -- cycle;
+  \draw[black, -latex] (S) -- (E);
+  \draw[black!80, -latex] (S) -- (P);
+  \draw[black!50,dashed] (E) -- (P);
+  \node[above] at (E) {$\overrightarrow{Y}$};
+  \node[below] at (P) {$b_0 \overrightarrow{X_0} + b_1 \overrightarrow{X_1} + b_2\overrightarrow{X_2}$};
+
+  \draw[red!70] (2,2.3,1.2) node[above] 
+   {$\vec{E} = \overrightarrow{Y} - (b_0 \overrightarrow{X_0} + b_1 \overrightarrow{X_1} + b_2 \overrightarrow{X_2})$} to [out=-90,in=180] ($0.5*($(E)+(P)$)$);
+
+   \draw[red!70] (2.3,2.3,0.4) node[above] 
+   {$\overrightarrow{X_0}, \overrightarrow{X_1}$ 与 $\overrightarrow{X_2}$ 张成子空间} to [out=-90,in=90] ($(A3)+(-0.2,-0.2,0)$);
+  \end{tikzpicture}
+  #+end_export
+
+#+beamer: \pause
+**** 推广
+- 替换投影子空间的基
+- 填加新的基，构成更高维的子空间，实现多元线性回归。
+
+*** 多元线性回归概念
+- 一组观测值 \(\vec{Y}\) 若与多组自变量 \(\vec{X}_0, \vec{X}_1, \vec{X}_2, \cdots, \vec{X}_p\) 有关，
+
+  #+begin_export latex
+  \begin{equation*}
+    \begin{aligned}
+      \vec{Y} = (\vec{X}_0, \vec{X}_1, \vec{X}_2, \cdots, \vec{X}_p) \left(
+        \begin{array}{c}
+          b_0\\        
+          b_1\\
+          b_2\\
+          \vdots\\
+          b_p
+        \end{array}
+      \right) + \vec{E}
+    \end{aligned}
+  \end{equation*}
+  #+end_export
+
+- 可以使用最小二乘法得到 \(\hat{b}_0, \hat{b}_1, \hat{b}_2, \cdots, \hat{b}_p\).
 
 *** 双变量回归情形
     #+begin_src R :results output :session pd
@@ -11440,22 +11772,28 @@ model.matrix(weight ~ volume + cover - 1, books)
 [[file:fig/lm2.pdf]]
     
 ** 模型选择
+*** Occam's razor and Von Neumann's elephant
+如果关于同一个问题有许多种理论，每一种都能作出同样准确的预言，那么应该挑选其中使用假定最少的。
+
+**** elephant                                                  :B_alertblock:
+:PROPERTIES:
+:BEAMER_env: alertblock
+:END:
+With four parameters I can fit an elephant. With five I can make him wiggle his trunk.
+
+#+attr_latex: :height 4.8cm
+[[./fig/elephant-parameters.png]]
+
+#+beamer: {\scriptsize https://www.r-bloggers.com/2011/06/a-winking-pink-elephant/}
+
 *** Akaike's An Information Criterion
-- 赤池信息判据
-  1. 应当用多少个变量描述模型？
-  2. 变量越多，拟合越精确
-  3. 变量越少，模型越简明
+- 赤池信息判据：应当用多少个变量描述模型？
+  变量越多，拟合越精确；变量越少，模型越简明。
 
 \[ \mathrm{AIC} = 2 n - 2 \log \mathcal{L} \]
 其中 \(n\) 是变量个数，\(\mathcal{L}\) 是拟合似然函数 (likelihood)
  
-**** Von Neumann's elephant                                    :B_alertblock:
-:PROPERTIES:
-:BEAMER_env: alertblock
-:END:
-With four parameters I can fit an elephant, and with five I can make him wiggle his trunk.
-
-*** R 下的 AIC
+**** R 中的 AIC
 #+begin_src R :session pd :results output
   AIC(lm.books) # weight ~ volume
   AIC(lm2.books) # weight ~ volume + cover
@@ -11467,11 +11805,10 @@ With four parameters I can fit an elephant, and with five I can make him wiggle 
 : [1] 177.9986
 : [1] 177.9986
 
-- 可见 lm2 与 lm3 等价
-  + 因为两者的 =model.matrix= 可用通过线性变换等价互换
+- =lm2= 与 =lm3= 等价，因为两者的 =model.matrix= 可用通过线性变换等价互换
 
 *** 改进模型的灵感
-- 回归结果说明 paper back （纸皮）不应该有截距，只有 hard back （硬皮） 才有截距。
+- 回归结果说明 paper back 不应该有截距，只有 hard back 才有截距。
   + 使用公式已经无法表达这个需求
 
 #+begin_example
@@ -11515,7 +11852,368 @@ With four parameters I can fit an elephant, and with five I can make him wiggle 
     F-statistic: 747.9 on 2 and 13 DF,  p-value: 3.799e-14
     #+end_example
 
+** 热敏电阻
+*** 电子体温计
+**** l                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.6
+:END:
+- 电子体温计使用方便
+#+Attr_LaTeX: :height 4cm
+[[./fig/thermotop.jpg]]
+
+#+beamer: \onslide<3-> {
+***** 工作原理：金属氧化物热敏电阻
+- 负温度系数型：随着温度升高，电阻值变小
+
+***** i                                                     :B_ignoreheading:
+:PROPERTIES:
+:BEAMER_env: ignoreheading
+:END:
+#+beamer: }
+
+**** r                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.4
+:END:
+
+#+beamer: \vspace{-0.2cm}\visible<2-> {
+#+Attr_LaTeX: :height 7.5cm
+[[./fig/thermistor-Hg.png]]
+#+beamer: }
+
+*** 热敏电阻的规律
+#+begin_src R :session pd :results silent :exports none
+  library(showtext)
+  library(dplyr)
+  showtext.auto()
+  d0 = read.table("thermister.csv", col.names=c("温度0", "电阻0"))
+  d = d0 %>% rowwise() %>% reframe(温度=rnorm(10, 温度0, 2), 电阻=exp(rnorm(10, log(电阻0), 0.2)))
+  d$温度 = d$温度
+#+end_src
+
+#+begin_src R :session pd :file plot/thermister.pdf :results graphics file :width 7 :height 5 :family GB1 :exports none
+  par(mar = c(4.5, 4.5, 0.8, 0.8))
+  plot(温度 ~ 电阻, data=d, ylab="t/°C", xlab="R/kΩ", cex.lab=2, cex.axis=2, cex.main=2, cex.sub=2)
+#+end_src
+
+#+RESULTS:
+[[file:plot/thermister.pdf]]
+
+#+begin_export latex
+\includegraphics[height=4.5cm]{plot/thermister.pdf}
+\onslide<2>{\includegraphics[height=4.5cm]{plot/thermister-linear.pdf}}
+#+end_export
+
+#+begin_src R :session pd :file plot/thermister-linear.pdf :export results :results graphics file :width 7 :height 5 :family GB1 :exports none
+  par(mar = c(4.5, 4.5, 0.8, 0.8))
+  plot(1/(温度 + 273.15) ~ log(电阻), data=d, ylab="K/T", xlab="log(R/kΩ)", cex.lab=2, cex.axis=2, cex.sub=2)
+#+end_src
+
+#+RESULTS:
+[[file:plot/thermister-linear.pdf]]
+
+- 温度 \(t\) 与电阻 \(R\) 有对应关系
+
+#+beamer: \onslide<2>{
+- 变成直线 \( \displaystyle{t \to \frac{1}{t + \SI{273.15}{K}}}\) 简称为 \(y\)， \(\displaystyle{R \to \log \frac{R}{\si{\kilo\ohm}}} \) 简称为 \(x\)。
+#+beamer: }
+
+#+beamer: {\tiny Calibration and self-validation of thermistors for high-precision temperature measurements, Measurement Vol 76, 2015}
+
+*** 把非线性关系线性化
+#+attr_beamer: :overlay <+->
+- 在许多实际问题中，两个变量之间并不一定是线性关系，而是某种曲线关系，应该用曲线来拟合.
+- 可以进行适当的变量代换，把它线性化，这样就把一个非线性回归问题化为线性回归问题而得以解决.
+**** 步骤
+#+attr_beamer: :overlay <+->
+1. 根据样本数据，在直角坐标系中画出散点图
+2. 根据散点图，推测出\(Y\)与\(x\)之间的函数关系
+3. 选择适当的坐标变换，使之变成线性关系
+4. 用线性回归方法求出线性回归方程
+5. 返回到原来的函数关系，得到要求的回归方程
+
+*** R 求解回归方程
+#+begin_src R :session pd :results output :exports both
+  lm.therm = lm(1/(温度 + 273.15) ~ log(电阻), d)
+  summary(lm.therm)
+#+end_src
+
+#+RESULTS:
+#+begin_example
+
+Call:
+lm(formula = 1/(温度 + 273.15) ~ log(电阻), data = d)
+
+Residuals:
+       Min         1Q     Median         3Q        Max 
+-1.662e-04 -3.961e-05 -5.900e-07  3.852e-05  1.693e-04 
+
+Coefficients:
+             Estimate Std. Error t value Pr(>|t|)    
+(Intercept) 3.349e-03  2.571e-06 1302.50   <2e-16 ***
+log(电阻)   2.305e-04  3.387e-06   68.06   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 5.349e-05 on 438 degrees of freedom
+Multiple R-squared:  0.9136,	Adjusted R-squared:  0.9134 
+F-statistic:  4632 on 1 and 438 DF,  p-value: < 2.2e-16
+#+end_example
+*** 求解回归方程
+**** l                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:BEAMER_opt: t
+:END:
+
+#+begin_export latex
+\begin{equation*}
+  \left\{\begin{aligned}
+    \hat{a} = \num{3.353(3)e-3}\\
+    \hat{b} = \num{2.364(35)e-4}
+  \end{aligned}\right.
+\end{equation*}
+#+end_export
+
+\[ y = \hat{a} + \hat{b} x \]
+#+begin_src R :session pd :file plot/thermistor-lm.pdf :results graphics file :width 7 :height 5 :family GB1 :exports results
+  par(mar = c(4.5, 4.5, 0.8, 0.8))
+  plot(1/(温度 + 273.15) ~ log(电阻), d, ylab="K/T", xlab="log(R/kΩ)", cex.lab=2, cex.axis=2)
+  abline(lm.therm, col="blue", lwd=4)
+#+end_src
+
+#+Attr_LaTeX: :height 4.5cm
+#+RESULTS:
+[[file:plot/thermistor-lm.pdf]]
+
+#+beamer: \pause
+**** r                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:BEAMER_opt: t
+:END:
+#+begin_export latex
+\begin{equation*}
+  \begin{aligned}
+    &\frac{1}{t/\si{\celsius} + 273.15} = \hat{a} + \hat{b} \log \frac{R}{\si{\kilo\ohm}} \\
+    \implies &\frac{t}{\si{\celsius}} = \left(\hat{a} + \hat{b} \log \frac{R}{\si{\kilo\ohm}}\right)^{-1} - 273.15
+  \end{aligned}
+\end{equation*}
+#+end_export
+
+#+begin_src R :session pd :file plot/thermistor-lm-curve.pdf :results graphics file :width 7 :height 5 :family GB1 :exports code
+  par(mar = c(4.5, 4.5, 0.8, 0.8))
+  plot(1/(温度 + 273.15) ~ log(电阻), d, , cex.lab=2, cex.axis=2)
+  blue = sort(d$电阻)
+  lines(blue, 1/predict(lm.therm, data.frame(电阻=blue)) - 273.15, col="blue", lwd=4)
+#+end_src
+
+- 通过电路测得 \(R\) ，即可通过公式转化得到温度 \(t\) 的读数。
+
+*** \(\sigma^2\) 的估计
+    \[ \hat{y} = \hat{a} + \hat{b} x \]
+    一元线性回归模型
+    \[ y = a + bx + \epsilon, \epsilon \sim N(0, \sigma^2) \]
+    - 因随机因素引起的误差称为 *残差平方和*
+     \[ Q_e = \sum_{i=1}^n (y-\hat{y})^2 \]
+     #+begin_export latex
+     \begin{equation*}
+       \begin{aligned}
+         & \frac{Q_e}{\sigma^2} \sim \chi^2(n-2) \\
+         \implies & \hat{\sigma^2} = \frac{Q_e}{n-2}
+       \end{aligned}
+     \end{equation*}
+     #+end_export
+*** \(t\) 检验
+检验假设 \( \displaystyle{H_0: b=0, H_1: b \neq 0}\)
+#+attr_beamer: :overlay <+->
+- \(\hat{b}\) 满足 \( \displaystyle{\hat{b} \sim N\left(b, \frac{\sigma^2}{L_{xx}}\right)} \) 其中\( \displaystyle{L_{xx} = \sum_{i=1}^n(x_i - \overline{x})^2 = \sum_{i=1}^n x_i^2 - n \overline{x}} \)
+- 因此如果原假设成立，\(\hat{b}\sqrt{L_{xx}} / \sigma \sim N(0,1)\)，\(Q_e / \sigma^2 \sim \chi^2(n-2)\)
+  #+begin_export latex
+  \begin{equation*}
+    \frac{\hat{b}\sqrt{L_{xx}}/\sigma}{\sqrt{\frac{Q_e /\sigma^2}{n-2}}} =  \frac{\hat{b}\sqrt{L_{xx}}}{\sqrt{\frac{Q_e}{n-2}}} = t \sim t(n-2)
+  \end{equation*}
+  #+end_export
+- 选取拒绝域 \(\displaystyle{|t| \geq t_{\alpha/2}(n-2)}\) 进行 \(t\) 检验。
+
+**** 区间估计
+类似 \(\hat{b}\)， \(\hat{a}\) 以及 \(\hat{Y} = \hat{a} + \hat{b}x\) 都可经线性变换构造 \(t\) 分布统计量，进行区间估计。
+*** 热敏电阻的更精确模型
+**** l                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+#+Attr_LaTeX: :height 4.5cm
+#+RESULTS:
+[[file:plot/thermistor-lm.pdf]]
+**** r                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+\[ \frac{K}{T} = a + b \log \frac{R}{\si{\kilo\ohm}} \]
+\[ y = a + bx \]
+**** i                                                      :B_ignoreheading:
+:PROPERTIES:
+:BEAMER_env: ignoreheading
+:END:
+#+beamer: \pause
+- 加入更高阶项，可以描述更复杂的关系。
+
+\[ \frac{K}{T} = b_0 + b_1 \log \frac{R}{\si{\kilo\ohm}} + b_2 \left(\log \frac{R}{\si{\kilo\ohm}}\right)^2 + b_3 \left(\log \frac{R}{\si{\kilo\ohm}}\right)^3 \cdots \]
+
+- 如何确定高阶项的系数？
+*** 热敏电阻的多元线性回归
+\[ \alert{\frac{K}{T} = \num{3.326e-3} + \num{3.641e-3} \log \frac{R}{\si{\kilo\ohm}} \num{-3.624e-4} \left(\log \frac{R}{\si{\kilo\ohm}}\right)^3} \]
+
+#+beamer: {\scriptsize
+| 系数     | 值                       | 显著？ |
+|---------+-------------------------+-------|
+| \(b_0\) | \num{3.326(2)e-3}       |   是    |
+| \(b_1\) | \num{3.641(51)e-03}     |   是    |
+| \(b_2\) | \num{-1.112(50730)e-06} |   否    |
+| \(b_3\) | \num{-3.624(507)e-04}   |   是    |
+#+beamer: } \pause
+
+**** l                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.45
+:END:
+#+beamer: \vspace{-0.5cm} \visible<2->{
+#+attr_latex: :height 4.5cm
+[[file:plot/thermistor-lm-r1.pdf]]
+#+beamer: }
+**** r                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.55
+:END:
+- 红色线对应 Starnhart-Hart 公式。
+- 参数越多，拟合得越好，但模型越复杂。
+
+#+beamer: {\scriptsize Steinhart and Hart \textit{Calibration curves for thermistors}, 1968}
+
+#+begin_src R :session pd :results output verbatim :exports none
+  lm2.therm = lm(1/(温度 + 273.15)~poly(log(电阻),3), d)
+  summary(lm2.therm)
+#+end_src
+
+#+RESULTS:
+#+begin_example
+Call:
+lm(formula = 1/(温度 + 273.15) ~ poly(log(电阻), 3), data = d)
+
+Residuals:
+       Min         1Q     Median         3Q        Max 
+-1.632e-04 -3.549e-05 -2.918e-06  3.457e-05  1.548e-04 
+
+Coefficients:
+                      Estimate Std. Error  t value Pr(>|t|)    
+(Intercept)          3.326e-03  2.418e-06 1375.488  < 2e-16 ***
+poly(log(电阻), 3)1  3.641e-03  5.073e-05   71.767  < 2e-16 ***
+poly(log(电阻), 3)2 -1.112e-06  5.073e-05   -0.022    0.983    
+poly(log(电阻), 3)3 -3.624e-04  5.073e-05   -7.144 3.83e-12 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 5.073e-05 on 436 degrees of freedom
+Multiple R-squared:  0.9227,	Adjusted R-squared:  0.9221 
+F-statistic:  1734 on 3 and 436 DF,  p-value: < 2.2e-16
+#+end_example
+
+#+begin_src R :session pd :file plot/thermistor-lm-r1.pdf :results graphics file :width 5 :height 4 :family GB1 :exports none
+  par(mar = c(4.5, 4.5, 0.8, 0.8))
+  plot(1/(温度 + 273.15) ~ log(电阻), d, ylab="K/T", xlab="log(R/kΩ)", cex.lab=2, cex.axis=2)
+  abline(lm.therm, col="blue", lwd=4)
+  red = sort(d$电阻)
+  lines(log(red), predict(lm2.therm, data.frame(电阻=red)), col="red", lwd=4)
+#+end_src
+
+#+RESULTS:
+[[file:plot/thermistor-lm-r1.pdf]]
+
+#+begin_src R :session pd :results output :exports none
+    summary(aov(lm2.therm))
+    AIC(lm.therm, lm2.therm)
+#+end_src
+
+#+RESULTS:
+:                     Df    Sum Sq   Mean Sq F value Pr(>F)    
+: poly(log(电阻), 3)   3 1.338e-05 4.462e-06    1734 <2e-16 ***
+: Residuals          436 1.122e-06 3.000e-09                   
+: ---
+: Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+:           df       AIC
+: lm.therm   3 -7402.999
+: lm2.therm  5 -7447.706
+
+*** 例子：辐射热计量
+**** l                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.65
+:END:
+- 每次有放射性衰变，二氧化碲 \(\ce{TeO2}\) 晶体都会“发烧”升温，
+
+  \[ \ce{^{130}Te} \to \ce{^{130}Xe} + 2e^- + \underbrace{2\bar{\nu}_e}_{?} \]
+  
+- 通过给晶体“量体温”，确定中微子是否它自身的反粒子，以及中微子质量。
+**** r                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.35
+:END:
+#+attr_latex: :height 3cm
+[[./fig/detector.jpg]]
+
+#+beamer: \pause
+**** 中子嬗变掺杂锗热敏电阻的线性回归
+“体温计”为“中子嬗变掺杂（NTD）”的锗热敏电阻。由线性回归标定：
+  #+begin_export latex
+  \begin{equation*}
+    \sqrt{\frac{T_0}{\alert{T}}} = a + b \log \left(\frac{\alert{R}}{R_0}\right)
+  \end{equation*}
+  #+end_export
+
+  精度达到 \(\si{\micro K}\)，是一般热敏电阻的 1000 倍。
 ** 广义线性回归
+*** 线性回归
+1. 线性回归是检验相关性的重要数理统计方法。
+2. 最小二乘法是线性回归的解法，可看作线性空间的投影。
+   #+begin_export latex
+  \tdplotsetmaincoords{70}{200}
+  \begin{tikzpicture}[scale = 2.5,thick,tdplot_main_coords]
+  \coordinate (A1) at (0,0,0);
+  \coordinate (A2) at (2,0,0);
+  \coordinate (A3) at (2,2,0);
+  \coordinate (A4) at (0,2,0);
+
+  \coordinate (S) at (0.5,0.5,0);
+  \coordinate (E) at (0.5,3,1.5);
+  \coordinate (P) at (1.15,1.15,0);
+  \fill[fill=blue!20] (A1) -- (A2) -- (A3)  -- (A4) -- cycle;
+  \draw[black, -latex] (S) -- (E);
+  \draw[black!80, -latex] (S) -- (P);
+  \draw[black!50,dashed] (E) -- (P);
+  \node[above] at (E) {$\vec{Y}$};
+  \node[below] at (P) {$a \vec{X}_1 + b \vec{X}_2$};
+
+  \draw[red!70] (2,2.3,1.2) node[above] 
+   {$\vec{E} = \vec{Y} - (a \vec{X}_1 + b \vec{X}_2)$取极小} to [out=-90,in=180] ($0.5*($(E)+(P)$)$);
+
+   \draw[red!70] (2.3,2.3,0.4) node[above] 
+   {$\vec{X}_1$ 与 $\vec{X}_2$ 张成2维子空间} to [out=-90,in=90] ($(A3)+(-0.2,-0.2,0)$);
+  \end{tikzpicture}
+   #+end_export
+   #+beamer: \pause
+3. 假设残差来自正态总体，
+   \[ \epsilon_i = y_i - (a + bx_i) \sim N(0, \sigma^2) \]
+   线性回归的结果需要经过\(F\)或\(t\)假设检验，确认回归的显著性，才能完成科学解读。
+*** 推广：打破残差的正态分布假设
+残差不服从正态分布时，以线性模型解决问题 \to \alert{广义线性回归}。
+
+- 泊松回归：观测量是计数
+- 伽马回归：观测量是正实数
+- 逻辑回归：观测量是 \([0, 1]\) 区间内的实数
+- 二项回归：观测是是 \(0, 1 \cdots, N\) 的整数
+    
 *** 概念
 - 线性回归中，假设了残差服从正态分布
 - \(f(E[Y|X]) = b X\)
@@ -11526,6 +12224,7 @@ With four parameters I can fit an elephant, and with five I can make him wiggle 
 - 二项回归(生存回归, cloglog回归)
 - 伽马回归
 - Tweedie 回归
+
 *** 课堂任务
     - 尝试对 =r10500.h5= 进行泊松回归
     - 辅助文件 =geo.csv= , =pmtdata.csv=
@@ -11582,15 +12281,30 @@ With four parameters I can fit an elephant, and with five I can make him wiggle 
    + 把连接函数从恒等替换为非线性函数
    + 几乎可以解决所有日常工作中的非线性问题，惊喜！
 
+* 大作业与未来方向
+  :PROPERTIES:
+  :EXPORT_FILE_NAME: pf
+  :EXPORT_DATE: 2023-08-03 清华
+  :EXPORT_BEAMER_HEADER+: \author{续本达}
+  :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
+  :EXPORT_BEAMER_HEADER+: \setbeamertemplate{footline}[frame number]  
+  :EXPORT_BEAMER_THEME: Hannover
+  :EXPORT_BEAMER_FONT_THEME: professionalfonts
+  :END:
+** 复习
+*** 广义线性回归
+1. 关系代数让回归分析变得极其直观，让我们专注于问题的本质
+2. 模型的选择极其重要，应当使用客观标准
+   + AIC 是最简单直接的客观标准
+   + 找到“最佳模型”的过程充满曲折，是实验“研究”的主体过程
+3. 广义线性回归，把误差分布从高斯替换为其它指数族分布
+   + 把连接函数从恒等替换为非线性函数
+   + 几乎可以解决所有日常工作中的非线性问题，惊喜！
 ** 无脑回归
 *** 可用 sklearn
     - Debian
       #+begin_src bash
         apt install python3-sklearn-pandas
-      #+end_src
-    - macOS @ Gentoo
-      #+begin_src bash
-        pip3 install sklearn-pandas
       #+end_src
 
 *** 支持向量机
@@ -11622,25 +12336,7 @@ With four parameters I can fit an elephant, and with five I can make him wiggle 
       regr.predict(X_test[:2])
       regr.score(X_test, y_test)
     #+end_src
-* 大作业与未来方向
-  :PROPERTIES:
-  :EXPORT_FILE_NAME: pf
-  :EXPORT_DATE: 2023-08-03 清华
-  :EXPORT_BEAMER_HEADER+: \author{续本达}
-  :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
-  :EXPORT_BEAMER_HEADER+: \setbeamertemplate{footline}[frame number]  
-  :EXPORT_BEAMER_THEME: Hannover
-  :EXPORT_BEAMER_FONT_THEME: professionalfonts
-  :END:
-** 复习
-*** 广义线性回归
-1. 关系代数让回归分析变得极其直观，让我们专注于问题的本质
-2. 模型的选择极其重要，应当使用客观标准
-   + AIC 是最简单直接的客观标准
-   + 找到“最佳模型”的过程充满曲折，是实验“研究”的主体过程
-3. 广义线性回归，把误差分布从高斯替换为其它指数族分布
-   + 把连接函数从恒等替换为非线性函数
-   + 几乎可以解决所有日常工作中的非线性问题，惊喜！
+
 ** 大作业
 *** 大作业安排
 **** l                                                                :BMCOL:
