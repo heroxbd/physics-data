@@ -6798,7 +6798,7 @@ banner physics
 
 *** 管道练习
     #+begin_src bash
-      apt install fortune-zh lolcat
+      apt install fortunes-zh lolcat
     #+end_src
     #+begin_src bash
 fortune | cowsay | lolcat -a
