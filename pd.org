@@ -10813,35 +10813,35 @@ print(p)
 - =R= 和 =Pandas= DataFrame 可以将长表与宽表相互转换
   - =SQLite= 不具备此功能
 - =melt= 函数
-*** TODO 使用 tidyr
+*** 使用 tidyr
 - 发展历史为 =reshape=, =reshape2=, =tidyr= 。 =tidyr= 是最新的库。
-*** =melt=
-- =id.vars= 指定作为索引的列
-- =value.vars= 指定作为数值的列
-- =var.name= 指定长表中组变量的列名
-- =value.name= 指定长表中值的列名
+**** =pivot_longer=
+- =names_to= 指定名字列，用于以枚举形式存储原有的列名。
+- =values_to= 指定值例，用于存储原表的值。
+
 #+begin_src R :session pd
-  library(reshape2)
+  library(tidyr)
   scores <- read.csv("dataframe-practice/scores.csv")
-  longscores <- melt(scores, id.vars="学号")
+  scores |> pivot_longer(!学号, names_to="作业", values_to="分数") -> longscores
   head(longscores)
 #+end_src
 
 #+RESULTS:
-| 1 | self.intro | 100 |
-| 2 | self.intro | 100 |
-| 3 | self.intro | 100 |
-| 4 | self.intro | 100 |
-| 5 | self.intro | 100 |
-| 6 | self.intro | 100 |
+| 1 | self.intro   | 100 |
+| 1 | a.b          | 100 |
+| 1 | rank.guesser | 100 |
+| 1 | hdf5         | 100 |
+| 1 | prime        | 100 |
+| 1 | heart.curve  | 120 |
 
 *** 变成枚举型
 #+begin_src R :session pd
-  longscores$variable <- as.factor(longscores$variable)
-  levels(longscores$variable)
+  longscores$作业 <- as.factor(longscores$作业)
+  levels(longscores)
 #+end_src
 
 #+RESULTS:
+
 | self.intro     |
 | a.b            |
 | rank.guesser   |
@@ -10854,8 +10854,8 @@ print(p)
 
 *** 加上大作业的类型
 #+begin_src R :session pd :results output
-  longscores$类型 <- longscores$variable == "大作业"
-  summary(longscores$类型)
+  longscores$作业 <- longscores$作业 == "大作业"
+  summary(longscores$作业)
 #+end_src
 
 #+RESULTS:
@@ -10865,9 +10865,9 @@ print(p)
 *** 统计班级平均分
 #+begin_src R :session pd :file plot/score-class.pdf :results graphics file :width 12 :height 5 :family GB1
   merge(students, longscores) |>
-    group_by(班级, variable) |>
-    summarise(平均分=mean(value)) |>
-    ggplot(aes(x=variable, y=平均分, color=班级)) +
+    group_by(班级, 作业) |>
+    summarise(平均分=mean(分数)) |>
+    ggplot(aes(x=作业, y=平均分, color=班级)) +
     geom_point() + facet_wrap(~班级)
 #+end_src
 
@@ -10888,9 +10888,9 @@ print(p)
 *** 统计班级平均分
 #+begin_src R :session pd :file plot/scores.pdf :results graphics file :width 12 :height 5 :family GB1
   merge(students, longscores) |>
-    group_by(班级, variable) |>
-    reframe(平均分=mean(value), 班类=班类) |> 
-    ggplot(aes(x=variable, y=平均分, color=班级)) +
+    group_by(班级, 作业) |>
+    reframe(平均分=mean(分数), 班类=班类) |> 
+    ggplot(aes(x=作业, y=平均分, color=班级)) +
     geom_point() + facet_wrap(~班类)
 #+end_src
 
