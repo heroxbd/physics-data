@@ -12265,7 +12265,7 @@ Number of Fisher Scoring iterations: 5
 * 大作业与未来方向
   :PROPERTIES:
   :EXPORT_FILE_NAME: pf
-  :EXPORT_DATE: 2023-08-03 清华
+  :EXPORT_DATE: 2024-07-28 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
   :EXPORT_BEAMER_HEADER+: \setbeamertemplate{footline}[frame number]  
@@ -12618,10 +12618,11 @@ head -q -n1 lecture/l*.org
 
 *** 致谢
     #+attr_beamer: :overlay <+->
-    - 顾问 :: 杨鲁懿教授、高飞教授、陈晟祺、陈嘉杰
-    - 助教 ::
-      王宇逸、刘晓义、刘学伟、刘明昊、盘笛、徐闯、陶嘉燊、孙迅、吴致颉、刘逸祺
-    - 小助教 :: 李卓航、温欣洋、胡楚坤、陈诗洋、许威、徐一恺、胡宇阳、卢一鸣、宋明卓
-    - 科协 :: 物理系科协环境配置培训，担任助教；工物系科协提供算力支持；
-      计算系科协提供 saiblo 平台，第二阶段大作业平台，担任助教。
-    - 克服困难上课的同学们 :: 谢谢！
+    - 顾问 :: 陈晟祺、陈嘉杰
+    - 助教 :: 武益阳、王宇逸、陶嘉燊、徐闯、郝传晖、刘逸祺
+    - 小助教 ::
+      何宇峰、刘骥安、吕先艨、张珺铫、张贺、杨哲涵、王驰、程幸、胡淏崴、胡磊、陈威、黄一浩
+    - 科协 :: 物理系科协、工物系科协；
+      + 提供算力支持
+      + 环境配置培训
+    - 积极对课程贡献的同学们 :: 谢谢！
