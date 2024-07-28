@@ -1,22 +1,41 @@
 #+LaTeX_CLASS_options: [aspectratio=169,ignorenonframetext]
-#+LATEX_HEADER: \usepackage[UTF8]{ctex}
 #+OPTIONS: H:2 num:t toc:nil \n:nil @:t ::t |:t ^:t -:t f:t *:t <:t author:nil
 #+OPTIONS: TeX:t LaTeX:t skip:nil d:nil todo:t pri:nil tags:not-in-toc
-
 #+sTARTUP: beamer
-#+latex_HEADER: \usepackage{siunitx}
+#+LATEX_HEADER: \usepackage{ascmac}
+# ctex 必须在 ascmac 的后面，否则会出现 ybaselineshift 无定义问题。
+#+LATEX_HEADER: \usepackage[UTF8]{ctex}
+#+LATEX_HEADER: \usepackage[subrefformat=parens]{subcaption}
+#+LATEX_HEADER: \usepackage{siunitx}
+#+LATEX_HEADER: \usepackage{animate}
+#+LATEX_HEADER: \usepackage{mathtools}
 #+latex_HEADER: \usepackage[version=3]{mhchem}
 #+latex_HEADER: \usepackage{mathrsfs}
-#+latex_HEADER: \usepackage[export]{adjustbox}
-#+latex_HEADER: \usepackage{pgf,tikz}
 #+latex_HEADER: \usepackage{wasysym}
 #+LATEX_HEADER: \usepackage{braket}
 #+latex_HEADER: \usepackage{tipa}
-#+latex_HEADER: \usetikzlibrary{arrows}
-#+LaTeX_HEADER: \usepackage{appendixnumberbeamer}
+#+LATEX_HEADER: \usepackage{fontspec}
+#+LATEX_HEADER: \usepackage{cancel}
+#+LATEX_HEADER: \usepackage{amsmath}
+#+LaTeX_HEADER: \setmonofont{Liberation Mono}
+#+BEAMER_HEADER: \usepackage{appendixnumberbeamer}
+#+LaTeX_HEADER: \usepackage{tikz,tikz-3dplot}
+#+LaTeX_HEADER: \usetikzlibrary{decorations.pathreplacing}
+#+BEAMER_HEADER: \usetikzlibrary{arrows.meta,backgrounds,ext.paths.ortho,ext.positioning-plus,ext.node-families.shapes.geometric,calc}
 #+LaTeX_HEADER: \setCJKsansfont{Noto Sans CJK SC}
-#+LaTeX_HEADER: \DeclareMathOperator{\Tr}{Tr}
 #+LaTeX_HEADER: \setbeamercovered{dynamic}
+#+LaTeX_HEADER: \DeclareMathOperator{\Tr}{Tr}
+#+LaTeX_HEADER: \DeclareMathOperator{\Var}{Var}
+#+LaTeX_HEADER: \DeclareMathOperator{\tr}{tr}
+#+LaTeX_HEADER: \DeclareMathOperator{\MSE}{MSE}
+#+LaTeX_HEADER: \DeclareMathOperator{\Cov}{Cov}
+#+LaTeX_HEADER: \DeclareMathOperator{\Exp}{Exp}
+#+LaTeX_HEADER: \DeclareMathOperator{\Beta}{Beta}
+#+LaTeX_HEADER: \DeclareMathOperator{\E}{E}
+#+LaTeX_HEADER: \DeclareMathOperator{\D}{D}
+#+LaTeX_HEADER: \DeclareMathOperator{\Ga}{Ga}
+#+LaTeX_HEADER: \DeclareMathOperator{\Be}{Be}
+#+LaTeX_HEADER: \DeclareMathOperator{\erf}{erf}
 
 #+PROPERTY: header-args :eval never-export :exports both
 #+PROPERTY: header-args:dot :eval yes :cmdline -Kdot -Tpdf :exports results
@@ -5344,7 +5363,7 @@ PMT 的
 ***** 正向第一阶段
 [[file:./MC-predict.pdf]]
 
-- 2024-07-11 -- 2024-07-31
+- 2024-07-11 -- 2024-08-02
 - 模拟实验测量
 
 **** r                                                                :BMCOL:
@@ -5355,7 +5374,7 @@ PMT 的
 
 [[file:./MC-reconstruction.pdf]]
     
-- 2024-07-28 -- 2024-08-17
+- 2024-07-28 -- 2024-08-18
 - 分析数据
 - 测量模型参数
 - 黑盒分数按排名
@@ -5583,7 +5602,7 @@ target: source
      - 先“不求甚解”再择最重要的“寻根究底”，在两种学习模式间自由跳跃。
        - 在麦克斯韦方程出现之前，已经有光学
        - 不是只有做完实验才能吃饭
-** i 技能学习的特点                                         :B_ignoreheading:
+*** i 技能学习的特点                                        :B_ignoreheading:
 :PROPERTIES:
 :BEAMER_env: ignoreheading
 :END:
@@ -5628,7 +5647,7 @@ target: source
      - 如何高效地在不同组输入数据上重复运行亿万次？
      - 四大基本原则在此依然适用。
 
-** i Python 程序的支撑                                      :B_ignoreheading:
+*** i Python 程序的支撑                                     :B_ignoreheading:
 :PROPERTIES:
 :BEAMER_env: ignoreheading
 :END:
@@ -7638,7 +7657,7 @@ target: source
 - 更高级的文件管理
 - 文件内容识别
 
-** i 字符搜索匹配                                           :B_ignoreheading:
+*** i 字符搜索匹配                                          :B_ignoreheading:
 :PROPERTIES:
 :BEAMER_env: ignoreheading
 :END:
@@ -7670,7 +7689,7 @@ seq 10000 | grep -E ^23+$
     : 23
     : 233
     : 2333
-** i 高级匹配                                               :B_ignoreheading:
+*** i 高级匹配                                              :B_ignoreheading:
 :PROPERTIES:
 :BEAMER_env: ignoreheading
 :END:
@@ -8410,6 +8429,9 @@ OSIRIS 的文件整理。
 ** sed 进阶
 *** 命令行语法
 =sed/awk script filename=
+
+1. 一行写不下时
+2. 担心特殊字符在 =shell= 被转义时
 *** 数据驱动的编程
 #+attr_latex: :height 5cm
 [[./fig/data-driven-programming.pdf]]
@@ -8494,15 +8516,15 @@ sed -f tuna.sed sources.list
  drwxr-xr-x  2 root root 4096 Feb  8  2021 cowsay-off
 #+end_example
 
-*** 数据清洗
-数据清理：把数据整理成方便的格式
-
-- 在物理学之外的其它“大数据”学科，90% 的工作是数据清洗。
 *** sed 的典型使用场景
 - 一文多改 :: 一个文件上投入多个改动
 - 一脚多文 :: 一个脚本用在多个文件上
 - 高级 grep :: 在查找关键词之前，先对待找的文本进行清洗
 - 管道过滤 :: 直接对着标准输入过滤，给到标准输出
+**** 数据清洗
+数据清理：把数据整理成方便的格式
+
+- 在物理学之外的其它“大数据”学科，90% 的工作是数据清洗。
 
 *** 例子：课件中的代码块
 https://git.tsinghua.edu.cn/physics-data/lecture/-/blob/master/Makefile
@@ -8530,17 +8552,15 @@ This is your dog
 : This is your dog,  my dog's name is frank
 
 *** Hold space
-接下来，我们需要了解一下Hold Space的概念，我们先来看四个命令：
+为 =sed= 自动机配了一个队列。
 
-g： 将 hold space 中的内容拷贝到 pattern space 中，原来 pattern space 里的内容清除
-G： 将 hold space 中的内容 append 到 pattern space 后
-h： 将 pattern space 中的内容拷贝到 hold space 中，原来的 hold space 里的内容被清除
-H： 将 pattern space 中的内容 append 到 hold space 后
-x： 交换 pattern space 和 hold space 的内容
+- g :: 将 hold space 中的内容拷贝到 pattern space 中，原来 pattern space 里的内容清除
+- G :: 将 hold space 中的内容 append 到 pattern space 后
+- h :: 将 pattern space 中的内容拷贝到 hold space 中，原来的 hold space 里的内容被清除
+- H :: 将 pattern space 中的内容 append 到 hold space 后
+- x :: 交换 pattern space 和 hold space 的内容
 
-- 给自动机配了一个队列。
-
-*** 收集
+*** 收集-积累-输出
 #+begin_src bash :results output :session local :exports both
   echo "one
   two
@@ -8557,8 +8577,13 @@ x： 交换 pattern space 和 hold space 的内容
 : two
 : three
 
-#+attr_latex: :height 4cm
+#+attr_latex: :height 4.5cm
 [[./fig/sed_demo.jpg]]
+*** 10 乘 10 矩阵
+- 执行 =N= 9 次。重复过多，不如使用 =python= 辅助构建字符串。
+#+begin_src bash :results output :session local :exports both
+  seq -w 00 99 | sed $(python3 -c "print('N;'*9)")'s/\n/,/g'
+#+end_src
 
 *** 反序
 #+begin_src bash :results output :session local :exports both
@@ -8716,13 +8741,55 @@ echo | awk '{ print "Hello, world!" }'
 
 *** 课堂练习： =wc=
 - =wc -l=
+  #+begin_src bash :results output :session local :exports both
+    seq 3 100 | awk '{lines++} END {print lines}'
+  #+end_src
+
+  #+RESULTS:
+  : 98
+
 - =wc -c=
+  #+begin_src bash :results output :session local :exports both
+    seq 3 100 | awk '{chars+=length($0)+1} END {print chars}'
+  #+end_src
+
+  #+RESULTS:
+  : 288
+
+  #+begin_src bash :results output :session local :exports both
+    seq 3 100 | wc -c
+  #+end_src
+
+  #+RESULTS:
+  : 288
 
 *** 课堂练习： =uniq=
 - =uniq -c=
+  #+begin_src bash :results output :session local :exports both
+    echo "a
+    a
+    b
+    c
+    c
+    c" | awk -f uniq.awk
+  #+end_src
+
+  #+RESULTS:
+  : 2 a
+  : 1 b
+  : 3 c
 
 *** 课堂练习： =egrep=
 - =egrep=
+  #+begin_src bash :results output :session local :exports both
+    seq 10000 | awk '/^23+$/ { print }'
+  #+end_src
+
+  #+RESULTS:
+  : 23
+  : 233
+  : 2333
+
 *** sed 与 awk 的联合
 使用管道
 
@@ -8743,7 +8810,22 @@ echo | awk '{ print "Hello, world!" }'
 : 1x8=8	2x8=16	3x8=24	4x8=32	5x8=40	6x8=48	7x8=56	8x8=64
 : 1x9=9	2x9=18	3x9=27	4x9=36	5x9=45	6x9=54	7x9=63	8x9=72	9x9=81
 
-- 如何把前4行对齐。
+*** 乘法表
+#+begin_src bash :results output :session local :exports both
+  seq 9 | sed 'H;g;s/\n/ /g' | awk '{for(i=1;i<=NF;i++)
+          printf("%dx%d=%d%s", i, NR, i*NR, i==NR?"\n":"\t")}'    
+#+end_src
+
+#+RESULTS:
+: 1x1=1
+: 1x2=2	2x2=4
+: 1x3=3	2x3=6	3x3=9
+: 1x4=4	2x4=8	3x4=12	4x4=16
+: 1x5=5	2x5=10	3x5=15	4x5=20	5x5=25
+: 1x6=6	2x6=12	3x6=18	4x6=24	5x6=30	6x6=36
+: 1x7=7	2x7=14	3x7=21	4x7=28	5x7=35	6x7=42	7x7=49
+: 1x8=8	2x8=16	3x8=24	4x8=32	5x8=40	6x8=48	7x8=56	8x8=64
+: 1x9=9	2x9=18	3x9=27	4x9=36	5x9=45	6x9=54	7x9=63	8x9=72	9x9=81
 
 ** feedgnuplot
 *** 在命令行制图
@@ -8816,7 +8898,7 @@ https://gitweb.gentoo.org/repo/gentoo.git/commit/?id=ea2987349ece6f07da01e1c2f3e
 * 关系代数与 SQL
   :PROPERTIES:
   :EXPORT_FILE_NAME: pc
-  :EXPORT_DATE: 2023-07-31 清华
+  :EXPORT_DATE: 2024-07-25 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
   :EXPORT_BEAMER_HEADER+: \setbeamertemplate{footline}[frame number]  
@@ -8832,9 +8914,8 @@ https://gitweb.gentoo.org/repo/gentoo.git/commit/?id=ea2987349ece6f07da01e1c2f3e
 
     - 安装 SQLite3 和查看器，以及 CSV 查看器
       #+begin_src bash
-        apt install sqlite3 sqlitebrowser csvkit
+        apt install sqlite3 sqlitebrowser csvkit csvkit-doc
       #+end_src
-      通过 https://sqlitebrowser.org/dl/ 介绍的其它方式安装 sqlitebrowser
 
 *** 本周提要
    - 第一周 :: 一切工作都是差分
@@ -8845,13 +8926,11 @@ https://gitweb.gentoo.org/repo/gentoo.git/commit/?id=ea2987349ece6f07da01e1c2f3e
        2. 流水线: =make= （函数式编程、描述性编程）
        3. 字符处理：正则表达式 （描述性编程）
    - 第四周 :: *一切数据都是表格*
-     - 学习如何有序组织数据，尽一切努力让统计分析和数据洞见更易进行
-       - 关系代数
-       - 学习新语言 SQL
-     - 应用意义
-       - 直接应用到分布式 SQL 引擎
+     - 学习如何有序组织数据，努力让统计分析和数据洞见更易进行
+       - 关系代数，学习新语言 SQL
+     - 应用意义：直接应用到分布式 SQL 引擎
      - 1981 年和 2014 年的两届图灵奖工作
-     
+
 ** 关系代数
 *** 引例：表格 vs 数组
     =eid= 指事例编号 event ID ， =ch= 指读数通道 =channel= 。
@@ -8919,19 +8998,31 @@ https://gitweb.gentoo.org/repo/gentoo.git/commit/?id=ea2987349ece6f07da01e1c2f3e
 
 这样的做的代价是列上有重复，但是对压缩算法来说，重复造成的空间浪费完全可控。
 
-*** 困惑：以代数理论组织数据够图灵奖？
+*** 以代数理论组织数据的图灵奖
+**** l                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+***** Edgar F. Codd
+1981年图灵奖得主
 
-- Edgar F. Codd，1981年图灵奖得主
+Relational database: a practical foundation for productivity.
+**** r                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+***** Michael Stonebraker
+2014 年图灵奖得主
 
-  Relational database: a practical foundation for productivity.
-  
-- Michael Stonebraker 2014年图灵奖得主
-
-  For fundamental contributions to the concepts and practices underlying modern database systems.
-**** 参考书
+For fundamental contributions to the concepts and practices underlying modern database systems.
+**** i                                                      :B_ignoreheading:
+:PROPERTIES:
+:BEAMER_env: ignoreheading
+:END:
+***** 参考书
      Hellerstein, Joseph M. and Michael Stonebraker. Readings in Database Systems.
 
-** 关系代数                                                 :B_ignoreheading:
+*** 关系代数                                                :B_ignoreheading:
 :PROPERTIES:
 :BEAMER_env: ignoreheading
 :END:
@@ -8944,31 +9035,35 @@ https://gitweb.gentoo.org/repo/gentoo.git/commit/?id=ea2987349ece6f07da01e1c2f3e
 NumPy 把这个概念继续推广，允许复合数据类型本身是数组。
 
 *** 反思：如此简明的理论为何影响深远？
-  1. 数据组织在物理学家眼里，是一件微不足道的“小事”：如何组织都无所谓，能用就行
-  2. “自然”地采用树状结构：一个高能量的粒子产生很多“次数粒子”，次数粒子诱导出光子，一个光子被放大成１千万个电子
-  3. 争论：什么样的“树”最好？
-     - 身分 vs. 能力：出身星系 vs. 天体种类
-     - 身分 vs. 能力：母粒子 vs. 粒子种类
-  4. 每个人有自己关注的物理问题，因此争证持续，或者走向分裂
-  5. “都是那些个二货坚持用奇怪的数据格式”
-  6. 反思时，发现自己在“小事”上花了太多精力，非常空虚
+#+attr_beamer: :overlay <+->
+1. 数据组织在物理学家眼里可能微不足道：如何组织不重要，能用就行；
+2. “自然”地采用树状结构：一个高能量的粒子产生很多“次数粒子”，次数粒子诱导出光子，一个光子被放大成１千万个电子；
+3. 争论：什么样的“树”最好？
+   - 身分 vs. 能力：出身星系 vs. 天体种类；
+   - 身分 vs. 能力：母粒子 vs. 粒子种类；
+4. 每个人有自己关注的物理问题，因此争证持续，或者走向分裂；
+5. “都是那些个二货坚持用奇怪的数据格式”；
+6. 反思时，发现自己在“微不足道”上花了太多精力，非常空虚。
 
 *** 研究这个问题是为了不再研究这个问题
 - 按照简明的理论组织数据，从此之后忘掉它。
-- 简明的理论有严格的数学体系
-- 与正则表达式一样，可以有完美的社会分工
-  - 使用者以关系代数的思想和语言描绘出自己要做什么
-  - 研发者以天才的程序技巧实现关系代数的基本运算，优化复合运算
+- 简明的理论有严格的数学体系；
+- 与正则表达式一样，可以有完美的社会分工；
+  - 使用者以关系代数的思想和语言描绘出自己要做什么；
+  - 研发者以天才的程序技巧实现关系代数的基本运算，优化复合运算。
 
 *** 工业领域的某些反弹
+
 - 2000年左右，Web 界开始了去“关系数据库”的运动，开发 NoSQL 服务。
-  - SQL 是 structured query language，关系数据库的基本语言
-  - 关系数据库是以关系代数为基础的数据管理程序，有严格的数据规范
+  - SQL 是 structured query language，关系数据库的基本语言；
+  - 关系数据库是以关系代数为基础的数据管理程序，有严格的数据规范。
+  #+beamer: \pause
 - NoSQL 运动的支持者认为，世界丰富多样，不应该受关系代数的限制。
   - Web 2.0 被作为商业概念炒作，从业人员四处革命
   - 关系代数让一切都成为了表格，大大限制了我们的想象力，剥夺了我们自由设计数据格式的权力
   - 于是大家开浪起来，进行了一轮新的探索，在这个过程中创造了一批卓越的分布式的数据系统
   - Google 的 MapReduce 也在此运动中，改变了整个大数据处理的格局。
+  #+beamer: \pause
 - 但是，随着时间的推移，这些 NoSQL 的方案逐渐成熟，慢慢发展出关系代数的各种运算
   - 关系代数系统被重新发明一次，与分布式系统结合起来，成为数据时代的基石
   
@@ -8979,15 +9074,18 @@ NumPy 把这个概念继续推广，允许复合数据类型本身是数组。
   - 描述型的语言，描述把什么样的数据取出来
   - 也可以写数据，但一般是一次写，多次读
 
+#+beamer: \pause
 - 关系数据库 Relational Database，使用 SQL 语言描述
   - MariaDB (MySQL 的后继)
   - PostgreSQL
   - SQLite
 
+#+beamer: \pause
 - 统计软件分支，比如 S 语言中的 SAS/SPSS 中的 Dataset 或 DataFrame
   - GNU R 以及对应的 R 语言，是一个 S 语言的后继，其中 DataFrame 是语言的核心
   - Pandas 受 GNU R 的影响，目标是在 Python 的语言环境中实现 DataFrame 及其基本操作
 
+#+beamer: \pause
 - MapReduce 分布式大数据算法也受到关系代数的影响，一般都会使用关系代数作为平台高级接口
   - Hadoop 生态圈, Spark, etc.
 *** 关系概念                                                :B_ignoreheading:
@@ -9004,10 +9102,6 @@ NumPy 把这个概念继续推广，允许复合数据类型本身是数组。
 
 **** SQL 关键字的大写约定
      - 为了醒目地展现 SQLite 的关键字，我们约定它们全大写。
-*** csvsql
-
-来自 csvkit 的工具。
-
 ** 基本操作
 *** SQL 基本操作
     #+begin_src sqlite :db ra.db :var rel="A" :colnames yes
@@ -9071,7 +9165,7 @@ NumPy 把这个概念继续推广，允许复合数据类型本身是数组。
   #+end_src
 - 笛卡尔积 :: =SELECT * FROM A,B=
 - 投影 :: =SELECT name FROM A=
-- 选择 :: =SELECT name FROM A WHERE ID==1=
+- 选择 :: =SELECT name FROM A WHERE ID=1=
 *** 再建新的表格
     #+begin_src sqlite :db ra.db :colnames yes
       CREATE TABLE B(ID integer, name text);
@@ -9148,7 +9242,7 @@ NumPy 把这个概念继续推广，允许复合数据类型本身是数组。
     | Li   |
 **** 选择：where 代表选择条件
     #+begin_src sqlite :db ra.db :colnames yes
-      SELECT * FROM A WHERE ID==1;
+      SELECT * FROM A WHERE ID=1;
     #+end_src
 
     #+RESULTS:
@@ -9169,7 +9263,7 @@ NumPy 把这个概念继续推广，允许复合数据类型本身是数组。
 
     - 用笛卡尔积和选择
     #+begin_src sqlite :db ra.db :colnames yes
-      SELECT * FROM A, B WHERE A.ID==B.ID;
+      SELECT * FROM A, B WHERE A.ID=B.ID;
     #+end_src
 
     #+RESULTS:
@@ -9222,7 +9316,8 @@ NumPy 把这个概念继续推广，允许复合数据类型本身是数组。
 
 ** 课堂练习
 *** 成绩录入
-    天才少年爱迪生上课时做了一个梦，梦见自己成为了一门课的助教，协助老师向注册中心系统录成绩。但是少年爱迪生在梦境位面中的超能力减半，无法调用他强大的编程战斗值，所以他找到了你。
+天才少年爱迪生上课时做了一个梦，梦见自己成为了一门课的助教，协助老师向注册中心系统录成绩。但是少年爱迪生在梦境位面中的超能力减半，无法调用他强大的编程战斗值，所以他找到了你。
+
 *** 查看 CSV
     #+begin_src bash  :results output
 csvlook dataframe-practice/students.csv | head
@@ -9230,7 +9325,7 @@ csvlook dataframe-practice/students.csv | head
 
     #+RESULTS:
     #+begin_example
-    | 学号 | 姓名 | 性别 | 班级   |           联系方式 |
+    | 学号 | 姓名 | 性别 | 班级   | 联系方式 |
     | -- | -- | -- | ---- | -------------- |
     |  1 | AB | 女  | 物理71 | 50,626,922,811 |
     |  2 | AC | 女  | 工物61 |  6,533,879,773 |
@@ -9259,6 +9354,8 @@ csvlook dataframe-practice/students.csv | head
     |    5 | AF   | 女   | 物理72 | 45017508911 |
 
     - 也可直接使用 =dataframe-practice/people.db= 读入数据。
+**** csvsql
+可在命令行使用 SQL 语句查询 CSV 的内容。
 
 *** 查看已经有的表格
     #+begin_src sqlite :db ra.db :colnames yes
@@ -9387,11 +9484,11 @@ GROUP BY classes.院系, students.性别;
 *** 再计算一次总评
     - 用 =longscores= 分组大大简化
     #+begin_src sqlite :db dataframe-practice/people.db :colnames yes
-      SELECT 学号, avg(分数) FROM longscores GROUP BY 学号 LIMIT 5
+      SELECT 学号, AVG(分数) FROM longscores GROUP BY 学号 LIMIT 5
     #+end_src
 
     #+RESULTS:
-    | 学号 |        avg(分数) |
+    | 学号 |        AVG(分数) |
     |------+------------------|
     |    1 | 104.411111111111 |
     |    2 | 92.3333333333333 |
@@ -9405,14 +9502,14 @@ GROUP BY classes.院系, students.性别;
     - 0 到 0.65 权重， 1 到 0.3 权重
     - =HAVING= 与 groupby 连用，对 group 进行过滤。
     #+begin_src sqlite :db dataframe-practice/people.db :colnames yes
-      SELECT 学号, sum(权重*分数) AS 总评 FROM 
+      SELECT 学号, SUM(权重*分数) AS 总评 FROM
       (SELECT 学号, CASE 大作业
         WHEN 0 THEN 0.65
         WHEN 1 THEN 0.3
-        END AS 权重, avg(分数) AS 分数 
+        END AS 权重, AVG(分数) AS 分数
         FROM longscores GROUP BY 学号, 大作业)
       GROUP BY 学号
-      HAVING 总评 > 105 
+      HAVING 总评 > 105
     #+end_src
 
     #+RESULTS:
@@ -9421,15 +9518,32 @@ GROUP BY classes.院系, students.性别;
     |   49 | 105.16375 |
     |   55 | 105.70625 |
 
+*** 建立中间结果的表格
+使用 =CREATE VIEW= 为中间结果命名。这是 lazy evaluation，不必担心中间变量的资源占用。
+
+#+begin_src sqlite :db dataframe-practice/people.db :colnames yes
+  CREATE VIEW weights AS
+  SELECT 学号, CASE 大作业
+    WHEN 0 THEN 0.65
+    WHEN 1 THEN 0.3
+    END AS 权重, AVG(分数) AS 分数
+    FROM longscores GROUP BY 学号, 大作业;
+
+  CREATE VIEW finals AS
+  SELECT 学号, SUM(权重*分数) AS 总评 FROM weights
+  GROUP BY 学号 HAVING 总评 > 105;
+
+  SELECT finals.学号,总评,联系方式 FROM finals JOIN students ON finals.学号 = students.学号;
+#+end_src
 *** 储存起来用于下一步使用
     - =CREATE VIEW= 把中间结果存成虚拟表格
     #+begin_src sqlite :db dataframe-practice/people.db :colnames yes
       CREATE VIEW final_scores AS
-      SELECT 学号, sum(权重*分数) AS 总评 FROM 
+      SELECT 学号, SUM(权重*分数) AS 总评 FROM
       (SELECT 学号, CASE 大作业
         WHEN 0 THEN 0.65
         WHEN 1 THEN 0.3
-        END AS 权重, avg(分数) AS 分数 
+        END AS 权重, AVG(分数) AS 分数
         FROM longscores GROUP BY 学号, 大作业)
       GROUP BY 学号
     #+end_src
@@ -9484,7 +9598,7 @@ ON total.班级 = classes.班级
 - [ ] 画出各班平均小作业成绩的变化曲线
 *** 取得班级作业平均数据
     #+begin_src sqlite :db dataframe-practice/people.db :colnames yes
-      SELECT 班级, 作业, avg(分数) AS 分数
+      SELECT 班级, 作业, AVG(分数) AS 分数
       FROM longscores JOIN students ON longscores.学号 = students.学号
       GROUP BY 班级, 作业 LIMIT 10
     #+end_src
@@ -9514,10 +9628,10 @@ ON total.班级 = classes.班级
 
       c = sqlite3.connect("dataframe-practice/people.db")
       class_score = pd.read_sql_query("""
-      select 班级, 作业, avg(分数) as 分数
-      from longscores join students
-      on longscores.学号 = students.学号
-      group by 班级, 作业
+      SELECT 班级, 作业, AVG(分数) AS 分数
+      FROM longscores JOIN students
+      ON longscores.学号 = students.学号
+      GROUP BY 班级, 作业
       """, c)
 
       one_line = class_score.query("班级 == '基科71'")
@@ -9543,7 +9657,7 @@ ON total.班级 = classes.班级
 * DataFrame
   :PROPERTIES:
   :EXPORT_FILE_NAME: pd
-  :EXPORT_DATE: 2023-08-01 清华
+  :EXPORT_DATE: 2024-07-26 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
   :EXPORT_BEAMER_HEADER+: \setbeamertemplate{footline}[frame number]  
@@ -9552,8 +9666,6 @@ ON total.班级 = classes.班级
   :END:
 ** 复习与提示
 *** 安装软件 R 的 ggplot2 与 dbplyr
-Debian
-
 #+begin_src bash
     apt install r-cran-ggplot2 r-cran-dbplyr r-cran-dplyr r-cran-reshape2 r-cran-rsqlite
 #+end_src
@@ -9584,11 +9696,11 @@ Debian
   - [X] 划分出不同的分数段，给出某分数段同学的手机号
 - [ ] 画出各班平均小作业成绩的变化曲线
     #+begin_src sqlite :db dataframe-practice/people.db :colnames yes
-      SELECT 学号, sum(权重*分数) AS 总评 FROM 
+      SELECT 学号, SUM(权重*分数) AS 总评 FROM
       (SELECT 学号, CASE 大作业
         WHEN 0 THEN 0.65
         WHEN 1 THEN 0.3
-        END AS 权重, avg(分数) AS 分数 
+        END AS 权重, AVG(分数) AS 分数
         FROM longscores GROUP BY 学号, 大作业)
       GROUP BY 学号
       HAVING 总评 > 105 
@@ -9634,44 +9746,1009 @@ Debian
 
 - 非常适合快速试验并找到统计方法上的 _最佳工具_
 
+**** R 的重要数据处理模块
 - =dplyr= :: 数据整理的利器，简洁的语法表达关系代数
-- =dbplyr= :: 与 SQL 浑然连成一体，统一 DataFrame 与 SQL
-- =ggplot2= :: 科学制图利器，易用性远好于 matplotlib
+- =dbplyr= :: 与 SQL 浑然连成一体，统一 =DataFrame= 与 SQL
+- =ggplot2= :: 科学制图利器，数据制图易用性优于 =matplotlib=
 
-*** 数据类型
- *呼叫传送门*
-
+** R数据类型
+*** TODO 数据类型
 - numeric :: 数值型：分成整型、浮点型和复数型
+  + 错误： =numeric= 就是 =double= ，不包括整型。
 - character :: 字符型
 - factor :: 枚举型
+- logical :: 布尔型
   #+begin_src R
 # 获得帮助
 help(help)
 help(numeric)
   #+end_src
+
+#+begin_src R :session pd
+  10 + 66
+#+end_src
+
+#+RESULTS:
+: 76
+
+#+begin_src R :session pd
+  class(76)
+#+end_src
+
+#+RESULTS:
+: numeric
+*** TODO 数值的类型
+=class= 与 =typeof= 的区别是什么？
+#+begin_src R :session pd
+  typeof(76)
+#+end_src
+
+#+RESULTS:
+: double
+
+#+begin_src R :session pd
+  typeof(as.integer(76))
+#+end_src
+
+#+RESULTS:
+: integer
+
+*** numeric 包括整型与浮点型
+#+begin_src R :session pd
+  class(1.3)
+#+end_src
+
+#+RESULTS:
+: numeric
+
+#+begin_src R :session pd
+  (53.2+5) * 2
+#+end_src
+
+#+RESULTS:
+: 116.4
+
+#+begin_src R :session pd
+  2^8
+#+end_src
+
+#+RESULTS:
+: 256
+
+*** 向量
+使用 =c= 命令构造向量
+#+begin_src R :session pd
+  help(c)
+#+end_src
+
+#+begin_src R :session pd
+  c(3,2,1)
+#+end_src
+
+#+RESULTS:
+| 3 |
+| 2 |
+| 1 |
+
+#+begin_src R :session pd
+  c(3,2,1) + c(4,7,8)
+#+end_src
+
+#+RESULTS:
+| 7 |
+| 9 |
+| 9 |
+
+*** 向量的数据类型
+#+begin_src R :session pd
+  c(3, "a")
+#+end_src
+
+#+RESULTS:
+| 3 |
+| a |
+
+#+begin_src R :session pd
+  typeof(c(3, "a"))
+#+end_src
+
+#+RESULTS:
+: character
+
+*** 变量
+#+begin_src R :session pd
+  a <- c(3,2,1)
+#+end_src
+
+#+RESULTS:
+| 3 |
+| 2 |
+| 1 |
+
+#+begin_src R :session pd
+  c(4,7,9) -> b
+#+end_src
+
+#+RESULTS:
+| 4 |
+| 7 |
+| 9 |
+
+*** 向量的运算
+#+begin_src R :session pd
+  a^2 + 7
+#+end_src
+
+#+RESULTS:
+| 16 |
+| 11 |
+|  8 |
+
+*** 向量永远是一维的
+#+begin_src R :session pd
+  c(c(2,3), c(0,1))
+#+end_src
+
+#+RESULTS:
+| 2 |
+| 3 |
+| 0 |
+| 1 |
+
+#+begin_src R :session pd
+  c(c(2,3), 4)
+#+end_src
+
+#+RESULTS:
+| 2 |
+| 3 |
+| 4 |
+*** 多维数组
+- 需要用 =array=
+
+*** 向量的索引
+- R 的向量索引从 1 开始。
+#+begin_src R :session pd
+  a[3]
+#+end_src
+
+#+RESULTS:
+: 1
+
+#+begin_src R :session pd
+  a[2]
+#+end_src
+
+#+RESULTS:
+: 2
+
+- 闭区间。非 Python 的左闭右开。
+#+begin_src R :session pd
+  a[2:3]
+#+end_src
+
+#+RESULTS:
+| 2 |
+| 1 |
+
+*** 向量作为索引
+#+begin_src R :session pd
+  a[c(3,3,3,1,2)]
+#+end_src
+
+#+RESULTS:
+| 1 |
+| 1 |
+| 1 |
+| 3 |
+| 2 |
+
+*** 所有数字都是向量
+#+begin_src R :session pd
+  length(a)
+#+end_src
+
+#+RESULTS:
+: 3
+
+#+begin_src R :session pd
+  class(a)
+#+end_src
+
+#+RESULTS:
+: numeric
+
+#+begin_src R :session pd
+  length(1)
+#+end_src
+
+#+RESULTS:
+: 1
+
+*** 字符型
+#+begin_src R :session pd
+  "Hello World!"
+#+end_src
+
+#+RESULTS:
+: Hello World!
+
+#+begin_src R :session pd
+  class("Hello World!")
+#+end_src
+
+#+RESULTS:
+: character
+
+- 字符型的向量
+
+#+begin_src R :session pd
+  class(c("Hello", "World!"))
+#+end_src
+
+#+RESULTS:
+: character
+
+*** 字符串操作
+#+begin_src R :session pd
+  greek <- c("alpha", "beta", "gamma", "delta")
+  length(greek)
+#+end_src
+
+#+RESULTS:
+: 4
+
+*** 取子字符串
+**** l                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.49
+:END:
+#+begin_src R :session pd
+  substr(greek, 2, 3)
+#+end_src
+
+#+RESULTS:
+| lp |
+| et |
+| am |
+| el |
+
+#+begin_src R :session pd
+  gsub('a', 'A', greek)
+#+end_src
+
+#+RESULTS:
+| AlphA |
+| betA  |
+| gAmmA |
+| deltA |
+
+**** r                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.49
+:END:
+#+begin_src R :session pd
+  gsub('^a', 'A', greek)
+#+end_src
+
+#+RESULTS:
+| Alpha |
+| beta  |
+| gamma |
+| delta |
+
+#+begin_src R :session pd
+  gsub('a$', 'A', greek)
+#+end_src
+
+#+RESULTS:
+| alphA |
+| betA  |
+| gammA |
+| deltA |
+
+*** 寻找子串
+- =grep= 返回匹配的索引
+#+begin_src R :session pd
+  grep('e', greek)
+#+end_src
+
+#+RESULTS:
+| 2 |
+| 4 |
+
+#+begin_src R :session pd
+  greek[grep('e', greek)]
+#+end_src
+
+#+RESULTS:
+| beta  |
+| delta |
+
+*** 布尔型
+**** l                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+#+begin_src R :session pd
+  class(TRUE)
+#+end_src
+
+#+RESULTS:
+: logical
+
+#+begin_src R :session pd
+  TRUE & FALSE
+#+end_src
+
+#+RESULTS:
+: FALSE
+
+**** r                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+#+begin_src R :session pd
+  !FALSE | FALSE
+#+end_src
+
+#+RESULTS:
+: TRUE
+
+#+begin_src R :session pd :results output
+  greek == "alpha"
+#+end_src
+
+#+RESULTS:
+: [1]  TRUE FALSE FALSE FALSE
+
 *** 数值型
-- 数组
-- 数组的索引
-- 字符型
-- 字符串操作
-- 布尔型
-- 枚举型
+#+begin_src R :session pd
+  typeof(NaN)
+#+end_src
+
+#+RESULTS:
+: double
+
+#+begin_src R :session pd
+  1 + NaN
+#+end_src
+
+#+begin_src R :session pd
+  Inf + 1
+#+end_src
+
+#+RESULTS:
+: Inf
+
+#+begin_src R :session pd
+  Inf - Inf
+#+end_src
+
+#+RESULTS:
+
+*** 枚举型
+**** l                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+#+begin_src R :session pd
+  people <- c('男', '男', '男','女',
+              '女', '男', '女', '女')
+#+end_src
+
+#+RESULTS:
+| 男 |
+| 男 |
+| 男 |
+| 女 |
+| 女 |
+| 男 |
+| 女 |
+| 女 |
+**** r                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+#+begin_src R :session pd
+  p <- as.factor(people)
+#+end_src
+
+#+RESULTS:
+| 男 |
+| 男 |
+| 男 |
+| 女 |
+| 女 |
+| 男 |
+| 女 |
+| 女 |
+*** 枚举型的机制
+**** r                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+#+begin_src R :session pd
+  as.numeric(p)
+#+end_src
+
+#+RESULTS:
+| 2 |
+| 2 |
+| 2 |
+| 1 |
+| 1 |
+| 2 |
+| 1 |
+| 1 |
+
+#+begin_src R :session pd
+  levels(p)
+#+end_src
+
+#+RESULTS:
+| 女 |
+| 男 |
+
+**** r                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+
+#+begin_src R :session pd
+  levels(p) <- c("woman", "man")
+  p
+#+end_src
+
+#+RESULTS:
+| man   |
+| man   |
+| man   |
+| woman |
+| woman |
+| man   |
+| woman |
+| woman |
+
+** R 程序结构
 *** 程序结构
 **** 选择结构
+#+begin_src R :session pd
+  g <- 4
+  result <- if (g %% 2) {
+    "奇数"
+  } else {
+    "偶数"
+  }
+#+end_src
+
+#+RESULTS:
+: 偶数
+
+#+begin_src R :session pd
+  rep(result, 3)
+#+end_src
+
+#+RESULTS:
+| 偶数 |
+| 偶数 |
+| 偶数 |
+
 **** 循环结构
+#+begin_src R :session pd :results output
+  for (i in 1:5) {
+    print(i)
+  }
+#+end_src
+
+#+RESULTS:
+: [1] 1
+: [1] 2
+: [1] 3
+: [1] 4
+: [1] 5
+
+#+begin_src R :session pd
+  -1:3
+#+end_src
+
+#+RESULTS:
+| -1 |
+|  0 |
+|  1 |
+|  2 |
+|  3 |
+
+**** for 遍历了元素
+#+begin_src R :session pd :results output
+  for (i in greek) {
+    print(i)
+  }
+#+end_src
+
+#+RESULTS:
+: [1] "alpha"
+: [1] "beta"
+: [1] "gamma"
+: [1] "delta"
+
+**** while 循环
+#+begin_src R :session pd :results output
+  i <- 0
+  while (i < 10) {
+    print(i)
+    i <- i+1
+  }
+#+end_src
+
+#+RESULTS:
+#+begin_example
+[1] 0
+[1] 1
+[1] 2
+[1] 3
+[1] 4
+[1] 5
+[1] 6
+[1] 7
+[1] 8
+[1] 9
+#+end_example
+
 **** 函数
-*** 各类概率分布
-- 正态分布
+#+begin_src R :session pd
+  jiggle <- function(x) {
+    x + rnorm(1, sd=0.1)
+  }
+  jiggle(6)
+#+end_src
+
+#+RESULTS:
+: 6.04786267351062
+
+*** 正态分布
++ =d= 代表概率密度函数
+#+begin_src R :session pd
+  dnorm(0, mean=0, sd=1)
+#+end_src
+
+#+RESULTS:
+: 0.398942280401433
+
++ =p= 代表累积分布函数
+#+begin_src R :session pd
+  pnorm(3) - pnorm(-3)
+#+end_src
+
+#+RESULTS:
+: 0.99730020393674
+
++ =q= 代表分位数
+#+begin_src R :session pd
+  qnorm(0.5)
+#+end_src
+
+#+RESULTS:
+: 0
+*** 其它概率分布
+- unif :: 均匀
+- pois :: 泊松
+- binom :: 二项
+- gamma :: 伽马
+- exp :: 指数
+
+**** l                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+#+begin_src R :session pd
+  dunif(0.5)
+#+end_src
+
+#+RESULTS:
+: 1
+
+**** r                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+#+begin_src R :session pd
+  dunif(2)
+#+end_src
+
+#+RESULTS:
+: 0
+*** 分布的例子
+#+begin_src R :session pd
+  runif(5)
+#+end_src
+
+#+RESULTS:
+|  0.141196223907173 |
+|  0.797878413693979 |
+|  0.887777165044099 |
+| 0.0513732228428125 |
+|  0.987073467345908 |
+
+#+begin_src R :session pd
+  rpois(5, 0.5)
+#+end_src
+
+#+RESULTS:
+| 0 |
+| 2 |
+| 0 |
+| 1 |
+| 0 |
+
+** R DataFrame
+*** DataFrame
+#+begin_src R :session pd :results output
+  data(mtcars)
+  head(mtcars)
+#+end_src
+
+#+RESULTS:
+:                    mpg cyl disp  hp drat    wt  qsec vs am gear carb
+: Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
+: Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
+: Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
+: Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
+: Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
+: Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1
+*** 类型
+#+begin_src R :session pd
+  typeof(mtcars)
+#+end_src
+
+#+RESULTS:
+: list
+
+#+begin_src R :session pd
+  class(mtcars)
+#+end_src
+
+#+RESULTS:
+: data.frame
+
+#+begin_src R :session pd
+  typeof(mtcars$hp)
+#+end_src
+
+#+RESULTS:
+: double
+
+*** 行的名字
+#+begin_src R :session pd
+  head(row.names(mtcars))
+#+end_src
+
+#+RESULTS:
+| Mazda RX4         |
+| Mazda RX4 Wag     |
+| Datsun 710        |
+| Hornet 4 Drive    |
+| Hornet Sportabout |
+| Valiant           |
+
+#+begin_src R :session pd
+  typeof(row.names(mtcars))
+#+end_src
+
+#+RESULTS:
+: character
+
+*** 列的名字
+#+begin_src R :session pd
+  names(mtcars)
+#+end_src
+
+#+RESULTS:
+| mpg  |
+| cyl  |
+| disp |
+| hp   |
+| drat |
+| wt   |
+| qsec |
+| vs   |
+| am   |
+| gear |
+| carb |
+*** 基本的统计量
+#+begin_src R :session pd
+  sd(mtcars$mpg)
+#+end_src
+
+#+RESULTS:
+: 6.0269480520891
+
+#+begin_src R :session pd
+  median(mtcars$mpg)
+#+end_src
+
+#+RESULTS:
+: 19.2
+
+#+begin_src R :session pd
+  min(mtcars$mpg)
+#+end_src
+
+#+RESULTS:
+: 10.4
+
+#+begin_src R :session pd
+  mean(mtcars$mpg)
+#+end_src
+
+#+RESULTS:
+: 20.090625
+*** summary 命令
+#+begin_src R :session pd :results output
+  summary(mtcars$mpg)
+#+end_src
+
+#+RESULTS:
+:    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+:   10.40   15.43   19.20   20.09   22.80   33.90
+
+*** DataFrame 的 summary
+#+begin_src R :session pd :results output
+  summary(mtcars)
+#+end_src
+
+#+RESULTS:
+#+begin_example
+      mpg             cyl             disp             hp       
+ Min.   :10.40   Min.   :4.000   Min.   : 71.1   Min.   : 52.0  
+ 1st Qu.:15.43   1st Qu.:4.000   1st Qu.:120.8   1st Qu.: 96.5  
+ Median :19.20   Median :6.000   Median :196.3   Median :123.0  
+ Mean   :20.09   Mean   :6.188   Mean   :230.7   Mean   :146.7  
+ 3rd Qu.:22.80   3rd Qu.:8.000   3rd Qu.:326.0   3rd Qu.:180.0  
+ Max.   :33.90   Max.   :8.000   Max.   :472.0   Max.   :335.0  
+      drat             wt             qsec             vs        
+ Min.   :2.760   Min.   :1.513   Min.   :14.50   Min.   :0.0000  
+ 1st Qu.:3.080   1st Qu.:2.581   1st Qu.:16.89   1st Qu.:0.0000  
+ Median :3.695   Median :3.325   Median :17.71   Median :0.0000  
+ Mean   :3.597   Mean   :3.217   Mean   :17.85   Mean   :0.4375  
+ 3rd Qu.:3.920   3rd Qu.:3.610   3rd Qu.:18.90   3rd Qu.:1.0000  
+ Max.   :4.930   Max.   :5.424   Max.   :22.90   Max.   :1.0000  
+       am              gear            carb      
+ Min.   :0.0000   Min.   :3.000   Min.   :1.000  
+ 1st Qu.:0.0000   1st Qu.:3.000   1st Qu.:2.000  
+ Median :0.0000   Median :4.000   Median :2.000  
+ Mean   :0.4062   Mean   :3.688   Mean   :2.812  
+ 3rd Qu.:1.0000   3rd Qu.:4.000   3rd Qu.:4.000  
+ Max.   :1.0000   Max.   :5.000   Max.   :8.000
+#+end_example
+
 *** DataFrame 用法
 - 简单制图
 - 线性回归
 - 枚举类型
 
-*** DataFrame 里的关系代数基本操作
-- 集合基本运算：交、并、差
-- 线性代数运算：笛卡尔积、投影、选择
-- 连接
-- GroupBy, SortBy
+** 关系代数基本操作
+*** 构造 data.frame
+#+begin_src R :session pd
+  A <- data.frame(ID=c(1,2), name=c("Wang", "Li"))
+#+end_src
+
+#+RESULTS:
+| 1 | Wang |
+| 2 | Li   |
+
+#+begin_src R :session pd
+  B <- data.frame(ID=c(2,3), name=c("Li", "Zhang"))
+#+end_src
+
+#+RESULTS:
+| 2 | Li    |
+| 3 | Zhang |
+*** 集合基本运算：并
+#+begin_src R :session pd
+  AB <- rbind(A, B)
+#+end_src
+
+#+RESULTS:
+| 1 | Wang  |
+| 2 | Li    |
+| 2 | Li    |
+| 3 | Zhang |
+
+#+begin_src R :session pd
+  unique(AB)
+#+end_src
+
+#+RESULTS:
+| 1 | Wang  |
+| 2 | Li    |
+| 3 | Zhang |
+
+*** 交与差
+**** 交
+#+begin_src R :session pd
+  merge(A, B)
+#+end_src
+
+#+RESULTS:
+| 2 | Li |
+**** 差
+#+begin_src R :session pd
+  library(dplyr)
+  setdiff(B, A)
+#+end_src
+
+#+RESULTS:
+| 3 | Zhang |
+
+*** 线性代数运算：笛卡尔积
+#+begin_src R :session pd
+  AxB <- merge(A, B, by=NULL)
+#+end_src
+
+#+RESULTS:
+| 1 | Wang | 2 | Li    |
+| 2 | Li   | 2 | Li    |
+| 1 | Wang | 3 | Zhang |
+| 2 | Li   | 3 | Zhang |
+
+*** 投影与选择
+**** 投影
+#+begin_src R :session pd
+  A$name
+#+end_src
+
+#+RESULTS:
+| Wang |
+| Li   |
+**** 选择
+#+begin_src R :session pd
+  subset(A, name=="Li")
+#+end_src
+
+#+RESULTS:
+| 2 | Li |
+*** 动态的 DataFrame
+#+begin_src R :session pd :results output
+  A$GPA = c(3, 4)
+  A
+#+end_src
+
+#+RESULTS:
+:   ID name GPA
+: 1  1 Wang   3
+: 2  2   Li   4
+
+#+begin_src R :session pd :results output
+  B$age = c(18, 20)
+  B
+#+end_src
+
+#+RESULTS:
+:   ID  name age
+: 1  2    Li  18
+: 2  3 Zhang  20
+
+*** 连接
+#+begin_src R :session pd :results output
+  merge(A, B)
+#+end_src
+
+#+RESULTS:
+:   ID name GPA age
+: 1  2   Li   4  18
+
+**** 左连接
+#+begin_src R :session pd :results output
+  merge(A, B, all.x=TRUE)
+#+end_src
+
+#+RESULTS:
+:   ID name GPA age
+: 1  1 Wang   3  NA
+: 2  2   Li   4  18
+
+*** 连接（续）
+**** 右连接
+#+begin_src R :session pd :results output
+  merge(A, B, all.y=TRUE)
+#+end_src
+
+#+RESULTS:
+:   ID  name GPA age
+: 1  2    Li   4  18
+: 2  3 Zhang  NA  20
+**** 外连接
+#+begin_src R :session pd
+  merge(A, B, all=TRUE)
+#+end_src
+
+#+RESULTS:
+| 1 | Wang  | 3 |    |
+| 2 | Li    | 4 | 18 |
+| 3 | Zhang |   | 20 |
+
+*** GroupBy
+#+begin_src R :session pd 
+  AxB %>% group_by(name.x) %>% summarise(n=n())
+#+end_src
+
+#+RESULTS:
+| Li   | 2 |
+| Wang | 2 |
+
+*** GroupBy 两列
+#+begin_src R :session pd 
+  AxB %>% group_by(name.x, ID.x) %>% summarise(n=n())
+#+end_src
+
+#+RESULTS:
+| Li   | 2 | 2 |
+| Wang | 1 | 2 |
+
+*** SortBy
+#+begin_src R :session pd 
+  order(AxB$name.x)
+#+end_src
+
+#+RESULTS:
+| 2 |
+| 4 |
+| 1 |
+| 3 |
+
+#+begin_src R :session pd :results output
+  AxB[order(AxB$name.x),]
+#+end_src
+
+#+RESULTS:
+:   ID.x name.x ID.y name.y
+: 2    2     Li    2     Li
+: 4    2     Li    3  Zhang
+: 1    1   Wang    2     Li
+: 3    1   Wang    3  Zhang
+
+*** R 版本的统计
+#+begin_src R :session pd :results output
+  students <- read.csv("dataframe-practice/students.csv")
+  head(students)
+#+end_src
+
+#+RESULTS:
+:   学号 姓名 性别   班级    联系方式
+: 1    1   AB   女 物理71 50626922811
+: 2    2   AC   女 工物61  6533879773
+: 3    3   AD   男 物理71 43865400582
+: 4    4   AE   男 工物71 58581462691
+: 5    5   AF   女 物理72 45017508911
+: 6    6   AG   男 工物72 26000243873
+
+#+begin_src R :session pd :results output
+  classes <- read.csv("dataframe-practice/classes.csv")
+  head(classes)
+#+end_src
+
+#+RESULTS:
+:     班级 院系
+: 1   核71 工物
+: 2 工物61 工物
+: 3 工物72 工物
+: 4 基科71 物理
+: 5 物理72 物理
+: 6 物理71 物理
+
+*** 统计男女比例
+#+begin_src R :session pd
+  merge(students, classes) %>%
+  group_by(性别, 院系) %>%
+  summarise(人数=n())
+#+end_src
+
+#+RESULTS:
+| 女 | 工物 |  4 |
+| 女 | 物理 | 10 |
+| 男 | 工物 | 18 |
+| 男 | 物理 | 25 |
 
 ** 关系代数制图
 *** 图形语法 Grammar of Graphics
@@ -9691,40 +10768,121 @@ help(numeric)
      - Leland Wilkinson, The Grammar of Graphics （沉痛缅怀 Wilkinson 教授）
      - Hadley Wickham, A Layered Grammar of Graphics
 *** ggplot
- *呼叫传送门* =Merge-GroupBy.slides.html=
-#+begin_src R
-require(ggplot2)
-data(mtcars)
+#+begin_src R :session pd :file plot/mtcars.pdf :results graphics file :width 12 :height 5 :family GB1
+library(ggplot2)
 p <- ggplot(mtcars, aes(x=wt, y=hp)) + geom_point()
 print(p)
 #+end_src
 
-#+begin_src R
+#+RESULTS:
+[[file:plot/mtcars.pdf]]
+
+*** 上色
+#+begin_src R :session pd
 p <- p + aes(color=am)
 print(p)
 #+end_src
 
 *** ggplot 枚举型制图
-#+begin_src R
+#+begin_src R :session pd
   mtcars$am <- factor(mtcars$am, levels=c(0, 1), labels=c("automatic", "manual"))
   p <- p %+% mtcars
+  pdf("mtcars.pdf")
   print(p)
+  dev.off()
 #+end_src
+
+#+RESULTS:
 
 ** 宽表到长表
 *** 表格的等价变换
- *呼叫传送门* =Merge-GroupBy.slides.html=
-
-    - =R= 和 =Pandas= DataFrame 可以将长表与宽表相互转换
-      - =SQLite= 不具备此功能
-    - =melt= 函数
-
+- =R= 和 =Pandas= DataFrame 可以将长表与宽表相互转换
+  - =SQLite= 不具备此功能
+- =melt= 函数
+*** TODO 使用 tidyr
+- 发展历史为 =reshape=, =reshape2=, =tidyr= 。 =tidyr= 是最新的库。
 *** =melt=
-    - =id_vars= 指定作为索引的列
-    - =value_vars= 指定作为数值的列
-    - =var_name= 指定长表中组变量的列名
-    - =value_name= 指定长表中值的列名
+- =id.vars= 指定作为索引的列
+- =value.vars= 指定作为数值的列
+- =var.name= 指定长表中组变量的列名
+- =value.name= 指定长表中值的列名
+#+begin_src R :session pd
+  library(reshape2)
+  scores <- read.csv("dataframe-practice/scores.csv")
+  longscores <- melt(scores, id.vars="学号")
+  head(longscores)
+#+end_src
+
+#+RESULTS:
+| 1 | self.intro | 100 |
+| 2 | self.intro | 100 |
+| 3 | self.intro | 100 |
+| 4 | self.intro | 100 |
+| 5 | self.intro | 100 |
+| 6 | self.intro | 100 |
+
+*** 变成枚举型
+#+begin_src R :session pd
+  longscores$variable <- as.factor(longscores$variable)
+  levels(longscores$variable)
+#+end_src
+
+#+RESULTS:
+| self.intro     |
+| a.b            |
+| rank.guesser   |
+| hdf5           |
+| prime          |
+| heart.curve    |
+| gpa.calculator |
+| curve.fitting  |
+| 大作业          |
+
+*** 加上大作业的类型
+#+begin_src R :session pd :results output
+  longscores$类型 <- longscores$variable == "大作业"
+  summary(longscores$类型)
+#+end_src
+
+#+RESULTS:
+:    Mode   FALSE    TRUE 
+: logical     456      57
+
 *** 统计班级平均分
+#+begin_src R :session pd :file plot/score-class.pdf :results graphics file :width 12 :height 5 :family GB1
+  merge(students, longscores) %>%
+    group_by(班级, variable) %>%
+    summarise(平均分=mean(value)) %>%
+    ggplot(aes(x=variable, y=平均分, color=班级)) +
+    geom_point() + facet_wrap(~班级)
+#+end_src
+
+#+RESULTS:
+[[file:plot/score-class.pdf]]
+*** 四个子图
+#+begin_src R :session pd
+  students$班类 <- as.factor(gsub('[[:digit:]]*', '', students$班级))
+  unique(students$班类)
+#+end_src
+
+#+RESULTS:
+| 物理 |
+| 工物 |
+| 核   |
+| 基科 |
+
+*** 统计班级平均分
+#+begin_src R :session pd :file plot/scores.pdf :results graphics file :width 12 :height 5 :family GB1
+  merge(students, longscores) %>%
+    group_by(班级, variable) %>%
+    reframe(平均分=mean(value), 班类=班类) %>% 
+    ggplot(aes(x=variable, y=平均分, color=班级)) +
+    geom_point() + facet_wrap(~班类)
+#+end_src
+
+#+RESULTS:
+[[file:plot/scores.pdf]]
+
 *** [100%]少年爱迪生想
 - [X] 比较物理系和工物系的男女比例
 - [X] 算出大家的总评成绩：
@@ -9733,8 +10891,6 @@ print(p)
   - [X] 划分出不同的分数段，给出某分数段同学的手机号
 - [X] 画出各班平均小作业成绩的变化曲线
 
-** R 版总评计算
-*** 课堂练习
 ** dbplyr
 *** SQL 的 DataFrame 接口
 #+begin_src R :session dbplyr
@@ -9762,47 +10918,10 @@ sql_render(classes %>% filter(院系=='物理'))
 : FROM `classes`
 : WHERE (`院系` = '物理')
 
-** 后备资料
-*** 关系代数
-    - 关系：\( \{(r, s)|r \in R, s \in S\} \)
-    - 关系代数：在集合基础上定义关系运算的封闭系统
-      - 封闭系统：运算作用于一个或多个关系上来生成一个关系
-
-    - 围绕关系代数设计的关系数据库是存储海量数据的标准
-      - 代表：Structure Query Language (SQL) 语言
-    - 关系代数的思想具有一般性： 管理、添加和分析数据
-**** 直观理解：一切都是表格
-     #+latex: {\scriptsize
-     | Event | Channel | Time | Weight |
-     |-------+---------+------+--------|
-     |     0 |       0 |    1 |    1.1 |
-     |     0 |       0 |  1.1 |   1.15 |
-     |     0 |       2 |  1.2 |    1.3 |
-     |     1 |       3 |  0.8 |    0.9 |
-
-     | Event | Channel | Wave          |
-     |-------+---------+---------------|
-     |     0 |       0 | [0,0.1,...,0] |
-     |     0 |       2 | [0,0.2,...,0] |
-     #+latex: }
-
-*** 基本动机
-    - 关系代数设计师 Todd，图灵奖工作
-    - 数据都应该自我描述
-      - 即使数据的存储形式变了，对程序进行操作的程序也不应该改变
-      - 反例：链表
-      - 反例：随意写成的 Excel 表格
-    - 方便扩展到大规模的数据库中
-
-**** 实用价值
-    - 引擎优化与应用分工
-    - 引擎：自动 out-of-core computing (超出内存的运算)
-    - 引擎：自动并行计算
-
 * 回归分析
   :PROPERTIES:
   :EXPORT_FILE_NAME: pe
-  :EXPORT_DATE: 2023-08-02 清华
+  :EXPORT_DATE: 2024-07-27 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
   :EXPORT_BEAMER_HEADER+: \setbeamertemplate{footline}[frame number]  
@@ -9810,6 +10929,8 @@ sql_render(classes %>% filter(院系=='物理'))
   :EXPORT_BEAMER_FONT_THEME: professionalfonts
   :END:
 ** 复习提示
+HDF5 是工业标准，可在多种语言直接读取，例如 C、Fortran、Python 和 R。在 R 中读写 HDF5 的为 =rhdf5= ，把 HDF5 的结构化数组的 dataset 映射成 R 的 data.frame 处理，因为它们都是表格可自然对应。
+
 *** 数据集下载
     - =lm-examples.tar.gz= 线性回归样例集
       #+begin_src bash
@@ -9821,9 +10942,6 @@ sql_render(classes %>% filter(院系=='物理'))
 #+begin_src bash
   # Debian
   apt install r-bioc-rhdf5
-  # Gentoo @ macOS
-  emaint sync -r R_Overlay
-  emerge -vt sci-BIOC/rhdf5
 #+end_src
 
 *** DataFrame
@@ -9890,19 +11008,41 @@ sql_render(classes %>% filter(院系=='物理'))
      - 人类更能专注于高层次的概念与问题，不被细节湮没
 **** 推论：数据分析最佳工具策略
      - 原始数据尽快等价变换成关系代数形式：站在统计学与图形学巨人的肩膀上
+*** i 工具组                                                :B_ignoreheading:
+:PROPERTIES:
+:BEAMER_env: ignoreheading
+:END:
+
+表格有列的对称性。在关系代数的实现中，我们能粗略地把 data.frame 划为中型数据集，SQL 划为大型数据集。在数据格式上，CSV 适合小型数据集，HDF5 受到关系代数影响，也是表格。在绘图时，可直接写一列依赖于另一列或者另两列，从而实现 grammar of graphics。
+
+我们拿到了实验数据，要解读它，回归分析是常用方法。关系代数公理演绎出的体系吸纳了数据中共有的复杂成分，使得回归分析的形式描述简洁。在我们理解回归分析数学的理论后，具体分析的程序几乎都由一行代码完成。在探索过程中，会打很多命令，最终沉淀下来往往只有一行代码。
+
+在课程的尾声，一个完整的技能体系浮现，包括数据处理、分析和绘图，其核心是关系代数。在接口不变的前提下，不管是 CSV、HDF5，还是 data.frame、SQL，都能视为关系代数的实现，在绘图和推断依托它们读取数据。当人类能只用一行代码实现推断，其优势就如同命令行一样，简洁的计算机语言表达解放了大脑，使之能专注于高层次的概念和问题。专注于“为什么要做这实验”的大问题，而不被淹没在实验数据的细节里。这是数据分析的“最佳工具”。
+
 ** 线性回归
+大家在中学数学、中学生物理竞赛实验和大学物理实验中都接触过线性回归。在实验课上，一般有一个 Excel 表格，我们把数据填进去，得到回归系数、不确定度、显著系数。
+
+我们目标给线性回归的形式化定义，并在 R 中以一行代码完成线性回归计算。
 *** 概念
     - 复习：线性回归，最小二乘法
-    |   Y | x |
-    |-----+---|
-    |   2 | 1 |
-    | 5.5 | 3 |
-    | 6.5 | 4 |
-    |   9 | 7 |
-    - \( Y = a + b x + \epsilon \)
+    | \(Y\) | \(x\) |
+    |-------+-------|
+    |     2 |     1 |
+    |   5.5 |     3 |
+    |   6.5 |     4 |
+    |     9 |     7 |
+    - \( Y = a + b x + \epsilon, \epsilon \sim \mathcal{N}(0, \sigma^2) \)
     - \( (Y, x) \) 是关系，组成表格
     
     - 表格 DataFrame 之上自然进行回归分析
+*** i 概念                                                  :B_ignoreheading:
+:PROPERTIES:
+:BEAMER_env: ignoreheading
+:END:
+线性回归目标是找一个变量之间的“关系”。我们数据按关系代数写成表格，有\(x\)自变量和\(Y\)因变量。线性回归之中的暗含假设是\(x\)小写没有不确定度，是普通变量，而\(Y\)大写有不确定度，是随机变量。虽然实验测量有不确定度，但通过等价变换，在高斯分布误差的假设下，\(x\)的不确定度能都由\(Y\)来表达。此式是线性回归的数学形式，随机变量\(Y\)等于截距系数\(a\)加斜率系数\(b\)乘以\(x\)，再加上残差。残差满足高斯分布，是线性关系解释不了的部分。
+
+表格是关系代数具体表现，每行给出\(Y\)和\(x\)的一一对应关系。即， \(Y_i = a + b x_i + \epsilon\)。回归分析具体是把\(a\)和\(b\)求出来，例如通过变动\(a, b\)使得残差平方和\(\sum_i (Y_i - a - b x_i)^2\)最小。这是大家熟悉“最小二乘法”。
+
 *** 读入例子：书的重量
 **** l                                                                :BMCOL:
 :PROPERTIES:
@@ -9933,34 +11073,51 @@ sql_render(classes %>% filter(院系=='物理'))
     14    595    0    425    pb
     15   1034    0    725    pb
     #+end_example
-
-    #+RESULTS: 8e0745ac-1f5b-483e-8c05-fc1ff4e81ab4
-    #+begin_example
-       volume area weight cover
-    1     885  382    800    hb
-    2    1016  468    950    hb
-    3    1125  387   1050    hb
-    4     239  371    350    hb
-    5     701  371    750    hb
-    6     641  367    600    hb
-    7    1228  396   1075    hb
-    8     412    0    250    pb
-    9     953    0    700    pb
-    10    929    0    650    pb
-    11   1492    0    975    pb
-    12    419    0    350    pb
-    13   1010    0    950    pb
-    14    595    0    425    pb
-    15   1034    0    725    pb
-    #+end_example
 **** e                                                                :BMCOL:
-     :PROPERTIES:
-     :BEAMER_col: 0.45
-     :END:
-    - =hb= 代表 hard back ，硬质纸壳封面封底
-    - =pb= 代表 paper back ，软纸封面封底
-    - =area= 代表封面的面积
-    - =volume= 代表书的页数
+ :PROPERTIES:
+ :BEAMER_col: 0.45
+ :END:
+- =hb= 代表 hard back ，硬质纸壳封面封底
+- =pb= 代表 paper back ，软纸封面封底
+- =area= 代表封面的面积
+- =volume= 代表书的页数
+
+*** i 读入例子：书的重量                                    :B_ignoreheading:
+:PROPERTIES:
+:BEAMER_env: ignoreheading
+:END:
+现在来在 R 中执行最小二乘法。
+
+*** hard back：硬纸壳封面
+**** l                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+#+attr_latex: :height 6cm
+[[./fig/hardback1.jpg]]
+
+**** r                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+#+attr_latex: :height 6cm
+[[./fig/hardback2.jpg]]
+
+*** paper back: 普通纸封面
+**** l                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+
+[[./fig/paperback1.jpg]]
+
+**** r                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+
+[[./fig/paperback2.jpg]]
+
 *** 绘制重量与页数的关系
 #+begin_src R :session pd :file fig/scatter.pdf :results graphics file :width 7 :height 5
   plot(weight ~ volume, books)
@@ -9970,6 +11127,148 @@ sql_render(classes %>% filter(院系=='物理'))
 #+RESULTS:
 [[file:fig/scatter.pdf]]
 
+*** 直线表征规律
+**** l                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+#+beamer: \only<1>{
+#+Attr_LaTeX: :height 4cm
+file:fig/b_scatter-nc.pdf
+#+beamer: }
+
+#+beamer: \only<2->{
+#+Attr_LaTeX: :height 4cm
+[[file:fig/b_scatter-line.pdf]]
+#+beamer: }
+
+**** r                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+
+- 变量\(x\) 和 \(y\) 于图中呈\alert{直线关系}。
+#+beamer: \onslide<2->
+- 欲求出与各点最\alert{匹配}的直线，
+  \[ y = a + b x \]
+  匹配：横向、纵向@@beamer:\visible<3->{\checkmark \alert{预测}}@@、垂线？
+#+beamer: \onslide<3->
+- 记观测值为 \((x_1, y_1), \cdots, (x_N, y_N)\)
+
+**** 最小二乘法@@beamer:@@估计 \(a,b\)
+取\alert{残差平方和} \( \displaystyle{E^2(a, b) = \sum_{i=1}^N [y_i - (a + b x_i)]^2} \) 刻画点与线的差异，@@beamer:\onslide<4->@@
+
+以使 \(E^2\) 最小时的 \(a, b\) 为估计值 \(\displaystyle{\hat{a}, \hat{b} = \underset{a, b}{\arg\min} E^2(a, b)} \)
+
+*** 最小二乘法的求解
+\(\displaystyle{\hat{a}, \hat{b} = \underset{a, b}{\arg\min} E^2(a, b)} \) 有多种解法：配平方；求导 \(\displaystyle{\frac{\partial E^2}{\partial(a, b)} = 0}\)。
+
+#+beamer: \pause
+**** 线性代数视角
+把残差记为 \(\epsilon_i  = y_i - (a + b x_i)\)，有 \( y_i = 1 a + x_i b + \epsilon_i \)，@@beamer:\pause@@ 写成 \(N\) 维列向量，
+   #+begin_export latex
+   \begin{equation*}
+     \begin{aligned}
+       \left(
+         \begin{array}{c}
+           y_1 \\
+           y_2 \\
+           \vdots \\
+           y_N
+         \end{array}
+       \right) & =
+         \left(
+           \begin{array}{c}
+             1 \\
+             1 \\
+             \vdots \\
+             1
+           \end{array}
+         \right) a + \left(
+           \begin{array}{c}
+             x_1 \\
+             x_2 \\
+             \vdots \\
+             x_N
+           \end{array}
+         \right) b
+       & + & \left(
+         \begin{array}{c}
+           \epsilon_1 \\
+           \epsilon_2 \\
+           \vdots \\
+           \epsilon_N
+         \end{array}
+       \right) \\
+       \visible<4>{
+       \vec{Y} & = (\vec{X}_1, \vec{X}_2)
+       \left(
+       \begin{array}{c}
+       a \\
+       b
+       \end{array}
+       \right)
+       + \vec{E}
+       }
+     \end{aligned}
+   \end{equation*}
+   #+end_export
+#+beamer: \visible<4>{
+- 残差平方和 \(E^2 = \sum \epsilon_i^2\) 是 \(\vec{E}\) 欧几里得距离的平方 \(\lVert \vec{E} \rVert^2\)
+#+beamer: }
+*** 向子空间投影
+#+begin_export latex
+\(\displaystyle{\vec{Y} = (\vec{X}_1, \vec{X}_2) \left(
+      \begin{array}{c}
+        a \\
+        b
+      \end{array}
+    \right)
+    + \vec{E}}\)，
+#+end_export
+当 \(a, b\) 为何值能使\(\lVert \vec{E} \rVert^2\) 最小？
+
+#+beamer: \pause
+- \(N\) 维线性空间中，@@beamer: \onslide<3->{@@当 \(a \vec{X}_1 + b \vec{X}_2 \) 是 \(\vec{Y}\) 向子空间的投影时，\(\lVert \vec{E} \rVert^2\) 最小。@@beamer: }@@
+  #+begin_export latex
+  \tdplotsetmaincoords{70}{200}
+  \begin{tikzpicture}[scale = 2.5,thick,tdplot_main_coords]
+  \coordinate (A1) at (0,0,0);
+  \coordinate (A2) at (2,0,0);
+  \coordinate (A3) at (2,2,0);
+  \coordinate (A4) at (0,2,0);
+
+  \coordinate (S) at (0.5,0.5,0);
+  \coordinate (E) at (0.5,3,1.5);
+  \coordinate (P) at (1.15,1.15,0);
+  \fill[fill=blue!20] (A1) -- (A2) -- (A3)  -- (A4) -- cycle;
+  \draw[black, -latex] (S) -- (E);
+  \draw[black!80, -latex] (S) -- (P);
+  \draw[black!50,dashed] (E) -- (P);
+  \node[above] at (E) {$\vec{Y}$};
+  \node[below] at (P) {$a \vec{X}_1 + b \vec{X}_2$};
+
+  \draw[red!70] (2,2.3,1.2) node[above] 
+   {$\vec{E} = \vec{Y} - (a \vec{X}_1 + b \vec{X}_2)$取极小} to [out=-90,in=180] ($0.5*($(E)+(P)$)$);
+
+   \draw[red!70] (2.3,2.3,0.4) node[above] 
+   {$\vec{X}_1$ 与 $\vec{X}_2$ 张成2维子空间} to [out=-90,in=90] ($(A3)+(-0.2,-0.2,0)$);
+  \end{tikzpicture}
+  #+end_export
+  #+beamer: \vspace{-0.5cm}\onslide<4->
+- 因此 \(\vec{E}\) 必与子空间垂直
+  #+begin_export latex
+  \begin{equation*}
+    \begin{aligned}
+      \left\{
+      \begin{array}{cc}
+      \vec{E} \cdot \vec{X}_1 & = \only<5>{\displaystyle{\sum_i [y_i - (a + b x_i)] 1 = \frac{\partial E^2}{\partial a}}=} 0 \\
+      \vec{E} \cdot \vec{X}_2 & = \only<5>{\displaystyle{\sum_i [y_i - (a + b x_i)] x_i = \frac{\partial E^2}{\partial b}}=} 0
+      \end{array}\right.
+    \end{aligned}
+  \end{equation*}
+  #+end_export
+    
 *** 线性回归
     #+begin_src R :session pd :file :results output
       lm.books = lm(weight ~ volume, books)
@@ -10003,7 +11302,7 @@ sql_render(classes %>% filter(院系=='物理'))
   + \(\hat{b} = 0.71\) 显著
 - 回归方程为
 
-  \( Y = 0.71 x + \epsilon \)
+  \( Y = 108 + 0.71 x + \epsilon \)
 
 - 显著度
   + \(\hat{a}\) 和 \(\hat{b}\) 都服从 \(t\)-分布
@@ -10016,6 +11315,110 @@ sql_render(classes %>% filter(院系=='物理'))
     ---
     Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 #+end_example
+
+*** 显著性检验的必要性
+
+即使两个量毫无关联，仍可（流于形式地）做最小二乘法。
+
+**** l                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+#+begin_src R :session pd :file plot/uncorrelated.pdf :results graphics file :width 5 :height 4 :family GB1 :exports none
+  set.seed(98)
+  x = rnorm(500) # 从标准正态分布抽取 1000 个数
+  y = rnorm(500)
+  par(mar = c(4.5, 4.5, 0.8, 0.8))
+  lm.xy = lm(y ~ x)
+  plot(y ~ x, cex.lab=2, cex.axis=2)
+  abline(lm.xy, lwd=4, col="blue")
+#+end_src
+
+#+RESULTS:
+[[file:plot/uncorrelated.pdf]]
+
+#+Attr_LaTeX: :height 5cm
+[[file:plot/uncorrelated.pdf]]
+
+
+**** r                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+
+#+begin_src R :session pd :file plot/thermistor-lm-zoomout.pdf :results graphics file :width 5 :height 4 :family GB1 :exports results
+  par(mar = c(4.5, 4.5, 0.8, 0.8))
+  plot(1/(温度 + 273.15) ~ log(电阻), d, ylab="K/T", xlab="log(R/kΩ)", cex.lab=2, cex.axis=2, ylim=c(0.0000, 0.0068))
+  abline(lm.therm, col="blue", lwd=4)
+#+end_src
+
+#+beamer: \visible<3->{
+#+Attr_LaTeX: :height 5cm
+#+RESULTS:
+[[file:plot/thermistor-lm-zoomout.pdf]]
+#+beamer: }
+
+**** i                                                      :B_ignoreheading:
+:PROPERTIES:
+:BEAMER_env: ignoreheading
+:END:
+#+beamer: \pause
+- 必须对回归结果进行\alert{假设检验}，才能理解回归系数的含义。
+- 回归所得的 \(b\) ，与 \(0\) 有显著差异吗？
+
+*** 平方和分解
+**** 假设：残差服从正态分布
+\[ \epsilon_i = y_i - (a + bx_i) \sim N(0, \sigma^2) \]
+
+经过最小二乘法获得的最佳 \(a, b\) 记为 \(\hat{a}, \hat{b}\)
+\vspace{0.3em}
+**** l                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.65
+:END:
+记 \( \hat{y}_i = \hat{a} + \hat{b} x_i \)，称为回归的\alert{预测值}：
+#+begin_export latex
+    \begin{equation*}
+      \underbrace{\sum_{i=1}^N (y_i - \overline{y})^2}_{S_T \text{偏差平方和}} = \underbrace{\sum_{i=1}^N (y_i - \hat{y}_i)^2}_{S_E \text{误差平方和}} + \underbrace{\sum_{i=1}^N(\overline{y} - \hat{y}_i)^2}_{S_A \text{效应平方和}}
+    \end{equation*}
+#+end_export
+**** r                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.35
+:END:
+
+#+begin_export latex
+  \tdplotsetmaincoords{70}{200}
+  \begin{tikzpicture}[scale = 2,thick,tdplot_main_coords]
+  \coordinate (A1) at (0,0,0);
+  \coordinate (A2) at (2,0,0);
+  \coordinate (A3) at (2,2,0);
+  \coordinate (A4) at (0,2,0);
+
+  \coordinate (S) at (0.5,0.5,0);
+  \coordinate (E) at (0.5,3,1.5);
+  \coordinate (P) at (1.15,1.15,0);
+  \fill[fill=blue!20] (A1) -- (A2) -- (A3)  -- (A4) -- cycle;
+  \draw[black, -latex] (S) -- (E);
+  \draw[black!80, -latex] (S) -- (P);
+  \draw[black!50,dashed] (E) -- (P);
+  \node[below] at (S) {};
+  \node[above] at (E) {};
+  \node[below] at (P) {};
+  \node[left] at ($0.5*($(E)+(P)$)$) {$S_E$};
+  \node[below] at ($0.5*($(P)+(S)$)$) {$S_A$};
+  \node[above right] at ($0.5*($(E)+(S)$)$) {$S_T$};
+  \end{tikzpicture}
+#+end_export
+
+*** \(R^2\) 值
+\[ R^2 = \frac{S_A}{S_T} \]
+越接近于 \(1\) ，越说明 \(S_A\) 主导 \(S_T\)，相关性越强。
+#+beamer: \pause
+**** 假设检验问题
+- 对任意两个变量的一组观察值 \(\{(x_i, y_i)\}\) 都可以用最小二乘法形式上求得 \(y\) 对 \(x\)的回归方程,   如果\(y\) 与\(x\) 没有线性相关关系,  这种形式的回归方程就没有意义 
+  #+beamer: \pause
+- 因此需要考察 \(y\) 与 \(x\) 间是否确有线性相关关系, 这就是回归效果的 *检验问题* .
 
 *** \(F\)-检验
     \[ H_0: b=0, H_1: b \neq 0 \]
@@ -10035,15 +11438,17 @@ sql_render(classes %>% filter(院系=='物理'))
     F-statistic: 52.87 on 1 and 13 DF,  p-value: 6.262e-06
     #+end_example      
 *** 拟合效果图
-    #+begin_src R :session pd :file fig/lm.pdf :results graphics file :width 7 :height 5
-      library(ggplot2)
-      p = ggplot(books, aes(x=volume, y=weight)) + geom_point()
-      print(p + geom_smooth(method="lm"))
-    #+end_src
+#+begin_src R :session pd :file fig/lm.pdf :results graphics file :width 7 :height 5
+  library(ggplot2)
+  p = ggplot(books, aes(x=volume, y=weight)) + geom_point()
+  print(p + geom_smooth(method="lm"))
+#+end_src
 
-    #+attr_latex: :height 5cm
-    #+RESULTS:
-    [[file:fig/lm.pdf]]
+#+attr_latex: :height 5cm
+#+RESULTS:
+[[file:fig/lm.pdf]]
+
+=ggplot2= 中内嵌了 =lm= 自动给出回归结果。
 *** 拟合优度的制图判定
     #+begin_src R :session pd :file fig/lm-internal.pdf :results graphics file :width 7 :height 5
       plot(lm.books)
@@ -10098,7 +11503,7 @@ Cook scaling-location 理论残差图
     [[file:fig/prediction.pdf]]
 
 *** 模型矩阵
-- 细致描述变量的依赖关系，扩展公式的表达。使用 =model.matrix= 厘清内部机理
+- 细致描述变量依赖，扩展公式表达。使用 =model.matrix= 厘清内部机理
 #+begin_src R :results output :session pd
 model.matrix(weight ~ volume, books)
 #+end_src
@@ -10124,6 +11529,60 @@ model.matrix(weight ~ volume, books)
 attr(,"assign")
 [1] 0 1
 #+end_example
+
+*** 线性回归的推广
+- 令 \(\vec{X}_0 = \vec{1}, \vec{X}_1 = \vec{x}, \vec{X}_2 = \vec{x^2}\)：
+  #+begin_export latex
+  \tdplotsetmaincoords{70}{200}
+  \begin{tikzpicture}[scale = 2.5,thick,tdplot_main_coords]
+  \coordinate (A1) at (0,0,0);
+  \coordinate (A2) at (2,0,0);
+  \coordinate (A3) at (2,2,0);
+  \coordinate (A4) at (0,2,0);
+
+  \coordinate (S) at (0.5,0.5,0);
+  \coordinate (E) at (0.5,3,1.5);
+  \coordinate (P) at (1.15,1.15,0);
+  \fill[fill=blue!20] (A1) -- (A2) -- (A3)  -- (A4) -- cycle;
+  \draw[black, -latex] (S) -- (E);
+  \draw[black!80, -latex] (S) -- (P);
+  \draw[black!50,dashed] (E) -- (P);
+  \node[above] at (E) {$\overrightarrow{Y}$};
+  \node[below] at (P) {$b_0 \overrightarrow{X_0} + b_1 \overrightarrow{X_1} + b_2\overrightarrow{X_2}$};
+
+  \draw[red!70] (2,2.3,1.2) node[above] 
+   {$\vec{E} = \overrightarrow{Y} - (b_0 \overrightarrow{X_0} + b_1 \overrightarrow{X_1} + b_2 \overrightarrow{X_2})$} to [out=-90,in=180] ($0.5*($(E)+(P)$)$);
+
+   \draw[red!70] (2.3,2.3,0.4) node[above] 
+   {$\overrightarrow{X_0}, \overrightarrow{X_1}$ 与 $\overrightarrow{X_2}$ 张成子空间} to [out=-90,in=90] ($(A3)+(-0.2,-0.2,0)$);
+  \end{tikzpicture}
+  #+end_export
+
+#+beamer: \pause
+**** 推广
+- 替换投影子空间的基
+- 填加新的基，构成更高维的子空间，实现多元线性回归。
+
+*** 多元线性回归概念
+- 一组观测值 \(\vec{Y}\) 若与多组自变量 \(\vec{X}_0, \vec{X}_1, \vec{X}_2, \cdots, \vec{X}_p\) 有关，
+
+  #+begin_export latex
+  \begin{equation*}
+    \begin{aligned}
+      \vec{Y} = (\vec{X}_0, \vec{X}_1, \vec{X}_2, \cdots, \vec{X}_p) \left(
+        \begin{array}{c}
+          b_0\\        
+          b_1\\
+          b_2\\
+          \vdots\\
+          b_p
+        \end{array}
+      \right) + \vec{E}
+    \end{aligned}
+  \end{equation*}
+  #+end_export
+
+- 可以使用最小二乘法得到 \(\hat{b}_0, \hat{b}_1, \hat{b}_2, \cdots, \hat{b}_p\).
 
 *** 双变量回归情形
     #+begin_src R :results output :session pd
@@ -10313,22 +11772,28 @@ model.matrix(weight ~ volume + cover - 1, books)
 [[file:fig/lm2.pdf]]
     
 ** 模型选择
+*** Occam's razor and Von Neumann's elephant
+如果关于同一个问题有许多种理论，每一种都能作出同样准确的预言，那么应该挑选其中使用假定最少的。
+
+**** elephant                                                  :B_alertblock:
+:PROPERTIES:
+:BEAMER_env: alertblock
+:END:
+With four parameters I can fit an elephant. With five I can make him wiggle his trunk.
+
+#+attr_latex: :height 4.8cm
+[[./fig/elephant-parameters.png]]
+
+#+beamer: {\scriptsize https://www.r-bloggers.com/2011/06/a-winking-pink-elephant/}
+
 *** Akaike's An Information Criterion
-- 赤池信息判据
-  1. 应当用多少个变量描述模型？
-  2. 变量越多，拟合越精确
-  3. 变量越少，模型越简明
+- 赤池信息判据：应当用多少个变量描述模型？
+  变量越多，拟合越精确；变量越少，模型越简明。
 
 \[ \mathrm{AIC} = 2 n - 2 \log \mathcal{L} \]
 其中 \(n\) 是变量个数，\(\mathcal{L}\) 是拟合似然函数 (likelihood)
  
-**** Von Neumann's elephant                                    :B_alertblock:
-:PROPERTIES:
-:BEAMER_env: alertblock
-:END:
-With four parameters I can fit an elephant, and with five I can make him wiggle his trunk.
-
-*** R 下的 AIC
+**** R 中的 AIC
 #+begin_src R :session pd :results output
   AIC(lm.books) # weight ~ volume
   AIC(lm2.books) # weight ~ volume + cover
@@ -10340,11 +11805,10 @@ With four parameters I can fit an elephant, and with five I can make him wiggle 
 : [1] 177.9986
 : [1] 177.9986
 
-- 可见 lm2 与 lm3 等价
-  + 因为两者的 =model.matrix= 可用通过线性变换等价互换
+- =lm2= 与 =lm3= 等价，因为两者的 =model.matrix= 可用通过线性变换等价互换
 
 *** 改进模型的灵感
-- 回归结果说明 paper back （纸皮）不应该有截距，只有 hard back （硬皮） 才有截距。
+- 回归结果说明 paper back 不应该有截距，只有 hard back 才有截距。
   + 使用公式已经无法表达这个需求
 
 #+begin_example
@@ -10357,6 +11821,34 @@ With four parameters I can fit an elephant, and with five I can make him wiggle 
 
 *** 使用 =model.matrix= 改进模型
 - 直接修改 =model.matrix=
+#+begin_src R :session pd :results output
+  lm4.books <- lm(weight ~ model4 - 1, books)
+  AIC(lm4.books)
+  summary(lm4.books)
+#+end_src
+
+#+RESULTS:
+#+begin_example
+[1] 176.0669
+
+Call:
+lm(formula = weight ~ model4 - 1, data = books)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-115.208  -32.277   -9.768   30.447  211.991 
+
+Coefficients:
+               Estimate Std. Error t value Pr(>|t|)    
+model4volume    0.73070    0.02755  26.522 1.05e-12 ***
+model4coverhb 187.33601   36.57152   5.122 0.000196 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 75.3 on 13 degrees of freedom
+Multiple R-squared:  0.9913,	Adjusted R-squared:   0.99 
+F-statistic: 743.2 on 2 and 13 DF,  p-value: 3.954e-14
+#+end_example
 
 *** 课堂练习
     - 分析：有否必要把 =area= 加入回归？
@@ -10388,7 +11880,330 @@ With four parameters I can fit an elephant, and with five I can make him wiggle 
     F-statistic: 747.9 on 2 and 13 DF,  p-value: 3.799e-14
     #+end_example
 
+** 热敏电阻
+*** 电子体温计
+**** l                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.6
+:END:
+- 电子体温计使用方便
+#+Attr_LaTeX: :height 4cm
+[[./fig/thermotop.jpg]]
+
+#+beamer: \onslide<3-> {
+***** 工作原理：金属氧化物热敏电阻
+- 负温度系数型：随着温度升高，电阻值变小
+
+***** i                                                     :B_ignoreheading:
+:PROPERTIES:
+:BEAMER_env: ignoreheading
+:END:
+#+beamer: }
+
+**** r                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.4
+:END:
+
+#+beamer: \vspace{-0.2cm}\visible<2-> {
+#+Attr_LaTeX: :height 7.5cm
+[[./fig/thermistor-Hg.png]]
+#+beamer: }
+
+*** 热敏电阻的规律
+#+begin_src R :session pd :results silent :exports none
+  library(showtext)
+  library(dplyr)
+  showtext.auto()
+  d0 = read.table("thermister.csv", col.names=c("温度0", "电阻0"))
+  d = d0 %>% rowwise() %>% reframe(温度=rnorm(10, 温度0, 2), 电阻=exp(rnorm(10, log(电阻0), 0.2)))
+  d$温度 = d$温度
+#+end_src
+
+#+begin_src R :session pd :file plot/thermister.pdf :results graphics file :width 7 :height 5 :family GB1 :exports none
+  par(mar = c(4.5, 4.5, 0.8, 0.8))
+  plot(温度 ~ 电阻, data=d, ylab="t/°C", xlab="R/kΩ", cex.lab=2, cex.axis=2, cex.main=2, cex.sub=2)
+#+end_src
+
+#+RESULTS:
+[[file:plot/thermister.pdf]]
+
+#+begin_export latex
+\includegraphics[height=4.5cm]{plot/thermister.pdf}
+\onslide<2>{\includegraphics[height=4.5cm]{plot/thermister-linear.pdf}}
+#+end_export
+
+#+begin_src R :session pd :file plot/thermister-linear.pdf :export results :results graphics file :width 7 :height 5 :family GB1 :exports none
+  par(mar = c(4.5, 4.5, 0.8, 0.8))
+  plot(1/(温度 + 273.15) ~ log(电阻), data=d, ylab="K/T", xlab="log(R/kΩ)", cex.lab=2, cex.axis=2, cex.sub=2)
+#+end_src
+
+#+RESULTS:
+[[file:plot/thermister-linear.pdf]]
+
+- 温度 \(t\) 与电阻 \(R\) 有对应关系
+
+#+beamer: \onslide<2>{
+- 变成直线 \( \displaystyle{t \to \frac{1}{t + \SI{273.15}{K}}}\) 简称为 \(y\)， \(\displaystyle{R \to \log \frac{R}{\si{\kilo\ohm}}} \) 简称为 \(x\)。
+#+beamer: }
+
+#+beamer: {\tiny Calibration and self-validation of thermistors for high-precision temperature measurements, Measurement Vol 76, 2015}
+
+*** 把非线性关系线性化
+#+attr_beamer: :overlay <+->
+- 在许多实际问题中，两个变量之间并不一定是线性关系，而是某种曲线关系，应该用曲线来拟合.
+- 可以进行适当的变量代换，把它线性化，这样就把一个非线性回归问题化为线性回归问题而得以解决.
+**** 步骤
+#+attr_beamer: :overlay <+->
+1. 根据样本数据，在直角坐标系中画出散点图
+2. 根据散点图，推测出\(Y\)与\(x\)之间的函数关系
+3. 选择适当的坐标变换，使之变成线性关系
+4. 用线性回归方法求出线性回归方程
+5. 返回到原来的函数关系，得到要求的回归方程
+
+*** R 求解回归方程
+#+begin_src R :session pd :results output :exports both
+  lm.therm = lm(1/(温度 + 273.15) ~ log(电阻), d)
+  summary(lm.therm)
+#+end_src
+
+#+RESULTS:
+#+begin_example
+
+Call:
+lm(formula = 1/(温度 + 273.15) ~ log(电阻), data = d)
+
+Residuals:
+       Min         1Q     Median         3Q        Max 
+-1.662e-04 -3.961e-05 -5.900e-07  3.852e-05  1.693e-04 
+
+Coefficients:
+             Estimate Std. Error t value Pr(>|t|)    
+(Intercept) 3.349e-03  2.571e-06 1302.50   <2e-16 ***
+log(电阻)   2.305e-04  3.387e-06   68.06   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 5.349e-05 on 438 degrees of freedom
+Multiple R-squared:  0.9136,	Adjusted R-squared:  0.9134 
+F-statistic:  4632 on 1 and 438 DF,  p-value: < 2.2e-16
+#+end_example
+*** 求解回归方程
+**** l                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:BEAMER_opt: t
+:END:
+
+#+begin_export latex
+\begin{equation*}
+  \left\{\begin{aligned}
+    \hat{a} = \num{3.353(3)e-3}\\
+    \hat{b} = \num{2.364(35)e-4}
+  \end{aligned}\right.
+\end{equation*}
+#+end_export
+
+\[ y = \hat{a} + \hat{b} x \]
+#+begin_src R :session pd :file plot/thermistor-lm.pdf :results graphics file :width 7 :height 5 :family GB1 :exports results
+  par(mar = c(4.5, 4.5, 0.8, 0.8))
+  plot(1/(温度 + 273.15) ~ log(电阻), d, ylab="K/T", xlab="log(R/kΩ)", cex.lab=2, cex.axis=2)
+  abline(lm.therm, col="blue", lwd=4)
+#+end_src
+
+#+Attr_LaTeX: :height 4.5cm
+#+RESULTS:
+[[file:plot/thermistor-lm.pdf]]
+
+*** \(t\) 检验
+检验假设 \( \displaystyle{H_0: b=0, H_1: b \neq 0}\)
+#+attr_beamer: :overlay <+->
+- \(\hat{b}\) 满足 \( \displaystyle{\hat{b} \sim N\left(b, \frac{\sigma^2}{L_{xx}}\right)} \) 其中\( \displaystyle{L_{xx} = \sum_{i=1}^n(x_i - \overline{x})^2 = \sum_{i=1}^n x_i^2 - n \overline{x}} \)
+- 因此如果原假设成立，\(\hat{b}\sqrt{L_{xx}} / \sigma \sim N(0,1)\)，\(Q_e / \sigma^2 \sim \chi^2(n-2)\)
+  #+begin_export latex
+  \begin{equation*}
+    \frac{\hat{b}\sqrt{L_{xx}}/\sigma}{\sqrt{\frac{Q_e /\sigma^2}{n-2}}} =  \frac{\hat{b}\sqrt{L_{xx}}}{\sqrt{\frac{Q_e}{n-2}}} = t \sim t(n-2)
+  \end{equation*}
+  #+end_export
+- 选取拒绝域 \(\displaystyle{|t| \geq t_{\alpha/2}(n-2)}\) 进行 \(t\) 检验。
+
+**** 区间估计
+类似 \(\hat{b}\)， \(\hat{a}\) 以及 \(\hat{Y} = \hat{a} + \hat{b}x\) 都可经线性变换构造 \(t\) 分布统计量，进行区间估计。
+*** 热敏电阻的更精确模型
+**** l                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+#+Attr_LaTeX: :height 4.5cm
+#+RESULTS:
+[[file:plot/thermistor-lm.pdf]]
+**** r                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+\[ \frac{K}{T} = a + b \log \frac{R}{\si{\kilo\ohm}} \]
+\[ y = a + bx \]
+**** i                                                      :B_ignoreheading:
+:PROPERTIES:
+:BEAMER_env: ignoreheading
+:END:
+#+beamer: \pause
+- 加入更高阶项，可以描述更复杂的关系。
+
+\[ \frac{K}{T} = b_0 + b_1 \log \frac{R}{\si{\kilo\ohm}} + b_2 \left(\log \frac{R}{\si{\kilo\ohm}}\right)^2 + b_3 \left(\log \frac{R}{\si{\kilo\ohm}}\right)^3 \cdots \]
+
+- 如何确定高阶项的系数？
+*** 热敏电阻的多元线性回归
+\[ \alert{\frac{K}{T} = \num{3.326e-3} + \num{3.641e-3} \log \frac{R}{\si{\kilo\ohm}} \num{-3.624e-4} \left(\log \frac{R}{\si{\kilo\ohm}}\right)^3} \]
+
+#+beamer: {\scriptsize
+| 系数     | 值                       | 显著？ |
+|---------+-------------------------+-------|
+| \(b_0\) | \num{3.326(2)e-3}       |   是    |
+| \(b_1\) | \num{3.641(51)e-03}     |   是    |
+| \(b_2\) | \num{-1.112(50730)e-06} |   否    |
+| \(b_3\) | \num{-3.624(507)e-04}   |   是    |
+#+beamer: } \pause
+
+**** l                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.45
+:END:
+#+beamer: \vspace{-0.5cm} \visible<2->{
+#+attr_latex: :height 4.5cm
+[[file:plot/thermistor-lm-r1.pdf]]
+#+beamer: }
+**** r                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.55
+:END:
+- 红色线对应 Starnhart-Hart 公式。
+- 参数越多，拟合得越好，但模型越复杂。
+
+#+beamer: {\scriptsize Steinhart and Hart \textit{Calibration curves for thermistors}, 1968}
+
+#+begin_src R :session pd :results output verbatim :exports none
+  lm2.therm = lm(1/(温度 + 273.15)~poly(log(电阻),3), d)
+  summary(lm2.therm)
+#+end_src
+
+#+RESULTS:
+#+begin_example
+Call:
+lm(formula = 1/(温度 + 273.15) ~ poly(log(电阻), 3), data = d)
+
+Residuals:
+       Min         1Q     Median         3Q        Max 
+-1.632e-04 -3.549e-05 -2.918e-06  3.457e-05  1.548e-04 
+
+Coefficients:
+                      Estimate Std. Error  t value Pr(>|t|)    
+(Intercept)          3.326e-03  2.418e-06 1375.488  < 2e-16 ***
+poly(log(电阻), 3)1  3.641e-03  5.073e-05   71.767  < 2e-16 ***
+poly(log(电阻), 3)2 -1.112e-06  5.073e-05   -0.022    0.983    
+poly(log(电阻), 3)3 -3.624e-04  5.073e-05   -7.144 3.83e-12 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 5.073e-05 on 436 degrees of freedom
+Multiple R-squared:  0.9227,	Adjusted R-squared:  0.9221 
+F-statistic:  1734 on 3 and 436 DF,  p-value: < 2.2e-16
+#+end_example
+
+#+begin_src R :session pd :file plot/thermistor-lm-r1.pdf :results graphics file :width 5 :height 4 :family GB1 :exports none
+  par(mar = c(4.5, 4.5, 0.8, 0.8))
+  plot(1/(温度 + 273.15) ~ log(电阻), d, ylab="K/T", xlab="log(R/kΩ)", cex.lab=2, cex.axis=2)
+  abline(lm.therm, col="blue", lwd=4)
+  red = sort(d$电阻)
+  lines(log(red), predict(lm2.therm, data.frame(电阻=red)), col="red", lwd=4)
+#+end_src
+
+#+RESULTS:
+[[file:plot/thermistor-lm-r1.pdf]]
+
+#+begin_src R :session pd :results output :exports none
+    summary(aov(lm2.therm))
+    AIC(lm.therm, lm2.therm)
+#+end_src
+
+#+RESULTS:
+:                     Df    Sum Sq   Mean Sq F value Pr(>F)    
+: poly(log(电阻), 3)   3 1.338e-05 4.462e-06    1734 <2e-16 ***
+: Residuals          436 1.122e-06 3.000e-09                   
+: ---
+: Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+:           df       AIC
+: lm.therm   3 -7402.999
+: lm2.therm  5 -7447.706
+
+*** 例子：辐射热计量
+**** l                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.65
+:END:
+- 每次有放射性衰变，二氧化碲 \(\ce{TeO2}\) 晶体都会“发烧”升温，
+
+  \[ \ce{^{130}Te} \to \ce{^{130}Xe} + 2e^- + \underbrace{2\bar{\nu}_e}_{?} \]
+  
+- 通过给晶体“量体温”，确定中微子是否它自身的反粒子，以及中微子质量。
+**** r                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.35
+:END:
+#+attr_latex: :height 3cm
+[[./fig/detector.jpg]]
+
+#+beamer: \pause
+**** 中子嬗变掺杂锗热敏电阻的线性回归
+“体温计”为“中子嬗变掺杂（NTD）”的锗热敏电阻。由线性回归标定：
+  #+begin_export latex
+  \begin{equation*}
+    \sqrt{\frac{T_0}{\alert{T}}} = a + b \log \left(\frac{\alert{R}}{R_0}\right)
+  \end{equation*}
+  #+end_export
+
+  精度达到 \(\si{\micro K}\)，是一般热敏电阻的 1000 倍。
 ** 广义线性回归
+*** 线性回归
+1. 线性回归是检验相关性的重要数理统计方法。
+2. 最小二乘法是线性回归的解法，可看作线性空间的投影。
+   #+begin_export latex
+  \tdplotsetmaincoords{70}{200}
+  \begin{tikzpicture}[scale = 2.5,thick,tdplot_main_coords]
+  \coordinate (A1) at (0,0,0);
+  \coordinate (A2) at (2,0,0);
+  \coordinate (A3) at (2,2,0);
+  \coordinate (A4) at (0,2,0);
+
+  \coordinate (S) at (0.5,0.5,0);
+  \coordinate (E) at (0.5,3,1.5);
+  \coordinate (P) at (1.15,1.15,0);
+  \fill[fill=blue!20] (A1) -- (A2) -- (A3)  -- (A4) -- cycle;
+  \draw[black, -latex] (S) -- (E);
+  \draw[black!80, -latex] (S) -- (P);
+  \draw[black!50,dashed] (E) -- (P);
+  \node[above] at (E) {$\vec{Y}$};
+  \node[below] at (P) {$a \vec{X}_1 + b \vec{X}_2$};
+
+  \draw[red!70] (2,2.3,1.2) node[above] 
+   {$\vec{E} = \vec{Y} - (a \vec{X}_1 + b \vec{X}_2)$取极小} to [out=-90,in=180] ($0.5*($(E)+(P)$)$);
+
+   \draw[red!70] (2.3,2.3,0.4) node[above] 
+   {$\vec{X}_1$ 与 $\vec{X}_2$ 张成2维子空间} to [out=-90,in=90] ($(A3)+(-0.2,-0.2,0)$);
+  \end{tikzpicture}
+   #+end_export
+   #+beamer: \pause
+3. 假设残差来自正态总体，
+   \[ \epsilon_i = y_i - (a + bx_i) \sim N(0, \sigma^2) \]
+   线性回归的结果需要经过\(F\)或\(t\)假设检验，确认回归的显著性，才能完成科学解读。
+*** 推广：打破残差的正态分布假设
+残差不服从正态分布时，以线性模型解决问题 \to \alert{广义线性回归}。
+
+- 泊松回归：观测量是计数
+- 伽马回归：观测量是正实数
+- 逻辑回归：观测量是 \([0, 1]\) 区间内的实数
+- 二项回归：观测是是 \(0, 1 \cdots, N\) 的整数
+    
 *** 概念
 - 线性回归中，假设了残差服从正态分布
 - \(f(E[Y|X]) = b X\)
@@ -10399,51 +12214,44 @@ With four parameters I can fit an elephant, and with five I can make him wiggle 
 - 二项回归(生存回归, cloglog回归)
 - 伽马回归
 - Tweedie 回归
+
 *** 课堂任务
-    - 尝试对 =r10500.h5= 进行泊松回归
-    - 辅助文件 =geo.csv= , =pmtdata.csv=
-    #+NAME: fcfd86ca-faa7-4801-a8a2-61006de8c54a
-    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
-      PE = pd.read_hdf("lm-examples/r10500.h5", "PETruth")
-      PEs = PE.groupby(["EventID", "ChannelID"]).count().reset_index()
-      PMT = pd.read_csv("lm-examples/pmtdata.csv", header=0, delimiter=" ",
-                        names=["ChannelID", "type", "QE"])
-      # 不能种类的 PMT ，预期的信号计数是否一致
-      type_count = pd.merge(PEs, PMT)
-      y, X = patsy.dmatrices("PETime ~ type - 1", type_count)
-      pois_res = sm.GLM(y, X, sm.families.Poisson()).fit()
-    #+end_src
+- 尝试对 =r10500.h5= 进行泊松回归
+- 辅助文件 =geo.csv= , =pmtdata.csv=
 
-    #+RESULTS: fcfd86ca-faa7-4801-a8a2-61006de8c54a
+#+begin_src R :session pd :results output
+  library(rhdf5)
+  library(dplyr)
+  PEs <- h5read("lm-examples/r10500.h5", "PETruth")
+  PEs %>% group_by(EventID, ChannelID) %>% summarise(nPE=n()) -> nPE
+  PMT <- read.table("lm-examples/pmtdata.csv", col.names=c("ChannelID", "type", "QE"))
+  nPE %>% inner_join(PMT) -> d
+  lm0.d <- glm(nPE ~ type - 1, d, family = poisson())
+  summary(lm0.d)
+#+end_src
 
-*** 泊松回归拟合结果
-    #+NAME: dbd4abeb-6129-4213-9bad-b5a5f9387386
-    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
-      print(pois_res.summary())
-    #+end_src
+#+RESULTS:
+#+begin_example
+Call:
+glm(formula = nPE ~ type - 1, family = poisson(), data = d)
 
-    #+RESULTS: dbd4abeb-6129-4213-9bad-b5a5f9387386
-    #+begin_example
-                     Generalized Linear Model Regression Results                  
-    ==============================================================================
-    Dep. Variable:                 PETime   No. Observations:               549654
-    Model:                            GLM   Df Residuals:                   549650
-    Model Family:                 Poisson   Df Model:                            3
-    Link Function:                    Log   Scale:                          1.0000
-    Method:                          IRLS   Log-Likelihood:            -3.9571e+06
-    Date:                Wed, 03 Aug 2022   Deviance:                   5.7277e+06
-    Time:                        17:12:27   Pearson chi2:                 7.26e+06
-    No. Iterations:                     7   Pseudo R-squ. (CS):              1.000
-    Covariance Type:            nonrobust                                         
-    ====================================================================================
-                           coef    std err          z      P>|z|      [0.025      0.975]
-    ------------------------------------------------------------------------------------
-    type[HZC]            0.3697      0.002    197.609      0.000       0.366       0.373
-    type[Hamamatsu]      3.3682      0.001   5738.410      0.000       3.367       3.369
-    type[HighQENNVT]     3.3916      0.000   8503.298      0.000       3.391       3.392
-    type[NNVT]           3.2986      0.001   3460.998      0.000       3.297       3.300
-    ====================================================================================
-    #+end_example
+Coefficients:
+                Estimate Std. Error z value Pr(>|z|)    
+typeHamamatsu  3.3682078  0.0005870  5738.4   <2e-16 ***
+typeHighQENNVT 3.3916647  0.0003988  8504.3   <2e-16 ***
+typeHZC        0.3696733  0.0018707   197.6   <2e-16 ***
+typeNNVT       3.2986176  0.0009531  3461.0   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for poisson family taken to be 1)
+
+    Null deviance: 55350655  on 549674  degrees of freedom
+Residual deviance:  5729167  on 549670  degrees of freedom
+AIC: 7915838
+
+Number of Fisher Scoring iterations: 5
+#+end_example
 
 ** 总结
 *** 模型的选择
@@ -10455,17 +12263,363 @@ With four parameters I can fit an elephant, and with five I can make him wiggle 
    + 把连接函数从恒等替换为非线性函数
    + 几乎可以解决所有日常工作中的非线性问题，惊喜！
 
-** 无脑回归
-*** 可用 sklearn
-    - Debian
-      #+begin_src bash
-        apt install python3-sklearn-pandas
-      #+end_src
-    - macOS @ Gentoo
-      #+begin_src bash
-        pip3 install sklearn-pandas
-      #+end_src
+* 大作业与未来方向
+  :PROPERTIES:
+  :EXPORT_FILE_NAME: pf
+  :EXPORT_DATE: 2024-07-28 清华
+  :EXPORT_BEAMER_HEADER+: \author{续本达}
+  :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
+  :EXPORT_BEAMER_HEADER+: \setbeamertemplate{footline}[frame number]  
+  :EXPORT_BEAMER_THEME: Hannover
+  :EXPORT_BEAMER_FONT_THEME: professionalfonts
+  :END:
+** 复习与提示
+*** 广义线性回归
+1. 关系代数让回归分析变得极其直观，让我们专注于问题的本质
+2. 模型的选择极其重要，应当使用客观标准
+   + AIC 是最简单直接的客观标准
+   + 找到“最佳模型”的过程充满曲折，是实验“研究”的主体过程
+3. 广义线性回归，把误差分布从高斯替换为其它指数族分布
+   + 把连接函数从恒等替换为非线性函数
+   + 几乎可以解决所有日常工作中的非线性问题，惊喜！
+*** 数据时代的物理技能
+    [[./out/Data_Science_VD-migrate.pdf]]
+*** 概率是逻辑的扩展 -- Cox 定理
+    - Laplace: probability theory is nothing but common sense reduced to calculations.
+    - R. T. Cox, E. T. Jaynes，两位对统计学有重大贡献的物理学家
+    - Logical interpretation of probability
+      1. Divisibility and comparability -- The plausibility of a
+         proposition is a real number and is dependent on information
+         we have related to the proposition.
+      2. Common sense -- Plausibilities should vary sensibly with the
+         assessment of plausibilities in the model.
+      3. Consistency -- If the plausibility of a proposition can be
+         derived in many ways, all the results must be equal.
+    - 概率论的唯一性：
+      Any system for plausible reasoning that satisfies certain
+      qualitative requirements intended to ensure consistency with
+      classical deductive logic and correspondence with commonsense
+      reasoning is isomorphic to probability theory.
 
+      #+latex: {\scriptsize
+      参考：Van Horn, K.S., 2003. Constructing a logic of plausible
+      inference: a guide to Cox’s theorem. International Journal of
+      Approximate Reasoning 34, 3–24.
+      #+latex: }
+
+** 大作业安排
+*** 大作业安排
+**** l                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+***** 正向第一阶段
+[[file:./MC-predict.pdf]]
+
+- 2024-07-11 -- 2024-08-02
+
+- 模拟实验测量
+
+**** r                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+***** 逆向第二阶段
+
+[[file:./MC-reconstruction.pdf]]
+    
+- 2024-07-28 -- 2024-08-18
+- 分析数据
+- 测量模型参数
+- 黑盒分数按排名
+
+*** 实验测量的分析
+    - 输入 :: （模拟的）实验测量原始数据
+      + 如果不是模拟的，则无法评分
+      + 但是助教会尽可能把它做得和真的一样
+    - 输出 :: 物理对象的数学描述，实现 
+    - 采分 :: 与助教手中的模拟输入相比
+
+**** 第二阶段分组
+- 每队至多三人
+  - 单人队：大作业得分 $\times 1.03$
+  - 三人队：每人大作业得分 = 队伍得分 $\times 0.95$
+  - 不同队伍间请勿直接交换代码
+#+beamer: \pause
+- 如果大作业结果含有学术突破，总评保送 A+。
+*** 大作业的可复现性
+**** _复现_ 原则的要求                                       :B_exampleblock:
+     :PROPERTIES:
+     :BEAMER_env: exampleblock
+     :END:
+     
+大作的结果必须可复现，否则无效。
+
+**** 思路和要点
+- 将获得
+  #+beamer: {\scriptsize
+  https://git.tsinghua.edu.cn/physics-data/2024/project_2
+  #+beamer: }
+  之下的仓库一份，使用 GNU Make 构建整个分析流程，连同报告、程序整理到
+  仓库中。
+
+  + 注意小组分工中 Git 使用的规范
+  + 善于使用 Git =branch=, Gitlab =merge request= 等团队协作功能
+
+- 把流程系统化成输入、输出与过程三要素。
+  - 而向数据编程，data-driven programming
+- 系统表达输入数据、输出数据和中间结果的依赖关系，
+  + 成为“可执行的说明文档”
+** probe 大作业
+*** 具体说明
+#+beamer: {\scriptsize
+https://git.tsinghua.edu.cn/physics-data/projects/tpl_junoprobe
+#+beamer: }
+- 正在完善
+  + 大家可以开始 =clone= 大作业模板，再 =push= 到自己的仓库中。
+  + 后续如果模板有更新，通过 =git merge= 整合。
+*** 泊松点过程
+- 作业的目标是取得 JUNO 探测器泊松点过程的条件均值函数。
+
+*** likelihood-free inference
+- "likelihood-free inference" somewhat misleading
+- 从一个没有 likelihood 的模型中，提炼出 likelihood。
+** 泊松点过程
+*** 随机过程概念
+#+attr_beamer: :overlay <+->
+- 随机过程的研究对象是 *随时间演变的随机现象* 。
+- 不能用随机变量或多维随机变量来合理表达，而需要用一族无限多个随机变量来描述。
+#+latex: \begin{itembox}[l]{定义}
+随机过程是一族随机变量 \(\{X(t):t \in T\}\), 其中\(t\)是 *参数* ,\(T\)称为 *参数集* .
+#+latex: \end{itembox}
+
+#+attr_beamer: :overlay <+->
+- 一般地, \(t\) 表示时间。对于每一个\( t \in T\) ，\(X(t)\) 是一个随机变量，称\(X(t)\) 为时刻 \(t\) 时 *过程的状态* 。
+- \(X(t)\)所有可能取值的全体称为随机过程的 *状态空间* 。
+
+*** 样本函数
+#+latex: \begin{itembox}[l]{定义}
+对随机过程 \(\{X(t):t \in T\}\)  进行一次试验（即在 \(T\) 上进行一次全程观测），其结果是 \(t\) 的函数，记为 \(\{ x(t):t \in T\}\)，称为随机过程的一个 *样本函数* 。
+#+latex: \end{itembox}
+#+beamer: \pause
+随机过程观测获得样本函数，如同总体观测获得个体样本
+**** 符号化
+把随机过程 \(\{X(t),t \in T\}\) 写成
+\[\{X( \omega ,t): \omega  \in  \Omega ,t \in T\}\]
+的形式，其中\( \omega , \Omega \)分别是随机试验的 *样本点* 和 *样本空间* 。
+#+beamer: \pause
+- 固定一个时间 \(t_0\)，随机过程对应于一个随机变量 \(X(t_0)\)。
+  #+beamer: \pause
+- 固定 \( \omega _0 \in  \Omega \) 让 \(t\) 在 \(T\) 中变化， \(X( \omega _0,t)\)是定义 在 \(T\) 上的一个实函数，称之为对应于 \( \omega _0\) 的一个 *样本函数* 或者 *样本轨道* 。
+
+*** 图示
+#+Attr_LaTeX: :height 4cm
+[[./fig/stochastic-process.pdf]]
+\[ X( \omega ,t) \equiv \Omega \ni \omega \to X(t) \]
+#+beamer: \pause
+随机过程\(\{X( \omega ,t): \omega \in \Omega ,t \in T\}\)四种不同情况下的意义：
+| \(X( \omega ,t)\) | \(t\) 固定   | \(t\) 可变     |
+|---------------+----------+------------|
+| \(\omega\) 固定   | 确定值   | 样本函数   |
+| \(\omega\) 可变   | 随机变量 | *随机过程* |
+
+*** 分布函数族
+#+latex: \begin{itembox}[l]{定义}
+设随机过程 \(\{X(t):t \in T\}\)，对每一个固定的 \(t \in T\)，
+\[F_X (x,t)=P(X(t) \leq x), x \in  \mathbb{R} \]
+称为随机过程\(\{X(t):t \in T\}\)的一维分布函数，\(\{F_X(x,t):t \in T\}\)称为 *一维分布函数族* 。
+#+latex: \end{itembox}
+
+*** 随机过程的数字特征
+给定随机过程\(\{ X_\omega(t), \omega \in \Omega, t \in T\}\):
+
+- *均值函数* :: \( \mu _X (t)=\E_\omega[X_\omega(t)]\)
+- *均方值函数* :: \( \Psi _X^2(t)= \E_\omega[X_\omega^2 (t)]\)
+- *方差函数* :: \( \sigma _X^2(t)=\Var_X (t)=\E_\omega[X_\omega(t)− \mu _X (t)]^2\)
+- *标准差函数* :: \( \sigma _X(t)= \sqrt {\Var_X (t)}\)
+- *相关函数* :: \(R_X(s,t)=\E_\omega[X_\omega(s)X_\omega(t)] \)
+  \[ R_X(t,t) = \Psi^2_X(t) \]
+- *协方差函数* :: \( C_X(s,t)=\Cov[X(s),X(t)] \)
+  
+*** 例：独立增量过程
+#+latex: \begin{itembox}[l]{阿荼扫过的人数}
+设\(X(t)\)为截至\(t\)时刻，阿荼通过自动测温仪的累计总人数。
+#+latex: \end{itembox}
+#+beamer: \pause
+- 增量\(X(t_2 )−X(t_1 )\)表示在时间区间\((t_1,t_2]\)测量体温的人数。
+- 不相交的时间区间的增量是相互独立的。
+
+#+Attr_LaTeX: :height 4cm
+[[./fig/independent-increment.pdf]]
+
+*** 独立增量过程：定义
+#+latex: \begin{itembox}[l]{独立增量过程}
+设\(\{X(t),t \in T\}\)是一随机过程，若\( \forall t_1< \cdots <t_n (n \geq 2,t_i \in T)\) 诸增量
+\[ X(t_2 )−X(t_1 ), X(t_3 )−X(t_2 ),  \cdots , X(t_n)−X(t_{n−1} ) \]
+相互独立，则称\(\{ X(t),t \in T\}\)是一个 *独立增量过程* 。
+#+latex: \end{itembox}
+#+beamer: \pause
+**** 性质
+若 \(\{X(t):t \in T\}\) 是独立增量过程，且\(X(0)=0\)，则：
+1. \(X(t)\) 的有限维分布函数族可以由增量\(X(t)−X(s)(0 \leq s \leq t)\) 的分布所确定 
+2. 设 \(\Var_X (t)\) 已知，则 \(C_X(s,t)=\Var_X[\min(s,t)]\)
+
+*** 泊松过程案例特点
+- 随机点过程 :: 如“来到银行要求服务的顾客流”，“在一段时间内机器故障产生的故障流”等等。
+  #+beamer: \pause
+- 计数过程 :: \(N(t)\)表示在\([0,t]\)内随机点(事件)发生的数目，\(N(t)\)即为一计数过程。
+  如，阿荼测体温的例子中，\(X(t)\)表示截至\(t\)时刻累计测体温的人数。
+*** 泊松过程定义
+#+latex: \begin{itembox}[l]{泊松过程}
+计数过程 \(\{N(t),t \geq 0\}\)称为强度 \lambda ( \lambda >0)的 *时齐泊松过程* (homogeneous Poisson process)，若满足：
+
+1. \(N(0)=0\)
+   #+beamer: \pause
+2. \(\{N(t),t \geq 0\}\) 是\(时齐\)的\(独立增量过程\)
+   #+beamer: \pause
+3. 对任意\(t>0\)和充分小的\( \Delta t>0\),有
+   - \(P[N(t+ \Delta t)−N(t)=1]= \lambda  \Delta t+o( \Delta t)\)
+   - \(P[N(t+ \Delta t)−N(t) \geq 2]=o( \Delta t)\)
+   其中\(o( \Delta t)\)是\( \Delta t\)的无穷小，即\(\displaystyle{\lim_{ \Delta t \to 0}\frac{o( \Delta t)}{ \Delta t}=0} \)
+#+latex: \end{itembox}
+
+上述过程称为 *泊松过程* ，因为任意长度为\(t\)的区间中时间个数服从均值\( \lambda t\)的泊松分布。
+*** 定理
+#+latex: \begin{itembox}[l]{例}
+设 \(\{N(t):t \geq 0\}\)是一个强度为 \( \lambda \)的泊松过程，则 \(N(t)\) 的一维分布是参数为\( \lambda t\)的泊松分布,即对任意 \(t>0\)有
+\[ P[N(t)=k] = \frac{(\lambda t)^k}{k!} e^{-\lambda t}, k=0,1,2,\cdots \]
+#+latex: \end{itembox}
+#+beamer: \pause
+数字特征：
+#+begin_export latex
+\begin{equation*}
+  \begin{aligned}
+ \mu _N (t)=&  \lambda t \\
+\Var_N (t)= &  \lambda t \\
+C_N (s,t)= &  \lambda  \min(s,t)
+  \end{aligned}
+\end{equation*}
+#+end_export
+*** 二项分布视角
+#+attr_beamer: :overlay <+->
+- 将区间\([0,t]\)分为\(k\)份。
+- 当 \(k \to  \infty \) 时，根据定义有\(P[N(s+ \Delta t)−N(s) \geq 2]=o( \Delta t)\)，即任意一个区间内包含两个或者两个以上的事件概率趋于\(0\).
+- \(N(t)\)（以趋于\(1\)的概率）等于恰好含有一个事件的子区间的个数，服从二项分布\((k,p)\)  且 \(\displaystyle{p=\frac{ \lambda t}{k}+ o \left(\frac{t}{k}\right)}\)
+- \(N(t)\)服从参数为\((k,p)\) 的二项分布，均值函数
+  \[  \mu _N (t)=\lim_{k \to  \infty } kp=\lim_{k \to  \infty } k\left[\frac{ \lambda t}{k}+ o \left(\frac{t}{k}\right)\right]= \lambda t+ o (t) \]
+
+*** 指数分布视角
+#+attr_beamer: :overlay <+->
+- 将泊松过程第\(n\)个事件发生时刻记为 \(T_n\)。
+- 记\(W_n＝T_n−T_{n−1}\)为第\(n\)个事件的等待时间，特别地 \(W_1  =T_1\)。
+**** 泊松分布的指数间隔                                           :B_theorem:
+:PROPERTIES:
+:BEAMER_env: theorem
+:END:
+\(W_n (n=1,2, \cdots )\)独立地服从参数为\( \lambda \)的指数分布。
+
+#+attr_beamer: :overlay <+->
+- 考虑 事件 \(\{W_1>t\}\)，即区间\([0,t]\)中无事件，根据定义有
+  \[ P(W_1>t)=P(N(t)=0)=\frac{( \lambda t)^0}{0!} e^{− \lambda t} =e^{− \lambda t} \]
+- 由全概率公式，\(P(W_2>t)=\E_{T_1}[P(T_2>t|T_1)]\)
+  #+begin_export latex
+  \begin{equation*}
+    \begin{aligned}
+      P(W_2>t|T_1=s) = & P[(s,s+t]\text{中无事件}|T_1=s] \\
+      = & P[(s,s+t]\text{中无事件}] \text{（由独立增量）}
+      = & e^{− \lambda t}
+    \end{aligned}
+  \end{equation*}
+  #+end_export
+*** 逆命题成立
+**** 泊松过程判定                                                 :B_theorem:
+:PROPERTIES:
+:BEAMER_env: theorem
+:END:
+给定参数为\( \lambda \)的独立同分布指数随机变量列\(\{W_n\}\)。称第\(n\)个事件在时间 \(T_n=W_1+W_2+ \cdots +W_n\) 发生\((S_0=0)\)，得到
+\[N(t)=\max(n|T_n \leq t),t \geq 0\]
+是强度为\( \lambda \)的时齐泊松过程。
+*** 例：泊松过程的二维分布
+#+latex: \begin{itembox}[l]{例}
+设\(\{N(t),t \geq 0\}\)是一个强度为\( \lambda \)的泊松过程，求\(N(t)\)的二维分布。
+#+latex: \end{itembox}
+#+beamer: \pause
+对任意 \(t \geq s > 0\)，
+#+begin_export latex
+\begin{equation*}
+  \begin{aligned}
+    & P[N(s)=i, N(t)=j] \\
+    = & P[N(s)=i, N(t) - N(s) = j-i] \\
+    = & P[N(s)=i] P[N(t) - N(s) = j-i] \text{：独立增量性}\\
+    = & P[N(s)=i] P[N(t-s) = j-i] \\
+    = & \frac{(\lambda s)^i}{i!} e^{-\lambda s} \frac{[\lambda(t-s)]^{j-i}}{(j-i)!} e^{-\lambda(t-s)}
+  \end{aligned}
+\end{equation*}
+#+end_export
+*** 非齐次泊松过程
+从常数的增量，拓展为任意非负函数的增量。
+
+#+begin_export latex
+\begin{equation*}
+  \begin{aligned}
+    \mu_N(t) & = \lambda t = \int_0^t \lambda \mathrm{d} s \\
+    \to \mu_N(t) & \int_0^t R(s) \mathrm{d} s
+  \end{aligned}
+\end{equation*}
+#+end_export
+
+- 方差函数等于均值函数。
+\[ \Var_N(t) = \mu_N(t) \]
+
+** probe 历史经验
+*** Probe 的回顾
+- 理念（张爱强）：使用 Poisson 点过程，统一探测器的时间和能量响应
+**** 流派
+- 套用既有轮子的 Poisson 回归（王宇逸）
+  + 优点：易于理解
+  + 缺点：算不出来
+- 函数基拟合（续本达）
+  + 种类：指数型（窦威）、平方型（武益阳）、混合型（刘学伟）、棍子状（徐闯）
+  + 拟合方法：Markov Chain Monte Carlo（续本达）、凸优化（武益阳）
+  + 优点：自由参数个数可控
+  + 缺点：有正交多项式的 Gibbs 波动残留，效果不够理想
+  + 参考：https://gitlab.airelinux.org/tjjk/proposal/-/tree/master/probe
+- 直方图（窦威）
+  + 优点：最有效的模型，还原度高
+  + 缺点：自由参数过多，刻度困难
+  + 参考：https://gitlab.airelinux.org/douwei/thesis
+*** 流派（二）
+- 手调反射（窦威）
+  + 优点：符合物理世界，模型精准
+  + 缺点：手扶拖拉机，探测器变了得重调，不调会翻车
+  + 参考：https://gitlab.airelinux.org/douwei/thesis
+- 光（武益阳）
+  + 优点：对物理更深入一层，以光为单元建模，与发光曲线解耦
+  + 缺点：做不出来，呈现出半个手扶拖拉机
+  + 参考：https://gitlab.airelinux.org/wuyy/bachelorthesis
+    - https://gitlab.airelinux.org/tjjk/proposal/-/tree/master/light_probe
+- Normalized flow（武益阳）
+  + 优点：上深度神经网络，理论上能拟合一切函数
+  + 缺点：实际上啥也没拟合出来
+  + 参考：没找到，在哪里？
+*** 流派（三）
+- 光线（续本达）
+  + 优点：自然产生平方反比
+  + 缺点：没人做，不知道行不行
+  + 参考：http://dpcraid.g.airelinux.org/meetings/TJJK/20220521-%E5%85%89probe.mp4
+- 模拟退火（续本达）
+  + 优点：不必显式写出 likelihood 函数，用模拟代替
+  + 缺点：没人做，不知道行不行
+  + 参考：https://dpcg.g.airelinux.org/user/xubd/lab/workspaces/auto-i/tree/annealing.ipynb
+
+** 机器学习
+*** 可用 sklearn
+- Debian
+  #+begin_src bash
+    apt install python3-sklearn-pandas
+  #+end_src
+
+- 下面的算法可以理解为无解析形式的函数逼近。
 *** 支持向量机
     #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
       ### SVM regression
@@ -10495,116 +12649,41 @@ With four parameters I can fit an elephant, and with five I can make him wiggle 
       regr.predict(X_test[:2])
       regr.score(X_test, y_test)
     #+end_src
-* 大作业与未来方向
-  :PROPERTIES:
-  :EXPORT_FILE_NAME: pf
-  :EXPORT_DATE: 2023-08-03 清华
-  :EXPORT_BEAMER_HEADER+: \author{续本达}
-  :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
-  :EXPORT_BEAMER_HEADER+: \setbeamertemplate{footline}[frame number]  
-  :EXPORT_BEAMER_THEME: Hannover
-  :EXPORT_BEAMER_FONT_THEME: professionalfonts
-  :END:
-** 复习
-*** 广义线性回归
-1. 关系代数让回归分析变得极其直观，让我们专注于问题的本质
-2. 模型的选择极其重要，应当使用客观标准
-   + AIC 是最简单直接的客观标准
-   + 找到“最佳模型”的过程充满曲折，是实验“研究”的主体过程
-3. 广义线性回归，把误差分布从高斯替换为其它指数族分布
-   + 把连接函数从恒等替换为非线性函数
-   + 几乎可以解决所有日常工作中的非线性问题，惊喜！
-** 大作业
-*** 大作业安排
-**** l                                                                :BMCOL:
-:PROPERTIES:
-:BEAMER_col: 0.5
-:END:
-***** 正向第一阶段
-[[file:./MC-predict.pdf]]
 
-- 2023-07-21 -- 2023-08-10
-- 模拟实验测量
+** 可微编程
+*** 可微编程
+把程序的函数看成数学函数，让函数输出的返回值相对于输入参数可微。
 
-**** r                                                                :BMCOL:
-:PROPERTIES:
-:BEAMER_col: 0.5
-:END:
-***** 逆向第二阶段
+#+begin_export latex
+\begin{equation*}
+  y = f(x) \to \dfrac{\mathrm{d} f}{\mathrm{d} x}
+\end{equation*}
+#+end_export
 
-[[file:./MC-reconstruction.pdf]]
-    
-- 2023-08-03 -- 2023-08-24
-- 分析实验数据
-- 测量物理模型参数
-- 发现物理规律
-- 黑盒分数按排名
-  + 在不同大作业之间归一化
+自动进行解析微分。
 
-*** 实验测量的分析
-    - 输入 :: （模拟的）实验测量原始数据
-      + 如果不是模拟的，则无法评分
-      + 但是助教会尽可能把它做得和真的一样
-    - 输出 :: 物理对象的信息
-    - 采分 :: 与助教手中的模拟输入相比
+- PyTorch
+  #+begin_src bash
+apt install python3-torch
+  #+end_src
+  + CPU 版本，GPU 版本在 WSL 之内不容易安装，建议申请科协服务器账号。
+** 概率编程
+*** 概率编程
+#+begin_export latex
+\begin{equation*}
+  y = f(x) \to Y=F(X)
+\end{equation*}
+#+end_export
+把普通函数关系，自动换成随机变量之间的函数关系。
 
-**** 第二阶段分组
-- 同学们先联络好，组队信息在网络学堂提交
-  + 到 https://physics-data.meow.plus 注册账号，一并提交
-  + 可能需要重新组队
-- 每队至多三人
-  - 单人队：大作业得分 $\times 1.03$
-  - 三人队：每人大作业得分 = 队伍得分 $\times 0.95$
-  - 不同队伍间请勿直接交换代码
-#+beamer: \pause
-- 如果大作业结果含有学术突破，总评保送 A+。
-*** https://physics-data.meow.plus 的使用
-1. 注册账号：注意邮箱的“垃圾箱”等，如果收到不到注册邮件尝试更换邮箱
-   + 遇到困难开 issue 提问
+**** 自动推理机
+  + 利用第一阶段大作业成果，直接生成第二阶段大作业的解答程序
+  + 语言为 Anglican ，为 Clojure 语言的一种
+  + Clojure 语言是 Scheme 语言在 Java 平台上的实现
 
-2. 找到大作业的位置
-
-   注意平台上还有很多其它的作业，不要走错了
-   
-   - https://physics-data.meow.plus/challenges/pd2023-gamma
-   - https://physics-data.meow.plus/challenges/pd2023-muon
-   - https://physics-data.meow.plus/challenges/pd2023-spectroscopy
-
-3. 前往 "submissions" 选项卡，点击 "CREATE SUBMISSION"
-
-   - 上传你的解答文件。
-
-*** 大作业的可复现性
-**** _复现_ 原则的要求                                       :B_exampleblock:
-     :PROPERTIES:
-     :BEAMER_env: exampleblock
-     :END:
-     
-提交到 https://physics-data.meow.plus 的结果必须可复现，否则无效。
-
-**** 思路和要点
-- 组队完成后，将获得
-  
-  https://git.tsinghua.edu.cn/physics-data/2023/project_2
-
-  之下的仓库一份，使用 GNU Make 构建整个分析流程，连同报告、程序整理到
-  仓库中。
-
-  + 注意小组分工中 Git 使用的规范
-  + 善于使用 Git =branch=, Gitlab =merge request= 等团队协作功能
-
-- 把流程系统化成输入、输出与过程三要素。
-  - 而向数据编程，data-driven programming
-- 系统表达输入数据、输出数据和中间结果的依赖关系，
-  + 成为“可执行的说明文档”
-*** 具体说明
-- gamma :: 刘学伟
-  - 粒子物理方向：台山中微子实验的成像原理探索
-  - Ghost Hunter 2023 课赛结合
-- muontagging :: 刘明昊
-  - 宇宙射线缪子的测量与屏蔽
-- spectroscopy :: 吴致颉
-
+** SQL
+*** duckdb
+- 效率非常高的 SQL 数据分析引擎，可与 dbplyr 联动。
 ** 总复习
 *** 黑客技能
 **** 科学数据处理的原则                                        :B_alertblock:
@@ -10693,79 +12772,10 @@ With four parameters I can fit an elephant, and with five I can make him wiggle 
       bsub -q normal"${DEP}" -J ${MAKE_TARGET} -o ${MAKE_TARGET}.log ${MAKE_TARGET}.sh
     #+end_src
 
-** 讲义
-*** 建设状况
-    - https://git.tsinghua.edu.cn/physics-data/lecture
-**** c                                                                :BMCOL:
-     :PROPERTIES:
-     :BEAMER_col: 0.55
-     :END:
-    #+begin_src bash :results output
-head -q -n1 lecture/l*.org
-    #+end_src  
-
-    #+RESULTS:
-    #+begin_example
-    ,#+TITLE: 第一讲 实验物理的大数据方法总论 DONE
-    ,#+TITLE: 第二讲 Python基础 DONE
-    ,#+TITLE: 第三讲 复合类型与函数 DONE
-    ,#+TITLE: 第四讲 Python 模块 DONE
-    ,#+TITLE: 第五讲 数组 DONE
-    ,#+Title: 第六讲 数据格式 DONE
-    ,#+Title: 第七讲 数据绘图 TODO
-    ,#+Title: 第八讲 蒙特卡罗方法与大作业 TODO
-    ,#+Title: 第九讲 GNU 命令行 TODO
-    ,#+Title: 第十讲 GNU Make 数据生产线 TODO
-    ,#+Title: 第十一讲 正则表达式 TODO
-    ,#+Title: 第十二讲 bash 脚本 TODO
-    ,#+Title: 第十三讲 关系代数 TODO
-    ,#+Title: 第十四讲 DataFrame 表格数据结构 TODO
-    ,#+Title: 第十五讲 关系代数与回归分析 TODO
-    ,#+Title: 第十六讲 现实案例与未来方向 TODO
-    #+end_example
-**** e                                                                :BMCOL:
-     :PROPERTIES:
-     :BEAMER_col: 0.45
-     :END:
-     - 给讲义仓库提 issue 和 merge request ，可获得伍至捌分。
-     - 一次原则的应用：把讲议与课件写到一起
-       + 把课堂口述内容通过 speech-to-text 引擎合成文字
 ** 下一步学习
-*** 数据时代的物理技能
-    [[./out/Data_Science_VD-migrate.pdf]]
-*** 概率是逻辑的扩展 -- Cox 定理
-    - Laplace: probability theory is nothing but common sense reduced to calculations.
-    - R. T. Cox, E. T. Jaynes，两位对统计学有重大贡献的物理学家
-    - Logical interpretation of probability
-      1. Divisibility and comparability -- The plausibility of a
-         proposition is a real number and is dependent on information
-         we have related to the proposition.
-      2. Common sense -- Plausibilities should vary sensibly with the
-         assessment of plausibilities in the model.
-      3. Consistency -- If the plausibility of a proposition can be
-         derived in many ways, all the results must be equal.
-    - 概率论的唯一性：
-      Any system for plausible reasoning that satisfies certain
-      qualitative requirements intended to ensure consistency with
-      classical deductive logic and correspondence with commonsense
-      reasoning is isomorphic to probability theory.
-
-      #+latex: {\scriptsize
-      参考：Van Horn, K.S., 2003. Constructing a logic of plausible
-      inference: a guide to Cox’s theorem. International Journal of
-      Approximate Reasoning 34, 3–24.
-      #+latex: }
-
 *** 以本课程为起点
-    - 函数式编程：一切都是函数
-      - 无状态，从而容易从错误中恢复
-    - MapReduce：分布式大数据系统的开始
-      - 在之上建立了关系代数：
-      - Apache Hive，SparkQL，etc.
-    - 机器学习：与回归分析有同样的程序接口
-      - 算法上更一般，需要更多的“调参”
 **** 竞赛
-    - gamma 大作业 \to Ghost Hunter 2023 中微子数据分析排位赛
+    - probe 大作业 \to Ghost Hunter 2024 中微子数据分析排位赛
       - 概率统计分析及量测技术课赛结合
         
 *** 技术问题：TUNA 协会
@@ -10773,10 +12783,6 @@ head -q -n1 lecture/l*.org
     - TUNA 主页 https://tuna.moe/
     - TUNA 技术群，黑客（广义）技术问题探讨
     - 为课程提供了
-      + Gentoo 的镜像支持
-
-        https://mirrors.tuna.tsinghua.edu.cn/gentoo/
-
       + Debian 的镜像支持
 
         https://mirrors.tuna.tsinghua.edu.cn/debian/
@@ -10791,12 +12797,9 @@ head -q -n1 lecture/l*.org
 #+beamer: \pause
 
 - Google Summer of Code：Google
-  + Gentoo、Debian 操作系统相关项目
+  + Debian、Gentoo 操作系统相关项目
 - 开源之夏活动：中科院软件所、华为、TUNA
-  + Gentoo、Debian 操作系统相关项目
-
-#+beamer: \pause
-- 脱去资本枷锁，为人类数字化的自由而战(bs，有点中二
+  + Debian、Gentoo 操作系统相关项目
 
 *** SRT 与大创：Scheme
 如果你认同实验物理与形式逻辑是文明的两大支柱，并喜欢课程的内容，可以考虑与我继续探索：
@@ -10806,18 +12809,13 @@ head -q -n1 lecture/l*.org
   + Structure and Interpretation of Classical Mechanics, MIT 本科课程
   + 分析力学完成后，计划拓展至量子力学和电动力学
 
-#+beamer: \pause
-- 自动推理机：
-  + 利用第一阶段大作业成果，直接生成第二阶段大作业的解答程序
-  + 语言为 Anglican ，为 Clojure 语言的一种
-  + Clojure 语言是 Scheme 语言在 Java 平台上的实现
-
 *** 致谢
     #+attr_beamer: :overlay <+->
-    - 顾问 :: 杨鲁懿教授、高飞教授、陈晟祺、陈嘉杰
-    - 助教 ::
-      王宇逸、刘晓义、刘学伟、刘明昊、盘笛、徐闯、陶嘉燊、孙迅、吴致颉、刘逸祺
-    - 小助教 :: 李卓航、温欣洋、胡楚坤、陈诗洋、许威、徐一恺、胡宇阳、卢一鸣、宋明卓
-    - 科协 :: 物理系科协环境配置培训，担任助教；工物系科协提供算力支持；
-      计算系科协提供 saiblo 平台，第二阶段大作业平台，担任助教。
-    - 克服困难上课的同学们 :: 谢谢！
+    - 顾问 :: 陈晟祺、陈嘉杰
+    - 助教 :: 武益阳、王宇逸、陶嘉燊、徐闯、郝传晖、刘逸祺
+    - 小助教 ::
+      何宇峰、刘骥安、吕先艨、张珺铫、张贺、杨哲涵、王驰、程幸、胡淏崴、胡磊、陈威、黄一浩
+    - 科协 :: 物理系科协、工物系科协；
+      + 提供算力支持
+      + 环境配置培训
+    - 积极对课程贡献的同学们 :: 谢谢！
