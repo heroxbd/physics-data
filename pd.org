@@ -10670,23 +10670,30 @@ help(numeric)
 
 *** GroupBy
 #+begin_src R :session pd 
-  AxB %>% group_by(name.x) %>% summarise(n=n())
+  AxB |> group_by(name.x) |> summarise(n=n())
 #+end_src
 
 #+RESULTS:
 | Li   | 2 |
 | Wang | 2 |
 
-=%>%= 起源于 =magrittr= 库，它把右侧函数的第一个参数写到左侧。所以上面命令的等价于
+=|>= 它把右侧函数的第一个参数写到左侧。所以上面命令的等价于
 #+begin_src R :session pd
   summarise(group_by(AxB, name.x),n=n())
 #+end_src
 
-使用 =%>%= 的语句更容易阅读，其表达力类似于 =bash= 中的管道（pipe，"|"） 。
+使用 =|>= 的语句更容易阅读，其表达力类似于 =bash= 中的管道（pipe，"|"） 。
+
+#+begin_src R :session pd :results output
+  quote(AxB |> group_by(name.x) |> summarise(n=n()))
+#+end_src
+
+#+RESULTS:
+: summarise(group_by(AxB, name.x), n = n())
 
 *** GroupBy 两列
 #+begin_src R :session pd 
-  AxB %>% group_by(name.x, ID.x) %>% summarise(n=n())
+  AxB |> group_by(name.x, ID.x) |> summarise(n=n())
 #+end_src
 
 #+RESULTS:
@@ -10746,8 +10753,8 @@ help(numeric)
 
 *** 统计男女比例
 #+begin_src R :session pd
-  merge(students, classes) %>%
-  group_by(性别, 院系) %>%
+  merge(students, classes) |>
+  group_by(性别, 院系) |>
   summarise(人数=n())
 #+end_src
 
@@ -10857,9 +10864,9 @@ print(p)
 
 *** 统计班级平均分
 #+begin_src R :session pd :file plot/score-class.pdf :results graphics file :width 12 :height 5 :family GB1
-  merge(students, longscores) %>%
-    group_by(班级, variable) %>%
-    summarise(平均分=mean(value)) %>%
+  merge(students, longscores) |>
+    group_by(班级, variable) |>
+    summarise(平均分=mean(value)) |>
     ggplot(aes(x=variable, y=平均分, color=班级)) +
     geom_point() + facet_wrap(~班级)
 #+end_src
@@ -10880,9 +10887,9 @@ print(p)
 
 *** 统计班级平均分
 #+begin_src R :session pd :file plot/scores.pdf :results graphics file :width 12 :height 5 :family GB1
-  merge(students, longscores) %>%
-    group_by(班级, variable) %>%
-    reframe(平均分=mean(value), 班类=班类) %>% 
+  merge(students, longscores) |>
+    group_by(班级, variable) |>
+    reframe(平均分=mean(value), 班类=班类) |> 
     ggplot(aes(x=variable, y=平均分, color=班级)) +
     geom_point() + facet_wrap(~班类)
 #+end_src
@@ -10906,7 +10913,7 @@ print(p)
   con <- DBI::dbConnect(RSQLite::SQLite(), dbname = "dataframe-practice/people.db")
   classes <- tbl(con, "classes")
 
-  classes %>% filter(院系=='物理')
+  classes |> filter(院系=='物理')
 #+end_src
 
 #+RESULTS:
@@ -10917,7 +10924,7 @@ print(p)
 
 *** 查看 SQL 语句
 #+begin_src R :session dbplyr :results output
-sql_render(classes %>% filter(院系=='物理'))
+sql_render(classes |> filter(院系=='物理'))
 #+end_src
 
 #+RESULTS:
@@ -10966,8 +10973,8 @@ HDF5 是工业标准，可在多种语言直接读取，例如 C、Fortran、Pyt
 **** dplyr 与 dbplyr
 - 关系代数的基本操作对应到命令
   #+begin_src R
-    students %>% inner_join(longscores) %>%
-      group_by(班级, 作业) %>% summarise(平均分=mean(分数))
+    students |> inner_join(longscores) |>
+      group_by(班级, 作业) |> summarise(平均分=mean(分数))
   #+end_src
 *** 关系代数工具组
 **** g                                                                :BMCOL:
@@ -11946,7 +11953,7 @@ F-statistic: 743.2 on 2 and 13 DF,  p-value: 3.954e-14
   library(dplyr)
   showtext.auto()
   d0 = read.table("thermister.csv", col.names=c("温度0", "电阻0"))
-  d = d0 %>% rowwise() %>% reframe(温度=rnorm(10, 温度0, 2), 电阻=exp(rnorm(10, log(电阻0), 0.2)))
+  d = d0 |> rowwise() |> reframe(温度=rnorm(10, 温度0, 2), 电阻=exp(rnorm(10, log(电阻0), 0.2)))
   d$温度 = d$温度
 #+end_src
 
@@ -12253,9 +12260,9 @@ F-statistic:  1734 on 3 and 436 DF,  p-value: < 2.2e-16
   library(rhdf5)
   library(dplyr)
   PEs <- h5read("lm-examples/r10500.h5", "PETruth")
-  PEs %>% group_by(EventID, ChannelID) %>% summarise(nPE=n()) -> nPE
+  PEs |> group_by(EventID, ChannelID) |> summarise(nPE=n()) -> nPE
   PMT <- read.table("lm-examples/pmtdata.csv", col.names=c("ChannelID", "type", "QE"))
-  nPE %>% inner_join(PMT) -> d
+  nPE |> inner_join(PMT) -> d
   lm0.d <- glm(nPE ~ type - 1, d, family = poisson())
   summary(lm0.d)
 #+end_src
