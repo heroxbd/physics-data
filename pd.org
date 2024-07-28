@@ -10677,6 +10677,13 @@ help(numeric)
 | Li   | 2 |
 | Wang | 2 |
 
+=%>%= 起源于 =magrittr= 库，它把右侧函数的第一个参数写到左侧。所以上面命令的等价于
+#+begin_src R :session pd
+  summarise(group_by(AxB, name.x),n=n())
+#+end_src
+
+使用 =%>%= 的语句更容易阅读，其表达力类似于 =bash= 中的管道（pipe，"|"） 。
+
 *** GroupBy 两列
 #+begin_src R :session pd 
   AxB %>% group_by(name.x, ID.x) %>% summarise(n=n())
