@@ -5373,7 +5373,7 @@ PMT 的
 
 [[file:./MC-reconstruction.pdf]]
     
-- 2024-07-28 -- 2024-08-17
+- 2024-07-28 -- 2024-08-18
 - 分析数据
 - 测量模型参数
 - 黑盒分数按排名
@@ -12281,6 +12281,82 @@ Number of Fisher Scoring iterations: 5
 3. 广义线性回归，把误差分布从高斯替换为其它指数族分布
    + 把连接函数从恒等替换为非线性函数
    + 几乎可以解决所有日常工作中的非线性问题，惊喜！
+** 大作业安排
+*** 大作业安排
+**** l                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+***** 正向第一阶段
+[[file:./MC-predict.pdf]]
+
+- 2024-07-11 -- 2024-08-02
+
+- 模拟实验测量
+
+**** r                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+***** 逆向第二阶段
+
+[[file:./MC-reconstruction.pdf]]
+    
+- 2024-07-28 -- 2024-08-18
+- 分析数据
+- 测量模型参数
+- 黑盒分数按排名
+
+*** 实验测量的分析
+    - 输入 :: （模拟的）实验测量原始数据
+      + 如果不是模拟的，则无法评分
+      + 但是助教会尽可能把它做得和真的一样
+    - 输出 :: 物理对象的数学描述，实现 
+    - 采分 :: 与助教手中的模拟输入相比
+
+**** 第二阶段分组
+- 每队至多三人
+  - 单人队：大作业得分 $\times 1.03$
+  - 三人队：每人大作业得分 = 队伍得分 $\times 0.95$
+  - 不同队伍间请勿直接交换代码
+#+beamer: \pause
+- 如果大作业结果含有学术突破，总评保送 A+。
+*** 大作业的可复现性
+**** _复现_ 原则的要求                                       :B_exampleblock:
+     :PROPERTIES:
+     :BEAMER_env: exampleblock
+     :END:
+     
+大作的结果必须可复现，否则无效。
+
+**** 思路和要点
+- 将获得
+  
+  https://git.tsinghua.edu.cn/physics-data/2024/project_2
+
+  之下的仓库一份，使用 GNU Make 构建整个分析流程，连同报告、程序整理到
+  仓库中。
+
+  + 注意小组分工中 Git 使用的规范
+  + 善于使用 Git =branch=, Gitlab =merge request= 等团队协作功能
+
+- 把流程系统化成输入、输出与过程三要素。
+  - 而向数据编程，data-driven programming
+- 系统表达输入数据、输出数据和中间结果的依赖关系，
+  + 成为“可执行的说明文档”
+** probe 大作业
+*** 具体说明
+https://git.tsinghua.edu.cn/physics-data/projects/tpl_junoprobe
+
+- 正在完善
+  + 大家可以开始 =clone= 大作业模板，再 =push= 到自己的仓库中。
+  + 后续如果模板有更新，通过 =git merge= 整合。
+*** 泊松点过程
+- 作业的目标是取得 JUNO 探测器泊松点过程的条件均值函数。
+
+*** likelihood-free inference
+- somewhat misleading
+- 从一个没有 likelihood 的模型中，提炼出 likelihood。
 ** 无脑回归
 *** 可用 sklearn
     - Debian
@@ -12318,96 +12394,29 @@ Number of Fisher Scoring iterations: 5
       regr.score(X_test, y_test)
     #+end_src
 
-** 大作业
-*** 大作业安排
-**** l                                                                :BMCOL:
-:PROPERTIES:
-:BEAMER_col: 0.5
-:END:
-***** 正向第一阶段
-[[file:./MC-predict.pdf]]
+** 可微编程
+*** 可微编程
+把程序的函数看成数学函数，让函数输出的返回值相对于输入参数可微。
 
-- 2023-07-21 -- 2023-08-10
-- 模拟实验测量
+#+begin_export latex
+\begin{equation*}
+  y = f(x) \to \dfrac{\mathrm{d} f}{\mathrm{d} x}
+\end{equation*}
+#+end_export
 
-**** r                                                                :BMCOL:
-:PROPERTIES:
-:BEAMER_col: 0.5
-:END:
-***** 逆向第二阶段
+自动进行解析微分。
 
-[[file:./MC-reconstruction.pdf]]
-    
-- 2023-08-03 -- 2023-08-24
-- 分析实验数据
-- 测量物理模型参数
-- 发现物理规律
-- 黑盒分数按排名
-  + 在不同大作业之间归一化
+** 概率编程
+*** 概率编程
+#+begin_export latex
+\begin{equation*}
+  y = f(x) \to Y=F(X)
+\end{equation*}
+#+end_export
+把普通函数关系，自动换成随机变量之间的函数关系。
 
-*** 实验测量的分析
-    - 输入 :: （模拟的）实验测量原始数据
-      + 如果不是模拟的，则无法评分
-      + 但是助教会尽可能把它做得和真的一样
-    - 输出 :: 物理对象的信息
-    - 采分 :: 与助教手中的模拟输入相比
-
-**** 第二阶段分组
-- 同学们先联络好，组队信息在网络学堂提交
-  + 到 https://physics-data.meow.plus 注册账号，一并提交
-  + 可能需要重新组队
-- 每队至多三人
-  - 单人队：大作业得分 $\times 1.03$
-  - 三人队：每人大作业得分 = 队伍得分 $\times 0.95$
-  - 不同队伍间请勿直接交换代码
-#+beamer: \pause
-- 如果大作业结果含有学术突破，总评保送 A+。
-*** https://physics-data.meow.plus 的使用
-1. 注册账号：注意邮箱的“垃圾箱”等，如果收到不到注册邮件尝试更换邮箱
-   + 遇到困难开 issue 提问
-
-2. 找到大作业的位置
-
-   注意平台上还有很多其它的作业，不要走错了
-   
-   - https://physics-data.meow.plus/challenges/pd2023-gamma
-   - https://physics-data.meow.plus/challenges/pd2023-muon
-   - https://physics-data.meow.plus/challenges/pd2023-spectroscopy
-
-3. 前往 "submissions" 选项卡，点击 "CREATE SUBMISSION"
-
-   - 上传你的解答文件。
-
-*** 大作业的可复现性
-**** _复现_ 原则的要求                                       :B_exampleblock:
-     :PROPERTIES:
-     :BEAMER_env: exampleblock
-     :END:
-     
-提交到 https://physics-data.meow.plus 的结果必须可复现，否则无效。
-
-**** 思路和要点
-- 组队完成后，将获得
-  
-  https://git.tsinghua.edu.cn/physics-data/2023/project_2
-
-  之下的仓库一份，使用 GNU Make 构建整个分析流程，连同报告、程序整理到
-  仓库中。
-
-  + 注意小组分工中 Git 使用的规范
-  + 善于使用 Git =branch=, Gitlab =merge request= 等团队协作功能
-
-- 把流程系统化成输入、输出与过程三要素。
-  - 而向数据编程，data-driven programming
-- 系统表达输入数据、输出数据和中间结果的依赖关系，
-  + 成为“可执行的说明文档”
-*** 具体说明
-- gamma :: 刘学伟
-  - 粒子物理方向：台山中微子实验的成像原理探索
-  - Ghost Hunter 2023 课赛结合
-- muontagging :: 刘明昊
-  - 宇宙射线缪子的测量与屏蔽
-- spectroscopy :: 吴致颉
+**** 随机变量
+样本空间 \(S=\{e\}\) 的实单值
 
 ** 总复习
 *** 黑客技能
@@ -12497,43 +12506,6 @@ Number of Fisher Scoring iterations: 5
       bsub -q normal"${DEP}" -J ${MAKE_TARGET} -o ${MAKE_TARGET}.log ${MAKE_TARGET}.sh
     #+end_src
 
-** 讲义
-*** 建设状况
-    - https://git.tsinghua.edu.cn/physics-data/lecture
-**** c                                                                :BMCOL:
-     :PROPERTIES:
-     :BEAMER_col: 0.55
-     :END:
-    #+begin_src bash :results output
-head -q -n1 lecture/l*.org
-    #+end_src  
-
-    #+RESULTS:
-    #+begin_example
-    ,#+TITLE: 第一讲 实验物理的大数据方法总论 DONE
-    ,#+TITLE: 第二讲 Python基础 DONE
-    ,#+TITLE: 第三讲 复合类型与函数 DONE
-    ,#+TITLE: 第四讲 Python 模块 DONE
-    ,#+TITLE: 第五讲 数组 DONE
-    ,#+Title: 第六讲 数据格式 DONE
-    ,#+Title: 第七讲 数据绘图 TODO
-    ,#+Title: 第八讲 蒙特卡罗方法与大作业 TODO
-    ,#+Title: 第九讲 GNU 命令行 TODO
-    ,#+Title: 第十讲 GNU Make 数据生产线 TODO
-    ,#+Title: 第十一讲 正则表达式 TODO
-    ,#+Title: 第十二讲 bash 脚本 TODO
-    ,#+Title: 第十三讲 关系代数 TODO
-    ,#+Title: 第十四讲 DataFrame 表格数据结构 TODO
-    ,#+Title: 第十五讲 关系代数与回归分析 TODO
-    ,#+Title: 第十六讲 现实案例与未来方向 TODO
-    #+end_example
-**** e                                                                :BMCOL:
-     :PROPERTIES:
-     :BEAMER_col: 0.45
-     :END:
-     - 给讲义仓库提 issue 和 merge request ，可获得伍至捌分。
-     - 一次原则的应用：把讲议与课件写到一起
-       + 把课堂口述内容通过 speech-to-text 引擎合成文字
 ** 下一步学习
 *** 数据时代的物理技能
     [[./out/Data_Science_VD-migrate.pdf]]
@@ -12569,7 +12541,7 @@ head -q -n1 lecture/l*.org
     - 机器学习：与回归分析有同样的程序接口
       - 算法上更一般，需要更多的“调参”
 **** 竞赛
-    - gamma 大作业 \to Ghost Hunter 2023 中微子数据分析排位赛
+    - probe 大作业 \to Ghost Hunter 2024 中微子数据分析排位赛
       - 概率统计分析及量测技术课赛结合
         
 *** 技术问题：TUNA 协会
@@ -12577,10 +12549,6 @@ head -q -n1 lecture/l*.org
     - TUNA 主页 https://tuna.moe/
     - TUNA 技术群，黑客（广义）技术问题探讨
     - 为课程提供了
-      + Gentoo 的镜像支持
-
-        https://mirrors.tuna.tsinghua.edu.cn/gentoo/
-
       + Debian 的镜像支持
 
         https://mirrors.tuna.tsinghua.edu.cn/debian/
@@ -12595,12 +12563,9 @@ head -q -n1 lecture/l*.org
 #+beamer: \pause
 
 - Google Summer of Code：Google
-  + Gentoo、Debian 操作系统相关项目
+  + Debian、Gentoo 操作系统相关项目
 - 开源之夏活动：中科院软件所、华为、TUNA
-  + Gentoo、Debian 操作系统相关项目
-
-#+beamer: \pause
-- 脱去资本枷锁，为人类数字化的自由而战(bs，有点中二
+  + Debian、Gentoo 操作系统相关项目
 
 *** SRT 与大创：Scheme
 如果你认同实验物理与形式逻辑是文明的两大支柱，并喜欢课程的内容，可以考虑与我继续探索：
