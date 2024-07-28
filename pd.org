@@ -12360,12 +12360,102 @@ https://git.tsinghua.edu.cn/physics-data/projects/tpl_junoprobe
 - somewhat misleading
 - 从一个没有 likelihood 的模型中，提炼出 likelihood。
 ** 泊松点过程
-*** 案例特点
+*** 随机过程概念
+#+attr_beamer: :overlay <+->
+- 随机过程的研究对象是 *随时间演变的随机现象* 。
+- 不能用随机变量或多维随机变量来合理表达，而需要用一族无限多个随机变量来描述。
+#+latex: \begin{itembox}[l]{定义}
+随机过程是一族随机变量 \(\{X(t):t \in T\}\), 其中\(t\)是 *参数* ,\(T\)称为 *参数集* .
+#+latex: \end{itembox}
+
+#+attr_beamer: :overlay <+->
+- 一般地, \(t\) 表示时间。对于每一个\( t \in T\) ，\(X(t)\) 是一个随机变量，称\(X(t)\) 为时刻 \(t\) 时 *过程的状态* 。
+- \(X(t)\)所有可能取值的全体称为随机过程的 *状态空间* 。
+
+*** 样本函数
+#+latex: \begin{itembox}[l]{定义}
+对随机过程 \(\{X(t):t \in T\}\)  进行一次试验（即在 \(T\) 上进行一次全程观测），其结果是 \(t\) 的函数，记为 \(\{ x(t):t \in T\}\)，称为随机过程的一个 *样本函数* 。
+#+latex: \end{itembox}
+#+beamer: \pause
+随机过程观测获得样本函数，如同总体观测获得个体样本
+**** 符号化
+把随机过程 \(\{X(t),t \in T\}\) 写成
+\[\{X( \omega ,t): \omega  \in  \Omega ,t \in T\}\]
+的形式，其中\( \omega , \Omega \)分别是随机试验的 *样本点* 和 *样本空间* 。
+#+beamer: \pause
+- 固定一个时间 \(t_0\)，随机过程对应于一个随机变量 \(X(t_0)\)。
+  #+beamer: \pause
+- 固定 \( \omega _0 \in  \Omega \) 让 \(t\) 在 \(T\) 中变化， \(X( \omega _0,t)\)是定义 在 \(T\) 上的一个实函数，称之为对应于 \( \omega _0\) 的一个 *样本函数* 或者 *样本轨道* 。
+
+*** 图示
+#+Attr_LaTeX: :height 4cm
+[[./fig/stochastic-process.pdf]]
+\[ X( \omega ,t) \equiv \Omega \ni \omega \to X(t) \]
+#+beamer: \pause
+随机过程\(\{X( \omega ,t): \omega \in \Omega ,t \in T\}\)四种不同情况下的意义：
+| \(X( \omega ,t)\) | \(t\) 固定   | \(t\) 可变     |
+|---------------+----------+------------|
+| \(\omega\) 固定   | 确定值   | 样本函数   |
+| \(\omega\) 可变   | 随机变量 | *随机过程* |
+
+*** 分布函数族
+#+latex: \begin{itembox}[l]{定义}
+设随机过程 \(\{X(t):t \in T\}\)，对每一个固定的 \(t \in T\)，
+\[F_X (x,t)=P(X(t) \leq x), x \in  \mathbb{R} \]
+称为随机过程\(\{X(t):t \in T\}\)的一维分布函数，\(\{F_X(x,t):t \in T\}\)称为 *一维分布函数族* 。
+#+latex: \end{itembox}
+
+*** 随机过程的数字特征
+给定随机过程\(\{ X_\omega(t), \omega \in \Omega, t \in T\}\):
+
+#+attr_beamer: :overlay <+->
+- *均值函数* :: \( \mu _X (t)=\E_\omega[X_\omega(t)]\)
+- *均方值函数* :: \( \Psi _X^2(t)= \E_\omega[X_\omega^2 (t)]\)
+- *方差函数* :: \( \sigma _X^2(t)=\Var_X (t)=\E_\omega[X_\omega(t)− \mu _X (t)]^2\)
+- *标准差函数* :: \( \sigma _X(t)= \sqrt {\Var_X (t)}\)
+- *相关函数* :: \(R_X(s,t)=\E_\omega[X_\omega(s)X_\omega(t)] \)
+  \[ R_X(t,t) = \Psi^2_X(t) \]
+- *协方差函数* :: \( C_X(s,t)=\Cov[X(s),X(t)] \)
+  #+begin_export latex
+  \begin{equation*}
+    \begin{aligned}
+      C_X(s, t) = & \E([X(s)− \mu _X(s)][X(t)− \mu _X(t)]) \\
+      = & R_X (s,t)− \mu _X (s)  \mu _X (t) \\
+      \implies &  \sigma _X^2 (t)=C_X (t,t)=R_X (t,t)− \mu _X^2 (t)
+    \end{aligned}
+  \end{equation*}
+
+  #+end_export
+  
+*** 例：独立增量过程
+#+latex: \begin{itembox}[l]{阿荼扫过的人数}
+设\(X(t)\)为截至\(t\)时刻，阿荼通过自动测温仪的累计总人数。
+#+latex: \end{itembox}
+#+beamer: \pause
+- 增量\(X(t_2 )−X(t_1 )\)表示在时间区间\((t_1,t_2]\)测量体温的人数。
+- 不相交的时间区间的增量是相互独立的。
+
+#+Attr_LaTeX: :height 4cm
+[[./fig/independent-increment.pdf]]
+
+*** 独立增量过程：定义
+#+latex: \begin{itembox}[l]{独立增量过程}
+设\(\{X(t),t \in T\}\)是一随机过程，若\( \forall t_1< \cdots <t_n (n \geq 2,t_i \in T)\) 诸增量
+\[ X(t_2 )−X(t_1 ), X(t_3 )−X(t_2 ),  \cdots , X(t_n)−X(t_{n−1} ) \]
+相互独立，则称\(\{ X(t),t \in T\}\)是一个 *独立增量过程* 。
+#+latex: \end{itembox}
+#+beamer: \pause
+**** 性质
+若 \(\{X(t):t \in T\}\) 是独立增量过程，且\(X(0)=0\)，则：
+1. \(X(t)\) 的有限维分布函数族可以由增量\(X(t)−X(s)(0 \leq s \leq t)\) 的分布所确定 
+2. 设 \(\Var_X (t)\) 已知，则 \(C_X(s,t)=\Var_X[\min(s,t)]\)
+
+*** 泊松过程案例特点
 - 随机点过程 :: 如“来到银行要求服务的顾客流”，“在一段时间内机器故障产生的故障流”等等。
   #+beamer: \pause
 - 计数过程 :: \(N(t)\)表示在\([0,t]\)内随机点(事件)发生的数目，\(N(t)\)即为一计数过程。
   如，阿荼测体温的例子中，\(X(t)\)表示截至\(t\)时刻累计测体温的人数。
-*** 定义
+*** 泊松过程定义
 #+latex: \begin{itembox}[l]{泊松过程}
 计数过程 \(\{N(t),t \geq 0\}\)称为强度 \lambda ( \lambda >0)的 *时齐泊松过程* (homogeneous Poisson process)，若满足：
 
