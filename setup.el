@@ -18,7 +18,7 @@
          ("\\section{%s}" . "\\section*{%s}")
          ("\\subsection{%s}" . "\\subsection*{%s}")
          ("\\subsubsection{%s}" . "\\subsubsection*{%s}"))
-        ("book" "\\documentclass[a4paper,11pt]{ctexbook}"
+        ("book" "\\documentclass[a4paper,11pt]{book}"
          ("\\chapter{%s}" . "\\chapter*{%s}")
          ("\\section{%s}" . "\\section*{%s}")
          ("\\subsection{%s}" . "\\subsection*{%s}")
