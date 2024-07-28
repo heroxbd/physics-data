@@ -12332,9 +12332,9 @@ Number of Fisher Scoring iterations: 5
 
 **** 思路和要点
 - 将获得
-  
+  #+beamer: {\scriptsize
   https://git.tsinghua.edu.cn/physics-data/2024/project_2
-
+  #+beamer: }
   之下的仓库一份，使用 GNU Make 构建整个分析流程，连同报告、程序整理到
   仓库中。
 
@@ -12347,8 +12347,9 @@ Number of Fisher Scoring iterations: 5
   + 成为“可执行的说明文档”
 ** probe 大作业
 *** 具体说明
+#+beamer: {\scriptsize
 https://git.tsinghua.edu.cn/physics-data/projects/tpl_junoprobe
-
+#+beamer: }
 - 正在完善
   + 大家可以开始 =clone= 大作业模板，再 =push= 到自己的仓库中。
   + 后续如果模板有更新，通过 =git merge= 整合。
@@ -12358,7 +12359,7 @@ https://git.tsinghua.edu.cn/physics-data/projects/tpl_junoprobe
 *** likelihood-free inference
 - somewhat misleading
 - 从一个没有 likelihood 的模型中，提炼出 likelihood。
-** 泊松过程
+** 泊松点过程
 *** 案例特点
 - 随机点过程 :: 如“来到银行要求服务的顾客流”，“在一段时间内机器故障产生的故障流”等等。
   #+beamer: \pause
@@ -12451,8 +12452,20 @@ C_N (s,t)= &  \lambda  \min(s,t)
   \end{aligned}
 \end{equation*}
 #+end_export
+*** 非齐次泊松过程
+从常数的增量，拓展为任意非负函数的增量。
 
-** 无脑回归
+#+begin_export latex
+\begin{equation*}
+  \begin{aligned}
+    \mu_N(t) & = \lambda t = \int_0^t \lambda \mathrm{d} s \\
+    \to \mu_N(t) & \int_0^t R(s) \mathrm{d} s
+  \end{aligned}
+\end{equation*}
+#+end_export
+
+
+** 机器学习
 *** 可用 sklearn
     - Debian
       #+begin_src bash
