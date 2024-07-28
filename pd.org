@@ -12543,6 +12543,49 @@ C_N (s,t)= &  \lambda  \min(s,t)
 \end{equation*}
 #+end_export
 
+- 方差函数等于均值函数。
+\[ \Var_N(t) = \mu_N(t) \]
+
+** probe 历史经验
+*** Probe 的回顾
+- 理念（张爱强）：使用 Poisson 点过程，统一探测器的时间和能量响应
+**** 流派
+- 套用既有轮子的 Poisson 回归（王宇逸）
+  + 优点：易于理解
+  + 缺点：算不出来
+- 函数基拟合（续本达）
+  + 种类：指数型（窦威）、平方型（武益阳）、混合型（刘学伟）、棍子状（徐闯）
+  + 拟合方法：Markov Chain Monte Carlo（续本达）、凸优化（武益阳）
+  + 优点：自由参数个数可控
+  + 缺点：有正交多项式的 Gibbs 波动残留，效果不够理想
+  + 参考：https://gitlab.airelinux.org/tjjk/proposal/-/tree/master/probe
+- 直方图（窦威）
+  + 优点：最有效的模型，还原度高
+  + 缺点：自由参数过多，刻度困难
+  + 参考：https://gitlab.airelinux.org/douwei/thesis
+*** 流派（二）
+- 手调反射（窦威）
+  + 优点：符合物理世界，模型精准
+  + 缺点：手扶拖拉机，探测器变了得重调，不调会翻车
+  + 参考：https://gitlab.airelinux.org/douwei/thesis
+- 光（武益阳）
+  + 优点：对物理更深入一层，以光为单元建模，与发光曲线解耦
+  + 缺点：做不出来，呈现出半个手扶拖拉机
+  + 参考：https://gitlab.airelinux.org/wuyy/bachelorthesis
+    - https://gitlab.airelinux.org/tjjk/proposal/-/tree/master/light_probe
+- Normalized flow（武益阳）
+  + 优点：上深度神经网络，理论上能拟合一切函数
+  + 缺点：实际上啥也没拟合出来
+  + 参考：没找到，在哪里？
+*** 流派（三）
+- 光线（续本达）
+  + 优点：自然产生平方反比
+  + 缺点：没人做，不知道行不行
+  + 参考：http://dpcraid.g.airelinux.org/meetings/TJJK/20220521-%E5%85%89probe.mp4
+- 模拟退火（续本达）
+  + 优点：不必显式写出 likelihood 函数，用模拟代替
+  + 缺点：没人做，不知道行不行
+  + 参考：https://dpcg.g.airelinux.org/user/xubd/lab/workspaces/auto-i/tree/annealing.ipynb
 
 ** 机器学习
 *** 可用 sklearn
