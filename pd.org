@@ -12408,7 +12408,6 @@ https://git.tsinghua.edu.cn/physics-data/projects/tpl_junoprobe
 *** 随机过程的数字特征
 给定随机过程\(\{ X_\omega(t), \omega \in \Omega, t \in T\}\):
 
-#+attr_beamer: :overlay <+->
 - *均值函数* :: \( \mu _X (t)=\E_\omega[X_\omega(t)]\)
 - *均方值函数* :: \( \Psi _X^2(t)= \E_\omega[X_\omega^2 (t)]\)
 - *方差函数* :: \( \sigma _X^2(t)=\Var_X (t)=\E_\omega[X_\omega(t)− \mu _X (t)]^2\)
@@ -12416,16 +12415,6 @@ https://git.tsinghua.edu.cn/physics-data/projects/tpl_junoprobe
 - *相关函数* :: \(R_X(s,t)=\E_\omega[X_\omega(s)X_\omega(t)] \)
   \[ R_X(t,t) = \Psi^2_X(t) \]
 - *协方差函数* :: \( C_X(s,t)=\Cov[X(s),X(t)] \)
-  #+begin_export latex
-  \begin{equation*}
-    \begin{aligned}
-      C_X(s, t) = & \E([X(s)− \mu _X(s)][X(t)− \mu _X(t)]) \\
-      = & R_X (s,t)− \mu _X (s)  \mu _X (t) \\
-      \implies &  \sigma _X^2 (t)=C_X (t,t)=R_X (t,t)− \mu _X^2 (t)
-    \end{aligned}
-  \end{equation*}
-
-  #+end_export
   
 *** 例：独立增量过程
 #+latex: \begin{itembox}[l]{阿荼扫过的人数}
