@@ -11821,6 +11821,12 @@ With four parameters I can fit an elephant. With five I can make him wiggle his 
 
 *** 使用 =model.matrix= 改进模型
 - 直接修改 =model.matrix=
+  #+begin_src R :session pd
+    model4 <- model.matrix(weight ~ volume + cover - 1, books)
+    model4 <- model4[,1:2]
+  #+end_src
+
+*** 使用 =model4= 回归
 #+begin_src R :session pd :results output
   lm4.books <- lm(weight ~ model4 - 1, books)
   AIC(lm4.books)
