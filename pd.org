@@ -11735,7 +11735,7 @@ model.matrix(weight ~ volume + cover - 1, books)
 
 *** 多线性回归
     #+begin_src R :session pd :results output
-      lm2.books = lm(weight ~ volume + cover, books)
+      lm2.books <- lm(weight ~ volume + cover, books)
       summary(lm2.books)
     #+end_src
 
@@ -11826,9 +11826,26 @@ With four parameters I can fit an elephant. With five I can make him wiggle his 
     model4 <- model4[,1:2]
   #+end_src
 
+  #+RESULTS:
+  |  885 | 1 |
+  | 1016 | 1 |
+  | 1125 | 1 |
+  |  239 | 1 |
+  |  701 | 1 |
+  |  641 | 1 |
+  | 1228 | 1 |
+  |  412 | 0 |
+  |  953 | 0 |
+  |  929 | 0 |
+  | 1492 | 0 |
+  |  419 | 0 |
+  | 1010 | 0 |
+  |  595 | 0 |
+  | 1034 | 0 |
+
 *** 使用 =model4= 回归
 #+begin_src R :session pd :results output
-  lm4.books <- lm(weight ~ model4 - 1, books)
+  lm4.books <- lm(weight ~ model4, books)
   AIC(lm4.books)
   summary(lm4.books)
 #+end_src
