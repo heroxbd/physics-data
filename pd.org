@@ -12681,6 +12681,9 @@ apt install python3-torch
   + 语言为 Anglican ，为 Clojure 语言的一种
   + Clojure 语言是 Scheme 语言在 Java 平台上的实现
 
+** SQL
+*** duckdb
+- 效率非常高的 SQL 数据分析引擎，可与 dbplyr 联动。
 ** 总复习
 *** 黑客技能
 **** 科学数据处理的原则                                        :B_alertblock:
