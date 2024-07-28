@@ -12273,7 +12273,7 @@ Number of Fisher Scoring iterations: 5
   :EXPORT_BEAMER_THEME: Hannover
   :EXPORT_BEAMER_FONT_THEME: professionalfonts
   :END:
-** 复习
+** 复习与提示
 *** 广义线性回归
 1. 关系代数让回归分析变得极其直观，让我们专注于问题的本质
 2. 模型的选择极其重要，应当使用客观标准
@@ -12282,6 +12282,31 @@ Number of Fisher Scoring iterations: 5
 3. 广义线性回归，把误差分布从高斯替换为其它指数族分布
    + 把连接函数从恒等替换为非线性函数
    + 几乎可以解决所有日常工作中的非线性问题，惊喜！
+*** 数据时代的物理技能
+    [[./out/Data_Science_VD-migrate.pdf]]
+*** 概率是逻辑的扩展 -- Cox 定理
+    - Laplace: probability theory is nothing but common sense reduced to calculations.
+    - R. T. Cox, E. T. Jaynes，两位对统计学有重大贡献的物理学家
+    - Logical interpretation of probability
+      1. Divisibility and comparability -- The plausibility of a
+         proposition is a real number and is dependent on information
+         we have related to the proposition.
+      2. Common sense -- Plausibilities should vary sensibly with the
+         assessment of plausibilities in the model.
+      3. Consistency -- If the plausibility of a proposition can be
+         derived in many ways, all the results must be equal.
+    - 概率论的唯一性：
+      Any system for plausible reasoning that satisfies certain
+      qualitative requirements intended to ensure consistency with
+      classical deductive logic and correspondence with commonsense
+      reasoning is isomorphic to probability theory.
+
+      #+latex: {\scriptsize
+      参考：Van Horn, K.S., 2003. Constructing a logic of plausible
+      inference: a guide to Cox’s theorem. International Journal of
+      Approximate Reasoning 34, 3–24.
+      #+latex: }
+
 ** 大作业安排
 *** 大作业安排
 **** l                                                                :BMCOL:
@@ -12357,7 +12382,7 @@ https://git.tsinghua.edu.cn/physics-data/projects/tpl_junoprobe
 - 作业的目标是取得 JUNO 探测器泊松点过程的条件均值函数。
 
 *** likelihood-free inference
-- somewhat misleading
+- "likelihood-free inference" somewhat misleading
 - 从一个没有 likelihood 的模型中，提炼出 likelihood。
 ** 泊松点过程
 *** 随机过程概念
@@ -12589,11 +12614,12 @@ C_N (s,t)= &  \lambda  \min(s,t)
 
 ** 机器学习
 *** 可用 sklearn
-    - Debian
-      #+begin_src bash
-        apt install python3-sklearn-pandas
-      #+end_src
+- Debian
+  #+begin_src bash
+    apt install python3-sklearn-pandas
+  #+end_src
 
+- 下面的算法可以理解为无解析形式的函数逼近。
 *** 支持向量机
     #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
       ### SVM regression
@@ -12636,6 +12662,11 @@ C_N (s,t)= &  \lambda  \min(s,t)
 
 自动进行解析微分。
 
+- PyTorch
+  #+begin_src bash
+apt install python3-torch
+  #+end_src
+  + CPU 版本，GPU 版本在 WSL 之内不容易安装，建议申请科协服务器账号。
 ** 概率编程
 *** 概率编程
 #+begin_export latex
@@ -12645,8 +12676,10 @@ C_N (s,t)= &  \lambda  \min(s,t)
 #+end_export
 把普通函数关系，自动换成随机变量之间的函数关系。
 
-**** 随机变量
-样本空间 \(S=\{e\}\) 的实单值
+**** 自动推理机
+  + 利用第一阶段大作业成果，直接生成第二阶段大作业的解答程序
+  + 语言为 Anglican ，为 Clojure 语言的一种
+  + Clojure 语言是 Scheme 语言在 Java 平台上的实现
 
 ** 总复习
 *** 黑客技能
@@ -12737,39 +12770,7 @@ C_N (s,t)= &  \lambda  \min(s,t)
     #+end_src
 
 ** 下一步学习
-*** 数据时代的物理技能
-    [[./out/Data_Science_VD-migrate.pdf]]
-*** 概率是逻辑的扩展 -- Cox 定理
-    - Laplace: probability theory is nothing but common sense reduced to calculations.
-    - R. T. Cox, E. T. Jaynes，两位对统计学有重大贡献的物理学家
-    - Logical interpretation of probability
-      1. Divisibility and comparability -- The plausibility of a
-         proposition is a real number and is dependent on information
-         we have related to the proposition.
-      2. Common sense -- Plausibilities should vary sensibly with the
-         assessment of plausibilities in the model.
-      3. Consistency -- If the plausibility of a proposition can be
-         derived in many ways, all the results must be equal.
-    - 概率论的唯一性：
-      Any system for plausible reasoning that satisfies certain
-      qualitative requirements intended to ensure consistency with
-      classical deductive logic and correspondence with commonsense
-      reasoning is isomorphic to probability theory.
-
-      #+latex: {\scriptsize
-      参考：Van Horn, K.S., 2003. Constructing a logic of plausible
-      inference: a guide to Cox’s theorem. International Journal of
-      Approximate Reasoning 34, 3–24.
-      #+latex: }
-
 *** 以本课程为起点
-    - 函数式编程：一切都是函数
-      - 无状态，从而容易从错误中恢复
-    - MapReduce：分布式大数据系统的开始
-      - 在之上建立了关系代数：
-      - Apache Hive，SparkQL，etc.
-    - 机器学习：与回归分析有同样的程序接口
-      - 算法上更一般，需要更多的“调参”
 **** 竞赛
     - probe 大作业 \to Ghost Hunter 2024 中微子数据分析排位赛
       - 概率统计分析及量测技术课赛结合
@@ -12804,12 +12805,6 @@ C_N (s,t)= &  \lambda  \min(s,t)
 - 分析力学的 Scheme 描述：
   + Structure and Interpretation of Classical Mechanics, MIT 本科课程
   + 分析力学完成后，计划拓展至量子力学和电动力学
-
-#+beamer: \pause
-- 自动推理机：
-  + 利用第一阶段大作业成果，直接生成第二阶段大作业的解答程序
-  + 语言为 Anglican ，为 Clojure 语言的一种
-  + Clojure 语言是 Scheme 语言在 Java 平台上的实现
 
 *** 致谢
     #+attr_beamer: :overlay <+->
