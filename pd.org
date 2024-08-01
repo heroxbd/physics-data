@@ -8615,14 +8615,14 @@ ed departments.csv
 - =g/propagating/p=
 - =echo 'g/propagating/p' | ed /tmp/texts.log=
 *** sed 与 ed 的区别
-- ed 是交互的，默认作用于一行，用 =/regex/= 扩展编辑范围
-- sed 是批处理的，默认作用于每一行，用 =/regex/= 限制编辑范围
+- =ed= 是交互的，默认作用于一行，用 =/regex/= 扩展编辑范围
+- =sed= 是批处理的，默认作用于每一行，用 =/regex/= 限制编辑范围
 
 **** awk 与 sed 的区别
-- 不再使用 ed 的单字母命令，改用 C 语言风格的语法，例如
+- 不再使用 =ed= 的单字母命令，改用 C 语言风格的语法，例如
   =/regex/{ print }=
 **** ed 的命令影响了 ex
-ex 是 vi 的前身，后者发展成 VIM (Vi IMproved)， VIM 的开发停滞，开发者正在转向 neovim
+=ex= 是 =vi= 的前身，后者发展成 VIM (Vi IMproved)， VIM 的开发停滞，开发者正在转向 neovim
 
 ** awk 特点
 *** sed 到 awk
@@ -8645,8 +8645,8 @@ sed 的操作（最常用的是查找-替换），更接近于编辑器
 - 都是数据流驱动的编程语言
   但与 Make 语言不同，不是函数式语言
 - 大量使用正则表达式
-- 可以快速从 bash 调用
-- awk 起源于 grep 和 sed，而后两者都脱胎于 =ed= 编辑器
+- 可以快速从 =bash= 调用
+- =awk= 起源于 =grep= 和 =sed= ，而后两者都脱胎于 =ed= 编辑器
 **** 学习 sed 和 awk 的步骤
 - [X] 调用 sed 和 awk
 - [X] 使用正则表达式
