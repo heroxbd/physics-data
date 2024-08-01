@@ -9738,12 +9738,14 @@ ON total.班级 = classes.班级
 
 - 非常适合快速试验并找到统计方法上的 _最佳工具_
 
-- 教程：[[https://www.math.pku.edu.cn/teachers/lidf/docs/Rbook/html/_Rbook/][李东风 R语言教程]]
-
 **** R 的重要数据处理模块
 - =dplyr= :: 数据整理的利器，简洁的语法表达关系代数
 - =dbplyr= :: 与 SQL 浑然连成一体，统一 =DataFrame= 与 SQL
 - =ggplot2= :: 科学制图利器，数据制图易用性优于 =matplotlib=
+
+**** 参考资料
+1. Wickham, Çetinkaya-Rundel and Grolemund. R for Data Science: Import, Tidy, Transform, Visualize, and Model Data. 2nd edition.
+2. [[https://www.math.pku.edu.cn/teachers/lidf/docs/Rbook/html/_Rbook/][李东风 R语言教程]]
 
 ** R数据类型
 *** TODO 数据类型
