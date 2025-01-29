@@ -599,6 +599,36 @@ fig.set_dpi({dpi})
     man git config
   #+end_src
 
+*** Git 分支
+    参考 https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging
+    
+    - 一直往 master (或 main) 提交：线性历史
+    #+beamer: \pause
+    
+    - =git branch iss53= 创建新分支，名为 iss53
+    - =git switch iss53= 切换至 iss53 分支
+    - =git switch --create hotfix= 创建新分支 hotfix 并切换
+      
+    #+Attr_LaTeX: :height 0.4\textheight
+    [[./fig/basic-branching-4.svg]]
+    #+begin_export latex
+    \vspace{-30pt}
+    #+end_export
+    
+    #+beamer: \pause
+    - 从 C2 开始，iss53 与 hotfix 同时推进
+      - 都基于 master 的 C2 版本
+      - hotfix 新增一个 commit C4
+      - iss53 新增 C3
+*** Git 分支的结果：分叉
+    - 由于 hotfix 紧迫，hotfix 率先被 master 接受
+    - =git merge --ff hotfix= 快速合并 (Fast-Forward), 拿来 *原始* 的 hotfix commit (相当于直接在 master 上改动)
+    #+Attr_LaTeX: :height 0.4\textheight
+    [[./fig/basic-branching-5.svg]]
+    #+beamer: \pause
+    - 此时 iss53 与 master 产生了 *分叉*, iss53 的原始修改不再能直接搬到 master 的 C4 上 (无法 *ff*)
+    - 需要进行 *合并*
+
 *** 参考资料
     - Git 提交说明的白盒采分项：
       
