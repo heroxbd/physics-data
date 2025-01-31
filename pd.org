@@ -612,7 +612,7 @@ fig.set_dpi({dpi})
     #+Attr_LaTeX: :height 0.4\textheight
     [[./fig/basic-branching-4.svg]]
     #+begin_export latex
-    \vspace{-30pt}
+    \vspace{-50pt}
     #+end_export
     
     #+beamer: \pause
@@ -620,15 +620,19 @@ fig.set_dpi({dpi})
       - 都基于 master 的 C2 版本
       - hotfix 新增一个 commit C4
       - iss53 新增 C3
+    - 将 iss53 push 到远程: =git push --set-upstream origin iss53=
 *** Git 分支的结果：分叉
     - 由于 hotfix 紧迫，hotfix 率先被 master 接受
     #+beamer: \pause
     - =git merge --ff hotfix= 快进合并 (Fast-Forward), 拿来 *原始* 的 hotfix commit (相当于直接在 master 上改动)
-    #+Attr_LaTeX: :options onslide=<1> :height 0.35\textheight
+    #+Attr_LaTeX: :height 0.35\textheight
+    #+Attr_Beamer: :overlay <1>
     [[./fig/basic-branching-4.svg]]
-    #+Attr_LaTeX: :options onslide=<2-3> :height 0.35\textheight
+    #+Attr_LaTeX: :height 0.35\textheight
+    #+Attr_Beamer: :overlay <2-3>
     [[./fig/basic-branching-5.svg]]
-    #+Attr_LaTeX: :options onslide=<4> :height 0.35\textheight
+    #+Attr_LaTeX: :height 0.35\textheight
+    #+Attr_Beamer: :overlay <4>
     [[./fig/basic-branching-6.svg]]
     #+beamer: \pause
     - 此时 iss53 与 master 产生了 *分叉 (divergence)*, iss53 的原始修改不再能直接搬到 master 的 C4 上 (无法 *ff*)
@@ -693,14 +697,18 @@ fig.set_dpi({dpi})
        已經到了無恥的地步。我宣布他已經不是我的學生了
     #+end_src
 *** Git 手动冲突处理 I
+    #+beamer: \vspace{-0.5cm}
     C5: 加一句鼓励的话 (iss53)
+    #+beamer: \vspace{-0.25cm}
     #+begin_src diff
-       概率統計，前十名，北京大學佔八名，清華大學沒有
-       做學問一定要在有學問的朋友氛圍中，時時砥礪成長。
-       我到落杉机，不熟地方
-      +你们都比我聪明，只是妄自菲薄而已！
-       我宣布他已經不是我的學生了
+ 概率統計，前十名，北京大學佔八名，清華大學沒有
+ 做學問一定要在有學問的朋友氛圍中，時時砥礪成長。
+ 我到落杉机，不熟地方
+-我宣布他已經不是我的學生了
++你们都比我聪明，只是妄自菲薄而已！
++我宣布他已經不是我的學生了！
     #+end_src
+    #+beamer: \vspace{-0.25cm}
     =git cherry-pick $(git merge-base main iss53)..iss53=
     #+begin_src text
       Auto-merging record.txt
@@ -775,9 +783,11 @@ fig.set_dpi({dpi})
     - 在 master 上 =git merge iss53=
     - 生成一个 Merge commit C6，历史不再线性。
     - 当 iss53 内部有一些 revert 时，单个 commit 造成的冲突会被抵消
-    #+Attr_LaTeX: :options onslide=<1> :width 0.7\textwidth
+    #+Attr_LaTeX: :width 0.7\textwidth
+    #+Attr_Beamer: :overlay <1>
     [[./fig/basic-merging-1.svg]]
-    #+Attr_LaTeX: :options onslide=<2-> :width 0.7\textwidth
+    #+Attr_LaTeX: :width 0.7\textwidth
+    #+Attr_Beamer: :overlay <2->
     [[./fig/basic-merging-2.svg]]
 *** Git merge : 合并 (狭义) II
     - 在 master 上 =git merge iss53=
@@ -795,8 +805,59 @@ fig.set_dpi({dpi})
       >>>>>>> iss53
     #+end_src
     #+beamer: \pause
+    - 解决好冲突后 =git merge --continue= 生成 merge commit C6
+    #+beamer: \pause
     - Merge commit 无法用差分表达，即表达为 patch
     - =man git-log= 使用 =--diff-merges=<多种方法>= 可查看 merge commit 的具体信息
+*** Git merge : 合并 (狭义) III
+    =git log --diff-merges=dense-combined=
+    #+Attr_LaTeX: :options bgcolor=lightgray,fontsize=\tiny
+    #+begin_src diff
+commit 3773ad5beca2111981908d010e7356fa5d381a67 (HEAD -> main)
+Merge: 37bb2ab 5f9c706
+Author: Yiyang Wu <xgreenlandforwyy@gmail.com>
+Date:   Fri Jan 31 19:22:46 2025 +0800
+
+    Merge branch 'iss53'
+
+diff --cc record.txt
+index 046a6d4,598b092..219a08a
+--- a/record.txt
++++ b/record.txt
+@@@ -1,6 -1,8 +1,9 @@@
+  今日中国，强敵环伺，科技卡膀，海疆未靖，幼苗未长，此誠危急存亡之秋也。
++ 我們学生躲在遊戲屋，不觉得羞愧？
+  告诉学生們，去修 birkar 的課，交論文，得分最高的，獎一个华为手表。
+  概率統計，前十名，北京大學佔八名，清華大學沒有
+++這種成績，使人汗顏！如此成績，如何招生？
+  做學問一定要在有學問的朋友氛圍中，時時砥礪成長。
+  我到落杉机，不熟地方
+- 已經到了無恥的地步。我宣布他已經不是我的學生了
++ 你们都比我聪明，只是妄自菲薄而已！
+ -我宣布他已經不是我的學生了！
+++已經到了無恥的地步。我宣布他已經不是我的學生了！
+    #+end_src
+
+    彩蛋：这个 merge commit 塞了私货
+*** 基于 Gitlab merge request (或 Github pull request) 的开发流程 I
+    #+begin_src bash
+      # 首先在 Gitlab fork 需要的上游仓库 foo/bar.git 到 my/bar.git
+      # 之所以 fork 是因为一般人无法往原仓库 push 分支
+      git clone git@git.tsinghua.edu.cn:my/bar.git # 拉取 fork 仓库, 进入 master 分支
+      cd bar
+      git switch --create my-dev # 取一个合适的分支名字
+      # 一通编辑代码
+      git add xxx
+      git commit
+      git push --set-upstream origin HEAD # push 自己的分支
+      # 根据命令行提示信息，在网页发起 merge request
+      # 上游若要求 rebase，则需要先同步 fork 仓库 my/bar.git 的 master 分支
+      git switch master
+      git pull # 同步 master, 产生分叉
+      git switch my-dev
+      git rebase master
+      git push --force # rebase 后破坏了 my-dev 的历史，my/bar.git 的 my-dev 远端需要被覆盖
+    #+end_src
 *** 参考资料
     - Git 提交说明的白盒采分项：
       
