@@ -626,9 +626,36 @@ fig.set_dpi({dpi})
     #+Attr_LaTeX: :height 0.4\textheight
     [[./fig/basic-branching-5.svg]]
     #+beamer: \pause
-    - 此时 iss53 与 master 产生了 *分叉*, iss53 的原始修改不再能直接搬到 master 的 C4 上 (无法 *ff*)
-    - 需要进行 *合并*
-
+    - 此时 iss53 与 master 产生了 *分叉 (divergence)*, iss53 的原始修改不再能直接搬到 master 的 C4 上 (无法 *ff*)
+    - 需要进行 *合并* 两个分支的共同祖先是 =git merge-base master iss53= (给出 C2)
+*** Git 合并 (广义): cherry-pick 手工拿来法
+    - =git branch --delete hotfix= 删除不再需要的 hotfix 分支
+    #+Attr_LaTeX: :height 0.35\textheight
+    #+Attr_Beamer: :overlay <1>
+    [[./fig/basic-cherry-pick-1.svg]]
+    #+Attr_LaTeX: :height 0.35\textheight
+    #+Attr_Beamer: :overlay <2>
+    [[./fig/basic-cherry-pick-2.svg]]
+    #+Attr_LaTeX: :height 0.35\textheight
+    #+Attr_Beamer: :overlay <3>
+    [[./fig/basic-cherry-pick-3.svg]]
+    - 在 master 分支 =git cherry-pick C3= 将 C3 commit 稍作修改变成 =C3'= 拿来提交
+    #+beamer: \pause
+    - 在 master 分支 =git cherry-pick C2..iss53= 将从 C2 一直到 iss53 (左开右闭) 的 commits *依次* 修改拿来提交
+    #+beamer: \pause
+    - =git branch --delete --force iss53= 需要 =--force= 是因为使用了 cherry-pick 这一 *手工合并方法*
+*** Git rebase : 换祖先
+    思考：让 iss53 的祖先从 C2 切换到 C4 不就没有分叉了吗？
+    #+Attr_LaTeX: :height 0.35\textheight
+    #+Attr_Beamer: :overlay <1>
+    [[./fig/basic-cherry-pick-1.svg]]
+    #+Attr_LaTeX: :height 0.35\textheight
+    #+Attr_Beamer: :overlay <2>
+    [[./fig/basic-rebase-1.svg]]
+    #+Attr_LaTeX: :height 0.35\textheight
+    #+Attr_Beamer: :overlay <3>
+    [[./fig/basic-rebase-2.svg]]
+    
 *** 参考资料
     - Git 提交说明的白盒采分项：
       
