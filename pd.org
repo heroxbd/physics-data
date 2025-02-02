@@ -610,7 +610,7 @@ fig.set_dpi({dpi})
     - =git switch --create hotfix= 创建新分支 hotfix 并切换
       
     #+Attr_LaTeX: :height 0.4\textheight
-    [[./fig/basic-branching-4.svg]]
+    [[./out/basic-branching-4.pdf]]
     #+begin_export latex
     \vspace{-50pt}
     #+end_export
@@ -627,13 +627,13 @@ fig.set_dpi({dpi})
     - =git merge --ff hotfix= 快进合并 (Fast-Forward), 拿来 *原始* 的 hotfix commit (相当于直接在 master 上改动)
     #+Attr_LaTeX: :height 0.35\textheight
     #+Attr_Beamer: :overlay <1>
-    [[./fig/basic-branching-4.svg]]
+    [[./out/basic-branching-4.pdf]]
     #+Attr_LaTeX: :height 0.35\textheight
     #+Attr_Beamer: :overlay <2-3>
-    [[./fig/basic-branching-5.svg]]
+    [[./out/basic-branching-5.pdf]]
     #+Attr_LaTeX: :height 0.35\textheight
     #+Attr_Beamer: :overlay <4>
-    [[./fig/basic-branching-6.svg]]
+    [[./out/basic-branching-6.pdf]]
     #+beamer: \pause
     - 此时 iss53 与 master 产生了 *分叉 (divergence)*, iss53 的原始修改不再能直接搬到 master 的 C4 上 (无法 *ff*)
     #+beamer: \pause
@@ -646,10 +646,10 @@ fig.set_dpi({dpi})
     - 生成一个 Merge commit C6，历史不再线性。
     #+Attr_LaTeX: :width 0.7\textwidth
     #+Attr_Beamer: :overlay <1>
-    [[./fig/basic-merging-1.svg]]
+    [[./out/basic-merging-1.pdf]]
     #+Attr_LaTeX: :width 0.7\textwidth
     #+Attr_Beamer: :overlay <2->
-    [[./fig/basic-merging-2.svg]]
+    [[./out/basic-merging-2.pdf]]
 *** Git rebase : 换祖先
     - 思考：让 iss53 的祖先从 C2 切换到 C4 不就没有分叉了吗？基于新版的 C4 重新做一遍 iss53 的开发
     #+BEGIN_EXPORT latex
@@ -830,13 +830,13 @@ index 046a6d4,598b092..219a08a
     - =git branch --delete --force iss53= 需要 =--force= 是因为使用了 cherry-pick 这一 *手工合并方法*
     #+Attr_LaTeX: :height 0.35\textheight
     #+Attr_Beamer: :overlay <1>
-    [[./fig/basic-cherry-pick-1.svg]]
+    [[./out/basic-cherry-pick-1.pdf]]
     #+Attr_LaTeX: :height 0.35\textheight
     #+Attr_Beamer: :overlay <2>
-    [[./fig/basic-cherry-pick-2.svg]]
+    [[./out/basic-cherry-pick-2.pdf]]
     #+Attr_LaTeX: :height 0.35\textheight
     #+Attr_Beamer: :overlay <3>
-    [[./fig/basic-cherry-pick-3.svg]]
+    [[./out/basic-cherry-pick-3.pdf]]
 *** 基于 Gitlab merge request (或 Github pull request) 的开发流程 I
     #+begin_src bash
       # 首先在 Gitlab fork 需要的上游仓库 foo/bar.git 到 my/bar.git
