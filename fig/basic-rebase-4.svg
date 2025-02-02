@@ -3,7 +3,7 @@
    id="svg34328"
    version="1.1"
    viewBox="0 0 724 215"
-   sodipodi:docname="basic-rebase-3.svg"
+   sodipodi:docname="basic-rebase-4.svg"
    width="724"
    height="215"
    inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
@@ -34,7 +34,7 @@
      inkscape:window-x="0"
      inkscape:window-y="0"
      inkscape:window-maximized="1"
-     inkscape:current-layer="g34324" />
+     inkscape:current-layer="Line-4-+-ref-2-6" />
   <metadata
      id="metadata34334">
     <rdf:RDF>
@@ -61,39 +61,7 @@
       <g
          id="Line-4-+-ref-2-6"
          transform="translate(395.08597,223.53728)"
-         style="fill:none;fill-rule:evenodd">
-        <path
-           id="Line-4-7"
-           transform="translate(-1)"
-           d="M 44,9 V 44 H 43 V 9 H 39 L 43.5,0 48,9 Z"
-           style="fill:#8f8981;fill-rule:nonzero" />
-        <path
-           id="Line-4-7-2"
-           d="m -84.149969,-52.457182 v 35 h -1 v -35 h -4 l 4.5,-9 4.5,9 z"
-           style="fill:#8f8981;fill-rule:nonzero" />
-        <g
-           id="g34324-5"
-           transform="translate(-2,29)">
-          <rect
-             id="rect34318-3"
-             transform="scale(0.83962,1)"
-             width="106"
-             height="33"
-             style="fill:#f44d27;fill-rule:evenodd"
-             x="0"
-             y="0" />
-          <text
-             id="text34322-5"
-             transform="translate(-8.5623,0.958)"
-             font-size="12px"
-             font-weight="700"
-             style="font-weight:700;font-size:12px;font-family:'Source Code Pro';text-anchor:middle;fill:#979797"><tspan
-               id="tspan34320-6"
-               x="53"
-               y="20"
-               style="fill:#f0f0f0">old iss53</tspan></text>
-        </g>
-      </g>
+         style="fill:none;fill-rule:evenodd" />
       <g
          id="brown"
          transform="translate(12,131)">
@@ -263,7 +231,7 @@
                id="tspan34320"
                x="53"
                y="20"
-               style="fill:#f0f0f0">HEAD</tspan></text>
+               style="fill:#f0f0f0">iss53</tspan></text>
         </g>
       </g>
       <g
@@ -353,61 +321,6 @@
              x="44.5"
              y="21"
              style="fill:#808080">C5'</tspan></text>
-      </g>
-      <g
-         id="Line-8-+-brown-6"
-         transform="translate(355.08597,190.53728)"
-         style="fill:none;fill-rule:evenodd">
-        <path
-           id="Line-8"
-           transform="translate(1)"
-           d="m 9,16 h 35 v 1 H 9 v 4 L 0,16.5 9,12 Z"
-           style="fill:#8f8981;fill-rule:nonzero" />
-        <g
-           id="g34306"
-           transform="translate(38)">
-          <rect
-             id="rect34300"
-             width="89"
-             height="33"
-             rx="16.5"
-             ry="16.5"
-             style="fill:#efefe7;fill-rule:evenodd"
-             x="0"
-             y="0" />
-          <text
-             id="text34304"
-             font-size="12px"
-             font-weight="700"
-             style="font-weight:700;font-size:12px;font-family:'Source Code Pro';text-anchor:middle;fill:#979797"><tspan
-               id="tspan34302"
-               x="44.5"
-               y="21"
-               style="fill:#808080">C5</tspan></text>
-        </g>
-      </g>
-      <g
-         id="g34315"
-         transform="translate(267.08597,190.53728)"
-         style="fill:none;fill-rule:evenodd">
-        <rect
-           id="rect34309"
-           width="89"
-           height="33"
-           rx="16.5"
-           ry="16.5"
-           style="fill:#efefe7;fill-rule:evenodd"
-           x="0"
-           y="0" />
-        <text
-           id="text34313"
-           font-size="12px"
-           font-weight="700"
-           style="font-weight:700;font-size:12px;font-family:'Source Code Pro';text-anchor:middle;fill:#979797"><tspan
-             id="tspan34311"
-             x="44.5"
-             y="21"
-             style="fill:#808080">C3</tspan></text>
       </g>
     </g>
   </g>

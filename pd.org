@@ -638,24 +638,42 @@ fig.set_dpi({dpi})
     - 此时 iss53 与 master 产生了 *分叉 (divergence)*, iss53 的原始修改不再能直接搬到 master 的 C4 上 (无法 *ff*)
     #+beamer: \pause
     - =git branch --delete hotfix= 删除不再需要的 hotfix 分支
-*** Git 合并 (广义): cherry-pick 手工拿来法
-    - 需要进行 *合并* 两个分支的共同祖先是 =git merge-base master iss53= (给出 C2)
-    - 在 master 分支 =git cherry-pick C3= 将 C3 commit 稍作修改变成 =C3'= 拿来提交
+*** Git merge : 合并 (狭义) I
+    - 出现分叉需要合并，[[发展历史][回忆平行四边形法则]]
+    - 比较 master 的最新版 (C4) 和 iss53 最新版 (C5) 的差异，取两家之长，处理一次冲突
     #+beamer: \pause
-    - 在 master 分支 =git cherry-pick C2..iss53= 将从 C2 一直到 iss53 (左开右闭) 的 commits *依次* 修改拿来提交
-    #+beamer: \pause
-    - =git branch --delete --force iss53= 需要 =--force= 是因为使用了 cherry-pick 这一 *手工合并方法*
-    #+Attr_LaTeX: :height 0.35\textheight
+    - 在 master 上 =git merge iss53=
+    - 生成一个 Merge commit C6，历史不再线性。
+    #+Attr_LaTeX: :width 0.7\textwidth
     #+Attr_Beamer: :overlay <1>
-    [[./fig/basic-cherry-pick-1.svg]]
-    #+Attr_LaTeX: :height 0.35\textheight
-    #+Attr_Beamer: :overlay <2>
-    [[./fig/basic-cherry-pick-2.svg]]
-    #+Attr_LaTeX: :height 0.35\textheight
-    #+Attr_Beamer: :overlay <3>
-    [[./fig/basic-cherry-pick-3.svg]]
+    [[./fig/basic-merging-1.svg]]
+    #+Attr_LaTeX: :width 0.7\textwidth
+    #+Attr_Beamer: :overlay <2->
+    [[./fig/basic-merging-2.svg]]
+*** Git rebase : 换祖先
+    - 思考：让 iss53 的祖先从 C2 切换到 C4 不就没有分叉了吗？基于新版的 C4 重新做一遍 iss53 的开发
+    #+BEGIN_EXPORT latex
+    \begin{center}
+    \includegraphics<1>[width=0.7\textwidth]{./out/basic-rebase-1.pdf}
+    \includegraphics<2>[width=0.7\textwidth]{./out/basic-rebase-2.pdf}
+    \includegraphics<3>[width=0.7\textwidth]{./out/basic-rebase-3.pdf}
+    \includegraphics<4>[width=0.7\textwidth]{./out/basic-rebase-4.pdf}
+    \includegraphics<5>[width=0.7\textwidth]{./out/basic-rebase-5.pdf}
+    \end{center}
+    #+END_EXPORT
+    
+    #+beamer: \pause
+    - 在 =iss53= 分支 =git rebase C4= 或 =git rebase master=
+    - 基于 C4，将 C3 稍作修改变成 C3'
+    #+beamer: \pause
+    - 基于 C3'，将 C5 稍作修改变成 C5'
+    #+beamer: \pause
+    - rebase 修改历史！结束后旧的 =iss53= 历史消失，不要在 =master= rebase！
+    #+beamer: \pause
+    - =git switch master; git merge --ff iss53= 快进合并。最终合并出 *线性* 历史
+    #+beamer: \pause
+    - 需要处理 iss53 上所有 commit 的冲突 (C4 vs C3 & C3' vs C5')，但在 iss53 分支上操作
 *** Git 自动冲突处理 I
-    - 如何把 =C3= 修改成 =C3'=? [[发展历史][回忆平行四边形法则]]
     - 如果 =C3、C5= 与 =C4= 不干涉 (修改的不是一个文件 or 修改的位置距离较远) 则程序可以自动处理
       
     C4: 补全最后一句的上文 (hotfix):
@@ -712,23 +730,20 @@ fig.set_dpi({dpi})
     =git cherry-pick $(git merge-base main iss53)..iss53=
     #+begin_src text
       Auto-merging record.txt
-      [main d0ea50a] C3: 加入“躲在遊戲屋”语录 Date: Fri Jan 31 15:10:54 2025 +0800
-       1 file changed, 1 insertion(+)
-      Auto-merging record.txt
       CONFLICT (content): Merge conflict in record.txt
-      error: could not apply 4ef7b81... C5: 加一句鼓励的话
-      hint: After resolving the conflicts, mark them with
-      hint: "git add/rm <pathspec>", then run
-      hint: "git cherry-pick --continue".
-      hint: You can instead skip this commit with "git cherry-pick --skip".
-      hint: To abort and get back to the state before "git cherry-pick",
-      hint: run "git cherry-pick --abort".
+      error: could not apply 262ef6c... C5: 加一句鼓励的话
+      hint: Resolve all conflicts manually, mark them as resolved with
+      hint: "git add/rm <conflicted_files>", then run "git rebase --continue".
+      hint: You can instead skip this commit: run "git rebase --skip".
+      hint: To abort and get back to the state before "git rebase", run "git rebase --abort".
+      Could not apply 262ef6c... C5: 加一句鼓励的话
     #+end_src
 *** Git 手动冲突处理 II
     #+begin_src text
-      Unmerged paths:
-        (use "git add <file>..." to mark resolution)
-            both modified:   record.txt
+    Unmerged paths:
+    (use "git restore --staged <file>..." to unstage)
+    (use "git add <file>..." to mark resolution)
+	    both modified:   record.txt
     #+end_src
     =record.txt=:
     #+begin_src text
@@ -745,8 +760,8 @@ fig.set_dpi({dpi})
       已經到了無恥的地步。我宣布他已經不是我的學生了！
     #+end_src
 *** Git 手动冲突处理 III
-    - 处理后 =git add record.txt= =git cherry-pick --continue=
-    - C5' (cherry-pick C5 upon C3' (master)):
+    - 处理后 =git add record.txt= =git rebase --continue=
+    - C5':
     #+begin_src diff
        概率統計，前十名，北京大學佔八名，清華大學沒有
        做學問一定要在有學問的朋友氛圍中，時時砥礪成長。
@@ -755,40 +770,7 @@ fig.set_dpi({dpi})
       +你们都比我聪明，只是妄自菲薄而已！
       +已經到了無恥的地步。我宣布他已經不是我的學生了！
     #+end_src
-    - 有多少 commit 等待 cherry-pick (=iss53= 分支有多少 commit 需要合并) 就需要处理多少次(自动 or 手动)
-*** Git rebase : 换祖先
-    思考：让 iss53 的祖先从 C2 切换到 C4 不就没有分叉了吗？
-    #+Attr_LaTeX: :width 0.7\textwidth
-    #+Attr_Beamer: :overlay <1>
-    [[./fig/basic-rebase-1.svg]]
-    #+Attr_LaTeX: :width 0.7\textwidth
-    #+Attr_Beamer: :overlay <2>
-    [[./fig/basic-rebase-2.svg]]
-    #+beamer: \vspace{-0.5cm}
-    #+Attr_LaTeX: :width 0.7\textwidth
-    #+Attr_Beamer: :overlay <3->
-    [[./fig/basic-rebase-3.svg]]
-    #+beamer: \pause
-    - 在 =iss53= 分支 =git rebase C4= 或 =git rebase master=
-    #+beamer: \pause
-    - =git switch master; git merge --ff iss53= 快进合并
-    #+beamer: \pause
-    - 等价于在 =C4= (或 =master=) 上 =git cherry-pick= iss53 的所有 commit, 但分支仍留在 =iss53=, 对 =master= 毫无影响
-    - 仍然需要处理 iss53 上所有 commit 的冲突，但在 iss53 分支上操作
-    - 对 =iss53= 的历史是破坏性的：原有的 C3、C5 自动消失！不要在 =master= rebase！
-*** Git merge : 合并 (狭义) I
-    - 如果 =iss53= 上有太多 commit, =rebase= 需要每一个 commit 都处理冲突，有没有只处理一次的办法？
-    #+beamer: \pause
-    - 只比较 master 的最新版和 iss53 最新版的差异，解决一次冲突就行了！
-    - 在 master 上 =git merge iss53=
-    - 生成一个 Merge commit C6，历史不再线性。
-    - 当 iss53 内部有一些 revert 时，单个 commit 造成的冲突会被抵消
-    #+Attr_LaTeX: :width 0.7\textwidth
-    #+Attr_Beamer: :overlay <1>
-    [[./fig/basic-merging-1.svg]]
-    #+Attr_LaTeX: :width 0.7\textwidth
-    #+Attr_Beamer: :overlay <2->
-    [[./fig/basic-merging-2.svg]]
+    - 有多少 commit 需要 rebase (=iss53= 分支有多少 commit) 就需要处理多少次 (自动 or 手动)
 *** Git merge : 合并 (狭义) II
     - 在 master 上 =git merge iss53=
     #+begin_src text
@@ -839,6 +821,22 @@ index 046a6d4,598b092..219a08a
     #+end_src
 
     彩蛋：这个 merge commit 塞了私货
+*** Git 合并 (广义): cherry-pick 手工拿来法
+    - 需要进行 *合并* 两个分支的共同祖先是 =git merge-base master iss53= (给出 C2)
+    - 在 master 分支 =git cherry-pick C3= 将 C3 commit 稍作修改变成 =C3'= 拿来提交
+    #+beamer: \pause
+    - 在 master 分支 =git cherry-pick C2..iss53= 将从 C2 一直到 iss53 (左开右闭) 的 commits *依次* 修改拿来提交
+    #+beamer: \pause
+    - =git branch --delete --force iss53= 需要 =--force= 是因为使用了 cherry-pick 这一 *手工合并方法*
+    #+Attr_LaTeX: :height 0.35\textheight
+    #+Attr_Beamer: :overlay <1>
+    [[./fig/basic-cherry-pick-1.svg]]
+    #+Attr_LaTeX: :height 0.35\textheight
+    #+Attr_Beamer: :overlay <2>
+    [[./fig/basic-cherry-pick-2.svg]]
+    #+Attr_LaTeX: :height 0.35\textheight
+    #+Attr_Beamer: :overlay <3>
+    [[./fig/basic-cherry-pick-3.svg]]
 *** 基于 Gitlab merge request (或 Github pull request) 的开发流程 I
     #+begin_src bash
       # 首先在 Gitlab fork 需要的上游仓库 foo/bar.git 到 my/bar.git
