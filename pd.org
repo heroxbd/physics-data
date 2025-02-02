@@ -5556,6 +5556,11 @@ target: source
       3. 蒙特卡罗法
 
 *** SciPy 模块举例 =scipy.optimize=
+provides functions for minimizing objective functions subject to
+constraints. It includes solvers for nonlinear problems, linear
+programing, constrained and nonlinear least-squares, root finding, and
+curve fitting.
+
 * GNU 命令行
   :PROPERTIES:
   :EXPORT_FILE_NAME: p8
