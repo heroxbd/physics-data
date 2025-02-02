@@ -644,6 +644,7 @@ fig.set_dpi({dpi})
     #+beamer: \pause
     - 在 master 上 =git merge iss53=
     - 生成一个 Merge commit C6，历史不再线性。
+    - master 的开发者负责解决冲突
     #+Attr_LaTeX: :width 0.7\textwidth
     #+Attr_Beamer: :overlay <1>
     [[./out/basic-merging-1.pdf]]
@@ -673,6 +674,7 @@ fig.set_dpi({dpi})
     - =git switch master; git merge --ff iss53= 快进合并。最终合并出 *线性* 历史
     #+beamer: \pause
     - 需要处理 iss53 上所有 commit 的冲突 (C4 vs C3 & C3' vs C5')，但在 iss53 分支上操作
+    - =git rebase -i master= 还能允许你进一步修改历史，例如合并 commit、打磨 commit
 *** Git 自动冲突处理 I
     - 如果 =C3、C5= 与 =C4= 不干涉 (修改的不是一个文件 or 修改的位置距离较远) 则程序可以自动处理
       
@@ -704,7 +706,7 @@ fig.set_dpi({dpi})
     - 如何把 =C3= 修改成 =C3'=? [[发展历史][回忆平行四边形法则]]
     - 如果 =C3、C5= 与 =C4= 不干涉 (修改的不是一个文件 or 修改的位置距离较远) 则程序可以自动处理
       
-    C3' (cherry-pick C3 upon C4 (master)):
+    C3' (rebase C3 upon C4):
     #+begin_src diff
        今日中国，强敵环伺，科技卡膀，海疆未靖，幼苗未长，此誠危急存亡之秋也。
       +我們学生躲在遊戲屋，不觉得羞愧？
@@ -727,7 +729,7 @@ fig.set_dpi({dpi})
 +我宣布他已經不是我的學生了！
     #+end_src
     #+beamer: \vspace{-0.25cm}
-    =git cherry-pick $(git merge-base main iss53)..iss53=
+    =git switch iss53; git rebase master=
     #+begin_src text
       Auto-merging record.txt
       CONFLICT (content): Merge conflict in record.txt
@@ -760,8 +762,8 @@ fig.set_dpi({dpi})
       已經到了無恥的地步。我宣布他已經不是我的學生了！
     #+end_src
 *** Git 手动冲突处理 III
-    - 处理后 =git add record.txt= =git rebase --continue=
-    - C5':
+    - 处理后 =git add record.txt; git rebase --continue=
+    C5' (rebase C5 upon C3'):
     #+begin_src diff
        概率統計，前十名，北京大學佔八名，清華大學沒有
        做學問一定要在有學問的朋友氛圍中，時時砥礪成長。
@@ -771,13 +773,17 @@ fig.set_dpi({dpi})
       +已經到了無恥的地步。我宣布他已經不是我的學生了！
     #+end_src
     - 有多少 commit 需要 rebase (=iss53= 分支有多少 commit) 就需要处理多少次 (自动 or 手动)
-*** Git merge : 合并 (狭义) II
-    - 在 master 上 =git merge iss53=
-    #+begin_src text
+*** Git merge 冲突处理与结果 I
+    - 回到分叉状态，在 master (C4) 上 =git merge iss53=
+    #+Attr_LaTeX: :width 0.7\textwidth
+    [[./out/basic-merging-1.pdf]]
+    #+beamer: \vspace{-1cm}
+    #+begin_src
       Auto-merging record.txt
       CONFLICT (content): Merge conflict in record.txt
       Automatic merge failed; fix conflicts and then commit the result.
     #+end_src
+    #+beamer: \vspace{-0.5cm}
     #+begin_src text
       <<<<<<< HEAD
       已經到了無恥的地步。我宣布他已經不是我的學生了
@@ -786,13 +792,13 @@ fig.set_dpi({dpi})
       我宣布他已經不是我的學生了！
       >>>>>>> iss53
     #+end_src
+    #+beamer: \vspace{-0.75cm}
     #+beamer: \pause
     - 解决好冲突后 =git merge --continue= 生成 merge commit C6
     #+beamer: \pause
-    - Merge commit 无法用差分表达，即表达为 patch
-    - =man git-log= 使用 =--diff-merges=<多种方法>= 可查看 merge commit 的具体信息
-*** Git merge : 合并 (狭义) III
-    =git log --diff-merges=dense-combined=
+    - Merge commit 有两个祖先，单个差分 (=git log -p=) 无法表达
+*** Git merge 冲突处理与结果 II
+    使用 =git log --diff-merges=combined= 查看 merge commit 相对两个祖先的差分
     #+Attr_LaTeX: :options bgcolor=lightgray,fontsize=\tiny
     #+begin_src diff
 commit 3773ad5beca2111981908d010e7356fa5d381a67 (HEAD -> main)
@@ -821,26 +827,41 @@ index 046a6d4,598b092..219a08a
     #+end_src
 
     彩蛋：这个 merge commit 塞了私货
-*** Git 合并 (广义): cherry-pick 手工拿来法
-    - 需要进行 *合并* 两个分支的共同祖先是 =git merge-base master iss53= (给出 C2)
-    - 在 master 分支 =git cherry-pick C3= 将 C3 commit 稍作修改变成 =C3'= 拿来提交
-    #+beamer: \pause
-    - 在 master 分支 =git cherry-pick C2..iss53= 将从 C2 一直到 iss53 (左开右闭) 的 commits *依次* 修改拿来提交
-    #+beamer: \pause
-    - =git branch --delete --force iss53= 需要 =--force= 是因为使用了 cherry-pick 这一 *手工合并方法*
-    #+Attr_LaTeX: :height 0.35\textheight
-    #+Attr_Beamer: :overlay <1>
-    [[./out/basic-cherry-pick-1.pdf]]
-    #+Attr_LaTeX: :height 0.35\textheight
-    #+Attr_Beamer: :overlay <2>
-    [[./out/basic-cherry-pick-2.pdf]]
-    #+Attr_LaTeX: :height 0.35\textheight
-    #+Attr_Beamer: :overlay <3>
-    [[./out/basic-cherry-pick-3.pdf]]
+*** 权衡 merge vs rebase
+    参考 https://git-scm.com/book/en/v2/Git-Branching-Rebasing Rebase vs. Merge
+    - =git merge= 只处理一次(大)冲突，产生非线性历史
+      - 遮住其他分支后 merge commit 视作单个祖先，获得简单的线性历史，可以排除低质量 commit 干扰 bisect
+      - 难理清 commits 的逻辑顺序
+      - revert 更困难
+      - 不遮住分支 bisect 困难
+        #+beamer: \pause
+    - =git rebase= 处理多次(小)冲突，产生线性历史：
+      - 所有 commits 逻辑顺序清晰，revert 容易
+      - bisect 可以检查所有合并进来的 commits
+      - 所有 commits 在一个历史中，低质量 commits 会干扰 bisect
+        #+beamer: \pause
+    - 判据: master 的喜好；分支的所有 commits 是否达到和 master 一样的水准
+      - 分支充斥半成品 commits、 revert(s)，只有最终 commit 达到了 master 水准: merge \pause
+      - 分支 commits 质量和 master 一致，rebase + 快进 merge \pause
+      - 分支充斥半成品但 master 不愿 merge：要求分支作者在 rebase 时打磨干净，提升水准: rebase + 快进 merge
+*** Git merge 但由待合并分支处理冲突
+    =git merge= 由 master 处理冲突并敲定 merge commit。
+
+    如果 master 可能要求 =iss53= 处理冲突？
+    - 可以 rebase，但也许工作量更大
+    - 可以先 =git merge master= 把冲突解决，再由 master =git merge --no-ff iss53=
+
+    #+Attr_LaTeX: :width 0.7\textwidth
+    [[./out/basic-merging-3.pdf]]
+
+    - 红色部分表示 merge commit 的默认祖先 (first-parent)
+    - 如果 =git merge --ff iss53= 则最终 merge commit 是 C6， 默认祖先指向 C5 (iss53 分支)，在 revert 和 bisect 时带来困扰 
 *** 基于 Gitlab merge request (或 Github pull request) 的开发流程 I
+    gitlab 命令行工具： =apt install glab=, 登录: =glab auth login=
     #+begin_src bash
       # 首先在 Gitlab fork 需要的上游仓库 foo/bar.git 到 my/bar.git
       # 之所以 fork 是因为一般人无法往原仓库 push 分支
+      glab repo fork # 或在网页上点击 fork
       git clone git@git.tsinghua.edu.cn:my/bar.git # 拉取 fork 仓库, 进入 master 分支
       cd bar
       git switch --create my-dev # 取一个合适的分支名字
@@ -848,7 +869,7 @@ index 046a6d4,598b092..219a08a
       git add xxx
       git commit
       git push --set-upstream origin HEAD # push 自己的分支
-      # 根据命令行提示信息，在网页发起 merge request
+      glab mr create # 或者根据命令行提示信息，在网页发起 merge request
       # 上游若要求 rebase，则需要先同步 fork 仓库 my/bar.git 的 master 分支
       git switch master
       git pull # 同步 master, 产生分叉
