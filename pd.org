@@ -719,7 +719,6 @@ fig.set_dpi({dpi})
 *** Git 手动冲突处理 I
     #+beamer: \vspace{-0.5cm}
     C5: 加一句鼓励的话 (iss53)
-    #+beamer: \vspace{-0.25cm}
     #+begin_src diff
  概率統計，前十名，北京大學佔八名，清華大學沒有
  做學問一定要在有學問的朋友氛圍中，時時砥礪成長。
@@ -728,7 +727,6 @@ fig.set_dpi({dpi})
 +你们都比我聪明，只是妄自菲薄而已！
 +我宣布他已經不是我的學生了！
     #+end_src
-    #+beamer: \vspace{-0.25cm}
     =git switch iss53; git rebase master=
     #+begin_src text
       Auto-merging record.txt
@@ -775,7 +773,7 @@ fig.set_dpi({dpi})
     - 有多少 commit 需要 rebase (=iss53= 分支有多少 commit) 就需要处理多少次 (自动 or 手动)
 *** Git merge 冲突处理与结果 I
     - 回到分叉状态，在 master (C4) 上 =git merge iss53=
-    #+Attr_LaTeX: :width 0.7\textwidth
+    #+Attr_LaTeX: :width 0.5\textwidth
     [[./out/basic-merging-1.pdf]]
     #+beamer: \vspace{-1cm}
     #+begin_src
@@ -783,7 +781,6 @@ fig.set_dpi({dpi})
       CONFLICT (content): Merge conflict in record.txt
       Automatic merge failed; fix conflicts and then commit the result.
     #+end_src
-    #+beamer: \vspace{-0.5cm}
     #+begin_src text
       <<<<<<< HEAD
       已經到了無恥的地步。我宣布他已經不是我的學生了
@@ -792,7 +789,6 @@ fig.set_dpi({dpi})
       我宣布他已經不是我的學生了！
       >>>>>>> iss53
     #+end_src
-    #+beamer: \vspace{-0.75cm}
     #+beamer: \pause
     - 解决好冲突后 =git merge --continue= 生成 merge commit C6
     #+beamer: \pause
