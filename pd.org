@@ -4740,7 +4740,7 @@ convert -verbose -delay 50 -density 100 normal2d.pdf normal2d.gif
 :END:
 #+BEAMER: \frame[plain]{\includegraphics[height=\textheight,page=23]{fig/neutrino-undergrad-r10.pdf}}
 
-*** 吴健雄实验（图待更新）
+*** 吴健雄实验
 **** l                                                                :BMCOL:
 :PROPERTIES:
 :BEAMER_col: 0.6
