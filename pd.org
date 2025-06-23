@@ -293,7 +293,7 @@ fig.set_dpi({dpi})
   - 平时作业中的 80% 为黑盒测试，20% 为白盒测试。
   - 白盒测试重点考察：Git commit 的内容必须有意义，程序书写规范
 **** 大作业 30%
-- 取材自实验物理不同方向的真实场景。也可以由同学自行提出。
+- 取材自中微子实验物理的真实场景。也可以由同学自行提出。
   - 分两个阶段，对应前两周“生成”和后两周“分析”，互为逆过程。
 **** 捌分 8%
 - 小助教(A)，贡献 FAQ 内容(B)，审校讲义内容(C)，课堂贡献(D)，娱乐作业(E)
@@ -356,10 +356,10 @@ fig.set_dpi({dpi})
 **** 可使用 GNU 环境的操作系统
 - GNU/Linux :: 天然大佬。请帮助周围的同学，并自荐小助教。
 - Apple macOS :: 使用 =UTM= 虚拟机。
-  + 
+  + 安装 Debian 12
 - Microsoft Windows :: 本身不满足，但可以使用以下扩展
-  1. Windows Subsystem for Linux (WSL)
-  2. Cygwin, MinGW
+  + Windows Subsystem for Linux (WSL)；
+  + 安装 Debian 12
 - 权威指南：https://physics-data.meow.plus/faq/
 
 *** GNU 环境的基本操作
