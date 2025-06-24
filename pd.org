@@ -669,7 +669,7 @@ Bothe-Kolhoerster 实验 (Bothe 1954 诺贝尔物理奖)
 * Python 基础
   :PROPERTIES:
   :EXPORT_FILE_NAME: p1
-  :EXPORT_DATE: 2024-07-03 清华
+  :EXPORT_DATE: 2025-06-24 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
   :EXPORT_BEAMER_HEADER+: \setbeamertemplate{footline}[frame number]  
