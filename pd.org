@@ -12875,3 +12875,84 @@ apt install python3-torch
       + 提供算力支持
       + 环境配置培训
     - 积极对课程贡献的同学们 :: 谢谢！
+* 地球中微子暑期学校学生课题
+  :PROPERTIES:
+  :EXPORT_FILE_NAME: px
+  :EXPORT_DATE: 2024-08-26 清华
+  :EXPORT_BEAMER_HEADER+: \author{地球中微子暑期学校组委会}
+  :EXPORT_BEAMER_HEADER+: \setbeamertemplate{footline}[frame number]
+  :EXPORT_BEAMER_THEME: Hannover
+  :EXPORT_BEAMER_FONT_THEME: professionalfonts
+  :END:
+** 动机
+*** 动机
+1. 激励学生成为暑期学校的主角
+2. 鼓励暑校学生的校际交流合作
+3. 检验暑校的成效
+#+beamer: \pause
+**** 组织形式
+- 自由组队，自主选题确定报告内容
+- 组委会提供课题参考列表
+
+** 课题参考列表
+*** 地球中微子通量计算和模型误差估计
+**** 类型：计算实践
+- 使用 GEONU 软件包完成一项地球中微子通量计算。
+
+- 软件包
+  + 语言：MATLAB
+  + https://github.com/LSKgeo/Geonutest
+
+    #+begin_example
+      This version will run standard geoneutrino flux calculations to
+      completion for one of six detectors (Borexino, KamLAND, SNO+, JUNO,
+      CJPL, and Hawaii). The "Visualizing the Results" section has not yet
+      been developed.
+    #+end_example
+- 考虑获得计算结果后，为 GEONU 贡献绘图代码。
+- 教程
+  https://hep.tsinghua.edu.cn/~orv/video/geonu.mp4
+
+*** 地球中微子之外的新交叉研究方向
+**** 类型：调研
+- 调研地球科学的新技术与新学科交叉方向，推荐以一篇论文的调研为主线。
+  + 宇宙线缪子成像
+
+*** 地球中微子测量结果的总结和讨论
+**** 类型：调研
+- 调研地球中微子测量实验的研究成果，推荐以一篇已发表论文的调研为主线。
+  + KamLAND U/Th 地球中微子测量
+  + Borexino U/Th 地球中微子测量
+  + 未来地球中微子测量计划
+    + SNO+、JUNO（江门中微子实验）、JNE（锦屏中微子实验）
+#+beamer: \pause
+**** 类型：调研
+  + IceCube 大气中微子地核电子数密度测量
+    + KM3Net、HUNT、海铃的相关计划
+#+beamer: \pause
+**** 类型：调研
++ 测量地球中微子的新方案
+  + 来自 K、Rb 的中微子
+  + 地球中微子方向测量
+
+*** 地球中微子探测的应用前景
+**** 类型：调研、论述
+- 以地球中微子为技术的可能性
+  + 成像
+  + 产业应用
+
+** 评价
+*** 时间安排与评价
+1. 组队信息星期二下课前发送给 续本达 <orv@tsinghua.edu.cn>
+   + 队伍名称
+   + 队长姓名
+   + 队伍成员（姓名、院校）每队 3--4 人
+   + 课题选题
+
+2. 星期五下午 13:30 -- 15:10 ，课题展示
+   + 由组委会老师打分取平均
+
+3. 队伍成员来源：
+   + 一所院校 \(\times 0.98\)
+   + 两所院校 \(\times 1\)
+   + 三、四所院校 \(\times 1.03\)
