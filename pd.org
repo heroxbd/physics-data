@@ -1173,7 +1173,7 @@ head to =Python-Constructs.slides=.
 * 复合类型与函数
   :PROPERTIES:
   :EXPORT_FILE_NAME: p2
-  :EXPORT_DATE: 2024-07-04 清华
+  :EXPORT_DATE: 2025-06-25 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
   :EXPORT_BEAMER_HEADER+: \setbeamertemplate{footline}[frame number]  
