@@ -2040,7 +2040,12 @@ python3 -c "from numpy import version; print(version.version)"
 : 1.24.2
 
 *** 课前准备
-下载选课统计数据
+**** 安装 wget
+#+begin_src bash
+  apt install wget
+#+end_src
+
+**** 下载选课统计数据
 
 #+begin_src bash
 wget http://hep.tsinghua.edu.cn/~orv/teaching/physics-data/departments.csv
