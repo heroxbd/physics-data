@@ -617,6 +617,280 @@ Bothe-Kolhoerster 实验 (Bothe 1954 诺贝尔物理奖)
     man git config
   #+end_src
 
+*** Git 分支
+    参考 https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging
+    
+    - 一直往 master (或 main) 提交：线性历史
+    #+beamer: \pause
+    
+    - =git branch iss53= 创建新分支，名为 iss53
+    - =git switch iss53= 切换至 iss53 分支
+    - =git switch --create hotfix= 创建新分支 hotfix 并切换
+      
+    #+Attr_LaTeX: :height 0.4\textheight
+    [[./out/basic-branching-4.pdf]]
+    #+begin_export latex
+    \vspace{-50pt}
+    #+end_export
+    
+    #+beamer: \pause
+    - 从 C2 开始，iss53 与 hotfix 同时推进
+      - 都基于 master 的 C2 版本
+      - hotfix 新增一个 commit C4
+      - iss53 新增 C3
+    - 将 iss53 push 到远程: =git push --set-upstream origin iss53=
+*** Git 分支的结果：分叉
+    - 由于 hotfix 紧迫，hotfix 率先被 master 接受
+    #+beamer: \pause
+    - =git merge --ff hotfix= 快进合并 (Fast-Forward), 拿来 *原始* 的 hotfix commit (相当于直接在 master 上改动)
+    #+Attr_LaTeX: :height 0.35\textheight
+    #+Attr_Beamer: :overlay <1>
+    [[./out/basic-branching-4.pdf]]
+    #+Attr_LaTeX: :height 0.35\textheight
+    #+Attr_Beamer: :overlay <2-3>
+    [[./out/basic-branching-5.pdf]]
+    #+Attr_LaTeX: :height 0.35\textheight
+    #+Attr_Beamer: :overlay <4>
+    [[./out/basic-branching-6.pdf]]
+    #+beamer: \pause
+    - 此时 iss53 与 master 产生了 *分叉 (divergence)*, iss53 的原始修改不再能直接搬到 master 的 C4 上 (无法 *ff*)
+    #+beamer: \pause
+    - =git branch --delete hotfix= 删除不再需要的 hotfix 分支
+*** Git merge : 合并 (狭义) I
+    - 出现分叉需要合并，[[发展历史][回忆平行四边形法则]]
+    - 比较 master 的最新版 (C4) 和 iss53 最新版 (C5) 的差异，取两家之长，处理一次冲突
+    #+beamer: \pause
+    - 在 master 上 =git merge iss53=
+    - 生成一个 Merge commit C6，历史不再线性。
+    - master 的开发者负责解决冲突
+    #+Attr_LaTeX: :width 0.7\textwidth
+    #+Attr_Beamer: :overlay <1>
+    [[./out/basic-merging-1.pdf]]
+    #+Attr_LaTeX: :width 0.7\textwidth
+    #+Attr_Beamer: :overlay <2->
+    [[./out/basic-merging-2.pdf]]
+*** Git rebase : 换祖先
+    - 思考：让 iss53 的祖先从 C2 切换到 C4 不就没有分叉了吗？基于新版的 C4 重新做一遍 iss53 的开发
+    #+BEGIN_EXPORT latex
+    \begin{center}
+    \includegraphics<1>[width=0.7\textwidth]{./out/basic-rebase-1.pdf}
+    \includegraphics<2>[width=0.7\textwidth]{./out/basic-rebase-2.pdf}
+    \includegraphics<3>[width=0.7\textwidth]{./out/basic-rebase-3.pdf}
+    \includegraphics<4>[width=0.7\textwidth]{./out/basic-rebase-4.pdf}
+    \includegraphics<5>[width=0.7\textwidth]{./out/basic-rebase-5.pdf}
+    \end{center}
+    #+END_EXPORT
+    
+    #+beamer: \pause
+    - 在 =iss53= 分支 =git rebase C4= 或 =git rebase master=
+    - 基于 C4，将 C3 稍作修改变成 C3'
+    #+beamer: \pause
+    - 基于 C3'，将 C5 稍作修改变成 C5'
+    #+beamer: \pause
+    - rebase 修改历史！结束后旧的 =iss53= 历史消失，不要在 =master= rebase！
+    #+beamer: \pause
+    - =git switch master; git merge --ff iss53= 快进合并。最终合并出 *线性* 历史
+    #+beamer: \pause
+    - 需要处理 iss53 上所有 commit 的冲突 (C4 vs C3 & C3' vs C5')，但在 iss53 分支上操作
+    - =git rebase -i master= 还能允许你进一步修改历史，例如合并 commit、打磨 commit
+*** Git 自动冲突处理 I
+    - 如果 =C3、C5= 与 =C4= 不干涉 (修改的不是一个文件 or 修改的位置距离较远) 则程序可以自动处理
+      
+    C4: 补全最后一句的上文 (hotfix):
+    #+begin_src diff
+       今日中国，强敵环伺，科技卡膀，海疆未靖，幼苗未长，此誠危急存亡之秋也。
+       告诉学生們，去修 birkar 的課，交論文，得分最高的，獎一个华为手表。
+       概率統計，前十名，北京大學佔八名，清華大學沒有
+       做學問一定要在有學問的朋友氛圍中，時時砥礪成長。
+       我到落杉机，不熟地方
+      -我宣布他已經不是我的學生了
+      +已經到了無恥的地步。我宣布他已經不是我的學生了
+    #+end_src
+*** Git 自动冲突处理 II
+    - 如何把 =C3= 修改成 =C3'=? [[发展历史][回忆平行四边形法则]]
+    - 如果 =C3、C5= 与 =C4= 不干涉 (修改的不是一个文件 or 修改的位置距离较远) 则程序可以自动处理
+      
+    C3: 加入“躲在遊戲屋”语录 (iss53):
+    #+begin_src diff
+       今日中国，强敵环伺，科技卡膀，海疆未靖，幼苗未长，此誠危急存亡之秋也。
+      +我們学生躲在遊戲屋，不觉得羞愧？
+       告诉学生們，去修 birkar 的課，交論文，得分最高的，獎一个华为手表。
+       概率統計，前十名，北京大學佔八名，清華大學沒有
+       做學問一定要在有學問的朋友氛圍中，時時砥礪成長。
+       我到落杉机，不熟地方
+       我宣布他已經不是我的學生了
+    #+end_src
+*** Git 自动冲突处理 III
+    - 如何把 =C3= 修改成 =C3'=? [[发展历史][回忆平行四边形法则]]
+    - 如果 =C3、C5= 与 =C4= 不干涉 (修改的不是一个文件 or 修改的位置距离较远) 则程序可以自动处理
+      
+    C3' (rebase C3 upon C4):
+    #+begin_src diff
+       今日中国，强敵环伺，科技卡膀，海疆未靖，幼苗未长，此誠危急存亡之秋也。
+      +我們学生躲在遊戲屋，不觉得羞愧？
+       告诉学生們，去修 birkar 的課，交論文，得分最高的，獎一个华为手表。
+       概率統計，前十名，北京大學佔八名，清華大學沒有
+       做學問一定要在有學問的朋友氛圍中，時時砥礪成長。
+       我到落杉机，不熟地方
+       已經到了無恥的地步。我宣布他已經不是我的學生了
+    #+end_src
+*** Git 手动冲突处理 I
+    #+beamer: \vspace{-0.5cm}
+    C5: 加一句鼓励的话 (iss53)
+    #+begin_src diff
+ 概率統計，前十名，北京大學佔八名，清華大學沒有
+ 做學問一定要在有學問的朋友氛圍中，時時砥礪成長。
+ 我到落杉机，不熟地方
+-我宣布他已經不是我的學生了
++你们都比我聪明，只是妄自菲薄而已！
++我宣布他已經不是我的學生了！
+    #+end_src
+    =git switch iss53; git rebase master=
+    #+begin_src text
+      Auto-merging record.txt
+      CONFLICT (content): Merge conflict in record.txt
+      error: could not apply 262ef6c... C5: 加一句鼓励的话
+      hint: Resolve all conflicts manually, mark them as resolved with
+      hint: "git add/rm <conflicted_files>", then run "git rebase --continue".
+      hint: You can instead skip this commit: run "git rebase --skip".
+      hint: To abort and get back to the state before "git rebase", run "git rebase --abort".
+      Could not apply 262ef6c... C5: 加一句鼓励的话
+    #+end_src
+*** Git 手动冲突处理 II
+    #+begin_src text
+    Unmerged paths:
+    (use "git restore --staged <file>..." to unstage)
+    (use "git add <file>..." to mark resolution)
+	    both modified:   record.txt
+    #+end_src
+    =record.txt=:
+    #+begin_src text
+      <<<<<<< HEAD
+      已經到了無恥的地步。我宣布他已經不是我的學生了
+      =======
+      你们都比我聪明，只是妄自菲薄而已！
+      我宣布他已經不是我的學生了！
+      >>>>>>> 262ef6c (C5: 加一句鼓励的话)
+    #+end_src
+    需要揣摩两个分支作者的意图，最终合并成一个合理的版本：
+    #+begin_src text
+      你们都比我聪明，只是妄自菲薄而已！
+      已經到了無恥的地步。我宣布他已經不是我的學生了！
+    #+end_src
+*** Git 手动冲突处理 III
+    - 处理后 =git add record.txt; git rebase --continue=
+    C5' (rebase C5 upon C3'):
+    #+begin_src diff
+       概率統計，前十名，北京大學佔八名，清華大學沒有
+       做學問一定要在有學問的朋友氛圍中，時時砥礪成長。
+       我到落杉机，不熟地方
+      -已經到了無恥的地步。我宣布他已經不是我的學生了
+      +你们都比我聪明，只是妄自菲薄而已！
+      +已經到了無恥的地步。我宣布他已經不是我的學生了！
+    #+end_src
+    - 有多少 commit 需要 rebase (=iss53= 分支有多少 commit) 就需要处理多少次 (自动 or 手动)
+*** Git merge 冲突处理与结果 I
+    - 回到分叉状态，在 master (C4) 上 =git merge iss53=
+    #+Attr_LaTeX: :width 0.5\textwidth
+    [[./out/basic-merging-1.pdf]]
+    #+beamer: \vspace{-1cm}
+    #+begin_src
+      Auto-merging record.txt
+      CONFLICT (content): Merge conflict in record.txt
+      Automatic merge failed; fix conflicts and then commit the result.
+    #+end_src
+    #+begin_src text
+      <<<<<<< HEAD
+      已經到了無恥的地步。我宣布他已經不是我的學生了
+      =======
+      你们都比我聪明，只是妄自菲薄而已！
+      我宣布他已經不是我的學生了！
+      >>>>>>> iss53
+    #+end_src
+    #+beamer: \pause
+    - 解决好冲突后 =git merge --continue= 生成 merge commit C6
+    #+beamer: \pause
+    - Merge commit 有两个祖先，单个差分 (=git log -p=) 无法表达
+*** Git merge 冲突处理与结果 II
+    使用 =git log --diff-merges=combined= 查看 merge commit 相对两个祖先的差分
+    #+Attr_LaTeX: :options bgcolor=lightgray,fontsize=\tiny
+    #+begin_src diff
+commit 3773ad5beca2111981908d010e7356fa5d381a67 (HEAD -> main)
+Merge: 37bb2ab 5f9c706
+Author: Yiyang Wu <xgreenlandforwyy@gmail.com>
+Date:   Fri Jan 31 19:22:46 2025 +0800
+
+    Merge branch 'iss53'
+
+diff --cc record.txt
+index 046a6d4,598b092..219a08a
+--- a/record.txt
++++ b/record.txt
+@@@ -1,6 -1,8 +1,9 @@@
+  今日中国，强敵环伺，科技卡膀，海疆未靖，幼苗未长，此誠危急存亡之秋也。
++ 我們学生躲在遊戲屋，不觉得羞愧？
+  告诉学生們，去修 birkar 的課，交論文，得分最高的，獎一个华为手表。
+  概率統計，前十名，北京大學佔八名，清華大學沒有
+++這種成績，使人汗顏！如此成績，如何招生？
+  做學問一定要在有學問的朋友氛圍中，時時砥礪成長。
+  我到落杉机，不熟地方
+- 已經到了無恥的地步。我宣布他已經不是我的學生了
++ 你们都比我聪明，只是妄自菲薄而已！
+ -我宣布他已經不是我的學生了！
+++已經到了無恥的地步。我宣布他已經不是我的學生了！
+    #+end_src
+
+    彩蛋：这个 merge commit 塞了私货
+*** 权衡 merge vs rebase
+    参考 https://git-scm.com/book/en/v2/Git-Branching-Rebasing Rebase vs. Merge
+    - =git merge= 只处理一次(大)冲突，产生非线性历史
+      - 遮住其他分支后 merge commit 视作单个祖先，获得简单的线性历史，可以排除低质量 commit 干扰 bisect
+      - 难理清 commits 的逻辑顺序
+      - revert 更困难
+      - 不遮住分支 bisect 困难
+        #+beamer: \pause
+    - =git rebase= 处理多次(小)冲突，产生线性历史：
+      - 所有 commits 逻辑顺序清晰，revert 容易
+      - bisect 可以检查所有合并进来的 commits
+      - 所有 commits 在一个历史中，低质量 commits 会干扰 bisect
+        #+beamer: \pause
+    - 判据: master 的喜好；分支的所有 commits 是否达到和 master 一样的水准
+      - 分支充斥半成品 commits、 revert(s)，只有最终 commit 达到了 master 水准: merge \pause
+      - 分支 commits 质量和 master 一致，rebase + 快进 merge \pause
+      - 分支充斥半成品但 master 不愿 merge：要求分支作者在 rebase 时打磨干净，提升水准: rebase + 快进 merge
+*** Git merge 但由待合并分支处理冲突
+    =git merge= 由 master 处理冲突并敲定 merge commit。
+
+    如果 master 可能要求 =iss53= 处理冲突？
+    - 可以 rebase，但也许工作量更大
+    - 可以先 =git merge master= 把冲突解决，再由 master =git merge --no-ff iss53=
+
+    #+Attr_LaTeX: :width 0.7\textwidth
+    [[./out/basic-merging-3.pdf]]
+
+    - 红色部分表示 merge commit 的默认祖先 (first-parent)
+    - 如果 =git merge --ff iss53= 则最终 merge commit 是 C6， 默认祖先指向 C5 (iss53 分支)，在 revert 和 bisect 时带来困扰 
+*** 基于 Gitlab merge request (或 Github pull request) 的开发流程 I
+    gitlab 命令行工具： =apt install glab=, 登录: =glab auth login=
+    #+begin_src bash
+      # 首先在 Gitlab fork 需要的上游仓库 foo/bar.git 到 my/bar.git
+      # 之所以 fork 是因为一般人无法往原仓库 push 分支
+      glab repo fork # 或在网页上点击 fork
+      git clone git@git.tsinghua.edu.cn:my/bar.git # 拉取 fork 仓库, 进入 master 分支
+      cd bar
+      git switch --create my-dev # 取一个合适的分支名字
+      # 一通编辑代码
+      git add xxx
+      git commit
+      git push --set-upstream origin HEAD # push 自己的分支
+      glab mr create # 或者根据命令行提示信息，在网页发起 merge request
+      # 上游若要求 rebase，则需要先同步 fork 仓库 my/bar.git 的 master 分支
+      git switch master
+      git pull # 同步 master, 产生分叉
+      git switch my-dev
+      git rebase master
+      git push --force # rebase 后破坏了 my-dev 的历史，my/bar.git 的 my-dev 远端需要被覆盖
+    #+end_src
 *** 参考资料
     - Git 提交说明的白盒采分项：
       
