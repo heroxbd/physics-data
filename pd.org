@@ -2447,7 +2447,7 @@ https://docs.python.org/3/library/itertools.html
     #+begin_example
     Allows a remote attacker to gain unauthorized access to the application.
     #+end_example
-  - =pip= 的软件没有经过第三方测试验证，使用意味者相信上游软件作者。
+  - =pip= 的软件没有经过第三方测试验证，使用意味着相信上游软件作者。
   - 环境整合方案会有负责安全、兼容和性能的团队，有大量同样环境的用户反馈问题。
 - Debian/Arch/Gentoo 志愿者形态与 Ubuntu/Conda 公司免费形态
   - 志愿者形态的开发团队没有利益关系，人们由于共同的兴趣走到一起。
