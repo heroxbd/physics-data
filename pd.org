@@ -2025,21 +2025,6 @@ https://physics-data.meow.plus/faq/plagiarism/
 
 ** 复习
 *** 课前准备
-- 安装 NumPy
-#+begin_src bash
-apt update
-apt install python3-numpy
-#+end_src
-
-- 验证是否安装成功
-#+begin_src bash
-python3 -c "from numpy import version; print(version.version)"
-#+end_src
-
-#+RESULTS:
-: 1.24.2
-
-*** 课前准备
 **** 安装 wget
 #+begin_src bash
   apt install wget
@@ -2417,7 +2402,7 @@ https://docs.python.org/3/library/itertools.html
 
 **** 参考资料
      - =help(str)=
-     - https://docs.python.org/3.9/library/stdtypes.html#textseq
+     - https://docs.python.org/3.11/library/stdtypes.html#textseq
 ** 寻找工具
 *** 更多 Python 扩展库
 - 优先使用 APT (Debian) 软件管理器
@@ -2499,9 +2484,17 @@ https://docs.python.org/3/library/itertools.html
     - 已经发展成为 Python 科学计算的基石
     - 参考书：[[http://scipy-lectures.org/][Scipy Lecture Notes]]
 **** 安装 NumPy 和相关工具
-     #+begin_src bash :exports both
-       apt install python3-numpy python3-scipy python3-h5py
-     #+end_src
+#+begin_src bash :exports both
+  apt install python3-numpy python3-scipy python3-h5py
+#+end_src
+- 验证是否安装成功
+#+begin_src bash
+python3 -c "from numpy import version; print(version.version)"
+#+end_src
+
+#+RESULTS:
+: 1.24.2
+
 
 *** SciPy: Scientific Python
     - NumPy 定义高效的数据结构
