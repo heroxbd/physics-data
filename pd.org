@@ -1341,7 +1341,7 @@ xt[1]=5
 #+NAME: fc1414cd-de1c-40dd-a96a-a9c552cb5664
 #+begin_src python :results output :session local :exports both
 sc['致理'], sc['未央'] = 38, 19 # 元组赋值
-print(sc["致理"], sc['未央'])
+print(sc['致理'], sc['未央'])
 #+end_src
 
 #+RESULTS: fc1414cd-de1c-40dd-a96a-a9c552cb5664
