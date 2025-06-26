@@ -235,12 +235,12 @@
 ** 变量
    Python 的变量与数学的含义类似，用以指代一个任何对象，例如字符串，
    #+begin_src python :session ob :results output :export both
-     message = "This is an new era. 新时代"
+     message = "This is a new era. 新时代"
      print(message)
    #+end_src
 
    #+RESULTS:
-   : This is an new era. 新时代
+   : This is a new era. 新时代
 
    那么随后就可以用变量代替字符串。Python 的一大的特点是变量没有类型。我们可以看到，
 

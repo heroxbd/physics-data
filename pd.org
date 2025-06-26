@@ -408,12 +408,12 @@ Bothe-Kolhoerster 实验 (Bothe 1954 诺贝尔物理奖)
 ** 学习建议
 *** 学术共同体意识
 - 我们在一个月的时间里，共同理解物理和逻辑，沉淀下来我们的探索过程
-*** 网站的使用
+**** 网站的使用
 - 收藏夹
-*** 邮件
+**** 邮件
 - 客户端
-*** 编辑器
-**** 程序编辑器三大流派
+**** 编辑器
+***** 程序编辑器三大流派
 - Emacs
 - Vi
 - Visual Studio Code
@@ -1062,12 +1062,12 @@ print("Hello World!")
 *** 变量创建与使用
 - Python 是“弱类型语言”，创建变量可不指定类型。
 #+begin_src python :results output :session local :exports both
-message = "This is an new era. 新时代"
+message = "This is a new era. 新时代"
 print(message)
 #+end_src
 
 #+RESULTS:
-: This is an new era. 新时代
+: This is a new era. 新时代
 
 - 变量在使用中可以改换类型
   #+begin_src python :results value :session local :exports both
@@ -1181,13 +1181,6 @@ head to =Python-Constructs.slides=.
   :EXPORT_BEAMER_FONT_THEME: professionalfonts
   :END:
 ** 复习
-*** 课前准备
-下载选课统计数据
-
-#+begin_src bash
-wget http://hep.tsinghua.edu.cn/~orv/teaching/physics-data/departments.csv
-#+end_src
-
 *** Python 基础
 - 基本数据类型和基本运算
   + 整型、浮点型和字符串
@@ -1341,7 +1334,7 @@ xt[1]=5
 #+NAME: fc1414cd-de1c-40dd-a96a-a9c552cb5664
 #+begin_src python :results output :session local :exports both
 sc['致理'], sc['未央'] = 38, 19 # 元组赋值
-print(sc["致理"], sc['未央'])
+print(sc['致理'], sc['未央'])
 #+end_src
 
 #+RESULTS: fc1414cd-de1c-40dd-a96a-a9c552cb5664
@@ -2045,6 +2038,18 @@ python3 -c "from numpy import version; print(version.version)"
 
 #+RESULTS:
 : 1.24.2
+
+*** 课前准备
+**** 安装 wget
+#+begin_src bash
+  apt install wget
+#+end_src
+
+**** 下载选课统计数据
+
+#+begin_src bash
+wget http://hep.tsinghua.edu.cn/~orv/teaching/physics-data/departments.csv
+#+end_src
 
 *** 复合数据结构
 - 列表、元组、字典
