@@ -1181,13 +1181,6 @@ head to =Python-Constructs.slides=.
   :EXPORT_BEAMER_FONT_THEME: professionalfonts
   :END:
 ** 复习
-*** 课前准备
-下载选课统计数据
-
-#+begin_src bash
-wget http://hep.tsinghua.edu.cn/~orv/teaching/physics-data/departments.csv
-#+end_src
-
 *** Python 基础
 - 基本数据类型和基本运算
   + 整型、浮点型和字符串
@@ -2045,6 +2038,13 @@ python3 -c "from numpy import version; print(version.version)"
 
 #+RESULTS:
 : 1.24.2
+
+*** 课前准备
+下载选课统计数据
+
+#+begin_src bash
+wget http://hep.tsinghua.edu.cn/~orv/teaching/physics-data/departments.csv
+#+end_src
 
 *** 复合数据结构
 - 列表、元组、字典
