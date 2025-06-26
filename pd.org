@@ -2486,6 +2486,26 @@ https://docs.python.org/3/library/decimal.html
 #+RESULTS: a65a7dfd-f957-488b-bff0-10e9a5cf2bbd
 : 0.1428571428571428571428571429
 : 0.14285714285714285
+
+**** decimal 定义在计算中小数的保留位数
+https://docs.python.org/3/library/decimal.html
+
+#+NAME: a65a7dfd-f957-488b-bff0-10e9a5cf2123
+#+begin_src ein-python
+  getcontext().prec = 6
+  Decimal('3.0')
+  Decimal('3.1415926535')
+  Decimal('3.1415926535') + Decimal('2.7182818285')
+  getcontext().rounding = ROUND_UP
+  Decimal('3.1415926535') + Decimal('2.7182818285')
+#+end_src
+
+#+RESULTS: a65a7dfd-f957-488b-bff0-10e9a5cf2123
+: Decimal('3.0')
+: Decimal('3.1415926535')
+: Decimal('5.85987')
+: Decimal('5.85988')
+
 *** 迭代器
 - 迭代器是一个对象，允许逐个访问容器（如列表、元组、集合）中的元素，而不必知道容器的内部实现细节。
   + 实现“迭代器协议”，在类中定义 =__iter__()= 函数。
