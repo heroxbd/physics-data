@@ -3150,6 +3150,13 @@ print(np.diag(np.arange(5)))
       :  [1. 1.]]
       : [[2. 2.]
       :  [2. 2.]]
+
+*** 张量
+- 矩阵可表示为两个下标的矩阵元：二阶张量 \(a_{ij}\)。
+  + 三个下标：三阶张量 \(b_{ijk}\)。
+  + 一个下标：向量 \(x_i\)。
+  + 无下标：标量。
+
 *** 张量乘法
 - =tensordot= ，可标注哪些下标进行缩并
 
@@ -3214,6 +3221,15 @@ print(np.diag(np.arange(5)))
 #+RESULTS:
 : 4096.0
 
+*** NumPy 语法的启示
+当代码语法的描述能力不断变强时，可能比数学公式还简单。
+
+\[ \sum_{i=1}^I \sum_{j=1}^J \sum_{k=1}^K \sum_{l=1}^L \sum_{m=1}^M \sum_{n=1}^N a_{ijk} a_{ilm} a_{njm} a_{nlk} \]
+
+- 经典的 formula translation (Fortran 语言)，先推导再转成程序。
+  + 可能用程序来描述公式的推导吗？
+  + 程序帮助我们推导公式？
+
 ** 矩阵运算
 *** Pauli 矩阵的定义
 - 在量子力学中为自旋\(\frac{1}{2}\)态空间下的角动量算符表示。
@@ -3233,6 +3249,8 @@ print(np.diag(np.arange(5)))
 \end{equation*}
 #+end_export
 
+- 科学发展的顺序和培养方案的顺序不同。 Heisenberg 发明矩阵力学时还未掌握矩阵。
+  + 即使尚未掌握量子力学也可以熟悉 Pauli 矩阵并进行计算。
 *** Pauli 矩阵的对易关系
 #+begin_export latex
 \begin{equation*}
@@ -3257,10 +3275,10 @@ print(np.diag(np.arange(5)))
 #+begin_export latex
 \begin{equation*}
   \begin{aligned}
-    \sigma_2\sigma_1 = -i\sigma_3
-    \sigma_2\sigma_3 = i\sigma_1
-    \sigma_3\sigma_2 = -i\sigma_1
-    \sigma_3\sigma_1 = i\sigma_2
+    \sigma_2\sigma_1 = -i\sigma_3\\
+    \sigma_2\sigma_3 = i\sigma_1\\
+    \sigma_3\sigma_2 = -i\sigma_1\\
+    \sigma_3\sigma_1 = i\sigma_2\\
     \sigma_1\sigma_3 = -i\sigma_2
   \end{aligned}
 \end{equation*}
@@ -3300,9 +3318,6 @@ print(np.diag(np.arange(5)))
     : trace is 0; eigenvalues are:  [ 1. -1.]
 
 *** 验证对易关系
-    - \( [\sigma_i, \sigma_j] = 2i \epsilon_{ijk} \sigma^k \)
-      - (\epsilon_{ijk}) 是全反称张量，指标有相同时为 0，指标奇排列为 -1 ，偶排列时为 1。
-
     #+NAME: ce310845-7c56-4745-9c76-0b43f0372771
     #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
       def commute(a,b):
@@ -3323,10 +3338,13 @@ print(np.diag(np.arange(5)))
     : [ pauli_1 , pauli_2 ] == 2i pauli_0
     : [ pauli_2 , pauli_0 ] == 2i pauli_1
 
-*** 课堂练习：彻底避免使用列表
-    - 构造 Pauli 矩阵时使用了列表和 for 循环，不够简洁
-    - 直接构造张量计算，省去交换关系验证中的循环
-    - 书写脚本解决
+*** 彻底避免使用列表和 for 循环
+- 构造 Pauli 矩阵时使用了列表和 for 循环，不够简洁
+- 直接构造张量计算，省去交换关系验证中的循环
+
+**** 将 Pauli 矩阵的下标当成高一阶的张量
+- \( [\sigma_i, \sigma_j] = 2i \epsilon_{ijk} \sigma^k \)
+  - (\epsilon_{ijk}) 是全反称张量，指标有相同时为 0，指标奇排列为 -1 ，偶排列时为 1。
 
 *** Pauli 矩阵的反对易关系验证
 \[ \{\sigma_i, \sigma_j\} = 2 \delta_{ij} I\]
