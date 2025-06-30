@@ -3056,7 +3056,7 @@ print(np.diag(np.arange(5)))
 * 矩阵与张量运算
   :PROPERTIES:
   :EXPORT_FILE_NAME: p4
-  :EXPORT_DATE: 2024-07-08
+  :EXPORT_DATE: 2025-06-30
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
   :EXPORT_BEAMER_HEADER+: \setbeamertemplate{footline}[frame number]  
@@ -3290,7 +3290,8 @@ print(np.diag(np.arange(5)))
     #+NAME: 57e49468-a2c8-469f-aa42-ffbc7bd25a07
     #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
       for m in pauli:
-          print("trace is {};".format(np.trace(m)), "eigenvalues are: ", np.linalg.eigvals(m))
+          print("trace is {};".format(np.trace(m)),
+                "eigenvalues are: ", np.linalg.eigvals(m))
     #+end_src
 
     #+RESULTS: 57e49468-a2c8-469f-aa42-ffbc7bd25a07
@@ -3411,13 +3412,14 @@ print(np.diag(np.arange(5)))
 *** Dirac 的反对易关系
 #+begin_src python :results value :session local :exports both
   mkov = np.diag((1,-1,-1,-1))
-  np.all(anticomm(dirac[None], dirac[:, None]) == 2 * np.einsum('ij,xz->ijxz', mkov, np.eye(4)))
+  np.all(anticomm(dirac[None], dirac[:, None]) ==
+         2 * np.einsum('ij,xz->ijxz', mkov, np.eye(4)))
 #+end_src
 
 #+RESULTS:
 : True
 
-*** \(\Gamma^5\) 是 Hermite 阵
+*** \(\gamma^5\) 是 Hermite 阵
 #+begin_src python :results value :session local :exports both
   gamma5 = 1j * dirac[0] @ dirac[1] @ dirac[2] @ dirac[3]
   np.all(np.conj(gamma5.T) == gamma5)
@@ -3426,7 +3428,7 @@ print(np.diag(np.arange(5)))
 #+RESULTS:
 : True
 
-*** \(\Gamma^5\) 平方是单位阵
+*** \(\gamma^5\) 平方是单位阵
 #+begin_src python :results value :session local :exports both
   np.all(gamma5 @ gamma5 == np.eye(4))
 #+end_src
@@ -3434,7 +3436,7 @@ print(np.diag(np.arange(5)))
 #+RESULTS:
 : True
 
-*** \(\Gamma^5\) 与 \(\Gamma^\mu\) 的反对易关系
+*** \(\gamma^5\) 与 \(\gamma^\mu\) 的反对易关系
 #+begin_src python :results value :session local :exports both
   np.all(anticomm(gamma5[None], dirac) == 0)
 #+end_src
@@ -3450,7 +3452,7 @@ print(np.diag(np.arange(5)))
 #+RESULTS:
 : True
 
-*** 四 \(\Gamma\) 同框
+*** 四 \(\gamma\) 同框
 #+begin_src python :results value :session local :exports both
   np.all(np.einsum('xab,jbc,kcd,xy,yde->jkae', dirac,dirac,dirac,mkov,dirac)
          == 4 * np.einsum('ij,xy->ijxy', mkov, np.eye(4)))
@@ -3516,23 +3518,10 @@ print(np.diag(np.arange(5)))
       —— Eric Raymond，提问的智慧
 
 *** “菜”问题
-    #+attr_beamer: :overlay <+->
-    - 解决未知问题是本课程的教学目标，也是数据时代黑客技能的基本组成部分，不要放弃宝贵的学习机会。
-
-    - 希望同学在提问之前，做一些努力，尝试先自己解决问题。
-
-    - 查找 FAQ 和群聊天记录，可能已经有人遇到并解决了同样问题。
-
-    - 提问时，把问题描述清楚，不要说自己“菜”“弱”。
-
-    - 不要遇到问题不假思索随手拍照，请先思考分析原因。
-
-    - 老师一直在暗中观察，会及时制止助教无端以不好的态度与同学对话。
-      但是本人看到的所有助教语气激烈的情形，都是同学无视了以上的建议。
-
-    - 人非生而知之者，基础弱可以不断学习。但提菜问题必须批评。
-
-    - 幸亏助教只是凶一下，随后还是帮助了同学，如果遇到老师……
+- 解决未知问题是本课程的教学目标，也是数据时代黑客技能的基本组成部分，不要放弃宝贵的学习机会。
+- 希望同学在提问之前，做一些努力，尝试先自己解决问题。
+- 查找 FAQ 和群聊天记录，可能已经有人遇到并解决了同样问题。
+- 提问时，把问题描述清楚，不要说自己“菜”“弱”。
 
 **** 课堂豁免                                                  :B_alertblock:
      :PROPERTIES:
@@ -3576,28 +3565,28 @@ print(np.diag(np.arange(5)))
       - 有了 Hacking skills 和数理统计的功底，机器学习才能发挥出作用。
 
 *** 同学们的建议反馈（五）
+- 希望详细演示下debug的过程
 
-    - 希望详细演示下debug的过程
+  好！
 
-      好！
+- 希望了解更多的linux的骚气操作
+ 
+  好！第三周。
 
-    - 希望了解更多的linux的骚气操作
-     
-      好！第三周。
+- 希望老师多讲解每个知识点的具体应用的意义。少讲语法，突出物理
 
-    - 希望老师多讲解每个知识点的具体应用的意义。少讲语法，突出物理
+  好！
 
-      好！
+- 建议作业和课件在课程开始时就全部发放
 
-    - 建议作业和课件在课程开始时就全部发放
+  课件可以，作业课后发。
 
-      课件可以，作业课后发。
+- 将所有同学问过的问题整理到某个地方。
+  - https://physics-data.meow.plus/faq/
+  - 你学习如何通过关键词提示找到答案
+- 希望老师多举一些例子，整理出来发给大家。优秀代码分享。
 
-    - 将所有同学问过的问题整理到某个地方。助教群里答疑是提供详细的说明，而非提一个从来没有听说过的关键词
-
-      - https://physics-data.meow.plus/faq/
-
-      - 你学习如何通过关键词提示找到答案
+  好！
 
 *** 如何通过关键词提示找到答案
     - 搜索引擎的用法演示
@@ -3613,9 +3602,6 @@ print(np.diag(np.arange(5)))
       其它的搜索引擎都强烈不推荐。
 
 *** 同学们的建议反馈（五）
-    - 希望老师多举一些例子，整理出来发给大家。优秀代码分享。
-
-      好！
 
 *** 提问的智慧节选
     - 如果你的问题被人无视了，请对号入座：
