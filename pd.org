@@ -3129,7 +3129,7 @@ print(np.diag(np.arange(5)))
     #+RESULTS:
     | 0 | 1 | 4 | 9 | 16 | 25 | 36 | 49 | 64 | 81 |
 
-** 矩阵乘法
+** 乘法
 元素的乘法是逐个数字相乘。
 
 *** 元素乘法与矩阵乘法的区别
@@ -3230,7 +3230,7 @@ print(np.diag(np.arange(5)))
   + 可能用程序来描述公式的推导吗？
   + 程序帮助我们推导公式？
 
-** 矩阵运算
+** Pauli 矩阵
 *** Pauli 矩阵的定义
 - 在量子力学中为自旋\(\frac{1}{2}\)态空间下的角动量算符表示。
 
@@ -3365,14 +3365,14 @@ array([[[ 0.,  0.,  0.],
         [ 0.,  0.,  0.]]])
 #+end_example
 
-*** Pauli 矩阵的反对易关系验证
-\[ \{\sigma_i, \sigma_j\} = 2 \delta_{ij} I\]
+*** Pauli 矩阵的对易关系验证
+\[ [\sigma_i, \sigma_j] = 2i \epsilon_{ijk} \sigma^k \]
 
 #+begin_src python :results value :session local :exports both
   import numpy as np
-  pauli = np.array([np.array([0,1,1,0]).reshape(2,2),
-                    np.array([0,-1j,1j,0]).reshape(2,2),
-                    np.array([1,0,0,-1]).reshape(2,2)])
+  pauli = np.array([np.array([(0,1),(1,0)]),
+                    np.array([(0,-1j),(1j,0)]),
+                    np.array([(1,0),(0,-1)])])
   pp = np.einsum('ixy,jyz->ijxz', pauli, pauli)
   commutate = pp - np.transpose(pp, (1,0,2,3))
   np.all(commutate == 2j * np.tensordot(eps(3), pauli, axes=([2], [0])))
@@ -3381,6 +3381,15 @@ array([[[ 0.,  0.,  0.],
 #+RESULTS:
 : True
 
+*** Pauli 矩阵的反对易关系验证
+\[ \{\sigma_i, \sigma_j\} = 2 \delta_{ij} I\]
+
+#+begin_src python :results value :session local :exports both
+  ac = pp + np.transpose(pp, (1,0,2,3))
+  np.all(ac == 2 * np.einsum('ij,xz->ijxz', np.eye(3), np.eye(2))
+#+end_src
+
+- 掌握物理学原理：这些形式化的验证，让我们无跳跃步骤地 *彻底* 完成推导。
 ** Dirac 矩阵
 *** Dirac 矩阵的对易关系
     \[
