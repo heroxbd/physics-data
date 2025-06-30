@@ -3275,11 +3275,11 @@ print(np.diag(np.arange(5)))
 #+begin_export latex
 \begin{equation*}
   \begin{aligned}
-    \sigma_2\sigma_1 = -i\sigma_3\\
-    \sigma_2\sigma_3 = i\sigma_1\\
-    \sigma_3\sigma_2 = -i\sigma_1\\
-    \sigma_3\sigma_1 = i\sigma_2\\
-    \sigma_1\sigma_3 = -i\sigma_2
+    \sigma_2\sigma_1 &= -i\sigma_3\\
+    \sigma_2\sigma_3 &= i\sigma_1\\
+    \sigma_3\sigma_2 &= -i\sigma_1\\
+    \sigma_3\sigma_1 &= i\sigma_2\\
+    \sigma_1\sigma_3 &= -i\sigma_2
   \end{aligned}
 \end{equation*}
 #+end_export
@@ -3343,14 +3343,46 @@ print(np.diag(np.arange(5)))
 - 直接构造张量计算，省去交换关系验证中的循环
 
 **** 将 Pauli 矩阵的下标当成高一阶的张量
-- \( [\sigma_i, \sigma_j] = 2i \epsilon_{ijk} \sigma^k \)
-  - (\epsilon_{ijk}) 是全反称张量，指标有相同时为 0，指标奇排列为 -1 ，偶排列时为 1。
+\[ [\sigma_i, \sigma_j] = 2i \epsilon_{ijk} \sigma^k \]
+- (\epsilon_{ijk}) 是全反称张量，指标有相同时为 0，指标奇排列为 -1 ，偶排列时为 1。
+#+begin_src python :results value :session local :exports both
+  from asym import eps
+  eps(3)
+#+end_src
+
+#+RESULTS:
+#+begin_example
+array([[[ 0.,  0.,  0.],
+        [ 0.,  0.,  1.],
+        [ 0., -1.,  0.]],
+
+       [[ 0.,  0., -1.],
+        [ 0.,  0.,  0.],
+        [ 1.,  0.,  0.]],
+
+       [[ 0.,  1.,  0.],
+        [-1.,  0.,  0.],
+        [ 0.,  0.,  0.]]])
+#+end_example
 
 *** Pauli 矩阵的反对易关系验证
 \[ \{\sigma_i, \sigma_j\} = 2 \delta_{ij} I\]
 
+#+begin_src python :results value :session local :exports both
+  import numpy as np
+  pauli = np.array([np.array([0,1,1,0]).reshape(2,2),
+                    np.array([0,-1j,1j,0]).reshape(2,2),
+                    np.array([1,0,0,-1]).reshape(2,2)])
+  pp = np.einsum('ixy,jyz->ijxz', pauli, pauli)
+  commutate = pp - np.transpose(pp, (1,0,2,3))
+  np.all(commutate == 2j * np.tensordot(eps(3), pauli, axes=([2], [0])))
+#+end_src
+
+#+RESULTS:
+: True
+
 ** Dirac 矩阵
-*** 进阶练习：Dirac 矩阵的对易关系
+*** Dirac 矩阵的对易关系
     \[
 \gamma^0 = \begin{pmatrix} 
 1 & 0 & 0 & 0 \\
