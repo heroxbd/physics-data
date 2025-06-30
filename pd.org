@@ -3393,7 +3393,9 @@ print(np.diag(np.arange(5)))
 #+end_src
 
 #+RESULTS:
-*** 验证反对易关系
+*** 验证 Dirac 矩阵的反对易关系
+\[ \{\gamma^\mu, \gamma^\nu\} = 2 \eta^{\mu\nu}I \]
+
 #+begin_src python :results value :session local :exports both
   def anticomm(x, y):
       '''
@@ -3409,7 +3411,6 @@ print(np.diag(np.arange(5)))
 
 #+RESULTS:
 
-*** Dirac 的反对易关系
 #+begin_src python :results value :session local :exports both
   mkov = np.diag((1,-1,-1,-1))
   np.all(anticomm(dirac[None], dirac[:, None]) ==
