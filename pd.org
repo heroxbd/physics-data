@@ -3429,6 +3429,8 @@ print(np.diag(np.arange(5)))
 : True
 
 *** \(\gamma^5\) 平方是单位阵
+\[(\gamma^5)^2 = I\]
+
 #+begin_src python :results value :session local :exports both
   np.all(gamma5 @ gamma5 == np.eye(4))
 #+end_src
@@ -3437,6 +3439,8 @@ print(np.diag(np.arange(5)))
 : True
 
 *** \(\gamma^5\) 与 \(\gamma^\mu\) 的反对易关系
+\[\{\gamma^5, \gamma^\nu\} = 0\]
+
 #+begin_src python :results value :session local :exports both
   np.all(anticomm(gamma5[None], dirac) == 0)
 #+end_src
@@ -3445,6 +3449,8 @@ print(np.diag(np.arange(5)))
 : True
 
 *** 归一性
+\[\gamma^\nu \gamma_\nu = 4 I\]
+
 #+begin_src python :results value :session local :exports both
   np.all(np.einsum('ixy,ij,jyz->xz', dirac, mkov, dirac) == 4 * np.eye(4))
 #+end_src
@@ -3452,7 +3458,18 @@ print(np.diag(np.arange(5)))
 #+RESULTS:
 : True
 
+\[ \Tr(\gamma^\mu\gamma^\nu) = 4 \eta^{\mu\nu} \]
+
+#+begin_src python :results value :session local :exports both
+  np.all(np.einsum('ixy,jyx', dirac, dirac) == 4 * mkov)
+#+end_src
+
+#+RESULTS:
+: True
+
 *** 四 \(\gamma\) 同框
+\[\gamma^\mu \gamma^\nu \gamma^\rho \gamma_\mu = 4 \eta^{\nu\rho} I\]
+
 #+begin_src python :results value :session local :exports both
   np.all(np.einsum('xab,jbc,kcd,xy,yde->jkae', dirac,dirac,dirac,mkov,dirac)
          == 4 * np.einsum('ij,xy->ijxy', mkov, np.eye(4)))
@@ -3462,6 +3479,7 @@ print(np.diag(np.arange(5)))
 : True
 
 *** 迹
+\[ \Tr(\gamma^\mu) = 0 \]
 #+begin_src python :results value :session local :exports both
   np.all(np.einsum('ixx', dirac) == 0)
 #+end_src
@@ -3469,19 +3487,14 @@ print(np.diag(np.arange(5)))
 #+RESULTS:
 : True
 
+\[ \Tr(\gamma^5) = 0 \]
+
 #+begin_src python :results value :session local :exports both
   np.trace(gamma5)
 #+end_src
 
 #+RESULTS:
 : 0j
-
-#+begin_src python :results value :session local :exports both
-  np.all(np.einsum('ixy,jyx', dirac, dirac) == 4 * mkov)
-#+end_src
-
-#+RESULTS:
-: True
 
 ** 备用
 *** 同学们的建议反馈（一）
@@ -3600,8 +3613,6 @@ print(np.diag(np.arange(5)))
       https://duckduckgo.com/
 
       其它的搜索引擎都强烈不推荐。
-
-*** 同学们的建议反馈（五）
 
 *** 提问的智慧节选
     - 如果你的问题被人无视了，请对号入座：
