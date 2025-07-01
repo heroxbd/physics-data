@@ -3712,7 +3712,7 @@ array([[[ 0.,  0.,  0.],
 * 数据存储格式
   :PROPERTIES:
   :EXPORT_FILE_NAME: p5
-  :EXPORT_DATE: 2024-07-09 清华
+  :EXPORT_DATE: 2025-07-01 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
   :EXPORT_BEAMER_HEADER+: \setbeamertemplate{footline}[frame number]  
@@ -3728,30 +3728,9 @@ array([[[ 0.,  0.,  0.],
   + 新软件进入 Debian =unstable= 如果经过一星期没有问题，则转入 =testing=
   + 将 =testing= 定期整理发布成 =stable=
 - =/etc/apt/sources.list=    
-- =/etc/apt/preferences.d/stable=
-
-#+begin_example
-Package: *
-Pin: release a=unstable
-Pin-Priority: 200
-
-Package: *
-Pin: release a=testing
-Pin-Priority: 300
-
-Package: *
-Pin: release a=stable-backports
-Pin-Priority: 400
-#+end_example
-
 *** 安装 HDF5、CSV 和 JSON 的相关工具
 #+begin_src bash
   apt install vitables csvkit python3-h5py hdf5-tools jq python3-pandas
-#+end_src
-
-- =python3-fastparquet= 需要 =unstable= ，未来将在 Debian 13 中。
-#+begin_src bash
-  apt install -t unstable python3-fastparquet python3-numpy
 #+end_src
 
 - 数据
