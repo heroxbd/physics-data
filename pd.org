@@ -3721,13 +3721,18 @@ array([[[ 0.,  0.,  0.],
   :END:
 ** 复习准备
 *** 环境准备
-- 加入 Debian testing 软件源。
-  + Debian 中软件库的分类： =unstable=, =testing=, =stable=
-    + 2024 年三者的代码分别为 =sid=, =trexie=, =bookworm=
+- 加入课程 Debian 软件源。
   + Debian 12 是 =stable= ，环境稳定，可堪重用
-  + 新软件进入 Debian =unstable= 如果经过一星期没有问题，则转入 =testing=
-  + 将 =testing= 定期整理发布成 =stable=
-- =/etc/apt/sources.list=    
+- 创建 =/etc/apt/sources.list.d/pd.list= 填入以下内容
+  #+begin_example
+    deb [trusted=yes] http://hep.tsinghua.edu.cn/~wuyy/debian bookworm main
+  #+end_example
+- 更新索引并安装 Apache Arrow 用于 parquet 读写
+  #+begin_src bash
+    apt update
+    apt install python3-pyarrow
+  #+end_src
+  
 *** 安装 HDF5、CSV 和 JSON 的相关工具
 #+begin_src bash
   apt install vitables csvkit python3-h5py hdf5-tools jq python3-pandas
