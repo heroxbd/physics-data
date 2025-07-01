@@ -3721,8 +3721,7 @@ array([[[ 0.,  0.,  0.],
   :END:
 ** 复习准备
 *** 环境准备
-- 加入课程 Debian 软件源。
-  + Debian 12 是 =stable= ，环境稳定，可堪重用
+**** 加入课程 Debian 软件源
 - 创建 =/etc/apt/sources.list.d/pd.list= 填入以下内容
   #+begin_example
     deb [trusted=yes] http://hep.tsinghua.edu.cn/~wuyy/debian bookworm main
