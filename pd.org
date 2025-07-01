@@ -4107,10 +4107,9 @@ h5dump -A hzg.h5
     #+begin_src python :results value :session local :exports both
       import numpy as np
       t = [('Height', 'f4'), ('Weight', 'f4'), ('Age', 'u2')]
-      r = np.empty(3, dtype=t)
-      r[0] = (170, 60, 20)
-      r[1] = (159, 45, 22)
-      r[2] = (185, 72, 26)
+      r = np.array([(170, 60, 20),
+                    (159, 45, 22),
+                    (185, 76, 26)], dtype=t)
       r
     #+end_src
 
@@ -4363,7 +4362,7 @@ people
 
 *** 读 JSON
     #+NAME: a957548e-e023-4d16-96da-4b458a26b328
-    #+begin_src python :results value :session local :exports both
+    #+begin_src python :results output :session local :exports both
       import json
 
       with open("BBH_events_v3.json", "r") as ipt:
@@ -4373,7 +4372,8 @@ people
     #+end_src
 
     #+RESULTS: a957548e-e023-4d16-96da-4b458a26b328
-    : None
+    : <class 'dict'>
+    : dict_keys(['GW150914', 'LVT151012', 'GW151226', 'GW170104'])
 
 *** JSON 结构字典
     #+NAME: c73658ba-a357-42f0-b5b9-3fa037912893
