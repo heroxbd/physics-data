@@ -4556,6 +4556,8 @@ jq < BBH_events_rewrite.json
   #+begin_src bash
     apt install python3-matplotlib python3-tk python3-scipy
   #+end_src
+- 配置环境确保图形显示
+  https://physics-data.meow.plus/faq/env
 *** 科学绘图
 - A plot worths a thousand words. 图是描述科学对象的载体。
   - 撰写论文甚至可理解为“看图说话”：论文的局部目标是用语言和公式把图片解释清楚。
