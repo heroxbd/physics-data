@@ -617,6 +617,280 @@ Bothe-Kolhoerster 实验 (Bothe 1954 诺贝尔物理奖)
     man git config
   #+end_src
 
+*** Git 分支
+    参考 https://git-scm.com/book/en/v2/Git-Branching-Basic-Branching-and-Merging
+    
+    - 一直往 master (或 main) 提交：线性历史
+    #+beamer: \pause
+    
+    - =git branch iss53= 创建新分支，名为 iss53
+    - =git switch iss53= 切换至 iss53 分支
+    - =git switch --create hotfix= 创建新分支 hotfix 并切换
+      
+    #+Attr_LaTeX: :height 0.4\textheight
+    [[./out/basic-branching-4.pdf]]
+    #+begin_export latex
+    \vspace{-50pt}
+    #+end_export
+    
+    #+beamer: \pause
+    - 从 C2 开始，iss53 与 hotfix 同时推进
+      - 都基于 master 的 C2 版本
+      - hotfix 新增一个 commit C4
+      - iss53 新增 C3
+    - 将 iss53 push 到远程: =git push --set-upstream origin iss53=
+*** Git 分支的结果：分叉
+    - 由于 hotfix 紧迫，hotfix 率先被 master 接受
+    #+beamer: \pause
+    - =git merge --ff hotfix= 快进合并 (Fast-Forward), 拿来 *原始* 的 hotfix commit (相当于直接在 master 上改动)
+    #+Attr_LaTeX: :height 0.35\textheight
+    #+Attr_Beamer: :overlay <1>
+    [[./out/basic-branching-4.pdf]]
+    #+Attr_LaTeX: :height 0.35\textheight
+    #+Attr_Beamer: :overlay <2-3>
+    [[./out/basic-branching-5.pdf]]
+    #+Attr_LaTeX: :height 0.35\textheight
+    #+Attr_Beamer: :overlay <4>
+    [[./out/basic-branching-6.pdf]]
+    #+beamer: \pause
+    - 此时 iss53 与 master 产生了 *分叉 (divergence)*, iss53 的原始修改不再能直接搬到 master 的 C4 上 (无法 *ff*)
+    #+beamer: \pause
+    - =git branch --delete hotfix= 删除不再需要的 hotfix 分支
+*** Git merge : 合并 (狭义) I
+    - 出现分叉需要合并，[[发展历史][回忆平行四边形法则]]
+    - 比较 master 的最新版 (C4) 和 iss53 最新版 (C5) 的差异，取两家之长，处理一次冲突
+    #+beamer: \pause
+    - 在 master 上 =git merge iss53=
+    - 生成一个 Merge commit C6，历史不再线性。
+    - master 的开发者负责解决冲突
+    #+Attr_LaTeX: :width 0.7\textwidth
+    #+Attr_Beamer: :overlay <1>
+    [[./out/basic-merging-1.pdf]]
+    #+Attr_LaTeX: :width 0.7\textwidth
+    #+Attr_Beamer: :overlay <2->
+    [[./out/basic-merging-2.pdf]]
+*** Git rebase : 换祖先
+    - 思考：让 iss53 的祖先从 C2 切换到 C4 不就没有分叉了吗？基于新版的 C4 重新做一遍 iss53 的开发
+    #+BEGIN_EXPORT latex
+    \begin{center}
+    \includegraphics<1>[width=0.7\textwidth]{./out/basic-rebase-1.pdf}
+    \includegraphics<2>[width=0.7\textwidth]{./out/basic-rebase-2.pdf}
+    \includegraphics<3>[width=0.7\textwidth]{./out/basic-rebase-3.pdf}
+    \includegraphics<4>[width=0.7\textwidth]{./out/basic-rebase-4.pdf}
+    \includegraphics<5>[width=0.7\textwidth]{./out/basic-rebase-5.pdf}
+    \end{center}
+    #+END_EXPORT
+    
+    #+beamer: \pause
+    - 在 =iss53= 分支 =git rebase C4= 或 =git rebase master=
+    - 基于 C4，将 C3 稍作修改变成 C3'
+    #+beamer: \pause
+    - 基于 C3'，将 C5 稍作修改变成 C5'
+    #+beamer: \pause
+    - rebase 修改历史！结束后旧的 =iss53= 历史消失，不要在 =master= rebase！
+    #+beamer: \pause
+    - =git switch master; git merge --ff iss53= 快进合并。最终合并出 *线性* 历史
+    #+beamer: \pause
+    - 需要处理 iss53 上所有 commit 的冲突 (C4 vs C3 & C3' vs C5')，但在 iss53 分支上操作
+    - =git rebase -i master= 还能允许你进一步修改历史，例如合并 commit、打磨 commit
+*** Git 自动冲突处理 I
+    - 如果 =C3、C5= 与 =C4= 不干涉 (修改的不是一个文件 or 修改的位置距离较远) 则程序可以自动处理
+      
+    C4: 补全最后一句的上文 (hotfix):
+    #+begin_src diff
+       今日中国，强敵环伺，科技卡膀，海疆未靖，幼苗未长，此誠危急存亡之秋也。
+       告诉学生們，去修 birkar 的課，交論文，得分最高的，獎一个华为手表。
+       概率統計，前十名，北京大學佔八名，清華大學沒有
+       做學問一定要在有學問的朋友氛圍中，時時砥礪成長。
+       我到落杉机，不熟地方
+      -我宣布他已經不是我的學生了
+      +已經到了無恥的地步。我宣布他已經不是我的學生了
+    #+end_src
+*** Git 自动冲突处理 II
+    - 如何把 =C3= 修改成 =C3'=? [[发展历史][回忆平行四边形法则]]
+    - 如果 =C3、C5= 与 =C4= 不干涉 (修改的不是一个文件 or 修改的位置距离较远) 则程序可以自动处理
+      
+    C3: 加入“躲在遊戲屋”语录 (iss53):
+    #+begin_src diff
+       今日中国，强敵环伺，科技卡膀，海疆未靖，幼苗未长，此誠危急存亡之秋也。
+      +我們学生躲在遊戲屋，不觉得羞愧？
+       告诉学生們，去修 birkar 的課，交論文，得分最高的，獎一个华为手表。
+       概率統計，前十名，北京大學佔八名，清華大學沒有
+       做學問一定要在有學問的朋友氛圍中，時時砥礪成長。
+       我到落杉机，不熟地方
+       我宣布他已經不是我的學生了
+    #+end_src
+*** Git 自动冲突处理 III
+    - 如何把 =C3= 修改成 =C3'=? [[发展历史][回忆平行四边形法则]]
+    - 如果 =C3、C5= 与 =C4= 不干涉 (修改的不是一个文件 or 修改的位置距离较远) 则程序可以自动处理
+      
+    C3' (rebase C3 upon C4):
+    #+begin_src diff
+       今日中国，强敵环伺，科技卡膀，海疆未靖，幼苗未长，此誠危急存亡之秋也。
+      +我們学生躲在遊戲屋，不觉得羞愧？
+       告诉学生們，去修 birkar 的課，交論文，得分最高的，獎一个华为手表。
+       概率統計，前十名，北京大學佔八名，清華大學沒有
+       做學問一定要在有學問的朋友氛圍中，時時砥礪成長。
+       我到落杉机，不熟地方
+       已經到了無恥的地步。我宣布他已經不是我的學生了
+    #+end_src
+*** Git 手动冲突处理 I
+    #+beamer: \vspace{-0.5cm}
+    C5: 加一句鼓励的话 (iss53)
+    #+begin_src diff
+ 概率統計，前十名，北京大學佔八名，清華大學沒有
+ 做學問一定要在有學問的朋友氛圍中，時時砥礪成長。
+ 我到落杉机，不熟地方
+-我宣布他已經不是我的學生了
++你们都比我聪明，只是妄自菲薄而已！
++我宣布他已經不是我的學生了！
+    #+end_src
+    =git switch iss53; git rebase master=
+    #+begin_src text
+      Auto-merging record.txt
+      CONFLICT (content): Merge conflict in record.txt
+      error: could not apply 262ef6c... C5: 加一句鼓励的话
+      hint: Resolve all conflicts manually, mark them as resolved with
+      hint: "git add/rm <conflicted_files>", then run "git rebase --continue".
+      hint: You can instead skip this commit: run "git rebase --skip".
+      hint: To abort and get back to the state before "git rebase", run "git rebase --abort".
+      Could not apply 262ef6c... C5: 加一句鼓励的话
+    #+end_src
+*** Git 手动冲突处理 II
+    #+begin_src text
+    Unmerged paths:
+    (use "git restore --staged <file>..." to unstage)
+    (use "git add <file>..." to mark resolution)
+	    both modified:   record.txt
+    #+end_src
+    =record.txt=:
+    #+begin_src text
+      <<<<<<< HEAD
+      已經到了無恥的地步。我宣布他已經不是我的學生了
+      =======
+      你们都比我聪明，只是妄自菲薄而已！
+      我宣布他已經不是我的學生了！
+      >>>>>>> 262ef6c (C5: 加一句鼓励的话)
+    #+end_src
+    需要揣摩两个分支作者的意图，最终合并成一个合理的版本：
+    #+begin_src text
+      你们都比我聪明，只是妄自菲薄而已！
+      已經到了無恥的地步。我宣布他已經不是我的學生了！
+    #+end_src
+*** Git 手动冲突处理 III
+    - 处理后 =git add record.txt; git rebase --continue=
+    C5' (rebase C5 upon C3'):
+    #+begin_src diff
+       概率統計，前十名，北京大學佔八名，清華大學沒有
+       做學問一定要在有學問的朋友氛圍中，時時砥礪成長。
+       我到落杉机，不熟地方
+      -已經到了無恥的地步。我宣布他已經不是我的學生了
+      +你们都比我聪明，只是妄自菲薄而已！
+      +已經到了無恥的地步。我宣布他已經不是我的學生了！
+    #+end_src
+    - 有多少 commit 需要 rebase (=iss53= 分支有多少 commit) 就需要处理多少次 (自动 or 手动)
+*** Git merge 冲突处理与结果 I
+    - 回到分叉状态，在 master (C4) 上 =git merge iss53=
+    #+Attr_LaTeX: :width 0.5\textwidth
+    [[./out/basic-merging-1.pdf]]
+    #+beamer: \vspace{-1cm}
+    #+begin_src
+      Auto-merging record.txt
+      CONFLICT (content): Merge conflict in record.txt
+      Automatic merge failed; fix conflicts and then commit the result.
+    #+end_src
+    #+begin_src text
+      <<<<<<< HEAD
+      已經到了無恥的地步。我宣布他已經不是我的學生了
+      =======
+      你们都比我聪明，只是妄自菲薄而已！
+      我宣布他已經不是我的學生了！
+      >>>>>>> iss53
+    #+end_src
+    #+beamer: \pause
+    - 解决好冲突后 =git merge --continue= 生成 merge commit C6
+    #+beamer: \pause
+    - Merge commit 有两个祖先，单个差分 (=git log -p=) 无法表达
+*** Git merge 冲突处理与结果 II
+    使用 =git log --diff-merges=combined= 查看 merge commit 相对两个祖先的差分
+    #+Attr_LaTeX: :options bgcolor=lightgray,fontsize=\tiny
+    #+begin_src diff
+commit 3773ad5beca2111981908d010e7356fa5d381a67 (HEAD -> main)
+Merge: 37bb2ab 5f9c706
+Author: Yiyang Wu <xgreenlandforwyy@gmail.com>
+Date:   Fri Jan 31 19:22:46 2025 +0800
+
+    Merge branch 'iss53'
+
+diff --cc record.txt
+index 046a6d4,598b092..219a08a
+--- a/record.txt
++++ b/record.txt
+@@@ -1,6 -1,8 +1,9 @@@
+  今日中国，强敵环伺，科技卡膀，海疆未靖，幼苗未长，此誠危急存亡之秋也。
++ 我們学生躲在遊戲屋，不觉得羞愧？
+  告诉学生們，去修 birkar 的課，交論文，得分最高的，獎一个华为手表。
+  概率統計，前十名，北京大學佔八名，清華大學沒有
+++這種成績，使人汗顏！如此成績，如何招生？
+  做學問一定要在有學問的朋友氛圍中，時時砥礪成長。
+  我到落杉机，不熟地方
+- 已經到了無恥的地步。我宣布他已經不是我的學生了
++ 你们都比我聪明，只是妄自菲薄而已！
+ -我宣布他已經不是我的學生了！
+++已經到了無恥的地步。我宣布他已經不是我的學生了！
+    #+end_src
+
+    彩蛋：这个 merge commit 塞了私货
+*** 权衡 merge vs rebase
+    参考 https://git-scm.com/book/en/v2/Git-Branching-Rebasing Rebase vs. Merge
+    - =git merge= 只处理一次(大)冲突，产生非线性历史
+      - 遮住其他分支后 merge commit 视作单个祖先，获得简单的线性历史，可以排除低质量 commit 干扰 bisect
+      - 难理清 commits 的逻辑顺序
+      - revert 更困难
+      - 不遮住分支 bisect 困难
+        #+beamer: \pause
+    - =git rebase= 处理多次(小)冲突，产生线性历史：
+      - 所有 commits 逻辑顺序清晰，revert 容易
+      - bisect 可以检查所有合并进来的 commits
+      - 所有 commits 在一个历史中，低质量 commits 会干扰 bisect
+        #+beamer: \pause
+    - 判据: master 的喜好；分支的所有 commits 是否达到和 master 一样的水准
+      - 分支充斥半成品 commits、 revert(s)，只有最终 commit 达到了 master 水准: merge \pause
+      - 分支 commits 质量和 master 一致，rebase + 快进 merge \pause
+      - 分支充斥半成品但 master 不愿 merge：要求分支作者在 rebase 时打磨干净，提升水准: rebase + 快进 merge
+*** Git merge 但由待合并分支处理冲突
+    =git merge= 由 master 处理冲突并敲定 merge commit。
+
+    如果 master 可能要求 =iss53= 处理冲突？
+    - 可以 rebase，但也许工作量更大
+    - 可以先 =git merge master= 把冲突解决，再由 master =git merge --no-ff iss53=
+
+    #+Attr_LaTeX: :width 0.7\textwidth
+    [[./out/basic-merging-3.pdf]]
+
+    - 红色部分表示 merge commit 的默认祖先 (first-parent)
+    - 如果 =git merge --ff iss53= 则最终 merge commit 是 C6， 默认祖先指向 C5 (iss53 分支)，在 revert 和 bisect 时带来困扰 
+*** 基于 Gitlab merge request (或 Github pull request) 的开发流程 I
+    gitlab 命令行工具： =apt install glab=, 登录: =glab auth login=
+    #+begin_src bash
+      # 首先在 Gitlab fork 需要的上游仓库 foo/bar.git 到 my/bar.git
+      # 之所以 fork 是因为一般人无法往原仓库 push 分支
+      glab repo fork # 或在网页上点击 fork
+      git clone git@git.tsinghua.edu.cn:my/bar.git # 拉取 fork 仓库, 进入 master 分支
+      cd bar
+      git switch --create my-dev # 取一个合适的分支名字
+      # 一通编辑代码
+      git add xxx
+      git commit
+      git push --set-upstream origin HEAD # push 自己的分支
+      glab mr create # 或者根据命令行提示信息，在网页发起 merge request
+      # 上游若要求 rebase，则需要先同步 fork 仓库 my/bar.git 的 master 分支
+      git switch master
+      git pull # 同步 master, 产生分叉
+      git switch my-dev
+      git rebase master
+      git push --force # rebase 后破坏了 my-dev 的历史，my/bar.git 的 my-dev 远端需要被覆盖
+    #+end_src
 *** 参考资料
     - Git 提交说明的白盒采分项：
       
@@ -2025,21 +2299,6 @@ https://physics-data.meow.plus/faq/plagiarism/
 
 ** 复习
 *** 课前准备
-- 安装 NumPy
-#+begin_src bash
-apt update
-apt install python3-numpy
-#+end_src
-
-- 验证是否安装成功
-#+begin_src bash
-python3 -c "from numpy import version; print(version.version)"
-#+end_src
-
-#+RESULTS:
-: 1.24.2
-
-*** 课前准备
 **** 安装 wget
 #+begin_src bash
   apt install wget
@@ -2227,6 +2486,26 @@ https://docs.python.org/3/library/decimal.html
 #+RESULTS: a65a7dfd-f957-488b-bff0-10e9a5cf2bbd
 : 0.1428571428571428571428571429
 : 0.14285714285714285
+
+**** decimal 定义在计算中小数的保留位数
+https://docs.python.org/3/library/decimal.html
+
+#+NAME: a65a7dfd-f957-488b-bff0-10e9a5cf2123
+#+begin_src ein-python
+  getcontext().prec = 6
+  Decimal('3.0')
+  Decimal('3.1415926535')
+  Decimal('3.1415926535') + Decimal('2.7182818285')
+  getcontext().rounding = ROUND_UP
+  Decimal('3.1415926535') + Decimal('2.7182818285')
+#+end_src
+
+#+RESULTS: a65a7dfd-f957-488b-bff0-10e9a5cf2123
+: Decimal('3.0')
+: Decimal('3.1415926535')
+: Decimal('5.85987')
+: Decimal('5.85988')
+
 *** 迭代器
 - 迭代器是一个对象，允许逐个访问容器（如列表、元组、集合）中的元素，而不必知道容器的内部实现细节。
   + 实现“迭代器协议”，在类中定义 =__iter__()= 函数。
@@ -2417,7 +2696,7 @@ https://docs.python.org/3/library/itertools.html
 
 **** 参考资料
      - =help(str)=
-     - https://docs.python.org/3.9/library/stdtypes.html#textseq
+     - https://docs.python.org/3.11/library/stdtypes.html#textseq
 ** 寻找工具
 *** 更多 Python 扩展库
 - 优先使用 APT (Debian) 软件管理器
@@ -2462,7 +2741,7 @@ https://docs.python.org/3/library/itertools.html
     #+begin_example
     Allows a remote attacker to gain unauthorized access to the application.
     #+end_example
-  - =pip= 的软件没有经过第三方测试验证，使用意味者相信上游软件作者。
+  - =pip= 的软件没有经过第三方测试验证，使用意味着相信上游软件作者。
   - 环境整合方案会有负责安全、兼容和性能的团队，有大量同样环境的用户反馈问题。
 - Debian/Arch/Gentoo 志愿者形态与 Ubuntu/Conda 公司免费形态
   - 志愿者形态的开发团队没有利益关系，人们由于共同的兴趣走到一起。
@@ -2499,9 +2778,17 @@ https://docs.python.org/3/library/itertools.html
     - 已经发展成为 Python 科学计算的基石
     - 参考书：[[http://scipy-lectures.org/][Scipy Lecture Notes]]
 **** 安装 NumPy 和相关工具
-     #+begin_src bash :exports both
-       apt install python3-numpy python3-scipy python3-h5py
-     #+end_src
+#+begin_src bash :exports both
+  apt install python3-numpy python3-scipy python3-h5py
+#+end_src
+- 验证是否安装成功
+#+begin_src bash
+python3 -c "from numpy import version; print(version.version)"
+#+end_src
+
+#+RESULTS:
+: 1.24.2
+
 
 *** SciPy: Scientific Python
     - NumPy 定义高效的数据结构
@@ -2769,7 +3056,7 @@ print(np.diag(np.arange(5)))
 * 矩阵与张量运算
   :PROPERTIES:
   :EXPORT_FILE_NAME: p4
-  :EXPORT_DATE: 2024-07-08
+  :EXPORT_DATE: 2025-06-30
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
   :EXPORT_BEAMER_HEADER+: \setbeamertemplate{footline}[frame number]  
@@ -2842,7 +3129,7 @@ print(np.diag(np.arange(5)))
     #+RESULTS:
     | 0 | 1 | 4 | 9 | 16 | 25 | 36 | 49 | 64 | 81 |
 
-** 矩阵乘法
+** 乘法
 元素的乘法是逐个数字相乘。
 
 *** 元素乘法与矩阵乘法的区别
@@ -2863,6 +3150,13 @@ print(np.diag(np.arange(5)))
       :  [1. 1.]]
       : [[2. 2.]
       :  [2. 2.]]
+
+*** 张量
+- 矩阵可表示为两个下标的矩阵元：二阶张量 \(a_{ij}\)。
+  + 三个下标：三阶张量 \(b_{ijk}\)。
+  + 一个下标：向量 \(x_i\)。
+  + 无下标：标量。
+
 *** 张量乘法
 - =tensordot= ，可标注哪些下标进行缩并
 
@@ -2927,7 +3221,16 @@ print(np.diag(np.arange(5)))
 #+RESULTS:
 : 4096.0
 
-** 矩阵运算
+*** NumPy 语法的启示
+当代码语法的描述能力不断变强时，可能比数学公式还简单。
+
+\[ \sum_{i=1}^I \sum_{j=1}^J \sum_{k=1}^K \sum_{l=1}^L \sum_{m=1}^M \sum_{n=1}^N a_{ijk} a_{ilm} a_{njm} a_{nlk} \]
+
+- 经典的 formula translation (Fortran 语言)，先推导再转成程序。
+  + 可能用程序来描述公式的推导吗？
+  + 程序帮助我们推导公式？
+
+** Pauli 矩阵
 *** Pauli 矩阵的定义
 - 在量子力学中为自旋\(\frac{1}{2}\)态空间下的角动量算符表示。
 
@@ -2946,6 +3249,8 @@ print(np.diag(np.arange(5)))
 \end{equation*}
 #+end_export
 
+- 科学发展的顺序和培养方案的顺序不同。 Heisenberg 发明矩阵力学时还未掌握矩阵。
+  + 即使尚未掌握量子力学也可以熟悉 Pauli 矩阵并进行计算。
 *** Pauli 矩阵的对易关系
 #+begin_export latex
 \begin{equation*}
@@ -2970,11 +3275,11 @@ print(np.diag(np.arange(5)))
 #+begin_export latex
 \begin{equation*}
   \begin{aligned}
-    \sigma_2\sigma_1 = -i\sigma_3
-    \sigma_2\sigma_3 = i\sigma_1
-    \sigma_3\sigma_2 = -i\sigma_1
-    \sigma_3\sigma_1 = i\sigma_2
-    \sigma_1\sigma_3 = -i\sigma_2
+    \sigma_2\sigma_1 &= -i\sigma_3\\
+    \sigma_2\sigma_3 &= i\sigma_1\\
+    \sigma_3\sigma_2 &= -i\sigma_1\\
+    \sigma_3\sigma_1 &= i\sigma_2\\
+    \sigma_1\sigma_3 &= -i\sigma_2
   \end{aligned}
 \end{equation*}
 #+end_export
@@ -3003,7 +3308,8 @@ print(np.diag(np.arange(5)))
     #+NAME: 57e49468-a2c8-469f-aa42-ffbc7bd25a07
     #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
       for m in pauli:
-          print("trace is {};".format(np.trace(m)), "eigenvalues are: ", np.linalg.eigvals(m))
+          print("trace is {};".format(np.trace(m)),
+                "eigenvalues are: ", np.linalg.eigvals(m))
     #+end_src
 
     #+RESULTS: 57e49468-a2c8-469f-aa42-ffbc7bd25a07
@@ -3012,9 +3318,6 @@ print(np.diag(np.arange(5)))
     : trace is 0; eigenvalues are:  [ 1. -1.]
 
 *** 验证对易关系
-    - \( [\sigma_i, \sigma_j] = 2i \epsilon_{ijk} \sigma^k \)
-      - (\epsilon_{ijk}) 是全反称张量，指标有相同时为 0，指标奇排列为 -1 ，偶排列时为 1。
-
     #+NAME: ce310845-7c56-4745-9c76-0b43f0372771
     #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
       def commute(a,b):
@@ -3035,16 +3338,60 @@ print(np.diag(np.arange(5)))
     : [ pauli_1 , pauli_2 ] == 2i pauli_0
     : [ pauli_2 , pauli_0 ] == 2i pauli_1
 
-*** 课堂练习：彻底避免使用列表
-    - 构造 Pauli 矩阵时使用了列表和 for 循环，不够简洁
-    - 直接构造张量计算，省去交换关系验证中的循环
-    - 书写脚本解决
+*** 彻底避免使用列表和 for 循环
+- 构造 Pauli 矩阵时使用了列表和 for 循环，不够简洁
+- 直接构造张量计算，省去交换关系验证中的循环
+
+**** 将 Pauli 矩阵的下标当成高一阶的张量
+\[ [\sigma_i, \sigma_j] = 2i \epsilon_{ijk} \sigma^k \]
+- (\epsilon_{ijk}) 是全反称张量，指标有相同时为 0，指标奇排列为 -1 ，偶排列时为 1。
+#+begin_src python :results value :session local :exports both
+  from asym import eps
+  eps(3)
+#+end_src
+
+#+RESULTS:
+#+begin_example
+array([[[ 0.,  0.,  0.],
+        [ 0.,  0.,  1.],
+        [ 0., -1.,  0.]],
+
+       [[ 0.,  0., -1.],
+        [ 0.,  0.,  0.],
+        [ 1.,  0.,  0.]],
+
+       [[ 0.,  1.,  0.],
+        [-1.,  0.,  0.],
+        [ 0.,  0.,  0.]]])
+#+end_example
+
+*** Pauli 矩阵的对易关系验证
+\[ [\sigma_i, \sigma_j] = 2i \epsilon_{ijk} \sigma^k \]
+
+#+begin_src python :results value :session local :exports both
+  import numpy as np
+  pauli = np.array([np.array([(0,1),(1,0)]),
+                    np.array([(0,-1j),(1j,0)]),
+                    np.array([(1,0),(0,-1)])])
+  pp = np.einsum('ixy,jyz->ijxz', pauli, pauli)
+  commutate = pp - np.transpose(pp, (1,0,2,3))
+  np.all(commutate == 2j * np.tensordot(eps(3), pauli, axes=([2], [0])))
+#+end_src
+
+#+RESULTS:
+: True
 
 *** Pauli 矩阵的反对易关系验证
 \[ \{\sigma_i, \sigma_j\} = 2 \delta_{ij} I\]
 
+#+begin_src python :results value :session local :exports both
+  ac = pp + np.transpose(pp, (1,0,2,3))
+  np.all(ac == 2 * np.einsum('ij,xz->ijxz', np.eye(3), np.eye(2))
+#+end_src
+
+- 掌握物理学原理：这些形式化的验证，让我们无跳跃步骤地 *彻底* 完成推导。
 ** Dirac 矩阵
-*** 进阶练习：Dirac 矩阵的对易关系
+*** Dirac 矩阵的对易关系
     \[
 \gamma^0 = \begin{pmatrix} 
 1 & 0 & 0 & 0 \\
@@ -3105,32 +3452,34 @@ print(np.diag(np.arange(5)))
 #+end_src
 
 #+RESULTS:
-*** 验证反对易关系
+*** 验证 Dirac 矩阵的反对易关系
+\[ \{\gamma^\mu, \gamma^\nu\} = 2 \eta^{\mu\nu}I \]
+
 #+begin_src python :results value :session local :exports both
   def anticomm(x, y):
       '''
       反对易子操作
       ===========
-      传入 x（二阶） 和 y（三阶）张量，
+      传入 x 和 y 张量，
       其后两阶可以解读为矩阵。
 
-      返回, xy + yx 的三阶张量值。
+      返回, xy + yx 的张量值。
       '''
       return x @ y + y @ x
 #+end_src
 
 #+RESULTS:
 
-*** Dirac 的反对易关系
 #+begin_src python :results value :session local :exports both
   mkov = np.diag((1,-1,-1,-1))
-  np.all(anticomm(dirac[None], dirac[:, None]) == 2 * np.einsum('ij,xz->ijxz', mkov, np.eye(4)))
+  np.all(anticomm(dirac[None], dirac[:, None]) ==
+         2 * np.einsum('ij,xz->ijxz', mkov, np.eye(4)))
 #+end_src
 
 #+RESULTS:
 : True
 
-*** \(\Gamma^5\) 是 Hermite 阵
+*** \(\gamma^5\) 是 Hermite 阵
 #+begin_src python :results value :session local :exports both
   gamma5 = 1j * dirac[0] @ dirac[1] @ dirac[2] @ dirac[3]
   np.all(np.conj(gamma5.T) == gamma5)
@@ -3139,7 +3488,9 @@ print(np.diag(np.arange(5)))
 #+RESULTS:
 : True
 
-*** \(\Gamma^5\) 平方是单位阵
+*** \(\gamma^5\) 平方是单位阵
+\[(\gamma^5)^2 = I\]
+
 #+begin_src python :results value :session local :exports both
   np.all(gamma5 @ gamma5 == np.eye(4))
 #+end_src
@@ -3147,7 +3498,9 @@ print(np.diag(np.arange(5)))
 #+RESULTS:
 : True
 
-*** \(\Gamma^5\) 与 \(\Gamma^\mu\) 的反对易关系
+*** \(\gamma^5\) 与 \(\gamma^\mu\) 的反对易关系
+\[\{\gamma^5, \gamma^\nu\} = 0\]
+
 #+begin_src python :results value :session local :exports both
   np.all(anticomm(gamma5[None], dirac) == 0)
 #+end_src
@@ -3156,6 +3509,8 @@ print(np.diag(np.arange(5)))
 : True
 
 *** 归一性
+\[\gamma^\nu \gamma_\nu = 4 I\]
+
 #+begin_src python :results value :session local :exports both
   np.all(np.einsum('ixy,ij,jyz->xz', dirac, mkov, dirac) == 4 * np.eye(4))
 #+end_src
@@ -3163,7 +3518,18 @@ print(np.diag(np.arange(5)))
 #+RESULTS:
 : True
 
-*** 四 \(\Gamma\) 同框
+\[ \Tr(\gamma^\mu\gamma^\nu) = 4 \eta^{\mu\nu} \]
+
+#+begin_src python :results value :session local :exports both
+  np.all(np.einsum('ixy,jyx', dirac, dirac) == 4 * mkov)
+#+end_src
+
+#+RESULTS:
+: True
+
+*** 四 \(\gamma\) 同框
+\[\gamma^\mu \gamma^\nu \gamma^\rho \gamma_\mu = 4 \eta^{\nu\rho} I\]
+
 #+begin_src python :results value :session local :exports both
   np.all(np.einsum('xab,jbc,kcd,xy,yde->jkae', dirac,dirac,dirac,mkov,dirac)
          == 4 * np.einsum('ij,xy->ijxy', mkov, np.eye(4)))
@@ -3173,6 +3539,7 @@ print(np.diag(np.arange(5)))
 : True
 
 *** 迹
+\[ \Tr(\gamma^\mu) = 0 \]
 #+begin_src python :results value :session local :exports both
   np.all(np.einsum('ixx', dirac) == 0)
 #+end_src
@@ -3180,19 +3547,14 @@ print(np.diag(np.arange(5)))
 #+RESULTS:
 : True
 
+\[ \Tr(\gamma^5) = 0 \]
+
 #+begin_src python :results value :session local :exports both
   np.trace(gamma5)
 #+end_src
 
 #+RESULTS:
 : 0j
-
-#+begin_src python :results value :session local :exports both
-  np.all(np.einsum('ixy,jyx', dirac, dirac) == 4 * mkov)
-#+end_src
-
-#+RESULTS:
-: True
 
 ** 备用
 *** 同学们的建议反馈（一）
@@ -3229,23 +3591,10 @@ print(np.diag(np.arange(5)))
       —— Eric Raymond，提问的智慧
 
 *** “菜”问题
-    #+attr_beamer: :overlay <+->
-    - 解决未知问题是本课程的教学目标，也是数据时代黑客技能的基本组成部分，不要放弃宝贵的学习机会。
-
-    - 希望同学在提问之前，做一些努力，尝试先自己解决问题。
-
-    - 查找 FAQ 和群聊天记录，可能已经有人遇到并解决了同样问题。
-
-    - 提问时，把问题描述清楚，不要说自己“菜”“弱”。
-
-    - 不要遇到问题不假思索随手拍照，请先思考分析原因。
-
-    - 老师一直在暗中观察，会及时制止助教无端以不好的态度与同学对话。
-      但是本人看到的所有助教语气激烈的情形，都是同学无视了以上的建议。
-
-    - 人非生而知之者，基础弱可以不断学习。但提菜问题必须批评。
-
-    - 幸亏助教只是凶一下，随后还是帮助了同学，如果遇到老师……
+- 解决未知问题是本课程的教学目标，也是数据时代黑客技能的基本组成部分，不要放弃宝贵的学习机会。
+- 希望同学在提问之前，做一些努力，尝试先自己解决问题。
+- 查找 FAQ 和群聊天记录，可能已经有人遇到并解决了同样问题。
+- 提问时，把问题描述清楚，不要说自己“菜”“弱”。
 
 **** 课堂豁免                                                  :B_alertblock:
      :PROPERTIES:
@@ -3289,28 +3638,28 @@ print(np.diag(np.arange(5)))
       - 有了 Hacking skills 和数理统计的功底，机器学习才能发挥出作用。
 
 *** 同学们的建议反馈（五）
+- 希望详细演示下debug的过程
 
-    - 希望详细演示下debug的过程
+  好！
 
-      好！
+- 希望了解更多的linux的骚气操作
+ 
+  好！第三周。
 
-    - 希望了解更多的linux的骚气操作
-     
-      好！第三周。
+- 希望老师多讲解每个知识点的具体应用的意义。少讲语法，突出物理
 
-    - 希望老师多讲解每个知识点的具体应用的意义。少讲语法，突出物理
+  好！
 
-      好！
+- 建议作业和课件在课程开始时就全部发放
 
-    - 建议作业和课件在课程开始时就全部发放
+  课件可以，作业课后发。
 
-      课件可以，作业课后发。
+- 将所有同学问过的问题整理到某个地方。
+  - https://physics-data.meow.plus/faq/
+  - 你学习如何通过关键词提示找到答案
+- 希望老师多举一些例子，整理出来发给大家。优秀代码分享。
 
-    - 将所有同学问过的问题整理到某个地方。助教群里答疑是提供详细的说明，而非提一个从来没有听说过的关键词
-
-      - https://physics-data.meow.plus/faq/
-
-      - 你学习如何通过关键词提示找到答案
+  好！
 
 *** 如何通过关键词提示找到答案
     - 搜索引擎的用法演示
@@ -3324,11 +3673,6 @@ print(np.diag(np.arange(5)))
       https://duckduckgo.com/
 
       其它的搜索引擎都强烈不推荐。
-
-*** 同学们的建议反馈（五）
-    - 希望老师多举一些例子，整理出来发给大家。优秀代码分享。
-
-      好！
 
 *** 提问的智慧节选
     - 如果你的问题被人无视了，请对号入座：
@@ -3368,7 +3712,7 @@ print(np.diag(np.arange(5)))
 * 数据存储格式
   :PROPERTIES:
   :EXPORT_FILE_NAME: p5
-  :EXPORT_DATE: 2024-07-09 清华
+  :EXPORT_DATE: 2025-07-01 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
   :EXPORT_BEAMER_HEADER+: \setbeamertemplate{footline}[frame number]  
@@ -3377,37 +3721,20 @@ print(np.diag(np.arange(5)))
   :END:
 ** 复习准备
 *** 环境准备
-- 加入 Debian testing 软件源。
-  + Debian 中软件库的分类： =unstable=, =testing=, =stable=
-    + 2024 年三者的代码分别为 =sid=, =trexie=, =bookworm=
-  + Debian 12 是 =stable= ，环境稳定，可堪重用
-  + 新软件进入 Debian =unstable= 如果经过一星期没有问题，则转入 =testing=
-  + 将 =testing= 定期整理发布成 =stable=
-- =/etc/apt/sources.list=    
-- =/etc/apt/preferences.d/stable=
-
-#+begin_example
-Package: *
-Pin: release a=unstable
-Pin-Priority: 200
-
-Package: *
-Pin: release a=testing
-Pin-Priority: 300
-
-Package: *
-Pin: release a=stable-backports
-Pin-Priority: 400
-#+end_example
-
+**** 加入课程 Debian 软件源
+- 创建 =/etc/apt/sources.list.d/pd.list= 填入以下内容
+  #+begin_example
+    deb [trusted=yes] http://hep.tsinghua.edu.cn/~wuyy/debian bookworm main
+  #+end_example
+- 更新索引并安装 Apache Arrow 用于 parquet 读写
+  #+begin_src bash
+    apt update
+    apt install python3-pyarrow
+  #+end_src
+  
 *** 安装 HDF5、CSV 和 JSON 的相关工具
 #+begin_src bash
   apt install vitables csvkit python3-h5py hdf5-tools jq python3-pandas
-#+end_src
-
-- =python3-fastparquet= 需要 =unstable= ，未来将在 Debian 13 中。
-#+begin_src bash
-  apt install -t unstable python3-fastparquet python3-numpy
 #+end_src
 
 - 数据
@@ -3780,10 +4107,9 @@ h5dump -A hzg.h5
     #+begin_src python :results value :session local :exports both
       import numpy as np
       t = [('Height', 'f4'), ('Weight', 'f4'), ('Age', 'u2')]
-      r = np.empty(3, dtype=t)
-      r[0] = (170, 60, 20)
-      r[1] = (159, 45, 22)
-      r[2] = (185, 72, 26)
+      r = np.array([(170, 60, 20),
+                    (159, 45, 22),
+                    (185, 76, 26)], dtype=t)
       r
     #+end_src
 
@@ -3956,7 +4282,7 @@ people
 : 2   185.0    72.0   26
 
 ** 课堂练习
-*** 转化高度定制的 +.txt+ CSV 文件
+*** 课堂练习：转化高度定制的 +.txt+ CSV 文件
 - 相比于 HDF5
   + CSV 的记录非常随意，无统一标准
   + CSV 占用的空间大
@@ -4036,7 +4362,7 @@ people
 
 *** 读 JSON
     #+NAME: a957548e-e023-4d16-96da-4b458a26b328
-    #+begin_src python :results value :session local :exports both
+    #+begin_src python :results output :session local :exports both
       import json
 
       with open("BBH_events_v3.json", "r") as ipt:
@@ -4046,7 +4372,8 @@ people
     #+end_src
 
     #+RESULTS: a957548e-e023-4d16-96da-4b458a26b328
-    : None
+    : <class 'dict'>
+    : dict_keys(['GW150914', 'LVT151012', 'GW151226', 'GW170104'])
 
 *** JSON 结构字典
     #+NAME: c73658ba-a357-42f0-b5b9-3fa037912893

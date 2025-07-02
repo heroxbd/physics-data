@@ -681,7 +681,7 @@
     : 0
 
 *** 死循环
-    一个循环的终于条件如果永远无法满足，则会成为死循环。例如
+    一个循环的终止条件如果永远无法满足，则会成为死循环。例如
     #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb
       while True:
           pass
