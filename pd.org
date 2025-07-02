@@ -4520,7 +4520,7 @@ jq < BBH_events_rewrite.json
 * 数据绘图
   :PROPERTIES:
   :EXPORT_FILE_NAME: p6
-  :EXPORT_DATE: 2024-07-10 清华
+  :EXPORT_DATE: 2025-07-02 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
   :EXPORT_BEAMER_HEADER+: \setbeamertemplate{footline}[frame number]  
@@ -4529,15 +4529,14 @@ jq < BBH_events_rewrite.json
   :END:
 ** 大作业
 *** 预告
-- 课赛结合：Ghost Hunter 2024 中微子实验数据分析；
-  + 江门中微子实验 JUNO 的光学模型。
++ 江门中微子实验 JUNO 的光学模型。
 
 *** 自定义                                                   :B_exampleblock:
 :PROPERTIES:
 :BEAMER_env: exampleblock
 :END:
 
-- 如果有同学希望自定义大作业，请在 11 日 10 点之前向
+- 如果有同学希望自定义大作业，请在 7 月 3 日 10 点之前向
   
   https://git.tsinghua.edu.cn/physics-data/projects/proposal
 
@@ -4546,7 +4545,7 @@ jq < BBH_events_rewrite.json
   1. 问题描述和学科背景；
   2. 预期的目标和评价方式；
   3. 时间安排；
-  4. 大作业项目导师，一名获得过《实验物理的大数据方法》课程 A 以上（或有同等水平）的学长。
+  4. 大作业项目导师，一名获得过《实验物理的大数据方法》课程 A 以上的学长。
 
 ** 复习准备
 *** 安装软件
