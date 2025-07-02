@@ -3987,7 +3987,9 @@ cat hz.csv
 #+end_src
 
 #+NAME: 72560e0c-313d-4ff6-a9d1-af9da5128ef0
-#+RESULTS: deff847b-175f-41d2-895a-8c0cf1ad1853
+#+begin_src bash :results output :session local :exports both
+  h5dump -A hz.h5
+#+end_src
 
     #+RESULTS: 72560e0c-313d-4ff6-a9d1-af9da5128ef0
     : HDF5 "hz.h5" {
