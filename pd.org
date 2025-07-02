@@ -4555,6 +4555,7 @@ jq < BBH_events_rewrite.json
 - Matplotlib（Python 绘图）、SciPy（科学计算）
   #+begin_src bash
     apt install python3-matplotlib python3-tk python3-scipy
+    apt install x11-apps imagemagick
   #+end_src
 - 配置环境确保图形显示
   https://physics-data.meow.plus/faq/env
@@ -4653,20 +4654,20 @@ jq < BBH_events_rewrite.json
 :PROPERTIES:
 :BEAMER_col: 0.5
 :END:
-| mark    | symbol        |
-|---------+---------------|
-| p       | pentagon      |
-| P       | plus (filled) |
-| =*=     | star marker   |
-| h       | hexagon1      |
-| H       | hexagon2      |
-| +       | plus          |
-| x       | x             |
-| X       | x (filled)    |
-| D       | diamond       |
-| d       | thin_diamond  |
-| \vert{} | vline         |
-| =_=     | hline         |
+| mark    | symbol         |
+|---------+----------------|
+| p       | pentagon       |
+| P       | plus (filled)  |
+| =*=     | star marker    |
+| h       | hexagon1       |
+| H       | hexagon2       |
+| +       | plus           |
+| x       | x              |
+| X       | x (filled)     |
+| D       | diamond        |
+| d       | =thin_diamond= |
+| \vert{} | vline          |
+| =_=     | hline          |
 
 *** 线与颜色的形状
 **** l                                                                :BMCOL:
@@ -4721,6 +4722,27 @@ jq < BBH_events_rewrite.json
         plt.subplot(1, 2, 2)
         plt.plot(t, S)
         <<savefig(figname="img/twins.pdf")>>
+      #+end_src
+
+      #+attr_latex: :height 5cm
+      #+RESULTS:
+      [[file:img/twins.pdf]]
+
+*** 子图上的大标题
+- =suptitle()= 用来给子图添加大标题。
+
+#+begin_src python :results value file :session lecture-plot :exports both :noweb strip-export
+  plt.clf() # clear figure
+  plt.subplot(1, 2, 1)
+  plt.plot(t, C, 'rH', label="cos")
+  plt.legend()
+  plt.ylabel("amplitude")
+  plt.subplot(1, 2, 2)
+  plt.plot(t, S, 'b.', label="sin")
+  plt.xlabel("t/s")
+  plt.suptitle(r"$\int \sin(t) \mathrm{d}t = \cos(t)$ waves 波形")
+  plt.legend()
+  <<savefig(figname="img/twins-suptitle.pdf")>>
       #+end_src
 
       #+attr_latex: :height 5cm
@@ -4923,6 +4945,21 @@ convert -verbose -delay 50 -density 100 normal2d.pdf normal2d.gif
     https://matplotlib.org/stable/gallery/index.html
 
     - 看到需要的图，点进去可查看代码
+*** 矢量场
+#+begin_src python :results value file :session lecture-plot :exports both :noweb strip-export
+  fig1, ax1 = plt.subplots()
+  ax1.set_title('简谐振子的相图')
+  fig = ax1.quiver(P, Q, dP, dQ, units='width')
+  ax1.set(xlabel="P", ylabel="Q")
+  qk = ax1.quiverkey(fig, 0.9, 0.9, 2, '相速度', labelpos='E',
+                     coordinates='figure')
+  <<savefig(figname="img/quiver.pdf")>>
+#+end_src
+
+#+attr_latex: :height 5cm
+#+RESULTS:
+[[file:img/quiver.pdf]]
+
 * 蒙特卡罗方法与大作业
   :PROPERTIES:
   :EXPORT_FILE_NAME: p7
