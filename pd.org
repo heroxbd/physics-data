@@ -4530,6 +4530,7 @@ jq < BBH_events_rewrite.json
 ** 大作业
 *** 预告
 + 江门中微子实验 JUNO 的光学模型。
++ 考察团队通过 Git 协作，鼓励三个组队。
 
 *** 自定义                                                   :B_exampleblock:
 :PROPERTIES:
