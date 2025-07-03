@@ -4963,7 +4963,7 @@ convert -verbose -delay 50 -density 100 normal2d.pdf normal2d.gif
 * 蒙特卡罗方法与大作业
   :PROPERTIES:
   :EXPORT_FILE_NAME: p7
-  :EXPORT_DATE: 2024-07-11 清华
+  :EXPORT_DATE: 2025-07-03 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
   :EXPORT_BEAMER_HEADER+: \setbeamertemplate{footline}[frame number]  
@@ -5195,7 +5195,6 @@ convert -verbose -delay 50 -density 100 normal2d.pdf normal2d.gif
  Hans Bethe 1967 Nobel Prize
 #+beamer: }
 
-
 *** 1960s--1990s 太阳中微子之谜
 #+attr_latex: :height 0.85\textheight
 [[./out/homestake-principle.pdf]]
@@ -5337,7 +5336,7 @@ convert -verbose -delay 50 -density 100 normal2d.pdf normal2d.gif
        - 关乎自然界的“左右正反”对称在多大意义上近似成立
        - 探寻宇宙正反物质不对称的起源
 *** 能量分辨率
-   Energy resolution is the figure-of-merit that we push to extreme.
+Energy resolution is the figure-of-merit that we push to extreme.
 **** NMO                                                              :BMCOL:
     :PROPERTIES:
     :BEAMER_col: 0.66
@@ -5377,10 +5376,6 @@ convert -verbose -delay 50 -density 100 normal2d.pdf normal2d.gif
 - 一系列随机数种子，编码了 \(e^+\) 在探测器中的详细演化历程。
 #+beamer: \pause
 - 等价于在液闪中成像！
-
-#+beamer: \pause
-**** 欢迎
-期待大家选择 *Gamma* 粒子物理大作业
 
 ** 实验物理
 *** 柏拉图世界观
@@ -5746,8 +5741,9 @@ PMT 的
 ***** 正向第一阶段
 [[file:./MC-predict.pdf]]
 
-- 2024-07-11 -- 2024-08-02
+- 2025-07-03 起约三星期，截止时间以网络学堂为准
 - 模拟实验测量
+- 考查 Git 团队协作
 
 **** r                                                                :BMCOL:
 :PROPERTIES:
@@ -5757,10 +5753,11 @@ PMT 的
 
 [[file:./MC-reconstruction.pdf]]
     
-- 2024-07-28 -- 2024-08-18
+- 2024-07-17 起约两星期，截止时间以网络学堂为准
 - 分析数据
 - 测量模型参数
 - 黑盒分数按排名
+- 考查 Git 团队协作
 
 *** 实验测量的模拟
     - 输入 :: 物理对象的信息，随机因素的概率分布
@@ -5770,9 +5767,9 @@ PMT 的
 
 **** 分组
     - 同学们先联络好，组队信息在网络学堂提交
-    - 每队至多三人
-      - 单人队：大作业得分 $\times 1.03$
-      - 三人队：每人大作业得分 = 队伍得分 $\times 0.95$
+    - 推荐每队三人
+      - 每人大作业得分 = 队伍得分。
+      - 单人组队会失去 Git 团队协作得分。
       - 不同队伍间请勿直接交换代码
 
     - 大作业带有较高难度的附加任务，至多在（黑盒）满分基础上加 10%。
@@ -5882,7 +5879,7 @@ target: source
     - 基本语法单元：清晰写明输入数据，输出数据和计算方法
 
 ***** 参考书
-     John Graham Cumming, The GNU Make Book
+John Graham Cumming, The GNU Make Book
 
 ** 备用分隔
 ** Python 环境
