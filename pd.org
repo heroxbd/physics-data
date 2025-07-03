@@ -5030,8 +5030,8 @@ convert -verbose -delay 50 -density 100 normal2d.pdf normal2d.gif
 #+BEAMER: \frame[plain]{\includegraphics[height=\textheight,page=6]{fig/neutrino-undergrad-r10.pdf}}
 *** 中微子的基本事实
 1. 电中性，自旋 1/2，只参与弱相互作用。
-   - 太阳中微子与电子的反应截面是 \(SI{e-50}{m^2}\)。
-   - 类比，原子核的尺度\(SI{e-30}{m^2}\)。
+   - 太阳中微子与电子的反应截面是 \(\SI{e-50}{m^2}\)。
+   - 类比，原子核的尺度\(\SI{e-30}{m^2}\)。
 2. 自然界中只观测到左手中微子( $\nu_L$ ) 和右手反中微子 ( $\bar{\nu}_R$ )。
 3. 弱超荷（weak hypercharge）：$\nu_L$ -1，$\nu_R$ 0；$e_L$ -1，$e_R$ -2。
 4. 弱同位旋（weak isospin）：$\nu_L$ 1/2，$\nu_R$ 0；$e_L$ -1/2，$e_R$ 0。
