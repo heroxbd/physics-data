@@ -31,6 +31,9 @@ out/%.pdf: fig/%.svg
 e0.pdf: out/basic-rebase-1.pdf out/basic-rebase-2.pdf out/basic-rebase-3.pdf out/basic-rebase-4.pdf out/basic-rebase-5.pdf out/basic-branching-4.pdf out/basic-branching-4.pdf out/basic-branching-5.pdf out/basic-branching-6.pdf out/basic-merging-1.pdf out/basic-merging-2.pdf out/basic-cherry-pick-1.pdf out/basic-cherry-pick-2.pdf out/basic-cherry-pick-3.pdf out/basic-merging-3.pdf
 ef.pdf: out/Data_Science_VD-migrate.pdf
 e7.pdf: out/neutrino-higgs.pdf out/evolution-universe.pdf out/evolution-universe-decouple.pdf out/two-component.pdf out/Weyl-spinor.pdf out/neutrino-CP.pdf out/sun.pdf out/ppCNOchain.pdf out/homestake-principle.pdf out/Kamiokande.pdf out/anti-matter.pdf out/neutrino-anti.pdf out/neutrino-higgs.pdf out/Cobalt60.pdf
+e7.pdf: out/JUNO-site.pdf out/nu-spectra.pdf out/multipurpose.pdf out/event-rates.pdf
+# JUNO.tex: out/JUNO-design.pdf  out/LS-system-r2.pdf out/PMTs.pdf
+# JUNO.tex: out/PMT-installed.pdf 
 e9.pdf: out/tomato-egg.pdf
 eb.pdf: out/gsap.pdf
 
