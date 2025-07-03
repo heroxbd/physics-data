@@ -5311,7 +5311,7 @@ convert -verbose -delay 50 -density 100 normal2d.pdf normal2d.gif
 #+begin_export latex
 \begin{equation*}
   \begin{aligned}
-    \ce{\bar{\nu}_e + p -> e+ + n}
+    \bar{\nu}_e + \ce{p -> e+ + n}
   \end{aligned}
 \end{equation*}
 #+end_export
@@ -5878,7 +5878,7 @@ PMT 的
 
 [[file:./MC-reconstruction.pdf]]
     
-- 2024-07-17 起约两星期，截止时间以网络学堂为准
+- 2025-07-17 起约两星期，截止时间以网络学堂为准
 - 分析数据
 - 测量模型参数
 - 黑盒分数按排名
@@ -6005,78 +6005,6 @@ target: source
 
 ***** 参考书
 John Graham Cumming, The GNU Make Book
-
-** 备用分隔                                                 :B_ignoreheading:
-:PROPERTIES:
-:BEAMER_env: ignoreheading
-:END:
-#+beamer: \appendix
-** Python 环境
-*** Jupyter
-    - Jupyter 从 IPython 的网页界面发展而来
-    - 安装使用
-
-      1. =apt install jupyter=
-      2. 配置文件
-      3. 安装 jupyter kernel
-      4. 本地网络测试
-
-*** Jupyter 的特点
-    - 最强大的优势：
-
-      - 程序与文本混合编排，literate programming，鼓励了科学结果的复现。
-
-      - 文章和程序既然在描述同一件事，可以自然地写在一起。体现“一次”原则。
-
-    - 其它优势：
-
-      - 图文混排
-
-      - 支持 Python 之外的其它语言环境
-
-    - 弱点：
-
-      - 网页上打字，没有强大的编辑器。(Emacs IPython Notebook，填补了空白)
-
-      - 要进行高强度大规模的运算，需要与其它工具配合。不够成熟。
-
-      - 代码的复用需要额外步骤。
-** SciPy
-*** SciPy: Scientific Python
-    - SciPy 在 NumPy 的基础上提供的数值计算算法
-      #+beamer: {\scriptsize
-      - scipy.cluster :: Vector quantization / Kmeans
-      - scipy.constants :: Physical and mathematical constants
-      - scipy.fftpack :: Fourier transform
-      - scipy.integrate :: Integration routines
-      - scipy.interpolate :: Interpolation
-      - scipy.io :: Data input and output
-      - scipy.linalg :: Linear algebra routines
-      - scipy.ndimage :: n-dimensional image package
-      - scipy.odr :: Orthogonal distance regression
-      - scipy.optimize :: Optimization
-      - scipy.signal :: Signal processing
-      - scipy.sparse :: Sparse matrices
-      - scipy.spatial :: Spatial data structures and algorithms
-      - scipy.special :: Any special mathematical functions
-      - scipy.stats :: Statistics
-      #+beamer: }
-*** SciPy 模块举例 =scipy.integrate=
-    - 数值计算积分
-      \[ \int^{\pi}_{-\pi} (1 + \cos \theta) \mathrm{d} \theta \]
-
-**** 课堂练习：积分
-
-    - 几种方法举例
-      1. 手动矩形法
-      2. =scipy= 调库法
-      3. 蒙特卡罗法
-
-*** SciPy 模块举例 =scipy.optimize=
-provides functions for minimizing objective functions subject to
-constraints. It includes solvers for nonlinear problems, linear
-programing, constrained and nonlinear least-squares, root finding, and
-curve fitting.
 
 * GNU 命令行
   :PROPERTIES:
