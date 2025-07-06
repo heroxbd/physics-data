@@ -1,3 +1,0 @@
-#+Title: 第八讲 蒙特卡罗方法与大作业 TODO
-#+author: 续本达
-#+PROPERTY: header-args :eval never-export :exports both
