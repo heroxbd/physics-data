@@ -6009,7 +6009,7 @@ John Graham Cumming, The GNU Make Book
 * GNU 命令行
   :PROPERTIES:
   :EXPORT_FILE_NAME: p8
-  :EXPORT_DATE: 2024-07-13 清华
+  :EXPORT_DATE: 2025-07-07 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
   :EXPORT_BEAMER_HEADER+: \setbeamertemplate{footline}[frame number]  
