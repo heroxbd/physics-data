@@ -6745,7 +6745,7 @@ upload
 *** 脚本程序
 - 世界上本没有脚本，打的命令多了，聚在一起，就形成了脚本
 - 脚本可以当作命令使用
-*** 例子：=bash= 脚本
+*** 例子： =bash= 脚本
     #+NAME: 7ea4e885-9e27-4b46-be96-bda28e2f59f2
     #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
 cat arguments.sh
