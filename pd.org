@@ -8224,6 +8224,72 @@ $R$ 是正则表达式(Regular Expression，RE) ，若 $R$ 通过以下归纳定
     - 一个与 $\mathcal{M}$ 等价的确定型自动机：
       #+attr_latex: :height 2.5cm
       [[./fig/dfa.png]]
+
+*** 正则语言
+**** 定义与示例
+#+begin_export latex
+\begin{itemize}\setlength\itemsep{0.8em}
+\item $L(M) = $被自动机$M$接受的字符串的集合\\
+  ~~~~~~ =被$M$识别的语言\\
+  ~~~~~~ =被$M$计算的函数
+\item 一个语言 \( L' \) 是正则的，当且仅当存在一个DFA \( M \) 使得 \( L' = L(M) \)。
+    \item 示例：
+    \begin{itemize}
+        \item \( L' = \{ w \mid w \text{ 以1结尾} \} \) 是正则的。
+        \item \( L' = \{ w \mid w \text{ 以1开头} \} \) 是正则的。
+        \item \( L' = \{ w \mid w \text{ 有奇数个1} \} \) 是正则的。
+    \end{itemize}
+\end{itemize}
+#+end_export
+
+*** 构造新的正则语言
+**** 已知某些语言是正则的
+#+begin_export latex
+\begin{itemize}\setlength\itemsep{0.8em}
+\item \textbf{正则语言的补集也是正则的。}：若 \( A \subseteq \Sigma^* \) 是正则语言，则 \( \neg A \)（A的补集）也是正则语言，其中 \( \neg A = \{ w \in \Sigma^* \mid w \notin A \} \)。
+\item 为什么这很重要？
+\item 因为它告诉我们正则语言类在补集操作下是封闭的。封闭性质在形式语言理论中非常基础，允许我们在保持某些性质的同时，从现有语言构造新的语言。
+\item \textbf{关键步骤}：
+\begin{enumerate}
+    \item 从识别 \( A \) 的DFA \( M \) 开始。
+    \item 构造一个新的DFA \( M' \)，交换终止状态和非终止状态，即\( M' \)的终止状态为 \( Q \setminus F \)。
+    \item 证明\( M' \) 现在识别 \( \neg A \)， 即\( \neg A \) 是正则的。
+\end{enumerate}
+\end{itemize}
+#+end_export
+
+*** 正则语言提示
+#+begin_export latex
+\begin{itemize}\setlength\itemsep{0.8em}
+\item \textbf{完整的DFA}
+补集构造假设DFA \( M \) 是完整的，即对于每个状态和每个字母表中的符号都有定义的转移。如果 \( M \) 不完整，我们可能需要添加一个“死状态”来使其完整，然后再取补集。
+  
+\item  \textbf{针对DFA}
+对于非确定性自动机NFA，我们不能直接交换终止状态和非终止状态，因为NFA有不同的接受标准。但对于有限输入的自动机而言，任何NFA都可以转换为DFA，结果仍然成立。
+\end{itemize}
+#+end_export
+
+*** 其他变换操作
+**** 正则语言在其他操作下也是封闭的.
+#+begin_export latex
+\begin{itemize}\setlength\itemsep{0.8em}
+    \item \textbf{并集}：如果 \( A \) 和 \( B \) 是正则的，则 \( A \cup B \) 是正则的。\\
+    要点：
+    \begin{itemize}
+    \item 设DFA \( M_1 = (Q_1, \Sigma_1, \delta_1, q^1_0, F_1) \)和\( M_2 = (Q_2, \Sigma_2, \delta_2, q^2_0, F_2) \)满足\( L(M_1)=A\)和\( L(M_2)=B\)。
+    \item 构造新DFA \( M = (Q, \Sigma, \delta, q^1_0, F_1) \)：\\
+     - 状态集 \( Q = Q_1 \times Q_2 \)，\\
+     - 转移函数为$\delta((q_1,q_2),a)=(\delta_1(q_1,a),\delta_2(q_2,a))$，\\
+     - 接受条件为$F=\{(q_1,q_2): q_1\in F_1\text{ 或 } q_2\in F_2\}$.
+    \item 证明$L(M)=L(M_1)\cup L(M_2)$.
+    \end{itemize}
+    \item \textbf{交集}：根据德摩根定律，\( A \cap B = \neg (\neg A \cup \neg B) \)。
+    %\item \textbf{连接、Kleene星号等}：所有这些操作都保持正则性。
+\end{itemize}
+#+end_export
+**** 语言 \(L\) 的反转
+\( L^R = \{ w_k \cdots w_1 \mid w_1 \cdots w_k \in L \} \)
+
 ** 应用实例
 *** 语法要素：类算术运算的组合规则
 - 所有字符默认与自己匹配
