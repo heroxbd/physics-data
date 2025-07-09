@@ -8185,6 +8185,15 @@ seq 50 | grep 3
 \end{itemize}
 #+end_export
 
+*** 自动机起源：数学与逻辑
+#+begin_export latex
+\begin{itemize}\setlength\itemsep{0.8em}
+\item 1921年希尔伯特（D. Hilbert)意识到大多数数学证明都可以在一阶逻辑（first-order logic）中形式化，并且数学的各种概念可以归约为自然数和简单的集合概念。他认为，如果能够澄清处理自然数及其集合的一阶理论的有限性性质（特别是无矛盾性），便可为数学体系奠定坚实的基础。
+\item 无矛盾性问题最终可以归结为一阶逻辑的判定问题（Entscheidungsproblem）。因此，Hilbert 在 1928 年明确指出：“判定问题是数理逻辑的核心问题。”
+\item 哥德尔不完备定理（1931）动摇了这一构想：在适当复杂的公理系统中，存在不可以在该证明系统内被证明的真命题。这揭示了判定问题在本质上的不可解性，从根本上限制了形式化数学的边界。
+\end{itemize}
+#+end_export
+
 *** Regular Expressions
 - 多数情况下文本处理的 _最佳工具_
 - 优秀工具的典范：
