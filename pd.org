@@ -8167,6 +8167,24 @@ seq 50 | grep 3
 这两个例子尚可用人类语言表达，更复杂的正则表达式将超越人类语言的交流效率。人类语言比较冗余，形式语言威力大。
 
 ** 正则表达式
+*** 自动机与形式化语言
+#+begin_export latex
+\begin{itemize}
+\item ``自动机''（Automata）一词源自希腊语``$\alpha\upsilon\tau\acute{o}\mu\alpha\tau\alpha$''，意思是``self-acting(自动运行的)''，单数形式是Automaton。自动机是一种抽象的计算设备，它能够自动按照预定的操作序列运行。
+\begin{center}
+\includegraphics[width=0.2\textwidth]{fig/computer_china.png}\\
+{\footnotesize 图：1958年，我国研制成功第一台通用数字电子计算机103机}
+\end{center}
+\item ``形式语言（formal languages）''是用精确的数学、机器或规则可定义的语言。 与自然语言不同，一个形式语言作为一个集合，需要有某种明确的标准来定义一个字符串是否是它的元素。例如，形式语言可以通过以下方式定义：
+\begin{enumerate}
+    \item 由某种形式文法（grammer）生成的字符串；
+    \item 由特定正则表达式（regular expression）描述或匹配的字符串；
+    \item 由某种自动机（如图灵机或有限状态自动机）接受的字符串；
+   % \item 对于某些决策过程（提出一连串Yes/No问题的算法）能够产生“是”答案的字符串。
+\end{enumerate}
+\end{itemize}
+#+end_export
+
 *** Regular Expressions
 - 多数情况下文本处理的 _最佳工具_
 - 优秀工具的典范：
