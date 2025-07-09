@@ -9073,6 +9073,11 @@ e%.tex: p%.tex
 		-e 's/end{verbatim}/end{verbatim}}/' < $< > $@
 
 #+end_src
+*** 例子：把一列变成三列
+#+begin_src bash :results output :session local :exports both
+squeue -h -o "%.7i %.18j %.8M %.1c %R" -t R -u tjjk | sed "N;N;s/\n/\t/g"
+#+end_src
+
 *** 多行匹配
 - 部分 =pcre2grep -M= 的功能。
 #+begin_src bash :results output :session local :exports both
