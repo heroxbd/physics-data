@@ -8891,7 +8891,7 @@ OSIRIS 的文件整理。
 * 从 sed 到 awk
   :PROPERTIES:
   :EXPORT_FILE_NAME: pb
-  :EXPORT_DATE: 2024-07-16 清华
+  :EXPORT_DATE: 2025-07-10 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
   :EXPORT_BEAMER_HEADER+: \setbeamertemplate{footline}[frame number]  
