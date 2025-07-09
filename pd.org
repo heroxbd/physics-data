@@ -8175,7 +8175,7 @@ seq 50 | grep 3
 \includegraphics[width=0.2\textwidth]{fig/computer_china.png}\\
 {\footnotesize 图：1958年，我国研制成功第一台通用数字电子计算机103机}
 \end{center}
-\item ``形式语言（formal languages）''是用精确的数学、机器或规则可定义的语言。 与自然语言不同，一个形式语言作为一个集合，需要有某种明确的标准来定义一个字符串是否是它的元素。例如，形式语言可以通过以下方式定义：
+\item ``形式语言（formal languages）''是用精确的数学、机器或规则可定义的语言。 与自然语言不同，一个形式语言作为一个集合，需要有某种明确的标准来定义一个字符串是否是它的元素。形式语言可以通过以下方式定义
 \begin{enumerate}
     \item 由某种形式文法（grammer）生成的字符串；
     \item 由特定正则表达式（regular expression）描述或匹配的字符串；
