@@ -9016,6 +9016,71 @@ sed -f tuna.sed sources.list
    #+end_example
 
    等价
+*** 行的定位
+原有的第一行是 =...cdrom...=
+
+#+begin_src bash :results output :session local :exports both
+  sed '1d' sources.list | head
+#+end_src
+
+#+RESULTS:
+: # See http://help.ubuntu.com/community/UpgradeNotes for how to upgrade to
+: # newer versions of the distribution.
+: deb http://archive.canonical.com/ubuntu/ trusty main restricted universe multiverse
+: deb-src http://archive.canonical.com/ubuntu/ trusty main restricted universe multiverse
+: 
+: ## Major bug fix updates produced after the final release of the
+: ## distribution.
+: deb http://archive.canonical.com/ubuntu/ trusty-updates main restricted universe multiverse
+: deb-src http://archive.canonical.com/ubuntu/ trusty-updates main restricted universe multiverse
+
+*** 行尾的定位
+如果把 =a= 替换成 =i= ，表示是从行号之前插入
+#+begin_src bash :results output :session local :exports both
+  sed '$a# Thank you for using TUNA mirrors' sources.list | tail
+#+end_src
+
+#+RESULTS:
+: ## Uncomment the following two lines to add software from Canonical's
+: ## 'partner' repository.
+: ## This software is not part of Ubuntu, but is offered by Canonical and the
+: ## respective vendors as a service to Ubuntu users.
+: # deb http://archive.canonical.com/ubuntu trusty partner
+: # deb-src http://archive.canonical.com/ubuntu trusty partner
+: 
+: # deb http://archive.canonical.com/debian/ sid main contrib non-free
+: # Thank you for using TUNA mirrors
+*** 行的范围
+#+begin_src bash :results output :session local :exports both
+  sed '21,$d' sources.list | tail
+#+end_src
+
+#+RESULTS:
+: deb-src http://archive.canonical.com/ubuntu/ trusty-updates main restricted universe multiverse
+: 
+: ## N.B. software from this repository may not have been tested as
+: ## extensively as that contained in the main release, although it includes
+: ## newer versions of some applications which may provide useful features.
+: ## Also, please note that software in backports WILL NOT receive any review
+: ## or updates from the Ubuntu security team.
+: deb http://archive.canonical.com/ubuntu/ trusty-backports main restricted universe multiverse
+: deb-src http://archive.canonical.com/ubuntu/ trusty-backports main restricted universe multiverse
+
+*** 行的范围取反
+#+begin_src bash :results output :session local :exports both
+  sed '1,20!d' sources.list | tail
+#+end_src
+
+#+RESULTS:
+: deb-src http://archive.canonical.com/ubuntu/ trusty-updates main restricted universe multiverse
+: 
+: ## N.B. software from this repository may not have been tested as
+: ## extensively as that contained in the main release, although it includes
+: ## newer versions of some applications which may provide useful features.
+: ## Also, please note that software in backports WILL NOT receive any review
+: ## or updates from the Ubuntu security team.
+: deb http://archive.canonical.com/ubuntu/ trusty-backports main restricted universe multiverse
+: deb-src http://archive.canonical.com/ubuntu/ trusty-backports main restricted universe multiverse
 *** 定位行的嵌套
 可以把行的定位嵌套，例如，删除所有从第 1 到 49 行中的空行，并把 lo 换成 do
 
@@ -9025,6 +9090,30 @@ sed -f tuna.sed sources.list
     s/lo/do/
   }
 #+end_example
+
+#+begin_src bash :results output :session local :exports both
+  sed -r '1,8{/^($|#)/d}' sources.list | head -n15
+#+end_src
+
+#+RESULTS:
+#+begin_example
+deb http://archive.canonical.com/ubuntu/ trusty main restricted universe multiverse
+deb-src http://archive.canonical.com/ubuntu/ trusty main restricted universe multiverse
+## distribution.
+deb http://archive.canonical.com/ubuntu/ trusty-updates main restricted universe multiverse
+deb-src http://archive.canonical.com/ubuntu/ trusty-updates main restricted universe multiverse
+
+## N.B. software from this repository may not have been tested as
+## extensively as that contained in the main release, although it includes
+## newer versions of some applications which may provide useful features.
+## Also, please note that software in backports WILL NOT receive any review
+## or updates from the Ubuntu security team.
+deb http://archive.canonical.com/ubuntu/ trusty-backports main restricted universe multiverse
+deb-src http://archive.canonical.com/ubuntu/ trusty-backports main restricted universe multiverse
+
+deb http://archive.canonical.com/ubuntu/ trusty-security main restricted universe multiverse
+#+end_example
+
 
 *** 比较新旧文件的区别
 #+begin_src bash :results output
