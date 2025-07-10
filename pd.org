@@ -8654,7 +8654,8 @@ seq -s, -w 00 99 | sed -r 's/([49]),/\1\n/g'
     - 多个替换可以用 =-e= 分开 =jammy= \textipa{["dZami]}
     #+NAME: 98f629be-38ea-4134-b3b1-6ce37a624d1f
     #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-sed -e 's,archive.canonical.com/,mirrors.tuna.tsinghua.edu.cn/,' -e 's/trusty/jammy/' sources.list | head
+sed -e 's,archive.canonical.com/,mirrors.tuna.tsinghua.edu.cn/,' \
+      -e 's/trusty/jammy/' sources.list | head
     #+end_src
 
     #+RESULTS: 98f629be-38ea-4134-b3b1-6ce37a624d1f
@@ -8675,7 +8676,8 @@ sed -e 's,archive.canonical.com/,mirrors.tuna.tsinghua.edu.cn/,' -e 's/trusty/ja
     - =-n= 默认不输出， =p= 来输出
     #+NAME: 39fcebd9-f404-479c-b732-ec443ecf0949
     #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-sed -n '/^[^#]/{s,archive.canonical.com/,mirrors.tuna.tsinghua.edu.cn/,;s/trusty/jammy/;p}' sources.list | head
+sed -n '/^[^#]/{s,archive.canonical.com/,mirrors.tuna.tsinghua.edu.cn/,;
+s/trusty/jammy/;p}' sources.list | head
     #+end_src
 
     #+RESULTS: 39fcebd9-f404-479c-b732-ec443ecf0949
@@ -8691,7 +8693,8 @@ sed -n '/^[^#]/{s,archive.canonical.com/,mirrors.tuna.tsinghua.edu.cn/,;s/trusty
     - 使用匹配引用 =\1=
     #+NAME: f0ba69e6-09c7-49f2-92e4-22c2be2c48b2
     #+begin_src ein-bash :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture.ipynb :exports both
-sed -nr '/^[^#]/{s,archive.canonical.com(.*)trusty,mirrors.tuna.tsinghua.edu.cn\1jammy,;p}' sources.list | head
+sed -nr '/^[^#]/{s,archive.canonical.com(.*)trusty,mirrors.tuna.tsinghua.edu.cn\1jammy,;
+p}' sources.list | head
     #+end_src
 
     #+RESULTS: f0ba69e6-09c7-49f2-92e4-22c2be2c48b2
