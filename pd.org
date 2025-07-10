@@ -9114,7 +9114,6 @@ deb-src http://archive.canonical.com/ubuntu/ trusty-backports main restricted un
 deb http://archive.canonical.com/ubuntu/ trusty-security main restricted universe multiverse
 #+end_example
 
-
 *** 比较新旧文件的区别
 #+begin_src bash :results output
   sed '1,100s/Aug/ 08/' usr_share_doc_list.txt > usr_share_doc_list.txt.new
@@ -9165,11 +9164,6 @@ e%.tex: p%.tex
 		-e 's/end{verbatim}/end{verbatim}}/' < $< > $@
 
 #+end_src
-*** 例子：把一列变成三列
-#+begin_src bash :results output :session local :exports both
-squeue -h -o "%.7i %.18j %.8M %.1c %R" -t R -u tjjk | sed "N;N;s/\n/\t/g"
-#+end_src
-
 *** 多行匹配
 - 部分 =pcre2grep -M= 的功能。
 #+begin_src bash :results output :session local :exports both
@@ -9182,6 +9176,11 @@ This is your dog
 #+RESULTS:
 : This is your cat,  my cat's name is betty
 : This is your dog,  my dog's name is frank
+
+*** 例子：把一列变成三列
+#+begin_src bash :results output :session local :exports both
+squeue -h -o "%.7i %.18j %.8M %.1c %R" -t R -u tjjk | sed "N;N;s/\n/\t/g"
+#+end_src
 
 *** Hold space
 为 =sed= 自动机配了一个队列。
@@ -9216,6 +9215,20 @@ This is your dog
 #+begin_src bash :results output :session local :exports both
   seq -w 00 99 | sed $(python3 -c "print('N;'*9)")'s/\n/,/g'
 #+end_src
+
+#+RESULTS:
+#+begin_example
+00,01,02,03,04,05,06,07,08,09
+10,11,12,13,14,15,16,17,18,19
+20,21,22,23,24,25,26,27,28,29
+30,31,32,33,34,35,36,37,38,39
+40,41,42,43,44,45,46,47,48,49
+50,51,52,53,54,55,56,57,58,59
+60,61,62,63,64,65,66,67,68,69
+70,71,72,73,74,75,76,77,78,79
+80,81,82,83,84,85,86,87,88,89
+90,91,92,93,94,95,96,97,98,99
+#+end_example
 
 *** 反序
 #+begin_src bash :results output :session local :exports both
