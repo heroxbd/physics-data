@@ -9711,7 +9711,7 @@ https://gitweb.gentoo.org/repo/gentoo.git/commit/?id=ea2987349ece6f07da01e1c2f3e
 
     - 安装 SQLite3 和查看器，以及 CSV 查看器
       #+begin_src bash
-        apt install sqlite3 sqlitebrowser csvkit csvkit-doc
+        apt install sqlite3 sqlitebrowser csvkit csvkit-doc python3-duckdb
       #+end_src
 
 *** 本周提要
@@ -10450,6 +10450,14 @@ ON total.班级 = classes.班级
     - 宽表，某些时候人类易于理解。
       - 不同的列有不同的属性，例如权重
       - 相同属性的列在重复，违反一次原则
+
+** Python SQL
+*** Python 的 SQL 调用
+- sqlite
+- duckdb
+
+*** duckdb 分析数据库
+高效执行数据筛选与变换。
 
 * DataFrame
   :PROPERTIES:
