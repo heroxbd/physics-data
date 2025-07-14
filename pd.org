@@ -10904,6 +10904,16 @@ dimensions...
 #+RESULTS:
 : 4
 
+#+begin_src R :session pd
+  print(greek)
+#+end_src
+
+#+RESULTS:
+| alpha |
+| beta  |
+| gamma |
+| delta |
+
 *** 取子字符串
 **** l                                                                :BMCOL:
 :PROPERTIES:
@@ -11118,8 +11128,7 @@ dimensions...
 | woman |
 
 ** R 程序结构
-*** 程序结构
-**** 选择结构
+*** 选择结构
 #+begin_src R :session pd
   g <- 4
   result <- if (g %% 2) {
@@ -11141,7 +11150,7 @@ dimensions...
 | 偶数 |
 | 偶数 |
 
-**** 循环结构
+*** 循环结构
 #+begin_src R :session pd :results output
   for (i in 1:5) {
     print(i)
@@ -11166,7 +11175,7 @@ dimensions...
 |  2 |
 |  3 |
 
-**** for 遍历了元素
+*** for 遍历了元素
 #+begin_src R :session pd :results output
   for (i in greek) {
     print(i)
@@ -11179,7 +11188,7 @@ dimensions...
 : [1] "gamma"
 : [1] "delta"
 
-**** while 循环
+*** while 循环
 #+begin_src R :session pd :results output
   i <- 0
   while (i < 10) {
@@ -11202,7 +11211,7 @@ dimensions...
 [1] 9
 #+end_example
 
-**** 函数
+*** 函数
 #+begin_src R :session pd
   jiggle <- function(x) {
     x + rnorm(1, sd=0.1)
@@ -11290,6 +11299,9 @@ dimensions...
 
 ** R DataFrame
 *** DataFrame
+- 简洁制图
+- 线性回归
+
 #+begin_src R :session pd :results output
   data(mtcars)
   head(mtcars)
@@ -11391,6 +11403,7 @@ dimensions...
 #+RESULTS:
 : 20.090625
 *** summary 命令
+快速给出向量的基本统计量，概括其全貌。
 #+begin_src R :session pd :results output
   summary(mtcars$mpg)
 #+end_src
@@ -11428,11 +11441,6 @@ dimensions...
  3rd Qu.:1.0000   3rd Qu.:4.000   3rd Qu.:4.000  
  Max.   :1.0000   Max.   :5.000   Max.   :8.000
 #+end_example
-
-*** DataFrame 用法
-- 简单制图
-- 线性回归
-- 枚举类型
 
 ** 关系代数基本操作
 *** 构造 data.frame
@@ -11689,7 +11697,7 @@ dimensions...
      - Leland Wilkinson, The Grammar of Graphics （沉痛缅怀 Wilkinson 教授）
      - Hadley Wickham, A Layered Grammar of Graphics
 *** ggplot
-#+begin_src R :session pd :file plot/mtcars.pdf :results graphics file :width 12 :height 5 :family GB1
+#+begin_src R :session pd :file plot/mtcars.pdf :results graphics file :width 12 :height 5
 library(ggplot2)
 p <- ggplot(mtcars, aes(x=wt, y=hp)) + geom_point()
 print(p)
@@ -11698,22 +11706,14 @@ print(p)
 #+RESULTS:
 [[file:plot/mtcars.pdf]]
 
-*** 上色
-#+begin_src R :session pd
+*** 上色：ggplot 枚举型制图
+#+begin_src R :session pd :file plot/mtcars-color.pdf :results graphics file :width 12 :height 5
 p <- p + aes(color=am)
 print(p)
 #+end_src
 
-*** ggplot 枚举型制图
-#+begin_src R :session pd
-  mtcars$am <- factor(mtcars$am, levels=c(0, 1), labels=c("automatic", "manual"))
-  p <- p %+% mtcars
-  pdf("mtcars.pdf")
-  print(p)
-  dev.off()
-#+end_src
-
 #+RESULTS:
+[[file:plot/mtcars-color.pdf]]
 
 ** 宽表到长表
 *** 表格的等价变换
