@@ -10451,13 +10451,26 @@ ON total.班级 = classes.班级
       - 不同的列有不同的属性，例如权重
       - 相同属性的列在重复，违反一次原则
 
-** Python SQL
-*** Python 的 SQL 调用
-- sqlite
-- duckdb
-
+** DuckDB
 *** duckdb 分析数据库
-高效执行数据筛选与变换。
+高效执行数据筛选与变换：多线程与自动内存管理。
+
+#+begin_src python :results value :session local :exports both
+  import duckdb
+
+  con = duckdb.connect(":memory:")
+  con.execute("CREATE VIEW students AS SELECT * FROM read_csv('dataframe-practice/students.csv')")
+  con.execute("SELECT * FROM students LIMIT 5")
+  con.fetch_df()
+#+end_src
+
+#+RESULTS:
+:    学号  姓名 性别    班级         联系方式
+: 0   1  AB  女  物理71  50626922811
+: 1   2  AC  女  工物61  06533879773
+: 2   3  AD  男  物理71  43865400582
+: 3   4  AE  男  工物71  58581462691
+: 4   5  AF  女  物理72  45017508911
 
 * DataFrame
   :PROPERTIES:
