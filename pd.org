@@ -11716,12 +11716,9 @@ print(p)
 [[file:plot/mtcars-color.pdf]]
 
 ** 宽表到长表
-*** 表格的等价变换
+*** 使用 tidyr 对表格等价变换
 - =R= 和 =Pandas= DataFrame 可以将长表与宽表相互转换
-  - =SQLite= 不具备此功能
-- =melt= 函数
-*** 使用 tidyr
-- 发展历史为 =reshape=, =reshape2=, =tidyr= 。 =tidyr= 是最新的库。
+- 发展历史为 =reshape= \to =reshape2= \to =tidyr= 。 =tidyr= 是最新的库。
 **** =pivot_longer=
 - =names_to= 指定名字列，用于以枚举形式存储原有的列名。
 - =values_to= 指定值例，用于存储原表的值。
@@ -11839,6 +11836,9 @@ sql_render(classes |> filter(院系=='物理'))
 : FROM `classes`
 : WHERE (`院系` = '物理')
 
+*** duckdb 接口
+- 采用 =install.package= 安装 =duckdb= 。
+- =duckdb= 与 =dbplyr= 的联动。
 * 回归分析
   :PROPERTIES:
   :EXPORT_FILE_NAME: pe
