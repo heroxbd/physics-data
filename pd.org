@@ -10135,24 +10135,35 @@ csvlook dataframe-practice/students.csv | head
     #+end_example
 
 *** SQLite 读入 CSV
-    #+begin_src sqlite :db ra.db :colnames yes
-      .mode csv
-      .import dataframe-practice/students.csv students
-      SELECT * FROM students LIMIT 5;
-    #+end_src
+#+begin_src sqlite :db ra.db :colnames yes
+  .mode csv
+  .import dataframe-practice/students.csv students
+  SELECT * FROM students LIMIT 5;
+#+end_src
 
-    #+RESULTS:
-    | 学号 | 姓名 | 性别 | 班级   |    联系方式 |
-    |------+------+------+--------+-------------|
-    |    1 | AB   | 女   | 物理71 | 50626922811 |
-    |    2 | AC   | 女   | 工物61 |  6533879773 |
-    |    3 | AD   | 男   | 物理71 | 43865400582 |
-    |    4 | AE   | 男   | 工物71 | 58581462691 |
-    |    5 | AF   | 女   | 物理72 | 45017508911 |
+#+RESULTS:
+| 学号 | 姓名 | 性别 | 班级   |    联系方式 |
+|------+------+------+--------+-------------|
+|    1 | AB   | 女   | 物理71 | 50626922811 |
+|    2 | AC   | 女   | 工物61 |  6533879773 |
+|    3 | AD   | 男   | 物理71 | 43865400582 |
+|    4 | AE   | 男   | 工物71 | 58581462691 |
+|    5 | AF   | 女   | 物理72 | 45017508911 |
 
     - 也可直接使用 =dataframe-practice/people.db= 读入数据。
-**** csvsql
+*** csvsql
 可在命令行使用 SQL 语句查询 CSV 的内容。
+#+begin_src bash :results output :session local :exports both
+  csvsql --query "SELECT * from students LIMIT 5;" dataframe-practice/students.csv
+#+end_src
+
+#+RESULTS:
+: 学号,姓名,性别,班级,联系方式
+: 1.0,AB,女,物理71,50626922811.0
+: 2.0,AC,女,工物61,6533879773.0
+: 3.0,AD,男,物理71,43865400582.0
+: 4.0,AE,男,工物71,58581462691.0
+: 5.0,AF,女,物理72,45017508911.0
 
 *** 查看已经有的表格
     #+begin_src sqlite :db ra.db :colnames yes
@@ -10162,7 +10173,32 @@ csvlook dataframe-practice/students.csv | head
     #+RESULTS:
     | A         B         students |
     |------------------------------|
-    - 任务：读入 =scores.csv= =classes.csv=
+**** 读入 =scores.csv= =classes.csv=
+#+begin_src sqlite :db ra.db :colnames yes
+  .import dataframe-practice/scores.csv scores
+  SELECT 学号,`self.intro`,`a.b`,大作业 FROM scores LIMIT 3;
+#+end_src
+
+#+RESULTS:
+| 学号 | self.intro | a.b | 大作业 |
+|------+------------+-----+--------|
+|    1 |        100 | 100 |  128.7 |
+|    2 |        100 | 100 |     90 |
+|    3 |        100 | 100 |    115 |
+
+*** 读入 classes
+#+begin_src sqlite :db ra.db :colnames yes
+  .import dataframe-practice/classes.csv classes
+  SELECT * FROM classes;
+#+end_src
+
+#+RESULTS:
+| 班级   | 院系 |
+|--------+------|
+| 核71   | 工物 |
+| 工物61 | 工物 |
+| 工物72 | 工物 |
+
 *** 少年爱迪生想
 - 比较物理系和工物系的男女比例
 - 算出大家的总评成绩：
@@ -10263,21 +10299,25 @@ GROUP BY classes.院系, students.性别;
     [[./fig/cat_tom.png]]
     
 *** 长表
-    #+begin_src sqlite :db dataframe-practice/people.db :colnames yes
-      SELECT * FROM longscores LIMIT 5
-    #+end_src
+#+begin_src sqlite
+  .open dataframe-practice/people.db
+#+end_src
 
-    #+RESULTS:
-    | 学号 | 作业 |  分数 | 大作业 |
-    |------+------+-------+--------|
-    |    1 |    1 | 100.0 |      0 |
-    |    2 |    1 | 100.0 |      0 |
-    |    3 |    1 | 100.0 |      0 |
-    |    4 |    1 | 100.0 |      0 |
-    |    5 |    1 | 100.0 |      0 |
+#+begin_src sqlite :db dataframe-practice/people.db :colnames yes
+  SELECT * FROM longscores LIMIT 5
+#+end_src
 
-    - “作业”一列给出作业编号
-    - “大作业”一列 0 代表非，1 代表是
+#+RESULTS:
+| 学号 | 作业 |  分数 | 大作业 |
+|------+------+-------+--------|
+|    1 |    1 | 100.0 |      0 |
+|    2 |    1 | 100.0 |      0 |
+|    3 |    1 | 100.0 |      0 |
+|    4 |    1 | 100.0 |      0 |
+|    5 |    1 | 100.0 |      0 |
+
+- “作业”一列给出作业编号
+- “大作业”一列 0 代表非，1 代表是
 *** 再计算一次总评
     - 用 =longscores= 分组大大简化
     #+begin_src sqlite :db dataframe-practice/people.db :colnames yes
@@ -10330,8 +10370,10 @@ GROUP BY classes.院系, students.性别;
   SELECT 学号, SUM(权重*分数) AS 总评 FROM weights
   GROUP BY 学号 HAVING 总评 > 105;
 
-  SELECT finals.学号,总评,联系方式 FROM finals JOIN students ON finals.学号 = students.学号;
+  SELECT finals.学号,总评,姓名,联系方式 FROM finals JOIN students
+  ON finals.学号 = students.学号;
 #+end_src
+
 *** 储存起来用于下一步使用
     - =CREATE VIEW= 把中间结果存成虚拟表格
     #+begin_src sqlite :db dataframe-practice/people.db :colnames yes
@@ -10361,18 +10403,18 @@ GROUP BY classes.院系, students.性别;
     |    5 |  98.26875 |
 *** 算出大家的总评成绩
     #+begin_src sqlite :db dataframe-practice/people.db :colnames yes
-      SELECT students.学号, 总评, 联系方式
-      FROM final_scores JOIN students
-      ON final_scores.学号 = students.学号
+      SELECT students.学号,总评,姓名,联系方式
+      FROM finals JOIN students
+      ON finals.学号 = students.学号
       WHERE 总评 > 105
     #+end_src
 
     #+RESULTS:
-    | 学号 |      总评 |    联系方式 |
-    |------+-----------+-------------|
-    |   49 | 105.16375 | 81920572715 |
-    |   55 | 105.70625 | 24891470639 |
-*** 总评成线关联班级
+    | 学号 |      总评 | 姓名 |    联系方式 |
+    |------+-----------+------+-------------|
+    |   49 | 105.16375 | BX   | 81920572715 |
+    |   55 | 105.70625 | CD   | 24891470639 |
+*** 总评关联班级
     #+begin_src sqlite :db dataframe-practice/people.db :colnames yes
 SELECT total.班级,院系,姓名,总评,联系方式 FROM classes JOIN
 (SELECT 姓名,班级,总评,联系方式 FROM final_score 
@@ -10459,7 +10501,8 @@ ON total.班级 = classes.班级
   import duckdb
 
   con = duckdb.connect(":memory:")
-  con.execute("CREATE VIEW students AS SELECT * FROM read_csv('dataframe-practice/students.csv')")
+  ipt = 'dataframe-practice/students.csv'
+  con.execute(f"CREATE VIEW students AS SELECT * FROM read_csv('{ipt}')")
   con.execute("SELECT * FROM students LIMIT 5")
   con.fetch_df()
 #+end_src
