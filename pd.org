@@ -10542,7 +10542,8 @@ ON total.班级 = classes.班级
 ** 复习与提示
 *** 安装软件 R 的 ggplot2 与 dbplyr
 #+begin_src bash
-    apt install r-cran-ggplot2 r-cran-dbplyr r-cran-dplyr r-cran-reshape2 r-cran-rsqlite
+  apt install r-cran-ggplot2 r-cran-dbplyr r-cran-dplyr
+  apt install r-cran-reshape2 r-cran-rsqlite
 #+end_src
 
 *** 最佳工具                                                   :B_alertblock:
