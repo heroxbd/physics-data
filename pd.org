@@ -10597,7 +10597,7 @@ ON total.班级 = classes.班级
 - DataFrame 是动态结构
   - 可以更灵活地更改；
   - 但过于灵活可能带来调试上的麻烦。
-- SQL 可以处理大于内存容量的数据， DataFrame 必须借助 Spark 等大数据平台才能实现。
+- SQL 与 DataFrame 正在处理大于内存容量的数据上，融合到同一引擎之上。
 *** GNU R 语言
 - R 是著名的统计学语言，应用广泛
 - 起源于1970年代的 S 语言
@@ -10657,8 +10657,11 @@ help(numeric)
 
 #+RESULTS:
 : numeric
-*** TODO 数值的类型
-=class= 与 =typeof= 的区别是什么？
+*** 数值的类型
+=class= 与 =typeof= 的区别
+- typeof :: determines the (R internal) type or storage mode。
+- mode :: 与 =typeof= 类似，给出存储格式，有细微差别，参见 =help(mode)= 。
+- class :: 返回 R objects 的 ‘class’ attribute，如果它不存在，则返回 =typeof= 。
 #+begin_src R :session pd
   typeof(76)
 #+end_src
@@ -10735,6 +10738,8 @@ help(numeric)
 #+RESULTS:
 : character
 
+不同类型碰到一起会被转成一般类型。
+
 *** 变量
 #+begin_src R :session pd
   a <- c(3,2,1)
@@ -10784,7 +10789,28 @@ help(numeric)
 | 3 |
 | 4 |
 *** 多维数组
-- 需要用 =array=
+- 需要用 =array= 。参考 =help(array)=
+
+An array in R can have one, two or more dimensions.  It is simply
+a vector which is stored with additional attributes giving the
+dimensions...
+
+与 NumPy 数组的实现原理相同。
+
+#+begin_src R :session pd
+  array(1:3, c(2,4))
+#+end_src
+
+#+RESULTS:
+| 1 | 3 | 2 | 1 |
+| 2 | 1 | 3 | 2 |
+
+#+begin_src R :session pd
+  dim(as.array(letters))
+#+end_src
+
+#+RESULTS:
+: 26
 
 *** 向量的索引
 - R 的向量索引从 1 开始。
@@ -11008,6 +11034,7 @@ help(numeric)
 #+RESULTS:
 
 *** 枚举型
+当向量中的值多有重复时，枚举型存储整数，再记录每个整数对应的字符串。
 **** l                                                                :BMCOL:
 :PROPERTIES:
 :BEAMER_col: 0.5
