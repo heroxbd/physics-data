@@ -11294,6 +11294,10 @@ dimensions...
 : [1] 4
 : [1] 5
 
+**** l                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
 #+begin_src R :session pd
   -1:3
 #+end_src
@@ -11304,6 +11308,21 @@ dimensions...
 |  1 |
 |  2 |
 |  3 |
+
+**** r                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+#+begin_src R :session pd
+  -1:3 / 10
+#+end_src
+
+#+RESULTS:
+| -0.1 |
+|    0 |
+|  0.1 |
+|  0.2 |
+|  0.3 |
 
 *** for 遍历了元素
 #+begin_src R :session pd :results output
@@ -11369,6 +11388,13 @@ dimensions...
 #+RESULTS:
 : 0.99730020393674
 
+#+begin_src R :session pd
+  pnorm(5) - pnorm(-5)
+#+end_src
+
+#+RESULTS:
+: 0.999999426696856
+
 + =q= 代表分位数
 #+begin_src R :session pd
   qnorm(0.5)
@@ -11376,6 +11402,7 @@ dimensions...
 
 #+RESULTS:
 : 0
+
 *** 其它概率分布
 - unif :: 均匀
 - pois :: 泊松
@@ -11488,6 +11515,10 @@ dimensions...
 : character
 
 *** 列的名字
+**** l                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
 #+begin_src R :session pd
   names(mtcars)
 #+end_src
@@ -11504,6 +11535,28 @@ dimensions...
 | am   |
 | gear |
 | carb |
+**** r                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+#+begin_src R :session pd
+  names(mtcars)[4] <- "house_power"
+  names(mtcars)
+#+end_src
+
+#+RESULTS:
+| mpg         |
+| cyl         |
+| disp        |
+| house_power |
+| drat        |
+| wt          |
+| qsec        |
+| vs          |
+| am          |
+| gear        |
+| carb        |
+
 *** 基本的统计量
 #+begin_src R :session pd
   sd(mtcars$mpg)
@@ -11967,6 +12020,11 @@ sql_render(classes |> filter(院系=='物理'))
 : WHERE (`院系` = '物理')
 
 *** duckdb 接口
+#+begin_src bash :results output :session local :exports both
+  apt install r-cran-dbi r-cran-bit64 r-cran-callr r-cran-clock
+  apt install r-cran-dbitest r-cran-rlang r-cran-testthat
+  apt install r-cran-tibble r-cran-vctrs r-cran-withr
+#+end_src
 - 采用 =install.package= 安装 =duckdb= 。
 - =duckdb= 与 =dbplyr= 的联动。
 * 回归分析
