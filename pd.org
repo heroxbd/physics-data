@@ -12090,7 +12090,28 @@ sql_render(classes |> filter(院系=='物理'))
   apt install r-cran-tibble r-cran-vctrs r-cran-withr
 #+end_src
 - 采用 =install.package= 安装 =duckdb= 。
-- =duckdb= 与 =dbplyr= 的联动。
+#+begin_src R :session pd
+  install.packages("duckdb", repos="http://mirrors.tuna.tsinghua.edu.cn/CRAN")
+#+end_src
+需要经过编译实现。
+
+*** duckdb 案例与 dbplyr 联动
+#+begin_src R :session pd
+  library(duckdb)
+  library(dbplyr)
+  con <- dbConnect(duckdb::duckdb(), ":memory:")
+  dbSendQuery(con, sprintf("CREATE VIEW student AS SELECT * FROM read_csv('%s')", 
+              "dataframe-practice/students.csv"))
+  tbl(con, "student") |> filter(班级=="物理71") |> collect() |> head(5)
+#+end_src
+
+#+RESULTS:
+|  1 | AB | 女 | 物理71 | 50626922811 |
+|  3 | AD | 男 | 物理71 | 43865400582 |
+|  7 | AH | 男 | 物理71 |  4295424729 |
+| 12 | AM | 男 | 物理71 | 11391622912 |
+| 20 | AU | 男 | 物理71 | 23090382020 |
+
 * 回归分析
   :PROPERTIES:
   :EXPORT_FILE_NAME: pe
