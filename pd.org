@@ -12115,7 +12115,7 @@ sql_render(classes |> filter(院系=='物理'))
 * 回归分析
   :PROPERTIES:
   :EXPORT_FILE_NAME: pe
-  :EXPORT_DATE: 2024-07-27 清华
+  :EXPORT_DATE: 2025-07-16 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
   :EXPORT_BEAMER_HEADER+: \setbeamertemplate{footline}[frame number]  
