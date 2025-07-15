@@ -11691,7 +11691,11 @@ dimensions...
 | 2 | Li   | 3 | Zhang |
 
 *** 投影与选择
-**** 投影
+**** l                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+***** 投影
 #+begin_src R :session pd
   A$name
 #+end_src
@@ -11699,13 +11703,33 @@ dimensions...
 #+RESULTS:
 | Wang |
 | Li   |
-**** 选择
+
+#+begin_src R :session pd
+  A[, "name"]
+#+end_src
+
+#+RESULTS:
+| Wang |
+| Li   |
+**** r                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+***** 选择
 #+begin_src R :session pd
   subset(A, name=="Li")
 #+end_src
 
 #+RESULTS:
 | 2 | Li |
+
+#+begin_src R :session pd
+  A[1,]
+#+end_src
+
+#+RESULTS:
+| 1 | Wang |
+
 *** 动态的 DataFrame
 #+begin_src R :session pd :results output
   A$GPA = c(3, 4)
@@ -11799,6 +11823,10 @@ dimensions...
 | Wang | 1 | 2 |
 
 *** SortBy
+**** l                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
 #+begin_src R :session pd 
   order(AxB$name.x)
 #+end_src
@@ -11820,14 +11848,30 @@ dimensions...
 : 1    1   Wang    2     Li
 : 3    1   Wang    3  Zhang
 
-*** R 版本的统计
+**** r                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+取行的同时取列
+#+begin_src R :session pd :results output
+  AxB[order(AxB$name.x),c("ID.y", "name.y")]
+#+end_src
+
+#+RESULTS:
+:   ID.y name.y
+: 2    2     Li
+: 4    3  Zhang
+: 1    2     Li
+: 3    3  Zhang
+
+*** 使用 R 完成成绩统计
 #+begin_src R :session pd :results output
   students <- read.csv("dataframe-practice/students.csv")
   head(students)
 #+end_src
 
 #+RESULTS:
-:   学号 姓名 性别   班级    联系方式
+: 学号 姓名 性别   班级    联系方式
 : 1    1   AB   女 物理71 50626922811
 : 2    2   AC   女 工物61  6533879773
 : 3    3   AD   男 物理71 43865400582
@@ -11881,15 +11925,18 @@ dimensions...
      - Hadley Wickham, A Layered Grammar of Graphics
 *** ggplot
 #+begin_src R :session pd :file plot/mtcars.pdf :results graphics file :width 12 :height 5
-library(ggplot2)
-p <- ggplot(mtcars, aes(x=wt, y=hp)) + geom_point()
-print(p)
+  library(ggplot2)
+  p <- ggplot(mtcars, aes(x=wt, y=hp)) + geom_point()
+  print(p)
 #+end_src
 
 #+RESULTS:
 [[file:plot/mtcars.pdf]]
 
 *** 上色：ggplot 枚举型制图
+:PROPERTIES:
+:ORDERED:  t
+:END:
 #+begin_src R :session pd :file plot/mtcars-color.pdf :results graphics file :width 12 :height 5
 p <- p + aes(color=am)
 print(p)
@@ -11920,6 +11967,23 @@ print(p)
 | 1 | hdf5         | 100 |
 | 1 | prime        | 100 |
 | 1 | heart.curve  | 120 |
+
+*** 比较两表格的形状
+#+begin_src R :session pd
+  dim(scores)
+#+end_src
+
+#+RESULTS:
+| 57 |
+| 10 |
+
+#+begin_src R :session pd
+  dim(longscores)
+#+end_src
+
+#+RESULTS:
+| 513 |
+|   3 |
 
 *** 变成枚举型
 #+begin_src R :session pd
