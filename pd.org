@@ -10677,6 +10677,10 @@ help(numeric)
 : integer
 
 *** 整型与浮点型
+**** l                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
 #+begin_src R :session pd
   class(1.3)
 #+end_src
@@ -10706,6 +10710,16 @@ help(numeric)
 #+RESULTS:
 : integer
 
+**** r                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+
+***** numeric 的特别解读
+- =numeric()= 与 =double()= 等价
+- =as.numeric()= 与 =as.double()= 等价
+- =is.numeric()= 不等价于 =is.double()=
+  浮点型与整型都能让 =is.numeric()= 为真，甚至能转换成数字的类型都会返回真。
 *** 向量
 
 #+RESULTS:
