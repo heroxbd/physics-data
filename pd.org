@@ -13829,6 +13829,19 @@ C_N (s,t)= &  \lambda  \min(s,t)
   + 缺点：没人做，不知道行不行
   + 参考：https://dpcg.g.airelinux.org/user/xubd/lab/workspaces/auto-i/tree/annealing.ipynb
 
+*** GAM 方法
+- 介绍 GAM：与 GLM 的关系，加性模型
+  - GAM 的 spline 原理
+  - 拟合算法 P-IRLS
+  - 自由度与参数惩罚：学习什么是 panelize
+  - 效果
+*** Gradient Boosted 方法
+- 介绍 GBM
+  - 加性模型
+  - 调用方法
+  - 超参数含义
+  - 超参数的 Bayesian 优化（可选）
+  - 效果
 ** 机器学习
 *** 可用 sklearn
 - Debian
