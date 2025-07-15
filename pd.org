@@ -10721,10 +10721,10 @@ help(numeric)
 - =is.numeric()= 不等价于 =is.double()=
   浮点型与整型都能让 =is.numeric()= 为真，甚至能转换成数字的类型都会返回真。
 *** 向量
-
-#+RESULTS:
-: integer
-
+**** l                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
 使用 =c= 命令构造向量
 #+begin_src R :session pd
   help(c)
@@ -10747,6 +10747,36 @@ help(numeric)
 | 7 |
 | 9 |
 | 9 |
+**** r                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+
+#+begin_src R :session pd
+  seq(3)
+#+end_src
+
+#+RESULTS:
+| 1 |
+| 2 |
+| 3 |
+
+#+begin_src R :session pd
+  1:3
+#+end_src
+
+#+RESULTS:
+| 1 |
+| 2 |
+| 3 |
+
+内积 =%*%=
+#+begin_src R :session pd
+  c(3,2,1) %*% c(7,8,9)
+#+end_src
+
+#+RESULTS:
+: 46
 
 *** 向量的数据类型
 #+begin_src R :session pd
@@ -10767,6 +10797,10 @@ help(numeric)
 不同类型碰到一起会被转成一般类型。
 
 *** 变量
+**** l                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
 #+begin_src R :session pd
   a <- c(3,2,1)
 #+end_src
@@ -10785,7 +10819,20 @@ help(numeric)
 | 7 |
 | 9 |
 
-*** 向量的运算
+**** r                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+向量的运算：一元素向量对多元素的广播
+#+begin_src R :session pd
+  a + 3
+#+end_src
+
+#+RESULTS:
+| 6 |
+| 5 |
+| 4 |
+
 #+begin_src R :session pd
   a^2 + 7
 #+end_src
@@ -10821,7 +10868,7 @@ An array in R can have one, two or more dimensions.  It is simply
 a vector which is stored with additional attributes giving the
 dimensions...
 
-与 NumPy 数组的实现原理相同。
+与 NumPy 数组的实现原理相同，但是按照 fortran 约定排列。
 
 #+begin_src R :session pd
   array(1:3, c(2,4))
@@ -10837,6 +10884,15 @@ dimensions...
 
 #+RESULTS:
 : 26
+
+#+begin_src R :session pd
+  attr(as.array(letters), "dim")
+#+end_src
+
+#+RESULTS:
+: 26
+
+但是 =letters= 作为向量，没有 =dim= 的属性。这是 =generic function= 流派的面向对象编程。
 
 *** 向量的索引
 - R 的向量索引从 1 开始。
@@ -10874,6 +10930,15 @@ dimensions...
 | 1 |
 | 3 |
 | 2 |
+#+begin_src R :session pd
+  a[array(1:3, c(2,2))]
+#+end_src
+
+#+RESULTS:
+| 3 |
+| 2 |
+| 1 |
+| 3 |
 
 *** 所有数字都是向量
 #+begin_src R :session pd
@@ -10920,6 +10985,13 @@ dimensions...
 
 #+RESULTS:
 : character
+
+#+begin_src R :session pd
+  c("Hello", "World!")[2]
+#+end_src
+
+#+RESULTS:
+: World!
 
 *** 字符串操作
 #+begin_src R :session pd
@@ -10990,7 +11062,7 @@ dimensions...
 | deltA |
 
 *** 寻找子串
-- =grep= 返回匹配的索引
+**** =grep= 返回匹配的索引
 #+begin_src R :session pd
   grep('e', greek)
 #+end_src
@@ -11006,6 +11078,17 @@ dimensions...
 #+RESULTS:
 | beta  |
 | delta |
+**** 直接赋值
+#+begin_src R :session pd
+  substr(greek, 2, 3) <- "xx"
+  greek
+#+end_src
+
+#+RESULTS:
+| axxha |
+| bxxa  |
+| gxxma |
+| dxxta |
 
 *** 布尔型
 **** l                                                                :BMCOL:
@@ -11064,10 +11147,17 @@ dimensions...
 : Inf
 
 #+begin_src R :session pd
-  Inf - Inf
+  Inf - Inf # 返回 NaN
 #+end_src
 
 #+RESULTS:
+
+#+begin_src R :session pd
+  1/0
+#+end_src
+
+#+RESULTS:
+: Inf
 
 *** 枚举型
 当向量中的值多有重复时，枚举型存储整数，再记录每个整数对应的字符串。
@@ -11126,17 +11216,31 @@ dimensions...
 | 1 |
 
 #+begin_src R :session pd
-  levels(p)
+  as.numeric(people) # 直接转字符串失败
+#+end_src
+
+#+begin_src R :session pd
+  p[1] <- "女"
+  p[1:3]
 #+end_src
 
 #+RESULTS:
 | 女 |
+| 男 |
 | 男 |
 
 **** r                                                                :BMCOL:
 :PROPERTIES:
 :BEAMER_col: 0.5
 :END:
+
+#+begin_src R :session pd
+  levels(p)
+#+end_src
+
+#+RESULTS:
+| 女 |
+| 男 |
 
 #+begin_src R :session pd
   levels(p) <- c("woman", "man")
