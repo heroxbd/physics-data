@@ -12157,6 +12157,7 @@ HDF5 是工业标准，可在多种语言直接读取，例如 C、Fortran、Pyt
       group_by(班级, 作业) |> summarise(平均分=mean(分数))
   #+end_src
 *** 关系代数工具组
+#+beamer: \vspace{-1cm}
 **** g                                                                :BMCOL:
      :PROPERTIES:
      :BEAMER_col: 0.479
@@ -12199,9 +12200,9 @@ HDF5 是工业标准，可在多种语言直接读取，例如 C、Fortran、Pyt
        - 类比：一行命令实现一个功能
        - 一次原则：只输入必要信息
        - 保证数据的透明：更易于理解
-     - 人类更能专注于高层次的概念与问题，不被细节湮没
+     - 人更能专注于高层次的概念与问题，不被细节湮没
 **** 推论：数据分析最佳工具策略
-     - 原始数据尽快等价变换成关系代数形式：站在统计学与图形学巨人的肩膀上
+- 原始数据尽快等价变换成关系代数形式：站在统计学与图形巨人的肩膀上
 *** i 工具组                                                :B_ignoreheading:
 :PROPERTIES:
 :BEAMER_env: ignoreheading
@@ -12610,9 +12611,10 @@ file:fig/b_scatter-nc.pdf
 越接近于 \(1\) ，越说明 \(S_A\) 主导 \(S_T\)，相关性越强。
 #+beamer: \pause
 **** 假设检验问题
-- 对任意两个变量的一组观察值 \(\{(x_i, y_i)\}\) 都可以用最小二乘法形式上求得 \(y\) 对 \(x\)的回归方程,   如果\(y\) 与\(x\) 没有线性相关关系,  这种形式的回归方程就没有意义 
+- 任意两个变量的一组观察值 \(\{(x_i, y_i)\}\) 都可用最小二乘法形式上求得 \(y\) 对 \(x\)的回归方程
+- 若\(y\) 与\(x\) 没有线性相关关系，回归方程无意义
   #+beamer: \pause
-- 因此需要考察 \(y\) 与 \(x\) 间是否确有线性相关关系, 这就是回归效果的 *检验问题* .
+- 考察 \(y\) 与 \(x\) 间是否确有线性相关关系，是回归效果的 *检验问题* 。
 
 *** \(F\)-检验
     \[ H_0: b=0, H_1: b \neq 0 \]
@@ -12647,7 +12649,8 @@ file:fig/b_scatter-nc.pdf
     #+begin_src R :session pd :file fig/lm-internal.pdf :results graphics file :width 7 :height 5
       plot(lm.books)
     #+end_src
-
+- Standardized residual :: 经过期望平移和标准差伸缩后的量，服从标准正态分布。
+- Theoretical Quantiles :: 标准正态分布。
 **** 残差图                                                           :BMCOL:
 :PROPERTIES:
 :BEAMER_col: 0.5
@@ -12668,6 +12671,7 @@ file:fig/b_scatter-nc.pdf
 **** l                                                                :BMCOL:
 :PROPERTIES:
 :BEAMER_col: 0.5
+:BEAMER_opt: t
 :END:
 #+attr_latex: :height 5cm :options page=3
 #+RESULTS:
@@ -12678,12 +12682,13 @@ file:fig/b_scatter-nc.pdf
 **** r                                                                :BMCOL:
 :PROPERTIES:
 :BEAMER_col: 0.5
+:BEAMER_opt: t
 :END:
 #+attr_latex: :height 5cm :options page=4
 #+RESULTS:
 [[file:fig/lm-internal.pdf]]
 
-Cook scaling-location 理论残差图
+Cook scaling-location 图，检验残差大小的一致性
 
 *** 回归预测
     #+begin_src R :session pd :file fig/prediction.pdf :results graphics file :width 5 :height 5
@@ -12724,6 +12729,85 @@ attr(,"assign")
 [1] 0 1
 #+end_example
 
+** 多元线性回归
+*** 多个变量
+- 线性回归可以推广到多个变量
+
+**** 还可以包含离散变量
+     - 每个离散变量，实际上对应多个自由参数，个数等于离散变量的取值数
+     #+begin_src R :session pd :results output
+       books$cover = as.factor(books$cover)
+       books[c("weight", "volume", "cover")]
+     #+end_src
+
+     #+RESULTS:
+     #+begin_example
+        weight volume cover
+     1     800    885    hb
+     2     950   1016    hb
+     3    1050   1125    hb
+     4     350    239    hb
+     5     750    701    hb
+     6     600    641    hb
+     7    1075   1228    hb
+     8     250    412    pb
+     9     700    953    pb
+     10    650    929    pb
+     11    975   1492    pb
+     12    350    419    pb
+     13    950   1010    pb
+     14    425    595    pb
+     15    725   1034    pb
+     #+end_example
+
+*** 填加自变量
+- 书的包装有什么影响？画图探索
+#+begin_src R :session pd :file fig/covers.pdf :results graphics file :width 7 :height 5
+  print(p + aes(color=cover))
+#+end_src
+
+#+attr_latex: :height 5cm
+#+RESULTS:
+[[file:fig/covers.pdf]]
+
+*** 多线性回归
+    #+begin_src R :session pd :results output
+      lm2.books <- lm(weight ~ volume + cover, books)
+      summary(lm2.books)
+    #+end_src
+
+    #+RESULTS:
+    #+begin_example
+
+    Call:
+    lm(formula = weight ~ volume + cover, data = books)
+
+    Residuals:
+        Min      1Q  Median      3Q     Max 
+    -110.10  -32.32  -16.10   28.93  210.95 
+
+    Coefficients:
+                  Estimate Std. Error t value Pr(>|t|)    
+    (Intercept)  197.96284   59.19274   3.344 0.005841 ** 
+    volume         0.71795    0.06153  11.669  6.6e-08 ***
+    coverpb     -184.04727   40.49420  -4.545 0.000672 ***
+    ---
+    Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+    Residual standard error: 78.2 on 12 degrees of freedom
+    Multiple R-squared:  0.9275,	Adjusted R-squared:  0.9154 
+    F-statistic: 76.73 on 2 and 12 DF,  p-value: 1.455e-07
+    #+end_example
+
+*** 多线性回归结果图
+#+begin_src R :session pd :file fig/lm2.pdf :results graphics file :width 7 :height 5
+  print(p + aes(color=cover) + geom_smooth(method="lm"))
+#+end_src
+
+#+attr_latex: :height 5cm
+#+RESULTS:
+[[file:fig/lm2.pdf]]
+    
 *** 线性回归的推广
 - 令 \(\vec{X}_0 = \vec{1}, \vec{X}_1 = \vec{x}, \vec{X}_2 = \vec{x^2}\)：
   #+begin_export latex
@@ -12866,7 +12950,7 @@ model.matrix(weight ~ volume + cover - 1, books)
     F-statistic: 459.5 on 3 and 12 DF,  p-value: 1.207e-12
     #+end_example
 
-** 探索性分析
+** 模型选择
 *** 探索性分析
      #+BEGIN_SRC dot :file regression.pdf
        digraph regression {
@@ -12887,85 +12971,6 @@ model.matrix(weight ~ volume + cover - 1, books)
      #+attr_latex: :height 7cm
      #+RESULTS:
      [[file:regression.pdf]]
-*** 填加自变量
-- 书的包装有什么影响？画图探索
-#+begin_src R :session pd :file fig/covers.pdf :results graphics file :width 7 :height 5
-  print(p + aes(color=cover))
-#+end_src
-
-#+attr_latex: :height 5cm
-#+RESULTS:
-[[file:fig/covers.pdf]]
-
-*** 多线性回归
-- 线性回归可以推广到多个变量
-
-**** 还可以包含离散变量
-     - 每个离散变量，实际上对应多个自由参数，个数等于离散变量的取值数
-     #+begin_src R :session pd :results output
-       books$cover = as.factor(books$cover)
-       books[c("weight", "volume", "cover")]
-     #+end_src
-
-     #+RESULTS:
-     #+begin_example
-        weight volume cover
-     1     800    885    hb
-     2     950   1016    hb
-     3    1050   1125    hb
-     4     350    239    hb
-     5     750    701    hb
-     6     600    641    hb
-     7    1075   1228    hb
-     8     250    412    pb
-     9     700    953    pb
-     10    650    929    pb
-     11    975   1492    pb
-     12    350    419    pb
-     13    950   1010    pb
-     14    425    595    pb
-     15    725   1034    pb
-     #+end_example
-
-*** 多线性回归
-    #+begin_src R :session pd :results output
-      lm2.books <- lm(weight ~ volume + cover, books)
-      summary(lm2.books)
-    #+end_src
-
-    #+RESULTS:
-    #+begin_example
-
-    Call:
-    lm(formula = weight ~ volume + cover, data = books)
-
-    Residuals:
-        Min      1Q  Median      3Q     Max 
-    -110.10  -32.32  -16.10   28.93  210.95 
-
-    Coefficients:
-                  Estimate Std. Error t value Pr(>|t|)    
-    (Intercept)  197.96284   59.19274   3.344 0.005841 ** 
-    volume         0.71795    0.06153  11.669  6.6e-08 ***
-    coverpb     -184.04727   40.49420  -4.545 0.000672 ***
-    ---
-    Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
-
-    Residual standard error: 78.2 on 12 degrees of freedom
-    Multiple R-squared:  0.9275,	Adjusted R-squared:  0.9154 
-    F-statistic: 76.73 on 2 and 12 DF,  p-value: 1.455e-07
-    #+end_example
-
-*** 多线性回归结果图
-#+begin_src R :session pd :file fig/lm2.pdf :results graphics file :width 7 :height 5
-  print(p + aes(color=cover) + geom_smooth(method="lm"))
-#+end_src
-
-#+attr_latex: :height 5cm
-#+RESULTS:
-[[file:fig/lm2.pdf]]
-    
-** 模型选择
 *** Occam's razor and Von Neumann's elephant
 如果关于同一个问题有许多种理论，每一种都能作出同样准确的预言，那么应该挑选其中使用假定最少的。
 
@@ -12999,7 +13004,7 @@ With four parameters I can fit an elephant. With five I can make him wiggle his 
 : [1] 177.9986
 : [1] 177.9986
 
-- =lm2= 与 =lm3= 等价，因为两者的 =model.matrix= 可用通过线性变换等价互换
+- =lm2= 与 =lm3= 等价，两者的 =model.matrix= 可用通过线性变换等价互换
 
 *** 改进模型的灵感
 - 回归结果说明 paper back 不应该有截距，只有 hard back 才有截距。
@@ -13067,35 +13072,33 @@ Multiple R-squared:  0.9913,	Adjusted R-squared:   0.99
 F-statistic: 743.2 on 2 and 13 DF,  p-value: 3.954e-14
 #+end_example
 
-*** 课堂练习
-    - 分析：有否必要把 =area= 加入回归？
-
 *** 试验使用 =area=
-    #+begin_src R :results output :session pd
-      lm5.books = lm(weight ~ volume + area - 1, books)
-      summary(lm5.books) # AIC = 175.9741
-    #+end_src
+- 分析：有否必要把 =area= 加入回归？
+#+begin_src R :results output :session pd
+  lm5.books = lm(weight ~ volume + area - 1, books)
+  summary(lm5.books) # AIC = 175.9741
+#+end_src
 
-    #+RESULTS:
-    #+begin_example
-    Call:
-    lm(formula = weight ~ volume + area - 1, data = books)
+#+RESULTS:
+#+begin_example
+Call:
+lm(formula = weight ~ volume + area - 1, data = books)
 
-    Residuals:
-        Min      1Q  Median      3Q     Max 
-    -112.53  -28.73  -10.52   24.62  213.80 
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-112.53  -28.73  -10.52   24.62  213.80 
 
-    Coefficients:
-           Estimate Std. Error t value Pr(>|t|)    
-    volume  0.72891    0.02767  26.344 1.15e-12 ***
-    area    0.48087    0.09344   5.146 0.000188 ***
-    ---
-    Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+Coefficients:
+       Estimate Std. Error t value Pr(>|t|)    
+volume  0.72891    0.02767  26.344 1.15e-12 ***
+area    0.48087    0.09344   5.146 0.000188 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-    Residual standard error: 75.07 on 13 degrees of freedom
-    Multiple R-squared:  0.9914,	Adjusted R-squared:  0.9901 
-    F-statistic: 747.9 on 2 and 13 DF,  p-value: 3.799e-14
-    #+end_example
+Residual standard error: 75.07 on 13 degrees of freedom
+Multiple R-squared:  0.9914,	Adjusted R-squared:  0.9901 
+F-statistic: 747.9 on 2 and 13 DF,  p-value: 3.799e-14
+#+end_example
 
 ** 热敏电阻
 *** 电子体温计
