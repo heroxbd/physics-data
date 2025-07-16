@@ -14473,10 +14473,63 @@ C_N (s,t)= &  \lambda  \min(s,t)
     - 保持可加性但允许非线性关系 
     - 允许多变量耦合的张量积函数 
 
-*** GAM 的 spline 原理
-*** 拟合算法 P-IRLS
-*** 自由度与参数惩罚：学习什么是 panelize
-*** 效果
+*** 样条(Spline)基展开
+
+**** 三次样条基展开
+\begin{equation*}
+f_j(x_j) = \sum_{k=1}^{m_j} \beta_{jk} B_k(x_j) \quad \Rightarrow \quad \bm{f}_j = \bm{X}_j \bm{\beta}_j
+\end{equation*}
+
+
+- $\bm{X}_j$ ：$n \times m_j$ 设计矩阵
+- $\bm{\beta}_j$ ：$m_j \times 1$ 系数向量
+
+\begin{equation*}
+\int [f''_j(x_j)]^2 dx_j = \bm{\beta}_j^T \bm{S}_j \bm{\beta}_j
+\end{equation*}
+
+*** 拟合算法P-IRLS
+- 初始化：用GLM估计初始参数
+
+- 迭代步骤：
+  \begin{equation*}
+  \begin{aligned}
+    z_i &= \eta_i + (y_i-\mu_i)\frac{d\eta_i}{d\mu_i} \quad \text{(工作响应变量)} \\
+    W_{ii} &= \left(\frac{d\mu_i}{d\eta_i}\right)^2 \text{Var}(y_i)^{-1}
+  \end{aligned}
+  \end{equation*}
+
+- 惩罚加权最小二乘：
+  \begin{equation*}
+  \min_{\bm{\beta}} ||\bm{z} - \bm{X}\bm{\beta}||^2_{\bm{W}} + \sum_j \lambda_j \bm{\beta}_j^\mathsf{T}\bm{S}_j\bm{\beta}_j
+  \end{equation*}
+
+*** 自由度与参数惩罚
+**** 有效自由度(EDF)的数学本质
+\begin{equation*}
+\text{EDF}_j = \text{tr}\left(\bm{H}_j\right) = \text{tr}\left(\bm{X}_j(\bm{X}_j^T\bm{W}\bm{X}_j + \lambda_j\bm{S}_j)^{-1}\bm{X}_j^T\bm{W}\right)
+\end{equation*}
+
+- 帽子矩阵 $\bm{H}_j$ 的构成：
+  + 来自加权最小二乘解 $\hat{\bm{f}}_j = \bm{H}_j \bm{z}$
+  + 类比线性回归：$\text{tr}(\bm{H})$ 即为模型自由度
+  
+- 惩罚项的影响：
+  + $\lambda_j=0$ 时：$\bm{H}_j$ 为投影矩阵，$\text{EDF}_j = m_j$（基函数个数）
+  + $\lambda_j>0$ 时：惩罚压缩有效参数空间
+
+
+**** 惩罚参数的选取
+REML方法或GCV方法选择$\lambda_j$。
+
+*** Gradient Boosted 方法
+- 介绍 GBM
+  - 加性模型
+  - 调用方法
+  - 超参数含义
+  - 超参数的 Bayesian 优化（可选）
+  - 效果
+
 
 *** Gradient Boosted 方法
 - 介绍 GBM
