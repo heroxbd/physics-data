@@ -14079,6 +14079,21 @@ AIC: 7915838
 Number of Fisher Scoring iterations: 5
 #+end_example
 
+*** 未出来的数据按照 0 计数处理
+#+begin_src R :session pd
+  nPE |> right_join(PMT) -> d1
+  head(d1[is.na(d1$nPE),])
+#+end_src
+
+#+RESULTS:
+|   | 309056 |   | HZC | 0.255856 |
+|   | 309157 |   | HZC | 0.241972 |
+|   | 312822 |   | HZC | 0.236523 |
+|   | 312823 |   | HZC | 0.254319 |
+|   | 312841 |   | HZC | 0.241801 |
+|   | 312842 |   | HZC | 0.227959 |
+
+是没有计数的 PMT，已经损坏，不考虑使用 =inner_join= 合理。
 *** 总结
 **** 模型的选择
 1. 关系代数让回归分析变得极其直观，让我们专注于问题的本质
