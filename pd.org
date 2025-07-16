@@ -12226,7 +12226,8 @@ HDF5 是工业标准，可在多种语言直接读取，例如 C、Fortran、Pyt
     |   5.5 |     3 |
     |   6.5 |     4 |
     |     9 |     7 |
-    - \( Y = a + b x + \epsilon, \epsilon \sim \mathcal{N}(0, \sigma^2) \)
+    - \( y = a + b x + \epsilon, \epsilon \sim \mathcal{N}(0, \sigma^2) \)
+    - \( Y = y - \epsilon\)，\(Y\) 和 \(\epsilon\) 是随机变量
     - \( (Y, x) \) 是关系，组成表格
     
     - 表格 DataFrame 之上自然进行回归分析
