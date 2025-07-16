@@ -1,0 +1,325 @@
+\documentclass{ctexbeamer}
+\usetheme{Madrid}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+
+\usepackage{listings}      % 如果只想用 verbatim，可删掉
+\usepackage{booktabs}
+
+\title{Gradient Boosted Machines (GBM)}
+\subtitle{原理、实现与应用}
+\author{wxy}
+\date{\today}
+
+\begin{document}
+
+% 第一页：标题与目录
+\begin{frame}
+\titlepage
+\end{frame}
+
+\begin{frame}{决策树基础原理}
+\framesubtitle{CART 算法解析}
+
+\begin{columns}[T]
+% 左栏：算法概述与特征选择
+\column{0.45\textwidth}
+\begin{block}{核心决策树算法}
+\textbf{CART}：分类与回归树，采用多层级二叉树结构。
+\end{block}
+
+\textbf{特征选择指标}
+\small
+\begin{align*}
+\text{信息增益} &: IG(D,A) = H(D) - H(D|A) \\
+\text{基尼系数} &: Gini(D) = \sum_{i=1}^{n}p_i(1-p_i) \\
+\text{均方误差} &: MSE(D) = \frac{1}{n}\sum_{i=1}^{n}(y_i - f(x_i))^2
+\end{align*}
+\footnotesize{其中 $H(D) = -\sum p_i\log_2 p_i$ 为信息熵}
+
+% 右栏：CART算法步骤
+\column{0.5\textwidth}
+\begin{block}{CART回归树构建步骤}
+\begin{enumerate}
+\small
+\item \textbf{最优切分选择}：
+
+\[
+\begin{aligned}    
+\min_{j,s} [ 
+&\min_{c_1} \sum_{x_i \in R_1} (y_i - c_1)^2 + \\
+&\min_{c_2} \sum_{x_i \in R_2} (y_i - c_2)^2 
+]
+\end{aligned}
+\]
+
+$R_1 = \{x | x^j \leq s\}, R_2 = \{x | x^j > s\}$
+
+\item \textbf{区域输出值}：
+$\hat{c}_m = \frac{1}{N_m} \sum_{x_i \in R_m} y_i$
+
+\item \textbf{递归划分}：直到满足停止条件
+
+\item \textbf{生成决策树}：
+$f(x) = \sum_{m=1}^{M} \hat{c}_m I(x \in R_m)$
+\end{enumerate}
+\end{block}
+\end{columns}
+
+\end{frame}
+
+\begin{frame}{决策树增强方法 (Boosting Tree)}
+
+\begin{block}{梯度提升方法}
+\begin{itemize}
+\item \textbf{迭代集成算法}：通过顺序构建弱学习器（通常为决策树）改进预测
+\item \textbf{核心思想}：每轮迭代拟合减小前一轮的残差
+\end{itemize}
+\end{block}
+
+Boosting Tree 原理：
+
+\textbf{加性模型}：$ f(x) = \sum_{m=1}^{M} T(x; \Theta_m) $
+，$T(x; \Theta_m) $为第m次迭代的树模型。
+\begin{columns}[T]
+\column{0.49\textwidth}
+\textbf{训练过程}：
+\begin{enumerate}
+\small
+\item 初始化 $f_0(x) = 0$
+\item 计算残差：$r_{im} = y_i - f_{m-1}(x_i)$
+\item 训练新树拟合残差：$\Theta_m = \arg\min_{\Theta} \sum L(y_i, f_{m-1} + T)$
+\item 更新模型：$f_m = f_{m-1} + T_m$
+\end{enumerate}
+
+\column{0.49\textwidth}
+\textbf{优化目标（以MSE为例）}
+\small
+\[
+\begin{aligned}
+\min_{j, s} [ 
+&\min_{c_1} \sum_{x_i \in R_1} (y_i - c_1)^2 \\
+&+ \min_{c_2} \sum_{x_i \in R_2} (y_i - c_2)^2 
+]
+\end{aligned}
+\]
+\begin{itemize}
+\item $R_1, R_2$：特征切分点划分区域，采样多个切分点寻找最优$x^{opt}_s$
+\end{itemize}
+
+\end{columns}
+
+
+\end{frame}
+
+% 第二页：梯度增强树 (GBDT)
+\begin{frame}{梯度增强树 (GBDT)}
+\framesubtitle{Boosting Tree的优化扩展}
+
+\begin{block}{与Boosting Tree的关键区别}
+\begin{itemize}
+\item \textbf{通用损失函数}：支持任意可微损失函数（平方损失、绝对损失、对数损失等），利用梯度进行优化。
+\end{itemize}
+\end{block}
+
+\begin{block}{GBDT算法流程}
+\begin{enumerate}
+\item \textbf{初始化}：$f_0(x) = \arg \min_c \sum L(y_i, c)$
+\begin{itemize}
+\small
+\item 平方损失时：$c = \frac{1}{N}\sum y_i$（目标均值）
+\end{itemize}
+
+\item \textbf{迭代训练（$m=1$ to $M$）}：
+\begin{itemize}
+\item 计算负梯度（伪残差）：
+$ r_{mi} = -\left[\frac{\partial L(y_i, f(x_i))}{\partial f(x_i)}\right]_{f=f_{m-1}} $
+\item 用$(x_i, r_{mi})$训练新树$T_m$（叶子区域$R_{mj}$）
+\item 计算叶节点输出值：
+$ c_{mj} = \arg \min_c \sum_{x_i \in R_{mj}} L(y_i, f_{m-1}(x_i) + c) $
+\item 更新模型：$f_m(x) = f_{m-1}(x) + \sum_j c_{mj} I(x \in R_{mj}) $
+\end{itemize}
+
+\item \textbf{最终模型}：
+$ \hat{f}(x) = f_0(x) + \sum_{m=1}^M \sum_{j=1}^J c_{mj} I(x \in R_{mj}) $
+\end{enumerate}
+\end{block}
+
+\begin{columns}[T]
+\column{0.5\textwidth}
+\begin{exampleblock}{MSE特例}
+当$L = \frac{1}{2}(y-f)^2$时：
+\[
+r_{mi} = y_i - f_{m-1}(x_i)
+\]
+\[
+c_{mj} = \frac{1}{|R_{mj}|}\sum_{x_i \in R_{mj}} r_{mi}
+\]
+\end{exampleblock}
+
+\end{columns}
+\end{frame}
+
+
+% 第三页：调用方法与关键超参数
+\begin{frame}{代码实现与核心超参数}
+\begin{table}
+\centering
+\begin{tabular}{lll}
+\toprule
+\textbf{语言} & \textbf{库} \\
+\midrule
+Python & bayes\_opt & BayesianOptimization\\
+Python & sklearn.model\_selection & cross\_val\_score\\
+Python & lightgbm.lgb & LGBMClassifier\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{block}{关键超参数}
+\begin{itemize}
+\item \textbf{boosting\_type}: 提升算法类型（gbdt, dart, goss, rf）
+\item \textbf{objective}: 学习任务目标（binary, multiclass, regression等）
+\item \textbf{metric}: 模型评估指标（binary\_error, auc, mae等）
+\item \textbf{num\_leaves}: 单棵树的最大叶节点数量（控制模型复杂度）
+\item \textbf{learning\_rate}: 学习率/收缩因子（控制每棵树的贡献权重）
+\item \textbf{feature\_fraction}: 特征采样比例（每棵树随机选择的特征占比）
+\item \textbf{max\_depth}: 树的最大深度（-1表示无限制）
+\end{itemize}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]     % ← fragile 必须
+  \frametitle{LightGBM 代码示例}
+
+  \begin{exampleblock}{Python代码实现}
+\scriptsize
+\begin{lstlisting}[language=Python]  
+train_data = lgb.Dataset(X_train, label=y_train)
+test_data  = lgb.Dataset(X_test , label=y_test, reference=train_data)
+
+params = {
+    'boosting_type': 'gbdt',
+    'objective': 'binary',
+    'metric': 'binary_error',
+    'num_leaves': 31,
+    'learning_rate': 0.05,
+    'feature_fraction': 0.9
+}
+
+gbm = lgb.train(params, train_data,
+                num_boost_round=100,
+                valid_sets=[test_data],
+                early_stopping_rounds=10)
+
+y_pred = gbm.predict(X_test, num_iteration=gbm.best_iteration)
+y_pred_binary = [1 if x > 0.5 else 0 for x in y_pred]
+accuracy = accuracy_score(y_test, y_pred_binary)
+\end{lstlisting}
+  \end{exampleblock}
+\end{frame}
+
+% 第四页：超参数优化技术
+\begin{frame}{超参数优化策略（贝叶斯优化）}
+
+\small
+贝叶斯优化(BO)高效求解黑箱函数优化问题（如超参数调优）
+
+\begin{block}{优化流程}
+1. \textbf{高斯过程代理模型}：建模目标函数$f(\mathbf{x})$，初始化观测点集 $\mathcal{D} = \{(\mathbf{x}_i,y_i)\}$
+\[
+f \sim \mathcal{GP}\left(0,\, k(\mathbf{x}, \mathbf{x}')\right), \quad
+p(f_{*}|\mathcal{D}) = \mathcal{N}(\mu(\mathbf{x}_{*}),\, \sigma^2(\mathbf{x}_{*}))
+\]
+
+2. \textbf{采集函数}：指导采样点选择（EI为例）
+\[
+\alpha_{\text{EI}}(\mathbf{x}) = \mathbb{E}[\max(f-f^+,0)] = 
+\underbrace{(\mu - f^+ - \xi)\Phi(Z)}_{\text{利用}} + 
+\underbrace{\sigma\phi(Z)}_{\text{探索}}
+\]
+其中 $Z=\frac{\mu-f^+-\xi}{\sigma}$，$f^+$为当前最优值
+
+3. \textbf{更新参数}：最大化采集函数优化参数
+\[ 
+\mathbf{x}_{new} = \arg\max \alpha(\mathbf{x})
+\]
+更新评估目标函数$y_{new} = f(\mathbf{x}_{new})$，
+更新数据集$\mathcal{D} \leftarrow \mathcal{D} \cup \{(\mathbf{x}_{new},y_{new})\}$
+重复直至收敛。
+\end{block}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{LightGBM调优实战}
+\framesubtitle{使用BayesianOptimization库实现}
+\scriptsize
+\begin{block}{模型与目标函数定义}
+\begin{lstlisting}[language=Python]
+def lgb_cv(n_estimators, min_gain_to_split, subsample, 
+           max_depth, colsample_bytree, min_child_samples,
+           reg_alpha, reg_lambda, num_leaves, learning_rate):
+    model = lgb.LGBMClassifier(
+        boosting_type='gbdt', objective='binary',
+        colsample_bytree=float(colsample_bytree),
+        min_child_samples=int(min_child_samples),
+        n_estimators=int(n_estimators),
+        num_leaves=int(num_leaves),
+        reg_alpha=float(reg_alpha),
+        reg_lambda=float(reg_lambda),
+        max_depth=int(max_depth),
+        subsample=float(subsample),
+        min_gain_to_split=float(min_gain_to_split),
+        learning_rate=float(learning_rate))
+    return cross_val_score(model, train_x, train_y, 
+                         scoring="roc_auc", cv=5).mean()
+\end{lstlisting}
+\end{block}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{LightGBM调优实战}
+\framesubtitle{使用BayesianOptimization库实现}
+\scriptsize
+\begin{columns}[T]
+\begin{column}{0.5\textwidth}
+\begin{block}{参数空间搜索配置}
+\begin{lstlisting}[language=Python]
+lgb_bo = BayesianOptimization(
+    lgb_cv,
+    {
+        'colsample_bytree': (0.5,1),
+        'min_child_samples': (2,200),
+        'num_leaves': (5,1000),
+        'subsample': (0.6,1),
+        'max_depth':(2,10),
+        'n_estimators':(10,1000),
+        'reg_alpha':(0,10),
+        'reg_lambda':(0,10),
+        'min_gain_to_split':(0,1),
+        'learning_rate':(0,1)
+    })
+\end{lstlisting}
+\end{block}
+\end{column}
+
+\begin{column}{0.45\textwidth}
+\begin{exampleblock}{执行优化}
+\begin{lstlisting}[language=Python]
+lgb_bo.maximize(
+    n_iter=50,         # 迭代次数
+    init_points=10,     # 初始随机点
+    acq='ei',           # 采集函数(EI)
+    kappa=2.576,        # 探索系数
+    xi=0.1              # 利用系数
+)
+best_params = lgb_bo.max['params']
+\end{lstlisting}
+\end{exampleblock}
+\end{column}
+\end{columns}
+\end{frame}
+
+\end{document}
