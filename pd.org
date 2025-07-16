@@ -14107,7 +14107,7 @@ Number of Fisher Scoring iterations: 5
 * 大作业与未来方向
   :PROPERTIES:
   :EXPORT_FILE_NAME: pf
-  :EXPORT_DATE: 2024-07-28 清华
+  :EXPORT_DATE: 2025-07-17 清华
   :EXPORT_BEAMER_HEADER+: \author{续本达}
   :EXPORT_BEAMER_HEADER+: \institute[清华工物]{清华大学 工程物理系}
   :EXPORT_BEAMER_HEADER+: \setbeamertemplate{footline}[frame number]  
@@ -14124,7 +14124,7 @@ Number of Fisher Scoring iterations: 5
    + 把连接函数从恒等替换为非线性函数
    + 几乎可以解决所有日常工作中的非线性问题，惊喜！
 *** 数据时代的物理技能
-    [[./out/Data_Science_VD-migrate.pdf]]
+[[./out/Data_Science_VD-migrate.pdf]]
 *** 概率是逻辑的扩展 -- Cox 定理
     - Laplace: probability theory is nothing but common sense reduced to calculations.
     - R. T. Cox, E. T. Jaynes，两位对统计学有重大贡献的物理学家
@@ -14157,8 +14157,6 @@ Number of Fisher Scoring iterations: 5
 ***** 正向第一阶段
 [[file:./MC-predict.pdf]]
 
-- 2024-07-11 -- 2024-08-02
-
 - 模拟实验测量
 
 **** r                                                                :BMCOL:
@@ -14167,9 +14165,8 @@ Number of Fisher Scoring iterations: 5
 :END:
 ***** 逆向第二阶段
 
-[[file:./MC-reconstruction.pdf]]
+[[file:./MC-calibration.pdf]]
     
-- 2024-07-28 -- 2024-08-18
 - 分析数据
 - 测量模型参数
 - 黑盒分数按排名
@@ -14182,9 +14179,7 @@ Number of Fisher Scoring iterations: 5
     - 采分 :: 与助教手中的模拟输入相比
 
 **** 第二阶段分组
-- 每队至多三人
-  - 单人队：大作业得分 $\times 1.03$
-  - 三人队：每人大作业得分 = 队伍得分 $\times 0.95$
+- 每队三人，考核团队 Git 协作
   - 不同队伍间请勿直接交换代码
 #+beamer: \pause
 - 如果大作业结果含有学术突破，总评保送 A+。
@@ -14199,10 +14194,10 @@ Number of Fisher Scoring iterations: 5
 **** 思路和要点
 - 将获得
   #+beamer: {\scriptsize
-  https://git.tsinghua.edu.cn/physics-data/2024/project_2
+  https://git.tsinghua.edu.cn/physics-data/2025/project_2
   #+beamer: }
-  之下的仓库一份，使用 GNU Make 构建整个分析流程，连同报告、程序整理到
-  仓库中。
+  之下的仓库 clone 一份，使用 GNU Make 构建整个分析流程，连同报告、程
+  序整理到仓库中。
 
   + 注意小组分工中 Git 使用的规范
   + 善于使用 Git =branch=, Gitlab =merge request= 等团队协作功能
@@ -14213,25 +14208,36 @@ Number of Fisher Scoring iterations: 5
   + 成为“可执行的说明文档”
 ** probe 大作业
 *** 具体说明
+参考
+
 #+beamer: {\scriptsize
 https://git.tsinghua.edu.cn/physics-data/projects/tpl_junoprobe
 #+beamer: }
-- 正在完善
-  + 大家可以开始 =clone= 大作业模板，再 =push= 到自己的仓库中。
-  + 后续如果模板有更新，通过 =git merge= 整合。
-*** 泊松点过程
-- 作业的目标是取得 JUNO 探测器泊松点过程的条件均值函数。
 
-*** likelihood-free inference
+中的文档
+
+- 正在完善仍有改动，以
+
+#+beamer: {\scriptsize
+  https://git.tsinghua.edu.cn/physics-data/2025/project_2
+#+beamer: }
+
+出现的版本为准。
+
+*** 泊松点过程
+- 作业的目标是取得 JUNO 探测器 PMT 检测到光电子的泊松点过程的条件强度函数。
+
+**** likelihood-free inference
 - "likelihood-free inference" somewhat misleading
 - 从一个没有 likelihood 的模型中，提炼出 likelihood。
+
 ** 泊松点过程
 *** 随机过程概念
 #+attr_beamer: :overlay <+->
 - 随机过程的研究对象是 *随时间演变的随机现象* 。
 - 不能用随机变量或多维随机变量来合理表达，而需要用一族无限多个随机变量来描述。
 #+latex: \begin{itembox}[l]{定义}
-随机过程是一族随机变量 \(\{X(t):t \in T\}\), 其中\(t\)是 *参数* ,\(T\)称为 *参数集* .
+随机过程是一族随机变量 \(\{X(t):t \in T\}\), 其中\(t\)是 *参数*，\(T\)称为 *参数集* .
 #+latex: \end{itembox}
 
 #+attr_beamer: :overlay <+->
@@ -14324,7 +14330,7 @@ https://git.tsinghua.edu.cn/physics-data/projects/tpl_junoprobe
    其中\(o( \Delta t)\)是\( \Delta t\)的无穷小，即\(\displaystyle{\lim_{ \Delta t \to 0}\frac{o( \Delta t)}{ \Delta t}=0} \)
 #+latex: \end{itembox}
 
-上述过程称为 *泊松过程* ，因为任意长度为\(t\)的区间中时间个数服从均值\( \lambda t\)的泊松分布。
+称为 *泊松过程* ，任意长度为\(t\)的区间中时间个数服从均值\( \lambda t\)的泊松分布。
 *** 定理
 #+latex: \begin{itembox}[l]{例}
 设 \(\{N(t):t \geq 0\}\)是一个强度为 \( \lambda \)的泊松过程，则 \(N(t)\) 的一维分布是参数为\( \lambda t\)的泊松分布,即对任意 \(t>0\)有
@@ -14350,7 +14356,6 @@ C_N (s,t)= &  \lambda  \min(s,t)
   \[  \mu _N (t)=\lim_{k \to  \infty } kp=\lim_{k \to  \infty } k\left[\frac{ \lambda t}{k}+ o \left(\frac{t}{k}\right)\right]= \lambda t+ o (t) \]
 
 *** 指数分布视角
-#+attr_beamer: :overlay <+->
 - 将泊松过程第\(n\)个事件发生时刻记为 \(T_n\)。
 - 记\(W_n＝T_n−T_{n−1}\)为第\(n\)个事件的等待时间，特别地 \(W_1  =T_1\)。
 **** 泊松分布的指数间隔                                           :B_theorem:
