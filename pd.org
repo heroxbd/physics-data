@@ -12493,12 +12493,12 @@ file:fig/b_scatter-nc.pdf
     F-statistic: 52.87 on 1 and 13 DF,  p-value: 6.262e-06
     #+end_example
 *** 拟合结果解读
-- \( Y = a + b x + \epsilon \)
+- \( y = a + b x + \epsilon \)
   + \(\hat{a} = 108\) 不显著
   + \(\hat{b} = 0.71\) 显著
 - 回归方程为
 
-  \( Y = 108 + 0.71 x + \epsilon \)
+  \( y = 108 + 0.71 x + \epsilon \)
 
 - 显著度
   + \(\hat{a}\) 和 \(\hat{b}\) 都服从 \(t\)-分布
@@ -13384,59 +13384,664 @@ F-statistic:  1734 on 3 and 436 DF,  p-value: < 2.2e-16
   #+end_export
 
   精度达到 \(\si{\micro K}\)，是一般热敏电阻的 1000 倍。
-** 广义线性回归
-*** 线性回归
-1. 线性回归是检验相关性的重要数理统计方法。
-2. 最小二乘法是线性回归的解法，可看作线性空间的投影。
-   #+begin_export latex
-  \tdplotsetmaincoords{70}{200}
-  \begin{tikzpicture}[scale = 2.5,thick,tdplot_main_coords]
-  \coordinate (A1) at (0,0,0);
-  \coordinate (A2) at (2,0,0);
-  \coordinate (A3) at (2,2,0);
-  \coordinate (A4) at (0,2,0);
-
-  \coordinate (S) at (0.5,0.5,0);
-  \coordinate (E) at (0.5,3,1.5);
-  \coordinate (P) at (1.15,1.15,0);
-  \fill[fill=blue!20] (A1) -- (A2) -- (A3)  -- (A4) -- cycle;
-  \draw[black, -latex] (S) -- (E);
-  \draw[black!80, -latex] (S) -- (P);
-  \draw[black!50,dashed] (E) -- (P);
-  \node[above] at (E) {$\vec{Y}$};
-  \node[below] at (P) {$a \vec{X}_1 + b \vec{X}_2$};
-
-  \draw[red!70] (2,2.3,1.2) node[above] 
-   {$\vec{E} = \vec{Y} - (a \vec{X}_1 + b \vec{X}_2)$取极小} to [out=-90,in=180] ($0.5*($(E)+(P)$)$);
-
-   \draw[red!70] (2.3,2.3,0.4) node[above] 
-   {$\vec{X}_1$ 与 $\vec{X}_2$ 张成2维子空间} to [out=-90,in=90] ($(A3)+(-0.2,-0.2,0)$);
-  \end{tikzpicture}
-   #+end_export
-   #+beamer: \pause
-3. 假设残差来自正态总体，
-   \[ \epsilon_i = y_i - (a + bx_i) \sim N(0, \sigma^2) \]
-   线性回归的结果需要经过\(F\)或\(t\)假设检验，确认回归的显著性，才能完成科学解读。
+** 泊松回归
 *** 推广：打破残差的正态分布假设
 残差不服从正态分布时，以线性模型解决问题 \to \alert{广义线性回归}。
 
 - 泊松回归：观测量是计数
 - 伽马回归：观测量是正实数
 - 逻辑回归：观测量是 \([0, 1]\) 区间内的实数
-- 二项回归：观测是是 \(0, 1 \cdots, N\) 的整数
-    
-*** 概念
-- 线性回归中，假设了残差服从正态分布
-- \(f(E[Y|X]) = b X\)
-  - \(Y\) 的期望经过连接函数 \(f(y)\) 与 \(X\) 是线性关系
-- 可以在保持高效计算的前提下，把这两个条件放宽，可以大大扩展线性模型的适用范围
-**** 种类
-- 泊松回归
-- 二项回归(生存回归, cloglog回归)
-- 伽马回归
-- Tweedie 回归
+- 二项回归：观测量是 \(0, 1 \cdots, N\) 的整数
+*** 例：盖革计数器的放射性计量
+**** l                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.62
+:END:
+#+begin_export latex
+\alt<2>{%
+  \includegraphics[height=4.6cm,page=36]{plot/ocean}
+}{%
+  \animategraphics[autoplay,height=4.6cm]{1}{plot/ocean}{0}{36}
+}
+#+end_export
 
-*** 课堂任务
+**** r                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.38
+:END:
+2023年8月24日至9月11日，日本福岛第一核电站核污染水排海 7788 吨。
+\bigskip
+
+早在2012年德国海洋研究团队模拟了污水的扩散过程。
+
+**** i                                                      :B_ignoreheading:
+:PROPERTIES:
+:BEAMER_env: ignoreheading
+:END:
+#+beamer: \pause
+**** l                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.6
+:END:
+
+- 环境放射性，由探头计数测量。
+- 计数个数反映了辐射强弱 \to [[https://hep.tsinghua.edu.cn/~orv/teaching/statistics/survey-meter.mp4][样例视频]]。
+
+**** r                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.4
+:END:
+#+beamer: \vspace{-1cm} \visible<2-> {
+#+Attr_LaTeX: :height 4cm
+[[./fig/survey-meter.jpg]]
+#+beamer: }
+
+*** 计数问题：规律探寻
+**** l                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.6
+:END:
+\SI{10}{s} 内积累的信号数 \(N\)，依赖于样品辐射强度 \(I\) 和探头距离 \(r\)。
+
+  \[ N = \frac{\textcolor{red}{I}}{r^{\textcolor{red}{s}}},~~~~~~~\textcolor{red}{s} \approx 2 \]
+
+\(r\) 和 \(N\) 已测得，@@latex:\textcolor{red}{\(I\)}@@和@@latex:\textcolor{red}{\(s\) 待求}@@。
+**** r                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.4
+:END:
+   #+begin_src R :session pd :file plot/poisson.pdf :results graphics file :width 6 :height 5 :family GB1 :exports results
+     library(showtext)
+     showtext.auto()
+     repitition = 7
+     d = 1.02^seq(-20, 96)
+     l = 6/d^2
+     set.seed(98)
+     observe = rpois(rep(repitition, length(d)), lambda=l)
+     photon_count = data.frame(距离=d, 信号数=observe)
+     par(mar = c(4, 4.5, 0.1, 0.1))
+     plot(信号数~距离, ylab="N", xlab="r/cm", photon_count, cex.lab=2, cex.axis=2, cex.main=2, cex.sub=2)
+   #+end_src
+
+   #+Attr_LaTeX: :height 4cm
+   #+RESULTS:
+   [[file:plot/poisson.pdf]]
+
+#+beamer: \pause
+**** i                                                      :B_ignoreheading:
+:PROPERTIES:
+:BEAMER_env: ignoreheading
+:END:
+
+- 尝试转化为线性回归
+
+\[ \log N = \textcolor{red}{\log I} - \textcolor{red}{s} \log r \]
+
+\(N=0\) 的数据点如何处理？@@beamer:\pause@@ 把 \(\log N\) 换成 \(\log(N+1)\)。
+
+*** 计数问题：线性回归
+**** l                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+#+begin_src R :session pd :file plot/poisson-lm.pdf :results graphics file :width 6 :height 5 :family GB1 :exports results
+  lm.count = lm(log1p(信号数)~log(距离), photon_count)
+  par(mar = c(4.5, 5, 1, 0.1))
+  plot(log1p(信号数)~log(距离), ylab="log(N+1)", xlab="log(r/cm)", photon_count, cex.lab=2, cex.axis=2, cex.main=2, cex.sub=2)
+  abline(lm.count)
+#+end_src
+
+#+attr_latex: :height 5cm
+#+RESULTS:
+[[file:plot/poisson-lm.pdf]]
+
+#+beamer: \vspace{-0.7cm}
+#+begin_export latex
+\begin{equation*}
+  \left.\begin{array}{r}
+    \text{在不同距离下计数的方差不固定} \\
+    \text{计数量是离散的}
+        \end{array}\right\}
+\end{equation*}
+#+end_export
+
+#+beamer: \pause
+**** r                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+#+beamer: \visible<2->{
+#+begin_src R :session pd :file plot/poisson-lm-resid.pdf :results graphics file :width 6 :height 5 :family GB1 :exports results
+  par(mar = c(4.5, 5, 1, 0.1))
+  plot(resid(lm.count)~log(距离), ylab="残差", xlab="log(r/cm)", data=photon_count, cex.lab=2, cex.axis=2, cex.main=2, cex.sub=2)
+#+end_src
+
+#+RESULTS:
+[[file:plot/poisson-lm-resid.pdf]]
+#+beamer: }
+
+#+beamer: \vspace{-0.7cm}
+#+begin_export latex
+\begin{equation*}
+  \begin{array}{l}
+    \text{不符合线性回归的正态分布假设}\\
+    Y_i \sim N(a + bx_i, \textcolor{red}{\sigma^2})
+  \end{array}
+\end{equation*}
+#+end_export
+
+**** i                                                      :B_ignoreheading:
+:PROPERTIES:
+:BEAMER_env: ignoreheading
+:END:
+#+beamer: \pause
+#+begin_export latex
+\begin{equation*}
+  \text{方差不固定} \xrightarrow{\text{加权线性回归}} Y_i \sim N(a + b x_i, \alert{\sigma_i^2})
+\end{equation*}
+#+end_export
+
+*** 计数问题：把残差假设替换为泊松分布
+计数问题中，残差的正态假设失效，但数据呈现依赖关系。
+
+#+beamer: \pause
+- 把正态分布 \(N(\cdot, \sigma^2)\) 换成贴近计数问题的泊松分布 \(\pi(\cdot)\)
+  #+begin_export latex
+  \begin{equation*}
+    \begin{aligned}
+    Y_i & \sim N[\E (Y_i), \sigma^2], & \E(Y_i) = a + bx_i\\
+    \text{替换为　} Y_i & \sim \pi[\E(Y_i)], & \log\E(Y_i) = a + bx_i
+    \end{aligned}
+  \end{equation*}
+  #+end_export
+  \(\E(Y_i)\) 代表随机变量 \(Y_i\) 的期望（均值）。
+\bigskip
+
+#+beamer: \pause
+#+latex: \begin{itembox}[l]{定义：泊松回归}
+观测量\(y_i\)相对于预测量\(\E(Y_i) = e^{a + b x_i}\)为泊松分布的回归模型，称@@beamer:\alert{泊松回归}@@。
+#+latex: \end{itembox}
+*** 泊松回归模型
+一组相互独立的数据 \((x_i, y_i)\) ，其中 \(y_i\) 为计数。
+
+\[ Y_i \sim \pi[\E (Y_i)], \log\E(Y_i) = a + bx_i \]
+
+#+beamer: \pause
+- 当 \(x_i\) 确定时，\(a, b\) 决定了 \(Y_i\) 的泊松分布参数，
+#+begin_export latex
+\begin{equation*}
+  \begin{aligned}
+    P(Y_i = y_i | a, b) & = \frac{[\E(Y_i)]^{y_i}}{y_i !} e^{-\E(Y_i)} \\
+    \pause
+    & = \frac{[\exp(a + b x_i)]^{y_i}}{y_i !} e^{-\exp(a + b x_i)} \\
+    \pause
+    P(\vec{Y} = \vec{y}|a, b) & = \prod_i \frac{[\exp(a + b x_i)]^{y_i}}{y_i !} e^{-\exp(a + b x_i)}
+  \end{aligned}
+\end{equation*}
+#+end_export
+
+#+beamer: \pause
+- \(a, b\) 取不同的值时，观测得到的 \((x_i, y_i)\) 的概率不同。
+*** 最大似然估计
+#+latex: \begin{itembox}[l]{定义复习：似然函数}
+观测发生的概率关于模型参数的函数称为\alert{似然函数}。
+#+latex: \end{itembox}
+#+beamer:\pause
+- 已经测量 \(x_i, y_i\) 时，
+\[ P(\vec{Y}=\vec{y}|a, b) = \prod_i \frac{[\exp(a + b x_i)]^{y_i}}{y_i !} e^{-\exp(a + b x_i)} \]
+是 \(a, b\) 的函数，是模型和观测值的似然函数 \(\mathcal{L}(a, b)\)
+
+#+beamer:\pause
+**** 最大似然估计
+即找到对应使 \((x_i, y_i)\) 概率最大的一组 \(\hat{a}, \hat{b}\) 为解。取 \(\log\) 方便计算
+#+begin_export latex
+  \begin{equation*}
+   \hat{a}, \hat{b} = \arg \underset{a, b}{\max} \log \mathcal{L}(a, b) \pause = \arg \underset{a, b}{\max} \sum_i y_i (a + b x_i) - e^{(a + b x_i)}
+  \end{equation*}
+#+end_export
+
+*** 对数似然距离
+\[\log \mathcal{L}[\E(\vec{Y})] = \sum_i y_i \log [\E (Y_i)] - \E (Y_i),\ \frac{ \partial \log \mathcal{L}[\E(\vec{Y})] }{ \partial [\E (Y_i)] } = \frac{y_i}{\E(Y_i)} - 1\]
+
+若 \(\E(\vec{Y})\) 不受 \(e^{(a+bx_i)}\) 约束，\(\mathcal{L}[\E(\vec{Y})]\) 在 \(\E(\vec{Y}) = \alert{\vec{y}}\) 时取最大。
+
+#+beamer: \pause
+**** 定义预测值 \(\E (\vec{Y})\) 到观测值 \(\vec{y}\) 的“距离” \(\mathcal{D}\)
+- 令其越小代表两者符合得越好，取 0 时代表两者“相等”。
+#+beamer: \pause
+  #+begin_export latex
+  \begin{equation*}
+    \begin{aligned}
+      \mathcal{D}[\E(\vec{Y}), \alert{\vec{y}}] & = \onslide<5->{2} \left[ \log \underbrace{\mathcal{L}[\E(\vec{Y}) = \alert{\vec{y}}]}_{\text{似然函数的最大取值}} - \log \mathcal{L}[\E(\vec{Y})]\right] \\
+      \pause
+      & = \onslide<5->{2} \left[ \sum_i y_i \log \frac{\alert{y_i}}{\E(Y_i)} - [\alert{y_i} - \E(Y_i)] \right]
+    \end{aligned}
+  \end{equation*}
+  #+end_export
+#+beamer: \onslide<5->{通常再乘上系数 2 ，动机来自正态分布（下页）。}
+*** 残差平方和与对数似然距离
+
+考虑正态分布的对数似然距离
+#+begin_export latex
+\begin{shadebox}
+  \begin{equation*}
+    \begin{aligned}
+      \mathcal{D}[\E (\vec{Y}), \vec{y}] & = 2 \{ \underbrace{\log \mathcal{L}[\E(\vec{Y}) = \vec{y}]}_{(\vec{y} - \vec{y})^2/(2 \sigma^2) = 0} - \log \mathcal{L}[\E(\vec{Y})]\}
+      \pause
+       = \sum_i [\E(\vec{Y}_i) - y_i]^2 / \sigma^2
+    \end{aligned}
+  \end{equation*}
+  \end{shadebox}
+#+end_export
+\bigskip
+
+正是线性回归使用的\alert{残差平方和}。
+\bigskip
+
+#+beamer: \pause
+**** 启示
+泊松分布的“对数似然距离”，可看作是“残差平方和”的推广。
+
+#+begin_export latex
+\begin{equation*}
+  \begin{aligned}
+    \hat{a}, \hat{b} = \arg \underset{a, b}{\max} \log \mathcal{L}_i(a, b) = \arg \underset{a, b}{\min} \mathcal{D}(e^{a + bx_i}, y_i)
+  \end{aligned}
+\end{equation*}
+#+end_export
+
+*** 对数似然距离的直观理解
+**** l                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+
+\[ \sum_i[(a + bx_i)-y_i]^2 \]
+残差平方和：
+
+#+caption: 线性回归
+#+attr_latex: :height 4cm
+[[./plot/flat.pdf]]
+
+**** r                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+
+\[ \mathcal{D}(e^{a + bx_i}, y_i) \]
+对数似然距离，非线性：
+
+#+caption: 泊松回归
+#+attr_latex: :height 4cm
+[[./plot/curved.pdf]]
+
+**** i                                                      :B_ignoreheading:
+:PROPERTIES:
+:BEAMER_env: ignoreheading
+:END:
+#+beamer: \pause
+使用\alert{最小二乘法}，可解析求解线性回归模型@@beamer:\pause@@，能否推广到\alert{泊松回归}？
+
+*** 求解数似然函数距离的极小值
+**** l                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+以最小对数似然距离求 \(\hat{b}\) ：
+#+begin_export latex
+  \begin{equation*}
+    \begin{aligned}
+    \hat{a}, \hat{b} &= \arg \underset{a, b}{\min} \mathcal{D}[\E(Y_i|a,b), y_i] \\
+    \pause
+    \Rightarrow 0 & = \frac{\partial \log \mathcal{D} [\E(Y_i|a, b), y_i]}{\partial b} \\
+    \pause
+    &= \sum_i \left[-\frac{y_i}{\E(Y_i)} + 1\right] \frac{\partial \E(Y_i|a, b)}{\partial b} \\
+    \end{aligned}
+  \end{equation*}
+  #+end_export
+
+**** r                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+
+#+beamer: \pause
+#+beamer: \pause
+构造最小二乘法求 \(\hat{b}\)：
+#+begin_export latex
+  \begin{equation*}
+    \begin{aligned}
+      \hat{a}, \hat{b} & = \arg \underset{a, b}{\min} \underbrace{\sum_i \frac{1}{\E(Y_i)} [y_i - \E(Y_i|a, b)]^2}_{\text{加权的残差平方和}} \\
+      \pause
+      \Rightarrow 0 & = \frac{\partial}{\partial b}\left\{ \sum_i \frac{1}{\E (Y_i)} [y_i - \E(Y_i|a, b)]^2\right\} \\
+    \end{aligned}
+  \end{equation*}
+#+end_export
+**** i                                                      :B_ignoreheading:
+:PROPERTIES:
+:BEAMER_env: ignoreheading
+:END:
+\vspace{0.2cm}
+#+beamer: \onslide<4->
+\[ \implies 0 = \alert{\sum_i \frac{1}{\E (Y_i)}[y_i  - \E(Y_i)] \frac{\partial \E(Y_i|a, b)}{\partial b} = -\frac{1}{2} \sum_i \frac{1}{\E (Y_i)} \frac{\partial} {\partial b}[y_i  - \E(Y_i|a, b)]^2}\]
+#+beamer: \onslide<7->
+- 两者解相同，对数似然距离与残差平方和等价。
+- 当权重 \(1/\E(Y_i)\) 被看作常数时，线性回归与泊松回归等价。
+
+*** 变权迭代最小二乘法
+\[ a_0, b_0 \to \E(Y_i) = a_0 + b_0 x_i \xrightarrow{求解线性回归} a_1, b_1 \to \E(Y_i) = a_1 + b_1 x_i \cdots \]
+
+#+begin_src R :session pd :session pd :file plot/IRLS.pdf :results graphics file :width 5 :height 5 :family GB1 :exports results
+  x=(0:40) / 10
+  y=-(x-2)^2
+  par(mar = c(0, 0, 0, 0))
+  x0 = 0.5
+  y0 = -1
+  ## 用 tangent 求解
+  tangent <- function(x, plot=FALSE) {
+    y = -(x - 2)^2
+    ## y = -(x - 2)^2 的导函数 y' = -2(x-2)
+    ## (y - a) / (x - 0) = -2(x-2)
+    b = -2*(x-2)
+    a = y - b*x
+    if (plot) abline(a, b, col="blue", lwd=3)
+    ## 从 (x, y) 到 l 引垂线
+    ## y1 = a + b x1
+    ## (x1 - x) + (y1 - y) b = 0 =>
+    x1 = (-a*b + x0 + b*y0) / (1+b*b)
+    y1 = (b*(x0 + b*y0) + a) / (1+b*b)
+    if (plot) {
+      segments(x0, y0, x1, y1, col="blue", lty=5, lwd=2)
+      arrows(x1, y1, x1, -(x1-2)^2, length=0.1, col="blue", lty=5, lwd=2)
+    }
+    return(x1)
+  }
+
+  x1 = 3
+  xl = 3
+  for (i in 1:10) {
+    x1 = tangent(x1)
+    xl = c(xl, x1)
+  }
+
+  plot(x, y, type="l", axes = FALSE, ann=FALSE, ylim=c(-3.5, 0.5), lwd=3)
+  points(x0, y0, cex=2)
+  text(x0, y0+0.2, "Y", cex=2)
+
+  for (i in 1:10) {
+    plot(x, y, type="l", axes = FALSE, ann=FALSE, ylim=c(-3.5, 0.5), lwd=3)
+    x0 = 0.5
+    y0 = -1
+    points(x0, y0, cex=2)
+    text(x0, y0+0.2, "Y", cex=2)
+    points(xl[1:i], -(xl[1:i] - 2)^2, cex=2, pch=4)
+    tangent(xl[i], TRUE)
+  }
+#+end_src
+
+**** l                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+#+begin_export latex
+\alt<2>{%
+\animategraphics[autoplay,height=6cm]{0.4}{plot/IRLS}{0}{11}
+}{%
+\includegraphics[height=6cm]{plot/IRLS}
+}
+#+end_export
+
+**** r                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+#+beamer: \onslide<2-> {
+要寻找曲面上距离已知点 \(Y\) 最近的点，\medskip
+1. 在曲线上猜一个位置 \(B_0, i \gets 0\)；\medskip
+2. 从 \(Y\) 向 \(B_i\) 处的切空间投影得 \(B'\) ；\medskip
+3. 令 \(B_{i+1} \gets B', i \gets i+1\)；\medskip
+4. 若 \(B_{i+1} = B_i\)则得解，\medskip
+
+   否则回到第 2 步。
+#+beamer: }
+
+*** 泊松回归求解辐射量
+**** l                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+
+- 信号数 \(N\)，依赖于样品辐射强度 \(I\) 和探头距离 \(r\)。
+
+#+begin_export latex
+\begin{equation*}
+  \begin{aligned}
+    N & = \frac{\alert{I}}{r^{\alert{s}}} \\
+    \log N & = \alert{\log I} - \alert{s} \log r
+  \end{aligned}
+\end{equation*}
+#+end_export
+
+#+begin_src R :session pd :results output :exports none
+  summary(glm.count)
+  summary(lm.count)
+#+end_src
+
+#+RESULTS:
+#+begin_example
+
+Call:
+glm(formula = 信号数 ~ log(距离), family = poisson(), data = photon_count,
+    start = c(0, 0), maxit = i)
+
+Deviance Residuals:
+    Min       1Q   Median       3Q      Max
+-2.4629  -0.8626  -0.4653   0.5945   2.5619
+
+Coefficients:
+            Estimate Std. Error z value Pr(>|z|)
+(Intercept)  1.72666    0.05681   30.40   <2e-16 ***
+log(距离)   -2.07772    0.13017  -15.96   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for poisson family taken to be 1)
+
+    Null deviance: 505.16  on 116  degrees of freedom
+Residual deviance: 115.21  on 115  degrees of freedom
+AIC: 338.43
+
+Number of Fisher Scoring iterations: 8
+
+Call:
+lm(formula = log1p(信号数) ~ log(距离), data = photon_count)
+
+Residuals:
+     Min       1Q   Median       3Q      Max
+-1.40175 -0.27759  0.07101  0.32908  0.95602
+
+Coefficients:
+            Estimate Std. Error t value Pr(>|t|)
+(Intercept)  1.72603    0.06744   25.59   <2e-16 ***
+log(距离)   -1.09170    0.06698  -16.30   <2e-16 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.4846 on 115 degrees of freedom
+Multiple R-squared:  0.6979,	Adjusted R-squared:  0.6952 
+F-statistic: 265.6 on 1 and 115 DF,  p-value: < 2.2e-16
+#+end_example
+
+**** r                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.7
+:END:
+#+begin_src R :session pd :file plot/poisson-glm.pdf :results graphics file :width 7 :height 5 :family GB1 :exports results
+  par(mar = c(4.5, 5, 0.3, 0.3))
+  plot(信号数~距离, ylab="N", xlab="r/cm", photon_count, cex.lab=2, cex.axis=2, cex.main=2, cex.sub=2)
+  x = unique(photon_count$距离)
+  lines(x, rep(exp(0), length(x)), col="blue")
+  for (i in 1:8) {
+    glm.count = glm(信号数 ~ log(距离), start=c(0, 0), poisson(), photon_count, maxit=i)
+    plot(信号数~距离, ylab="N", xlab="r/cm", photon_count, cex.lab=2, cex.axis=2, cex.main=2, cex.sub=2)
+    lines(unique(photon_count$距离), unique(exp(predict(glm.count))), col="blue")
+  }
+#+end_src
+
+#+begin_export latex
+\alt<2>{%
+  \includegraphics[height=5.5cm,page=9]{plot/poisson-glm}
+}{%
+  \animategraphics[autoplay,height=5.5cm]{1}{plot/poisson-glm}{0}{9}
+}
+#+end_export
+**** i                                                      :B_ignoreheading:
+:PROPERTIES:
+:BEAMER_env: ignoreheading
+:END:
+#+beamer: \onslide<2->
+|        | \(\log I\)          | \(s\)                 |
+|--------+---------------------+-----------------------|
+| 线性回归 | \(1.726 \pm 0.067\) | \(-1.092 \pm 0.067 \) |
+| 泊松回归 | \(1.727 \pm 0.057\) | \(-2.08 \pm 0.13\)    |
+| 参考值  | \(1.792\)           | \(-2\)                |
+
+*** 泊松回归在实验物理（中微子望远镜）的应用
+#+attr_latex: :height 5.5cm
+[[./fig/detector.pdf]]
+
+上万个计数器协同工作，测量中微子能量，定出中微子位置。
+
+#+beamer: \pause
+
+- 运用泊松回归方法实现测量精度的大幅提升。
+
+  #+beamer: {\scriptsize 《原子核仪器与物理学研究方法》期刊 NIMA Volume 1057, December 2023, 168692}
+
+*** 刻度的泊松回归模型
+\[ N_i \sim \pi[\E(N_i)] \]
+在中微子探测问题中，考虑中微子在介质中的反应位置 \(\vec{r}\)。需要获得 \(Y_i\) 与 \(\vec{r}\) 的关系，当反应点与 \(\vec{r}_i\) 处的 PMT 距离较远时，可用平方反比近似。
+
+\[ \E(N_i) = \frac{I}{(\vec{r}_i - \vec{r})^s} \]
+
+#+beamer: \pause
+
+如果再考虑介质对闪烁光的吸收，吸收长度为 \(L_0\)。
+
+\[ \E(N_i) = \frac{I}{|\vec{r}_i - \vec{r}|^s} e^{-\frac{|\vec{r}_i - \vec{r}|}{L_0}} \]
+
+#+beamer: \pause
+取 \(\log\) 成为线性关系，
+\[ \log\E(N_i) = \log I - s \log(|\vec{r}_i - \vec{r}|) - \frac{1}{L_0} |\vec{r}_i - \vec{r}| \]
+在探测器刻度中，\(\vec{r}\) 已知。通过泊松回归获得 \(\log I, s, \frac{1}{L_0}\)。
+
+*** 事例重建的泊松回归模型
+重建中，中微子事例的位置 \(\vec{r}\) 与能量 \(E\) 是待求量。
+
+\[ \log\E(N_i) = \log I - s \log(|\vec{r}_i - \vec{r}|) - \frac{1}{L_0} |\vec{r}_i - \vec{r}| \]
+
+1. 对于假定的位置 \(\vec{r}\) ，基于刻度标定的 \(s, L_0\) ，回归 \(I\) 得到事例能量；
+2. \(\hat{I}\) 替换 \(I\) 计算回归的似然函数 \(\mathcal{L}(\vec{r})\)；
+3. 利用最大似然法求得 \(\hat{\vec{r}} = \arg \underset{\vec{r}}{\max} \mathcal{L(\vec{r})}\) 。
+
+**** 思考（开放问题，取得解者 +5%）
+有可能把 \(\hat{\vec{r}}\) 的求解过程化为线性回归问题吗？
+
+*** 大作业
+一般性地求解 \(\E[N_i(\vec{r})]\)。
+
+- 再加上时间维度的信息，\(\E[N_i(\vec{r}, t)]\)。
+- 可考虑使用回归方法取得函数形式，例如对时间取小区间。
+- 难点：加入了时间之后，如何线性化表示 \(N_i(\vec{r}, t)\) 函数关系？
+
+*** 总结
+1. 把线性回归中的正态假设替换为\alert{泊松假设}，得到\alert{泊松回归}。
+
+   \[ Y_i \sim \pi[\E(Y_i)], \log\E(Y_i) = a + bx_i. \]
+  
+   将简洁有效的线性回归方法范围推广到\alert{计数问题}。\medskip
+  #+beamer: \pause
+2. 泊松对数似然距离，是正态残差平方和的推广：
+  \[ \mathcal{D}[\E (\vec{Y}), \vec{y}] = 2 \left\{ \sum_i y_i \log \frac{y_i}{\E(Y_i)} - [y_i - \E(Y_i)] \right\}. \]
+
+  #+beamer: \pause
+3. 变权迭代最小二乘法把线性回归的框架应用于泊松回归：
+  \[ a_0, b_0 \to \E(Y_i) = a_0 + b_0 x_i \xrightarrow{求解线性回归} a_1, b_1 \to \E(Y_i) = a_1 + b_1 x_i \cdots \]
+
+  启示：用\alert{线性方法}可以高效解决看似\alert{非线性}的问题。
+# 计数（泊松分布）和连续测量（正态分布），看似非常不一样的数据，可以用类似的方法
+
+** 广义线性回归
+*** 定义
+#+latex: \begin{itembox}[l]{指数分布族}
+一族的分布，它们的概率密度函数或分布律记为 \(f(x|\vec{\theta})\) ，如果有
+\[ f(x|\vec{\theta}) = \exp\left[\sum_{i=1}^s \eta_i(\vec{\theta}) T_i(x) - B(\vec{\theta})\right] h(x) \]
+的形式，则称为 \(s\) *维指数分布族* 。
+#+latex: \end{itembox}
+
+如果把 \(\eta_i(\vec{\theta})\) 当作自变量反解 \theta，那么形式有进一步的化简。
+#+latex: \begin{itembox}[l]{指数分布族标准形式}
+\[ f(x|\vec{\eta}) = \exp\left[\sum_{i=1}^s \eta_i T_i(x) - A(\vec{\eta})\right] h(x) \]
+#+latex: \end{itembox}
+其中 \(\eta_i = \eta_i(\vec{\theta})\), \(A[\vec{\eta}(\vec{\theta})] = B(\vec{\theta})\)。
+*** 指数离散分布族 Exponential Dispersion Family
+在指数分布族上再配一项 \(\phi>0\)。
+
+\[ f(x|\vec{\eta}) = \exp\left[\sum_{i=1}^s \eta_i T_i(x) - A(\vec{\eta})\right] h(x) \]
+
+变为
+
+\[ f(x|\phi, \vec{\eta}) = \exp\left\{\sum_{i=1}^s \frac{1}{\phi}\left[\eta_i T_i(x) - A(\vec{\eta})\right]\right\} h(\phi, x) \]
+
+当 \phi 取 \(1\) 时，Exponential Dispersion Family 就是 Exponential Family。
+
+**** 期望与方差
+- 期望：\(\E(X) = A'(\eta)\) 不变，记为 \(\mu\)
+- 方差：\(\Var(X) = A''(\eta)\) \to \(\Var(X) = \phi A''(\eta)\)
+  + 所以 \(\phi\) 称为 *离散度参数* dispersion parameter。
+*** 方差与期望的相关性
+- 期望：\(\E(X) = \mu = A'(\eta)\)
+- 方差：\(\Var(X) = \phi A''(\eta)\) 说明 \(A(\eta)''>0\)
+- 说明 \(\mu(\eta) = A'(\eta)\) 是单调函数，\(\eta\) 与 \(\mu\) 之间有双射。
+  \[ A'^{-1}(\mu) = \eta \]
+
+**** 方差函数
+把 \(A''(\eta)\) 换为 \(A''(A'^{-1}(\mu))\) 定义为 \(V(\mu)\)，称 *方差函数* 。那么
+
+\[ \Var(X) = \phi V(\mu) \]
+
+*** 常见的指数离散分布族成员
+
+| 名称     | \(V(\mu)\)                | \(\eta\)                      | \(\phi\)     | \(d(x, \mu)\) |
+|---------+---------------------------+-------------------------------+--------------+---------------|
+| 正态     | \(1\)                     | \(\mu\)                       | \(\sigma^2\) |               |
+| 二项     | \(\mu(1-\mu)\)            | \(\log \frac{\mu}{1-\mu}\)    | \(\frac{1}{N}\) |               |
+| 泊松     | \(\mu\)                   | \(\log \mu\)                  | 1            |               |
+| 伽马     | \(\mu^2\)                 | \(-\frac{1}{\mu}\)            | \(\phi\)     |               |
+|---------+---------------------------+-------------------------------+--------------+---------------|
+| 负二项   | \(\mu + \frac{\mu^2}{k}\) | \(\log\frac{\mu}{\mu+k} \)    | 1            |               |
+| 逆高斯   | \(\mu^2\)                 | \(-\frac{1}{2\mu^2}\)         | \(\phi\)     |               |
+| Tweedie | \(\mu^\xi\)               | \(\frac{\mu^{1-\xi}}{1-\xi}\) | \(\phi\)     |               |
+
+对数似然距离记为 \(d(x, \mu)\) ，近似地
+\[ \frac{d(x, \mu)}{\phi} \sim \chi^2(1) \]
+
+- F-检验 与 t-检验都适用。
+
+*** 广义线性回归
+泊松回归是\alert{广义线性回归}的一个特例。
+
+- 常见的广义线性回归有
+  - \normalsize{负二项回归：观测量是非负整数，比泊松回归多一个参数}
+  - \normalsize{伽马回归：观测量是正实数}
+    + 或者使用逆高斯分布。
+  - \normalsize{逻辑回归：观测量是 \([0, 1]\) 区间内的实数}
+  - \normalsize{二项回归：观测是是 \(0, 1 \cdots, N\) 的整数}
+    + 关注成功次数占总数的比例。
+  - \normalsize{Tweedie 回归：}
+- 它们都可以通过\alert{变权迭代最小二乘法}有效解出。
+
+*** 泊松回归例子
 - 尝试对 =r10500.h5= 进行泊松回归
 - 辅助文件 =geo.csv= , =pmtdata.csv=
 
@@ -13474,8 +14079,8 @@ AIC: 7915838
 Number of Fisher Scoring iterations: 5
 #+end_example
 
-** 总结
-*** 模型的选择
+*** 总结
+**** 模型的选择
 1. 关系代数让回归分析变得极其直观，让我们专注于问题的本质
 2. 模型的选择极其重要，应当使用客观标准
    + AIC 是最简单直接的客观标准
