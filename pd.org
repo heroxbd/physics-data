@@ -14545,44 +14545,6 @@ REML方法或GCV方法选择$\lambda_j$。
   - 超参数含义
   - 超参数的 Bayesian 优化（可选）
   - 效果
-** 机器学习
-*** 可用 sklearn
-- Debian
-  #+begin_src bash
-    apt install python3-sklearn-pandas
-  #+end_src
-
-- 下面的算法可以理解为无解析形式的函数逼近。
-*** 支持向量机
-    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
-      ### SVM regression
-      from sklearn.svm import SVR
-      from sklearn.pipeline import make_pipeline
-      from sklearn.preprocessing import StandardScaler
-      regr = make_pipeline(StandardScaler(), SVR(C=1.0, epsilon=0.2))
-      regr.fit(X, y)
-    #+end_src
-*** 决策树
-    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
-      ### GBoost
-      from sklearn.ensemble import GradientBoostingRegressor
-      from sklearn.model_selection import train_test_split
-      X_train, X_test, y_train, y_test = train_test_split(
-          X, y, random_state=0)
-      reg = GradientBoostingRegressor(random_state=0)
-      reg.fit(X_train, y_train)
-      reg.predict(X_test[1:2])
-      reg.score(X_test, y_test)
-    #+end_src
-*** 神经网络
-    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
-      ### 神经网络
-      from sklearn.neural_network import MLPRegressor
-      regr = MLPRegressor(random_state=1, max_iter=500).fit(X_train, y_train)
-      regr.predict(X_test[:2])
-      regr.score(X_test, y_test)
-    #+end_src
-
 ** 可微编程
 *** 可微编程
 把程序的函数看成数学函数，让函数输出的返回值相对于输入参数可微。
@@ -14744,14 +14706,49 @@ apt install python3-torch
 
 *** 致谢
     #+attr_beamer: :overlay <+->
-    - 顾问 :: 陈晟祺、陈嘉杰
-    - 助教 :: 武益阳、王宇逸、陶嘉燊、徐闯、郝传晖、刘逸祺
-    - 小助教 ::
-      何宇峰、刘骥安、吕先艨、张珺铫、张贺、杨哲涵、王驰、程幸、胡淏崴、胡磊、陈威、黄一浩
+    - 助教 :: 王宇逸、徐闯、郝传晖、刘逸祺、胡宇阳、张珺铫、何宇峰、杨哲涵、温欣洋
     - 科协 :: 物理系科协、工物系科协；
       + 提供算力支持
       + 环境配置培训
-    - 积极对课程贡献的同学们 :: 谢谢！
+    - 积极对课程贡献的小助教和同学们 :: 谢谢！
+** 机器学习
+*** 可用 sklearn
+- Debian
+  #+begin_src bash
+    apt install python3-sklearn-pandas
+  #+end_src
+
+- 下面的算法可以理解为无解析形式的函数逼近。
+*** 支持向量机
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      ### SVM regression
+      from sklearn.svm import SVR
+      from sklearn.pipeline import make_pipeline
+      from sklearn.preprocessing import StandardScaler
+      regr = make_pipeline(StandardScaler(), SVR(C=1.0, epsilon=0.2))
+      regr.fit(X, y)
+    #+end_src
+*** 决策树
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      ### GBoost
+      from sklearn.ensemble import GradientBoostingRegressor
+      from sklearn.model_selection import train_test_split
+      X_train, X_test, y_train, y_test = train_test_split(
+          X, y, random_state=0)
+      reg = GradientBoostingRegressor(random_state=0)
+      reg.fit(X_train, y_train)
+      reg.predict(X_test[1:2])
+      reg.score(X_test, y_test)
+    #+end_src
+*** 神经网络
+    #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb :exports both
+      ### 神经网络
+      from sklearn.neural_network import MLPRegressor
+      regr = MLPRegressor(random_state=1, max_iter=500).fit(X_train, y_train)
+      regr.predict(X_test[:2])
+      regr.score(X_test, y_test)
+    #+end_src
+
 * 地球中微子暑期学校学生课题
   :PROPERTIES:
   :EXPORT_FILE_NAME: px
