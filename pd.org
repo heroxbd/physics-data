@@ -14459,7 +14459,9 @@ C_N (s,t)= &  \lambda  \min(s,t)
   + 优点：不必显式写出 likelihood 函数，用模拟代替
   + 缺点：不知道行不行
   + 参考：https://dpcg.g.airelinux.org/user/xubd/lab/workspaces/auto-i/tree/annealing.ipynb
-
+- 神经网络 probe （温欣洋、汪卓然）
+  + 优点：likelihood 由神经网络逼近
+  + 缺点：得分不高
 *** GAM与GLM的关系
 - GLM模型（广义线性模型）
   + 模型形式：
