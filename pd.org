@@ -17,6 +17,8 @@
 #+LATEX_HEADER: \usepackage{fontspec}
 #+LATEX_HEADER: \usepackage{cancel}
 #+LATEX_HEADER: \usepackage{amsmath}
+#+LATEX_HEADER: \usepackage{amssymb,bm}
+#+BEAMER_HEADER: \usepackage{xcolor}
 #+LaTeX_HEADER: \setmonofont{Liberation Mono}
 #+BEAMER_HEADER: \usepackage{appendixnumberbeamer}
 #+LaTeX_HEADER: \usepackage{tikz,tikz-3dplot}
@@ -14453,12 +14455,29 @@ C_N (s,t)= &  \lambda  \min(s,t)
   + 缺点：没人做，不知道行不行
   + 参考：https://dpcg.g.airelinux.org/user/xubd/lab/workspaces/auto-i/tree/annealing.ipynb
 
-*** GAM 方法
-- 介绍 GAM：与 GLM 的关系，加性模型
-  - GAM 的 spline 原理
-  - 拟合算法 P-IRLS
-  - 自由度与参数惩罚：学习什么是 panelize
-  - 效果
+*** GAM与GLM的关系
+- GLM模型（广义线性模型）
+  + 模型形式：
+    \begin{equation*}
+    g\left(\mathbb{E}[y|\bm{x}]\right) = \beta_0 + \sum_{j=1}^p \beta_j x_j
+    \end{equation*}
+  + 线性预测项限制建模灵活性 
+
+- GAM扩展（广义可加模型）
+  + 模型形式：
+    \begin{equation*}
+    g\left(\mathbb{E}[y|\bm{x}]\right) = \beta_0 + \sum_{j=1}^p \textcolor{red}{f_j(x_j)}
+    \end{equation*}
+  + 特点：
+    - $f_j$ 为平滑函数（通常用样条实现） 
+    - 保持可加性但允许非线性关系 
+    - 允许多变量耦合的张量积函数 
+
+*** GAM 的 spline 原理
+*** 拟合算法 P-IRLS
+*** 自由度与参数惩罚：学习什么是 panelize
+*** 效果
+
 *** Gradient Boosted 方法
 - 介绍 GBM
   - 加性模型
