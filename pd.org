@@ -14540,7 +14540,7 @@ REML方法或GCV方法选择$\lambda_j$。
 ** Gradient Boosting
 *** 决策树基础原理
 #+begin_export latex
-\framesubtitle{CART 算法解析}
+\framesubtitle{CART (Classification and Regression Tree)}
 
 \begin{columns}[T]
 % 左栏：算法概述与特征选择
