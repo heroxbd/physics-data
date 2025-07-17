@@ -14678,20 +14678,13 @@ c_{mj} = \frac{1}{|R_{mj}|}\sum_{x_i \in R_{mj}} r_{mi}
 #+end_export
 
 *** 代码实现与核心超参数
-#+begin_export latex
-\begin{table}
-\centering
-\begin{tabular}{lll}
-\toprule
-\textbf{语言} & \textbf{库} \\
-\midrule
-Python & bayes\_opt & BayesianOptimization\\
-Python & sklearn.model\_selection & cross\_val\_score\\
-Python & lightgbm.lgb & LGBMClassifier\\
-\bottomrule
-\end{tabular}
-\end{table}
+| 语言   | 库                       |                      |
+|--------+--------------------------+----------------------|
+| Python | bayes\_opt               | BayesianOptimization |
+|        | sklearn.model\_selection | cross\_val\_score    |
+|        | lightgbm.lgb             | LGBMClassifier       |
 
+#+begin_export latex
 \begin{block}{关键超参数}
 \begin{itemize}
 \item \textbf{boosting\_type}: 提升算法类型（gbdt, dart, goss, rf）
@@ -14706,10 +14699,7 @@ Python & lightgbm.lgb & LGBMClassifier\\
 #+end_export
 
 *** LightGBM 代码示例
-#+begin_export latex
-  \begin{exampleblock}{Python代码实现}
-\scriptsize
-\begin{lstlisting}[language=Python]  
+#+begin_src python :results value :session local :exports both
 train_data = lgb.Dataset(X_train, label=y_train)
 test_data  = lgb.Dataset(X_test , label=y_test, reference=train_data)
 
@@ -14730,9 +14720,7 @@ gbm = lgb.train(params, train_data,
 y_pred = gbm.predict(X_test, num_iteration=gbm.best_iteration)
 y_pred_binary = [1 if x > 0.5 else 0 for x in y_pred]
 accuracy = accuracy_score(y_test, y_pred_binary)
-\end{lstlisting}
-  \end{exampleblock}
-#+end_export
+#+end_src
 
 *** 超参数优化策略（贝叶斯优化）
 #+begin_export latex
@@ -14763,12 +14751,8 @@ p(f_{*}|\mathcal{D}) = \mathcal{N}(\mu(\mathbf{x}_{*}),\, \sigma^2(\mathbf{x}_{*
 \end{block}
 #+end_export
 
-*** LightGBM调优实战
-#+begin_export latex
-\framesubtitle{使用BayesianOptimization库实现}
-\scriptsize
-\begin{block}{模型与目标函数定义}
-\begin{lstlisting}[language=Python]
+*** LightGBM调优实战：模型与目标函数定义
+#+begin_src python :results value :session local :exports both
 def lgb_cv(n_estimators, min_gain_to_split, subsample, 
            max_depth, colsample_bytree, min_child_samples,
            reg_alpha, reg_lambda, num_leaves, learning_rate):
@@ -14786,18 +14770,14 @@ def lgb_cv(n_estimators, min_gain_to_split, subsample,
         learning_rate=float(learning_rate))
     return cross_val_score(model, train_x, train_y, 
                          scoring="roc_auc", cv=5).mean()
-\end{lstlisting}
-\end{block}
-#+end_export
+#+end_src
 
-*** LightGBM调优实战
-#+begin_export latex
-\framesubtitle{使用BayesianOptimization库实现}
-\scriptsize
-\begin{columns}[T]
-\begin{column}{0.5\textwidth}
-\begin{block}{参数空间搜索配置}
-\begin{lstlisting}[language=Python]
+*** LightGBM调优实战：使用BayesianOptimization库实现
+**** l                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+#+begin_src python :results value :session local :exports both
 lgb_bo = BayesianOptimization(
     lgb_cv,
     {
@@ -14812,13 +14792,12 @@ lgb_bo = BayesianOptimization(
         'min_gain_to_split':(0,1),
         'learning_rate':(0,1)
     })
-\end{lstlisting}
-\end{block}
-\end{column}
-
-\begin{column}{0.45\textwidth}
-\begin{exampleblock}{执行优化}
-\begin{lstlisting}[language=Python]
+#+end_src
+**** r                                                                :BMCOL:
+:PROPERTIES:
+:BEAMER_col: 0.5
+:END:
+#+begin_src python :results value :session local :exports both
 lgb_bo.maximize(
     n_iter=50,         # 迭代次数
     init_points=10,     # 初始随机点
@@ -14827,11 +14806,7 @@ lgb_bo.maximize(
     xi=0.1              # 利用系数
 )
 best_params = lgb_bo.max['params']
-\end{lstlisting}
-\end{exampleblock}
-\end{column}
-\end{columns}
-#+end_export
+#+end_src
 
 ** 可微编程
 *** 可微编程
