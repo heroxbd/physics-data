@@ -14239,7 +14239,7 @@ https://git.tsinghua.edu.cn/physics-data/projects/tpl_junoprobe
 - 随机过程的研究对象是 *随时间演变的随机现象* 。
 - 不能用随机变量或多维随机变量来合理表达，而需要用一族无限多个随机变量来描述。
 #+latex: \begin{itembox}[l]{定义}
-随机过程是一族随机变量 \(\{X(t):t \in T\}\), 其中\(t\)是 *参数*，\(T\)称为 *参数集* .
+随机过程是一族随机变量 \(\{X(t):t \in T\}\), 其中\(t\)是 *参数* ，\(T\)称为 *参数集* .
 #+latex: \end{itembox}
 
 #+attr_beamer: :overlay <+->
@@ -14678,11 +14678,11 @@ c_{mj} = \frac{1}{|R_{mj}|}\sum_{x_i \in R_{mj}} r_{mi}
 #+end_export
 
 *** 代码实现与核心超参数
-| 语言   | 库                       |                      |
-|--------+--------------------------+----------------------|
-| Python | bayes\_opt               | BayesianOptimization |
-|        | sklearn.model\_selection | cross\_val\_score    |
-|        | lightgbm.lgb             | LGBMClassifier       |
+| 语言   | 库                        |                        |
+|--------+---------------------------+------------------------|
+| Python | =bayes_opt=               | =BayesianOptimization= |
+|        | =sklearn.model_selection= | =cross_val_score=      |
+|        | =lightgbm.lgb=            | =LGBMClassifier=       |
 
 #+begin_export latex
 \begin{block}{关键超参数}
