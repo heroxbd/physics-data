@@ -14722,11 +14722,8 @@ y_pred_binary = [1 if x > 0.5 else 0 for x in y_pred]
 accuracy = accuracy_score(y_test, y_pred_binary)
 #+end_src
 
-*** 超参数优化策略（贝叶斯优化）
+*** 黑箱函数超参数优化策略（贝叶斯优化）
 #+begin_export latex
-贝叶斯优化(BO)高效求解黑箱函数优化问题（如超参数调优）
-
-\begin{block}{优化流程}
 1. \textbf{高斯过程代理模型}：建模目标函数$f(\mathbf{x})$，初始化观测点集 $\mathcal{D} = \{(\mathbf{x}_i,y_i)\}$
 \[
 f \sim \mathcal{GP}\left(0,\, k(\mathbf{x}, \mathbf{x}')\right), \quad
@@ -14748,7 +14745,6 @@ p(f_{*}|\mathcal{D}) = \mathcal{N}(\mu(\mathbf{x}_{*}),\, \sigma^2(\mathbf{x}_{*
 更新评估目标函数$y_{new} = f(\mathbf{x}_{new})$，
 更新数据集$\mathcal{D} \leftarrow \mathcal{D} \cup \{(\mathbf{x}_{new},y_{new})\}$
 重复直至收敛。
-\end{block}
 #+end_export
 
 *** LightGBM调优实战：模型与目标函数定义
