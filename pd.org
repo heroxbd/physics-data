@@ -14360,7 +14360,7 @@ C_N (s,t)= &  \lambda  \min(s,t)
 *** 指数分布视角
 - 将泊松过程第\(n\)个事件发生时刻记为 \(T_n\)。
 - 记\(W_n＝T_n−T_{n−1}\)为第\(n\)个事件的等待时间，特别地 \(W_1  =T_1\)。
-**** 泊松分布的指数间隔                                           :B_theorem:
+**** 泊松过程的指数间隔                                           :B_theorem:
 :PROPERTIES:
 :BEAMER_env: theorem
 :END:
@@ -14411,7 +14411,7 @@ C_N (s,t)= &  \lambda  \min(s,t)
 \begin{equation*}
   \begin{aligned}
     \mu_N(t) & = \lambda t = \int_0^t \lambda \mathrm{d} s \\
-    \to \mu_N(t) & \int_0^t R(s) \mathrm{d} s
+    \to \mu_N(t) & = \int_0^t R(s) \mathrm{d} s
   \end{aligned}
 \end{equation*}
 #+end_export
@@ -14537,7 +14537,6 @@ REML方法或GCV方法选择$\lambda_j$。
   - 超参数的 Bayesian 优化（可选）
   - 效果
 
-
 *** Gradient Boosted 方法
 - 介绍 GBM
   - 加性模型
@@ -14545,6 +14544,7 @@ REML方法或GCV方法选择$\lambda_j$。
   - 超参数含义
   - 超参数的 Bayesian 优化（可选）
   - 效果
+
 ** 可微编程
 *** 可微编程
 把程序的函数看成数学函数，让函数输出的返回值相对于输入参数可微。
@@ -14576,9 +14576,6 @@ apt install python3-torch
   + 语言为 Anglican ，为 Clojure 语言的一种
   + Clojure 语言是 Scheme 语言在 Java 平台上的实现
 
-** SQL
-*** duckdb
-- 效率非常高的 SQL 数据分析引擎，可与 dbplyr 联动。
 ** 总复习
 *** 黑客技能
 **** 科学数据处理的原则                                        :B_alertblock:
@@ -14612,6 +14609,24 @@ apt install python3-torch
 **** 计算语言
      Python 语法友好，工具丰富，统领 C/C++/Fortran/R/SQL 库
 
+*** 技术问题：TUNA 协会
+    - 清华大学学生开源软件与网络技术协会
+    - TUNA 主页 https://tuna.moe/
+    - TUNA 技术群，黑客（广义）技术问题探讨
+    - 为课程提供了
+      + Debian 的镜像支持
+
+        https://mirrors.tuna.tsinghua.edu.cn/debian/
+
+    - 为大家提供了
+      + 清华大学学位论文 LaTeX 模版 =thuthesis=
+*** 致谢
+    #+attr_beamer: :overlay <+->
+    - 助教 :: 王宇逸、徐闯、郝传晖、刘逸祺、胡宇阳、张珺铫、何宇峰、杨哲涵、温欣洋
+    - 科协 :: 物理系科协、工物系科协；
+      + 提供算力支持
+      + 环境配置培训
+    - 积极对课程贡献的小助教和同学们 :: 谢谢！
 ** 现实世界的大数据方法
 *** 永远留在古老的计算环境
     - SuperK 质子衰变和中微子实验，XMASS 暗物质实验
@@ -14667,50 +14682,6 @@ apt install python3-torch
       bsub -q normal"${DEP}" -J ${MAKE_TARGET} -o ${MAKE_TARGET}.log ${MAKE_TARGET}.sh
     #+end_src
 
-** 下一步学习
-*** 以本课程为起点
-**** 竞赛
-    - probe 大作业 \to Ghost Hunter 2024 中微子数据分析排位赛
-      - 概率统计分析及量测技术课赛结合
-        
-*** 技术问题：TUNA 协会
-    - 清华大学学生开源软件与网络技术协会
-    - TUNA 主页 https://tuna.moe/
-    - TUNA 技术群，黑客（广义）技术问题探讨
-    - 为课程提供了
-      + Debian 的镜像支持
-
-        https://mirrors.tuna.tsinghua.edu.cn/debian/
-
-    - 为大家提供了
-      + 清华大学学位论文 LaTeX 模版 =thuthesis=
-*** 暑期实习
-如果你觉得配环境是一个非常快乐的事，并且经常帮助同学配环境。
-
-计算环境的可复现性是而容易被忽视，但也最重要的环节。
-
-#+beamer: \pause
-
-- Google Summer of Code：Google
-  + Debian、Gentoo 操作系统相关项目
-- 开源之夏活动：中科院软件所、华为、TUNA
-  + Debian、Gentoo 操作系统相关项目
-
-*** SRT 与大创：Scheme
-如果你认同实验物理与形式逻辑是文明的两大支柱，并喜欢课程的内容，可以考虑与我继续探索：
-
-#+beamer: \pause
-- 分析力学的 Scheme 描述：
-  + Structure and Interpretation of Classical Mechanics, MIT 本科课程
-  + 分析力学完成后，计划拓展至量子力学和电动力学
-
-*** 致谢
-    #+attr_beamer: :overlay <+->
-    - 助教 :: 王宇逸、徐闯、郝传晖、刘逸祺、胡宇阳、张珺铫、何宇峰、杨哲涵、温欣洋
-    - 科协 :: 物理系科协、工物系科协；
-      + 提供算力支持
-      + 环境配置培训
-    - 积极对课程贡献的小助教和同学们 :: 谢谢！
 ** 机器学习
 *** 可用 sklearn
 - Debian
