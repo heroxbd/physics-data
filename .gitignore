@@ -2,7 +2,6 @@
 *.txt
 *~
 *.tex
-*.pdf
 *.vrb
 *.aux
 *.fls

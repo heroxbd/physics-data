@@ -83,7 +83,7 @@
    : False True
 
 *** 条件语句字典化
-    字典构建了从词到值的映射关系，当条件语句有这样的特点时，可用字典方便地替代。体会下面的例子，已经学生群体的变量名 =aff= ，找出学生人数：
+    字典构建了从词到值的映射关系，当条件语句有这样的特点时，可用字典方便地替代。体会下面的例子，已知学生群体的变量名 =aff= ，找出学生人数：
     #+NAME: 52510fba-71c1-4ad1-bda9-9e8a16bcb5d3
     #+begin_src ein-python :results output :session https://dpcg.g.airelinux.org/user/xubd/lecture-python.ipynb
       aff = '工物'
@@ -141,7 +141,7 @@
     : 教室里有2名上海交大的学生。
 
 *** Python 内部的字典
-    字典是 Python 的核心数据结构，它的命名空间（namespace）就是用字典实现的。Python 环境中的变量都中某个字典的词。往往字典的妙用可以给程序带来神来之笔的重构。
+    字典是 Python 的核心数据结构，它的命名空间（namespace）就是用字典实现的。Python 环境中的变量都是某个字典中的词。往往字典的妙用可以给程序带来神来之笔的重构。
     字典的内部数据结构是哈希表，可以保持插入和查询的效率。
 
 *** 构造字典快捷方法
@@ -191,6 +191,118 @@
     #+RESULTS: 0e98505a-c63f-4f08-ad80-65449590d4d4
     : {(0, 0): 6, (0, 1): '您', (1, 0): ['Python', 'Bash']}
     这不奇怪，变量本身就是由内部的字典实现的！
+
+** 删除元素
+*** 列表
+
+=remove= ，效果为删除特定元素，使用方式为 =list.remove(element)= 。例如对以下样例：
+
+#+begin_src python :results output :session local :exports both
+  ls = [1, "f", 3.0]
+  ls.remove("f")
+  print(ls)
+#+end_src
+
+#+RESULTS:
+: [1, 3.0]
+
+=pop= ，效果为删除指定索引对应的元素，使用方式为 =list.pop(index)= 。例如对以下样例：
+
+#+begin_src python :results output :session local :exports both
+  ls = [1, "f", 3.0]
+  ls.pop(0)
+  print(ls)
+#+end_src
+
+#+RESULTS:
+: ['f', 3.0]
+
+切片，效果为删除连续索引对应的多个元素，使用方式为 =list[index_begin:index_end] = []= 。例如对以下样例：
+
+#+begin_src python :results output :session local :exports both
+  ls = [1, "f", 3.0]
+  ls[0:2] = []
+  print(ls)
+#+end_src
+
+#+RESULTS:
+: [3.0]
+
+（注意如 0:9 表示从 index 为 0 到 index 为 8 的元素）
+
+=clear= ，大规模杀伤性武器，效果为清空列表中所有元素，得到空列表，使用方式为 =list.clear()= 。例如对以下样例：
+
+#+begin_src python :results output :session local :exports both
+  ls = [1, "f", 3.0]
+  ls.clear()
+  print(ls)
+#+end_src
+
+#+RESULTS:
+: []
+
+使用 =list = []= 可实现同样效果。
+
+=del= ，核武器，直接删除了列表对象，使用方式为 =del list= 。例如对以下样例：
+
+#+begin_src python :results output :session local :exports both
+  ls = [1, "f", 3.0]
+  del ls
+  print(ls)
+#+end_src
+
+    会报错：
+#+begin_example
+  Traceback (most recent call last):
+    File "<stdin>", line 1, in <module>
+  NameError: name 'ls' is not defined
+#+end_example
+
+*** 元组
+由于元组具有不可变原则，故想通过类似 =remove= 和 =pop= 这样的方式删除元素无法实现。但由于课上介绍过元组可以实现加法（类似并集），故可以通过切片的方式进行删除操作。例如对以下样例：
+
+#+begin_src python :results output :session local :exports both
+  tup = (1, 2, 3, 4)
+
+  #删除元素3
+  tup = tup[:2] + tup[3:]
+
+  print(tup)
+#+end_src
+
+#+RESULTS:
+: (1, 2, 4)
+
+与列表类似，可以使用 =tuple = ()= 实现全部元素的清理，也可以使用 =del tuple= 删除整个元组。
+
+*** 字典
+不同于列表，字典的索引是通过keys实现的，是无序的，但仍可以通过对keys的索引进行元素的删除，只是不支持切片操作。字典元素的删除主要有以下几种方式：
+
+=pop= ,效果为删除指定索引对应的键值对，使用方式为 =dict.pop(keys)= 。例如对以下样例：
+
+#+begin_src python :results output :session local :exports both
+  dictionary = {"A":1, "B":2, "C":3}
+  dictionary.pop("A")
+  print(dictionary)
+#+end_src
+
+#+RESULTS:
+: {'B': 2, 'C': 3}
+
+=popitem= ，效果为随机返回并删除一对键值对，但似乎从 =Python3.6= 以后一般认为删除的是最后插入的键值对（类似于栈，FILO），使用方式为 =dict.popitem()= 。例如对以下样例：
+
+#+begin_src python :results output :session local :exports both
+  dictionary = {"A":1, "B":2, "C":3, "D":4}
+  x = dictionary.popitem()
+  print(x, dictionary)
+#+end_src
+
+#+RESULTS:
+: ('D', 4) {'A': 1, 'B': 2, 'C': 3}
+
+=clear= ，与列表类似，在此不再赘述，同样可以使用 =dict = {}= 替代。
+
+=del= ，与列表类似，在此不再赘述。
 
 * Python 的运行模式
   在命令行输入 python3 进入的是交互模式，每输入一个指令，都即时得到结果。这个环境称为“REPL”，即 “Read-Evaluate-Print-Loop”，命令行界面也属此类。交互界面更适合探索和试验。

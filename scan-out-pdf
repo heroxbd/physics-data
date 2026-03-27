@@ -1,0 +1,21 @@
+#!/bin/bash
+
+pdf_missing=()
+svg_missing=()
+
+for p in $(egrep -o "out/.*\.pdf" pd.org); do
+    if ! grep -q $p Makefile; then
+        pdf_missing+=( $p )
+        svg0=${p/.pdf/.svg}
+        svg=${svg0/out/fig}
+        if [[ ! -e $svg ]]; then
+            svg_missing+=( $svg )
+        fi
+    fi
+done
+
+echo "the following pdfs are missing, put the rules into Makefile!"
+echo ${pdf_missing[@]}
+echo "the following svgs are missing, get them somewhere!"
+echo ${svg_missing[@]}
+
