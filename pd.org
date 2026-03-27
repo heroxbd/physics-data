@@ -8857,3 +8857,36 @@ head -q -n1 lecture/l*.org
   wishlist from real experience with Github Action and Classroom:
 
   Special judge feature in Github Action. 
+* 数据的可复现性价值
+From: superk@suketto.icrr.u-tokyo.ac.jp
+Subject: [superk:08394] Re: your group's recent paper on "Searching for Supernova Bursts in Super-Kamiokande IV"
+To: David Wark <dave.wark@physics.ox.ac.uk>
+Cc: nakahata@icrr.u-tokyo.ac.jp, "superk@suketto.icrr.u-tokyo.ac.jp" <superk@suketto.icrr.u-tokyo.ac.jp>
+Date: Thu, 27 Oct 2022 20:24:50 +0900 (1 hour, 18 minutes, 15 seconds ago)
+Reply-To: nakahata@icrr.u-tokyo.ac.jp
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:102.0) Gecko/20100101 Thunderbird/102.4.1
+
+
+Dear Dave and others,
+
+Probably, I should let you know the problem of his paper about Kamiokande-II data.
+As written in his paper(http://journals.andromedapublisher.com/index.php/LHEP/article/view/199/99),
+he digitized Fig.4(a)-(h) of the Kamiokande paper
+(K. S. Hirata, et al. (Kamiokande collaboration), Phys. Rev. D38, 448-458(1988))
+by himself and analyzed with that data. The figure is plots of "time vs.energy (Nhit)"
+around the time of the SN1987A signal. But, those plots are before applying spallation
+cuts. After applying spallation cuts, most of higher energy (>~7MeV) events disappeared
+and only the SN1987A signal remained as a significant time cluster during this run
+(also at least during 42.9days before SN1987A).
+I think his "8 MeV line" will disappear if we can apply the spallation cut.
+I told him about that several years ago. Then, he asked me to reanalyze the Kamiokande
+data. But, unfortunately that was not possible because we have lost key libraries to
+read the data (routine to read BOS (DESY library) format data, calibration database,
+conversion from old floating number to the current format, and etc.)
+That is why he digitized the figure in printed format by himself.
+
+From this experience, I learned that we should maintain all routines to reanalyze important
+data for many many years even after the experiment is finished, especially for Nobel prize class data.
+
+Regards,
+M. Nakahata
